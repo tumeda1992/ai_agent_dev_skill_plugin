@@ -1,1 +1,3 @@
-# ai_agent_skills
+# ai_agent_dev_skill_plugin
+tumedaが、リポジトリ横断でよく使うskill集としてのplugin。
+特定テーマに特化したものは順次切り出す
