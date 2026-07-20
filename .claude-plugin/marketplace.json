@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "tumeda-dev-plugins",
+  "version": "1.0.0",
+  "description": "tumedaが、リポジトリ横断でよく使うplugin集。",
+  "owner": {
+    "name": "tumeda"
+  },
+  "plugins": [
+    {
+      "name": "tumeda-dev",
+      "description": "tumedaが、リポジトリ横断でよく使うskill集としてのplugin。特定テーマに特化したものは順次切り出す",
+      "version": "1.0.0",
+      "author": {
+        "name": "tumeda"
+      },
+      "source": "./",
+      "category": "development"
+    }
+  ]
+}
