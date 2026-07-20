@@ -1,0 +1,1 @@
+他のリポジトリから移植してpluginを成長させる際には skills/maintenance-plugin-context/maintenance_policies/migration.md を参照する。
