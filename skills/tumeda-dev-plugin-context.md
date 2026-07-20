@@ -44,7 +44,13 @@
 
 参照する共通項目: [プロジェクト指示](#プロジェクト指示)
 
-<!-- 対象アプリ URL、認証取得方針、browser の準備 command、script/screenshot/result の保存先、UI確認制約だけこの下に記載 -->
+### アプリ接続
+
+<!-- アプリURL、認証の取得・利用方針だけを記載。認証情報そのものは書かない -->
+
+### 検査環境
+
+<!-- script/screenshot/resultの作業directoryと命名規則を必ず記載。browser設定、helper、依存install手順、実行command、result templateは存在する時だけ記載 -->
 
 ## tasklist-executor
 

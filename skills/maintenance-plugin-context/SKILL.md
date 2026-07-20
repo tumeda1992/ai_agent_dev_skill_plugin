@@ -1,11 +1,28 @@
 ---
 name: maintenance-plugin-context
-description: tumeda-dev pluginのrepository contextを探索・作成・最小更新・選択的解決する。plugin skillがリポジトリ固有の文書、command、規約を必要とする時、または`.agents/skills/tumeda-dev-plugin-context.md`を新規作成・更新する時に使う。文脈が不要な通常作業には使わない。
+description: tumeda-dev pluginのrepository contextと配布version規約を管理する。plugin skillがリポジトリ固有の文書、command、規約を必要とする時、`.agents/skills/tumeda-dev-plugin-context.md`を新規作成・更新する時、またはplugin versionを変更・検証する時に使う。文脈もversionも不要な通常作業には使わない。
 ---
 
 # Plugin context maintenance
 
-repository contextのlifecycleはこのskillだけが管理する。consumer skillはinstanceを直接作成・更新しない。
+repository contextのlifecycleとpluginの配布version規約はこのskillだけが管理する。consumer skillはinstanceを直接作成・更新しない。
+
+## Plugin version
+
+`tumeda-dev`の配布versionはSemVerに従い、**release versionとして`MAJOR.MINOR.PATCH`だけ**を使う。`1.0.0`のように3つの非負整数を`.`で結ぶ。SemVerで許されるpre-release/build metadataも、このpluginでは使わない。
+
+- 禁止: `1.0.0+codex.20260720074613`、`1.0.0-dev`、日時・host名・cachebusterを足した形式
+- 破壊的変更はMAJOR、後方互換な機能追加はMINOR、後方互換な修正・文書変更はPATCHを上げる
+- 配布する変更には、変更内容に見合うversion bumpを一度だけ行う。cacheを更新したいだけのsuffix追加や同一releaseの再versioningはしない
+- Codexのcache更新に`update_plugin_cachebuster.py`を使わない。必要なら正式にPATCH以上を上げてから、通常の再install / reload手順を使う
+
+versionを変更または配布前に検証する時は、`tumeda-dev`の次の宣言値が同じ`MAJOR.MINOR.PATCH`であることを確認する。
+
+- `.codex-plugin/plugin.json` の `version`
+- `.claude-plugin/plugin.json` の `version`
+- `.claude-plugin/marketplace.json` の `plugins[]` 内、`name: tumeda-dev` の `version`
+
+いずれかにsuffixがある、または値がずれる時は、そのままinstall / releaseしない。変更の互換性を判定して正しいrelease versionへ揃える。
 
 ## 入力
 
