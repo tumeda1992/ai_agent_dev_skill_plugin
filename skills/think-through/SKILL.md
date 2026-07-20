@@ -12,6 +12,10 @@ description: >
 
 # think-through スキル
 
+## repository固有文脈
+
+プロジェクト固有のinstructionが今回の思考・判断へ影響する時は、`maintenance-plugin-context`へconsumer=`think-through`、必要理由、必要fact=`プロジェクト指示`、確認元候補を渡す。返された範囲だけを読む。返されない時はrepository固有の規約を推測せず、このskillの一般原則だけを適用する。
+
 ## 役割
 
 議論・思考プロセスの作法を矯正する。CLAUDE.md からオーケストレーションされ、毎ターン適用される。

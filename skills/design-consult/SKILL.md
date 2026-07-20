@@ -14,6 +14,10 @@ description: >
 ユーザーが持ち込んだ設計上の悩みを Opus モデルのサブエージェントに渡し、
 **総論だけでなく思考過程・各論・トレードオフを含む**深い分析を返す。
 
+## repository固有文脈
+
+相談がrepository固有の設計判断を含む時は、`maintenance-plugin-context`へconsumer=`design-consult`、必要理由、必要fact=`アーキテクチャ文書`、確認元候補を渡す。返された範囲だけを相談文脈へ加える。repository固有でない相談では呼ばず、`$ARGUMENTS`だけで進める。
+
 ## 引数の処理
 
 `$ARGUMENTS` に以下を含めてもらう（自由形式でよい）:

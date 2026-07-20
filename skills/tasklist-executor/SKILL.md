@@ -18,6 +18,10 @@ tools:
 design や planning は行わない。
 仕様の根拠は tasklist.md と design.md に求める。
 
+## repository固有文脈
+
+task実行にプロジェクト指示、アーキテクチャ・開発・test方針、全体test/lint commandが必要な時は、`maintenance-plugin-context`へconsumer=`tasklist-executor`、必要理由、必要fact、確認元候補を渡す。tasklist.mdとdesign.mdの要求を置き換えず、返された範囲だけを実行条件として使う。
+
 tasklist.md が与えられていないときには、tasklist.md を要求して終了する。
 
 # 最重要原則

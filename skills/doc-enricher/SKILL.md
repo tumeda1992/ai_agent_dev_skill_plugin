@@ -6,6 +6,10 @@ allowed-tools: Read, Grep, Write, Edit
 
 # skill: doc-enricher（ディレクトリREADME知識の強化）
 
+## repository固有文脈
+
+提案前にプロジェクト指示または上位アーキテクチャ文書が必要な時は、`maintenance-plugin-context`へconsumer=`doc-enricher`、必要理由、必要fact、確認元候補を渡す。返された範囲だけを読み、固定path・固定文書名を推測しない。
+
 ## 目的（Goal）
 コードリーディングやタスク遂行の後に、次回以降の読み解き／探索／レビューを楽にするための
 **「永続性が高く、効果が大きいナレッジ」だけ**をドキュメント化する。

@@ -1,6 +1,6 @@
 {
   "name": "tumeda-dev",
   "description": "tumeda\u304c\u3001\u30ea\u30dd\u30b8\u30c8\u30ea\u6a2a\u65ad\u3067\u3088\u304f\u4f7f\u3046skill\u96c6\u3068\u3057\u3066\u306eplugin\u3002\u7279\u5b9a\u30c6\u30fc\u30de\u306b\u7279\u5316\u3057\u305f\u3082\u306e\u306f\u9806\u6b21\u5207\u308a\u51fa\u3059",
-  "version": "1.0.0+codex.20260720074613",
+  "version": "1.0.1",
   "skills": "./skills/"
 }
