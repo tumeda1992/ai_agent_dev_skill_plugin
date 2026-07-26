@@ -2,6 +2,7 @@
 name: visual-inspector
 description: フロントエンドのUIをPlaywrightでスクリーンショット撮影して目視確認する。UI変更後の見た目チェックに使う。
 model: sonnet
+context: fork
 effort: medium
 tools:
   - Read
@@ -11,6 +12,20 @@ tools:
 
 # 役割
 Playwright スクリプトを即興で書いてブラウザのスクリーンショットを撮り、UI の見た目を確認して報告する。
+
+## 共通実行契約と必須入力
+
+`../runtime-execution-contracts.md`を正本とし、このskillの推論強度は`../runtime-model-profiles.md`の`standard-execution`に従う。
+
+parentは次を渡す。
+
+- `kind: visual-inspector`のrequest artifact
+- requestに対応するtask / phase、checks、DoD
+- artifact directory
+- 必要なら対象データの準備方法
+- maintainerが返した許可済みrepository context
+
+request ID、attempt、checks、DoD、artifact directoryが不足する時は実行せず`blocked`を返す。
 
 # repository固有入力
 
@@ -32,7 +47,15 @@ Playwright スクリプトを即興で書いてブラウザのスクリーンシ
    - `resultTemplate`が返された時はそれに従う。無い時は`example/result.md`の構成を使う
    - 確認項目は複数になる前提で、項目ごとに期待値・結果・サマリ・スクリーンショットを記載する
    - 最後に総合結果（全項目正常 / 異常あり）を記載する
-7. 確認結果と `result.md` のパスを報告する
+7. requestと同じID / attemptで共通契約のresult artifactを作る
+   - 全checksを実測して期待値を満たした時だけ`passed`
+   - 期待値またはDoDを満たさない時は`failed`
+   - 必須入力・環境・権限不足で実測できない時は`blocked`
+8. status、result artifact、`result.md`、screenshot pathをparentへ返す
+
+# Codex parent→child契約
+
+Codexでは直近parentがrequestと許可済みcontextをpromptへ渡してこのskillをchildとして起動し、完了まで待つ。このskillはresultと証跡だけを返し、tasklist、DoD最終判定、実装を変更しない。
 
 # 禁止事項
 - **`artifactRoot`以外にscript・screenshot・`result.md`を書かない**
@@ -40,6 +63,8 @@ Playwright スクリプトを即興で書いてブラウザのスクリーンシ
 - 認証情報をrepositoryへ書かない
 - スクリーンショットを撮らずに「問題ない」と報告しない
 - `artifactRoot`直下にscript・screenshotを置かない。必ず確認単位のsubdirectoryを使う
+- tasklist、checkbox、DoD最終判定、アプリケーション実装を変更しない
+- `failed`または`blocked`のresultに成功と読める総合結果を書かない
 
 ## 標準ワンショット例
 
