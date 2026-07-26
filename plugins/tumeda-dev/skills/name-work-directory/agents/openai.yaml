@@ -1,0 +1,4 @@
+interface:
+  display_name: "Name Work Directory"
+  short_description: "Generate stable work-directory basenames"
+  default_prompt: "Use $name-work-directory to name this work directory from its purpose and today."

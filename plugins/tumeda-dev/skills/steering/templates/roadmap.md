@@ -16,7 +16,7 @@
 ### タスク概要
 - {このフェーズでやること}
 
-子 steering: `.steering/{YYYY}/{YYYYMMDD}-{branch}-{slug}/`
+子 steering: `.steering/{YYYY}/{YYYYMM}/{YYYYMMDD}-{slug}/`
 ステータス: 未着手 / 進行中 / 完了
 
 ---
@@ -30,7 +30,7 @@
 - {このフェーズでやること}
 - {前フェーズの結果を受けて決まる内容があれば TBD と明記}
 
-子 steering: `.steering/{YYYY}/{YYYYMMDD}-{branch}-{slug}/`
+子 steering: `.steering/{YYYY}/{YYYYMM}/{YYYYMMDD}-{slug}/`
 ステータス: 未着手 / 進行中 / 完了
 
 ---

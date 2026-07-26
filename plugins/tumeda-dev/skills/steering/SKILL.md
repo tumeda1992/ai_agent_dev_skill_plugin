@@ -29,27 +29,15 @@ effort: high
 
 ---
 
-## 命名規則（固定）
-ディレクトリ名:
-- `.steering/[YYYY]/[YYYYMM]/[YYYYMMDD]-[branch]-[slug]/`
+## 命名規則
 
-### YYYYMMDD
-- 実行日
+`name-work-directory` にユーザー入力（やりたいこと）と実行時のローカル日付を渡し、`YYYYMMDD-slug` の basename を一つ受け取る。この skill が英語要約、slug、日付を決める。返された basename は同じ作業中に変更しない。
 
-### branch
-- **現在のブランチをそのまま使う**
-    - `git rev-parse --abbrev-ref HEAD`
-    - 取得できない場合は `unknown-branch`
+steering は basename の日付部分から `YYYY` と `YYYYMM` を得て、次のパスを管理する:
 
-### slug
-- ユーザー入力（やりたいこと）を **英語要約**し、`kebab-case` にする（英数+ハイフン）
-- ルール:
-    - 3〜8語程度を目安に短く
-    - 冠詞は落としてよい（a/the）
-    - 動詞＋目的語の形を優先（例: `edit-user-profile`, `add-payment-webhook`）
-    - あいまいなら「何をするか」が伝わる最小まで（例: `profile-edit` ではなく `edit-user-profile`）
+- `.steering/YYYY/YYYYMM/YYYYMMDD-slug/`
 
-※ slug は最初に提案し、以降は **同じものを固定して使う**（途中で変えない）
+steering は親ディレクトリの作成と前月 summary の生成を担当する。branch 名の取得・埋め込み・衝突確認は担当しない。
 
 ---
 
@@ -169,10 +157,10 @@ effort: high
 ## フロー（順序固定）
 
 ### 1) steering ディレクトリ作成
-1. `[YYYYMMDD]`, `[YYYYMM]`, `[branch]`, `[slug]` を決める
+1. `name-work-directory` を呼び、`[YYYYMMDD]-[slug]` の basename を決める
 2. `.steering/[YYYY]/[YYYYMM]/` ディレクトリが存在しなければ作成する
    - 例: `.steering/2026/202604/`
-3. `.steering/[YYYY]/[YYYYMM]/[YYYYMMDD]-[branch]-[slug]/` を作成する
+3. `.steering/[YYYY]/[YYYYMM]/[YYYYMMDD]-[slug]/` を作成する
 4. **前月分 summary.md の自動まとめ**（前月ディレクトリが存在し、その月の `summary.md` が **未存在** のときのみ実行）
    - 対象月の **1 ヶ月前**（`.steering/[YYYY]/[YYYYMM-1]/`、年をまたぐなら前年12月）のディレクトリが存在するか確認する
    - 該当ディレクトリ配下に `summary.md` が **既に存在する** 場合は何もしない
