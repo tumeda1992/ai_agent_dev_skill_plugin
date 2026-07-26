@@ -1,7 +1,8 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "../..");
+const pluginRoot = "plugins/tumeda-dev";
 const failures = [];
 
 function read(relativePath) {
@@ -56,17 +57,26 @@ function requireFields(relativePath, value, fields) {
   }
 }
 
-const codexManifest = readJson(".codex-plugin/plugin.json");
-const claudeManifest = readJson(".claude-plugin/plugin.json");
+const codexManifestPath = `${pluginRoot}/.codex-plugin/plugin.json`;
+const claudeManifestPath = `${pluginRoot}/.claude-plugin/plugin.json`;
+const codexManifest = readJson(codexManifestPath);
+const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
-const expectedRelease = "1.1.0";
+const codexMarketplace = readJson(".agents/plugins/marketplace.json");
+const expectedRelease = "1.1.1";
+const claudePlugin = marketplace?.plugins?.find(
+  (plugin) => plugin.name === "tumeda-dev",
+);
+const codexPlugin = codexMarketplace?.plugins?.find(
+  (plugin) => plugin.name === "tumeda-dev",
+);
 
-if (codexManifest && claudeManifest && marketplace) {
+if (codexManifest && claudeManifest && marketplace && claudePlugin) {
   const versions = [
     codexManifest.version,
     claudeManifest.version,
     marketplace.version,
-    marketplace.plugins?.[0]?.version,
+    claudePlugin.version,
   ];
   if (versions.some((version) => typeof version !== "string")) {
     failures.push("manifest: version宣言が4管所すべてstringではない");
@@ -79,28 +89,59 @@ if (codexManifest && claudeManifest && marketplace) {
   }
 }
 
-requireText("skills/doc-enricher/SKILL.md", "モジュール構想（Module Concept）");
-requireText("skills/doc-enricher/SKILL.md", "命名意図（Naming Intent）");
-requireText("skills/doc-enricher/SKILL.md", "進化の種（Evolution Seed）");
-requireText("skills/doc-enricher/SKILL.md", "設計意図メモ（Design Intent Note）");
-requireText("skills/task-design/SKILL.md", "観点5: 画面イメージと配置意図");
+if (codexManifest?.name !== "tumeda-dev") {
+  failures.push(`${codexManifestPath}: nameはtumeda-devでなければならない`);
+}
+if (codexManifest?.skills !== "./skills/") {
+  failures.push(`${codexManifestPath}: skillsは./skills/でなければならない`);
+}
+if (claudeManifest?.name !== "tumeda-dev") {
+  failures.push(`${claudeManifestPath}: nameはtumeda-devでなければならない`);
+}
+if (!claudePlugin) {
+  failures.push(".claude-plugin/marketplace.json: name: tumeda-devのentryがない");
+} else if (claudePlugin.source !== "./plugins/tumeda-dev") {
+  failures.push(".claude-plugin/marketplace.json: tumeda-dev sourceは./plugins/tumeda-devでなければならない");
+}
+if (!codexPlugin) {
+  failures.push(".agents/plugins/marketplace.json: name: tumeda-devのentryがない");
+} else if (codexPlugin.source?.path !== "./plugins/tumeda-dev") {
+  failures.push(".agents/plugins/marketplace.json: tumeda-dev source pathは./plugins/tumeda-devでなければならない");
+}
+for (const legacyPath of [
+  ".codex-plugin/plugin.json",
+  ".claude-plugin/plugin.json",
+  "skills",
+]) {
+  if (existsSync(resolve(root, legacyPath))) {
+    failures.push(`${legacyPath}: 旧root pathが残っている`);
+  }
+}
+
+const skillPath = (relativePath) => `${pluginRoot}/skills/${relativePath}`;
+
+requireText(skillPath("doc-enricher/SKILL.md"), "モジュール構想（Module Concept）");
+requireText(skillPath("doc-enricher/SKILL.md"), "命名意図（Naming Intent）");
+requireText(skillPath("doc-enricher/SKILL.md"), "進化の種（Evolution Seed）");
+requireText(skillPath("doc-enricher/SKILL.md"), "設計意図メモ（Design Intent Note）");
+requireText(skillPath("task-design/SKILL.md"), "観点5: 画面イメージと配置意図");
 requirePattern(
-  "skills/task-design/SKILL.md",
+  skillPath("task-design/SKILL.md"),
   /component(?:の)?input[\s\S]{0,120}供給元/,
   "UI component inputと供給元",
 );
 
 for (const relativePath of [
-  "skills/steering/SKILL.md",
-  "skills/steering/templates/discussion_entry.md",
-  "skills/task-design/templates/discussion_entry.md",
+  skillPath("steering/SKILL.md"),
+  skillPath("steering/templates/discussion_entry.md"),
+  skillPath("task-design/templates/discussion_entry.md"),
 ]) {
   requireText(relativePath, "TBDヒアリング");
   requireText(relativePath, "認識齟齬");
   requireText(relativePath, "レビュー指摘");
 }
 
-const runtimeContract = "skills/runtime-execution-contracts.md";
+const runtimeContract = skillPath("runtime-execution-contracts.md");
 for (const expected of [
   "状態の正本とsingle writer",
   "completed",
@@ -120,9 +161,9 @@ for (const expected of [
 }
 
 const agentDerivedSkills = [
-  "skills/tasklist-executor/SKILL.md",
-  "skills/visual-inspector/SKILL.md",
-  "skills/test-runner/SKILL.md",
+  skillPath("tasklist-executor/SKILL.md"),
+  skillPath("visual-inspector/SKILL.md"),
+  skillPath("test-runner/SKILL.md"),
 ];
 for (const relativePath of agentDerivedSkills) {
   requireFrontmatter(relativePath, "context: fork");
@@ -130,15 +171,15 @@ for (const relativePath of agentDerivedSkills) {
   requireText(relativePath, "../runtime-model-profiles.md");
   requireText(relativePath, "Codex");
 }
-requireText("skills/tasklist-executor/SKILL.md", "tasklist、DoD判定、checkbox、child結果の転記を更新するのはこのskillだけ");
+requireText(skillPath("tasklist-executor/SKILL.md"), "tasklist、DoD判定、checkbox、child結果の転記を更新するのはこのskillだけ");
 requirePattern(
-  "skills/tasklist-executor/SKILL.md",
+  skillPath("tasklist-executor/SKILL.md"),
   /failed[\s\S]{0,160}blocked[\s\S]{0,160}\[ \]/u,
   "failed / blocked時の未完了維持",
 );
 for (const relativePath of [
-  "skills/visual-inspector/SKILL.md",
-  "skills/test-runner/SKILL.md",
+  skillPath("visual-inspector/SKILL.md"),
+  skillPath("test-runner/SKILL.md"),
 ]) {
   requirePattern(
     relativePath,
@@ -256,11 +297,11 @@ if (failedFixture && !failedFixture.summary.includes("未完了")) {
 }
 
 const portableFiles = [
-  "skills/doc-enricher/SKILL.md",
-  "skills/task-design/SKILL.md",
-  "skills/task-design/templates/discussion_entry.md",
-  "skills/steering/SKILL.md",
-  "skills/steering/templates/discussion_entry.md",
+  skillPath("doc-enricher/SKILL.md"),
+  skillPath("task-design/SKILL.md"),
+  skillPath("task-design/templates/discussion_entry.md"),
+  skillPath("steering/SKILL.md"),
+  skillPath("steering/templates/discussion_entry.md"),
   runtimeContract,
   ...agentDerivedSkills,
 ];

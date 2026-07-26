@@ -24,9 +24,10 @@ repository contextのlifecycleとpluginの配布version規約はこのskillだ�
 
 versionを変更または配布前に検証する時は、`tumeda-dev`の次の宣言値が同じ`MAJOR.MINOR.PATCH`であることを確認する。
 
-- `.codex-plugin/plugin.json` の `version`
-- `.claude-plugin/plugin.json` の `version`
-- `.claude-plugin/marketplace.json` の `plugins[]` 内、`name: tumeda-dev` の `version`
+- `plugins/tumeda-dev/.codex-plugin/plugin.json` の `version`
+- `plugins/tumeda-dev/.claude-plugin/plugin.json` の `version`
+- rootの`.claude-plugin/marketplace.json` の `version`
+- rootの`.claude-plugin/marketplace.json` の `plugins[]` 内、`name: tumeda-dev` の `version`
 
 いずれかにsuffixがある、または値がずれる時は、そのままinstall / releaseしない。変更の互換性を判定して正しいrelease versionへ揃える。
 
