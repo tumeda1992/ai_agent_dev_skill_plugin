@@ -1,0 +1,1 @@
+plugins/tumeda-dev/docs/development_standards/naming.md 参照
