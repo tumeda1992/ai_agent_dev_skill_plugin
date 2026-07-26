@@ -1,2 +1,4 @@
 *.local.json
 *.local.md
+
+.idea/
