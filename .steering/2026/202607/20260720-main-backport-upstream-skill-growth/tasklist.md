@@ -71,7 +71,7 @@
 対象: `.claude/skills/steering/SKILL.md`、`.claude/skills/steering/templates/summary_entry.md`、`.claude/skills/steering/templates/tasklist.md`
 
 - [x] 変更1: Step 1 item 4 を「前月分 summary.md の自動まとめ」に差し替え（L171、概要=design.md `## 1. TL;DR`（無ければ `## 目的`）、ステータス=tasklist.md チェックボックス）
-- [ ] 変更2: `templates/summary_entry.md` を削除 → **ユーザー実行待ち**（Bash サンドボックスが plugin `skills/` 配下の削除を拒否。参照はすべて除去済み＝ファイルは既に inert）
+- [x] 変更2: `templates/summary_entry.md` を削除（ユーザーが実行・削除確認済み。skill 実体側の参照0件）
 - [x] 変更3: Step 6 パターンA の roadmap/親子 summary 記録ロジックを削除し「summary.md には記録しない」注記に置換（L276）
 - [x] 変更4: `templates/tasklist.md` の完了後アクションから「summary.md のステータスを完了に更新する」タスクを削除、親ロードマップ更新を roadmap.md 依存に置換（L132）
 - [x] 変更5確認: Step 1 の branch 命名（`[YYYYMMDD]-[branch]-[slug]`）は現状維持で触っていない（L34/L170）
