@@ -18,7 +18,7 @@ effort: high
 ---
 
 ## ゴール
-`.steering/.../design.md` を作って合意し、その後 `.steering/.../tasklist.md`（詳細タスク）を作って合意して終了する。  
+`.steering/.../<task-design-directory>/design.md` を作って合意し、その後 `.steering/.../tasklist.md`（詳細タスク）を作って合意して終了する。
 **このスキルはtasklistが完全に出来上がり合意できるまで実装しない**。
 
 ## 注意事項
@@ -42,8 +42,8 @@ steering は親ディレクトリの作成と前月 summary の生成を担当�
 ---
 
 ## 成果物
-- `design.md`（requirements相当を内包）
-- `requirements.md`（必要時のみ。design から切り出し）
+- `<task-design-directory>/design.md`（requirements相当を内包）
+- `<task-design-directory>/requirements.md`（必要時のみ。design から切り出し）
 - `tasklist.md`（詳細タスク。実行はしない）
 - `discussion.md`（任意。五月雨に起こった思考過程・**実装前**設計議論の保存場所）
 - `implementation_review.md`（任意。**実装完了後**レビューで判明した漏れ・追加要件の収集場所）
@@ -94,7 +94,7 @@ entry形式とdiscussionの具体的な進行・記録timingは`facilitate-discu
    - **未存在** の場合のみ以下を実行:
        - 前月配下の各 steering ディレクトリを `ls` で列挙する
        - 各ディレクトリから概要・ステータスを抽出する:
-           - **概要**: `design.md` の `## 1. TL;DR` 本文の最初の段落を抽出（無ければ `## 目的` の最初の段落。それも無ければ `{slug}（概要抽出不可、design.md 参照）`）
+           - **概要**: steering直下の`design.md`を確認し、存在しなければ直下の子ディレクトリから`design.md`を探す。対象が一つに定まる場合、その`## 1. TL;DR`本文の最初の段落を抽出する（無ければ`## 目的`の最初の段落。それも無ければ`{slug}（概要抽出不可、design.md 参照）`）。子ディレクトリ側の候補が複数ある場合は推測せず概要抽出不可とする
            - **ステータス**: `tasklist.md` のチェックボックスで判定（全 `[x]` → `完了` / `[ ]` が残る → `未完了` / `tasklist.md` 不在（roadmap 等）→ `不明`）
        - 下記書式で `summary.md` を生成する
 
@@ -145,10 +145,13 @@ entry形式とdiscussionの具体的な進行・記録timingは`facilitate-discu
 
 pluginの`task-design` skillを起動する。
 
-- 引数 `working_dir=<steering ディレクトリの絶対パス>` を渡す
-- task-design 側は受け取った working_dir 配下に design.md / spike/ / task-design-discussion.md を作成する
+- 初回は引数`working_dir_parent=<steering ディレクトリの絶対パス>`と`create_working_dir=true`を渡す
+- task-designは`name-work-directory`でbasenameを決め、steeringディレクトリ直下に作業ディレクトリを作成する
+- task-designが返した`working_dir`の絶対パスを`task_design_dir`として保持する
+- task-designは`task_design_dir`配下にdesign.md / spike/ / task-design-discussion.mdを作成する
+- 既存設計の再開時は`working_dir_parent=<task_design_dir>`と`create_working_dir=false`を渡し、新しい子ディレクトリを増やさない
 - タスクの要件も合わせて伝える
-- task-design 完了 = 設計完了。design.md が存在することを確認してステップ4へ
+- task-design 完了 = 設計完了。`<task_design_dir>/design.md`が存在することを確認してステップ4へ
 
 > ⚠️ task-design の議論記録は `task-design-discussion.md` に書かれる。
 > steering の `discussion.md` は別ファイル（設計後フェーズの議論用）。
@@ -156,6 +159,7 @@ pluginの`task-design` skillを起動する。
 ---
 
 ### 4) Designレビュー（自然言語 yes/no）
+- このstep以降、design.mdへの参照・更新は`<task_design_dir>/design.md`を対象にする
 - **レビュー前チェック（MUST）**: 全 TBD が解消されているか確認する。TBD が残っていれば設計未完。Step 3 に戻り discussion で解消してから提示する
 - **MUST: design.md を保存する前に、「要議論」項目があればまずチャットで議論して方針を確定させること。議論が終わったら確定した分類（MUST/SHOULD/MAY または非目標）を design.md に反映する。**
 - **MUST: 要議論の議論内容を design.md に保存すること**
@@ -171,8 +175,8 @@ pluginの`task-design` skillを起動する。
 ---
 
 ### 5) requirements.md の切り出し（必要時のみ）
-- design.md 内の Requirements セクションが「長くて独立させた方がレビューしやすい」と判断した場合のみ:
-    1. `requirements.md` を作成
+- `<task_design_dir>/design.md`内のRequirementsセクションが「長くて独立させた方がレビューしやすい」と判断した場合のみ:
+    1. `<task_design_dir>/requirements.md`を作成
     2. design.md から Requirements を移し、design.md 側は参照リンクにする
 
 ※ Requirements が短い/軽いなら切り出さない（design.md に置いたまま）
@@ -205,6 +209,7 @@ pluginの`task-design` skillを起動する。
 #### 通常パターン（上記に該当しない場合）
 - このskill directoryの`templates/tasklist.md`を元に`tasklist.md`を作成し、**詳細タスクまで**記載する（ただし実行はしない）
 - 要件:
+    - **設計参照**: 冒頭の`設計参照`へ、steeringディレクトリから`<task_design_dir>/design.md`への相対パスを記載する
     - **マイグレーションフェーズの原則**:
         - **MUST**: DB マイグレーションを含むフェーズは、必ず単独フェーズとして切り出す
         - **MUST**: マイグレーションフェーズの最後のタスクとして「ここで作業を停止し、マイグレーション結果をユーザーに確認する（次フェーズへは進まない）」を明示する
@@ -376,7 +381,7 @@ discussion.md が存在する場合、**各 discussion に対して以下の3ス
 - ユーザに tasklistに沿って実装するか問いかける
 - OK/はい/進めて 等なら 次へ
   - そうでないならここで終了
-- tasklist-executor エージェントに tasklist.md を渡して実装開始
+- tasklist-executor エージェントにtasklist.mdと`<task_design_dir>/design.md`の絶対パスを渡して実装開始
   - **MUST**: 各フェーズ・各タスク完了のたびに tasklist.md の `[ ]` を `[x]` に即座に更新すること
   - 最後にまとめて更新することは禁止
 
@@ -398,7 +403,7 @@ steeringは、実装完了後feedbackをreview workflowの起点として判断�
 決定後はsteeringが適用先と順序を判断する。
 
 - 認識合わせだけで完了する
-- 既存`design.md`を変更する、またはtask-designによる再設計へ戻る
+- 既存`<task_design_dir>/design.md`を変更する、または`working_dir_parent=<task_design_dir>`と`create_working_dir=false`でtask-designによる再設計へ戻る
 - design合意後に既存`tasklist.md`へ追加taskを追記する
 - 文書・skill・その他のconsumer固有成果物へ反映する
 

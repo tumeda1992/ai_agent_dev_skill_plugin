@@ -82,7 +82,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "4.0.0";
+const expectedRelease = "5.0.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -258,6 +258,13 @@ const taskDesignSkill = skillPath("task-design/SKILL.md");
 requireText(taskDesignSkill, "discussion_file_name=task-design-discussion.md");
 for (const expected of [
   "### Step 3. 未解消の設計判断を解消する",
+  "working_dir_parent",
+  "create_working_dir",
+  "defaultは`true`",
+  ".agents/skills/name-work-directory",
+  "<current working directory>/<YYYYMMDD-slug>",
+  "task-design起動時のcurrent working directoryを基準",
+  "技術検証実装が必要になった時だけ作成する",
   "discussion内部processをtask-design側で再定義しない",
   "設計目的と完了条件",
   "現在の`design.md`",
@@ -281,6 +288,10 @@ for (const forbidden of [
 }
 requireText(skillPath("steering/SKILL.md"), "discussion_directory=<steering directory>");
 requireText(skillPath("steering/SKILL.md"), "discussion_file_name=implementation_review.md");
+requireText(skillPath("steering/SKILL.md"), "working_dir_parent=<steering ディレクトリの絶対パス>");
+requireText(skillPath("steering/SKILL.md"), "create_working_dir=true");
+requireText(skillPath("steering/SKILL.md"), "create_working_dir=false");
+requireText(skillPath("steering/templates/tasklist.md"), "## 設計参照");
 requireText(skillPath("steering/templates/tasklist.md"), "implementation_review.md");
 requireText(skillPath("README.md"), "facilitate-discussion");
 requireAbsent(skillPath("design-consult/SKILL.md"));

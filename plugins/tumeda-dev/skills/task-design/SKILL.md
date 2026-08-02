@@ -29,7 +29,7 @@ description: |
 設計完了の定義は「実装中に新たな設計決定が生まれない状態」— 全 deliverable に対して「これを実装するとき、設計外の判断をしなければならない箇所はないか」と問えて「ない」と答えられる状態。
 Sonnet は「実装に入りたい衝動」を持っているため、このスキルはその衝動を止め、対話と合意で設計を積み上げる役割を担う。「設計書を書く」ことが目的ではなく、「実装は手を動かすだけ」の状態を作ることが目的。
 
-**起動形式**: 単独起動・steering 経由起動 どちらも可。設計成果物の配置先（`working_dir`）は引数で受ける（詳細: section 5 Step 0.5）。
+**起動形式**: 単独起動・steering 経由起動 どちらも可。呼び出し側は必要に応じて親ディレクトリ（`working_dir_parent`）と新規作成フラグ（`create_working_dir`、default `true`）を渡す。task-designが設計成果物の配置先（`working_dir`）を確定する（詳細: section 5 Step 0.5）。
 
 repository固有の設計文書、規約、技術検証環境・commandが必要な時は、`maintenance-plugin-context`へconsumer=`task-design`、必要理由、必要fact、確認元候補を渡す。返された範囲だけを使い、固定pathや固定commandを推測しない。
 
@@ -484,10 +484,31 @@ task-designは`topic_id`、提案番号、iteration番号、`親論点`、entry 
 
 設計成果物（design.md / spike/ / task-design-discussion.md）を置くディレクトリを確定する。
 
-- **引数 `working_dir` を受け取った場合**: そのディレクトリを使う（steering 経由起動時は steering が作成した steering ディレクトリが渡される）
-- **引数なしで起動された場合**: ユーザーに置き場所を問う（絶対パスまたはプロジェクトルートからの相対パス）
+入力契約:
 
-確定後、task-designは`<working_dir>/design.md`と`<working_dir>/spike/`を作成・参照する。discussion fileの作成・継続利用は、§4の設定を受けた`facilitate-discussion`が行う。
+- `working_dir_parent`: 省略可能。`create_working_dir`に応じて、新規ディレクトリの親または直接利用する既存ディレクトリを表す
+- `create_working_dir`: 省略可能なboolean。defaultは`true`
+
+| `create_working_dir` | `working_dir_parent` | 解決する`working_dir` |
+| --- | --- | --- |
+| `true` | 指定あり | `<working_dir_parent>/<YYYYMMDD-slug>`を新規作成 |
+| `true` | 指定なし | `<current working directory>/<YYYYMMDD-slug>`を新規作成 |
+| `false` | 指定あり | `working_dir_parent`自体を直接利用 |
+| `false` | 指定なし | 入力不足として、既存ディレクトリの指定をユーザーへ求める |
+
+`create_working_dir=true`の手順:
+
+1. `working_dir_parent`を絶対パスへ解決する。相対パスはtask-design起動時のcurrent working directoryを基準にし、未指定なら同じcurrent working directoryを使う。親ディレクトリが存在しなければ推測で作らず、既存の親ディレクトリをユーザーへ求める。
+2. `.agents/skills/name-work-directory`を明示適用し、作業内容と実行時のローカル日付から`YYYYMMDD-slug`のbasenameを一つ受け取る。
+3. `<working_dir_parent>/<basename>`が存在しないことを確認して作成し、その絶対パスを`working_dir`とする。
+4. 同名pathが存在する場合はsuffix追加や上書きをしない。既存pathを`create_working_dir=false`で再利用するか、別の親ディレクトリを使うか、ユーザーへ確認する。
+
+`create_working_dir=false`の手順:
+
+1. `working_dir_parent`を絶対パスへ解決し、そのpath自体を`working_dir`とする。
+2. `.agents/skills/name-work-directory`を適用せず、ディレクトリも作成しない。pathが存在しなければ、既存ディレクトリの指定をユーザーへ求める。
+
+確定後、task-designは`working_dir`の絶対パスを呼び出し側へ返す。`<working_dir>/design.md`はStep 1で作成し、`<working_dir>/spike/`はStep 3で技術検証実装が必要になった時だけ作成する。discussion fileの作成・継続利用は、§4の設定を受けた`facilitate-discussion`が行う。
 
 ### Step 1. 初稿（TBD 込み）を作る
 
