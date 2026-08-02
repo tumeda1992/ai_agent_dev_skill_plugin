@@ -22,7 +22,7 @@ consumer向けの固定result schemaは設けない。一つの論点でdecision
 
 1. ユーザーが `$facilitate-discussion` を明示した。
 2. ユーザーが議論をMarkdownへ継続記録するよう明示した。
-3. `task-design`、`steering`、`design-consult` 等のconsumer skillが、保存を伴う議論workflowとして明示適用した。
+3. `task-design`、`steering` 等のconsumer skillが、保存を伴う議論workflowとして明示適用した。
 
 通常の質問、説明、短い相談から暗黙起動してはならない。
 

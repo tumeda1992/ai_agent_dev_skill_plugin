@@ -69,7 +69,6 @@ consumer固有情報 ∪ (共通情報 ∩ consumerが直接使う項目)
 | consumer | `共通`から返す項目 |
 | --- | --- |
 | `think-through` | プロジェクト指示 |
-| `design-consult` | アーキテクチャ文書 |
 | `doc-enricher` | プロジェクト指示、アーキテクチャ文書 |
 | `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針 |
 | `steering` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |

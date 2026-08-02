@@ -82,7 +82,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "3.0.0";
+const expectedRelease = "4.0.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -249,7 +249,6 @@ requireText(discussionMetadata, "allow_implicit_invocation: false");
 const discussionConsumers = [
   skillPath("task-design/SKILL.md"),
   skillPath("steering/SKILL.md"),
-  skillPath("design-consult/SKILL.md"),
   skillPath("steering/templates/tasklist.md"),
 ];
 for (const relativePath of discussionConsumers) {
@@ -282,10 +281,9 @@ for (const forbidden of [
 }
 requireText(skillPath("steering/SKILL.md"), "discussion_directory=<steering directory>");
 requireText(skillPath("steering/SKILL.md"), "discussion_file_name=implementation_review.md");
-requireText(skillPath("design-consult/SKILL.md"), "discussion_directory");
-requireText(skillPath("design-consult/SKILL.md"), "discussion_file_name");
 requireText(skillPath("steering/templates/tasklist.md"), "implementation_review.md");
 requireText(skillPath("README.md"), "facilitate-discussion");
+requireAbsent(skillPath("design-consult/SKILL.md"));
 
 for (const relativePath of discussionConsumers) {
   forbidText(relativePath, "templates/discussion_entry.md", "旧discussion template path");
@@ -457,7 +455,6 @@ const portableFiles = [
   skillPath("task-design/SKILL.md"),
   skillPath("steering/SKILL.md"),
   skillPath("steering/templates/tasklist.md"),
-  skillPath("design-consult/SKILL.md"),
   runtimeContract,
   ...agentDerivedSkills,
 ];

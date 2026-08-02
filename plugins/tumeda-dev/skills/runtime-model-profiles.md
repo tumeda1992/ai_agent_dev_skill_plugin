@@ -2,16 +2,6 @@
 
 skillが要求するのはprovider固有のmodel名ではなく、必要な推論強度profileである。Claude CodeとCodexのadapterは、このprofileをそれぞれのhostで選べるmodelへ変換する。
 
-## deep-design
-
-設計選択、型・責務境界、複数案のトレードオフなど、深い推論を必要とする相談用。
-
-- Claude Code: frontmatterは`model: opus`。
-- Codex: child modelを選べるruntimeでは、利用可能な最高推論のCodex modelを選ぶ。選択面がなければ親sessionのmodelを継承する。
-- 返却: childを起動したparentは、選択したmodelまたは親model継承をsummaryへ残す。
-
-使用skill: `design-consult`。
-
 ## standard-execution
 
 tasklist実行、test失敗分析、UI確認など、手順遵守と実装・調査を主とする作業用。
