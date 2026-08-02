@@ -40,6 +40,25 @@ function requirePattern(relativePath, pattern, label) {
   }
 }
 
+function forbidText(relativePath, forbidden, label = forbidden) {
+  const source = read(relativePath);
+  if (source.includes(forbidden)) {
+    failures.push(`${relativePath}: 禁止項目「${label}」が残っている`);
+  }
+}
+
+function requireExists(relativePath) {
+  if (!existsSync(resolve(root, relativePath))) {
+    failures.push(`${relativePath}: 必須pathが存在しない`);
+  }
+}
+
+function requireAbsent(relativePath) {
+  if (existsSync(resolve(root, relativePath))) {
+    failures.push(`${relativePath}: 削除済みであるべき旧pathが残っている`);
+  }
+}
+
 function requireFrontmatter(relativePath, expected) {
   const source = read(relativePath);
   const frontmatter = source.match(/^---\n([\s\S]*?)\n---/u)?.[1] ?? "";
@@ -63,7 +82,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "1.1.1";
+const expectedRelease = "3.0.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -131,14 +150,148 @@ requirePattern(
   "UI component inputと供給元",
 );
 
+const discussionSkill = skillPath("facilitate-discussion/SKILL.md");
+const discussionMetadata = skillPath("facilitate-discussion/agents/openai.yaml");
+const discussionTemplate = skillPath(
+  "facilitate-discussion/templates/discussion_entry.md",
+);
 for (const relativePath of [
-  skillPath("steering/SKILL.md"),
-  skillPath("steering/templates/discussion_entry.md"),
-  skillPath("task-design/templates/discussion_entry.md"),
+  discussionSkill,
+  discussionMetadata,
+  discussionTemplate,
 ]) {
-  requireText(relativePath, "TBDヒアリング");
-  requireText(relativePath, "認識齟齬");
-  requireText(relativePath, "レビュー指摘");
+  requireExists(relativePath);
+}
+for (const relativePath of [
+  skillPath("task-design/templates/discussion_entry.md"),
+  skillPath("steering/templates/discussion_entry.md"),
+  skillPath("steering/templates/implementation_review.md"),
+]) {
+  requireAbsent(relativePath);
+}
+
+requireFrontmatter(discussionSkill, "name: facilitate-discussion");
+requireFrontmatter(discussionSkill, "description:");
+for (const expected of [
+  "discussion_directory",
+  "discussion_file_name",
+  "defaultは `discussion.md`",
+  "既存directory",
+  "pathを含まないbasename",
+  "# 議論記録",
+  "legacyな `### 論点N:`",
+  "最大値+1",
+  "self-contained",
+  "現在の合意対象",
+  "同じdecision scope",
+  "親論点",
+  "自己参照ではない",
+  "循環しない",
+  "一つのleaf論点を一つのdecision",
+  "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す",
+  "activeな論点を作らない",
+  "`独立論点` は現在のdiscussion目的には属する",
+  "作成済み論点がscope外と判明した場合は履歴を削除しない",
+  "通常の質問、説明、短い相談から暗黙起動してはならない",
+  "## workflow全体で守る不変条件",
+  "## 実行workflow",
+  "### 1. skillを起動する",
+  "#### 起動phaseの完了gate",
+  "### 2. 論点を扱う",
+  "#### 2.1 対象論点を選ぶ",
+  "#### 2.2 新規論点を作るvariant",
+  "iterationの入口gateから別decisionとして戻った場合",
+  "選択中だった論点とは別decisionである理由も保存する",
+  "#### 2.3 選択した一つの論点を進める",
+  "##### 2.3.1 feedbackをiterationとして扱う",
+  "###### iterationの入口gate",
+  "iterationを追加せず、一段上の`2.1 対象論点を選ぶ`へ戻る",
+  "skill起動済みという前提やtarget fileの解決を毎回分岐させない",
+  "##### 2.3.2 合意したdecisionを確定する",
+  "##### 2.3.3 論点をreparentする",
+  "##### 2.3.4 scope外の既存論点を取り下げる",
+  "#### 論点levelの完了gate",
+  "一つの論点でdecisionを確定するたびに",
+  "複数論点のdecisionをまとめてから返さない",
+  "consumerがdecisionを適用して全体状態を再評価",
+  "図のsubgraphはscopeの包含を表す",
+]) {
+  requireText(discussionSkill, expected);
+}
+for (const forbidden of [
+  "## 入口を選ぶ",
+  "## skillを起動する手順",
+  "## 新規論点を開始する手順",
+  "## feedback iterationを追記する手順",
+  "## 合意したdecisionを確定する手順",
+  "## 決定済み論点を再開する手順",
+  "## 論点をreparentする手順",
+  "## scope外の既存論点を取り下げる手順",
+]) {
+  forbidText(discussionSkill, forbidden, "root直下へ平坦化した旧entry見出し");
+}
+for (const expected of [
+  "## 論点N: タイトル",
+  "**ステータス:**",
+  "**親論点:**",
+  "**種別:**",
+  "**起点となった原文:**",
+  "### 現在の合意対象",
+  "#### 根本原因0 + 提案0",
+  "##### 論点routingの判断",
+  "**決定:**",
+  "**ネクストアクション:**",
+]) {
+  requireText(discussionTemplate, expected);
+}
+requireText(discussionMetadata, "allow_implicit_invocation: false");
+
+const discussionConsumers = [
+  skillPath("task-design/SKILL.md"),
+  skillPath("steering/SKILL.md"),
+  skillPath("design-consult/SKILL.md"),
+  skillPath("steering/templates/tasklist.md"),
+];
+for (const relativePath of discussionConsumers) {
+  requireText(relativePath, "facilitate-discussion");
+}
+const taskDesignSkill = skillPath("task-design/SKILL.md");
+requireText(taskDesignSkill, "discussion_file_name=task-design-discussion.md");
+for (const expected of [
+  "### Step 3. 未解消の設計判断を解消する",
+  "discussion内部processをtask-design側で再定義しない",
+  "設計目的と完了条件",
+  "現在の`design.md`",
+  "通常modeまたは軽量mode",
+  "task-designは`topic_id`",
+  "discussion fileの作成・継続利用は",
+  "一つの論点でdecisionを確定するたびにtask-designへ返す",
+  "複数論点のdecisionを溜めて最後に一括反映しない",
+  "一つのdecisionまたは事実を反映するたびに",
+  "軽量modeではdiscussion内部の論点・iteration・合意手順を再定義せず",
+]) {
+  requireText(taskDesignSkill, expected);
+}
+for (const forbidden of [
+  "### Step 3. 論点を1つずつ詰める（イテレーション）",
+  "上位論点に対して、自分で先に考えた提案₀を出す",
+  "新skillのprocessで論点1を議論 → 決定",
+  "`<working_dir>/design.md` `<working_dir>/spike/` `<working_dir>/task-design-discussion.md` を作成・参照する",
+]) {
+  forbidText(taskDesignSkill, forbidden, "task-designに残った旧discussion process");
+}
+requireText(skillPath("steering/SKILL.md"), "discussion_directory=<steering directory>");
+requireText(skillPath("steering/SKILL.md"), "discussion_file_name=implementation_review.md");
+requireText(skillPath("design-consult/SKILL.md"), "discussion_directory");
+requireText(skillPath("design-consult/SKILL.md"), "discussion_file_name");
+requireText(skillPath("steering/templates/tasklist.md"), "implementation_review.md");
+requireText(skillPath("README.md"), "facilitate-discussion");
+
+for (const relativePath of discussionConsumers) {
+  forbidText(relativePath, "templates/discussion_entry.md", "旧discussion template path");
+  forbidText(relativePath, "templates/implementation_review.md", "旧implementation review template path");
+  forbidText(relativePath, "セクション1（フィードバック収集）", "旧4部構成");
+  forbidText(relativePath, "FB-N", "旧feedback ID契約");
 }
 
 const runtimeContract = skillPath("runtime-execution-contracts.md");
@@ -298,10 +451,13 @@ if (failedFixture && !failedFixture.summary.includes("未完了")) {
 
 const portableFiles = [
   skillPath("doc-enricher/SKILL.md"),
+  discussionSkill,
+  discussionMetadata,
+  discussionTemplate,
   skillPath("task-design/SKILL.md"),
-  skillPath("task-design/templates/discussion_entry.md"),
   skillPath("steering/SKILL.md"),
-  skillPath("steering/templates/discussion_entry.md"),
+  skillPath("steering/templates/tasklist.md"),
+  skillPath("design-consult/SKILL.md"),
   runtimeContract,
   ...agentDerivedSkills,
 ];

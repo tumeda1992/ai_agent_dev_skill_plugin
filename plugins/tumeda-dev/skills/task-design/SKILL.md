@@ -424,7 +424,7 @@ TBD 解消の3手段:
 設計は2つの成果物に落ちる:
 
 - **design.md** — 合意済みの設計内容を集約する場所。テンプレート: このskill directoryの`templates/design.md`
-- **task-design-discussion.md** — 議論の変遷を記録する場所。テンプレート: このskill directoryの`templates/discussion_entry.md`
+- **task-design-discussion.md** — 議論の変遷を記録する場所。discussion processとentry形式の正本はpluginの`facilitate-discussion` skill
   - steering でも `discussion.md` を継続使用するため、task-design 起源の議論記録は `task-design-discussion.md` にして区別する
 
 ### design.md の使い方
@@ -432,22 +432,41 @@ TBD 解消の3手段:
 「議論の入力」ではなく「議論の結果」を記録する場所（3-5 思想に対応）。
 
 更新タイミング:
-- 議論の結果として合意が取れたらその場で書き戻す
+- 一つの論点でdecisionが確定するたびに、その場で書き戻す。複数論点の完了まで保留しない
 - 未決事項は TBD として残し、何が未決かを明記する
-- 議論前に「提案として書く」ことは禁止（先にチャットで提案 → 合意 → 書き戻し）
+- 未決の提案を`design.md`へ書かない。`facilitate-discussion`が完全な現在案をdiscussion fileへ保存し、chatで合意した後、task-designが確定したdecisionだけを書き戻す
 
 構造の詳細はテンプレートファイル参照。
 
 ### task-design-discussion.md の使い方
 
-論点が立った瞬間に、未決のまま記録する（収束を待たない）。
+task-designは、working directory、議論を開始する判断、設計固有contextの受渡し、決定後の`design.md`反映、設計完了判定を所有する。discussion fileの解決、対象論点の選択、提案、iteration、feedback routing、合意、採番、親子関係、履歴保持は`facilitate-discussion`へ委ねる。discussion内部processをtask-design側で再定義しない。
 
-記録タイミング:
-- ユーザーが論点・質問・要議論を提起した時点で即座に記録
-- AI 自発の議論も2往復以上になったら記録
-- フィードバックループの各イテレーション（次の提案を出す前に現提案を記録）
+通常mode・軽量modeのどちらでも、議論開始後はtask-design agent自身が次を渡して`facilitate-discussion`を明示適用する。議論だけを別child agentへ再委譲しない。
 
-エントリ形式の詳細はテンプレートファイル参照。
+```text
+discussion_directory=<working_dir>
+discussion_file_name=task-design-discussion.md
+```
+
+#### `facilitate-discussion`へ渡す設計context
+
+directoryとfile名に加え、そのdiscussionで判断に必要な次の情報を自然言語contextとして渡す。
+
+- 設計目的と完了条件
+- 現在の`design.md`と関連する合意済み設計
+- 解消したい設計上の不確実性と、その結論によって変わる設計範囲
+- 該当するWHY・WHAT・HOWと、完成後の姿を捉える観点
+- 調査・技術検証実装で確定した事実
+- 通常modeまたは軽量modeと、mode固有の成果物制約
+
+task-designは`topic_id`、提案番号、iteration番号、`親論点`、entry formatを指定しない。これらはdiscussion fileの状態から`facilitate-discussion`が管理する。設計固有の判断材料を渡すことと、discussion内部の提案・論点構造をcallerが組み立てることを混同しない。
+
+#### discussionを開始する時と返却後
+
+ユーザーが設計上の質問を提起した場合、またはtask-design agentの検討が複数往復を要する設計decisionになった場合にdiscussionを開始する。適用中の提案作成、論点選択、iteration、feedback routing、合意は`facilitate-discussion`へ委ねる。
+
+`facilitate-discussion`は一つの論点でdecisionを確定するたびにtask-designへ返す。task-designはそのdecisionとネクストアクションが返った直後に`design.md`へ反映し、次の論点を扱う前に設計全体の不確実性と完了条件を再評価する。複数論点のdecisionを溜めて最後に一括反映しない。
 
 ---
 
@@ -468,14 +487,14 @@ TBD 解消の3手段:
 - **引数 `working_dir` を受け取った場合**: そのディレクトリを使う（steering 経由起動時は steering が作成した steering ディレクトリが渡される）
 - **引数なしで起動された場合**: ユーザーに置き場所を問う（絶対パスまたはプロジェクトルートからの相対パス）
 
-確定後、`<working_dir>/design.md` `<working_dir>/spike/` `<working_dir>/task-design-discussion.md` を作成・参照する。
+確定後、task-designは`<working_dir>/design.md`と`<working_dir>/spike/`を作成・参照する。discussion fileの作成・継続利用は、§4の設定を受けた`facilitate-discussion`が行う。
 
 ### Step 1. 初稿（TBD 込み）を作る
 
 design.md（テンプレート参照）を 4観点の構造で初稿する。
 - 分かっている部分だけ書く
 - 未合意の部分は `TBD: （何が未合意か）` の形で残す
-- 想定される論点を task-design-discussion.md に並べる（収束を待たない）
+- 解消が必要な設計上の不確実性をTBDとして識別する。この時点ではdiscussion fileの論点・提案・親子関係を組み立てない
 
 この時点ではまだユーザーに「レビューお願いします」を出さない。
 
@@ -484,32 +503,29 @@ design.md（テンプレート参照）を 4観点の構造で初稿する。
 TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る。
 - 「全 TBD を埋めてください」は出さない
 - 「この骨格でいいか」のみ問う
-- 構造合意後、ロジックツリーの最上位論点を1つ選ぶ
+- 構造合意後、下位判断を最も多く規定する設計上の不確実性を一つ選ぶ
 
-### Step 3. 論点を1つずつ詰める（イテレーション）
+### Step 3. 未解消の設計判断を解消する
 
-繰り返し:
-1. 上位論点に対して、自分で先に考えた提案₀を出す（転記禁止 = 3-5 思想）
-2. **提案₀を出した時点で task-design-discussion.md に記録する**（論点提起 + 提案₀。ステータスは「提案中」）
-3. ユーザーと議論。フィードバック・却下を受けたら:
-   - **次の提案を出す前に**、現提案・観点・弱点・次案への変更点を イテレーションN として追記する
-   - 「結論が決まってから書く」は禁止
-4. 合意したら design.md に該当部分を書き戻し、discussion 側の **決定** と **ネクストアクション** を埋める
-5. 合意から新たな論点が生まれたら、別論点として task-design-discussion.md に新規エントリ追加（収束を待たない）
-6. 残った論点の中で次の最上位を選ぶ → 1へ
+これはtask-designが所有する外側の設計loopである。discussionを選んだ後の提案、論点、iteration、feedback routing、合意は`facilitate-discussion`の内側loopであり、ここへ複製しない。
 
-**論点の粒度と質問の材料:**
+1. `design.md`と合意済み設計を読み、解消すると下位判断を最も多く確定できる設計上の不確実性を一つ選ぶ。
+2. 不確実性の解消手段を選ぶ。
 
-- 1つの`論点N`は、1つの決定だけを扱う。1つの回答で複数の成果物・yes/noを決める必要があるなら、別論点へ分割する。親子関係は作らない。
-- 次に問う論点を明示し、他の未決事項を同じ質問へ混ぜない。
-- ユーザーへ判断を求める前に、決めること、回答によって変わる成果物、AIの推奨案と根拠を示す。判断材料なしのyes/no、複数論点を束ねた確認依頼をしない。
+| 判定 | 解消手段 |
+| --- | --- |
+| ユーザーのdomain判断または複数往復の設計decisionが必要 | discussion |
+| 既存code・documentを読めば事実を確定できる | 調査 |
+| 実行しなければ挙動を確定できない | 技術検証実装 |
 
-途中で TBD が解消できないとき、解消手段を選ぶ:
-- **議論** — ユーザー判断で決まるもの
-- **調査** — 既存コード・ドキュメントを読めば分かるもの
-- **技術検証実装** — 動かさないと分からないもの（3-4 思想）
+3. 選んだ手段を実行する。
+   - discussion: §4のtask-design固有contextを渡して`facilitate-discussion`を明示適用し、内部processを委ねる。task-design側で先に提案0をchatへ出したり、論点・iteration・質問形式を組み立てたりしない。
+   - 調査: repository contextが許可したsourceを読み、設計判断の入力になる事実を特定する。
+   - 技術検証実装: 下記の配置・運用契約に従い、実行しなければ分からない事実だけを確認する。
+4. discussionでは、一つの論点でdecisionが返るたびに、そのdecisionだけを`design.md`の該当箇所へ直ちに反映する。調査・技術検証実装では、確定した事実だけを反映する。未決の提案や途中経過は書かず、複数decisionを最後まで溜めない。
+5. 一つのdecisionまたは事実を反映するたびに、`design.md`全体から残る不確実性と完了条件を再評価する。残る場合はStep 3を繰り返し、なければStep 4へ進む。
 
-**技術検証実装の配置・運用:**
+#### 技術検証実装の配置・運用
 
 - 配置: design.md と同階層に `spike/` ディレクトリを作る
   - **命名意図（spike）**: Agile 用語で「実装前に不確実性を解消するための時間制限付きの調査・試行錯誤」を指す。`dry-run/` は「副作用なく実行する」という How（手段）の名前で、技術検証という What（概念）を表していない（dry-run は技術検証の手段の 1 つにすぎず、本番 DB に読み取りでアクセスする検証など、副作用なしを目的としない検証も技術検証の範疇に入るため）。`verify/` は「正しさを確認する」ニュアンスが強く、不確実性を試行錯誤で潰すという技術検証の本質と一致しない。`spike/` はこの「試行錯誤して不確実性を潰す」という性格を表す
@@ -518,33 +534,29 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 - **実行環境:** `maintenance-plugin-context`が返した技術検証用command・環境だけを使う。返されない時はhost実行・container実行のどちらも推測しない
 - **成果物管理:** repository contextが出力先・ignore方針を返した時だけ従う。返されない時は、検証成果物の保存・commit可否を明示してから進める
 
-**MUST — 状態を頭で抱えない:**
+#### discussionを選んだ場合の境界
 
-論点・提案・却下理由・決定は、生まれた瞬間に task-design-discussion.md に書き出す。
+議論開始後の状態、提案、却下理由、決定をtask-design独自の形式やsession memoryだけで管理しない。task-design agent自身が`facilitate-discussion`を適用し、そのfile更新契約に従う。
 
-理由:
-- 複数論点が並列に走ることがある（ステータス追跡が頭の中だと揮発する）
-- 他エージェントが並行して別論点を解決することがある（共有が必要）
-- セッションが切れることがある（頭の中の状態は引き継げない）
-
-「かっこよく結論まとめてから書く」は禁止。**提案を出した瞬間 / 却下を受けた瞬間 / 決定した瞬間 が記録タイミング**。
+- task-designが行う: §4の設計contextを渡す。一つの論点ごとに返されたdecisionを直ちに`design.md`へ反映し、次の論点より先に残る不確実性を再評価する。
+- task-designが行わない: 論点採番、親子関係、提案番号、iteration、feedback routing、合意確認を独自に組み立てる。
+- `facilitate-discussion`が行う: discussion scopeと対象論点を判定し、完全な現在案、feedback、検証、routing、決定をdiscussion fileへ保存して合意を進める。
 
 ### 副産物: skill / docs 改善ネタが浮上したとき
 
 discussion 中に「この気づき skill に書くべき」「このルール docs に置くべき」と感じることがある。トピックがホットなうちに永続化する。冷めてから書こうとしても文脈が抜けて書けない。
 
-扱いは **design.md に決定を書き戻すのと同列**。特別扱いしない。discussion に論点立て・提案・合意・本体反映、を踏む。
+扱いは **design.md に決定を書き戻すのと同列**。特別扱いしない。task-designは候補と関連contextを`facilitate-discussion`へ渡し、返されたdecisionだけを対象fileへ反映する。
 
 **通常: その場で反映（推奨）**
-1. 副産物論点として task-design-discussion.md に新規エントリ追加（記録タイミングは他論点と同じ — 論点立った瞬間）
-2. 提案を出す（簡易合意ではない。他の議論と同じ重さで提案・根拠・代替案）
-3. ユーザーと議論 → 合意
-4. skill / docs 本体に反映
-5. 元の設計論点に復帰
+1. task-design agentが副産物候補をcontextとして`facilitate-discussion`へ渡す
+2. discussion内部processを新skillへ委ね、decisionとネクストアクションが返るまで本体を変更しない
+3. 返されたdecisionをskill / docs 本体に反映する
+4. 設計全体の不確実性と完了条件を再評価し、次に解消する不確実性を選び直す
 
 **例外: 後回し記録（軽微なときのみ）**
 - typo・1文追加・既存節への例追加 など本体構造に効かないもの
-- task-design-discussion.md に1行メモ → 設計区切りで反映
+- activeな設計論点に混ぜず、設計区切りで別の明示的な変更として扱う
 
 **禁止（3-5 違反）:**
 - 合意なしの本体編集（「指摘されたから直す」を即実行）
@@ -634,8 +646,9 @@ Sonnet がよく陥る穴埋めパターン。設計レビュー時に自分で�
 
 ### F. 状態を頭で抱えた
 
-- [ ] 論点・提案・却下理由を頭で抱えて task-design-discussion.md に書かなかった → 5 Step 3
-- [ ] 「結論まとめてから書く」と思って task-design-discussion.md を後回しにした → 5 Step 3
+- [ ] 議論開始後に`facilitate-discussion`を適用せず、論点・提案・却下理由をsessionだけで管理した → 4 / 5 Step 3
+- [ ] discussion内部processをtask-design側で組み立て直した → 4 / 5 Step 3
+- [ ] task-design固有の設計contextを渡さず、discussionの判断材料まで新skillへ丸投げした → 4 / 5 Step 3
 
 ---
 
@@ -697,10 +710,10 @@ Opus に相談するときはpluginの`design-consult` skillを使う。
 このスキル自体の更新は、このスキルの中身（特に section 3 思想）を自己適用して進める:
 
 - **TBD 込みで全体を先に見せる（3-2）** — 全セクション一気書きはしない。骨格の合意を先に取る
-- **1論点ずつ詰める（5 Step 3）** — 並列で提案を出さない。上位の論点から1つずつ
+- **上位の設計判断を優先する（3-3 / 5 Step 3）** — `design.md`全体で下位判断を最も多く規定する不確実性から解消する
 - **転記禁止（3-5）** — steering や類似スキルの文章をそのまま貼らない。自分で咀嚼して提案する
 - **抽象と具体の往復** — 思想・違反シグナル・帰結・問いの4点セットを崩さない。具体例で地を作る
-- **状態を頭に抱えない（5 Step 3）** — 議論の変遷は記録に残す
+- **discussionを直接管理しない（4 / 5 Step 3）** — task-design固有contextを渡した後の論点・iteration・合意は`facilitate-discussion`へ委ねる
 - **合意なしに型を変えない（3-5）** — 「指摘されたから直す」を即実行しない。今のファイルで合意 → 型に反映
 
 これらは全部このスキル本体に書かれている思想。スキル自体の更新でも例外なく適用される。
@@ -742,7 +755,7 @@ Opus に相談するときはpluginの`design-consult` skillを使う。
 
 - ユーザー明示指示 / Claude 自動判定（ユーザー合意必須）
 - 通常モード開始後でも、議論途中で軽量モードへの切替を提案可
-- 切替時は理由を `task-design-discussion.md` に記録する
+- 切替理由を設計contextとして`facilitate-discussion`へ渡す。discussion fileへの保存方法はtask-design側で定義しない
 
 ### 9-3. 通常モードとの差分
 
@@ -764,16 +777,18 @@ Opus に相談するときはpluginの`design-consult` skillを使う。
 2. `design.md` を最小骨組みで作成
     - 目的 / 完了条件 / 決定事項 セクションのみ
     - 「完成後の姿」「要件」は書かない
-3. 論点1 を `task-design-discussion.md` に起こす
-4. 議論 → 決定
-5. 決定事項を `design.md` の D1 として転記
-6. 論点2 → 論点3 → ... 同様に繰り返し
+3. §5 Step 3の外側loopで、次に解消する設計上の不確実性と解消手段を選ぶ
+4. discussionを選んだ場合は、working directory、`task-design-discussion.md`、§4の設計contextを渡して`facilitate-discussion`を適用する
+5. 一つの論点のdecisionが返るたびに、`design.md`のD1、D2、...へ直ちに反映する。複数decisionを一括反映しない
+6. 一つのdecisionまたは調査・技術検証の事実を反映するたびに完了条件と残る不確実性を再評価し、必要なら§5 Step 3を繰り返す
 7. 完了条件の全チェックボックス ✅ で task-design 完了
+
+軽量modeではdiscussion内部の論点・iteration・合意手順を再定義せず、通常modeと同じ§4のconsumer契約を使う。
 
 ### 9-5. 軽量モードでの成果物の中身
 
 - `design.md`: 「決定事項ストック」中心の構成（D1, D2, ... と決定を積み上げる）。「完成後の姿」「要件」の重量級セクションは持たない
-- `task-design-discussion.md`: 論点1〜N の議論変遷を記録（提起の背景・議論の変遷・決定・ネクストアクション）
+- `task-design-discussion.md`: `facilitate-discussion`の契約に従う議論記録。軽量modeの主成果物だが、entry formatはtask-designで定義しない
 
 ### 9-6. 軽量モードでも適用する原則
 

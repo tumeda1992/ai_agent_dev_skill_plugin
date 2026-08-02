@@ -25,6 +25,7 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 ## 階層構造
 
 - **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。steering / task-design / design-consult を呼ぶ前段にも効く。
+- **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定を指定directoryのMarkdownへ継続記録する。
 - **steering** — Spec-driven plan を `.steering/` に落とす計画フェーズのオーケストレータ。Design 合意 → Tasklist 合意で終了し、実装は別コマンドに渡す。
   - **task-design** — 実装前の不確実性をゼロにする設計プロセス。steering が設計フェーズで委譲する。
 - **tasklist-executor** — steering が生成した `tasklist.md` を上から順に実装・テスト・更新する実行フェーズのオーケストレータ。未完了タスクがなくなるまで繰り返す。

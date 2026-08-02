@@ -8,6 +8,7 @@ docs の書き方・構造化に関する標準を置く場所。
 - **[information_structuring.md](./information_structuring.md)** — 巨大なナレッジをドメイン単位で、正しさの上に理解容易さを積んで構造化するための標準（何をどこに置くか）。
 - **[case_coverage/](./case_coverage/README.md)** — あるドメインの「起こりうるケース」を漏れなく挙げ、漏れていないと読み手が確かめられる形で書くための標準（網羅の作り方）。information_structuring §5（cases）の深掘り。
 - **[expression_notation.md](./expression_notation.md)** — 内容を散文・箇条書き・表・図のどれで書き表すかの標準（記法の使い分け）。
+- **[how_to_write_workflow.md](./how_to_write_workflow.md)** — 任意の成果物内にあるworkflow記述を、scopeとsemantic roleの二軸で構造化し、実行関係に合う記法で表すための標準。
 
 ## 標準の置き方
 

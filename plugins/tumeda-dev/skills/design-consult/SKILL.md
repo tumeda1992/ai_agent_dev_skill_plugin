@@ -76,4 +76,11 @@ description: >
 ## 結果の返し方
 
 Opus の回答をそのままユーザーに見せる。要約・圧縮しない。
-回答の末尾に一行添える:「この分析を discussion.md に記録しますか？」
+回答の末尾に一行添える:「この分析を `facilitate-discussion` を使ってdiscussion fileに記録しますか？」
+
+ユーザーが記録を承認した場合:
+
+1. design-consultのchild subagentへ記録を再委譲しない。このskillを適用している親agentがpluginの`facilitate-discussion` skillを明示適用する。
+2. callerから`discussion_directory`と任意の`discussion_file_name`が渡されていれば、そのconsumer契約を使う。
+3. 保存先が渡されていなければ、`facilitate-discussion`の通常契約どおりdirectoryをユーザーへ確認し、file名はdefaultの`discussion.md`を使う。
+4. 記録の承認はfile作成・追記の承認であり、分析内の全提案への一括合意とは扱わない。分析から生じたdecision scopeごとにself-containedな現在案を作り、必要なら親子論点へ分けて個別に合意する。
