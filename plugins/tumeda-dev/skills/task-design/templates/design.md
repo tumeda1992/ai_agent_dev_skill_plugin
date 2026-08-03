@@ -13,6 +13,18 @@ design.md は「変更点の列挙」ではなく「完成後の世界を事前�
 
 {依頼内容をそのまま記載。全く要約や意訳を加えず、依頼内容をそのままここに転記する}
 
+## 上位roadmap制約（子phaseの場合のみ）
+
+- 親roadmap: `{parent_roadmap_path}`
+- 親phase identity: `{parent_phase_id}`
+- 親phaseの目的: {目的}
+- 親phaseのscope: {scope}
+- 親phaseのscope外: {scope外}
+- 親phaseのDoD: {DoD}
+- 依存phaseの確定結果: {dependency_results}
+
+子phaseでない場合はこのsectionを削除する。子phaseの場合は参考情報ではなく上位制約として扱い、子scopeを親phase scopeよりstrictly narrowerにする。
+
 ---
 
 ## 1. TL;DR

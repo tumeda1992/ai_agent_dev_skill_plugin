@@ -11,7 +11,8 @@ repository contextのlifecycleとpluginの配布version規約はこのskillだ�
 
 このpluginのskill保守で従う規約は `maintenance_policies/` に置く。
 
-- `maintenance_policies/migration.md` — skillを参考元（移植元 upstream）や参照先リポジトリと行き来させる（新規移植・追随・逆輸入）時の規約。**取り込む内容から参照元リポジトリ固有の情報を抜き、汎用知識だけをpluginへ記載する**。skill本体・`.steering/` 成果物・docs・slugすべてに適用する。移植・追随作業を始める前に必ず読む。
+- [`../../docs/common_standard/function_migration_policy.md`](../../docs/common_standard/function_migration_policy.md) — 配置やownerを変えても挙動と意味を全量維持するfunction migrationの共通規範。baseline、二層ledger、個別合意、white-box検証、完了gateの正本。function migrationを始める前に必ず読む。
+- `maintenance_policies/migration.md` — skillを参考元（移植元 upstream）や参照先リポジトリと行き来させる（新規移植・追随・逆輸入）時の追加規約。**取り込む内容から参照元リポジトリ固有の情報を抜き、汎用知識だけをpluginへ記載する**。skill本体・`.steering/` 成果物・docs・slugすべてに適用する。共通規範とこのfileを移植・追随作業の前に必ず読む。
 
 ## Plugin version
 
@@ -70,13 +71,15 @@ consumer固有情報 ∪ (共通情報 ∩ consumerが直接使う項目)
 | --- | --- |
 | `think-through` | プロジェクト指示 |
 | `doc-enricher` | プロジェクト指示、アーキテクチャ文書 |
-| `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針 |
-| `steering` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |
+| `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |
+| `steering` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針 |
 | `visual-inspector` | プロジェクト指示 |
 | `tasklist-executor` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |
 | `test-runner` | プロジェクト指示、テスト方針、全体 test command |
 
 consumerのH2以外と、表にない`共通`項目は返さない。新しいconsumerまたは新しい共有項目は、consumerが必要理由を添えて明示した時だけ追加する。
+
+task-designがexecution planを設計する時は、全体test/lint commandに加え、`## task-design`内のUI確認環境とGit/GitHub公開条件を必要factとして要求できる。これらはtasklistへ検証・公開actionを含めるか判断するためのcontextであり、steering固有情報として返さない。
 
 ## 返却形式
 

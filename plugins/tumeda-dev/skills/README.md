@@ -26,9 +26,9 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 
 - **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。steering / task-design を呼ぶ前段にも効く。
 - **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定を指定directoryのMarkdownへ継続記録する。
-- **steering** — Spec-driven plan を `.steering/` に落とす計画フェーズのオーケストレータ。Design 合意 → Tasklist 合意で終了し、実装は別コマンドに渡す。
-  - **task-design** — 実装前の不確実性をゼロにする設計プロセス。steering が設計フェーズで委譲する。
-- **tasklist-executor** — steering が生成した `tasklist.md` を上から順に実装・テスト・更新する実行フェーズのオーケストレータ。未完了タスクがなくなるまで繰り返す。
+- **steering** — task-designの`tasklist_ready | roadmap_ready`をdispatchし、roadmapの子steering binding・status伝播・再帰実行を担うruntime orchestrator。
+  - **task-design** — designと排他的な`tasklist.md | roadmap.md`の設計・review・合意を一つの収束loopで所有するexecution plan設計owner。
+- **tasklist-executor** — task-designが生成した`tasklist.md`を上から順に実装・テスト・更新するsingle execution writer。roadmapは更新せず、完了resultをcallerへ返す。
   - **test-runner** — テスト実行と失敗分析。executor が共通契約で child 委譲する。
   - **visual-inspector** — Playwright で UI をスクリーンショット目視確認。executor が委譲する（steering も現状のファクト確認に使う）。
 - **doc-enricher** — コードリーディング/タスク遂行後、永続性が高い知識をディレクトリ README に提案する（デフォルトは提案のみ）。

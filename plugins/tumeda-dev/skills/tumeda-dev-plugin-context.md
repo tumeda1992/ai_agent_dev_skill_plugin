@@ -16,23 +16,27 @@
 
 ## task-design
 
-参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)
-
-<!-- 技術検証 command、成果物配置、技術検証制約など、task-design 固有事項だけこの下に記載 -->
-
-## steering
-
 参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)、[全体 test command](#全体-test-command)、[全体 lint command](#全体-lint-command)
 
-<!-- steering root、UI確認手段、GitHub、branch / issue 契約、tasklist 固有制約だけこの下に記載 -->
+<!-- 技術検証 command、成果物配置、技術検証制約、tasklist設計で必要な事項だけこの下に記載 -->
 
-### GitHub
+### UI確認環境
 
-<!-- GitHub remote を記載。例: `origin は GitHub`。 -->
+<!-- UI確認の要否を判断するためのapp・検査環境。認証情報そのものは書かない -->
+
+### Git / GitHub公開条件
+
+<!-- commit、push、PRをtasklistへ含められる条件、remote、branch規約。公開を常に要求する記述にはしない -->
 
 ### Branch / issue 契約
 
 <!-- branch / issue の対応規約を記載。例: `feature-<issue番号>` は GitHub Issue 番号に対応する -->
+
+## steering
+
+参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)
+
+<!-- steering root、roadmap binding・status伝播に必要な制約だけこの下に記載 -->
 
 ## visual-inspector
 

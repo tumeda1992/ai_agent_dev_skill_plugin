@@ -47,6 +47,19 @@ function forbidText(relativePath, forbidden, label = forbidden) {
   }
 }
 
+function requireOrderedText(relativePath, expectedItems, label) {
+  const source = read(relativePath);
+  let previousIndex = -1;
+  for (const expected of expectedItems) {
+    const index = source.indexOf(expected);
+    if (index === -1 || index <= previousIndex) {
+      failures.push(`${relativePath}: 必須順序「${label}」を満たさない`);
+      return;
+    }
+    previousIndex = index;
+  }
+}
+
 function requireExists(relativePath) {
   if (!existsSync(resolve(root, relativePath))) {
     failures.push(`${relativePath}: 必須pathが存在しない`);
@@ -249,15 +262,26 @@ requireText(discussionMetadata, "allow_implicit_invocation: false");
 const discussionConsumers = [
   skillPath("task-design/SKILL.md"),
   skillPath("steering/SKILL.md"),
-  skillPath("steering/templates/tasklist.md"),
+  skillPath("task-design/templates/tasklist.md"),
 ];
 for (const relativePath of discussionConsumers) {
   requireText(relativePath, "facilitate-discussion");
 }
 const taskDesignSkill = skillPath("task-design/SKILL.md");
+const taskDesignTemplate = skillPath("task-design/templates/design.md");
 requireText(taskDesignSkill, "discussion_file_name=task-design-discussion.md");
 for (const expected of [
   "### Step 3. 未解消の設計判断を解消する",
+  "### Step 0.5. 配置先確定",
+  "### Step 0.75. 設計前調査",
+  "`working_dir`を確定した後、初稿を書く前に",
+  "GraphQL mutationまたはCommand",
+  "関連moduleのREADMEを先に読み",
+  "pluginの`visual-inspector`をchildとして使い",
+  "#### investigation.mdのlifecycle",
+  "調査目的、未確定の判断、確認方法、終了条件",
+  "#### requirements.mdの切り出し",
+  "独立fileにするとreview可能性が上がる場合だけ",
   "working_dir_parent",
   "create_working_dir",
   "defaultは`true`",
@@ -278,6 +302,17 @@ for (const expected of [
 ]) {
   requireText(taskDesignSkill, expected);
 }
+requireOrderedText(
+  taskDesignSkill,
+  [
+    "### Step 0. トリガー判定",
+    "### Step 0.5. 配置先確定",
+    "### Step 0.75. 設計前調査",
+    "### Step 1. 初稿（TBD 込み）を作る",
+  ],
+  "配置先確定後に設計前調査を行うflow",
+);
+forbidText(taskDesignSkill, "### Step 0.25. 設計前調査");
 for (const forbidden of [
   "### Step 3. 論点を1つずつ詰める（イテレーション）",
   "上位論点に対して、自分で先に考えた提案₀を出す",
@@ -289,12 +324,137 @@ for (const forbidden of [
 requireText(skillPath("steering/SKILL.md"), "discussion_directory=<steering directory>");
 requireText(skillPath("steering/SKILL.md"), "discussion_file_name=implementation_review.md");
 requireText(skillPath("steering/SKILL.md"), "working_dir_parent=<steering ディレクトリの絶対パス>");
-requireText(skillPath("steering/SKILL.md"), "create_working_dir=true");
 requireText(skillPath("steering/SKILL.md"), "create_working_dir=false");
-requireText(skillPath("steering/templates/tasklist.md"), "## 設計参照");
-requireText(skillPath("steering/templates/tasklist.md"), "implementation_review.md");
+requireText(skillPath("task-design/templates/tasklist.md"), "## 設計参照");
+requireText(skillPath("task-design/templates/tasklist.md"), "./design.md");
+requireText(skillPath("task-design/templates/tasklist.md"), "facilitate-discussion");
+requireText(skillPath("task-design/templates/tasklist.md"), "implementation_review.md");
+requireText(skillPath("task-design/templates/tasklist.md"), "特定の`steering` callerへ固定しない");
 requireText(skillPath("README.md"), "facilitate-discussion");
 requireAbsent(skillPath("design-consult/SKILL.md"));
+
+const steeringSkill = skillPath("steering/SKILL.md");
+requireFrontmatter(steeringSkill, "明示指定時");
+requireFrontmatter(steeringSkill, "軽度でない複数file・複数stepの変更時");
+requireFrontmatter(steeringSkill, "Agent");
+requireFrontmatter(taskDesignSkill, "model: opus");
+requireFrontmatter(steeringSkill, "model: sonnet");
+requireFrontmatter(steeringSkill, "effort: high");
+for (const relativePath of [taskDesignSkill, steeringSkill]) {
+  requireText(
+    relativePath,
+    "ユーザーとの会話と成果物本文は日本語で記述する。code、command、path、identifier、規定された出力形式、固有名詞は原文を維持する。",
+  );
+}
+for (const expected of [
+  "## Plan合意後の必須gate",
+  "`tasklist_ready | roadmap_ready`のどちらでも",
+  "`doc-enricher`を提案modeで適用",
+  "明示承認された提案だけを適用",
+  "再発防止review",
+  "ユーザーの明示確認",
+  "`roadmap_ready`を受けたこと自体を子実行の承認とみなさない",
+]) {
+  requireText(steeringSkill, expected);
+}
+requireText(steeringSkill, "# {YYYY}年{MM}月 Steering サマリー");
+for (const expected of [
+  "parent_roadmap_path",
+  "parent_phase_id",
+  "parent_design_path",
+  "dependency_results",
+  "上位roadmap制約",
+  "親phase identity",
+  "strictly narrower",
+]) {
+  requireText(taskDesignSkill, expected);
+}
+for (const expected of [
+  "## 上位roadmap制約（子phaseの場合のみ）",
+  "{parent_roadmap_path}",
+  "{parent_phase_id}",
+  "{dependency_results}",
+]) {
+  requireText(taskDesignTemplate, expected);
+}
+
+const tasklistDesign = skillPath("task-design/tasklist-design.md");
+const roadmapDesign = skillPath("task-design/roadmap-design.md");
+const tasklistTemplate = skillPath("task-design/templates/tasklist.md");
+const roadmapTemplate = skillPath("task-design/templates/roadmap.md");
+for (const relativePath of [
+  tasklistDesign,
+  roadmapDesign,
+  tasklistTemplate,
+  roadmapTemplate,
+]) {
+  requireExists(relativePath);
+}
+requireAbsent(skillPath("steering/templates/tasklist.md"));
+requireAbsent(skillPath("steering/templates/roadmap.md"));
+for (const expected of [
+  "tasklist-design.md",
+  "roadmap-design.md",
+  "先頭から末尾まで完全に読む",
+  "tasklist_ready",
+  "roadmap_ready",
+  "plan reviewからdesignへ戻る未解消feedbackがない",
+]) {
+  requireText(taskDesignSkill, expected);
+}
+requireText(tasklistDesign, "親roadmapを探索・更新するtaskを含めない");
+requireText(tasklistDesign, "自己レビューgate");
+for (const expected of [
+  "実装可能で今回の完了に必要なtaskだけ",
+  "将来やるかもしれない",
+  "最初の実装phaseへ置く",
+  "良い分割:",
+  "悪い分割:",
+  "時間不足、難しさ、host停止、tool制限、外部環境未準備を取消理由にしない",
+]) {
+  requireText(tasklistDesign, expected);
+}
+requireText(roadmapDesign, "strictly narrower");
+requireText(roadmapDesign, "依存関係はcycleを持たないDAG");
+requireText(roadmapDesign, "一つだけの子");
+requireText(roadmapTemplate, "構造field（task-designが設計・reviewする）");
+requireText(roadmapTemplate, "運用field（steeringだけが更新する）");
+
+for (const expected of [
+  "working_dir_parent=<steering ディレクトリの絶対パス>",
+  "create_working_dir=false",
+  "`tasklist_ready`",
+  "`roadmap_ready`",
+  "子steering path、status、完了日だけ",
+  "dependency_results=<依存phaseの確定結果>",
+  "全phase完了",
+  "tasklist status: checkbox",
+  "roadmap status: 全phaseの運用status",
+  "旧形式",
+  "同じ作業中はbasenameを変更せず",
+  "一か月前",
+  "各steering実行時にもstatusを手動更新しない",
+  "feedback原文",
+  "既に修正済みのfeedbackでも記録を省略しない",
+  "reviewのdecisionやtask追加後も実装を自動再開しない",
+]) {
+  requireText(steeringSkill, expected);
+}
+for (const expected of [
+  "adopt_task_design_working_dir=<absolute path>",
+  "source basenameは`YYYYMMDD-slug`",
+  "`tasklist.md`が併存しない",
+  "未解消TBD",
+  "repository内",
+  "exact sourceとexact destination",
+  "destinationが存在しない",
+  "明示承認",
+  "merge、overwrite、suffix追加、自動copy/delete",
+  "directory全体を一度だけ",
+  "`steering.json`や旧sourceへのpointerは作らない",
+]) {
+  requireText(steeringSkill, expected);
+}
 
 for (const relativePath of discussionConsumers) {
   forbidText(relativePath, "templates/discussion_entry.md", "旧discussion template path");
@@ -334,6 +494,21 @@ for (const relativePath of agentDerivedSkills) {
   requireText(relativePath, "Codex");
 }
 requireText(skillPath("tasklist-executor/SKILL.md"), "tasklist、DoD判定、checkbox、child結果の転記を更新するのはこのskillだけ");
+requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "model: sonnet");
+requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "context: fork");
+requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "effort: medium");
+for (const expected of ["Read", "Grep", "Glob", "Edit", "Write", "Bash", "Agent"]) {
+  requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), expected);
+}
+for (const expected of [
+  "同directoryの`./design.md`",
+  "別directoryを探索・推測せず`blocked`",
+  "`roadmap.md`を作成・更新しない",
+  "親roadmap pathを探索せず",
+  "tasklist完了resultだけをcallerへ返す",
+]) {
+  requireText(skillPath("tasklist-executor/SKILL.md"), expected);
+}
 requirePattern(
   skillPath("tasklist-executor/SKILL.md"),
   /failed[\s\S]{0,160}blocked[\s\S]{0,160}\[ \]/u,
@@ -458,14 +633,108 @@ if (failedFixture && !failedFixture.summary.includes("未完了")) {
   failures.push(`${failedPath}: failed resultはtaskの未完了維持を明示する`);
 }
 
+const prHelper = skillPath(
+  "tasklist-executor/scripts/github/create_or_get_pr.sh",
+);
+requireExists(prHelper);
+requireAbsent(skillPath("steering/scripts/github/create_or_get_pr.sh"));
+requireText(tasklistDesign, "tasklist-executor/scripts/github/create_or_get_pr.sh");
+requireText(tasklistTemplate, "tasklist-executor/scripts/github/create_or_get_pr.sh");
+for (const expected of [
+  "phase末や作業末にまとめて更新しない",
+  "時間不足",
+  "合意済みplanの変更によって元taskが不要または別実装へ置換",
+  "原文、関連する実装・design・plan、原因、採用方針、決定",
+  "review後に実装を自動再開しない",
+  "current branchが公開可能なnon-default branch",
+]) {
+  requireText(tasklistTemplate, expected);
+}
+requireText(
+  skillPath("tasklist-executor/SKILL.md"),
+  "host・tool・外部環境が動かない",
+);
+
+const migrationPolicy = skillPath(
+  "maintenance-plugin-context/maintenance_policies/migration.md",
+);
+const functionMigrationPolicy = `${pluginRoot}/docs/common_standard/function_migration_policy.md`;
+requireExists(functionMigrationPolicy);
+for (const expected of [
+  "function_migration_policy.md",
+  "機密情報を残すことも、汎用化を理由にfunctionを薄めることも許可しない",
+]) {
+  requireText(migrationPolicy, expected);
+}
+for (const expected of [
+  "移行前の能力",
+  "ユーザーが変更として明示指示した追加・変更",
+  "実装者の提案にユーザーが明示合意した追加・変更",
+  "構造ledger",
+  "contract ledger",
+  "未分類削除と未分類追加は常に失敗",
+  "## 5. 変更が必要なときの合意gate",
+  "## 7. White-box検証",
+  "Git差分の削除行",
+  "Git追加行と移行後の全contract",
+  "独立した章を薄い箇条書き一つへ置き換え",
+  "black-box検証をwhite-box検証の代替にしてはならない",
+  "失敗実装へ継ぎ足す",
+  "未監査 0 / 未分類削除 0 / 未分類追加 0",
+]) {
+  requireText(functionMigrationPolicy, expected);
+}
+requireText(
+  migrationPolicy,
+  "固有情報の除去と意味保存を同時に満たせないcontractは移植を停止する",
+);
+
+for (const forbidden of [
+  "### 4) Designレビュー",
+  "### 7) tasklist の自己レビュー",
+  "create_working_dir=true`を渡す",
+]) {
+  forbidText(steeringSkill, forbidden, "steeringへ逆流した旧plan設計契約");
+}
+forbidText(
+  tasklistTemplate,
+  "（親ロードマップがある場合のみ）親の `roadmap.md`",
+  "tasklistから親roadmapを更新する旧契約",
+);
+
+const contextMaintainer = skillPath("maintenance-plugin-context/SKILL.md");
+const contextTemplate = skillPath("tumeda-dev-plugin-context.md");
+for (const expected of [
+  "| `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |",
+  "UI確認環境とGit/GitHub公開条件",
+  "steering固有情報として返さない",
+]) {
+  requireText(contextMaintainer, expected);
+}
+for (const expected of [
+  "## task-design",
+  "### UI確認環境",
+  "### Git / GitHub公開条件",
+  "## steering",
+  "roadmap binding・status伝播に必要な制約",
+]) {
+  requireText(contextTemplate, expected);
+}
+
 const portableFiles = [
   skillPath("doc-enricher/SKILL.md"),
   discussionSkill,
   discussionMetadata,
   discussionTemplate,
   skillPath("task-design/SKILL.md"),
+  tasklistDesign,
+  roadmapDesign,
+  tasklistTemplate,
+  roadmapTemplate,
   skillPath("steering/SKILL.md"),
-  skillPath("steering/templates/tasklist.md"),
+  prHelper,
+  contextMaintainer,
+  contextTemplate,
   runtimeContract,
   ...agentDerivedSkills,
 ];

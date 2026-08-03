@@ -28,7 +28,6 @@ design や planning は行わない。
 parentは次を渡す。
 
 - 合意済みtasklist path
-- design path（存在する場合）
 - 実行範囲または開始task
 - 対応するDoD
 - maintainerが返した許可済みrepository context
@@ -38,7 +37,7 @@ parentは次を渡す。
 
 task実行にプロジェクト指示、アーキテクチャ・開発・test方針、全体test/lint commandが必要な時は、`maintenance-plugin-context`へconsumer=`tasklist-executor`、必要理由、必要fact、確認元候補を渡す。tasklist.mdとdesign.mdの要求を置き換えず、返された範囲だけを実行条件として使う。
 
-tasklist.md が与えられていないときには、tasklist.md を要求して終了する。
+tasklist.md が与えられていないときには、tasklist.md を要求して終了する。受け取ったtasklist pathを絶対pathへ解決し、その同directoryの`./design.md`を設計の正本として必ず読む。sibling designが存在しない場合は別directoryを探索・推測せず`blocked`で返す。
 
 # 最重要原則
 - tasklist.md に `[ ]` が残る状態で`completed`を返さない。共通契約のcheckpoint / delegation / confirmation / blocked / limitでは、未完了状態を明示して安全に停止できる
@@ -48,9 +47,10 @@ tasklist.md が与えられていないときには、tasklist.md を要求し�
   - テストは green を確認してから `[x]`
   - visual-inspector の確認は「期待通りの表示・動作」を確認してから `[x]`。エラー・クラッシュ・意図しない表示が出た場合は未完了のまま修正して再確認する
 - 大きすぎるタスクは tasklist.md にサブタスクを追記して分割する
-- 技術的理由で不要になったタスクだけ、理由付きで打ち消し完了にできる
-- 「難しいので後回し」「別タスクで実施予定」は禁止
+- 合意済みplanの変更により元taskが不要または別実装へ置換された時だけ、変更理由と合意を記録して打ち消し完了にできる
+- 「難しいので後回し」「別タスクで実施予定」「時間不足」「host・tool・外部環境が動かない」を取消理由にすることは禁止する。これらは`[ ]`のまま適切な停止理由を返す
 - tasklist、DoD判定、checkbox、child結果の転記を更新するのはこのskillだけとする
+- `roadmap.md`を作成・更新しない。親roadmap pathを探索せず、tasklist完了resultだけをcallerへ返す。roadmapのstatus伝播はcallerの責務である
 
 # 停止・再開
 
@@ -126,7 +126,7 @@ Codexでは親sessionがこのskillをchildとして起動し、必須入力を�
 
 # 返却
 
-停止時は、共通契約の停止理由、完了task、次の未完了task、pending request/result、実行した検証を親へ返す。全task完了時も、tasklistが定めるユーザー動作確認より先にcommit・push・PRへ進まない。
+停止時は、共通契約の停止理由、完了task、次の未完了task、pending request/result、実行した検証を親へ返す。全task完了時はtasklist path、sibling design path、完了結果をcallerへ返すが、親roadmapを探索・更新しない。tasklistが定めるユーザー動作確認より先にcommit・push・PRへ進まない。
 
 # 禁止事項
 - design.md を勝手に再設計しない
@@ -137,3 +137,4 @@ Codexでは親sessionがこのskillをchildとして起動し、必須入力を�
 - tasklist にない大きな追加実装を勝手に始めない
 - ユーザー許可なしにコミットすること（コミットルールは tasklist の「完了後のアクション」に従う）
 - childへtasklist、DoD最終判定、実装変更を委ねること
+- roadmapの作成・構造変更・運用field更新

@@ -1,7 +1,7 @@
 ---
 name: steering
-description: "Spec-driven plan を steering に落とす。Design合意→Tasklist合意で終了。実装は別コマンド。明示的に指定されたときはもちろん、軽度の修正でない場合（複数ファイルの編集、ステップを持つ修正）にはこのスキルを起動する"
-allowed-tools: Read, Grep, Write, Edit, Bash
+description: "task-designのready resultをdispatchし、roadmap treeを子steeringへbindingして実行する。計画構造はtask-design、runtime orchestrationはsteeringが所有する。明示指定時、および軽度でない複数file・複数stepの変更時に起動する"
+allowed-tools: Read, Grep, Write, Edit, Bash, Agent
 model: sonnet
 effort: high
 ---
@@ -9,413 +9,312 @@ effort: high
 # Steering Skill
 
 ## 入力
-- ユーザー入力（/plan の引数）: **やりたいこと**
+
+- ユーザー入力: **達成したいこと**
+- 子roadmap phaseの場合: `parent_roadmap_path`、`parent_phase_id`、`parent_design_path`、`dependency_results`
+- standalone roadmapを昇格する場合: `adopt_task_design_working_dir=<absolute path>`
+
+## 役割とゴール
+
+steeringはtask-designのcaller兼plan orchestratorである。repository contextとcanonical working directoryを準備し、task-designが返す`tasklist_ready | roadmap_ready`をdispatchする。
+
+- `tasklist_ready`: leafとして、plan合意後の必須gateとユーザーの実装開始確認を経てtasklist-executorへ渡す。
+- `roadmap_ready`: compositeとして、同じ必須gateと開始確認を経てphaseを子steeringへbindingし、依存順に再帰実行する。
+- roadmapの構造fieldはtask-design、子steering path・status・完了日はsteeringが所有する。
+
+steeringはdesign、tasklist、roadmapの内容を設計または重複reviewしない。task-designのready resultを受けても自動的に実装へ進まない。task-designのplan合意、plan合意後の必須gate、ユーザーの開始確認がすべて完了するまで、tasklist-executorも子steeringも起動しない。
 
 ## repository固有文脈
 
-プロジェクト指示、設計・開発規約、test/lint command、UI確認環境、GitHub公開規約のようなrepository固有factは、`maintenance-plugin-context`へconsumer=`steering`、必要理由、必要fact、確認元候補を渡して解決する。返された範囲だけを読む。固定の`CLAUDE.md`、`docs/`、backend/frontend path、command、remoteを推測して読まない。
+プロジェクト指示、設計・開発規約、roadmap orchestrationに必要なrepository固有factは、`maintenance-plugin-context`へconsumer=`steering`、必要理由、必要fact、確認元候補を渡して解決する。返された範囲だけを読む。固定の`CLAUDE.md`、`docs/`、backend/frontend path、command、remoteを推測して読まない。
 
----
+## 記述規則
 
-## ゴール
-`.steering/.../<task-design-directory>/design.md` を作って合意し、その後 `.steering/.../tasklist.md`（詳細タスク）を作って合意して終了する。
-**このスキルはtasklistが完全に出来上がり合意できるまで実装しない**。
+- ユーザーとの会話と成果物本文は日本語で記述する。code、command、path、identifier、規定された出力形式、固有名詞は原文を維持する。
+- **全成果物（`design.md`、`tasklist.md | roadmap.md`、`discussion.md`、`implementation_review.md`等）でdomain固有名詞を略称で書かない。** class名、model名、operation名は完全な名前で書く。内部だけで通じる頭字語は、未来の読み手に意味の再調査を強制しreading costを上げる。
+  - 悪い例: 「UPの権限を確認する」「PMを作成する」
+  - 良い例: 「`UserProfile`の権限を確認する」「`PaymentMethod`を作成する」
 
-## 注意事項
-- 会話は日本語で行うこと。
-- **全成果物（design.md / tasklist.md / discussion.md 等）でドメイン固有名詞を略称で書かないこと**。クラス名・モデル名などはフルネームで書く。略称（社内でのみ通じる頭字語）はリーディングコストを上げる
-    - 悪い例: 「UP の権限を確認する」「PM を作成する」
-    - 良い例: 「UserProfile の権限を確認する」「PaymentMethod を作成する」
+## 命名規則とcanonical directory
 
----
+新規steeringでは、ユーザー入力と実行時のlocal dateを`name-work-directory`へ渡し、`YYYYMMDD-slug`のbasenameを一つ受け取る。steeringが英語要約、slug、日付を独自に決めず、同じ作業中はbasenameを変更せず使い続ける。
 
-## 命名規則
+basenameの日付部分から`YYYY`と`YYYYMM`を得て、次のpathを管理する。
 
-`name-work-directory` にユーザー入力（やりたいこと）と実行時のローカル日付を渡し、`YYYYMMDD-slug` の basename を一つ受け取る。この skill が英語要約、slug、日付を決める。返された basename は同じ作業中に変更しない。
+```text
+.steering/YYYY/YYYYMM/YYYYMMDD-slug/
+```
 
-steering は basename の日付部分から `YYYY` と `YYYYMM` を得て、次のパスを管理する:
+このpathがsteering directoryであり、task-design working directoryでもある。steeringは親directoryの作成と前月summary生成を担当する。branch名の取得・埋込み・衝突確認をbasenameへ持ち込まない。
 
-- `.steering/YYYY/YYYYMM/YYYYMMDD-slug/`
+rootへ次を置く。
 
-steering は親ディレクトリの作成と前月 summary の生成を担当する。branch 名の取得・埋め込み・衝突確認は担当しない。
+- `design.md`
+- `task-design-discussion.md`
+- 排他的な`tasklist.md | roadmap.md`
+- 任意の`discussion.md`
+- 任意の`implementation_review.md`
+- 必要時だけ`investigation.md`、`requirements.md`、`spike/`
 
----
+task-design専用子directory、`task_design_dir`探索、`steering.json`を新規flowで作らない。
 
-## 成果物
-- `<task-design-directory>/design.md`（requirements相当を内包）
-- `<task-design-directory>/requirements.md`（必要時のみ。design から切り出し）
-- `tasklist.md`（詳細タスク。実行はしない）
-- `discussion.md`（任意。五月雨に起こった思考過程・**実装前**設計議論の保存場所）
-- `implementation_review.md`（任意。**実装完了後**レビューで判明した漏れ・追加要件の収集場所）
-  - discussion.md は実装前の設計議論、implementation_review.md は実装後フィードバック
-  - 複数のフィードバックが揃ったら、新しい steering を起動して設計・タスク整理を行う
-  - 整理された追加タスクは **既存の tasklist.md に追記する**
-  - 理由: tasklist は「この機能を完成させるためのチェックリスト」。納品物は tasklist ではなく機能であり、追加要件が判明しても同じ機能の完成を目指す以上、tasklist は生き続ける
+## 成果物のlifecycle
 
----
+- `design.md`: 合意済み設計の正本。
+- `requirements.md`: Requirementsが長く、独立fileにするとreview可能性が上がる時だけdesignから切り出す。
+- `task-design-discussion.md`: task-designの設計収束過程の正本。
+- `tasklist.md | roadmap.md`: task-designが合意済みdesignから作る排他的execution plan。
+- `discussion.md`: steering固有の随時議論、orchestration上の推論、他成果物へ収まらない背景。
+- `implementation_review.md`: 実装、review、validation、ユーザー動作確認後に判明したfeedback・ずれの正本。
 
-### discussion.md の使い方（随時）
+同じfeatureの追加taskは、designとplanを再合意した後に既存tasklistへ追記する。tasklistは「このfeatureを完成させるためのchecklist」であり、納品物はtasklistではなくfeatureなので、追加要件が判明しても同じfeatureの完成まで生き続ける。
 
-五月雨に起こった思考過程を保存する場所。特定のフェーズには縛られず、記録の価値がある思考が生まれたときに随時追記する。
+### 非規範的なlegacy memo
 
-steeringは、steering directory、通常discussionの起動判断、関連成果物のcontext、決定後のphase制御、終了条件を所有する。ユーザーが論点・質問・要議論を提起した場合、またはsteering agentの検討が複数往復を要するdecisionになった場合に通常discussionを開始する。
+過去には「複数のfeedbackが揃ったら新しいsteeringを起動する」という方針があった。現在の起動条件、推奨動作、fallbackではない。将来必要になった場合だけ、ユーザーとの明示合意により復活を検討する。
 
-議論開始後はsteering agent自身が次を渡してpluginの`facilitate-discussion` skillを明示適用する。file名はdefaultの`discussion.md`を使う。議論だけを別child agentへ再委譲しない。
+## discussion.mdの使い方（随時）
+
+`discussion.md`は特定phaseへ縛らず、記録価値のあるsteering固有の思考が生じた時に随時追記する。ユーザーが論点・質問・要議論を提起した場合、またはsteering agentの検討が複数往復を要するdecisionになった場合に通常discussionを開始する。
+
+steeringはsteering directory、起動判断、関連成果物のcontext、決定後のphase制御、終了条件を所有する。議論開始後はsteering agent自身が次を渡してpluginの`facilitate-discussion` skillを明示適用し、議論だけを別child agentへ再委譲しない。
 
 ```text
 discussion_directory=<steering directory>
 ```
 
-discussion fileの解決、entry形式、合意対象保存、採番、親子validation、feedback routing、履歴と現在状態の更新は`facilitate-discussion`が所有する。決定後はsteeringがdesign修正、tasklist修正、調査、文書改善review等の適切なphaseへ戻す。
+discussion fileの解決、entry形式、合意対象保存、採番、親子validation、feedback routing、履歴と現在状態の更新は`facilitate-discussion`が所有する。steering内へtemplate全文、採番、feedback iteration、原因追跡、種別等の内部processを複製しない。決定後はsteeringがdesign、plan、調査、文書改善review等の適切なphaseへ戻す。
 
-**主な用途:**
-- 設計前の認識合わせ（pre-design 議論）: 複数の選択肢を往復して検討した過程
-- 設計中に生まれた疑問・文脈メモ: 成果物には入らないが捨てたくない思考
-- こぼれ話: design.md / investigation.md / tasklist.md に収まらない判断の背景
+主な用途:
 
-**investigation.md との違い:**
-- investigation.md: 「事実を集めないと方針が決まらない」ときのファクト収集ログ
-- discussion.md: 「どう考えたか」の思考過程ログ（事実収集ではなく推論・議論）
+- pre-designの認識合わせ: 複数の選択肢を往復して検討した過程
+- orchestration中に生じた疑問・背景: designやplanへ入らないが捨てない思考
+- design、investigation、plan、implementation reviewのいずれにも属さないこぼれ話
 
-entry形式とdiscussionの具体的な進行・記録timingは`facilitate-discussion`だけを正本とする。steering内へtemplate全文、採番、feedback iteration、原因追跡、種別等の手順を複製しない。
+`investigation.md`は、事実を集めなければ設計方針が決まらない時のfact収集logである。`discussion.md`は、どう考えたかという推論・議論のlogであり、目的、確認方法、実測結果を持つ調査の正本にしない。
 
----
+## Flow（順序固定）
 
-## フロー（順序固定）
+### Step 1. steering directoryと前月summaryを準備する
 
-### 1) steering ディレクトリ作成
-1. `name-work-directory` を呼び、`[YYYYMMDD]-[slug]` の basename を決める
-2. `.steering/[YYYY]/[YYYYMM]/` ディレクトリが存在しなければ作成する
-   - 例: `.steering/2026/202604/`
-3. `.steering/[YYYY]/[YYYYMM]/[YYYYMMDD]-[slug]/` を作成する
-4. **前月分 summary.md の自動まとめ**（前月ディレクトリが存在し、その月の `summary.md` が **未存在** のときのみ実行）
-   - 対象月の **1 ヶ月前**（`.steering/[YYYY]/[YYYYMM-1]/`、年をまたぐなら前年12月）のディレクトリが存在するか確認する
-   - 該当ディレクトリ配下に `summary.md` が **既に存在する** 場合は何もしない
-   - **未存在** の場合のみ以下を実行:
-       - 前月配下の各 steering ディレクトリを `ls` で列挙する
-       - 各ディレクトリから概要・ステータスを抽出する:
-           - **概要**: steering直下の`design.md`を確認し、存在しなければ直下の子ディレクトリから`design.md`を探す。対象が一つに定まる場合、その`## 1. TL;DR`本文の最初の段落を抽出する（無ければ`## 目的`の最初の段落。それも無ければ`{slug}（概要抽出不可、design.md 参照）`）。子ディレクトリ側の候補が複数ある場合は推測せず概要抽出不可とする
-           - **ステータス**: `tasklist.md` のチェックボックスで判定（全 `[x]` → `完了` / `[ ]` が残る → `未完了` / `tasklist.md` 不在（roadmap 等）→ `不明`）
-       - 下記書式で `summary.md` を生成する
+1. `name-work-directory`で`YYYYMMDD-slug`を決める。
+2. `.steering/YYYY/YYYYMM/`がなければ作成する。
+3. `.steering/YYYY/YYYYMM/YYYYMMDD-slug/`を作成する。
+4. 実行月の一か月前（年を跨ぐ場合は前年12月）のdirectoryが存在し、その月の`summary.md`が未存在の場合だけ、前月summaryを生成する。
+   - 既存`summary.md`があれば何もしない。追記、再生成、status更新をしない。
+   - 前月配下の各steering directoryを列挙する。
+   - 概要はrootの`design.md`から抽出する。rootにない旧形式だけ、直下の子directoryから一意な`design.md`を探す。候補が複数なら推測しない。
+   - `## 1. TL;DR`本文の最初の段落を優先し、なければ`## 目的`の最初の段落、それもなければ`{slug}（概要抽出不可、design.md 参照）`とする。
+   - tasklist status: checkboxがすべて`[x]`なら`完了`、`[ ]`が残れば`未完了`、判定不能なら`不明`とする。
+   - roadmap status: 全phaseの運用statusが`完了`なら`完了`、一つでも`未着手 | 進行中`なら`未完了`、fieldを判定できなければ`不明`とする。
 
-   自動まとめエントリ書式（`# [YYYY]年[MM]月 Steering サマリー` ヘッダ + 各 steering につき）:
+summaryは次のexact formatを使う。
 
-   ```markdown
-   ## [{slug}](./{slug}/)
+```markdown
+# {YYYY}年{MM}月 Steering サマリー
 
-   **概要:** {概要}
+## [{slug}](./{slug}/)
 
-   **ステータス:** {完了 / 未完了 / 不明}
+**概要:** {概要}
 
-   ---
-   ```
-
-   エントリは slug（リンク）+ 概要 + ステータスのみ。種別 / 関連 / 詳細フィールドは持たない。詳細は各 steering の design.md / discussion.md を参照する。
-
-   注: 各 steering 実行時の summary.md 追記・ステータス更新は **行わない**（旧仕様廃止）。`summary.md` への書き込みは翌月初のこの自動まとめのみ。複数人並行作業時の `summary.md` コンフリクトを最小化するための仕様。
-
-> この時点では design.md / tasklist は作らない
+**ステータス:** {完了 / 未完了 / 不明}
 
 ---
+```
 
-### 2) 読み取り調査（Designの根拠を集める）
-- 先に`maintenance-plugin-context`から、今回必要なプロジェクト指示、設計・開発規約、test/lint方針を得る
-- 返された文書だけを読む
-- Grep で類似実装を探す
-    - 類似機能
-    - 命名
-    - 例外処理
-    - テスト方針
-    - レイヤ/責務境界
-- **GraphQL mutation / Command の変更・追加を含む場合（MUST）**:
-    - 関連モジュールの README を先に読み、オーケストレーションパターンを把握する
-    - README に記載がない場合のみ、既存の関連 resolver の実装を読む
-    - 把握すべき観点: 「どのドメイン集約が、どのレイヤで、どう組み合わされているか」
-    - **コードを読んで初めて分かった知識は、次回コードを読まずに済むよう即座に doc-enricher を呼んで README に反映する**
-    - 理由: コードを読む都度コンテキストを消費する。README にエッセンスが書いてあれば次回は読まずに済む
-- **UI挙動・表示に関するタスクの場合（MUST）**:
-    - pluginの`visual-inspector` skillをchildとして使ってスクリーンショットを撮り、現状の実際の動作をファクトとして確認する
-    - 「コードを読んだ推測」ではなく「実際に見た事実」を design.md の根拠にする
-    - 例: ヘッダが固定されているか、スクロール時の挙動、レイアウト崩れ等
-    - ⚠️ Playwright ツールを直接呼び出すことは禁止。必ずpluginの`visual-inspector` skillを使うこと
+entryはslug link、概要、statusだけを持ち、種別、関連、詳細fieldを追加しない。詳細は各steeringの`design.md`、`discussion.md`、排他的planへ委ねる。各steering実行時にもstatusを手動更新しない。`summary.md`のsingle writerを翌月初のこの処理だけにするのは、複数人の並行作業で同じsummaryへ書き込み、conflictすることを避けるためである。
 
----
+> この時点では`design.md`、`tasklist.md`、`roadmap.md`を作らない。
 
-### 3) 設計（task-design スキルに委譲）
+### Step 2. task-designを起動または再開する
 
-pluginの`task-design` skillを起動する。
+新規・再開とも、pluginの`task-design` skillへユーザーの要件と次を渡す。
 
-- 初回は引数`working_dir_parent=<steering ディレクトリの絶対パス>`と`create_working_dir=true`を渡す
-- task-designは`name-work-directory`でbasenameを決め、steeringディレクトリ直下に作業ディレクトリを作成する
-- task-designが返した`working_dir`の絶対パスを`task_design_dir`として保持する
-- task-designは`task_design_dir`配下にdesign.md / spike/ / task-design-discussion.mdを作成する
-- 既存設計の再開時は`working_dir_parent=<task_design_dir>`と`create_working_dir=false`を渡し、新しい子ディレクトリを増やさない
-- タスクの要件も合わせて伝える
-- task-design 完了 = 設計完了。`<task_design_dir>/design.md`が存在することを確認してステップ4へ
+```text
+working_dir_parent=<steering ディレクトリの絶対パス>
+create_working_dir=false
+```
 
-> ⚠️ task-design の議論記録は `task-design-discussion.md` に書かれる。
-> steering の `discussion.md` は別ファイル（設計後フェーズの議論用）。
+task-designは新しい子directoryを作らず、steering rootへ`design.md`、`task-design-discussion.md`、排他的な`tasklist.md | roadmap.md`を置く。既存設計を再開する場合も同じ入力を使い、別directoryを増やさない。
 
----
+子steeringの場合は次の四項目を一組として渡す。
 
-### 4) Designレビュー（自然言語 yes/no）
-- このstep以降、design.mdへの参照・更新は`<task_design_dir>/design.md`を対象にする
-- **レビュー前チェック（MUST）**: 全 TBD が解消されているか確認する。TBD が残っていれば設計未完。Step 3 に戻り discussion で解消してから提示する
-- **MUST: design.md を保存する前に、「要議論」項目があればまずチャットで議論して方針を確定させること。議論が終わったら確定した分類（MUST/SHOULD/MAY または非目標）を design.md に反映する。**
-- **MUST: 要議論の議論内容を design.md に保存すること**
-    - 議論して決定した内容は「事前設計議論メモ」セクションとして design.md に追記する
-    - 保存内容: 論点・選択肢・決定理由（チャットのやり取りをそのまま揮発させない）
-    - 目的: 実装者（未来の自分を含む）が「なぜこの設計選択をしたか」を遡れるようにする
-    - セクション名: `## 事前設計議論メモ（揮発防止）`
-- design.md を保存したら、チャットで要点を短く示してレビュー依頼
-- ユーザーが OK/はい/進めて 等なら次へ
-- 修正なら design.md を更新して再レビュー（OKまで繰り返し）
-- **承認キーワード強制は禁止**
+```text
+parent_roadmap_path=<親roadmap.mdの絶対path>
+parent_phase_id=<stable phase identity>
+parent_design_path=<親design.mdの絶対path>
+dependency_results=<依存phaseの確定結果>
+```
 
----
+`task-design-discussion.md`はtask-design固有の設計議論、`discussion.md`はsteering固有の議論であり、同じ正本として混同しない。
 
-### 5) requirements.md の切り出し（必要時のみ）
-- `<task_design_dir>/design.md`内のRequirementsセクションが「長くて独立させた方がレビューしやすい」と判断した場合のみ:
-    1. `<task_design_dir>/requirements.md`を作成
-    2. design.md から Requirements を移し、design.md 側は参照リンクにする
+### Step 3. ready resultを検証する
 
-※ Requirements が短い/軽いなら切り出さない（design.md に置いたまま）
+task-designのresultと対応fileのidentityだけを検証する。内容設計または重複reviewはしない。
 
----
+- `tasklist_ready`: `working_dir`、`design_path`、`tasklist_path`がsteering rootを指し、`roadmap.md`が存在しない。
+- `roadmap_ready`: `working_dir`、`design_path`、`roadmap_path`がsteering rootを指し、`tasklist.md`が存在しない。
+- planはtask-designで自然言語合意済みであり、TBD、未解消feedback、実装者へ残した設計判断がない。
 
-### 6) tasklist.md（詳細）を作る（Design合意後のみ）
+resultとfileが矛盾する、両planが併存する、planからdesignへ戻るfeedbackが未解消なら、同じworking directoryでtask-designを再開する。
 
-> ⚠️ tasklist を作る前に、以下の2パターンのどちらに該当するか判断すること。
+task-designからplan合意が返った直後に実装または子steering起動へ進まない。次のStep 4を必ず先に完了する。
 
-#### パターンA: 複数のMVPに分かれる場合（親子 steering）
-- 判断基準: **「このフィーチャーは1つのMVPで成立するか？」**
-    - MVP単位でなら tasklist は1つでよい（フェーズが多くても構わない）
-    - MVPが2つ以上に分かれる、またはスコープにバリエーション（A案/B案）がある場合は roadmap
-    - 「フェーズが多い」だけでは roadmap を選ぶ理由にならない
-- このskill directoryの`templates/roadmap.md`を元に`roadmap.md`を作成する（`tasklist.md` は作らない）
-- roadmap.md はチェックボックスを持たず、フェーズと子 steering パスの一覧のみ
-- 各子 steering は独立して実施し、完了時に親の roadmap.md の対応箇所を更新する
-- **`tasklist.md` という名前にしない**（tasklist-executor が誤って拾わないよう）
-- 例: `.steering/2026/20260307-feature-201-apply-v0-calendar-design/tasklist.md`（過去実績）
-- **ロードマップ / 親子 steering の関連性は `summary.md` には記録しない**（summary.md は翌月自動まとめで slug + 概要 + ステータスのみを持つ）。フェーズ構成・子 steering パスは `roadmap.md` に、各 steering の詳細は design.md に記録する
-  - 子 steering の親ロードマップへの紐付けは、子 steering 完了時に親の `roadmap.md` の対応箇所を更新することで表現する
+## Plan合意後の必須gate
 
-#### パターンB: 調査結果によって方針が変わる場合（investigation + tasklist）
-- 調査しないと実装方針が決まらない場合
-- `investigation.md` を steering ディレクトリ内に作成し、調査方針を合意してから調査を進める
-- 調査完了後に `investigation.md` に結果を記録し、方針を確定させてから `tasklist.md` を作る
-- 通常の `tasklist.md`（下記）を使う。親子 steering は不要
+`tasklist_ready | roadmap_ready`のどちらでも、tasklistまたはroadmapが承認されたら、実装開始確認より必ず先に実行する。「早く実装へ進みたい」ことを理由に省略しない。
 
-#### 通常パターン（上記に該当しない場合）
-- このskill directoryの`templates/tasklist.md`を元に`tasklist.md`を作成し、**詳細タスクまで**記載する（ただし実行はしない）
-- 要件:
-    - **設計参照**: 冒頭の`設計参照`へ、steeringディレクトリから`<task_design_dir>/design.md`への相対パスを記載する
-    - **マイグレーションフェーズの原則**:
-        - **MUST**: DB マイグレーションを含むフェーズは、必ず単独フェーズとして切り出す
-        - **MUST**: マイグレーションフェーズの最後のタスクとして「ここで作業を停止し、マイグレーション結果をユーザーに確認する（次フェーズへは進まない）」を明示する
-        - 理由: スキーマ変更は後続の全作業の前提になるため、ユーザーが実際に適用されたことを確認してから次へ進む
-    - **フェーズ分割の方針**:
-        - **MUST**: インクリメンタル開発を基本とする。各フェーズは「独立して完結・検証できる変更単位」にする
-        - フェーズが完了したとき、そのフェーズの変更だけを DoD で検証できること
-        - 例: 「準備 → 一覧機能（完結） → 新規作成機能（完結） → 編集機能（完結） → 品質チェック → ドキュメント」
-        - 横切り（レイヤ別: 実装 / テスト / 移行 など）は、独立した検証単位にならないため原則禁止
-        - **MUST: 各フェーズの DoD は「ユーザーが1つの操作をしたとき、何が確認できるか」の形で書く**
-            - DoD に複数の異なるユーザー操作（作成・更新・削除・一覧取得など）が混在していたらフェーズを分割する
-            - やってしまいがちな失敗: 「ProjectBoard の CRUD ができる」のように複数操作をまとめて DoD にする → 大きすぎるフェーズが生まれても気づけない
-            - 正しい DoD の例: 「createProjectBoard API で保存できる」「一覧画面で作成したボードが表示される」
-            - DoDが抽象的なままレビューに進むことを禁止する。DoDが具体的でなければフェーズを書き直す
-        - **「まとめすぎ」のサイン（フェーズを分割すべき）**:
-            - DoD に複数のユーザー操作が混在している
-            - DoD の確認項目が多すぎて、失敗したとき何が原因か特定しにくい
-            - テスト・スクリーンショット確認の対象が複数のコンテキストにまたがっている
-            - フェーズの分割軸がバックエンド / フロントエンドというレイヤーになっている（例: フェーズ1=バックエンドCRUD全部、フェーズ2=フロントエンド全部）→ 正しい軸は「ユーザーが実行できる1つの操作」
-    - 各タスクは "着手可能な粒度"
-    - 順序・依存が分かる
-    - 主要タスク or フェーズに DoD（完了条件）
-    - **テスト作成・変更の要件**:
-        - **MUST**: 各フェーズで実装した挙動に対応するテストを、そのフェーズ内に含める
-        - テスト実行（green 確認）だけでなく、**テスト作成・変更**をタスクとして明示すること
-        - 以下のケースでは必ずテストを書く/更新する:
-            - 新しい props・挙動を追加した場合 → その挙動をカバーするテストを追加
-            - 既存の props・インターフェースを変更した場合 → 既存テストを新インターフェースに書き直す
-            - バグ修正の場合 → 修正した問題を再現するテストを追加（退行防止）
-        - 「既存テストが通れば OK」は不十分。変更した挙動が今後も担保されるテストが必要
-        - テストが書けない・書きにくい場合は、その理由をタスクコメントに記載する
-    - **品質チェックフェーズの要件**:
-        - **MUST**: repository全体を対象とする静的解析・lint・format checkを含める。実行コマンドはrepository contextで得る
-        - 特定ファイルのみでなく、全体への影響を確認すること
-        - これにより、新規コードが既存コードに与える影響を早期発見する
-    - **デザイン変更を含むタスクの追加要件**:
-        - **MUST**: UI の見た目に関わる変更がある場合、**そのフェーズのDoDにスクリーンショット確認タスクを含める**
-        - 品質チェックフェーズにまとめるのではなく、変更を加えたフェーズで都度確認する
-        - 品質チェックフェーズでは最終確認として改めてスクショを撮る
-        - pluginの`visual-inspector` skillをchildとして使い、実際の見た目を目視確認すること
-        - ⚠️ `npx playwright` や Playwright ツールの直接呼び出しは禁止。必ずpluginの`visual-inspector` skillを使うこと
-        - 確認項目の例: カラーバーの色・レイアウト・今日ハイライト・レスポンシブ崩れ
-        - **「UI の見た目に関わる変更」の判断基準（広めに取ること）**:
-            - 新規コンポーネント作成
-            - スタイル変更（CSS/Tailwind クラスの変更）
-            - コンポーネントの props 変更（表示内容・表示条件に影響する場合）
-            - **コンポーネントのリファクタリング**（内部構造が変わると表示崩れが起きうる）
-            - 既存コンポーネントへの差し替え・組み込み
-        - 「リファクタリングだから UI 確認不要」と判断してはならない。リファクタリングは表示崩れのリスクを持つ
-    - 不確実なものは `TBD` で残し、前提・調査項目を明記
-- 大きすぎるタスクとわかった場合、このsteeringではタスク分解にとどめて、個々のタスクの詳細は別のsteeringで作る
-  - 過去やった実績: .steering/2026/20260307-feature-201-apply-v0-calendar-design のタスク
+#### 4-1. doc-enricherを提案modeで起動する
 
----
+次を渡してpluginの`doc-enricher` skillを提案modeで実行する。
 
-### 7) tasklist の自己レビュー（ユーザー提示前に必ず実施）
+- 対象directory: 今回readingまたは変更対象になった範囲
+- 関連file: 調査で読んだ、または参照したfile
+- steering path: `.steering/.../YYYYMMDD-slug/`
 
-tasklist.md を書いたら、ユーザーに提示する前に以下の観点でゼロベースで見直すこと。
+`doc-enricher`を提案modeで適用し、再利用価値の高い知識が既存READMEまたは既存docsに不足するかを確認する。提案があれば内容と適用先をユーザーへ示す。明示承認された提案だけを適用し、拒否または保留なら変更しない。
 
-- [ ] **各フェーズの DoD が1つの操作で検証できるか**: DoD に複数の異なるユーザー操作（作成・更新・削除・一覧取得など）が混在していないか。混在していたらフェーズを分割する
-    - 外部サービス（API・DB等）への接続検証が複数サービス混在していないか → サービスごとに独立フェーズにする（例: 外部ストレージ API と通知配信 API は別フェーズ）
-    - DoD の検証コマンドが複数段階にまたがっていないか → 検証手段が変わる境界でフェーズを分割する（例: `docker compose build` 成功と `docker compose up` 後のブラウザ確認は別フェーズ）
-    - **同一エンドポイント（controller#action 等）でも内部分岐で挙動が分かれる場合はフェーズ境界を検討する**: `case ... when` / 条件分岐などで挙動が変わる場合、分岐ごとに修正対象・修正パターンが異なるなら、コード経路をフェーズ境界として切る。「同一エンドポイント = 同一フェーズ」と機械的に判断しない
-        - 判断基準: 分岐の中で「修正対象（モデル・モジュール）」「修正パターン（既存流用 / 新設 / 自明な追加）」が異なるかを見る。異なれば別フェーズ
-        - やってしまいがちな失敗: 同じエンドポイントだからと 1 フェーズに集約し、DoD に複数の分岐ケース（type 別等）を並列に並べてしまう
-- [ ] **各フェーズに DoD があるか**: 完了条件が明確か
-- [ ] **各フェーズにテスト作成・変更が含まれているか**: 実行だけでなく、変えた挙動を担保するテストが書かれているか
-- [ ] **UI 変更のあるフェーズにスクリーンショット確認が含まれているか**: 品質チェックフェーズにまとめていないか
-- [ ] **横切りになっていないか**: 実装フェーズ → テストフェーズ のような分割になっていないか
-- [ ] **コミット・push 前に「ユーザーに動作確認を依頼する」ステップが含まれているか**: 「完了後のアクション」の直前に動作確認セクション（ユーザーへの依頼 → フィードバック収集）が存在すること。なければ tasklist を修正する
-    - やってしまいがちな失敗: 自動テスト・スクリーンショット確認で「動作確認済み」と判断し、ユーザー確認ステップを省略する → tasklist-executor がそのままコミット・push まで自動実行してしまう
-    - 自動テストとスクリーンショットは「機械的な確認」。ユーザーが実際に触って確認するステップは別物として必ず残す
-- [ ] **完了後のactionがrepository contextに従うか**: GitHubが返された時だけ、current branchのpushとこのskill directoryの`scripts/github/create_or_get_pr.sh`を含める。GitHubが返されない時はcommit・push・PR作成をtasklistへ入れない
-- [ ] **設計前に確立済みの知識を記録するドキュメントが Phase 1 にあるか**: 既に知っている知識（プロダクト仕様・アーキテクチャ原則・テスト方針など）を記録するドキュメント作成は実装より前（Phase 1）に置く。「実装後にまとめる」は知識の揮発リスクがある
-    - 判断基準: 「このドキュメントは実装が終わるまで書けないか？」→ NO なら Phase 1 に置く
-    - やってしまいがちな失敗: docs 整備を最後のフェーズに入れる → 実装で得た知識が前提になるドキュメントと、設計前から確立済みの知識のドキュメントを混同している
-- [ ] **各 deliverable の DoD が完成後の状態を具体的に示しているか**: 「〜が整備される」「〜を作成する」という DoD は deliverable の listing であり設計ではない。完成後の状態（何が書かれているか・どう構成されているか）が書かれていなければ設計未完
-    - 抽象的な DoD が見つかったら Step 3 に戻り、その deliverable の完成後の状態を設計してから tasklist に戻る
-    - 悪い例: 「architecture.md が整備される」
-    - 良い例: 「architecture.md には各レイヤーの責務・判断基準・アンチパターンが書かれており、実装者がコードを読まずに設計判断を下せる」
+#### 4-2. discussionを元に再発防止先をreviewする
 
-問題があれば tasklist を修正してから提示する。
+`discussion.md`と`task-design-discussion.md`に記録された各discussionについて、次の三問による再発防止reviewを順番に扱う。解決策より先に原因を特定する。
 
-> ⚠️ チェック項目が1つでも引っかかる場合は必ず tasklist を修正してから提示すること。
-> 「だいたい合っている」で通過させてはならない。
-> 特に「1フェーズに複数の異なるエンドポイント・コンポーネント変更が混在していないか」を厳しく確認する。
+1. この議論が起きた根本原因、すなわち共有されていなかった知識の前提は何か。
+   - 失敗例: 議論の結論であるruleを根本原因として扱い、対症療法にする。
+   - 正しい問い: 議論が始まる前に、どちらかが知らなかった、または共有されていなかった設計前提は何か。
+2. その知識はcodeを読めば分かるか、読んでも分からない設計意図か、設計processの不足か。
+   - codeを読めば分かる: 既存README等へessenceを提案し、次回のcode readingを省く。
+   - codeを読んでも分からない: repositoryの上位architecture document等へ原則を提案する。
+   - 設計processの不足: 対応するskillへ、設計時に問うべき問いを提案する。
+3. どこに書けば次回この議論が不要になるか。変更はユーザー合意後だけ行う。
 
-### 8) Tasklistレビュー（自然言語 yes/no）して終了
-- tasklist.md の要点（フェーズと主要タスク）を短く示してレビュー依頼
-- OK/はい/進めて 等なら **step 9（doc-enricher + discussion レビュー）へ進む**
-    - ⚠️ 承認を受けても step 9 を飛ばして tasklist-executor を起動してはならない
-    - やってしまいがちな失敗: 「ok」を受けた勢いで実装に進む → step 9 が丸ごとスキップされる
-- 修正なら tasklist.md を更新して再レビュー（OKまで）
+ここで特定した更新提案と承認判断はこのStepで完了させ、実装taskへ先送りしない。設計議論のcontextが最も熱い時点を逃すと「なぜ変えるか」が薄れ、更新品質が下がるためである。「tasklistへdocument更新taskを入れようとしているが、これは今すぐ扱うべきものではないか」と自問する。
 
----
+#### 4-3. steering skill自身を確認する
 
-### 9) 振り返り：doc-enricher + discussion レビュー【必須・スキップ禁止】
+今回の議論から、このsteering skillの変更が必要かを確認する。不要なら変更してはならない。必要な場合も、提案と変更を分け、ユーザー合意後だけ適用する。
 
-> ⚠️ tasklist が承認されたら、実装確認（step 10）より**必ず先に**このステップを実行すること。
-> 「実装に早く進みたい」という理由でスキップしてはならない。
+### ファインプレー即時記録の原則
 
-#### 9-1) doc-enricher を起動（提案のみ → 承認があれば適用）
+実行中にskill改善のinsightが生まれた場合は、Step 4を待たずcontextが熱いうちに提案してよい。
 
-- tasklist 合意後、pluginの`doc-enricher` skillを**Phase 1（提案のみ）**として実行する
-- doc-enricher には以下を渡す前提で実行する:
-  - 対象ディレクトリ（今回読み/触りが発生した範囲）
-  - 関連ファイル（調査で読んだ/参照したファイル）
-  - steering パス（`.steering/.../`）
+- Step 4は全体整合性の最終確認であり、timelyな提案の代替ではない。
+- 「提案する」と「変更する」は別である。提案は即時、変更は合意後に行う。
+- 型は利益があるため存在する。型の精神を理解し、型を活かしてより良くする場合だけ即時提案する。
+- 命令無視または単なる改悪を「型を崩す」と正当化しない。
 
-- doc-enricher の提案を提示し、ユーザーに自然言語で確認する:
-  - OK/はい/適用して → doc-enricher を Phase 2（適用）で再実行（承認された変更だけ）
-  - いいえ/やめて/あとで → 提案のみで終了
+### Step 5. 実行開始をユーザーへ確認する
 
-#### 9-2) discussion.md を元にしたドキュメント・スキル改善レビュー
+ready result、主要成果物、Step 4のreview結果を示した後でのみ、tasklist実装またはroadmap tree実行を開始するかユーザーの明示確認を自然言語で得る。
 
-discussion.md が存在する場合、**各 discussion に対して以下の3ステップを順番に実行する**。
-解決策（どこに書くか）より先に原因を特定すること。原因が曖昧なまま「このドキュメントがあれば」と考えると、症状レベルの答え（ルール追加）になりやすい。
+- `OK`、`はい`、`進めて`等の明示確認があればStep 6へ進む。
+- 拒否、保留、確認なしならここで終了する。
+- plan合意を実行開始の承認と読み替えず、`roadmap_ready`を受けたこと自体を子実行の承認とみなさない。
+- Step 3直後に「実装へ進みますか」と聞き、Step 4を飛ばすことを禁止する。
 
-**各 discussion に対する3ステップ:**
+### Step 6. ready resultをdispatchする
 
-1. **「この議論が起きた根本原因——共有されていなかった知識の前提——は何か？」**
-    - やってしまいがちな失敗: 議論の結論（ルール）を答えにする → 「対症療法」になる
-    - 正しい問い: 「この議論が始まる前に、どちらかが知らなかった/共有されていなかった設計の前提は何か？」
+#### 6-1. leafを実行する
 
-2. **「その知識はコードを読めば分かるか？それとも読んでも分からない設計意図か？」**
-    - コードを読めば分かる → README に設計意図として書けば次回コードを読まずに済む
-    - コードを読んでも分からない → repositoryの上位アーキテクチャドキュメントに原則として書く
-    - 設計プロセスの問題（設計時に問うべき問いが欠けていた）→ SKILL.md に追加する
+tasklist-executorへ`tasklist.md`と同階層の`design.md`の絶対pathを渡す。
 
-3. **「どこに書けば次回この議論が不要になるか？」** → 書く（変更は合意後）
+- tasklist-executorだけをtasklistのsingle writerとする。
+- task、subtask、phaseを実測完了した直後に`[x]`へ更新させ、最後にまとめて更新させない。
+- tasklist-executorは親roadmapを探索・更新せず、完了resultだけをcallerへ返す。
+- tasklist内のユーザー動作確認が完了する前にcommit、push、PRへ進ませない。
 
-ユーザーが OK すれば適用。いいえ/あとで なら提案のみで終了
+#### 6-2. roadmap runtime orchestrationを行う
 
-**MUST: ここで特定した更新はこのステップで適用する**
-- SKILL.md・CLAUDE.md・docs の更新を実装フェーズのタスクに後回しにすることは禁止
-- 設計議論の熱量・文脈は今が最高。後回しにすると「なぜ変えたかった」が薄れる
-- やってしまいがちな失敗: Step 9 で特定した更新を「tasklist に追加」する → 実装フェーズでは設計議論の文脈が既に冷えており、更新の質が下がる
-- 判断の問い: 「tasklist にドキュメント更新タスクを入れようとしているとき、それは Step 9 で今すぐやるべきものではないか？」
+roadmapの依存DAGを読み、未着手かつ依存完了済みのphaseを選ぶ。
 
-#### 9-3) このスキル定義ファイルの確認
+1. phaseの運用fieldへcanonicalな子steering pathをbindingする。
+2. statusを`進行中`へ更新する。
+3. 子steeringへ親roadmap path、phase identity、親design path、dependency resultsを渡す。
+4. 子steeringも自身のrootを`create_working_dir=false`で子task-designへ渡す。子task-designは`tasklist_ready`またはnestedな`roadmap_ready`を返せる。
+5. leafはtasklist-executorの完了result、compositeは全子phaseの完了を確認する。
+6. 対応phaseのstatusと完了日だけを更新し、次の依存可能phaseへ進む。
+7. 全phase完了は、全phaseのstatusが`完了`で、各phaseに完了日があることを確認して判定し、composite完了を一段上の親roadmapへ伝播する。
 
-- このスキル定義ファイルについて、変更の必要があるか確認
-  - 不要であれば、修正は禁止
+steeringが更新できるroadmap fieldは、子steering path、status、完了日だけである。目的、scope、scope外、DoD、依存、phase identityを変える必要がある場合は直接編集せず、同じdirectoryでtask-designを`create_working_dir=false`として再開する。
 
----
+## Standalone roadmapの昇格
 
-## ファインプレー即時記録の原則
+`adopt_task_design_working_dir=<absolute path>`は、standalone task-designが作った合意済みroadmap bundleをcanonical steering nodeへ昇格する任意flowである。
 
-型（ステップ）はメリットがあるから型化しているだけで、金科玉条ではない。
+### 対象gate
 
-実行中にスキル改善のインサイトが生まれたとき（良い設計議論があった、新しいパターンを発見した等）は、ステップ9を待たず「今すぐ提案」してよい。
+- sourceは現在のrepository内にある。
+- source basenameは`YYYYMMDD-slug`である。
+- rootに合意済み`design.md`、`task-design-discussion.md`、`roadmap.md`がある。
+- `tasklist.md`が併存しない。
+- designとroadmapに未解消TBD、未合意状態、designへ戻るfeedbackがない。
 
-- ステップ9は全体整合性の最終確認として機能し、タイムリーな提案の代替ではない
-- 「あとでやる」は熱量と文脈が冷えてしまう。今の文脈が熱いうちに提案する
-- 「提案する」と「変更する」は別の行為。提案は今すぐ、変更は合意後
-- ファインプレーを行う条件: 型の精神を理解した上で、型を守りながら型を崩さない形でのみ行う
-- ただし「命令無視・単なる改悪」は禁止。型を知らずに崩すのではなく、型を活かしてより良くする
+source basenameの日付からdestinationを`.steering/YYYY/YYYYMM/<basename>/`へ一意に解決し、suffixを追加しない。
 
----
+### 移動前の安全gate
 
-### 10) （必要があれば）tasklistに沿って実装
+移動前に次をread-onlyで確認する。
 
-> ⚠️ このステップは step 1〜**9** が**すべて完了してから**はじめて提案してよい。
-> 未完了のステップがある場合は、実装を推奨してはならない。急かすことも禁止。
-> **MUST: step 8（tasklist承認）を受けた直後に「実装に進みますか？」と聞くことは禁止。**
-> step 9（doc-enricher + discussion レビュー）を先に完了させること。
-> やってしまいがちな失敗: 「ok」を受けた勢いで step 9 を省略・形骸化して「実装に進みますか？」を急いで聞く → step 9 で生まれる知識・ドキュメント改善が揮発する
+- exact sourceとexact destination
+- 必須fileと排他的plan
+- bundle内部の相対参照が移動後もbundle内で閉じること
+- sourceのGit状態
+- destinationが存在しないこと
 
-- ユーザに tasklistに沿って実装するか問いかける
-- OK/はい/進めて 等なら 次へ
-  - そうでないならここで終了
-- tasklist-executor エージェントにtasklist.mdと`<task_design_dir>/design.md`の絶対パスを渡して実装開始
-  - **MUST**: 各フェーズ・各タスク完了のたびに tasklist.md の `[ ]` を `[x]` に即座に更新すること
-  - 最後にまとめて更新することは禁止
+検証結果、source、destination、変わるpathをユーザーへ提示し、移動への明示承認を得る。承認前は変更しない。merge、overwrite、suffix追加、自動copy/delete、repository外sourceのcopyまたはdeleteを禁止する。
 
----
+### 移動と再開
 
-### 11) 実装完了後レビュー（implementation_review.md）
+承認後にbundle directory全体を一度だけdestinationへ移動し、destinationだけを正本にする。`steering.json`や旧sourceへのpointerは作らない。新しい`working_dir`、`design_path`、`roadmap_path`を返し、通常flowのStep 3からroadmap child bindingへ合流する。
 
-> ⚠️ このステップは実装完了後・ユーザーレビュー時に発生する。steering の通常フローには含まれない。
+## 実装完了後review
 
-実装完了後にユーザーが漏れ・追加要件・不具合を提示した場合、steering agent自身が次を渡してpluginの`facilitate-discussion` skillを明示適用する。
+実装、review、validation、ユーザー動作確認でfeedback・漏れ・追加要件・不具合を直接受け取ったworkflow ownerが、同じworking directoryでpluginの`facilitate-discussion`を適用する。steeringが直接受け取った場合はsteering自身が行い、議論だけを別childへ再委譲しない。
 
 ```text
 discussion_directory=<steering directory>
 discussion_file_name=implementation_review.md
 ```
 
-steeringは、実装完了後feedbackをreview workflowの起点として判断し、feedback原文と関連する実装・design・tasklistのcontextを新skillへ渡す。discussion fileの作成・継続利用、最上位論点への原文保存、親子routing、entry形式、合意対象保存、採番、現在状態更新は`facilitate-discussion`へ委ねる。
+feedback原文、関連する実装、`design.md`、排他的plan、原因、採用方針、決定を渡す。既に修正済みのfeedbackでも記録を省略しない。`implementation_review.md`はfeedback議論の正本だけを担い、designまたはplanの正本を複製しない。
 
-決定後はsteeringが適用先と順序を判断する。
+各feedbackについて、Step 4と同じ三問を順に扱う。
 
-- 認識合わせだけで完了する
-- 既存`<task_design_dir>/design.md`を変更する、または`working_dir_parent=<task_design_dir>`と`create_working_dir=false`でtask-designによる再設計へ戻る
-- design合意後に既存`tasklist.md`へ追加taskを追記する
-- 文書・skill・その他のconsumer固有成果物へ反映する
+1. 根本原因となる未共有知識は何か。
+2. codeから分かるか、設計意図か、process不足か。
+3. どこへ保存すれば次回の議論を不要にできるか。変更は合意後だけ行う。
 
-設計判断が必要な変更では、design合意前にtaskを作らない。review決定やtask追加後も実装を自動開始しない。修正済みfeedbackもdiscussionを省略せず、原文、原因、採用した修正方針、決定を記録し、実装済みという状態は決定またはネクストアクションへ残す。
+decision後、直接受領したworkflow ownerはcallerへdecisionを返し、次の戻り先を一意に選ぶ。
 
-`implementation_review.md`は共通論点形式の議論だけを担い、designとtaskの正本を複製しない。feedback件数によるsteeringの分け方と既存tasklistへの追記規則は、このsectionで変更せず既存のsteering内部規則に従う。
+- 完成後の姿、要件、設計根拠、公開API、module境界が変わる: 同じworking directoryでtask-designのdesign phaseへ戻す。
+- task順、task粒度、検証手順が変わる: task-designのtasklist plan phaseへ戻す。
+- roadmapのphase identity、目的、scope、scope外、DoD、依存、親DoD coverageが変わる: task-designのroadmap plan構造へ戻し、親designへの影響を判定する。親designが変わる場合だけdesign phaseへ戻す。
+- roadmapの子path、status、完了日だけが変わる: steering runtimeで更新する。
+- repository知識の永続化だけが必要: doc-enricher等のwriter contractに従い、承認後だけ既存READMEまたは既存docsへ反映する。
+- 認識合わせだけで完了する: designとplanを変更しない。
 
+設計判断が必要な変更では、design合意前にtaskを作らない。reviewのdecisionやtask追加後も実装を自動再開しない。同じfeatureの追加taskは合意済みdesign・planへ戻した後、既存tasklistへ追加する。
 
----
+計画からの意味ある逸脱も`implementation_review.md`で扱う。roadmapの`全フェーズ完了日`または`計画と実績の差分`fieldは作らない。全体完了は各phaseのstatusと完了日から導出する。
 
-## このスキルが “絶対にやらないこと”
-- 許可なくtasklist の実行
-- コード変更
-- テスト/CI 実行
-- 自動で次工程に突入（勝手に実装開始）
+## このskillが絶対にやらないこと
+
+- 許可なくtasklistを実行する。
+- steering自身が実装codeを変更する。実装は明示承認後にtasklist-executorまたは子steeringへdispatchする。
+- steering自身がtestまたはCIを実行する。検証は合意済みtasklistとruntime contractに従うexecutorへ委ねる。
+- task-designの代わりにdesign、tasklist、roadmapの構造を設計または重複reviewする。
+- task-design専用子directory、`task_design_dir`探索、`steering.json`を新規flowで作る。
+- roadmapの構造fieldをruntime都合で直接変更する。
+- tasklist-executorへ親roadmapを探索・更新させる。
+- standalone bundleを明示承認前に移動する。
+- tasklist合意前に実装し、ユーザー動作確認前にcommit、push、PRを行う。push・PR前にはlocal commitが実際に一件以上存在することを確認する。
+- 必須gateまたはユーザー確認を飛ばし、自動で次工程へ突入する。
+
+## 合意済みの明示廃止
+
+- task-design専用子directoryと`task_design_dir`探索は廃止した。steering directory自体を`create_working_dir=false`で直接使う。
+- tasklistから親`roadmap.md`を更新する契約は廃止した。tasklist-executorは完了resultだけを返し、steeringだけがroadmapの運用fieldを更新する。
+- steeringがtasklist・roadmapを設計または再reviewする契約は廃止した。task-designの排他的plan設計・reviewを正本とする。
+- feedback件数による新steeringの自動起動規則は廃止した。別steeringの要否はtask-designのleaf / composite判定またはユーザーの明示判断で決める。
+- roadmapの`全フェーズ完了日`と`計画と実績の差分`fieldは廃止した。全体完了はphase status・完了日から導出し、意味ある逸脱は`implementation_review.md`へ記録する。
+
+上記以外の旧steeringの意味単位は、migration ledgerに従って新ownerへ移管または適応する。簡略化だけを理由に未分類のcontractを削除しない。
