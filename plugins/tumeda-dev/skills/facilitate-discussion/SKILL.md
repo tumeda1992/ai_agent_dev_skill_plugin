@@ -1,20 +1,20 @@
 ---
 name: facilitate-discussion
-description: 明示された議論を論点単位で進行し、完全な提案、feedback、決定、親子関係を指定directoryのMarkdownへ継続記録する。ユーザーが `$facilitate-discussion`、議論のMarkdown保存・追記を明示した時、またはconsumer skillが保存を伴う議論workflowとして明示適用した時だけ使う。通常の質問、説明、短い相談には使わない。
+description: 明示された議論を論点単位で進行し、委託されたテーマ内の提案、feedback、決定、親子関係を指定directoryのMarkdownへ継続記録する。合意済みの議論も再合意なしで記録し、記録漏れへ後から気づいた場合は結論だけでなく議論の変遷を再構成するが、会話から確認できない提案や合意は補完しない。ユーザーが `$facilitate-discussion`、議論のMarkdown保存・追記を明示した時、またはconsumer skillが保存を伴う議論workflowとして明示適用した時だけ使う。通常の質問、説明、短い相談には使わない。
 ---
 
 # Facilitate Discussion
 
 ## 目的と成果
 
-明示された議論を一つのdecision単位で進行し、その時点の完全な合意対象、feedbackによる変遷、決定を一つのdiscussion fileへ保存する。fileだけを読む人が、sessionの発言を補わずに現在案を評価できる状態を作る。
+明示された議論を一つのdecision単位で進行し、委託されたテーマ内で起きた完全な合意対象、feedbackによる変遷、決定を一つのdiscussion fileへ保存する。fileだけを読む人が、sessionの発言を補わずに現在案とそこへ至った過程を評価できる状態を作る。
 
 成果は次の二つである。
 
 - 更新されたdiscussion file
 - chat上で合意された決定と具体的なネクストアクション
 
-consumer向けの固定result schemaは設けない。一つの論点でdecisionを確定するたびに、決定後の成果物更新や後続workflowをconsumerへ返す。複数論点のdecisionをまとめてから返さない。
+consumer向けの固定result schemaは設けない。一つの論点でdecisionを確定するたびに、決定後の成果物更新や後続workflowをconsumerへ返す。複数論点のdecisionをまとめてから返さない。ただし、decisionを返すことと、委託されたテーマの記録ownerを終了することは同じではない。同じテーマの議論が続く間は、このskillが記録ownerであり続ける。
 
 ## 起動gate
 
@@ -35,6 +35,11 @@ consumer向けの固定result schemaは設けない。一つの論点でdecision
 - 合意対象のself-containedな保存
 - 議論履歴と現在状態の更新
 - 論点採番と親子validation
+- 委託されたテーマ内で前回保存後に生じた議論の検出と同期
+- chat上で合意済みになった議論の再合意なしでの保存
+- 記録漏れを事後検出した場合の議論の再構成
+- 認識齟齬または修正要求を、具体案の前に原因ownerへroutingすること
+- discussion decisionの即時反映後に行う、一回限りの`doc-enricher`提案review
 
 ### consumerが所有するもの
 
@@ -67,7 +72,7 @@ consumerの適用先を `design.md` や `tasklist.md` に固定しない。
 - **履歴と現在stateを両立する**
   - 過去iteration、旧決定、却下理由を不変にし、現在の合意対象、status、決定、ネクストアクションだけを局所更新する。
 - **discussion processとdomain固有workflowを分ける**
-  - このskillは議論の記録と決定までを所有し、一つの論点を決定するたびに適用をconsumerへ返す。consumerが適用と再評価を終える前に、次の論点を続けない。
+  - このskillは委託されたテーマの議論記録と決定を所有し、一つの論点を決定するたびに適用をconsumerへ返す。consumerが適用と再評価を終える前に次の論点を進めないが、同じテーマの記録ownerまでconsumerへ返さない。
 
 ## workflow全体で守る不変条件
 
@@ -76,6 +81,9 @@ consumerの適用先を `design.md` や `tasklist.md` に固定しない。
 - 過去iteration、旧決定、却下理由を変更・削除しない。既存h1、論点順序、legacy formatも一括変更しない。
 - ユーザーへ合意を求める前に、初見の読者が単独で評価できるself-containedな完全案と具体的な判断対象をdiscussion fileへ保存する。
 - chatではdiscussion file名、論点番号、提案番号または見出し、判断対象を特定する。`これ`、`上記`、`大枠`のようにsessionだけで解釈する指示語で合意を求めない。
+- userまたはconsumerへcontrolを返す前に、前回保存後に委託scope内で生じた議論とdiscussion fileを照合する。未収録の事象、原因、提案、feedback、訂正、合意があれば先に同期する。
+- 記録漏れへ事後に気づいた場合は、最終結論だけを追記しない。確認できる履歴から議論の変遷を再構成し、事後記録であることと確認不能な範囲を明示する。
+- 事後記述は書込み順序の修復であり、decisionの生成または合意の代替ではない。会話履歴から明示的な合意を確認できない提案は`決定`にせず、未決の現在案として保存する。変更済みの成果物を、合意があったことの証拠に使わない。
 
 ## 実行workflow
 
@@ -86,8 +94,9 @@ flowchart TD
   S["1. skillを起動する"] --> T
   subgraph TL["2. 論点を扱う"]
     T["2.1 対象論点を選ぶ"]
-    T -->|新しいdecision| N["2.2 新規論点を作る"]
-    T -->|既存論点| A
+    T --> C["2.1.1 必要なら原因ownerへrouting"]
+    C -->|新しいdecision| N["2.2 新規論点を作る"]
+    C -->|既存論点| A
     subgraph AL["2.3 選択した一つの論点を進める"]
       A["論点stateを観測する"] --> I["2.3.1 feedbackをiterationとして扱う"]
       A --> D["2.3.2 decisionを確定する"]
@@ -95,14 +104,18 @@ flowchart TD
     end
     I -->|別decision| T
   end
-  N -->|現在案を保存して合意待ち| W["turn終了"]
-  I -->|同じdecisionの修正案を保存して合意待ち| W
-  R -->|結果を保存して報告| W
-  D -->|一decisionごとに返却| H["consumerが適用・全体再評価"]
-  H --> E["skill処理終了"]
+  N -->|現在案を保存| G["3. handoff前に未収録議論を同期"]
+  I -->|同じdecisionの修正案を保存| G
+  R -->|結果を保存| G
+  D -->|decisionを保存| G
+  G -->|合意待ち| W["turn終了"]
+  G -->|一decisionごとに返却| H["consumerが適用・全体再評価"]
+  H -->|即時反映| K["doc-enricherを一回review"]
+  H -->|反映待ち・execution plan| E["skill処理終了"]
+  K --> E
 ```
 
-図のsubgraphはscopeの包含を表す。skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない。consumerによる適用・全体再評価はこのskillの外側にあり、その後に必要なら更新済みcontextで再適用される。
+図のsubgraphはscopeの包含を表す。skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない。consumerによる適用・全体再評価はこのskillの外側にある。`skill処理終了`は一回の処理の終了であり、同じテーマが継続している間の記録ownership終了を意味しない。
 
 ### 1. skillを起動する
 
@@ -166,6 +179,24 @@ discussion fileが解決済みで、議論するdecision候補、既存論点へ
 | discussion目的に属し、他論点へ直接依存しないdecision | 独立論点として新規作成する |
 | 保存済みの現在案への合意 | 対象論点を選び、decisionを確定する |
 | 作成済み論点がdiscussion scope外と判明した | 対象論点を選び、取下げる |
+
+#### 2.1.1 認識齟齬を原因ownerへ戻す
+
+選んだdecisionが認識齟齬または修正要求を扱う場合は、具体案を作る前に原因を次のいずれかへ分類する。この分類は、具体ケースの症状だけを直して同じ齟齬を再発させないために行う。
+
+| 原因owner | 判定 | discussionで先に合意するもの |
+| --- | --- | --- |
+| 成果物固有 | 共有知識とprocessは足りており、今回の成果物だけが合意内容から外れている | 具体ケースの修正 |
+| repository知識 | codeだけでは分からない永続的な設計意図、制約、探索導線がREADMEまたは既存docsに不足している | `doc-enricher`を提案modeで起動し、具体ケースを失敗例として一般化したdocs修正 |
+| skill | repositoryを問わず再発する思考、設計、discussion、実行processの問いまたは順序がskillに不足している | 具体ケースを必要性の実例とし、別domainでも機能するか検証した対応skillの修正 |
+
+repository知識またはskillの不足では、具体ケース固有の修正を先に合意しない。原因ownerの一般則を主decisionとして合意した後、元の具体ケースをその適用例として必ず再評価する。一般則だけで変更が一意に決まらなければ、残る判断を具体ケース側のdecisionとしてdiscussionへ保存する。
+
+一般則を先に合意することと、対象fileへ即時適用することは分ける。適用先、適用方法、適用時期はconsumerが所有する。consumerは他の未決事項との依存関係を判定し、独立していれば即時反映し、依存があれば自身のworkflowで反映待ちとして扱う。稼働中のskillまたはdocs体系自身の不備は通常、個別論点の結論から独立して存在するため、依存関係gateを通した結果として即時反映になることを基本的な期待とする。
+
+consumerがdecisionを対象成果物へ即時反映した場合、このskillは同じテーマの次の論点を選ぶ前に、そのoriginating decisionについて`doc-enricher`を提案modeで一度だけ起動する。repository知識不足の分類時に同じoriginから起動済みなら、それを一回として数える。`doc-enricher`が提案・適用したdocs変更から同じoriginのreviewを再帰起動しない。候補があれば`doc-enricher`の承認gateに従って同じdiscussionへ提案・合意・結果を保存し、候補がなければreview済みであることだけを適用結果として保存する。
+
+steering終了時などconsumerが持つtheme横断の`doc-enricher` reviewは、このdecision単位のreviewとは別の最終safety netである。decision単位でreview済みの候補を重複提案しない。この原因routingとdecision単位の起動条件をconsumer skillまたは`doc-enricher`へ複製しない。
 
 #### 2.2 新規論点を作るvariant
 
@@ -231,7 +262,7 @@ review起点の最上位論点では、ユーザーの言葉を`起点となっ�
 2. 同じturnで対象論点の`ステータス`、`決定`、`ネクストアクション`を局所更新する。
 3. 未決child集合が変わる場合だけparent statusを導出する。
 4. 更新済みfileと決定・ネクストアクションをchatで示し、決定後の成果物更新、phase遷移、実装開始をconsumerへ返す。
-5. 別の論点を選ばず、このskillの処理を終了する。consumerがdecisionを適用して全体状態を再評価し、なお議論が必要だと判断した場合だけ、次の論点を扱うために再び適用される。
+5. 別の論点を選ばず、`3. handoff前に委託scopeの記録を同期する`へ進む。consumerがdecisionを適用して全体状態を再評価する間も、同じテーマの議論記録はこのskillのownershipに残る。
 
 `ネクストアクション`にはconsumerが実際に適用するpathまたはworkflowと処理を書く。適用先がない場合は`なし`とする。このskillが決定後の適用を自動実行しない。
 
@@ -253,6 +284,20 @@ review起点の最上位論点では、ユーザーの言葉を`起点となっ�
 2. 現在の決定とネクストアクションを、取下げと終了が分かる内容へ局所更新する。
 3. 未決child集合が変わる場合だけparent statusを同期し、chatで取下げ理由を具体的に示す。
 
+##### 2.3.5 chat上で合意済みのdiscussionを記録する
+
+委託されたテーマ内の議論がdiscussion fileへ未収録のままchat上でdecisionまで到達した場合に使う。成果物へ反映済みかどうかは、このvariantへ入る条件を変えない。
+
+このvariantへ入る前に、対象となる具体的な提案と、それに対するユーザーの明示的な合意をchat履歴から特定する。`続けて`、無反応、異議がなかったこと、抽象的な先行decision、assistantだけの推論を、未提示の具体案への合意へ変換しない。明示的な合意を特定できない場合はこのvariantを使わず、確認できた事実、assistantの未合意提案、先行して行ったactionを分けて未決の論点またはiterationへ保存し、合意を求める。
+
+1. 未収録の発言とfileの現在stateを比較し、`2.1 対象論点を選ぶ`の既存routingで、既存論点のiterationか新規論点かを決める。
+2. 起点となった原文、事象、当初の原因認識と提案、検証、user feedback、誤っていた認識、修正後の完全な提案を、確認できる時系列どおりに保存する。
+3. chat上で成立した合意を`決定`へ、そのdecisionから生じる処理を`ネクストアクション`へ保存し、statusを確定する。
+4. 同じdecisionへの合意を取り直さない。記録のために新しい判断を加える必要が生じた場合だけ、その追加判断を現在の合意対象として保存して確認を求める。
+5. 結論だけの要約、変更file一覧、反省だけを議論の記録として扱わない。
+
+このvariantは、合意前に完全案を保存する通常経路の代替ではない。通常経路で記録を先に行うことを基本とし、chat上で合意が先に成立した場合または記録漏れへ後から気づいた場合の回復に使う。
+
 #### 論点levelの完了gate
 
 次のいずれかが成立したら、選択中の論点を扱う処理を抜ける。
@@ -262,4 +307,42 @@ review起点の最上位論点では、ユーザーの言葉を`起点となっ�
 - 履歴を保持したままreparentまたは取下げの結果を保存した。
 - feedbackが別decisionに属すると判定し、iterationを作らず`2.1 対象論点を選ぶ`へ戻した。
 
-feedbackが別decisionに属すると判定された場合だけ、decision未確定のまま`2.1`へ戻る。一つの論点のdecisionを確定した後は、未決の別論点が残っていてもconsumerまたはユーザーへ返して処理を終了する。consumerは返されたdecisionを適用して全体状態を再評価し、必要なら次の論点を扱うためにこのskillを再適用する。直接起動時は、次の明示的な入力が来るまで別論点へ進まない。
+feedbackが別decisionに属すると判定された場合だけ、decision未確定のまま`2.1`へ戻る。いずれかの条件を満たしても、userまたはconsumerへ返す前に`3. handoff前に委託scopeの記録を同期する`を通る。一つの論点のdecisionを確定した後は、未決の別論点が残っていてもその論点を進めず、同期だけを完了してconsumerまたはユーザーへ返す。直接起動時は、次の明示的な入力が来るまで別論点へ進まない。
+
+### 3. handoff前に委託scopeの記録を同期する
+
+このphaseは、提案への合意確認、decision、reparent、取下げ、scope外報告、consumerへのネクストアクションのいずれを返す場合にも最後に通る。目的は新しいdecisionを無理に作ることではなく、委託されたテーマで実際に起きた議論をdiscussion fileから落とさないことである。
+
+#### 3.1 通常の同期
+
+1. discussion fileを再読込する。
+2. 前回のfile保存後に委託scope内で生じたuser発言とassistantの提案を確認する。
+3. fileへ未収録の事象、原因、提案、反論、訂正、合意があるかを確認する。
+4. 未収録内容が現在扱ったdecisionと同じなら、必要な内容をその論点へ保存する。別decisionなら、現在のdecisionへ混ぜず`2.1`のroutingで別論点へ保存する。
+5. chat上で合意済みの未収録discussionには`2.3.5`を使い、再合意せずdecisionまで保存する。
+6. 未収録がないことを確認してからhandoffする。
+
+成果物変更をネクストアクションとして返す場合は、その変更の理由になった議論が、原文からdecisionまで同じdiscussion fileで追えることを確認する。保存済みdecisionとの対応が一対一で、新しいscope、routing、方針、成果物、実行単位を一切決めない適用だけは、新しい論点にしない。対応付けに具体的な判断が一つでも必要なら「既存decisionの機械的適用」と呼んでdiscussionを省略せず、現在案として提示・保存して合意を得る。議論を伴わない誤字・format・linkの修正は新しい論点にしない。
+
+#### 3.2 記録漏れの事後reconstruction
+
+成果物変更または別の処理へ進んだ後に未収録の議論へ気づいた場合は、通常の次論点を進める前に次を行う。
+
+1. chat履歴、変更前後の成果物、discussion file、実際の変更差分を照合する。
+2. 起点となった発言、当初認識、当初提案、feedback、誤っていた認識、修正過程、合意したdecision、すでに反映した成果物を時系列で再構成する。
+3. 既存decisionの修正ならiteration、別decisionなら新規論点として保存する。
+4. `事後記録`であること、記録漏れへ気づいた契機、すでに反映済みの成果物を明記する。あたかも成果物反映前に保存していたように履歴を偽装しない。
+5. ユーザー発言、assistantの提案、観測事実、合意済みdecision、未合意の推論を区別する。成果物の存在や変更結果から、提示していない提案または得ていない合意を逆算しない。
+6. chat履歴から対象となる具体案への明示的な合意を特定できない場合は、`合意なし`または`確認不能`と明記してstatusを未決にする。先行actionがあればprocess逸脱として記録し、事後記述によって正当化しない。
+7. chat履歴や変更前状態が失われている場合は、確認不能な範囲を明記し、もっともらしい内容で補完しない。
+8. 最終結論のsnapshot、変更file一覧、現在のassistantによる反省だけでは完了扱いにしない。実際に行われた起点、当初認識、当初提案、feedback、修正過程、合意、事後状態が追えることを確認する。実際には存在しない段階は創作せず、存在しなかったこと自体を記録する。
+
+#### 3.3 handoff完了gate
+
+次をすべて満たした場合だけuserまたはconsumerへcontrolを返す。
+
+- 委託scope内で前回保存後に生じた記録価値のある議論がdiscussion fileへ同期されている。
+- 合意済みdiscussionは再合意なしで`決定`と`ネクストアクション`まで保存されている。
+- `決定`とした各内容について、対象となる具体案と明示的な合意をchat履歴から追跡できる。追跡できない内容は未決として分離されている。
+- 事後reconstructionを行った場合は、議論の変遷、事後記録であること、反映済み成果物、確認不能な範囲が記録されている。
+- 議論の結論だけでなく、そこへ至る原文、提案、feedbackをfileだけから追える。
