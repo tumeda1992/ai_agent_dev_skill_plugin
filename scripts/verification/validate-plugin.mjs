@@ -389,12 +389,27 @@ requireText(skillPath("README.md"), "facilitate-discussion");
 requireAbsent(skillPath("design-consult/SKILL.md"));
 
 const steeringSkill = skillPath("steering/SKILL.md");
+const thinkThroughSkill = skillPath("think-through/SKILL.md");
 requireFrontmatter(steeringSkill, "明示指定時");
 requireFrontmatter(steeringSkill, "軽度でない複数file・複数stepの変更時");
 requireFrontmatter(steeringSkill, "Agent");
 requireFrontmatter(taskDesignSkill, "model: opus");
 requireFrontmatter(steeringSkill, "model: sonnet");
 requireFrontmatter(steeringSkill, "effort: high");
+for (const expected of [
+  "### S8. 複数の事項を同時に受け取った",
+  "**主軸: readyな確定事項を先に完了する**",
+  "未決事項への問いかけを先に出してready事項を放置しない",
+  "同じmessage、task、sessionに含まれる",
+  "必要な合意・入力・権限が揃うなら、先に完了する",
+]) {
+  requireText(thinkThroughSkill, expected);
+}
+forbidText(
+  thinkThroughSkill,
+  "あるトピックについて議論している最中は、その議論が収束するまで次のアクションを提案・促すことは禁止。",
+  "独立した確定事項まで一括保留する旧ルール",
+);
 for (const relativePath of [taskDesignSkill, steeringSkill]) {
   requireText(
     relativePath,
