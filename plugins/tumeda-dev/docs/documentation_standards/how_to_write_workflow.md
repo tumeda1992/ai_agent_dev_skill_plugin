@@ -23,7 +23,7 @@ workflowは独立した文書種別ではない。skill、runbook、README、標
 - 何が成立したらprocedureまたはworkflowを抜けてよいのか
 - 各判断やactionに、どの意図、契約、gateが効いているのか
 
-情報一般の配置と理解の階層は[`information_structuring.md`](./information_structuring.md)、図・表・箇条書き・散文の選択は[`expression_notation.md`](./expression_notation.md)、必要な説明の深さは[`core_readers.md`](./core_readers.md)が扱う。この標準は、それらをworkflowへ当てはめるときのprocedure境界、実行順、進行制御、状態遷移を扱う。
+情報一般の配置と理解の階層は[`information_structuring`](./information_structuring/README.md)、図・表・箇条書き・散文の選択は[`expression_notation.md`](./expression_notation.md)、必要な説明の深さは[`core_readers.md`](./core_readers.md)が扱う。この標準は、それらをworkflowへ当てはめるときのprocedure境界、実行順、進行制御、状態遷移を扱う。
 
 ## 全体から局所へscopeを下る
 
