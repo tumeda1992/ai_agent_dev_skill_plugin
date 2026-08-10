@@ -25,9 +25,23 @@ steeringはtask-designのcaller兼plan orchestratorである。repository contex
 
 steeringはdesign、tasklist、roadmapの内容を設計または重複reviewしない。task-designのready resultを受けても自動的に実装へ進まない。三result共通の終了前gateを完了し、plan resultではさらにユーザーの開始確認を得るまで、tasklist-executorも子steeringも起動しない。planless resultは実行開始確認またはdispatchへ送らない。
 
+## task-design初回起動前の境界
+
+通常flowでは、steering directoryを準備したら、ユーザー入力を未整理のままtask-designへ渡して直ちに起動する。曖昧さや未決事項はtask-designが設計中に解消する入力であり、steeringが先回りして解消してはならない。
+
+初回task-design起動前にsteeringが行ってよいのは次だけである。
+
+- ユーザー入力を「達成したいこと」として意味を足さずに保持する。
+- canonical directoryの命名・作成、前月summary生成、task-design起動に必要なrepository contextの解決を行う。
+- task-designを起動できない機械的な入力不足だけをユーザーへ確認する。
+
+この区間では、application codeや設計文書を読んで実装方針を作る、WHY・WHAT・HOWを整理する、scopeを分解する、選択肢や推奨方向を提示する、leaf・composite・planlessを予想する、設計上の曖昧さを`discussion.md`で議論することを禁止する。常時適用される`think-through`も、task-designを安全に起動できるかの確認にだけ使い、steeringへ設計責務を追加する根拠にしない。
+
+たとえば「認証方式を変更したい」という入力が曖昧でも、steeringが既存codeを調べて方式候補を出してはならない。その入力をtask-designへ渡し、調査、方向性、完成後の姿、execution plan種別の判断をtask-designに委ねる。一方、既存directoryを再開するのにexact pathが欠けていて起動先を確定できない場合は、機械的な不足として確認してよい。
+
 ## repository固有文脈
 
-プロジェクト指示、設計・開発規約、roadmap orchestrationに必要なrepository固有factは、`maintenance-plugin-context`へconsumer=`steering`、必要理由、必要fact、確認元候補を渡して解決する。返された範囲だけを読む。固定の`CLAUDE.md`、`docs/`、backend/frontend path、command、remoteを推測して読まない。
+プロジェクト指示、canonical directory準備、roadmap orchestrationに必要なrepository固有factは、`maintenance-plugin-context`へconsumer=`steering`、必要理由、必要fact、確認元候補を渡して解決する。返された範囲だけを読む。task-designが設計に使うarchitecture・開発規約・test方針を初回起動前にsteering自身の判断材料として読まず、task-designへ解決を委ねる。固定の`CLAUDE.md`、`docs/`、backend/frontend path、command、remoteを推測して読まない。
 
 ## 記述規則
 
@@ -76,7 +90,7 @@ task-design専用子directory、`task_design_dir`探索、`steering.json`を新�
 
 ## discussion.mdの使い方（随時）
 
-`discussion.md`は特定phaseへ縛らず、記録価値のあるsteering固有の思考が生じた時に随時追記する。ユーザーが論点・質問・要議論を提起した場合、またはsteering agentの検討が複数往復を要するdecisionになった場合に通常discussionを開始する。
+`discussion.md`は特定phaseへ縛らず、task-design起動後に記録価値のあるsteering固有の思考が生じた時に随時追記する。ユーザーがorchestration上の論点・質問・要議論を提起した場合、またはsteering agentのruntime上の検討が複数往復を要するdecisionになった場合に通常discussionを開始する。通常flowの初回task-design起動前には開始しない。設計上の曖昧さや方向性はtask-designへ渡し、task-design固有の議論として扱う。
 
 steeringはsteering directory、起動判断、関連成果物のcontext、決定後のphase制御、終了条件を所有する。議論開始後はsteering agent自身が次を渡してpluginの`facilitate-discussion` skillを明示適用し、議論だけを別child agentへ再委譲しない。
 
@@ -88,8 +102,8 @@ discussion fileの解決、entry形式、合意対象保存、採番、親子val
 
 主な用途:
 
-- pre-designの認識合わせ: 複数の選択肢を往復して検討した過程
 - orchestration中に生じた疑問・背景: designやplanへ入らないが捨てない思考
+- ready result後の進行判断: runtime state、dispatch、再開位置について複数往復で検討した過程
 - design、investigation、plan、implementation reviewのいずれにも属さないこぼれ話
 
 `investigation.md`は、事実を集めなければ設計方針が決まらない時のfact収集logである。`discussion.md`は、どう考えたかという推論・議論のlogであり、目的、確認方法、実測結果を持つ調査の正本にしない。
@@ -129,6 +143,8 @@ entryはslug link、概要、statusだけを持ち、種別、関連、詳細fie
 > この時点では`design.md`、`tasklist.md`、`roadmap.md`を作らない。
 
 ### Step 2. task-designを起動または再開する
+
+通常flowではStep 1完了後、設計や方向性を整理する別stepを挟まず、直ちにtask-designを起動する。
 
 新規・再開とも、pluginの`task-design` skillへユーザーの要件と次を渡す。
 
@@ -312,6 +328,8 @@ decision後、直接受領したworkflow ownerはcallerへdecisionを返し、�
 - 許可なくtasklistを実行する。
 - steering自身が実装codeを変更する。実装は明示承認後にtasklist-executorまたは子steeringへdispatchする。
 - steering自身がtestまたはCIを実行する。検証は合意済みtasklistとruntime contractに従うexecutorへ委ねる。
+- 初回task-design起動前に実装設計、方向性、scope分解、plan種別を判断または提案する。
+- 初回task-design起動前に設計上の曖昧さを`discussion.md`で解消する。
 - task-designの代わりにdesign、tasklist、roadmapの構造を設計または重複reviewする。
 - task-design専用子directory、`task_design_dir`探索、`steering.json`を新規flowで作る。
 - roadmapの構造fieldをruntime都合で直接変更する。

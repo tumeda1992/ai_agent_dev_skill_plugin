@@ -402,6 +402,11 @@ for (const relativePath of [taskDesignSkill, steeringSkill]) {
   );
 }
 for (const expected of [
+  "## task-design初回起動前の境界",
+  "ユーザー入力を未整理のままtask-designへ渡して直ちに起動する",
+  "設計や方向性を整理する別stepを挟まず",
+  "通常flowの初回task-design起動前には開始しない",
+  "task-designを安全に起動できるかの確認にだけ使い",
   "## Ready result後の必須gate",
   "`tasklist_ready | roadmap_ready | planless_complete`のどのresultでも",
   "`doc-enricher`を提案modeで適用",
@@ -415,6 +420,11 @@ for (const expected of [
 ]) {
   requireText(steeringSkill, expected);
 }
+forbidText(
+  steeringSkill,
+  "pre-designの認識合わせ",
+  "task-design起動前の設計をsteeringへ戻す旧discussion用途",
+);
 for (const forbidden of [
   "## Plan合意後の必須gate",
   "`tasklist_ready | roadmap_ready`のどちらでも",
