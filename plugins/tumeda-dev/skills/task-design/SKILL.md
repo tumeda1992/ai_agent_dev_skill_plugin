@@ -2,8 +2,8 @@
 name: task-design
 model: opus
 description: |
-  実装タスクが与えられたとき、実装前の不確実性をゼロにするための設計プロセス。
-  「設計書を書く」のではなく「実装は手を動かすだけ」の状態を作ることが目的。
+  変更タスクが与えられたとき、変更前の不確実性をゼロにするための設計プロセス。
+  「設計書を書く」のではなく、後続作業では合意済みの内容を手を動かして反映するだけの状態を作ることが目的。
 
   以下のいずれかに該当する場面で積極的に使う:
   - 機能追加・変更の要件が渡されたとき
@@ -11,14 +11,13 @@ description: |
   - 複数ファイル・レイヤーにまたがる変更が含まれるとき
   - ドメイン命名・DB設計・API 設計が絡むとき
   - 実装方針が決まっていない状態で「作って」と言われたとき
+  - docs、skill、prompt、規範、調査結果等の完成後の姿を設計するとき
 
   デフォルトモデル: Opus（設計判断の質が要求されるため）。
   Sonnet で起動された場合でも、このスキル実行中は Opus に切替が望ましい。
 
-  docs / skill 作成のような「完成後の姿が紋切り型では書けない / 不要な」タスクには
-  軽量モード（discussion 駆動）を使う（詳細は §9 参照）。
-
-  design合意後、scopeに応じた排他的なtasklistまたはroadmapの設計・review・合意までを所有する。
+  design中に対象成果物へ適用する変更の分類・反映・validationと、execution plan対象がある場合の
+  排他的なtasklistまたはroadmapの設計・review・合意までを所有する。
 ---
 
 # task-design スキル
@@ -56,11 +55,7 @@ repository固有の設計文書、規約、技術検証環境・commandが必要
 
 実装中に「これどうしよう」が出るなら、設計が完了していない。書きながら考えるのは設計ではない。
 
-**設計の対象は4つ。コードに閉じる話ではない:**
-1. 操作フロー — ユーザー操作 → 何が起きるか
-2. データモデル — 完成後のデータの姿
-3. 命名・API — ドメインの行為が何と呼ばれるか
-4. docs・設定・コード構造 — 何がどこに書かれているか
+**設計対象はcodeに閉じない。** 操作、screen、data、public contract、file、documentation、runtime、workflow、research finding等のうち、今回の終了時に変わる対象を`templates/outcome-sections/catalog.md`から選ぶ。固定された全観点を機械的に埋めるのでも、code以外は完成後の姿が不要とみなすのでもない。
 
 `assignMember` と `setMemberId` のどちらを選ぶかも設計。`architecture.md` に何を書くかも設計。これらを「実装中に決めればいい」と思った時点で、設計の輪郭がずれている。
 
@@ -93,175 +88,15 @@ repository固有の設計文書、規約、技術検証環境・commandが必要
 
 → **問い:** 「ok の根拠は『書類が埋まった』か『設計外の判断が残っていない』か？」
 
-### 2-3. 完成後の姿を捉える観点（OK/NG対比 + 具体値）
+### 2-3. 完成後の姿を捉えるoutcome section
 
-完成後の世界を「4つの異なる視点で切り取る」。どれか1つが欠けると認識が揃わない。
+`templates/outcome-sections/catalog.md`を先頭から末尾まで完全に読み、今回変わる対象に必要なsectionを一つ以上選ぶ。選んだ各fileも完全に読み、`design.md`の「3. 完成後の姿」へ差し込む。
 
-#### 観点1: 操作フロー（動的な視点）
-
-**なぜ:** mutation 名・引数・呼び出し順序・呼び出し回数で実装中に判断が出るのを防ぐ。
-
-**NG（粒度が粗い）:**
-> 「外部URLを受け取って保存する」
-
-**OK（step by step で具体）:**
-```
-① ユーザーが外部URLを入力して [インポート] ボタンを押す
-② フロントが importDocument({ url: "https://example.com/articles/42" }) を呼ぶ
-③ サーバーで DocumentSourceClient.fetchDocument(documentId) → SourceDocument を取得する
-④ DocumentRecordBuilder.build(sourceDocument) → 保存用レコードを組み立てる
-⑤ DocumentRepository.upsert(record) → データストアへ保存する
-⑥ { savedDocumentId } をフロントへ返す
-⑦ UI に「保存しました」と表示する
-```
-
-**判断基準:** フロントが何を何回呼ぶか・サーバーで何が起きるかが、コードを読まずに分かるか。
-
----
-
-#### 観点2: データモデル（静的な視点）
-
-**なぜ:** スキーマ定義だけでは整合性を検証できない。実値で初めて「このケースは表現できるか」が分かる。
-
-**NG（フィールド名・型のみ）:**
-```
-保存済み文書:
-- Source URL: string
-- Author: string
-- Content: text
-```
-
-**OK（行データ + 複数ケース）:**
-```
-行例:
-| Source URL                              | Author   | Content                                    |
-| https://example.com/articles/42         | editor-a | First section...                           |
-| https://example.com/articles/43         | editor-b | Overview...\n---section---\nDetails... |
-
-ケース:
-- 単一sectionの文書: Content に1 section
-- 複数sectionの文書: Content に「---section---」区切りで連結
-- 取得不能section: 「[unavailable]」プレースホルダで埋める
-```
-
-**判断基準:** 想定される複数ケースが、その表現で破綻なく入るか。
-
----
-
-#### 観点3: 命名・公開API・モジュール境界（全体レイヤ）
-
-**なぜ:**
-
-設計とは「細かな処理をオーケストレーションして全体を構成すること」。
-全体レイヤ（public メソッド名 / クラス名 / ディレクトリ構成 / モジュール分割）と細部レイヤ(実装の中身)を分離し、**まず全体レイヤだけで処理の流れが読める状態**を作るのが設計。
-
-このレイヤを甘くすると:
-- public 名を見ても何をしているか分からず、毎回中身を読む羽目になる
-- 「どこに何が居るか」が曖昧になり、処理が太り、責務が滲む
-- 改修時に影響範囲を見極めるのに毎回コード全体を読み直すコストが乗る
-
-全体レイヤは一度決めたら長く残る。初回実装の見通しのためでもあり、改修・メンテで使い回されるためでもある。両面で厳しくありたいので、命名・モジュール境界の確定は実装中に決めない。設計時に確定する。
-
-全体レイヤは2つの表現手段で構成される。**(A) 命名・公開API**（クラス・メソッドの動詞と名詞）、**(B) モジュール境界・ディレクトリ構成**（責務の境界線）。両方が揃って初めて「全体レイヤだけで読める」が成立する。
-
----
-
-##### (A) 命名・公開API
-
-**NG（動詞が機械的・ドメインを指していない）:**
-> 「`saveItem(url)` を作る」「`getItems(id)` で取得する」「`handleData()` で処理する」
-
-**OK（命名 + 根拠）:**
-```
-importDocument(url): Promise<ImportResult>
-  - "import" は外部resourceの取得と保存を表す（"create" だと入力だけから新規作成するように見える）
-  - "document" は利用者が扱う保存単位を表す（"section" だと文書の一部分に見える）
-
-DocumentSourceClient.fetchDocument(documentId): Promise<SourceDocument>
-  - "fetch" は外部 API 呼び出しを示す（"get" は内部状態の取得）
-  - "SourceDocument" は外部取得直後の値であることを表す（"Document" だけだと保存済み値と区別できない）
-
-DocumentRecordBuilder.build(sourceDocument): StoredDocument
-  - "Builder" は保存用の構造を組み立てる責務を示す（"Converter" だと意味の変換に見える）
-```
-
-**判断基準:**
-- public 名がドメインで何をしているかを伝えているか
-- `set_` / `get_` / `do_` / `handle_` で済まされていないか
-
----
-
-##### (B) モジュール境界・ディレクトリ構成
-
-**NG（責務が宣言されていない置き場所）:**
-> 「とりあえず `lib/` に置く」「`utils/` に集める」「`helpers/` を作る」
-
-**OK（境界が責務として宣言されている）:**
-```
-src/features/document/source/    ← 外部文書の「取得元」モジュール
-src/lib/document-api/            ← 外部文書 API クライアント（features 非依存）
-```
-- 「features は source を組み合わせる場所」「lib は外部 API を抽象化する場所」と境界が宣言されている
-- public 名（`importDocument` → `DocumentSourceClient.fetchDocument` → `DocumentRecordBuilder.build`）を上から下に追うだけで処理の流れが読める
-
-**判断基準:**
-- ディレクトリ名がドメイン上の責務を表しているか（「source」「sink」「client」など）
-- `lib/` `utils/` `helpers/` のようなドメインを表さない置き場所に流れていないか
-- 配置を見ただけで「ここには何があり、何があってはいけないか」が分かるか
-
----
-
-#### 観点4: docs・設定・環境構築系 deliverable（ファイル系成果物）
-
-**なぜ:** 機能ではない deliverable は「中身」を設計し損なうと、実装者の独断でプロジェクト規約と合わない成果物ができる。
-
-**NG（deliverable の listing）:**
-> 「`docs/architecture.md` を整備する」「Vitest 環境を構築する」
-
-**OK（中身・配置・形式まで）:**
-```
-docs/architecture.md:
-- 構成: (1) 各レイヤーとその責務 (2) 各レイヤーの判断基準 (3) アンチパターンと正しい問い
-- 形式: Markdownで、レイヤーごとにh2見出しを置く
-- 配置: docs/
-
-Vitest 環境:
-- vitest.config.ts / test/setup.ts はルートに置く
-- テストコードは対象ファイルと同じdirectoryにco-locationする
-```
-
-**判断基準:** 「この deliverable を渡された実装者が、中身について独自判断をしなければならない箇所はないか」。
-
----
-
-#### 観点5: 画面イメージと配置意図（UI変更を伴う場合のみ）
-
-**なぜ:** 操作フローやcomponent責務が決まっていても、情報の順序・強調・まとまりが未合意なら、実装者が画面構成を独自判断することになる。
-
-**NG（操作フローを画面設計の代わりにする）:**
-> 「保存ボタンを押すと更新APIを呼ぶ」とだけ書き、どの情報と操作をどこへ配置するかは実装時に決める。
-
-**OK（wireframeと配置根拠を同時に示す）:**
-```
-ItemCard:
-┌──────────────────────────────┐
-│ タイトル                       │
-│ 主操作A  主操作B               │
-│ 補助属性1  補助属性2            │
-│ メタ情報                       │
-└──────────────────────────────┘
-
-配置意図:
-- タイトルを最上部に置き、一覧での判断起点にする
-- 同じ頻度・重要度の主操作を同列にする
-- 補助属性とメタ情報は主操作より視覚優先度を下げる
-```
-
-**判断基準:**
-- ASCII wireframe等で、各要素の位置・順序・まとまりが分かる
-- 「なぜこの順序・強調か」という配置根拠を含む
-- 既存画面の差分だけでなく、完成後の画面全体を評価できる
-- component inputを列挙した場合は、各inputをどの親・loader・repository等が供給するかも対応付ける
+- 各sectionは単なる記入formatではない。「なぜ必要か」「NG」「具体的な記述例」「MUST」「判断基準」に反しない具体性で書く。
+- 該当しないsectionを「なし」で機械的に埋めない。選ばなかった観点の判断が実装者へ残る場合は、そのsectionを追加する。
+- 複数sectionを使っても完成後の姿はtask-design全体で一つであり、execution plan対象ごとの小さな設計書に分けない。
+- 調査、比較、技術検証が主成果の場合だけ`research-findings.md`を選ぶ。別outcomeを設計する途中で得た事実は、該当outcome sectionへ根拠として書き戻す。
+- docsを本質的に新設・更新する場合は`documentation.md`を使い、物理fileの仕様だけなら`file-deliverables.md`、skill等のprocess contractなら`workflow.md`も組み合わせる。
 
 ### 2-4. 自己チェック
 
@@ -426,18 +261,16 @@ TBD 解消の3手段:
 
 ## 4. 成果物テンプレート
 
-※ 軽量モードでの design.md / task-design-discussion.md の使い方は §9 参照。
-
 配置先は section 5 Step 0.5 で確定する `working_dir` 配下。
 
-task-designの成果物は、設計と排他的なexecution planから成る:
+task-designの成果物は、一つのdesign、必要時のdiscussion記録、条件に合致する場合だけの排他的なexecution planから成る:
 
 - **design.md** — 合意済みの設計内容を集約する場所。テンプレート: このskill directoryの`templates/design.md`
 - **task-design-discussion.md** — 議論の変遷を記録する場所。discussion processとentry形式の正本はpluginの`facilitate-discussion` skill
   - steering でも `discussion.md` を継続使用するため、task-design 起源の議論記録は `task-design-discussion.md` にして区別する
-- **tasklist.md | roadmap.md** — 合意済みdesignを実行可能にする排他的なexecution plan。leafは`tasklist.md`、compositeは`roadmap.md`を作り、同じ`working_dir`に両方を正本として置かない
+- **tasklist.md | roadmap.md** — execution plan対象が一件以上ある場合だけ、合意済みdesignを実行可能にする排他的なplan。leafは`tasklist.md`、compositeは`roadmap.md`を作り、同じ`working_dir`に両方を正本として置かない
 
-execution planはtask-designの一部である。詳細規則は長さのために本体から分割した`tasklist-design.md`または`roadmap-design.md`を、対応するplan phaseへ入る直前に先頭から末尾まで完全に読む。
+execution planを作る場合、その設計はtask-designの一部である。詳細規則は長さのために本体から分割した`tasklist-design.md`または`roadmap-design.md`を、対応するplan phaseへ入る直前に先頭から末尾まで完全に読む。
 
 ### design.md の使い方
 
@@ -454,7 +287,7 @@ execution planはtask-designの一部である。詳細規則は長さのため�
 
 task-designは、working directory、議論を開始する判断、設計固有contextの受渡し、決定後の`design.md`反映、設計完了判定を所有する。discussion fileの解決、対象論点の選択、提案、iteration、feedback routing、合意、採番、親子関係、履歴保持は`facilitate-discussion`へ委ねる。discussion内部processをtask-design側で再定義しない。
 
-通常mode・軽量modeのどちらでも、議論開始後はtask-design agent自身が次を渡して`facilitate-discussion`を明示適用する。議論だけを別child agentへ再委譲しない。
+議論開始後はtask-design agent自身が次を渡して`facilitate-discussion`を明示適用する。議論だけを別child agentへ再委譲しない。
 
 ```text
 discussion_directory=<working_dir>
@@ -470,7 +303,7 @@ directoryとfile名に加え、そのdiscussionで判断に必要な次の情報
 - 解消したい設計上の不確実性と、その結論によって変わる設計範囲
 - 該当するWHY・WHAT・HOWと、完成後の姿を捉える観点
 - 調査・技術検証実装で確定した事実
-- 通常modeまたは軽量modeと、mode固有の成果物制約
+- 現在の対象成果物変更のrouting stateと、未決decisionへの依存関係
 
 task-designは`topic_id`、提案番号、iteration番号、`親論点`、entry formatを指定しない。これらはdiscussion fileの状態から`facilitate-discussion`が管理する。設計固有の判断材料を渡すことと、discussion内部の提案・論点構造をcallerが組み立てることを混同しない。
 
@@ -488,13 +321,13 @@ task-designは`topic_id`、提案番号、iteration番号、`親論点`、entry 
 
 ### Step 0. トリガー判定
 
-実装タスクが来たら、このスキルの起動条件に該当するか確認する（section 7 参照）。
+変更または設計タスクが来たら、このスキルの起動条件に該当するか確認する（section 7 参照）。
 - 該当 → Step 0.5 へ
 - 軽度の修正で起動条件外 → スキルなしで進める
 
 ### Step 0.5. 配置先確定
 
-設計成果物（design.md / spike/ / task-design-discussion.md / tasklist.md | roadmap.md）を置くディレクトリを確定する。
+設計成果物（design.md / spike/ / task-design-discussion.md / 条件付きのtasklist.md | roadmap.md）を置くディレクトリを確定する。
 
 入力契約:
 
@@ -521,9 +354,9 @@ task-designは`topic_id`、提案番号、iteration番号、`親論点`、entry 
 1. `working_dir_parent`を絶対パスへ解決し、そのpath自体を`working_dir`とする。
 2. `.agents/skills/name-work-directory`を適用せず、ディレクトリも作成しない。pathが存在しなければ、既存ディレクトリの指定をユーザーへ求める。
 
-確定後、task-designは`working_dir`の絶対パスを呼び出し側へ返す。`<working_dir>/design.md`はStep 1で作成し、`<working_dir>/spike/`はStep 3で技術検証実装が必要になった時だけ作成する。discussion fileの作成・継続利用は、§4の設定を受けた`facilitate-discussion`が行う。execution planはdesign合意後だけ作成する。
+確定後、task-designは`working_dir`の絶対パスを呼び出し側へ返す。`<working_dir>/design.md`はStep 1で作成し、`<working_dir>/spike/`はStep 3で技術検証実装が必要になった時だけ作成する。discussion fileの作成・継続利用は、§4の設定を受けた`facilitate-discussion`が行う。execution planはdesign合意後、かつ対象が一件以上ある場合だけ作成する。
 
-子roadmap phaseの入力を受けた場合、task-designは`parent_roadmap_path`の対応phaseを読み、`parent_phase_id`が一意に存在し、渡された親designとdependency resultsが対応することを確認する。Step 1の時点で、親roadmap path、親phase identity、親phaseの目的・scope・scope外・DoD・依存確定結果を`design.md`の「上位roadmap制約」へ記録する。これは参考情報ではなく子designの上位制約であり、子scopeは親phase scopeよりstrictly narrowerでなければならない。通常mode・軽量modeのどちらでも省略しない。
+子roadmap phaseの入力を受けた場合、task-designは`parent_roadmap_path`の対応phaseを読み、`parent_phase_id`が一意に存在し、渡された親designとdependency resultsが対応することを確認する。Step 1の時点で、親roadmap path、親phase identity、親phaseの目的・scope・scope外・DoD・依存確定結果を`design.md`の「上位roadmap制約」へ記録する。これは参考情報ではなく子designの上位制約であり、子scopeは親phase scopeよりstrictly narrowerでなければならない。成果物種別にかかわらず省略しない。
 
 ### Step 0.75. 設計前調査
 
@@ -544,7 +377,7 @@ task-designは`topic_id`、提案番号、iteration番号、`親論点`、entry 
 
 ### Step 1. 初稿（TBD 込み）を作る
 
-design.md（テンプレート参照）を 4観点の構造で初稿する。
+`templates/design.md`と`templates/outcome-sections/catalog.md`を完全に読む。catalogから今回変わる対象に必要なoutcome sectionを一つ以上選び、選んだfileも完全に読んで、task-design全体で一つの完成後の姿としてdesign.mdを初稿する。
 - 分かっている部分だけ書く
 - 未合意の部分は `TBD: （何が未合意か）` の形で残す
 - 解消が必要な設計上の不確実性をTBDとして識別する。この時点ではdiscussion fileの論点・提案・親子関係を組み立てない
@@ -591,7 +424,13 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
    - 調査: repository contextが許可したsourceを読み、設計判断の入力になる事実を特定する。
    - 技術検証実装: 下記の配置・運用契約に従い、実行しなければ分からない事実だけを確認する。
 4. discussionでは、一つの論点でdecisionが返るたびに、そのdecisionだけを`design.md`の該当箇所へ直ちに反映する。調査・技術検証実装では、確定した事実だけを反映する。未決の提案や途中経過は書かず、複数decisionを最後まで溜めない。
-5. 一つのdecisionまたは事実を反映するたびに、`design.md`全体から残る不確実性と完了条件を再評価する。残る場合はStep 3を繰り返し、なければStep 4へ進む。
+5. decisionまたは事実から対象成果物の変更が生じるたびに、tasklist作成直前まで待たず、`design.md`付録のrouting stateへ分類する。
+   - 未決decisionによって内容またはownerが変わる: `分類保留`
+   - task-designが適用するが、他の未決事項との整合性を待つ: `task-design内の対象成果物反映待ち`
+   - 未決事項へ依存せず、合意済み内容から一意に反映・validationできる: task-design内で任意に適用し、`task-design内で対象成果物へ適用済み`へ結果を記録する
+   - 本番application coding、実行時に段階を踏む作業、ユーザー指定の作業: `execution plan対象`
+   - design.mdとdiscussion file自身のlifecycle更新、調査、技術検証実装は対象成果物変更として分類せず、execution planへ載せない
+6. 一つのdecisionまたは事実を反映・分類するたびに、`design.md`全体から残る不確実性と完了条件を再評価する。残る場合はStep 3を繰り返し、なければStep 4へ進む。
 
 #### 技術検証実装の配置・運用
 
@@ -610,25 +449,20 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 - task-designが行わない: 論点採番、親子関係、提案番号、iteration、feedback routing、合意確認を独自に組み立てる。
 - `facilitate-discussion`が行う: discussion scopeと対象論点を判定し、完全な現在案、feedback、検証、routing、決定をdiscussion fileへ保存して合意を進める。
 
-### 副産物: skill / docs 改善ネタが浮上したとき
+### skill / docs 改善が必要になったとき
 
-discussion 中に「この気づき skill に書くべき」「このルール docs に置くべき」と感じることがある。トピックがホットなうちに永続化する。冷めてから書こうとしても文脈が抜けて書けない。
+discussion中に「この気づきはskillへ書くべき」「このruleはdocsへ置くべき」と判明することがある。contextが熱いうちに永続化できるよう候補と関連contextを`facilitate-discussion`へ渡し、返されたdecisionだけを扱う。認識齟齬では、具体ケースの修正案より先に原因ownerを分類し、docsまたはskillの不備なら一般則を主decisionとして扱う内部processも`facilitate-discussion`を正本とする。
 
-扱いは **design.md に決定を書き戻すのと同列**。特別扱いしない。task-designは候補と関連contextを`facilitate-discussion`へ渡し、返されたdecisionだけを対象fileへ反映する。
+decisionの`design.md`への記録は直ちに行うが、対象skill／docsへの適用時期はStep 3のroutingで別に判定する。
 
-**通常: その場で反映（推奨）**
-1. task-design agentが副産物候補をcontextとして`facilitate-discussion`へ渡す
-2. discussion内部processを新skillへ委ね、decisionとネクストアクションが返るまで本体を変更しない
-3. 返されたdecisionをskill / docs 本体に反映する
-4. 設計全体の不確実性と完了条件を再評価し、次に解消する不確実性を選び直す
-
-**例外: 後回し記録（軽微なときのみ）**
-- typo・1文追加・既存節への例追加 など本体構造に効かないもの
-- activeな設計論点に混ぜず、設計区切りで別の明示的な変更として扱う
+- 他の未決事項へ依存しなければ、次の論点へ進む前に適用・validationしてよい。
+- 他の未決事項によって内容が変わる、または複数file contractを一括で整合させる必要があれば、`task-design内の対象成果物反映待ち`へ置く。小手先のpatchを重ねない。
+- 実際に即時適用した場合は、`facilitate-discussion`が返すcontractに従い、同じoriginating decisionについて`doc-enricher`を提案modeで一度だけreviewする。原因分類時に起動済みなら重複しない。
 
 **禁止（3-5 違反）:**
 - 合意なしの本体編集（「指摘されたから直す」を即実行）
 - 「簡易合意」の名目で議論を省略
+- `即時反映`自体を目的にし、未決decisionへ依存する変更を先にpatchする
 
 ### Step 4. design合意判定
 
@@ -636,9 +470,11 @@ discussion 中に「この気づき skill に書くべき」「このルール d
 - 保存・提示前に「要議論」項目をchatで解消し、各要件を`MUST | SHOULD | MAY | 非目標`のいずれかへ確定している。未確定の提案を分類済み要件として保存していない
 - 全 TBD が解消されている
 - 新たな論点が生まれない（収束している）
+- `design.md`付録の`分類保留`がzeroで、sectionごと削除されている
+- `task-design内の対象成果物反映待ち`がzeroで、`なし`と記録されている
 - 2-4 自己チェック「設計外の判断が残っていないか」が No
 - 2-2 ネガティブ定義3つ全てに該当しない
-- **読み手セルフレビュー**: 「実装者が後続フェーズ（tasklist 等）の各タスクを見たとき、その根拠（なぜそのパターン・なぜその変更か）を design.md 内で完結して辿れるか」を確認する
+- **読み手セルフレビュー**: 「後続のplan taskまたはtask-design内で適用した変更を見たとき、その根拠（なぜそのパターン・なぜその変更か）を design.md 内で完結して辿れるか」を確認する
     - やってしまいがちな失敗: 「論点が全て解消 = 設計完了」と判定。tasklist 化フェーズで初めて「なぜこの変更か」が design.md から辿れないことが露呈する
     - 判断基準: design.md の修正パターン（一般則）と変更点一覧（結論）の間に、「個別の変更箇所が分類のどこに該当し、なぜそのパターンを選んだか」のレイヤがあるか
 
@@ -655,18 +491,32 @@ D11により、生の議論log、iterationごとの旧案、未決提案を`desi
 
 **design.md 完成設計書チェック（2 段階）:**
 
-design.md は「議論の入力ではなく議論の結果を記録する場所」（section 4 参照）。設計完了時に 2 段階で議論色ゼロを確認する。
+design.md は「議論の入力ではなく議論の結果を記録する場所」である。設計完了時に 2 段階で議論色ゼロを確認する。
 
 - **Stage 1（grep）**: `grep -n "TBD\|論点\|案 [a-c]\|採用理由\|（決定）"` を実行し、マッチゼロを確認する
   - grep は単語レベルのチェックなので必要条件。十分条件ではない
 - **Stage 2（目視通読）**: design.md を「初めて読む設計者」として最初から最後まで通読し、以下を確認する
   - 議論色（「採用しない」「案 b 却下」「理由は」「（決定: なし）」等）が残っていないか
   - 例示・シナリオの前提が他セクションの設計と矛盾していないか
-  - 決定理由が本文に混在していないか（理由は 4 章「代替案と棄却理由」に集約）
+  - 必要な最終理由が、関係するWHATと区別されたうえで、そのWHATの後の最小scopeへ一度だけ置かれているか。固定理由章への集約や、実在しない代替案の穴埋めへ戻っていないか
 
 Stage 2 を省略すると「grep で 0 件だから完了」となり、grep パターンで拾えない議論残骸（見出し内の括弧書き・「〇〇しない」という文体・前提矛盾の例示など）が残る。
 
-### Step 5. leaf / compositeを判定してexecution planを設計する
+### Step 5. execution plan対象を検証し、必要な場合だけplanを設計する
+
+ここはtasklist掲載可否を初めて判断するgateではない。Step 3でdecisionごとに分類した`design.md`付録を集計し、分類漏れ、即時適用済み変更との重複、掲載条件違反がないことを最終検証する。
+
+execution plan対象へ載せるのは次のいずれかに該当する作業だけである。
+
+1. 対象repositoryで本番成果物として利用者へ届けるapplication、service、library、CLI、batch、infrastructure component等のruntime behaviorを変更し、testで正しさを確認する通常のapplication coding。本番成果物の変更に伴うtest code、schema、dependency、build設定、runtime設定は同じ実装scopeに含む
+2. 本番application coding以外でも、順序依存する複数段階、中間checkpoint、外部調整、rollback境界、独立した検証単位が必要で、一つの連続した反映・validationでは安全に完了できない作業
+3. ユーザーがtasklistまたはroadmapへの掲載を明示した作業
+
+file数、調査量、discussion回数、実行可能な言語で書かれていることだけを掲載理由にしない。skill、prompt、documentation、template、規範等のcontentと、それらを検査・生成・整形するrepository validator、generator、formatter等の補助tool codeは、今回の本番成果物でない限り第一条件に含めない。合意済み内容から一意に変更でき、他の未決事項へ依存せず、一つの連続した反映・validationで完了できるならtask-design内で扱う。補助tool自体が今回利用者へ届ける本番productなら、名前やpathでは除外せず第一条件へ戻す。
+
+test codeは単独の自動掲載条件ではなく、本番application codingの正しさを確認するacceptanceとして扱う。testだけの変更や補助toolのself-testは、段階実行またはユーザー指定に該当するかで判定する。調査と技術検証実装はdesign phaseの不確実性解消手段であり、execution plan対象へ載せない。対象一覧は`対象`、`掲載理由`、`参照するdesign section`だけを持つ索引であり、対象ごとの完成後の姿や実行手順を複製しない。
+
+対象がzeroなら`tasklist.md`と`roadmap.md`を作らずStep 6へ進む。対象が一件以上ある場合だけ、以下のleaf / composite判定を行う。
 
 合意済みdesignを、一つの実装loopで完了できるleafか、複数の独立した子design loopへ分けるcompositeか、意味で判定する。
 
@@ -685,16 +535,42 @@ Stage 2 を省略すると「grep で 0 件だから完了」となり、grep �
 
 ### Step 6. task-design完了判定と返却
 
-次をすべて満たすまでtask-designは完了しない。
+三resultに共通して、次をすべて満たすまでtask-designは完了しない。
 
 - designが合意済み
-- `tasklist.md | roadmap.md`の一方だけが存在し、選択したplanが合意済み
-- plan reviewからdesignへ戻る未解消feedbackがない
-- plan内にTBD、未解消feedback、実装者へ残した設計判断がない
+- designとdiscussionに未解消TBDまたは未確定decisionがない
+- `design.md`付録に`分類保留`sectionがなく、`task-design内の対象成果物反映待ち`が`なし`である
+- task-design内で対象成果物へ適用した変更にはvalidation結果と参照するdesign sectionがある
 
-leafは`tasklist_ready`として`working_dir`、`design_path`、`tasklist_path`を返す。compositeは`roadmap_ready`として`working_dir`、`design_path`、`roadmap_path`を返す。task-designはplanを実行せず、roadmapの子path・status・完了日も更新しない。
+result固有の完了条件:
 
-※ 軽量モードのフローは §9-4 参照。
+- `tasklist_ready`: execution plan対象が一件以上あり、`tasklist.md`だけが存在して合意済みである。plan reviewからdesignへ戻る未解消feedbackと、plan内のTBD、未解消feedback、実装者へ残した設計判断がない
+- `roadmap_ready`: execution plan対象が一件以上あり、`roadmap.md`だけが存在して合意済みである。同じ未解消feedbackとTBDがなく、roadmapの構造fieldが確定している
+- `planless_complete`: execution plan対象が`なし`で、`tasklist.md`と`roadmap.md`がどちらも存在しない。対象成果物への必要な適用とvalidationはtask-design内で完了している
+
+返却形式:
+
+```text
+result=tasklist_ready
+working_dir=<absolute>
+design_path=<absolute>
+tasklist_path=<absolute>
+```
+
+```text
+result=roadmap_ready
+working_dir=<absolute>
+design_path=<absolute>
+roadmap_path=<absolute>
+```
+
+```text
+result=planless_complete
+working_dir=<absolute>
+design_path=<absolute>
+```
+
+task-designはplanを実行せず、roadmapの子path・status・完了日も更新しない。planless routeでtask-design内に適用するのは、合意済みdesignから一意に実行でき、本番application codingまたは段階実行を必要としない対象成果物変更だけである。補助tool codeはcodeであることだけではこのrouteから除外しない。
 
 ---
 
@@ -706,16 +582,16 @@ Sonnet がよく陥る穴埋めパターン。設計レビュー時に自分で�
 
 - [ ] WHY を飛ばして HOW から書き始めた → 3-1
 - [ ] 機能要件の議論をスキップして実装方針の提案を出した → 3-1
-- [ ] deliverable の listing をタスクにした（「〇〇.md を整備する」「環境を構築する」）→ 2-3 観点4
+- [ ] deliverable の listing をタスクにした（「〇〇.md を整備する」「環境を構築する」）→ 2-3 / `outcome-sections/catalog.md`
 
 ### B. 完成後の姿が描けていない
 
 - [ ] 完成後の姿が描けず、変更点だけ列挙した → 2-2 ネガ2 / 2-3
-- [ ] データモデルをスキーマ定義だけで済ませた → 2-3 観点2
-- [ ] 命名を実装後回しにした → 2-3 観点3-A / 2-2 ネガ1
-- [ ] モジュール境界・ディレクトリ構成を実装中に決めた → 2-3 観点3-B
+- [ ] データモデルをスキーマ定義だけで済ませた → 2-3 / `outcome-sections/data.md`
+- [ ] callerが依存する命名を実装後回しにした → 2-3 / `outcome-sections/caller-contracts.md` / 2-2 ネガ1
+- [ ] モジュール境界・ディレクトリ構成を実装中に決めた → 2-3 / `outcome-sections/code-structure.md`
 - [ ] 総論だけ書いて「設計した」と思った → 3-2 / 3-3
-- [ ] UI componentのinputを列挙したが、各inputの供給元が明示されていない → 2-3 観点5
+- [ ] UI componentのinputを列挙したが、各inputの供給元が明示されていない → 2-3 / `outcome-sections/screen.md`
   - やってしまいがちな失敗: propsや引数の型だけを確定し、「どこで取得し、どの親から渡すか」を実装者へ残す
   - 正しい問い: 「このinputを実装者が見たとき、供給元と受け渡し経路を設計書だけから追えるか？」
 
@@ -746,6 +622,14 @@ Sonnet がよく陥る穴埋めパターン。設計レビュー時に自分で�
 - [ ] discussion内部processをtask-design側で組み立て直した → 4 / 5 Step 3
 - [ ] task-design固有の設計contextを渡さず、discussionの判断材料まで新skillへ丸投げした → 4 / 5 Step 3
 
+### G. 対象成果物変更のroutingを誤る
+
+- [ ] decision確定ごとに分類せず、tasklist作成直前に初めて掲載可否を判断した → 5 Step 3 / Step 5
+- [ ] 本番application coding、段階実行、ユーザー指定のいずれにも該当しない変更をexecution plan対象へ載せた → 5 Step 5
+- [ ] 他の未決decisionへ依存する対象成果物を、即時反映自体を目的に先行patchした → 5 Step 3
+- [ ] `分類保留`または`task-design内の対象成果物反映待ち`を残してdesignを完了した → 5 Step 4
+- [ ] execution plan対象がzeroなのに空のtasklistまたはroadmapを作った → 5 Step 5 / Step 6
+
 ---
 
 ## 7. 起動・終了条件
@@ -758,6 +642,7 @@ Sonnet がよく陥る穴埋めパターン。設計レビュー時に自分で�
 - 複数ファイル・レイヤーにまたがる変更が含まれる
 - ドメイン命名・DB設計・API 設計が絡む
 - 実装方針が決まっていない状態で「作って」と言われた
+- docs、skill、prompt、規範、調査結果等について、完成後の姿または複数の設計判断を合意する必要がある
 
 以下に該当 → スキル起動不要（軽度の修正）:
 - typo 修正・コメント修正
@@ -769,11 +654,11 @@ Sonnet がよく陥る穴埋めパターン。設計レビュー時に自分で�
 ### 終了条件
 
 design phaseの判定基準はsection 5 Step 4、task-design全体の完了判定はStep 6を参照する。
-designと排他的なexecution planの双方が合意され、planからdesignへ戻る未解消feedbackがない時点で終了する。
+designが合意され、`tasklist_ready | roadmap_ready | planless_complete`のいずれか一つの完了条件を満たした時点で終了する。
 
 ### このスキルの境界
 
-このスキルはexecution plan合意で終わる。以下は対象外:
+このスキルは、plan routeではexecution plan合意、planless routeでは合意済み対象成果物の適用・validation完了で終わる。以下はplan routeでの対象外:
 
 | 対象外 | 引き継ぎ先 |
 |--------|------------|
@@ -781,7 +666,7 @@ designと排他的なexecution planの双方が合意され、planからdesign�
 | 実装後のレビュー | 別途 |
 | roadmapの子steering binding・status更新 | steering スキル |
 
-plan合意が出た時点でready resultを返す。不確実性が残ったまま実装またはorchestrationへ渡してはいけない。
+対応resultの完了条件を満たした時点でready resultを返す。不確実性、分類保留、反映待ちが残ったまま実装、orchestration、planless完了へ渡してはいけない。
 
 ---
 
@@ -826,67 +711,3 @@ plan合意が出た時点でready resultを返す。不確実性が残ったま�
 更新の前に section 6 NG集 を自分に走らせる。1つでも該当したら、Opus に相談するか、対話を1段階戻す。
 
 ---
-
-## 9. 軽量モード（discussion 駆動）
-
-通常モードは「実装前の不確実性をゼロにする」目的に特化しているが、docs / skill / 議論ベース逐次成果物のように「完成後の姿が紋切り型では書けない / 不要な」タスクには oversized。そのようなタスクには **軽量モード** を使う。
-
-### 9-1. 適用条件
-
-以下のいずれかに該当する場合に軽量モードを選ぶ:
-
-- 実装コードが伴わず、ドキュメント / プロンプトが主成果物
-- 着手前に「完成後の姿」を書き切れず、討議を重ねて決定が積み上がるタスク
-- 議論駆動で逐次的に成果物を作っていく形が自然
-
-具体例:
-
-- docs（README / ガイド / 規範文書）の新設
-- skill / プロンプトテンプレートの作成
-- 設計判断を伴う規約類の議論
-
-### 9-2. モード切替
-
-- ユーザー明示指示 / Claude 自動判定（ユーザー合意必須）
-- 通常モード開始後でも、議論途中で軽量モードへの切替を提案可
-- 切替理由を設計contextとして`facilitate-discussion`へ渡す。discussion fileへの保存方法はtask-design側で定義しない
-
-### 9-3. 通常モードとの差分
-
-| 要素 | 通常モード | 軽量モード |
-|---|---|---|
-| design.md「目的」 | MUST | ✅ MUST |
-| design.md「完了条件」 | MUST | ✅ MUST |
-| design.md「完成後の姿」 | MUST | ❌ 不要 |
-| design.md「要件」 | MUST | ❌ 不要 |
-| design.md「決定事項ストック」（D1, D2, ...） | なし | ✅ 主な中身 |
-| tasklist.md \| roadmap.md | ✅ 排他的にMUST | ✅ design合意後に排他的にMUST |
-| requirements.md | 必要時 | ❌ スキップ可 |
-| task-design-discussion.md | 任意 | ✅ 主成果物 |
-| doc-enricher 起動 | 起動しない | 起動しない |
-
-### 9-4. 進行フロー
-
-1. 軽量モード宣言（ユーザー明示 / Claude 提案 + 合意）
-2. `design.md` を最小骨組みで作成
-    - 目的 / 完了条件 / 決定事項 セクションのみ
-    - 「完成後の姿」「要件」は書かない
-3. §5 Step 3の外側loopで、次に解消する設計上の不確実性と解消手段を選ぶ
-4. discussionを選んだ場合は、working directory、`task-design-discussion.md`、§4の設計contextを渡して`facilitate-discussion`を適用する
-5. 一つの論点のdecisionが返るたびに、`design.md`のD1、D2、...へ直ちに反映する。複数decisionを一括反映しない
-6. 一つのdecisionまたは調査・技術検証の事実を反映するたびに完了条件と残る不確実性を再評価し、必要なら§5 Step 3を繰り返す
-7. 完了条件の全チェックボックス ✅ でdesignを合意する
-8. §5 Step 5でleaf / compositeを判定し、対応する分割fileを完全に読んでexecution planを作成・reviewする
-9. §5 Step 6のcompletion gateを満たした時だけtask-designを完了する
-
-軽量modeではdiscussion内部の論点・iteration・合意手順を再定義せず、通常modeと同じ§4のconsumer契約を使う。
-
-### 9-5. 軽量モードでの成果物の中身
-
-- `design.md`: 「決定事項ストック」中心の構成（D1, D2, ... と決定を積み上げる）。「完成後の姿」「要件」の重量級セクションは持たない
-- `task-design-discussion.md`: `facilitate-discussion`の契約に従う議論記録。軽量modeの主成果物だが、entry formatはtask-designで定義しない
-
-### 9-6. 軽量モードでも適用する原則
-
-- §2-3 観点4「docs・設定・環境構築系 deliverable」の判断軸は通常通り適用
-- §3 設計思想（WHY→WHAT→HOW / イテレーティブ / 合意土台 / 不確実性のためならコード / 対話）は通常モード同様に適用

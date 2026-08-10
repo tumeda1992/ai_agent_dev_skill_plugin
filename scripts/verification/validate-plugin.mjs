@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "5.0.0";
+const expectedRelease = "6.0.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -156,7 +156,6 @@ requireText(skillPath("doc-enricher/SKILL.md"), "モジュール構想（Module 
 requireText(skillPath("doc-enricher/SKILL.md"), "命名意図（Naming Intent）");
 requireText(skillPath("doc-enricher/SKILL.md"), "進化の種（Evolution Seed）");
 requireText(skillPath("doc-enricher/SKILL.md"), "設計意図メモ（Design Intent Note）");
-requireText(skillPath("task-design/SKILL.md"), "観点5: 画面イメージと配置意図");
 requirePattern(
   skillPath("task-design/SKILL.md"),
   /component(?:の)?input[\s\S]{0,120}供給元/,
@@ -269,6 +268,49 @@ for (const relativePath of discussionConsumers) {
 }
 const taskDesignSkill = skillPath("task-design/SKILL.md");
 const taskDesignTemplate = skillPath("task-design/templates/design.md");
+const outcomeSectionPath = (fileName) =>
+  skillPath(`task-design/templates/outcome-sections/${fileName}`);
+for (const fileName of [
+  "README.md",
+  "catalog.md",
+  "caller-contracts.md",
+  "code-structure.md",
+  "contract-preservation.md",
+  "data.md",
+  "documentation.md",
+  "file-deliverables.md",
+  "interaction-flow.md",
+  "research-findings.md",
+  "runtime-and-configuration.md",
+  "screen.md",
+  "skill-policy.md",
+  "workflow.md",
+]) {
+  requireExists(outcomeSectionPath(fileName));
+}
+requireAbsent(outcomeSectionPath("public-contracts.md"));
+for (const expected of [
+  "outcome-sections/catalog.md",
+  "outcome-sections/README.md",
+  "完成後の姿はtask-design全体で一つ",
+  "### task-design内で対象成果物へ適用済み",
+  "### task-design内の対象成果物反映待ち",
+  "### execution plan対象",
+  "### 分類保留（設計中のみ）",
+  "| 対象 | 掲載理由 | 参照するdesign section |",
+  "本番application coding / 段階実行 / ユーザー指定",
+  "## 4. リスクと対策",
+  "## 5. テスト方針",
+]) {
+  requireText(taskDesignTemplate, expected);
+}
+for (const forbidden of [
+  "## 4. 設計判断",
+  "### 選択した原則と理由",
+  "### 代替案と棄却理由",
+]) {
+  forbidText(taskDesignTemplate, forbidden, "撤去済みの固定設計判断format");
+}
 requireText(taskDesignSkill, "discussion_file_name=task-design-discussion.md");
 for (const expected of [
   "### Step 3. 未解消の設計判断を解消する",
@@ -292,13 +334,20 @@ for (const expected of [
   "discussion内部processをtask-design側で再定義しない",
   "設計目的と完了条件",
   "現在の`design.md`",
-  "通常modeまたは軽量mode",
+  "templates/outcome-sections/catalog.md",
+  "必要なsectionを一つ以上選ぶ",
   "task-designは`topic_id`",
   "discussion fileの作成・継続利用は",
   "一つの論点でdecisionを確定するたびにtask-designへ返す",
   "複数論点のdecisionを溜めて最後に一括反映しない",
-  "一つのdecisionまたは事実を反映するたびに",
-  "軽量modeではdiscussion内部の論点・iteration・合意手順を再定義せず",
+  "一つのdecisionまたは事実を反映・分類するたびに",
+  "本番application coding",
+  "補助tool code",
+  "分類保留",
+  "task-design内の対象成果物反映待ち",
+  "task-design内で対象成果物へ適用済み",
+  "tasklist_ready | roadmap_ready | planless_complete",
+  "result=planless_complete",
 ]) {
   requireText(taskDesignSkill, expected);
 }
@@ -318,6 +367,12 @@ for (const forbidden of [
   "上位論点に対して、自分で先に考えた提案₀を出す",
   "新skillのprocessで論点1を議論 → 決定",
   "`<working_dir>/design.md` `<working_dir>/spike/` `<working_dir>/task-design-discussion.md` を作成・参照する",
+  "軽量モード",
+  "通常modeまたは軽量mode",
+  "軽量modeでは",
+  "outcome-sections/public-contracts.md",
+  "理由は 4 章",
+  "section 4 参照",
 ]) {
   forbidText(taskDesignSkill, forbidden, "task-designに残った旧discussion process");
 }
@@ -347,15 +402,24 @@ for (const relativePath of [taskDesignSkill, steeringSkill]) {
   );
 }
 for (const expected of [
-  "## Plan合意後の必須gate",
-  "`tasklist_ready | roadmap_ready`のどちらでも",
+  "## Ready result後の必須gate",
+  "`tasklist_ready | roadmap_ready | planless_complete`のどのresultでも",
   "`doc-enricher`を提案modeで適用",
   "明示承認された提案だけを適用",
   "再発防止review",
   "ユーザーの明示確認",
   "`roadmap_ready`を受けたこと自体を子実行の承認とみなさない",
+  "`planless_complete`では実行するplanがない",
+  "planlessは子steeringの共通gateと完了報告を確認する",
+  "planless status:",
 ]) {
   requireText(steeringSkill, expected);
+}
+for (const forbidden of [
+  "## Plan合意後の必須gate",
+  "`tasklist_ready | roadmap_ready`のどちらでも",
+]) {
+  forbidText(steeringSkill, forbidden, "steeringに残った二result前提");
 }
 requireText(steeringSkill, "# {YYYY}年{MM}月 Steering サマリー");
 for (const expected of [
@@ -398,7 +462,7 @@ for (const expected of [
   "先頭から末尾まで完全に読む",
   "tasklist_ready",
   "roadmap_ready",
-  "plan reviewからdesignへ戻る未解消feedbackがない",
+  "plan reviewからdesignへ戻る未解消feedbackと",
 ]) {
   requireText(taskDesignSkill, expected);
 }

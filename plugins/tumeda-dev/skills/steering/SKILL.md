@@ -1,6 +1,6 @@
 ---
 name: steering
-description: "task-designのready resultをdispatchし、roadmap treeを子steeringへbindingして実行する。計画構造はtask-design、runtime orchestrationはsteeringが所有する。明示指定時、および軽度でない複数file・複数stepの変更時に起動する"
+description: "task-designのready resultを受け、plan resultをdispatchし、planless resultを安全gate後に完了する。roadmap treeの子steering bindingとruntime orchestrationはsteeringが所有する。明示指定時、および軽度でない複数file・複数stepの変更時に起動する"
 allowed-tools: Read, Grep, Write, Edit, Bash, Agent
 model: sonnet
 effort: high
@@ -16,13 +16,14 @@ effort: high
 
 ## 役割とゴール
 
-steeringはtask-designのcaller兼plan orchestratorである。repository contextとcanonical working directoryを準備し、task-designが返す`tasklist_ready | roadmap_ready`をdispatchする。
+steeringはtask-designのcaller兼plan orchestratorである。repository contextとcanonical working directoryを準備し、task-designが返す`tasklist_ready | roadmap_ready | planless_complete`を検証する。
 
 - `tasklist_ready`: leafとして、plan合意後の必須gateとユーザーの実装開始確認を経てtasklist-executorへ渡す。
 - `roadmap_ready`: compositeとして、同じ必須gateと開始確認を経てphaseを子steeringへbindingし、依存順に再帰実行する。
+- `planless_complete`: execution planを作らずtask-design内で対象成果物の反映・validationまで完了したresultとして、同じ終了前gateを経た後にdispatchせず完了する。
 - roadmapの構造fieldはtask-design、子steering path・status・完了日はsteeringが所有する。
 
-steeringはdesign、tasklist、roadmapの内容を設計または重複reviewしない。task-designのready resultを受けても自動的に実装へ進まない。task-designのplan合意、plan合意後の必須gate、ユーザーの開始確認がすべて完了するまで、tasklist-executorも子steeringも起動しない。
+steeringはdesign、tasklist、roadmapの内容を設計または重複reviewしない。task-designのready resultを受けても自動的に実装へ進まない。三result共通の終了前gateを完了し、plan resultではさらにユーザーの開始確認を得るまで、tasklist-executorも子steeringも起動しない。planless resultは実行開始確認またはdispatchへ送らない。
 
 ## repository固有文脈
 
@@ -51,7 +52,7 @@ rootへ次を置く。
 
 - `design.md`
 - `task-design-discussion.md`
-- 排他的な`tasklist.md | roadmap.md`
+- execution plan対象がある場合だけ排他的な`tasklist.md | roadmap.md`
 - 任意の`discussion.md`
 - 任意の`implementation_review.md`
 - 必要時だけ`investigation.md`、`requirements.md`、`spike/`
@@ -63,7 +64,7 @@ task-design専用子directory、`task_design_dir`探索、`steering.json`を新�
 - `design.md`: 合意済み設計の正本。
 - `requirements.md`: Requirementsが長く、独立fileにするとreview可能性が上がる時だけdesignから切り出す。
 - `task-design-discussion.md`: task-designの設計収束過程の正本。
-- `tasklist.md | roadmap.md`: task-designが合意済みdesignから作る排他的execution plan。
+- `tasklist.md | roadmap.md`: execution plan対象がある場合だけtask-designが合意済みdesignから作る排他的execution plan。
 - `discussion.md`: steering固有の随時議論、orchestration上の推論、他成果物へ収まらない背景。
 - `implementation_review.md`: 実装、review、validation、ユーザー動作確認後に判明したfeedback・ずれの正本。
 
@@ -107,6 +108,7 @@ discussion fileの解決、entry形式、合意対象保存、採番、親子val
    - `## 1. TL;DR`本文の最初の段落を優先し、なければ`## 目的`の最初の段落、それもなければ`{slug}（概要抽出不可、design.md 参照）`とする。
    - tasklist status: checkboxがすべて`[x]`なら`完了`、`[ ]`が残れば`未完了`、判定不能なら`不明`とする。
    - roadmap status: 全phaseの運用statusが`完了`なら`完了`、一つでも`未着手 | 進行中`なら`未完了`、fieldを判定できなければ`不明`とする。
+   - planless status: tasklistとroadmapがどちらもなく、rootの`design.md`付録に`分類保留`sectionがなく、`task-design内の対象成果物反映待ち`と`execution plan対象`がともに`なし`なら`完了`とする。いずれかを判定できなければ`不明`とする。
 
 summaryは次のexact formatを使う。
 
@@ -135,7 +137,7 @@ working_dir_parent=<steering ディレクトリの絶対パス>
 create_working_dir=false
 ```
 
-task-designは新しい子directoryを作らず、steering rootへ`design.md`、`task-design-discussion.md`、排他的な`tasklist.md | roadmap.md`を置く。既存設計を再開する場合も同じ入力を使い、別directoryを増やさない。
+task-designは新しい子directoryを作らず、steering rootへ`design.md`、必要時の`task-design-discussion.md`、execution plan対象がある場合だけ排他的な`tasklist.md | roadmap.md`を置く。既存設計を再開する場合も同じ入力を使い、別directoryを増やさない。
 
 子steeringの場合は次の四項目を一組として渡す。
 
@@ -154,15 +156,16 @@ task-designのresultと対応fileのidentityだけを検証する。内容設計
 
 - `tasklist_ready`: `working_dir`、`design_path`、`tasklist_path`がsteering rootを指し、`roadmap.md`が存在しない。
 - `roadmap_ready`: `working_dir`、`design_path`、`roadmap_path`がsteering rootを指し、`tasklist.md`が存在しない。
-- planはtask-designで自然言語合意済みであり、TBD、未解消feedback、実装者へ残した設計判断がない。
+- `planless_complete`: `working_dir`と`design_path`がsteering rootを指し、`tasklist.md`と`roadmap.md`がどちらも存在しない。`design.md`付録に`分類保留`sectionがなく、`task-design内の対象成果物反映待ち`と`execution plan対象`が`なし`である。適用済み行があればvalidation結果と参照するdesign sectionがある。
+- plan resultでは、planがtask-designで自然言語合意済みであり、TBD、未解消feedback、実装者へ残した設計判断がない。
 
-resultとfileが矛盾する、両planが併存する、planからdesignへ戻るfeedbackが未解消なら、同じworking directoryでtask-designを再開する。
+resultとfileが矛盾する、両planが併存する、planからdesignへ戻るfeedbackが未解消、またはplanlessのzero stateを満たさない場合は、同じworking directoryでtask-designを再開する。
 
-task-designからplan合意が返った直後に実装または子steering起動へ進まない。次のStep 4を必ず先に完了する。
+task-designからready resultが返った直後に実装、子steering起動、またはplanless完了へ進まない。次のStep 4を必ず先に完了する。
 
-## Plan合意後の必須gate
+## Ready result後の必須gate
 
-`tasklist_ready | roadmap_ready`のどちらでも、tasklistまたはroadmapが承認されたら、実装開始確認より必ず先に実行する。「早く実装へ進みたい」ことを理由に省略しない。
+`tasklist_ready | roadmap_ready | planless_complete`のどのresultでも、返却直後に必ず実行する。plan resultでは実装開始確認より先、planless resultでは完了報告より先に置く。「早く次へ進みたい」ことを理由に省略しない。
 
 #### 4-1. doc-enricherを提案modeで起動する
 
@@ -173,6 +176,8 @@ task-designからplan合意が返った直後に実装または子steering起動
 - steering path: `.steering/.../YYYYMMDD-slug/`
 
 `doc-enricher`を提案modeで適用し、再利用価値の高い知識が既存READMEまたは既存docsに不足するかを確認する。提案があれば内容と適用先をユーザーへ示す。明示承認された提案だけを適用し、拒否または保留なら変更しない。
+
+同じoriginating decisionについてtask-design中にreview済みなら重複提案しない。このStepはtheme全体を横断する最終safety netとして、新たな候補だけを扱う。
 
 #### 4-2. discussionを元に再発防止先をreviewする
 
@@ -202,9 +207,15 @@ task-designからplan合意が返った直後に実装または子steering起動
 - 型は利益があるため存在する。型の精神を理解し、型を活かしてより良くする場合だけ即時提案する。
 - 命令無視または単なる改悪を「型を崩す」と正当化しない。
 
-### Step 5. 実行開始をユーザーへ確認する
+### Step 5. resultごとの次の動作を行う
 
-ready result、主要成果物、Step 4のreview結果を示した後でのみ、tasklist実装またはroadmap tree実行を開始するかユーザーの明示確認を自然言語で得る。
+#### 5-1. `planless_complete`を完了する
+
+`planless_complete`では実行するplanがない。実行開始確認、tasklist-executor、子steering dispatchへ進まず、`design_path`、task-design内で適用した変更とvalidationの要約、planを作らなかった理由、Step 4のreview結果を示してsteeringを完了する。
+
+#### 5-2. planの実行開始をユーザーへ確認する
+
+`tasklist_ready | roadmap_ready`では、ready result、主要成果物、Step 4のreview結果を示した後でのみ、tasklist実装またはroadmap tree実行を開始するかユーザーの明示確認を自然言語で得る。
 
 - `OK`、`はい`、`進めて`等の明示確認があればStep 6へ進む。
 - 拒否、保留、確認なしならここで終了する。
@@ -229,8 +240,8 @@ roadmapの依存DAGを読み、未着手かつ依存完了済みのphaseを選�
 1. phaseの運用fieldへcanonicalな子steering pathをbindingする。
 2. statusを`進行中`へ更新する。
 3. 子steeringへ親roadmap path、phase identity、親design path、dependency resultsを渡す。
-4. 子steeringも自身のrootを`create_working_dir=false`で子task-designへ渡す。子task-designは`tasklist_ready`またはnestedな`roadmap_ready`を返せる。
-5. leafはtasklist-executorの完了result、compositeは全子phaseの完了を確認する。
+4. 子steeringも自身のrootを`create_working_dir=false`で子task-designへ渡す。子task-designは`tasklist_ready`、nestedな`roadmap_ready`、または`planless_complete`を返せる。
+5. leafはtasklist-executorの完了result、compositeは全子phaseの完了、planlessは子steeringの共通gateと完了報告を確認する。
 6. 対応phaseのstatusと完了日だけを更新し、次の依存可能phaseへ進む。
 7. 全phase完了は、全phaseのstatusが`完了`で、各phaseに完了日があることを確認して判定し、composite完了を一段上の親roadmapへ伝播する。
 
@@ -308,6 +319,8 @@ decision後、直接受領したworkflow ownerはcallerへdecisionを返し、�
 - standalone bundleを明示承認前に移動する。
 - tasklist合意前に実装し、ユーザー動作確認前にcommit、push、PRを行う。push・PR前にはlocal commitが実際に一件以上存在することを確認する。
 - 必須gateまたはユーザー確認を飛ばし、自動で次工程へ突入する。
+- `planless_complete`を未完了resultとしてtasklist作成へ戻す、または実行開始確認・executor・子steeringへdispatchする。
+- `planless_complete`を理由にReady result後の必須gateを省略する。
 
 ## 合意済みの明示廃止
 
