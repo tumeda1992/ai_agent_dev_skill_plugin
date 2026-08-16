@@ -1,0 +1,62 @@
+# C1〜C8反映後のcoverage再評価（一般化済み検証資料）
+
+## 再評価の目的
+
+`coverage-v1.md`はC6を`partial decision + 残件 + 最終棄却`の候補としていた。しかし実際のC6では、既存fileの局所修正を完全diffで示すvariantを検証した。C1〜C6で成立した骨子とvariantを基準に、v1で類推に留まったcaseと、iteration論点外のgapを再判定する。
+
+## C6で埋まったgap
+
+既存fileの局所修正は、全追加・削除行と必要contextが読みやすい一つのunified diffに収まる時、file全文を再掲せず完全diffへ合意できる。これにより、v1で`O`へ一括していた変更previewのうち、新規documentと既存fileの局所修正を具体caseで分けられた。
+
+大規模な既存file修正、離れた多数の変更、複数file変更、file移動は未検証のまま残る。
+
+## v1で一部coverageだったcaseの再判定
+
+### scopeまたは情報ownerを移すcase
+
+sourceでは、tasklistの実装メモへ置く案から、discussionへ直接記録する案へ変更している。C8作成前は、同じ問題について保存先とworkflowを変える通常proposal iterationとして表せると仮置きしていた。
+
+C8で実際のafterを作ると、振り返りformatの修正と、実装途中の気づきをtasklistからdiscussionへ移す判断は別decisionだと分かった。通常proposal iterationへowner移動を累積せず、C4と同じparent / child分解を使う。owner側のproposalでは、移動前後のworkflowと移動後も元ownerへ残す情報の境界をraw textのprocess flowで示す形が受諾された。
+
+scope・owner移動専用のentry構造または固定fieldは増やさない。別decisionなら分解し、同じdecision内の判断材料として移動を示す時は、process flow、tree、対応表、散文等から内容に合うproposal patternを選ぶ。
+
+### 一部decisionを確定し、残件を後で棄却するcase
+
+sourceは二つの恒久化判断を一つの論点へ混ぜ、一方を先に決定し、もう一方を残件として後続iterationで棄却した。現在のC4 contractでは、独立したyes/noを一つのleafへ混ぜず、parentから二つのchild論点へ分解する。一方が採用、他方が棄却でも、各childのfeedbackと`決定`で完結し、parentは未決childがなくなった時に統合できる。
+
+C4が直接扱ったのも、一括proposalを独立decisionへ分け、childごとに異なる結論を持たせるcaseである。新しいentry構造は不要と判定する。
+
+## v1で現骨子では扱えないと判定したcase
+
+後続topicが独立したdecisionとして語彙を変更し、その結果、先行topicの具体treeと最終decisionを読み替えるcaseがある。
+
+現prototypeは、同じdecisionが後続feedbackまたはevidenceで変わる場合の再開を扱う。しかしこのcaseでは、先行topicの階層decisionは維持され、後続topicの命名decisionだけが先行topicに含まれる識別子を置換する。先行topicを同じdecisionのiterationとして再開すると、階層と命名のdecision boundaryを混ぜる。何も同期しなければ、先行topic単独では古い識別子が現在も有効に見える。
+
+したがって、次のキュレーション対象はtopic間の置換関係とする。
+
+## C6後に選んだ検証順序
+
+1. C7で、後続topicが先行topicの具体表現を置換するafterを作る。
+2. C7で骨子が増えた場合は、C1〜C6と既確認caseを変更後の骨子で再評価する。
+3. その後、scopeまたはowner移動を実物化しないままformatを固定できるか判断する。
+4. 大規模・複数file修正、file移動は、format骨子ではなくproposal previewの未検証variantとして別に残す。
+
+この順序でC7とC8まで検証した。判定は以下に記録する。
+
+## C7の判定
+
+C7 v1は受諾された。先行topicの履歴を変更せず、先行topicの`決定`を現在有効な具体表現と後続topicの典拠へ同期し、置換理由と影響範囲を後続topicが所有する形を成立形とする。
+
+この追加は、同一decisionの再開とは分ける。先行topicが決めたdecision自体が変わるならiterationまたは別decisionとして扱い、外部decisionによる具体表現の同期だけにC7を使う。
+
+## C8の判定
+
+C8 v1は受諾された。scope・owner移動は、それ自体をentry variantにしない。元proposalから独立して変更できるdecisionならparent / childへ分け、移動前後やowner境界はそのchild proposalの判断対象に合うpatternで示す。
+
+C8では、実装途中の気づきについて、tasklistの実装メモへ蓄積して完成後に判定するbeforeと、判断が必要な時点でdiscussionへ移すafterをprocess flowで比較した。同時に、合意済み作業の状態と検証結果はtasklistへ残る境界を示せた。
+
+## 現在のcoverage
+
+v1で一部coverageだった二caseと、iteration論点外のtopic間置換は、C4、C7、C8の具体afterで扱えることを確認した。26 iteration論点の意味型について、現骨子で扱えないcaseは残っていない。
+
+ただし、大規模な既存file修正、離れた多数の変更、複数file変更、file移動のproposal previewは、具体caseで未検証である。これはentry骨子のcoverageではなく、proposal-section catalogの未検証variantとして残す。

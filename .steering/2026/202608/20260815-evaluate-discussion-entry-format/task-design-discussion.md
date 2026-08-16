@@ -423,7 +423,7 @@
 #### イテレーション1: 最終状態の整形ではなく、iterationごとの利用状態を再現する
 
 **受領したfeedback:**
-> え、.steering/2026/202608/20260815-evaluate-discussion-entry-format/source-materials.local.md/curated-failures-before-after.md  クズだろ。論点2のイテレーション2で利用者誰か合意したろ。C1のafterはどうやってイテレーション回ってんの？
+> え、.steering/2026/202608/20260815-evaluate-discussion-entry-format/source-materials/curated-failures-before-after.md  クズだろ。論点2のイテレーション2で利用者誰か合意したろ。C1のafterはどうやってイテレーション回ってんの？
 
 ##### 検証
 
@@ -473,7 +473,7 @@
 ##### 適用結果
 
 - 提案1の六条件は受諾された。
-- [`c1-iteration-replay-v2.md`](./source-materials.local.md/c1-iteration-replay-v2.md)へ、初期提案直後とiteration 1〜5更新後の六状態を作成した。
+- [`c1-iteration-replay-v2.md`](./source-materials/c1-iteration-replay-v2.md)へ、初期提案直後とiteration 1〜5更新後の六状態を作成した。
 - 各snapshotを、その時点のentry全文として作り、前snapshotを読まなくても完全な現在案を判断できるようにした。
 - 各snapshotの議論展開には、受領したfeedback、前案で成立しなかった点、変更、その時点の判断を累積した。
 - 六状態を実運用で一つのentryへ併置する案ではない。同じentryが更新される各時点を比較するtest fixtureとしてだけ並べている。
@@ -487,7 +487,7 @@ C1では、各iteration時点のentryを次の四つの理解対象で構成す�
 3. 現在案を必要にした現在の診断。
 4. 各feedbackが何を成立させず、何を変え、その時点でどう判断したかの累積。
 
-この四つはC1を成立させるための仮置きであり、共通見出しとして採用しない。C1内では、Snapshot 4単体から変更対象が`CLAUDE.md`とdiscussion formatの二つへ広がった現在地、iteration 1〜3で累積した契約、iteration 4で加わった判断、iteration 5でまだ追加されていない契約を復元できる。
+この四つはC1を成立させるための仮置きであり、共通見出しとして採用しない。C1内では、Snapshot 4単体から変更対象が`project-instructions.md`とdiscussion formatの二つへ広がった現在地、iteration 1〜3で累積した契約、iteration 4で加わった判断、iteration 5でまだ追加されていない契約を復元できる。
 
 ##### 検証
 
@@ -601,7 +601,7 @@ C1 after v3は、一つのentryへ初期提案とiteration 1〜5が順に増え�
 
 ##### 適用結果
 
-- 提案4は受諾された。別のsnapshotを作らず、初期提案とiteration 1〜5が一つのentryへ順に蓄積する[`C1 after試作 v3`](./source-materials.local.md/c1-single-entry-v3.md)を作成した。
+- 提案4は受諾された。別のsnapshotを作らず、初期提案とiteration 1〜5が一つのentryへ順に蓄積する[`C1 after試作 v3`](./source-materials/c1-single-entry-v3.md)を作成した。
 - 初期提案は`背景 → 原因 → 完全案`、各iterationは`受領したfeedback → 修正後の完全案 → 提案背景`の順にした。
 - 各提案の内部表現は、flow、表、文章、tree、ruleと適用例の対応表から内容に合わせて選び、固定の`各論`と箇条書きへ統一していない。
 - 提案背景では、直前案がfeedbackに対して成立しなかった具体的な理由と、今回埋める必要が生じたgapを接続した。固定の`弱点`と過去iterationの再要約は置いていない。
@@ -640,7 +640,7 @@ proposalの見出しは`提案N`だけにする。各iterationの提案が差分
 
 ##### 適用結果
 
-- [`C1 after試作 v3`](./source-materials.local.md/c1-single-entry-v3.md)のiteration 1〜5すべてで、提案見出しを`提案N`へ短縮した。
+- [`C1 after試作 v3`](./source-materials/c1-single-entry-v3.md)のiteration 1〜5すべてで、提案見出しを`提案N`へ短縮した。
 - 五つの`提案背景`すべてで、前案の不成立理由と今回のgapを独立した見出しへ変更した。本文は削らず、判断境界だけを見出しで露出させた。
 - 単一entry、iteration順、各時点の完全案、proposal内部の表現、上部navigation、固定の弱点と過去要約を置かない点は維持した。
 
@@ -706,7 +706,7 @@ C2以降のafterを作るたび、afterだけでなくprototypeへ置いた時�
 #### イテレーション8: layoutの一致とC1の意味的品質を分けて評価する
 
 **受領したfeedback:**
-> このテンプレートで .steering/2026/202608/20260815-evaluate-discussion-entry-format/source-materials.local.md/c1-single-entry-v3.md を低品質ガチャに引っかからないくらいのクオリティになってる？
+> このテンプレートで .steering/2026/202608/20260815-evaluate-discussion-entry-format/source-materials/c1-single-entry-v3.md を低品質ガチャに引っかからないくらいのクオリティになってる？
 
 ##### 検証
 
@@ -975,10 +975,10 @@ prototypeでは、現在の`最新`fieldに表示条件を付ける。
 
 ```diff
  ### 現在の判断位置
- 
+
 +<!-- iterationが一件以上ある場合だけ表示する -->
  **最新:** [イテレーションN: {このiterationで変わった内容}](#対応するanchor)
- 
+
  **現在の判断対象:** {現在、何への判断または合意を求めているかを指示語なしで書く}
 ```
 
@@ -1290,7 +1290,7 @@ C1の中心的な失敗は、五回のiterationで追加された契約の累積
 
 **結果:** 検証要求
 
-> これでいいかどうかは、.steering/2026/202608/20260815-evaluate-discussion-entry-format/source-materials.local.md/c1-single-entry-v3.md についてv4を作って、その感じが良さそうかで判断だな
+> これでいいかどうかは、.steering/2026/202608/20260815-evaluate-discussion-entry-format/source-materials/c1-single-entry-v3.md についてv4を作って、その感じが良さそうかで判断だな
 
 役割分担の文章だけでは受諾せず、C1の実物へ適用した時の読み味で判断する。提案17の方向性は未決のまま維持し、v4で各提案と決定欄の情報分担を検証する。
 
@@ -1298,7 +1298,7 @@ C1の中心的な失敗は、五回のiterationで追加された契約の累積
 
 #### 提案18
 
-`source-materials.local.md/c1-single-entry-v3.md`を元に、`c1-single-entry-v4.md`を新規作成する。v3は比較対象として変更しない。
+`source-materials/c1-single-entry-v3.md`を元に、`c1-single-entry-v4.md`を新規作成する。v3は比較対象として変更しない。
 
 v4では、イテレーション0だけが最初の判断対象である深化loopを一まとまりで示す。イテレーション1以降の提案は、診断levelへの遡及、総論と各論の成立条件、診断の質と提案精度の因果、discussionへの保存、ruleと適用例の併記という、その回で追加または変更する判断だけを示す。前の提案全文は再掲しないが、何へ作用する変更かと影響範囲はproposal内またはproposal背景から判断できるようにする。
 
@@ -1312,7 +1312,7 @@ C1は五回のiterationすべてに累積完全案があるため、同じ内容
 
 #### 適用結果
 
-- [`c1-single-entry-v4.md`](./source-materials.local.md/c1-single-entry-v4.md)を作成し、比較元のv3は変更していない。
+- [`c1-single-entry-v4.md`](./source-materials/c1-single-entry-v4.md)を作成し、比較元のv3は変更していない。
 - イテレーション0は最初の判断対象である深化loopを一まとまりで示し、イテレーション1〜5は各回で追加・変更する判断へ提案範囲を絞った。
 - feedbackを評価対象の提案と同じiteration末尾へ移し、評価結果から次のiterationの問いへ移る順序にした。
 - 末尾の`決定`へ、現在も有効な内容を六つの部分決定として集約した。途中時点では、その時点までに成立した部分決定だけが同じ欄へ存在する想定を冒頭に明記した。
@@ -1360,7 +1360,7 @@ C1だけを見ると判断が積み上がるため、仮決定が部分決定の
 
 #### 適用結果
 
-- [`c1-single-entry-v5.md`](./source-materials.local.md/c1-single-entry-v5.md)を作成し、v3とv4は比較用に維持した。
+- [`c1-single-entry-v5.md`](./source-materials/c1-single-entry-v5.md)を作成し、v3とv4は比較用に維持した。
 - v4末尾の六つの固定的な`部分決定N`を削り、元sourceで採用された内容を二段落の最終決定として書いた。
 - 最終決定の補足として、深化loopの成立、discussion formatの追加、ruleと適用例の併記という三つの転機だけを、典拠iteration付きの`判断の足跡`へ残した。
 - final stateのfixtureなので`仮決定`は残していない。議論中の仮決定を非加算的に更新する読み味は、採用案の撤回・置換を扱うcaseで検証する。
@@ -1379,7 +1379,7 @@ C1だけを見ると判断が積み上がるため、仮決定が部分決定の
 
 #### 提案20
 
-参照repositoryにあるdiscussion系15 file、134 decisionと、implementation review系7 file、55 review事象を、現在のentry骨子とproposal-section catalogへ一巡適用した結果を[`coverage-v3.md`](./source-materials.local.md/coverage-v3.md)とする。
+参照repositoryにあるdiscussion系15 file、134 decisionと、implementation review系7 file、55 review事象を、現在のentry骨子とproposal-section catalogへ一巡適用した結果を[`coverage-v3.md`](./source-materials/coverage-v3.md)とする。
 
 entry骨子については、新しい意味型を追加しない。iterationなしの107 decision、iterationを持つ27 decision、legacyな全体変更、別topicへ誤って入ったiteration、長い累積proposalまで、C1〜C8で成立した次の組合せで扱える。
 
@@ -1395,9 +1395,9 @@ proposal previewには、複数fileまたはfile間の対応そのものが一de
 
 | 検証case | 対応の主単位 | 使った表示 |
 | --- | --- | --- |
-| [`c9-file-move-v1.md`](./source-materials.local.md/c9-file-move-v1.md) | file path | 完成後tree、source→target表、機械的置換、consumer一覧、旧path不在 |
-| [`c10-file-split-v1.md`](./source-materials.local.md/c10-file-split-v1.md) | 責務・contract | 完成後tree、旧責務→新file表、file間flow、公開API維持、旧file不在 |
-| [`c11-semantic-migration-v1.md`](./source-materials.local.md/c11-semantic-migration-v1.md) | fileごとの意味 | source→target台帳、default保持、許可変換、file別のdiff / before-after / outline、未許可差分0件 |
+| [`c9-file-move-v1.md`](./source-materials/c9-file-move-v1.md) | file path | 完成後tree、source→target表、機械的置換、consumer一覧、旧path不在 |
+| [`c10-file-split-v1.md`](./source-materials/c10-file-split-v1.md) | 責務・contract | 完成後tree、旧責務→新file表、file間flow、公開API維持、旧file不在 |
+| [`c11-semantic-migration-v1.md`](./source-materials/c11-semantic-migration-v1.md) | fileごとの意味 | source→target台帳、default保持、許可変換、file別のdiff / before-after / outline、未許可差分0件 |
 
 C5の新規documentは`document-heading-outline`、C6の一file局所修正は完全unified diffをそのまま使い、変更集合を常に被せない。離れた複数hunkや複数fileが独立して変更できるならC4でdecisionを分ける。同じdecisionとして不可分な時だけ、外枠を`file-change-set`とし、各file内部にoutline、diff、対応表等を使い分ける。
 
@@ -1439,7 +1439,7 @@ discussion entryは一つのdecisionを、番号付きiterationが時系列に�
 
 複数file、file間の対応、または不可分な複数hunkが一decisionを構成する時は、`file-change-set`で変更集合を閉じる。変更対象を漏れなく列挙し、beforeからafterへの対応、変えてよい範囲、維持・削除・scope外、完了状態を判断できるようにする。対応の主単位と内部表示はcaseに合わせ、C9のfile path、C10の責務・contract、C11のfileごとの意味のように変えてよい。すべてのcaseを同じ表示方式へ揃えず、独立して採否を変えられる変更は別decisionへ分ける（イテレーション20）。
 
-補正後の母集団はdiscussion系15 file、134 decisionと、implementation review系7 file、55 review事象である。この全件へ現骨子とproposal patternを一巡適用し、entry骨子で扱えない意味型は残らなかった。proposal previewで不足したfile変更集合はC9〜C11で具体化し、C5〜C8と長い複数file改訂caseへ戻して適用境界を確認した。検証結果は`source-materials.local.md/coverage-v3.md`が所有する。
+補正後の母集団はdiscussion系15 file、134 decisionと、implementation review系7 file、55 review事象である。この全件へ現骨子とproposal patternを一巡適用し、entry骨子で扱えない意味型は残らなかった。proposal previewで不足したfile変更集合はC9〜C11で具体化し、C5〜C8と長い複数file改訂caseへ戻して適用境界を確認した。検証結果は`source-materials/coverage-v3.md`が所有する。
 
 各iterationでは、提案と提案背景を保存する時点で空の`提案Nへのフィードバック`見出しまで置き、`未回答`等のplaceholderは表示しない。feedback後の`結果`は固定候補へ限定せず、その回の帰結が分かる短い表現を書く（論点19）。
 
@@ -1961,7 +1961,7 @@ feedbackの`結果`を固定候補にするか自由記述にするか、未回�
 
 #### 提案0
 
-次はC2「原因診断が深くなったのか、提案が変わったのか区別できない」を扱う。sourceである`x_favorites/.steering/2026/202604/20260429-featute-5-phase2-favorites-list/discussion.md`の論点7を、現在の共通骨子で一つの進行中entryへ作り直し、`source-materials.local.md/c2-single-entry-v1.md`へ保存する。
+次はC2「原因診断が深くなったのか、提案が変わったのか区別できない」を扱う。sourceである`非公開の利用先記録`の論点7を、現在の共通骨子で一つの進行中entryへ作り直し、`source-materials/c2-single-entry-v1.md`へ保存する。
 
 作り直すentryは、初期提案から三回のfeedback後までを、番号付きiterationとして順に蓄積する。各iterationは`提案N → 提案背景 → 提案Nへのフィードバック`の順にし、提案Nにはその時点で判断できる完全案を書く。提案を`総論 / 各論 / ルール`へ固定せず、設計完了条件、documentation、test・runtime設定、code構造等、内容を識別できる見出しを使う。
 
@@ -1996,7 +1996,7 @@ C2は、現在の共通骨子へ新しい成果物表現を持ち込まず、`�
 
 #### 提案1
 
-`source-materials.local.md/c2-single-entry-v1.md`として、C2の四iterationを現在の共通骨子だけで作成した。C2で起きた三つの変化は、次のように読み分けられる。
+`source-materials/c2-single-entry-v1.md`として、C2の四iterationを現在の共通骨子だけで作成した。C2で起きた三つの変化は、次のように読み分けられる。
 
 | 変化 | feedbackの評価 | 次の提案背景で示す接続 |
 | --- | --- | --- |
@@ -2010,13 +2010,13 @@ C2は、現在の共通骨子へ新しい成果物表現を持ち込まず、`�
 
 ```diff
  #### 提案背景
- 
+
  {直前のfeedbackから提案Nが満たす必要のある条件と、提案Nのどの内容がそれを満たすかを書く。
 +直前のfeedbackが原因診断または修正scopeを変えた場合は、前の診断の何を維持し、置換し、または拡張したかを説明する。
  }
 
  #### 提案Nへのフィードバック
- 
+
  **結果:** {...}
 +原因診断への影響が次の提案を理解するうえで重要なら、`修正要求`だけに丸めず、診断を維持するのか遡るのかが分かる具体的な結果を書く。
 ```
@@ -2620,9 +2620,9 @@ discussionの提案に置く短いprocess flowは、render済みMarkdownだけ�
 
 #### 提案0
 
-次はC3「技術的な反証で採用案が撤回され、過去案へ戻る経路」を扱う。sourceは`x_favorites/.steering/2026/202605/20260502-feature-6-phase3-x-notion-sync/discussion.md`の論点4「スレッド本文取得方法」とする。
+次はC3「技術的な反証で採用案が撤回され、過去案へ戻る経路」を扱う。sourceは`非公開の利用先記録`の論点4「スレッド本文取得方法」とする。
 
-最終結果までを一度に再編集せず、まず`source-materials.local.md/c3-single-entry-v1.md`へ、sourceのイテレーション2で`start_time / end_time`方式を決定した時点までを書く。この時点では後からElevated access制約が発覚することをentry本文へ先取りせず、当時の判断材料から成立した決定として保存する。
+最終結果までを一度に再編集せず、まず`source-materials/c3-single-entry-v1.md`へ、sourceのイテレーション2で`start_time / end_time`方式を決定した時点までを書く。この時点では後からElevated access制約が発覚することをentry本文へ先取りせず、当時の判断材料から成立した決定として保存する。
 
 最初のfileには、次の三iterationと、その時点の決定だけを置く。
 
@@ -2797,9 +2797,9 @@ C3のイテレーション2では`start_time / end_time`方式が決定され、
 
 #### 提案0
 
-次はC4「一つの論点を複数decisionへ分解した後の現在地が分からない」を扱う。sourceは`x_favorites/.steering/2026/202607/20260720-feature-16-migrate-project-skills-to-shared-plugin/task-design-discussion.md`の論点10「context中央集権とhost runtime契約」とする。
+次はC4「一つの論点を複数decisionへ分解した後の現在地が分からない」を扱う。sourceは`非公開の利用先記録`の論点10「context中央集権とhost runtime契約」とする。
 
-`source-materials.local.md/c4-discussion-v1.md`へ、sourceの初期提案と、それを一つのyes/noにできないと判明したfeedbackまでを現在の共通骨子で作成する。この段階では10-A / 10-B / 10-Cを先に作らず、最初の提案がcontext ownership、template path、runtime model profile、GitHub tasklist分岐を一括していた状態を残す。
+`source-materials/c4-discussion-v1.md`へ、sourceの初期提案と、それを一つのyes/noにできないと判明したfeedbackまでを現在の共通骨子で作成する。この段階では10-A / 10-B / 10-Cを先に作らず、最初の提案がcontext ownership、template path、runtime model profile、GitHub tasklist分岐を一括していた状態を残す。
 
 作成した初期状態で確認するのは、次の三点である。
 
@@ -2943,15 +2943,15 @@ C4の検証は、parent論点10を`子論点待ち`へ変更し、論点11をact
 
 #### 提案0
 
-次はC5「READMEのpathへの合意と、作られるfileへの合意が一致していない」を扱う。sourceは`x_favorites/.steering/2026/202605/20260517-feature-7-curate-favorites/task-design-discussion.md`の論点11「画面イメージと設計意図のストック」とする。
+次はC5「READMEのpathへの合意と、作られるfileへの合意が一致していない」を扱う。sourceは`非公開の利用先記録`の論点11「画面イメージと設計意図のストック」とする。
 
-`source-materials.local.md/c5-discussion-v1.md`へ、初期案と、保存先を`src/app/favorites/README.md`から`src/components/favorite/README.md`へ変更したイテレーション1までを、現在の共通骨子で再現する。after案はまだ加えない。
+`source-materials/c5-discussion-v1.md`へ、初期案と、保存先を`src/app/saved-items/README.md`から`src/components/savedItem/README.md`へ変更したイテレーション1までを、現在の共通骨子で再現する。after案はまだ加えない。
 
 再現するbeforeでは、次の二種類を分けて読めるようにする。
 
 ##### READMEへ保存する素材として既に決まっていたこと
 
-- 一覧画面、`FavoriteCard`、詳細モーダルの情報配置
+- 一覧画面、`SavedItemCard`、詳細モーダルの情報配置
 - タイトルやメタ情報を先に置き、吟味actionを本文全文より前へ置く理由
 - 汎用画面から特化画面へ進化する道筋と、将来大喜利的に設計し直さないための設計意図
 
@@ -2960,8 +2960,8 @@ C4の検証は、parent論点10を`子論点待ち`へ変更し、論点11をact
 - 既決の素材から何をREADMEへ移し、何をdesignだけに残すか
 - READMEの見出し構造と、各見出しが成立させる判断
 - 配置理由をどの粒度の本文として残すか
-- `components/favorite`内の既存componentとREADMEの位置関係
-- `src/app/favorites/README.md`を作らないことを含む完成後のfile tree
+- `components/savedItem`内の既存componentとREADMEの位置関係
+- `src/app/saved-items/README.md`を作らないことを含む完成後のfile tree
 
 このbeforeを作った後、まず「中身がなかった」のではなく「素材はあったが、fileとしての編集結果へ合意していなかった」というC5のgapが読めるかを確認する。読めた場合だけ、outline、代表本文、tree等のどれを加えればこのREADMEへ合意できるかを、同じcaseの次iterationで組み立てる。
 
@@ -2979,7 +2979,7 @@ C5からpreview形式を先に一般化すると、tree、outline、代表本文
 
 > ok
 
-元sourceで既に決まっていたUI設計素材と、新規READMEの成果物形状として未決だった内容を分け、afterを加えないbeforeを`source-materials.local.md/c5-discussion-v1.md`へ作成する。
+元sourceで既に決まっていたUI設計素材と、新規READMEの成果物形状として未決だった内容を分け、afterを加えないbeforeを`source-materials/c5-discussion-v1.md`へ作成する。
 
 **before確認結果:** 成立
 
@@ -2991,10 +2991,10 @@ C5からpreview形式を先に一般化すると、tree、outline、代表本文
 
 #### 提案1
 
-`source-materials.local.md/c5-discussion-v2.md`をafter候補として作成する。v1の履歴を維持し、決定済みだった論点を再開するイテレーション2として、次の二つを提案本文へ加える。
+`source-materials/c5-discussion-v2.md`をafter候補として作成する。v1の履歴を維持し、決定済みだった論点を再開するイテレーション2として、次の二つを提案本文へ加える。
 
-1. `src/components/favorite`と`src/app/favorites`の完成後tree。新規READMEと既存componentの位置関係、`app/favorites/README.md`を作らない状態を示す。
-2. `src/components/favorite/README.md`の全文draft。モジュール構想、各componentの責務、画面構成と配置意図、進化道筋、設計意図メモの更新条件までを見出しと本文として示す。
+1. `src/components/savedItem`と`src/app/saved-items`の完成後tree。新規READMEと既存componentの位置関係、`app/saved-items/README.md`を作らない状態を示す。
+2. `src/components/savedItem/README.md`の全文draft。モジュール構想、各componentの責務、画面構成と配置意図、進化道筋、設計意図メモの更新条件までを見出しと本文として示す。
 
 このcaseでは、別の`見出しoutline`や`代表本文`を付けない。全文draft自体からoutlineを読め、代表箇所以外を実装者へ委ねる必要もない大きさだからである。v2は提案へのfeedbackを未回答とし、末尾の`決定`は置かない。実際に判断するのは、treeと全文draftを見れば、pathだけでなく作られるREADMEへ合意または修正要求を出せるかである。
 
@@ -3054,7 +3054,7 @@ C5 beforeでは、保存するUI設計素材とownerは決まっていたが、R
 
 C5 after候補の`c5-discussion-v2.md`を再開し、全文draftを出した提案2とそのfeedbackを履歴に残したまま、次の提案3を追加する。
 
-提案3では、完成後treeに加え、READMEの見出し構造と各見出しで扱う内容をannotated outlineとして示す。本文全文はdiscussionへ書かない。outlineの合意後に`src/components/favorite/README.md`を実際に作成し、作成されたfileを次のreview対象にする流れまでを示す。
+提案3では、完成後treeに加え、READMEの見出し構造と各見出しで扱う内容をannotated outlineとして示す。本文全文はdiscussionへ書かない。outlineの合意後に`src/components/savedItem/README.md`を実際に作成し、作成されたfileを次のreview対象にする流れまでを示す。
 
 ```text
 新規fileの配置とannotated outlineを提案
@@ -3110,18 +3110,18 @@ C5で成立したのは新規fileのvariantである。既存file修正では変
 
 #### 提案0
 
-C6には、`x_favorites/.steering/2026/202605/20260517-feature-7-curate-favorites/task-design-discussion.md`の論点10「README ユビキタス言語明記の体裁」を選ぶ。
+C6には、`非公開の利用先記録`の論点10「README ユビキタス言語明記の体裁」を選ぶ。
 
-sourceのdecisionは、既存`src/features/favorite/README.md`へ`モジュール構想`sectionを追加し、`favorite`の定義を`WHY / WHAT / 命名意図`の中へ書き、独立した用語定義sectionは作らない、という構造だけを決めていた。実際の変更では、既存intro一文を削除し、`WHY / WHAT / 役割と存在意義 / 命名意図 / 進化の種`と各本文を追加している。sourceの合意だけから、この全変更内容は判断できない。
+sourceのdecisionは、既存`src/features/savedItem/README.md`へ`モジュール構想`sectionを追加し、`savedItem`の定義を`WHY / WHAT / 命名意図`の中へ書き、独立した用語定義sectionは作らない、という構造だけを決めていた。実際の変更では、既存intro一文を削除し、`WHY / WHAT / 役割と存在意義 / 命名意図 / 進化の種`と各本文を追加している。sourceの合意だけから、この全変更内容は判断できない。
 
-このcaseを`source-materials.local.md/c6-existing-file-modification-v1.md`へ、現在の共通骨子で作成した。sourceの提案と採用記録をイテレーション0へ置き、C6で補う提案をイテレーション1へ追加している。
+このcaseを`source-materials/c6-existing-file-modification-v1.md`へ、現在の共通骨子で作成した。sourceの提案と採用記録をイテレーション0へ置き、C6で補う提案をイテレーション1へ追加している。
 
 イテレーション1では、file全文を再掲せず、次を含むunified diffを合意対象にする。
 
 - 変更位置を特定できる前後context
 - 削除される既存intro
 - 追加される見出しと本文の全行
-- diff外の`Favorite 型`以降を変更しないこと
+- diff外の`SavedItem 型`以降を変更しないこと
 
 判断するのは、このdiffなら、既存fileの何を残し、変え、削るかを安心して合意できるかである。全変更行が一つの局所sectionに収まるcaseでもfile全文が必要か、または完全diffで十分かを確認する。
 
@@ -3163,9 +3163,9 @@ C6 v1の完全diffで、既存fileの何を残し、変え、削るかを安心�
 
 #### 提案0
 
-C1〜C6反映後のcoverageを`source-materials.local.md/coverage-v2.md`で再評価した。旧coverageで一部coverageだった`partial decision + 残件 + 最終棄却`は、C4の一論点一decisionとchild分解で扱える。一方、後続topicの独立decisionが先行topicの具体treeと識別子を置換するcaseは、現prototypeに表示契約がない。
+C1〜C6反映後のcoverageを`source-materials/coverage-v2.md`で再評価した。旧coverageで一部coverageだった`partial decision + 残件 + 最終棄却`は、C4の一論点一decisionとchild分解で扱える。一方、後続topicの独立decisionが先行topicの具体treeと識別子を置換するcaseは、現prototypeに表示契約がない。
 
-C7には、`nanitabe/.steering/2026/202604/20260425-feature-233-register-meal-frame-template/discussion.md`の論点5「モジュール階層設計」と論点6「コンセプト命名」を選び、`source-materials.local.md/c7-topic-supersede-v1.md`へafter候補を作成した。
+C7には、`非公開の利用先記録`の論点5「モジュール階層設計」と論点6「コンセプト命名」を選び、`source-materials/c7-topic-supersede-v1.md`へafter候補を作成した。
 
 v1では、論点5のproposalとfeedbackを当時の`Template`表記のまま維持する。論点5末尾の`決定`は、階層decisionを自己完結して読めるよう、現在有効な`Pattern` treeへ同期し、命名の典拠が論点6であることを明記する。論点6は、`Template`案への修正要求と`Pattern`案への変更を二つのiterationとして残し、置換理由と、どの先行表現へ影響するかを自身の`決定`として所有する。
 
@@ -3220,7 +3220,7 @@ C7 v1の分担なら、先行topicだけで現在有効な具体像を読め、�
 
 #### 提案0
 
-C8には、`nanitabe/.steering/2026/202603/20260321-feature-234-assign-meal-to-frame-entry/discussion.md`の論点10「振り返りの精度の低さ」を選び、`source-materials.local.md/c8-owner-move-v1.md`へafter候補を作成した。
+C8には、`非公開の利用先記録`の論点10「振り返りの精度の低さ」を選び、`source-materials/c8-owner-move-v1.md`へafter候補を作成した。
 
 sourceでは、機能完成後の振り返りformatを修正するiterationへ、実装メモの廃止と、実装途中の気づきをtasklistからdiscussionへ移す契約が累積した。しかしこの二つは独立して変更できるdecisionであり、owner移動を振り返りformatの各論として残すと、どの論点で何へ合意したかが分からない。
 
@@ -3282,11 +3282,11 @@ C9単体では判断せず、論点4の母集団全体への一巡適用へ統�
 
 #### 提案0
 
-C9には、`nanitabe/.steering/2026/202604/20260425-feature-233-register-meal-frame-template/tasklist.md` Phase 0のfrontend directory移動を選ぶ。
+C9には、`非公開の利用先記録` Phase 0のfrontend directory移動を選ぶ。
 
-sourceでは、`src/features/mealFrame/`以下をすべて`src/features/meal/frame/`へ移動し、全importを更新してtest greenを確認する、と記載して完了扱いにしていた。しかし対応commitは、新pathへ8 fileを追加してconsumerを更新した一方、旧pathを削除していない。別の後続commitで、旧8 fileが「移行済み、消し忘れ」として削除されている。同じcommitには、移動から説明できない`tsconfig.json`変更も混入していた。
+sourceでは、`src/features/scheduleSlot/`以下をすべて`src/features/schedule/slot/`へ移動し、全importを更新してtest greenを確認する、と記載して完了扱いにしていた。しかし対応commitは、新pathへ8 fileを追加してconsumerを更新した一方、旧pathを削除していない。別の後続commitで、旧8 fileが「移行済み、消し忘れ」として削除されている。同じcommitには、移動から説明できない`tsconfig.json`変更も混入していた。
 
-このcaseを`source-materials.local.md/c9-file-move-v1.md`へ、現在の共通骨子で作成した。sourceの実装指示と、その指示では削除漏れを防げなかったevidenceをイテレーション0へ置き、C9で補う合意前previewをイテレーション1へ追加している。
+このcaseを`source-materials/c9-file-move-v1.md`へ、現在の共通骨子で作成した。sourceの実装指示と、その指示では削除漏れを防げなかったevidenceをイテレーション0へ置き、C9で補う合意前previewをイテレーション1へ追加している。
 
 イテレーション1では、移動対象8 fileの全文before / afterを並べず、次を一つの変更契約として示す。
 
@@ -3486,3 +3486,39 @@ statusとの対応は次のようにする。
 このcontractを議論用prototypeの`discussion_entry.md`と`design.md`へ反映した。これによりformat上の表示判断はすべて確定した。production templateと`facilitate-discussion/SKILL.md`は、baseline ledger作成後に移植する。
 
 `doc-enricher`の候補判定では、`再開条件`はdiscussion entryの生成・更新に閉じたformat contractであり、議論用prototypeとこのdiscussionが意味正本を持つ。個別skillの詳細を置かない`plugins/tumeda-dev/skills/README.md`や、提案本文の表示patternだけを扱うproposal-section catalogへ加えると責務が重複するため、READMEまたは既存docsへの追記候補はなしとした。
+
+## 論点21: 参照するsource materialsを一般化してgit管理する
+
+**ステータス:** 決定
+
+**種別:** ユーザー指示
+
+### イテレーション0: 参照closureを公開用artifactへ移す
+
+#### 提案0
+
+今回のsteering内から`source-materials.local.md/`配下へ向く参照を辿り、直接参照だけでなく参照先同士の依存を含むclosureを確定する。該当fileは内容を要約せず、caseのiteration、feedback、before / after、coverage判定を保持したまま`source-materials/`へ一対一で移す。
+
+公開用artifactからは、利用先repository名、source path、commit ID、固有domainのclass・file・API名を除く。固有名を単に抽象語へ縮めず、元の例が示した構造、失敗の因果、判断境界が同じになる一般例へ置換する。steering内の参照は新pathへ更新する。
+
+`source-materials/README.md`にはC1〜C11のproblemと主資料を一覧化し、C1のv2〜v5が同じ完成案の重複ではなく、失敗したsnapshot方式から最終決定と判断の足跡を分けるまでの比較版であることを示す。参照closure、一般化の許可範囲、除外file、検証結果は`source-materials-migration-ledger.md`へ残す。
+
+今回のsteeringから参照されず、移植後artifactからも参照されない`case-analysis.md`は対象外とし、localな作業メモとして残す。
+
+#### 提案背景
+
+これまでcaseの具体資料はgitignore対象にあり、trackedな`task-design-discussion.md`だけを読んでも、C1〜C11が何を指すか、各afterがどのproblemへ作用したかを実物で確認できなかった。特にC1はv2〜v5を比較してformatを更新したため、最終方針の要約だけでは、どの表示がなぜ不成立だったかを復元できない。
+
+一方、生の利用先pathやdomain名をそのままgit管理すると、公開pluginのsteeringへ参照元固有情報を持ち込む。必要なのはsourceを隠してcaseを薄くすることではなく、caseの肉感と検証可能性を維持しながら、参照元を特定する情報だけを一般化することである。
+
+#### 提案0へのフィードバック
+
+**結果:** 実施指示
+
+> c1とかが何を言っているか理解できるように、 .steering/2026/202608/20260815-evaluate-discussion-entry-format/source-materials.local.md について、今回のsteeringディレクトリ配下に参照されるものはリポジトリ臭を脱臭してgit管理下の形で置いておきたい
+
+### 決定
+
+直接・推移参照された20 fileを一般化して`source-materials/`へ移し、steering内の参照を新pathへ更新する。C1〜C11の入口は`source-materials/README.md`、移植境界と一般化台帳は`source-materials-migration-ledger.md`が所有する。
+
+利用先repository名、source path、commit ID、固有domain識別子は公開artifactへ残さない。caseのiteration、feedback、失敗した版、before / after、coverage件数と判定は保持する。無参照の`case-analysis.md`はlocalな作業メモとして移植しない。

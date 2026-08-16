@@ -40,7 +40,7 @@ steeringでディレクトリ作った後に、その中にgitignoreされるデ
 - `discussion_entry.md`: 事象、原因、根本原因と提案、検証、iteration、決定、ネクストアクションを固定fieldとして持つ。
 - `facilitate-discussion`: 合意前にself-containedな完全案を保存し、過去iterationと却下理由を不変にし、現在の合意対象だけを局所更新する。
 - migration policy: 既存の判断能力、停止能力、履歴保存能力は、明示合意された差分以外を全量保存する。参照元固有情報は公開成果物へ残さない。
-- 実例調査: 参照元の生の抜粋と試作はgitignore対象の`source-materials.local.md/`だけに保存する。
+- 実例調査: 生の抜粋と未参照の作業メモはgitignore対象の`source-materials.local.md/`に置く。今回のsteeringから参照するcase、before / after、coverageは、参照元固有情報を一般化したうえでgit管理対象の`source-materials/`へ置き、catalogからC1〜C11の意味と比較版を辿れるようにする。
 - format確定方法: 抽象原則または見出し案を先に合意gateにせず、具体caseのbefore / afterと全iteration論点へのcoverageから判断する。
 
 ---
