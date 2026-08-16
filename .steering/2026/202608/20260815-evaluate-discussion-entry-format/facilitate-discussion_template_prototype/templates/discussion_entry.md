@@ -1,4 +1,31 @@
 <!--
+このfileは議論用prototypeであり、production templateではない。
+
+現在のtemplate候補で維持する骨格:
+- 一つのentryへ、0から始まる番号付きiterationを順に蓄積する。
+- 一つのiterationを、その回の問いを判断できる提案N、提案背景、その提案へのfeedbackの単位にする。
+- feedbackは評価対象の提案と同じiterationへ置き、次の提案の起点として複製しない。
+- 提案背景には、提案Nが満たす条件と、提案N内の応答を書き、提案を評価するための材料としてfeedbackより先に置く。
+- 過去のiterationは、その時点で判断した提案、成立理由、feedbackを所有する。entry末尾の`決定`は現在有効な最終結論だけを所有する。
+- 決定済みの同一decisionが後続feedbackまたはevidenceで再開した時は、元のiterationを変更せず、末尾の旧`決定`を現在結論の表示から外して新しいiterationを追加する。再決定後も`決定`は一つだけ置く。
+- 別topicのdecisionが、先行topicのdecision boundaryを変えずに具体表現だけを置換する時は、先行topicのiterationを変更・追加せず、先行topicの`決定`を現在有効な表現と置換元topicの典拠へ同期する。置換理由と影響範囲は後続topicが所有する。
+- 一括proposalが独立した複数decisionを含むと判明した時は、通常iterationを止め、新しい連番のchild論点へ分解する。各childは`親論点`を持ち、parentは未決childがある間`子論点待ち`にする。
+- 新規fileは、必要な完成後treeと`document-heading-outline.md`によるoutlineへ合意してから実fileを作成し、作成されたfileをreviewする。本文全文を作成前のdiscussionへ複製しない。
+- 既存fileの局所修正は、全追加・削除行と必要contextが読みやすい一つのunified diffに収まる時、`existing-file-local-diff.md`で変更内容を省略せず示す。変更しないfile残部は再掲しない。
+- 複数file、file間の対応、または不可分な複数hunkが一decisionを構成する時は、`file-change-set.md`で変更集合を閉じる。対象内部の表示はtree、diff、before / after、outline、flow等から選び、全対象を同じ方式へ揃えない。独立して採否を変えられる変更は別decisionへ分ける。
+- entry末尾の未決提案を判断対象とし、それを複製する上部navigationは作らない。
+- 同じ未決decisionが外部event、user action、後続phase等を待って止まる時だけ、最新iteration直後へ`再開条件`を置く。通常のfeedback待ち、次iteration・次topicへの移動、consumer反映、完了報告には置かない。
+- snapshot、過去iterationの再要約、固定の弱点fieldは作らない。
+
+記法:
+- proposal本文は固定fieldへ押し込まず、内容に応じて段落、内容固有の見出し、表、tree、diffを選ぶ。
+- 箇条書きは、短く同格な要素を並べる時だけ使う。
+- 独立した説明を持つ意味単位を「- **label:** 長い散文」の連続で疑似的に区切らない。
+- 長い意味単位には内容固有の見出しを使い、連続した論旨は段落で書く。
+
+-->
+
+<!--
 新規論点を作る前に確認する:
 - このdecisionの結論が変わると、現在のdiscussion目的または指定parentの決定・実装範囲が変わるか。
 - 変わらない場合はactiveな論点を作らない。
