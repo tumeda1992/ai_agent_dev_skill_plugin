@@ -148,6 +148,16 @@ baselineの全84行を次の連続区間で覆う。
 
 `agents/openai.yaml`は起動条件、表示名、default promptだけを表し、entry内部formatを規定していないため変更対象外とする。
 
+### downstream整合
+
+production反映後のrepository validationで、baseline外のconsumerとvalidatorが旧contractを参照していることを検出した。いずれも合意済みformatを変えずに一意に補正できるため、次の適用対象として分類する。
+
+| ID | 対象 | 分類 | 補正内容 | 合意典拠 |
+| --- | --- | --- | --- | --- |
+| D01 | `plugins/tumeda-dev/skills/task-design/SKILL.md`のdiscussion返却contract | `ADAPT` | `decisionとネクストアクション`を、fileの固定fieldではなく`decisionと具体的なhandoff`として参照する | 論点20、S13、S26 |
+| D02 | `scripts/verification/validate-plugin.mjs`のfacilitate-discussion assertion | `CHANGE` | 廃止fieldのpresence要求を、新iteration骨子、任意state、proposal pattern 10 fileのpresenceと旧field absenceへ置換する | 論点4、8〜20 |
+| D03 | `scripts/verification/validate-plugin.mjs`のthink-through assertion | `CHANGE` | 旧S8見出しと文言を新S8へ同期し、新S9の反復帰納contractを検証する | 論点5、6 |
+
 ## 移行前completeness gate
 
 | 確認 | 結果 |
@@ -196,6 +206,7 @@ baselineの全84行を次の連続区間で覆う。
 | 明示`RETIRE` | 4 | productionに正の生成指示なし |
 | semantic `ADD` | 8 | trace済み |
 | 新規参照成果物 | 10 file | A01〜A10と一致 |
+| downstream補正 | 3 | D01〜D03と一致 |
 | 未review区間 | 0 | 完了 |
 | 未分類削除 | 0 | 完了 |
 | 未分類追加 | 0 | 完了 |
@@ -210,3 +221,4 @@ baselineの全84行を次の連続区間で覆う。
 - [x] black-box fixtureで修正要求後のiteration追加、受諾後のdecision確定、外部event待ちの`再開条件`を再現した
 - [x] `skill-creator`のquick validationが`Skill is valid!`で完了した
 - [x] `git diff --check`が完了した
+- [x] repository validatorを新contractへ同期し、`node scripts/verification/validate-plugin.mjs`が完了した

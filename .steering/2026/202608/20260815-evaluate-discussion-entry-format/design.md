@@ -276,6 +276,8 @@ TBDとして明示した表示形式の差分だけを変更候補とする。ba
 - `plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md`: 合意済みprototypeのiteration、feedback、任意`仮決定`、任意`再開条件`、`決定`contractを反映済み。
 - `plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/`: catalogと9 pattern fileをproductionへ追加済み。
 - `plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md`: 既存processを維持し、生成・更新手順を新entry contractへ接続済み。
+- `plugins/tumeda-dev/skills/task-design/SKILL.md`: discussion返却を固定field名ではなく、decisionと具体的なhandoffとして受ける語彙へ同期済み。
+- `scripts/verification/validate-plugin.mjs`: 新entry骨子、proposal pattern、S8、S9を検証し、廃止fieldの再導入を拒否するassertionへ同期済み。
 
 ### task-design内の対象成果物反映待ち
 

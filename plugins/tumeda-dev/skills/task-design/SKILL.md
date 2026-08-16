@@ -311,7 +311,7 @@ task-designは`topic_id`、提案番号、iteration番号、`親論点`、entry 
 
 ユーザーが設計上の質問を提起した場合、またはtask-design agentの検討が複数往復を要する設計decisionになった場合にdiscussionを開始する。適用中の提案作成、論点選択、iteration、feedback routing、合意は`facilitate-discussion`へ委ねる。
 
-`facilitate-discussion`は一つの論点でdecisionを確定するたびにtask-designへ返す。task-designはそのdecisionとネクストアクションが返った直後に`design.md`へ反映し、次の論点を扱う前に設計全体の不確実性と完了条件を再評価する。複数論点のdecisionを溜めて最後に一括反映しない。
+`facilitate-discussion`は一つの論点でdecisionを確定するたびにtask-designへ返す。task-designはそのdecisionと具体的なhandoffが返った直後に`design.md`へ反映し、次の論点を扱う前に設計全体の不確実性と完了条件を再評価する。複数論点のdecisionを溜めて最後に一括反映しない。
 
 ---
 

@@ -167,10 +167,25 @@ const discussionMetadata = skillPath("facilitate-discussion/agents/openai.yaml")
 const discussionTemplate = skillPath(
   "facilitate-discussion/templates/discussion_entry.md",
 );
+const discussionProposalTemplates = [
+  "README.md",
+  "compact-options.md",
+  "complete-state.md",
+  "detailed-options.md",
+  "document-heading-outline.md",
+  "element-correspondence.md",
+  "existing-file-local-diff.md",
+  "file-change-set.md",
+  "process-flow.md",
+  "structure-tree.md",
+].map((fileName) =>
+  skillPath(`facilitate-discussion/templates/proposal-sections/${fileName}`),
+);
 for (const relativePath of [
   discussionSkill,
   discussionMetadata,
   discussionTemplate,
+  ...discussionProposalTemplates,
 ]) {
   requireExists(relativePath);
 }
@@ -194,7 +209,14 @@ for (const expected of [
   "legacyな `### 論点N:`",
   "最大値+1",
   "self-contained",
-  "現在の合意対象",
+  "末尾のiterationとfeedback状態",
+  "その回の問いを判断できる",
+  "templates/proposal-sections/README.md",
+  "提案Nへのフィードバック",
+  "固定候補ではなくその回の結果が分かる短い",
+  "templateの任意`仮決定`",
+  "templateの`再開条件`",
+  "固定の`ネクストアクション`fieldはentryへ置かない",
   "同じdecision scope",
   "親論点",
   "自己参照ではない",
@@ -212,8 +234,7 @@ for (const expected of [
   "### 2. 論点を扱う",
   "#### 2.1 対象論点を選ぶ",
   "#### 2.2 新規論点を作るvariant",
-  "iterationの入口gateから別decisionとして戻った場合",
-  "選択中だった論点とは別decisionである理由も保存する",
+  "discussion scopeへ属する理由、別decisionとして分けた理由等",
   "#### 2.3 選択した一つの論点を進める",
   "##### 2.3.1 feedbackをiterationとして扱う",
   "###### iterationの入口gate",
@@ -243,10 +264,22 @@ for (const forbidden of [
   forbidText(discussionSkill, forbidden, "root直下へ平坦化した旧entry見出し");
 }
 for (const expected of [
-  "## 論点N: タイトル",
+  "## 論点N: {判断内容を表すタイトル}",
   "**ステータス:**",
   "**親論点:**",
   "**種別:**",
+  "### イテレーションN: {この提案で成立させること、または変えること}",
+  "#### 提案N",
+  "#### 提案背景",
+  "#### 提案Nへのフィードバック",
+  "**結果:** {その回の結果が分かる短い表現}",
+  "### 仮決定",
+  "### 再開条件",
+  "### 決定",
+]) {
+  requireText(discussionTemplate, expected);
+}
+for (const forbidden of [
   "**起点となった原文:**",
   "### 現在の合意対象",
   "#### 根本原因0 + 提案0",
@@ -254,7 +287,7 @@ for (const expected of [
   "**決定:**",
   "**ネクストアクション:**",
 ]) {
-  requireText(discussionTemplate, expected);
+  forbidText(discussionTemplate, forbidden, "廃止したdiscussion entry固定field");
 }
 requireText(discussionMetadata, "allow_implicit_invocation: false");
 
@@ -397,11 +430,16 @@ requireFrontmatter(taskDesignSkill, "model: opus");
 requireFrontmatter(steeringSkill, "model: sonnet");
 requireFrontmatter(steeringSkill, "effort: high");
 for (const expected of [
-  "### S8. 複数の事項を同時に受け取った",
+  "### S8. 複数事項が並ぶ、または作業中に事項の状態が変わった",
   "**主軸: readyな確定事項を先に完了する**",
-  "未決事項への問いかけを先に出してready事項を放置しない",
+  "未決事項への問いかけや新しい作業を先行させない",
   "同じmessage、task、sessionに含まれる",
   "必要な合意・入力・権限が揃うなら、先に完了する",
+  "### S9. 広くvariationのある対象へ適用方針を作る",
+  "**主軸: 具体caseと方針群を反復往復し、全caseを扱えるまで帰納する**",
+  "方針群が変わるたび5へ戻る",
+  "多様なcaseを一つの方式へ押し込む",
+  "taskを終えるため、豊富な具体を使わず演繹的に方針を作る",
 ]) {
   requireText(thinkThroughSkill, expected);
 }

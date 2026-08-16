@@ -1451,6 +1451,10 @@ black-box fixtureでは、修正要求を評価対象proposalのfeedbackへ確�
 
 decision単位の`doc-enricher` reviewは論点4のイテレーション20適用時に実施済みで、READMEまたは既存docsへの候補なしと判定している。productionへの一対一移植は同じoriginのため再帰reviewしない。
 
+production反映後にrepository validatorを実行したところ、validator自身が旧`現在の合意対象`、`根本原因0 + 提案0`、固定`ネクストアクション`と旧S8見出しを必須としていたため失敗した。また、`task-design`のconsumer contractに、file fieldではないものの旧語彙の`ネクストアクション`参照が残っていた。
+
+これらは新しいformat判断ではなく、論点20で維持したchat handoffと、論点4〜6・8〜20で確定したproduction contractへのdownstream同期である。validatorを新entry骨子、proposal pattern 10 file、S8、S9のpresenceと旧field absenceを検証する形へ置換し、`task-design`を`decisionと具体的なhandoff`へ同期した。補正後のrepository validationは完了した。
+
 ## 論点5: S8を受領inputの整理から作業中のready再評価へ広げる
 
 **ステータス:** 合意済み
