@@ -880,6 +880,21 @@ for (const expected of [
   requireText(contextTemplate, expected);
 }
 
+const escalateSkill = skillPath("escalate-plugin-skill-fix/SKILL.md");
+const escalateMetadata = skillPath("escalate-plugin-skill-fix/agents/openai.yaml");
+requireExists(escalateSkill);
+requireExists(escalateMetadata);
+for (const heading of [
+  "## 起動gate",
+  "## 正本repositoryの判定",
+  "### 作業対象の切り替え",
+  "## 引き渡し後の前提",
+  "## 責務境界",
+  "## このskillが絶対にやらないこと",
+]) {
+  requireText(escalateSkill, heading);
+}
+
 const portableFiles = [
   skillPath("doc-enricher/SKILL.md"),
   discussionSkill,
@@ -895,6 +910,8 @@ const portableFiles = [
   contextMaintainer,
   contextTemplate,
   runtimeContract,
+  escalateSkill,
+  escalateMetadata,
   ...agentDerivedSkills,
   ...thinkStandardsFiles,
 ];

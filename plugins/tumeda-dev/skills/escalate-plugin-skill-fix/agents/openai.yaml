@@ -1,0 +1,6 @@
+interface:
+  display_name: "Escalate Plugin Skill Fix"
+  short_description: "pluginの成果物への修正提案を正本repositoryのsteeringへ引き渡す"
+  default_prompt: "$escalate-plugin-skill-fix を使って、この修正提案を正本repositoryで扱ってください。"
+policy:
+  allow_implicit_invocation: true
