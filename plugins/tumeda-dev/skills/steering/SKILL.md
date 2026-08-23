@@ -13,6 +13,7 @@ effort: high
 - ユーザー入力: **達成したいこと**
 - 子roadmap phaseの場合: `parent_roadmap_path`、`parent_phase_id`、`parent_design_path`、`dependency_results`
 - standalone roadmapを昇格する場合: `adopt_task_design_working_dir=<absolute path>`
+- 任意: `branch_from_basename`。defaultは`false`。`true`のとき、basenameを決めた直後に同名のbranchを作成して切り替える。
 
 ## 役割とゴール
 
@@ -60,7 +61,7 @@ basenameの日付部分から`YYYY`と`YYYYMM`を得て、次のpathを管理す
 .steering/YYYY/YYYYMM/YYYYMMDD-slug/
 ```
 
-このpathがsteering directoryであり、task-design working directoryでもある。steeringは親directoryの作成と前月summary生成を担当する。branch名の取得・埋込み・衝突確認をbasenameへ持ち込まない。
+このpathがsteering directoryであり、task-design working directoryでもある。steeringは親directoryの作成と前月summary生成を担当する。branch名の取得・埋込み・衝突確認をbasenameへ持ち込まない。basenameからbranch名を導く逆方向は`branch_from_basename`が扱う。
 
 rootへ次を置く。
 
@@ -131,9 +132,10 @@ discussion fileの解決、entry形式、合意対象保存、採番、親子val
 ### Step 1. steering directoryと前月summaryを準備する
 
 1. `name-work-directory`で`YYYYMMDD-slug`を決める。
-2. `.steering/YYYY/YYYYMM/`がなければ作成する。
-3. `.steering/YYYY/YYYYMM/YYYYMMDD-slug/`を作成する。
-4. 実行月の一か月前（年を跨ぐ場合は前年12月）のdirectoryが存在し、その月の`summary.md`が未存在の場合だけ、前月summaryを生成する。
+2. `branch_from_basename=true`の場合だけ、現在のHEADから`YYYYMMDD-slug`という名前のbranchを作成して切り替える。基点となるbranchが意図どおりかはcallerが保証する。同名branchが既に存在する場合、または切替に失敗した場合は、作成も強制切替もせず作業を停止してユーザーへ報告する。stashを行わない。
+3. `.steering/YYYY/YYYYMM/`がなければ作成する。
+4. `.steering/YYYY/YYYYMM/YYYYMMDD-slug/`を作成する。
+5. 実行月の一か月前（年を跨ぐ場合は前年12月）のdirectoryが存在し、その月の`summary.md`が未存在の場合だけ、前月summaryを生成する。
    - 既存`summary.md`があれば何もしない。追記、再生成、status更新をしない。
    - 前月配下の各steering directoryを列挙する。
    - 概要はrootの`design.md`から抽出する。rootにない旧形式だけ、直下の子directoryから一意な`design.md`を探す。候補が複数なら推測しない。

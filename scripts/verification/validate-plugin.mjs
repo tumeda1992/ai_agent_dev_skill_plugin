@@ -889,6 +889,8 @@ const escalateSkill = skillPath("escalate-plugin-skill-fix/SKILL.md");
 const escalateMetadata = skillPath("escalate-plugin-skill-fix/agents/openai.yaml");
 requireExists(escalateSkill);
 requireExists(escalateMetadata);
+requireText(steeringSkill, "branch_from_basename");
+requireText(escalateSkill, "branch_from_basename");
 for (const heading of [
   "## 起動gate",
   "## 正本repositoryの判定",

@@ -32,7 +32,7 @@ Git rootが取得できない、またはこの判定だけでは正本かどう
 
 ### 正本だった場合
 
-現在のrepositoryが既に正本であれば、移動もrepository固有情報の除去も不要である。そのまま`steering`を起動し、このskillは終了する。
+現在のrepositoryが既に正本であれば、移動もrepository固有情報の除去も不要である。そのまま`steering`を`branch_from_basename=true`で起動し、このskillは終了する。
 
 ## 正本でない場合の引き渡し
 
@@ -48,13 +48,15 @@ Git rootが取得できない、またはこの判定だけでは正本かどう
 
 ### 作業対象の切り替え
 
-working directoryを正本repositoryへ移し、その既定branchから作業branchを切る。
+working directoryを正本repositoryへ移す。作業branchは`steering`が作る。
 
 `steering`は起動時のworking directoryを基準に`.steering/`を解決する。working directoryの切り替えだけが、これから行う作業対象を`steering`へ伝える唯一の手段である。切り替えを省略すると、`steering`は利用先repository側の`.steering/`を解決してしまい、提案は結局利用先repositoryに記録される。
 
 ### 起動するもの
 
-working directoryの切り替えが終わったら、正本repositoryで`steering`を起動する。以降の設計・議論・実装は`steering`の通常flowに委ねる。
+working directoryの切り替えが終わったら、正本repositoryで`steering`を`branch_from_basename=true`で起動する。以降の設計・議論・実装は`steering`の通常flowに委ねる。
+
+このrepositoryへの変更は利用先からの提案が起点であり、その都度固有の題材になるためissue番号のような安定した識別子を持たない。branch名をsteering directoryのbasenameに揃えると、branch一覧が日付順に並び、branch名からsteering記録を一意に引ける。
 
 ### 利用先側に残すもの
 
