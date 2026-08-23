@@ -84,6 +84,24 @@ task-design専用子directory、`task_design_dir`探索、`steering.json`を新�
 
 同じfeatureの追加taskは、designとplanを再合意した後に既存tasklistへ追記する。tasklistは「このfeatureを完成させるためのchecklist」であり、納品物はtasklistではなくfeatureなので、追加要件が判明しても同じfeatureの完成まで生き続ける。
 
+### commitへ載せる順序
+
+steering成果物を「記録」として一括りにせず、確定した時点で実装変更の前後へ分ける。分割軸は何がいつ確定したかであり、`.steering/`配下という置き場所ではない。
+
+1. `design.md`、`requirements.md`、`task-design-discussion.md`、`discussion.md` — 変更を行う前に確定する。対応する変更commitより前へ置く。
+2. tasklistが指示した成果物変更 — 実装commit。
+3. `tasklist.md`のcheckbox確定と`implementation_review.md` — 変更が終わってから確定する。対応する変更commitより後へ置く。
+
+一つのsteeringが複数の変更commitを生む場合、各変更commitと、その根拠になった合意の記録を近接させる。間に無関係なcommitを挟まない。
+
+一つのdiscussion fileが複数の変更commitへ対応する場合、hunk単位の分割を強制しない。最も早い対応commitへまとめ、後続commitの本文でどの論点に基づくかを示す。
+
+変更が一commitで完結し、三段へ分けても読み手が辿れる情報が増えない場合は、まとめてよい。判断基準は、後から読む人が「どの変更がどの合意に基づくか」をcommit単位で辿れるかである。
+
+- やってしまいがちな行動: steering成果物を`.steering/`配下という置き場所で括り、最後の一commitへまとめる
+- それをやると何が起きるか: 合意が変更より後に記録された履歴になる。どの変更がどの合意に基づくかを、後から読む人がfile全体を突き合わせないと辿れない
+- 正しい判断のための問い: 「このsteering成果物は、対応する変更より前に確定したか、後に確定したか？」
+
 ### 非規範的なlegacy memo
 
 過去には「複数のfeedbackが揃ったら新しいsteeringを起動する」という方針があった。現在の起動条件、推奨動作、fallbackではない。将来必要になった場合だけ、ユーザーとの明示合意により復活を検討する。

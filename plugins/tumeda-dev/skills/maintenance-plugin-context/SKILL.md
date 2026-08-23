@@ -32,6 +32,10 @@ versionを変更または配布前に検証する時は、`tumeda-dev`の次の�
 
 いずれかにsuffixがある、または値がずれる時は、そのままinstall / releaseしない。変更の互換性を判定して正しいrelease versionへ揃える。
 
+宣言値に加えて、`scripts/verification/validate-plugin.mjs` の `expectedRelease` を同じ値へ更新する。これは配布manifestの宣言値ではなく検査側の期待値であり、四つの宣言値が揃っていることに加えて、意図したrelease versionであることを確かめる。更新しないと`plugin validation failed`になる。version bumpは宣言値四箇所と期待値一箇所の計五箇所を一度に変える作業である。
+
+`expectedRelease`を宣言値から動的に読ませない。四つが揃ってさえいれば通る状態になり、意図しないversion変更を検知できなくなる。
+
 ## 入力
 
 consumerから、自由なMarkdownで次を受け取る。
