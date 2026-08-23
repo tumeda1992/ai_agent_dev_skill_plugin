@@ -32,6 +32,7 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
   - **test-runner** — テスト実行と失敗分析。executor が共通契約で child 委譲する。
   - **visual-inspector** — Playwright で UI をスクリーンショット目視確認。executor が委譲する（steering も現状のファクト確認に使う）。
 - **doc-enricher** — コードリーディング/タスク遂行後、永続性が高い知識をディレクトリ README に提案する（デフォルトは提案のみ）。
+- **escalate-plugin-skill-fix** — 利用先repositoryで生じたこのpluginの成果物への修正提案を、正本repositoryの`steering`へ引き渡すrouting skill。
 - **maintenance-plugin-context** — plugin の repository context と配布 version 規約を管理するメタ skill。
 
 ## 共有リファレンス（skill ではない）

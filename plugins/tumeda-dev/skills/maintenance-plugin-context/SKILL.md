@@ -13,6 +13,7 @@ repository contextのlifecycleとpluginの配布version規約はこのskillだ�
 
 - [`../../docs/common_standard/function_migration_policy.md`](../../docs/common_standard/function_migration_policy.md) — 配置やownerを変えても挙動と意味を全量維持するfunction migrationの共通規範。baseline、二層ledger、個別合意、white-box検証、完了gateの正本。function migrationを始める前に必ず読む。
 - `maintenance_policies/migration.md` — skillを参考元（移植元 upstream）や参照先リポジトリと行き来させる（新規移植・追随・逆輸入）時の追加規約。**取り込む内容から参照元リポジトリ固有の情報を抜き、汎用知識だけをpluginへ記載する**。skill本体・`.steering/` 成果物・docs・slugすべてに適用する。共通規範とこのfileを移植・追随作業の前に必ず読む。
+- 利用先repositoryでこのpluginの成果物への修正提案が生じた場合の引き渡しは`escalate-plugin-skill-fix`が所有する。修正の議論と変更は正本repositoryで行う。
 
 ## Plugin version
 

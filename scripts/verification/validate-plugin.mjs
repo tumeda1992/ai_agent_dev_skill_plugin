@@ -422,6 +422,11 @@ requireText(skillPath("task-design/templates/tasklist.md"), "facilitate-discussi
 requireText(skillPath("task-design/templates/tasklist.md"), "implementation_review.md");
 requireText(skillPath("task-design/templates/tasklist.md"), "特定の`steering` callerへ固定しない");
 requireText(skillPath("README.md"), "facilitate-discussion");
+requireText(skillPath("README.md"), "escalate-plugin-skill-fix");
+requireText(
+  skillPath("maintenance-plugin-context/SKILL.md"),
+  "escalate-plugin-skill-fix",
+);
 requireAbsent(skillPath("design-consult/SKILL.md"));
 
 const steeringSkill = skillPath("steering/SKILL.md");
