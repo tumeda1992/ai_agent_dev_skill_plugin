@@ -91,3 +91,68 @@ steering成果物を「記録」として一括りにせず、確定した時点
 変更が一commitで完結し三段へ分けても読み手が辿れる情報が増えない場合はまとめてよい。判断基準は、後から読む人が「どの変更がどの合意に基づくか」をcommit単位で辿れるかである。
 
 ownerはsteeringとする。`tasklist-design.md`のcommit記述はtasklist内のcommit taskの設計を扱い、steering成果物の位置を扱っていない。steeringは`## 成果物のlifecycle`で各fileの確定時点を所有しており、commit順序はその帰結である。
+
+## 論点2: version bumpの対象へvalidatorの期待値を含める
+
+**ステータス:** 決定
+
+**種別:** レビュー指摘
+
+### イテレーション0: 宣言値四箇所と検査側期待値一箇所を、五箇所として明示する
+
+#### 提案0
+
+`plugins/tumeda-dev/skills/maintenance-plugin-context/SKILL.md` の `## Plugin version` へ、検査側の期待値を追記する。diff外の宣言値四項目、SemVer規約、cachebuster禁止は変更しない。
+
+```diff
+ いずれかにsuffixがある、または値がずれる時は、そのままinstall / releaseしない。変更の互換性を判定して正しいrelease versionへ揃える。
+ 
++宣言値に加えて、`scripts/verification/validate-plugin.mjs` の `expectedRelease` を同じ値へ更新する。これは配布manifestの宣言値ではなく検査側の期待値であり、四つの宣言値が揃っていることに加えて、意図したrelease versionであることを確かめる。更新しないと`plugin validation failed`になる。version bumpは宣言値四箇所と期待値一箇所の計五箇所を一度に変える作業である。
++
++`expectedRelease`を宣言値から動的に読ませない。四つが揃ってさえいれば通る状態になり、意図しないversion変更を検知できなくなる。
+```
+
+#### 提案背景
+
+##### 起点となった事象
+
+think_standards移管のcommit計画で、`maintenance-plugin-context`が挙げる四箇所を7.0.0から7.1.0へ更新した。その直後に`node scripts/verification/validate-plugin.mjs`が失敗した。
+
+```text
+plugin validation failed:
+- manifest: release期待値は7.0.0、実際は7.1.0
+```
+
+`scripts/verification/validate-plugin.mjs` の `const expectedRelease` が五箇所目として存在し、skillの記述に従うだけでは通らない状態だった。
+
+##### 原因の追跡
+
+- **なぜ列挙から漏れたか。** skillは「`tumeda-dev`の次の宣言値が同じ`MAJOR.MINOR.PATCH`であること」として、配布manifest上のversion宣言を四つ挙げている。`expectedRelease`は宣言値ではなく検査側の期待値であり、カテゴリが異なるため列挙の対象外になった。
+- **なぜカテゴリの違いで漏れることが問題か。** 実務上の作業単位は「versionを上げる」であり、宣言値と期待値の区別は作業者にとって意味を持たない。カテゴリで切ると、同じ作業で同時に変えるべきものが記述から落ちる。
+- **同型の問題を今回すでに扱っている。** `function_migration_policy.md` §4.1へ「移行対象の内容へ依存している側を列挙する。参照document、目次、template、hook、内容を文字列assertionする検査scriptを含む」を追記した。versionという値に依存している側が版規約の列挙から漏れていた本件は、同じ構造である。依存している側を検査scriptまで含めて数えるかどうかで分かれる。
+
+##### 動的読み取りを採らない理由
+
+`expectedRelease`を廃止し、宣言値から動的に読む案がある。五箇所目そのものが消えるため、記述を足すより根本的に見える。
+
+しかしvalidatorの検査は三段になっている。四つがすべてstringであること、四つが一致すること、そして四つが`expectedRelease`と等しいこと。三段目は、四つを一斉に書き換えた場合でも意図しないversionを検知するguardである。動的に読むとこのguardが消え、どの値でも一致さえしていれば通る。
+
+`expectedRelease`の重複は、この検知能力の対価である。廃止は`RETIRE`にあたり、guardを失う判断をユーザーと合意する必要がある。本提案では採らない。
+
+##### 六箇所目がないことの確認
+
+validatorは`.agents/plugins/marketplace.json`も読み、`codexPlugin`を取得する。ただし同fileにversion fieldはなく、`codexPlugin`は`source.path`の検査にだけ使われる。version宣言点は四つ、期待値は一つで、計五箇所で網羅している。
+
+#### 提案0へのフィードバック
+
+**結果:** 受諾。
+
+> ok
+
+### 決定
+
+`maintenance-plugin-context/SKILL.md` の `## Plugin version` へ、`scripts/verification/validate-plugin.mjs` の `expectedRelease` を検査側の期待値として追記する。version bumpは宣言値四箇所と期待値一箇所の計五箇所を一度に変える作業であると明示する。
+
+`expectedRelease`を宣言値から動的に読ませない。validatorの検査は、四つがすべてstringであること、四つが一致すること、四つが`expectedRelease`と等しいことの三段からなり、三段目は四つを一斉に書き換えた場合でも意図しないversionを検知するguardである。動的に読むとこのguardが消える。重複はこの検知能力の対価であり、廃止は`RETIRE`として別途合意を要する。
+
+あわせて、同validatorの失敗message内の誤字「4管所」を「4箇所」へ直す。
