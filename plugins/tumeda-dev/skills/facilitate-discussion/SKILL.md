@@ -108,6 +108,7 @@ flowchart TD
   I -->|同じdecisionの次proposalを保存| G
   R -->|結果を保存| G
   D -->|decisionを保存| G
+  D -->|次論点が一意| T
   G -->|合意待ち| W["turn終了"]
   G -->|一decisionごとに返却| H["consumerが適用・全体再評価"]
   H -->|即時反映| K["doc-enricherを一回review"]
@@ -192,6 +193,8 @@ discussion fileが解決済みで、議論するdecision候補、既存論点へ
 
 repository知識またはskillの不足では、具体ケース固有の修正を先に合意しない。原因ownerの一般則を主decisionとして合意した後、元の具体ケースをその適用例として必ず再評価する。一般則だけで変更が一意に決まらなければ、残る判断を具体ケース側のdecisionとしてdiscussionへ保存する。
 
+ここでいう一般則は、原因ownerのdocsまたはskillへ実際に書き込む修正内容そのものを指す。原因の分類結果、抽象的な規則文、再発防止の方針だけを`提案N`へ置かない。どのfileのどの位置へ何を書き、何を削るかを読者が判断できる修正案として提示する。原因の分類と追跡は、その修正案がなぜ必要かを示す`提案背景`が所有する。
+
 一般則を先に合意することと、対象fileへ即時適用することは分ける。適用先、適用方法、適用時期はconsumerが所有する。consumerは他の未決事項との依存関係を判定し、独立していれば即時反映し、依存があれば自身のworkflowで反映待ちとして扱う。稼働中のskillまたはdocs体系自身の不備は通常、個別論点の結論から独立して存在するため、依存関係gateを通した結果として即時反映になることを基本的な期待とする。
 
 consumerがdecisionを対象成果物へ即時反映した場合、このskillは同じテーマの次の論点を選ぶ前に、そのoriginating decisionについて`doc-enricher`を提案modeで一度だけ起動する。repository知識不足の分類時に同じoriginから起動済みなら、それを一回として数える。`doc-enricher`が提案・適用したdocs変更から同じoriginのreviewを再帰起動しない。候補があれば`doc-enricher`の承認gateに従って同じdiscussionへ提案・合意・結果を保存し、候補がなければreview済みであることだけを適用結果として保存する。
@@ -266,7 +269,7 @@ feedback確定後の過去iteration、却下理由、誤っていた認識は変
 2. 同じturnで、対象proposalのfeedback欄が空なら合意結果を保存する。直前のprocedureですでに同じ合意結果を保存済みなら重複記録せず、対象論点の`ステータス`と末尾の`決定`を局所更新する。`決定`は過去iterationの部分判断や任意の`仮決定`を機械的に加算せず、現在有効な最終結論を自己完結して書く。`仮決定`があれば現在stateから外す。
 3. 未決child集合が変わる場合だけparent statusを導出する。
 4. 更新済みfileと決定をchatで示し、決定後の成果物更新、phase遷移、実装開始等の具体的なhandoffをconsumerへ返す。
-5. 別の論点を選ばず、`3. handoff前に委託scopeの記録を同期する`へ進む。consumerがdecisionを適用して全体状態を再評価する間も、同じテーマの議論記録はこのskillのownershipに残る。
+5. 次に扱う論点が一意に定まるなら`2.1 対象論点を選ぶ`へ戻り、その論点の提案を作る。定まらなければそのまま進む。いずれの場合も`3. handoff前に委託scopeの記録を同期する`を最後に通る。consumerがdecisionを適用して全体状態を再評価する間も、同じテーマの議論記録はこのskillのownershipに残る。
 
 固定の`ネクストアクション`fieldはentryへ置かない。通常のfeedback待ち、consumerによる反映、完了を全entryへ反復しない。順序や委譲先そのものがdecisionなら`決定`へ書き、同じ未決decisionが外部event、user action、後続phase等を待って止まる時は、必要な場合だけtemplateの`再開条件`を使う。このskillが決定後の適用を自動実行しない点と、chatでconsumerへ具体的にhandoffする契約は維持する。
 
@@ -315,7 +318,12 @@ feedback確定後の過去iteration、却下理由、誤っていた認識は変
 - 履歴を保持したままreparentまたは取下げの結果を保存した。
 - feedbackが別decisionに属すると判定し、iterationを作らず`2.1 対象論点を選ぶ`へ戻した。
 
-feedbackが別decisionに属すると判定された場合だけ、decision未確定のまま`2.1`へ戻る。いずれかの条件を満たしても、userまたはconsumerへ返す前に`3. handoff前に委託scopeの記録を同期する`を通る。一つの論点のdecisionを確定した後は、未決の別論点が残っていてもその論点を進めず、同期だけを完了してconsumerまたはユーザーへ返す。直接起動時は、次の明示的な入力が来るまで別論点へ進まない。
+feedbackが別decisionに属すると判定された場合だけ、decision未確定のまま`2.1`へ戻る。いずれかの条件を満たしても、userまたはconsumerへ返す前に`3. handoff前に委託scopeの記録を同期する`を通る。
+一つの論点のdecisionを確定した後、残る未決事項のうち次に扱う論点が一意に定まるなら、`2.1 対象論点を選ぶ`へ戻ってその論点の提案を作り、同じturnで返す。次に扱う論点を確認のためだけにユーザーへ問わない。
+
+次に扱う論点をユーザーへ確認するのは、候補が複数あってどれが上位か決められない場合、またはdiscussion scope内かを判断できない場合だけとする。
+
+次の論点へ進む場合も、一度に確定させるdecisionは一つのままとする。新しい論点では判断可能な提案と空のfeedback見出しを保存して合意を待ち、同じturnで続けて別のdecisionを確定しない。
 
 ### 3. handoff前に委託scopeの記録を同期する
 
