@@ -151,6 +151,9 @@ for (const legacyPath of [
 }
 
 const skillPath = (relativePath) => `${pluginRoot}/skills/${relativePath}`;
+const docPath = (relativePath) => `${pluginRoot}/docs/${relativePath}`;
+const thinkStandardsPath = (relativePath) =>
+  docPath(`think_standards/${relativePath}`);
 
 requireText(skillPath("doc-enricher/SKILL.md"), "モジュール構想（Module Concept）");
 requireText(skillPath("doc-enricher/SKILL.md"), "命名意図（Naming Intent）");
@@ -429,24 +432,53 @@ requireFrontmatter(steeringSkill, "Agent");
 requireFrontmatter(taskDesignSkill, "model: opus");
 requireFrontmatter(steeringSkill, "model: sonnet");
 requireFrontmatter(steeringSkill, "effort: high");
+const orderingParallelItemsDoc = thinkStandardsPath("ordering_parallel_items.md");
+const advancingDiscussionDoc = thinkStandardsPath("advancing_discussion.md");
+const designingForVariationsDoc = thinkStandardsPath("designing_for_variations.md");
 for (const expected of [
-  "### S8. 複数事項が並ぶ、または作業中に事項の状態が変わった",
   "**主軸: readyな確定事項を先に完了する**",
   "未決事項への問いかけや新しい作業を先行させない",
-  "同じmessage、task、sessionに含まれる",
   "必要な合意・入力・権限が揃うなら、先に完了する",
-  "### S9. 広くvariationのある対象へ適用方針を作る",
+]) {
+  requireText(orderingParallelItemsDoc, expected);
+}
+requireText(advancingDiscussionDoc, "同じmessage、task、sessionに含まれる");
+for (const expected of [
   "**主軸: 具体caseと方針群を反復往復し、全caseを扱えるまで帰納する**",
   "方針群が変わるたび5へ戻る",
   "多様なcaseを一つの方式へ押し込む",
   "taskを終えるため、豊富な具体を使わず演繹的に方針を作る",
 ]) {
-  requireText(thinkThroughSkill, expected);
+  requireText(designingForVariationsDoc, expected);
 }
 forbidText(
-  thinkThroughSkill,
+  orderingParallelItemsDoc,
   "あるトピックについて議論している最中は、その議論が収束するまで次のアクションを提案・促すことは禁止。",
   "独立した確定事項まで一括保留する旧ルール",
+);
+
+const thinkStandardsFiles = [
+  thinkStandardsPath("README.md"),
+  thinkStandardsPath("core.md"),
+  thinkStandardsPath("evolution_policy.md"),
+  thinkStandardsPath("starting_to_think.md"),
+  thinkStandardsPath("receiving_feedback.md"),
+  thinkStandardsPath("advancing_discussion.md"),
+  thinkStandardsPath("writing_abstraction.md"),
+  thinkStandardsPath("updating_types.md"),
+  thinkStandardsPath("handling_errors.md"),
+  thinkStandardsPath("presenting_options.md"),
+  orderingParallelItemsDoc,
+  designingForVariationsDoc,
+];
+for (const relativePath of thinkStandardsFiles) {
+  requireExists(relativePath);
+}
+requireText(thinkThroughSkill, "docs/think_standards/");
+forbidText(
+  thinkThroughSkill,
+  "**主軸:",
+  "docsへ移した思考標準の内容がSKILL.mdへ戻っている",
 );
 for (const relativePath of [taskDesignSkill, steeringSkill]) {
   requireText(
@@ -864,6 +896,7 @@ const portableFiles = [
   contextTemplate,
   runtimeContract,
   ...agentDerivedSkills,
+  ...thinkStandardsFiles,
 ];
 const bannedPatterns = [
   [/x_favorites/gi, "移植元repository名"],
