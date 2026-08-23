@@ -778,7 +778,7 @@
 
 ##### 起点
 
-この議論は`nanitabe` repositoryのsteering directory `.steering/2026/202608/20260823-fix-dish-card-tap-copy-naming/discussion.md` で実時間に記録し、対象がすべてこのpluginのskillであったため、合意完了後にこのfileへ移設した。論点番号は移設時に既存の最大番号へ続けて採番し直しており、本文中の相互参照も同じ採番へ揃えてある。それ以外の内容、順序、iterationは記録時のままである。
+この議論は利用先repositoryのsteering directoryにある`discussion.md`で実時間に記録し、対象がすべてこのpluginのskillであったため、合意完了後にこのfileへ移設した。論点番号は移設時に既存の最大番号へ続けて採番し直しており、本文中の相互参照も同じ採番へ揃えてある。それ以外の内容、順序、iterationは記録時のままである。
 
 steering → task-designを実行中、`design.md`初稿（TBD込み）を書いた後、assistantが次を行った。
 
@@ -794,7 +794,7 @@ steering → task-designを実行中、`design.md`初稿（TBD込み）を書い
 
 **skill**と分類する。repositoryを問わず再発する、discussion開始判定のprocessがskillに不足している。
 
-`nanitabe` repository固有の知識不足でも、今回の成果物固有の逸脱でもない。同じ判定点は、どのrepositoryのtask-design実行でも通る。
+利用先repository固有の知識不足でも、今回の成果物固有の逸脱でもない。同じ判定点は、どのrepositoryのtask-design実行でも通る。
 
 ##### 既存skillは既に禁止している、という事実
 
