@@ -62,6 +62,7 @@ function migrationは、既存の機能を別file、別module、別skill、別ow
 - 対象fileと連続した行範囲
 - sourceとdestinationの方向
 - 移行開始前に既に合意済みだった変更・廃止
+- 移行対象の内容へ依存している側。参照するdocument、目次、template、hook、内容を文字列assertionする検査scriptを含む。ここで列挙しなかった依存先は、scope漏れとして設計合意後に判明する
 
 作業途中のfileしか残っていない場合は、Git等から移行前sourceを復元して読む。失敗実装へ不足分を継ぎ足すだけの修復は、失敗時の要約や誤分類を土台に残すため避ける。
 
