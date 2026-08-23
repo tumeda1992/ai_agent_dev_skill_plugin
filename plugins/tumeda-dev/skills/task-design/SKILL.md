@@ -309,7 +309,16 @@ task-designは`topic_id`、提案番号、iteration番号、`親論点`、entry 
 
 #### discussionを開始する時と返却後
 
-ユーザーが設計上の質問を提起した場合、またはtask-design agentの検討が複数往復を要する設計decisionになった場合にdiscussionを開始する。適用中の提案作成、論点選択、iteration、feedback routing、合意は`facilitate-discussion`へ委ねる。
+discussionは既定で開始する。適用中の提案作成、論点選択、iteration、feedback routing、合意は`facilitate-discussion`へ委ねる。
+
+開始しないのは次のどちらかに当たる場合だけである。それ以外は判断せず開始する。
+
+- `design.md`に未解消のTBDが一つも残らず、新たな論点も生じていない。
+- 残る不確実性が、ユーザーへ問わずに確定する。Step 3の`調査`または`技術検証実装`だけで事実が決まる。
+
+往復回数の予測、assistantが既に結論を持っているか、論点が選択肢へ畳めるかは、開始しない理由にならない。「これは議論ではなく確認だ」「もう答えが決まっているので1往復で済む」という分類も理由にならない。調査で得た事実だけでは設計が決まらないと分かった時点で開始する。
+
+assistantが結論を持っている論点ほどdiscussionを外しやすい。しかしそこでは、採らなかった案と採らなかった理由がassistantの中にしか存在しない。記録を省くと、次に同じ判断へ来た者がゼロから同じ検討をやり直す。結論を持っているほど記録価値は高い。
 
 `facilitate-discussion`は一つの論点でdecisionを確定するたびにtask-designへ返す。task-designはそのdecisionと具体的なhandoffが返った直後に`design.md`へ反映し、次の論点を扱う前に設計全体の不確実性と完了条件を再評価する。複数論点のdecisionを溜めて最後に一括反映しない。
 
@@ -415,9 +424,11 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 
 | 判定 | 解消手段 |
 | --- | --- |
-| ユーザーのdomain判断または複数往復の設計decisionが必要 | discussion |
+| ユーザーへ問わなければ確定しない | discussion |
 | 既存code・documentを読めば事実を確定できる | 調査 |
 | 実行しなければ挙動を確定できない | 技術検証実装 |
+
+解消手段はこの三つだけである。`確認`、`念のため聞く`、`選択肢を出して選んでもらう`は第四の手段ではなく、すべてdiscussionである。
 
 3. 選んだ手段を実行する。
    - discussion: §4のtask-design固有contextを渡して`facilitate-discussion`を明示適用し、内部processを委ねる。task-design側で先に提案0をchatへ出したり、論点・iteration・質問形式を組み立てたりしない。
@@ -618,7 +629,7 @@ Sonnet がよく陥る穴埋めパターン。設計レビュー時に自分で�
 
 ### F. 状態を頭で抱えた
 
-- [ ] 議論開始後に`facilitate-discussion`を適用せず、論点・提案・却下理由をsessionだけで管理した → 4 / 5 Step 3
+- [ ] `design.md`の内容が変わる問いをユーザーへ出したが、その時点でdiscussion fileに対応するproposalが保存されておらず、論点・提案・却下理由がsessionだけに残った → 4 / 5 Step 3
 - [ ] discussion内部processをtask-design側で組み立て直した → 4 / 5 Step 3
 - [ ] task-design固有の設計contextを渡さず、discussionの判断材料まで新skillへ丸投げした → 4 / 5 Step 3
 

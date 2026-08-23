@@ -108,7 +108,7 @@ steering成果物を「記録」として一括りにせず、確定した時点
 
 ## discussion.mdの使い方（随時）
 
-`discussion.md`は特定phaseへ縛らず、task-design起動後に記録価値のあるsteering固有の思考が生じた時に随時追記する。ユーザーがorchestration上の論点・質問・要議論を提起した場合、またはsteering agentのruntime上の検討が複数往復を要するdecisionになった場合に通常discussionを開始する。通常flowの初回task-design起動前には開始しない。設計上の曖昧さや方向性はtask-designへ渡し、task-design固有の議論として扱う。
+`discussion.md`は特定phaseへ縛らず、task-design起動後に記録価値のあるsteering固有の思考が生じた時に随時追記する。ユーザーがorchestration上の論点・質問・要議論を提起した場合、またはsteering agent自身のorchestration上の判断についてユーザーへ問いを出そうとしている場合に通常discussionを開始する。往復回数の予測、assistantが既に結論を持っているか、論点が選択肢へ畳めるかは、開始しない理由にならない。通常flowの初回task-design起動前には開始しない。設計上の曖昧さや方向性はtask-designへ渡し、task-design固有の議論として扱う。
 
 steeringはsteering directory、起動判断、関連成果物のcontext、決定後のphase制御、終了条件を所有する。議論開始後はsteering agent自身が次を渡してpluginの`facilitate-discussion` skillを明示適用し、議論だけを別child agentへ再委譲しない。
 
