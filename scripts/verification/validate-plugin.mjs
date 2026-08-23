@@ -111,7 +111,7 @@ if (codexManifest && claudeManifest && marketplace && claudePlugin) {
     claudePlugin.version,
   ];
   if (versions.some((version) => typeof version !== "string")) {
-    failures.push("manifest: version宣言が4管所すべてstringではない");
+    failures.push("manifest: version宣言が4箇所すべてstringではない");
   } else if (new Set(versions).size !== 1) {
     failures.push(`manifest: version不一致: ${versions.join(", ")}`);
   } else if (versions[0] !== expectedRelease) {
