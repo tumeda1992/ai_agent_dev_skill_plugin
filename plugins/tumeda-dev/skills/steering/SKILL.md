@@ -315,7 +315,9 @@ source basenameの日付からdestinationを`.steering/YYYY/YYYYMM/<basename>/`�
 
 ## 実装完了後review
 
-実装、review、validation、ユーザー動作確認でfeedback・漏れ・追加要件・不具合を直接受け取ったworkflow ownerが、同じworking directoryでpluginの`facilitate-discussion`を適用する。steeringが直接受け取った場合はsteering自身が行い、議論だけを別childへ再委譲しない。
+実装、review、validation、ユーザー動作確認でfeedback・漏れ・追加要件・不具合が判明したら、同じworking directoryでpluginの`facilitate-discussion`を適用する。ユーザーから受け取ったものも、agent自身が見つけたものも同じ扱いにする。
+
+適用するのは、それを直接受領したworkflow ownerである。steeringが直接受領した場合はsteering自身が行い、議論だけを別childへ再委譲しない。
 
 ```text
 discussion_directory=<steering directory>
