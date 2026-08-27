@@ -37,6 +37,8 @@ parentは次を渡す。
 
 task実行にプロジェクト指示、アーキテクチャ・開発・test方針、全体test/lint commandが必要な時は、`maintenance-plugin-context`へconsumer=`tasklist-executor`、必要理由、必要fact、確認元候補を渡す。tasklist.mdとdesign.mdの要求を置き換えず、返された範囲だけを実行条件として使う。
 
+このskillのdirectory配下に `scripts/github/create_or_get_pr.sh` を同梱している。tasklistがPR作成taskを持つ場合に使う。
+
 tasklist.md が与えられていないときには、tasklist.md を要求して終了する。受け取ったtasklist pathを絶対pathへ解決し、その同directoryの`./design.md`を設計の正本として必ず読む。sibling designが存在しない場合は別directoryを探索・推測せず`blocked`で返す。
 
 # 最重要原則
