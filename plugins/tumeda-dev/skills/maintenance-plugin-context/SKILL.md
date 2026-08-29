@@ -21,6 +21,7 @@ repository contextのlifecycleとpluginの配布version規約はこのskillだ�
 
 - 禁止: `1.0.0+codex.20260720074613`、`1.0.0-dev`、日時・host名・cachebusterを足した形式
 - 破壊的変更はMAJOR、後方互換な機能追加はMINOR、後方互換な修正・文書変更はPATCHを上げる
+- MINORとPATCHの境界は「consumerが新たに呼べるものが増えたか」で判定する。新しいskill、新しいparameter等、利用側の呼び出し方が増えるならMINOR。既存skillの内容修正、docsの追加・変更はPATCH。新規fileの追加それ自体はMINORの根拠にならない。区別しているのは機能追加か文書変更かであり、file数の増減ではない
 - 配布する変更には、変更内容に見合うversion bumpを一度だけ行う。cacheを更新したいだけのsuffix追加や同一releaseの再versioningはしない
 - Codexのcache更新に`update_plugin_cachebuster.py`を使わない。必要なら正式にPATCH以上を上げてから、通常の再install / reload手順を使う
 
