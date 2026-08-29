@@ -3,7 +3,7 @@
 ## 5群への入口
 
 - **[common_standard/function_migration_policy.md](./common_standard/function_migration_policy.md)** — 機能・仕様の移行（file分割、owner変更、skill間・plugin間移植等）で意味を全量保存するための共通規範
-- **[development_standards/naming.md](./development_standards/naming.md)** — file名・識別子の命名規約
+- **[development_standards/](./development_standards/)** — 命名規約とエンティティ設計の判断基準
 - **[doc_templates/table_description.template.md](./doc_templates/table_description.template.md)** — README／テーブル記述などの汎用雛形
 - **[documentation_standards/README.md](./documentation_standards/README.md)** — docsの書き方・構造化に関する標準
 - **[think_standards/README.md](./think_standards/README.md)** — 議論・思考プロセスの作法。`think-through` skillが参照する思考標準の本体
