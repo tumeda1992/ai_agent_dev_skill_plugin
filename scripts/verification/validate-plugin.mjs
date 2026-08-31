@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "7.3.2";
+const expectedRelease = "7.4.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -335,13 +335,14 @@ for (const expected of [
   "### 分類保留（設計中のみ）",
   "| 対象 | 掲載理由 | 参照するdesign section |",
   "本番application coding / 段階実行 / ユーザー指定",
-  "## 4. リスクと対策",
-  "## 5. テスト方針",
+  "## リスクと対策",
+  "## テスト方針",
+  "## （付録）前提とする既存仕様",
 ]) {
   requireText(taskDesignTemplate, expected);
 }
 for (const forbidden of [
-  "## 4. 設計判断",
+  "## 設計判断",
   "### 選択した原則と理由",
   "### 代替案と棄却理由",
 ]) {
@@ -350,8 +351,8 @@ for (const forbidden of [
 requireText(taskDesignSkill, "discussion_file_name=task-design-discussion.md");
 for (const expected of [
   "### Step 3. 未解消の設計判断を解消する",
-  "### Step 0.5. 配置先確定",
-  "### Step 0.75. 設計前調査",
+  "### PrepareStep 2. 配置先確定",
+  "### PrepareStep 3. 設計前調査",
   "`working_dir`を確定した後、初稿を書く前に",
   "GraphQL mutationまたはCommand",
   "関連moduleのREADMEを先に読み",
@@ -390,14 +391,14 @@ for (const expected of [
 requireOrderedText(
   taskDesignSkill,
   [
-    "### Step 0. トリガー判定",
-    "### Step 0.5. 配置先確定",
-    "### Step 0.75. 設計前調査",
+    "### PrepareStep 1. トリガー判定",
+    "### PrepareStep 2. 配置先確定",
+    "### PrepareStep 3. 設計前調査",
     "### Step 1. 初稿（TBD 込み）を作る",
   ],
   "配置先確定後に設計前調査を行うflow",
 );
-forbidText(taskDesignSkill, "### Step 0.25. 設計前調査");
+forbidText(taskDesignSkill, "### Step 0", "撤去済みのStep 0系番号");
 for (const forbidden of [
   "### Step 3. 論点を1つずつ詰める（イテレーション）",
   "上位論点に対して、自分で先に考えた提案₀を出す",
@@ -870,7 +871,7 @@ const contextMaintainer = skillPath("maintenance-plugin-context/SKILL.md");
 const contextTemplate = skillPath("tumeda-dev-plugin-context.md");
 for (const expected of [
   "| `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |",
-  "UI確認環境とGit/GitHub公開条件",
+  "UI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込み",
   "steering固有情報として返さない",
 ]) {
   requireText(contextMaintainer, expected);
@@ -879,6 +880,7 @@ for (const expected of [
   "## task-design",
   "### UI確認環境",
   "### Git / GitHub公開条件",
+  "### 作業の外へ残るactionの差し込み",
   "## steering",
   "roadmap binding・status伝播に必要な制約",
 ]) {

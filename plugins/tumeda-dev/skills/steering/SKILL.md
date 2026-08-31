@@ -139,7 +139,7 @@ discussion fileの解決、entry形式、合意対象保存、採番、親子val
    - 既存`summary.md`があれば何もしない。追記、再生成、status更新をしない。
    - 前月配下の各steering directoryを列挙する。
    - 概要はrootの`design.md`から抽出する。rootにない旧形式だけ、直下の子directoryから一意な`design.md`を探す。候補が複数なら推測しない。
-   - `## 1. TL;DR`本文の最初の段落を優先し、なければ`## 目的`の最初の段落、それもなければ`{slug}（概要抽出不可、design.md 参照）`とする。
+   - `## TL;DR`または`## 1. TL;DR`本文の最初の段落を優先し、なければ`## 目的`の最初の段落、それもなければ`{slug}（概要抽出不可、design.md 参照）`とする。旧templateで書かれた過去のdesign.mdを読むため、番号付きの旧形式も併記する。
    - tasklist status: checkboxがすべて`[x]`なら`完了`、`[ ]`が残れば`未完了`、判定不能なら`不明`とする。
    - roadmap status: 全phaseの運用statusが`完了`なら`完了`、一つでも`未着手 | 進行中`なら`未完了`、fieldを判定できなければ`不明`とする。
    - planless status: tasklistとroadmapがどちらもなく、rootの`design.md`付録に`分類保留`sectionがなく、`task-design内の対象成果物反映待ち`と`execution plan対象`がともに`なし`なら`完了`とする。いずれかを判定できなければ`不明`とする。

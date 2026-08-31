@@ -160,18 +160,18 @@ version bump: maintenance-plugin-context の規約に従う。宣言値4箇所�
 | --- | --- | --- | --- |
 | 設計を行うagentまたは開発者 | エンティティに状態が増えたとき | 同じテーブルへ status を足すか、別エンティティへ分けるか | `development_standards/entity_modeling.md` §1 |
 | 同上 | 分けた新エンティティを名付けるとき | 既存テーブルと似た名前を避ける必要がないこと、名詞形と形容詞形のどちらを採るか | 同 §2 |
-| 同上 | あらゆる命名の場面 | 修飾の向きで指すものが変わること | `development_standards/naming.md` §1 |
+| 同上 | あらゆる命名の場面 | 修飾の向きで指すものが変わること | `development_standards/naming/core.md` |
 
 **知識構造:**
 
 ```text
-naming.md（どの命名にも共通する積集合）
-  冒頭: この標準のscope宣言 — 特定の設計手法固有の命名判断は置かない
-  §1 基本
-    ...
-    修飾の向きで指すものが変わる  ← 一般則と判断の問い（正本）
-    ...
-  §2 ファイル名 / §3 メソッド名（既存、変更なし）
+naming/（どの命名にも共通する積集合）
+  README.md  この群の置き方、各fileの守備範囲、scope宣言
+             — 特定の設計手法固有の命名判断は置かない
+  core.md    命名の基本
+               修飾の向きで指すものが変わる  ← 一般則と判断の問い（正本）
+  file.md    ファイル名（既存内容、変更なし）
+  method.md  メソッド名（既存内容、変更なし）
 
 entity_modeling.md（エンティティを前提にしないと成立しない判断）
   §1 エンティティの切り方
@@ -179,7 +179,7 @@ entity_modeling.md（エンティティを前提にしないと成立しない�
       → 別エンティティ方式を選んだら §2 へ
   §2 エンティティの命名
     テーブル名は集約の同一性を主張しない
-    修飾の向きが「1行が何か」を決める  ← naming.md へlink、固有の帰結のみ
+    修飾の向きが「1行が何か」を決める  ← naming/core.md へlink、固有の帰結のみ
 ```
 
 **規範の根拠と適用境界:**
@@ -187,25 +187,25 @@ entity_modeling.md（エンティティを前提にしないと成立しない�
 - 根拠となるpain: 状態を持つエンティティの設計と命名で、同じ議論が繰り返し発生していた
 - MUST: 形容詞を単独で名詞の位置に置かない
 - 判断基準: 状態遷移は「状態が変わったとき属性は変わるか」、命名は「指すのは出来事か物か」
-- 適用対象: `naming.md` はどのプロジェクトにも存在する成果物の命名。
+- 適用対象: `naming/` はどのプロジェクトにも存在する成果物の命名。
   `entity_modeling.md` はドメインモデリングを採ったときにだけ現れる概念の設計と命名
 - 例外・非目標: ドメイン名前空間と永続化名の対応規則は載せない。規約であって判断基準ではなく、
   汎用化すると「一貫性を保て」という一般論しか残らないため
 
-**`naming.md` のscope境界（積集合運用）:**
+**`naming/` のscope境界（積集合運用）:**
 
-`naming.md` はどの命名にも共通して成立する内容だけを扱う。特定の設計手法を採ったときにだけ存在する
+`naming/` はどの命名にも共通して成立する内容だけを扱う。特定の設計手法を採ったときにだけ存在する
 概念の命名判断は、その概念を扱う標準へ置く。個別文脈の規則を足していく和集合運用にすると、
 読み手が「この規則は自分の場面に当てはまるか」を毎回判定することになり、適用範囲が濁る。
 
-この境界で既存の §2 ファイル名・§3 メソッド名 は残る。file と method はどのcodebaseにも存在するが、
+この境界で既存の `file.md`・`method.md` は残る。file と method はどのcodebaseにも存在するが、
 entity はドメインモデリングという方針を採ったときにだけ現れる概念である。
 
 **知識3を二箇所へ置く分担:**
 
 | file | 持つもの | 持たないもの |
 | --- | --- | --- |
-| `naming.md` | 一般則と「出来事か物か」の判断の問い（正本） | 行数・削除の帰結（エンティティ前提でないと成立しない） |
+| `naming/core.md` | 一般則と「出来事か物か」の判断の問い（正本） | 行数・削除の帰結（エンティティ前提でないと成立しない） |
 | `entity_modeling.md` | エンティティでの帰結（1行が表すもの、重複時の行数、削除で失われるもの） | 一般則と判断の問いの再掲（linkする） |
 
 一箇所に閉じないのは、この判断が問われるのが大半エンティティの名付けの場面であり、そこでの取り違えが
@@ -215,11 +215,13 @@ entity はドメインモデリングという方針を採ったときにだけ�
 
 | 正しいsnapshot | single source of truth | 更新trigger |
 | --- | --- | --- |
-| 一般則は `naming.md` に一度だけ、エンティティ固有の帰結は `entity_modeling.md` に一度だけ存在する | 一般則: `naming.md` §1 / 固有の帰結: `entity_modeling.md` §2 | 判断の問い自体が変わったとき `naming.md` を更新し、`entity_modeling.md` のlink先を確認する |
+| 一般則は `naming/core.md` に一度だけ、エンティティ固有の帰結は `entity_modeling.md` に一度だけ存在する | 一般則: `naming/core.md` / 固有の帰結: `entity_modeling.md` §2 | 判断の問い自体が変わったとき `naming/core.md` を更新し、`entity_modeling.md` のlink先を確認する |
 
 **完成後のdocument構造:**
 
-- `docs/development_standards/naming.md`: 冒頭へscope宣言、§1 へ「修飾の向きで指すものが変わる」を新設
+- `docs/development_standards/naming/`: 旧 `naming.md` を `README.md` / `core.md` / `file.md` / `method.md` へ分割。
+  `README.md` へこの群のscope宣言、`core.md` へ「修飾の向きで指すものが変わる」を新設
+- `docs/development_standards/naming.md`: 削除
 - `docs/development_standards/entity_modeling.md`: 新規作成
 - `docs/README.md`: 「5群への入口」を `development_standards/naming.md` → `development_standards/` へ変更
   （同READMEの「収録fileが1つならそのfileを、複数ならdirectoryを指す」規約による）

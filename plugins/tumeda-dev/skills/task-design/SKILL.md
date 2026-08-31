@@ -30,7 +30,7 @@ description: |
 設計完了の定義は「実装中に新たな設計決定が生まれない状態」— 全 deliverable に対して「これを実装するとき、設計外の判断をしなければならない箇所はないか」と問えて「ない」と答えられる状態。
 Sonnet は「実装に入りたい衝動」を持っているため、このスキルはその衝動を止め、対話と合意で設計を積み上げる役割を担う。「設計書を書く」ことが目的ではなく、「実装は手を動かすだけ」の状態を作ることが目的。
 
-**起動形式**: 単独起動・steering 経由起動 どちらも可。呼び出し側は必要に応じて親ディレクトリ（`working_dir_parent`）と新規作成フラグ（`create_working_dir`、default `true`）を渡す。task-designが設計成果物の配置先（`working_dir`）を確定する（詳細: section 5 Step 0.5）。
+**起動形式**: 単独起動・steering 経由起動 どちらも可。呼び出し側は必要に応じて親ディレクトリ（`working_dir_parent`）と新規作成フラグ（`create_working_dir`、default `true`）を渡す。task-designが設計成果物の配置先（`working_dir`）を確定する（詳細: section 5 PrepareStep 2）。
 
 ユーザーとの会話と成果物本文は日本語で記述する。code、command、path、identifier、規定された出力形式、固有名詞は原文を維持する。
 
@@ -90,7 +90,7 @@ repository固有の設計文書、規約、技術検証環境・commandが必要
 
 ### 2-3. 完成後の姿を捉えるoutcome section
 
-`templates/outcome-sections/catalog.md`を先頭から末尾まで完全に読み、今回変わる対象に必要なsectionを一つ以上選ぶ。選んだ各fileも完全に読み、`design.md`の「3. 完成後の姿」へ差し込む。
+`templates/outcome-sections/catalog.md`を先頭から末尾まで完全に読み、今回変わる対象に必要なsectionを一つ以上選ぶ。選んだ各fileも完全に読み、`design.md`の「完成後の姿」へ差し込む。
 
 - 各sectionは単なる記入formatではない。「なぜ必要か」「NG」「具体的な記述例」「MUST」「判断基準」に反しない具体性で書く。
 - 該当しないsectionを「なし」で機械的に埋めない。選ばなかった観点の判断が実装者へ残る場合は、そのsectionを追加する。
@@ -261,7 +261,7 @@ TBD 解消の3手段:
 
 ## 4. 成果物テンプレート
 
-配置先は section 5 Step 0.5 で確定する `working_dir` 配下。
+配置先は section 5 PrepareStep 2 で確定する `working_dir` 配下。
 
 task-designの成果物は、一つのdesign、必要時のdiscussion記録、条件に合致する場合だけの排他的なexecution planから成る:
 
@@ -328,13 +328,13 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
 
 設計を進める手順。思想（section 3）と分離した「動作」レイヤ。
 
-### Step 0. トリガー判定
+### PrepareStep 1. トリガー判定
 
 変更または設計タスクが来たら、このスキルの起動条件に該当するか確認する（section 7 参照）。
-- 該当 → Step 0.5 へ
+- 該当 → PrepareStep 2 へ
 - 軽度の修正で起動条件外 → スキルなしで進める
 
-### Step 0.5. 配置先確定
+### PrepareStep 2. 配置先確定
 
 設計成果物（design.md / spike/ / task-design-discussion.md / 条件付きのtasklist.md | roadmap.md）を置くディレクトリを確定する。
 
@@ -367,7 +367,7 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
 
 子roadmap phaseの入力を受けた場合、task-designは`parent_roadmap_path`の対応phaseを読み、`parent_phase_id`が一意に存在し、渡された親designとdependency resultsが対応することを確認する。Step 1の時点で、親roadmap path、親phase identity、親phaseの目的・scope・scope外・DoD・依存確定結果を`design.md`の「上位roadmap制約」へ記録する。これは参考情報ではなく子designの上位制約であり、子scopeは親phase scopeよりstrictly narrowerでなければならない。成果物種別にかかわらず省略しない。
 
-### Step 0.75. 設計前調査
+### PrepareStep 3. 設計前調査
 
 `working_dir`を確定した後、初稿を書く前に、`maintenance-plugin-context`へconsumer=`task-design`、必要理由、必要fact、確認元候補を渡す。返された文書・command・環境だけを使い、固定pathやrepository構造を推測しない。
 

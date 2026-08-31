@@ -1,6 +1,6 @@
 # outcome sectionの構成と未決候補
 
-このdirectoryの各fileは、`design.md`の「3. 完成後の姿」へ差し込むsectionである。`catalog.md`でsectionを選び、このREADMEのcomposition ruleで配置する。各section fileは固有の書き方だけを所有し、共通の配置規則を複製しない。
+このdirectoryの各fileは、`design.md`の「完成後の姿」へ差し込むsectionである。`catalog.md`でsectionを選び、このREADMEのcomposition ruleで配置する。各section fileは固有の書き方だけを所有し、共通の配置規則を複製しない。
 
 ## design.mdへの配置順
 

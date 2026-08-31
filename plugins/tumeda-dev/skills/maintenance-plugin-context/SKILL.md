@@ -85,7 +85,7 @@ consumer固有情報 ∪ (共通情報 ∩ consumerが直接使う項目)
 
 consumerのH2以外と、表にない`共通`項目は返さない。新しいconsumerまたは新しい共有項目は、consumerが必要理由を添えて明示した時だけ追加する。
 
-task-designがexecution planを設計する時は、全体test/lint commandに加え、`## task-design`内のUI確認環境とGit/GitHub公開条件を必要factとして要求できる。これらはtasklistへ検証・公開actionを含めるか判断するためのcontextであり、steering固有情報として返さない。
+task-designがexecution planを設計する時は、全体test/lint commandに加え、`## task-design`内のUI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込みを必要factとして要求できる。これらはtasklistへ検証・公開actionを含めるか判断するためのcontextであり、steering固有情報として返さない。
 
 ## 返却形式
 

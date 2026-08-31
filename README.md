@@ -11,5 +11,8 @@ tumedaが、リポジトリ横断でよく使うskill集としてのplugin。
 
 ## 変更時の検証と前提
 
-- このrepositoryの検査正本は `node scripts/verification/validate-plugin.mjs` である。926行のassertion（`requireText` / `requireExists` / `requireFrontmatter` / `requireAbsent` 等）でskillとdocsの内容を検査する。test framework、lint、formatter、CI設定は他に存在しない。skillを追加・変更したら、対応するassertionをこのfileへ追加する。
+- このrepositoryの検査正本は `node scripts/verification/validate-plugin.mjs` である。assertion（`requireText` / `requireExists` / `requireFrontmatter` / `requireAbsent` / `forbidText` / `requireOrderedText` 等）でskillとdocsの内容を検査する。test framework、lint、formatter、CI設定は他に存在しない。
+    - skillまたはdocsを追加・変更したら、対応するassertionをこのfileへ追加する。
+    - 既存assertionがピン留めしている文字列を変更したら、そのassertionも追随させる。見出し、step番号、章番号、契約文の変更はすべてこれに当たる。
+    - `forbidText` を先に確認する。`requireText` は追随を怠ると検査が落ちて気づけるが、`forbidText` は落ちないまま無力化する。禁止した文字列が新formatで出現不能になると、その禁止は何も守らなくなる。注意は、自動で検出できない側へ割く。
 - skill内容はsession開始時にcacheされる。skillを変更したsession内では変更が反映されない。変更後のskillで動作を確認するには新しいsessionで起動する。
