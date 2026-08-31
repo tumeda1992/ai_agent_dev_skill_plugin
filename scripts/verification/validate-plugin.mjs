@@ -871,7 +871,7 @@ const contextMaintainer = skillPath("maintenance-plugin-context/SKILL.md");
 const contextTemplate = skillPath("tumeda-dev-plugin-context.md");
 for (const expected of [
   "| `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |",
-  "UI確認環境とGit/GitHub公開条件",
+  "UI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込み",
   "steering固有情報として返さない",
 ]) {
   requireText(contextMaintainer, expected);
@@ -880,6 +880,7 @@ for (const expected of [
   "## task-design",
   "### UI確認環境",
   "### Git / GitHub公開条件",
+  "### 作業の外へ残るactionの差し込み",
   "## steering",
   "roadmap binding・status伝播に必要な制約",
 ]) {
