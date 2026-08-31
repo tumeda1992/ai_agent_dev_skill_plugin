@@ -335,13 +335,14 @@ for (const expected of [
   "### 分類保留（設計中のみ）",
   "| 対象 | 掲載理由 | 参照するdesign section |",
   "本番application coding / 段階実行 / ユーザー指定",
-  "## 4. リスクと対策",
-  "## 5. テスト方針",
+  "## リスクと対策",
+  "## テスト方針",
+  "## （付録）前提とする既存仕様",
 ]) {
   requireText(taskDesignTemplate, expected);
 }
 for (const forbidden of [
-  "## 4. 設計判断",
+  "## 設計判断",
   "### 選択した原則と理由",
   "### 代替案と棄却理由",
 ]) {

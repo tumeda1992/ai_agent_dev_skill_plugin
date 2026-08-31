@@ -1,6 +1,6 @@
 # 完成後の姿section catalog
 
-`design.md`の「3. 完成後の姿」へ、steering終了時に成立・観測できるoutcomeに該当するsectionだけを差し込む。file種別ではなく、何の見え方、振る舞い、境界、知識体系が変わるかで選ぶ。一つの変更が複数themeへ影響する場合は複数sectionを使う。選択後の配置は、このcatalogの行順ではなく[READMEのcomposition rule](./README.md#designmdへの配置順)に従う。
+`design.md`の「完成後の姿」へ、steering終了時に成立・観測できるoutcomeに該当するsectionだけを差し込む。file種別ではなく、何の見え方、振る舞い、境界、知識体系が変わるかで選ぶ。一つの変更が複数themeへ影響する場合は複数sectionを使う。選択後の配置は、このcatalogの行順ではなく[READMEのcomposition rule](./README.md#designmdへの配置順)に従う。
 
 | outcome | 読むsection | 主な移行元 | 選択する問い |
 | --- | --- | --- | --- |
