@@ -351,8 +351,8 @@ for (const forbidden of [
 requireText(taskDesignSkill, "discussion_file_name=task-design-discussion.md");
 for (const expected of [
   "### Step 3. 未解消の設計判断を解消する",
-  "### Step 0.5. 配置先確定",
-  "### Step 0.75. 設計前調査",
+  "### PrepareStep 2. 配置先確定",
+  "### PrepareStep 3. 設計前調査",
   "`working_dir`を確定した後、初稿を書く前に",
   "GraphQL mutationまたはCommand",
   "関連moduleのREADMEを先に読み",
@@ -391,14 +391,14 @@ for (const expected of [
 requireOrderedText(
   taskDesignSkill,
   [
-    "### Step 0. トリガー判定",
-    "### Step 0.5. 配置先確定",
-    "### Step 0.75. 設計前調査",
+    "### PrepareStep 1. トリガー判定",
+    "### PrepareStep 2. 配置先確定",
+    "### PrepareStep 3. 設計前調査",
     "### Step 1. 初稿（TBD 込み）を作る",
   ],
   "配置先確定後に設計前調査を行うflow",
 );
-forbidText(taskDesignSkill, "### Step 0.25. 設計前調査");
+forbidText(taskDesignSkill, "### Step 0", "撤去済みのStep 0系番号");
 for (const forbidden of [
   "### Step 3. 論点を1つずつ詰める（イテレーション）",
   "上位論点に対して、自分で先に考えた提案₀を出す",
