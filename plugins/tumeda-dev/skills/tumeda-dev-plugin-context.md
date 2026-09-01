@@ -18,19 +18,28 @@
 
 参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)、[全体 test command](#全体-test-command)、[全体 lint command](#全体-lint-command)
 
-<!-- 技術検証 command、成果物配置、技術検証制約、tasklist設計で必要な事項だけこの下に記載 -->
+### version bump
+
+- 配布versionはSemVerの `MAJOR.MINOR.PATCH` だけを使う。pre-release / build metadataを付けない。
+- MINORとPATCHの境界は「consumerが新たに呼べるものが増えたか」で判定する。新しいskill、新しいparameter等、利用側の呼び出し方が増えるならMINOR。既存skillの内容修正、docsの追加・変更はPATCH。新規file追加それ自体はMINORの根拠にならない。
+- bumpは宣言値4箇所と `scripts/verification/validate-plugin.mjs` の `expectedRelease` 1箇所、計5箇所を一度に変える。
+- 現在の宣言値は全箇所 `7.4.0` で一致している。
 
 ### UI確認環境
 
-<!-- UI確認の要否を判断するためのapp・検査環境。認証情報そのものは書かない -->
+- なし。このrepositoryはskill・docsのMarkdownとmanifestのJSONだけを持ち、起動するappを持たない。`visual-inspector` を使う対象がない。
 
 ### Git / GitHub公開条件
 
-<!-- commit、push、PRをtasklistへ含められる条件、remote、branch規約。公開を常に要求する記述にはしない -->
+- remote: `origin` は `ssh://git@github.com/tumeda1992/ai_agent_dev_skill_plugin.git`。
+- default branch: `main`。commitとpushをdefault branchへ直接行わない。
+- PR作成script: `scripts/for_local/github/create_or_get_pr.sh`。同じhead branchのopen PRがあれば新規作成せずそのURLを返す。
+  - `tasklist-executor` skill配下の同名scriptとはpathが異なる。このrepositoryで作業する時はrepository側の `scripts/for_local/github/` を使う。
 
 ### Branch / issue 契約
 
-<!-- branch / issue の対応規約を記載。例: `feature-<issue番号>` は GitHub Issue 番号に対応する -->
+- なし。利用先repositoryからの提案が起点になるため、issue番号のような安定した識別子を持たない。
+- branch名はsteering directoryのbasename（`YYYYMMDD-slug`）に揃える。`steering` を `branch_from_basename=true` で起動して作る。branch一覧が日付順に並び、branch名からsteering記録を一意に引ける。
 
 ### 作業の外へ残るactionの差し込み
 
@@ -72,24 +81,34 @@
 
 ### プロジェクト指示
 
-<!-- 例: `AGENTS.md`。skill が読むべき instruction file と役割を記載 -->
+- `AGENTS.md`（root。`CLAUDE.md` は同fileへのsymlink）: 常用plugin、口調、毎ターン適用する思考の作法、repository運用。
+- repository内のdocument本文は、file種別や配置場所にかかわらず日本語で記述する。code、command、path、識別子、規定された出力形式、固有名詞は原文を維持する。
 
 ### アーキテクチャ文書
 
-<!-- 例: `docs/architecture.md`。設計意図・責務境界を知る文書だけ記載 -->
+- `plugins/tumeda-dev/docs/README.md`: docs体系の入口。
+- `plugins/tumeda-dev/docs/documentation_standards/`: documentの書き方の標準。`core_readers.md`、`information_structuring/`、`how_to_write_workflow.md`、`modify_description_policy.md`等。skill本体やdocsを書く時の規範。
+- `plugins/tumeda-dev/docs/think_standards/`: 思考・議論の作法。`think-through` skillが参照する正本。
+- `plugins/tumeda-dev/docs/development_standards/`: 命名、entity modeling等のrepository非依存な設計標準。
+- skill本体（`plugins/tumeda-dev/skills/<name>/SKILL.md`）とdocsの責務境界: skillは実行手順とownership、docsは種別横断の規範を持つ。
 
 ### 開発規約
 
-<!-- 例: `docs/development/formatting.md`。命名、formatting、test 方針などを記載 -->
+- `plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies/migration.md`: 他repositoryとの移植・追随・逆輸入の規約。参照元repository固有情報を抜き、汎用知識だけをpluginへ記載する。
+- `plugins/tumeda-dev/docs/common_standard/function_migration_policy.md`: 配置やownerを変えても挙動と意味を全量維持するfunction migrationの共通規範。
+- root `docs/maintenance_policies` は `plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies` へのsymlink。
 
 ### テスト方針
 
-<!-- 例: test の配置・命名・必須範囲を記載。実行 command は書かない -->
+- 自動test frameworkを持たない。`package.json` は存在しない。
+- 検証は `scripts/verification/validate-plugin.mjs` によるplugin manifestの整合確認だけである。skill本文の内容は人のreviewで担保する。
 
 ### 全体 test command
 
-<!-- 例: package test suite を実行する command と前提条件を記載 -->
+- `node scripts/verification/validate-plugin.mjs`
+  - repository rootで実行する。成功時は `plugin validation passed` を出力する。
+  - version宣言値4箇所（`plugins/tumeda-dev/.codex-plugin/plugin.json`、`plugins/tumeda-dev/.claude-plugin/plugin.json`、root `.claude-plugin/marketplace.json` の `version` と `plugins[].version`）が一致し、かつ同fileの `expectedRelease` と等しいことを検査する。
 
 ### 全体 lint command
 
-<!-- 例: repository 全体の lint / format check command と前提条件を記載 -->
+- なし。linterを持たない。
