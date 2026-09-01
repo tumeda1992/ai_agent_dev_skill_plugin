@@ -378,7 +378,7 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
    - 例外処理
    - test pattern
    - layer・責務境界
-3. GraphQL mutationまたはCommandの変更・追加では、関連moduleのREADMEを先に読み、orchestration patternを把握する。READMEに答えがない場合だけ既存の関連resolver等の実装へ進む。確認する観点は「どのdomain aggregateが、どのlayerで、どのように組み合わされているか」である。
+3. 変更対象fileを説明している既存docsを、file種別を問わず先に探す。見つかった場合は、変更後に不正確になる記述がないかを確認し、不正確になる記述を`design.md`の変更対象へ含める。docsに答えがない場合だけ既存の関連実装へ進む。たとえばGraphQL mutationまたはCommandの変更・追加では、関連moduleのREADMEを先に読み、orchestration patternを把握する。確認する観点は「どのdomain aggregateが、どのlayerで、どのように組み合わされているか」である。
 4. codeを読んで初めて分かった永続性とレバレッジの高い知識は、次回codeを読まずに済むよう、contextが熱いうちに`doc-enricher`へ即座に渡す。codeを読むたびにcontextを消費するため、既存READMEまたは既存docsへessenceがあれば次回の調査を省ける。`doc-enricher`の提案とユーザーの承認・拒否判断までをその場で完了し、別taskへ先送りしない。書込みは承認された場合だけ行う。
 5. UI挙動・表示を変える場合は、pluginの`visual-inspector`をchildとして使い、現状の画面を実測する。codeからの推測を画面事実としてdesignへ書かない。確認例は、headerが固定されているか、scroll時の挙動、layout崩れである。Playwright toolを直接呼ばず、必ずpluginの`visual-inspector` skillを使う。
 

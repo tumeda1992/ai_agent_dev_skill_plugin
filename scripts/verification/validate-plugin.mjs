@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "7.4.0";
+const expectedRelease = "7.4.1";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -897,12 +897,26 @@ for (const heading of [
   "## 起動gate",
   "## 正本repositoryの判定",
   "### 作業対象の切り替え",
-  "## 引き渡し後の前提",
+  "## 引き渡し後",
   "## 責務境界",
   "## このskillが絶対にやらないこと",
 ]) {
   requireText(escalateSkill, heading);
 }
+requireText(escalateSkill, "### 正本repositoryでの作業完了後の取り込み");
+requireText(escalateSkill, "作業branchを`main`へmergeする");
+
+requireText(steeringSkill, "## Blocker resolution");
+requireText(
+  steeringSkill,
+  "唯一の例外は`Blocker resolution`であり、その成立条件と手順は同節が持つ。"
+);
+requireExists(skillPath("steering/.gitignore.sample"));
+
+requireText(
+  `${pluginRoot}/docs/development_standards/naming/core.md`,
+  "## 表現が同じでも、名前空間が違えば別の意味を持つ"
+);
 
 const portableFiles = [
   skillPath("doc-enricher/SKILL.md"),
