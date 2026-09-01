@@ -68,11 +68,22 @@ working directoryの切り替えが終わったら、正本repositoryで`steerin
 
 議論の続きや合意内容そのものを利用先側に書き足さない。続きは正本repository側の記録が正である。
 
-## 引き渡し後の前提
+## 引き渡し後
 
 - 利用先repository側の元taskは中断したまま残る。正本repository側の作業が終わってから、その続きに戻る。
 - 正本repositoryで対象のskillを修正しても、それは今実行中のsessionには反映されない。skill内容はsession開始時にcacheされるため、修正後のskillで動くには新しいsessionを開始する必要がある。
 - 元taskを旧版のskillのまま続けるか、新しいsessionを開始して修正後のskillで再開するかは、ユーザーが選ぶ。このskillが代わりに決めない。
+
+### 正本repositoryでの作業完了後の取り込み
+
+正本repositoryでのsteeringがcommitまで終わったら、PRを経由せず次の4stepで`main`へ取り込む。
+
+1. 作業branchをpushする。
+2. `main`へ切り替える。
+3. 作業branchを`main`へmergeする。
+4. `main`をpushする。
+
+PRを経由しないのは、正本repositoryが利用先repositoryから見てsubであり、pluginの更新がメインの作業を再開するための前段だからである。PRを開いてreviewを待つ相手がいないため、review単位としてのPRが機能しない。変更の妥当性は正本repositoryでのsteeringがdesign合意とtasklist合意で担保しており、PRはその上に別のgateを重ねるものではない。
 
 ## 責務境界
 
