@@ -23,7 +23,7 @@
 - 配布versionはSemVerの `MAJOR.MINOR.PATCH` だけを使う。pre-release / build metadataを付けない。
 - MINORとPATCHの境界は「consumerが新たに呼べるものが増えたか」で判定する。新しいskill、新しいparameter等、利用側の呼び出し方が増えるならMINOR。既存skillの内容修正、docsの追加・変更はPATCH。新規file追加それ自体はMINORの根拠にならない。
 - bumpは宣言値4箇所と `scripts/verification/validate-plugin.mjs` の `expectedRelease` 1箇所、計5箇所を一度に変える。
-- 現在の宣言値は全箇所 `7.4.0` で一致している。
+- 現在の宣言値は全箇所 `7.4.2` で一致している。
 
 ### UI確認環境
 

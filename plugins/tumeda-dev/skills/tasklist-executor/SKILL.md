@@ -21,7 +21,7 @@ design や planning は行わない。
 
 ## 共通実行契約
 
-`../runtime-execution-contracts.md`を正本とし、tasklistのsingle writer、child request/result、停止・再開、logical owner / physical launcherの規則に従う。このskillの推論強度は`../runtime-model-profiles.md`の`standard-execution`に従う。
+`../runtime-execution-contracts.md`を正本とし、tasklistのsingle writer、child request/result、停止・再開、logical owner / physical launcherの規則に従う。このskillの推論強度は`../runtime-model-profiles.md`の`delegated-execution`に従う。
 
 ## 必須入力
 
