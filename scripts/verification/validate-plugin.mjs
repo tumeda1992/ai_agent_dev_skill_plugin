@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "7.4.2";
+const expectedRelease = "7.5.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -968,6 +968,16 @@ for (const relativePath of portableFiles) {
       failures.push(`${relativePath}: 禁止項目「${label}」を含む`);
     }
   }
+}
+
+const documentReviewSkill = skillPath("document-review/SKILL.md");
+requireExists(documentReviewSkill);
+for (const expected of [
+  "当て方の中身は `content_density.md` / `expression_notation.md` / `file_naming.md` が正本であり、skill 本文へ写さない",
+  "薄い（濃さ不足）は微細でない",
+  "「要素が揃った」でなく「観点を満たした」で判定する",
+]) {
+  requireText(documentReviewSkill, expected);
 }
 
 if (failures.length > 0) {
