@@ -96,6 +96,7 @@ repository固有の設計文書、規約、技術検証環境・commandが必要
 - 複数sectionを使っても完成後の姿はtask-design全体で一つであり、execution plan対象ごとの小さな設計書に分けない。
 - 調査、比較、技術検証が主成果の場合だけ`research-findings.md`を選ぶ。別outcomeを設計する途中で得た事実は、該当outcome sectionへ根拠として書き戻す。
 - docsを本質的に新設・更新する場合は`documentation.md`を使い、物理fileの仕様だけなら`file-deliverables.md`、skill等のprocess contractなら`workflow.md`も組み合わせる。
+- `documentation.md`を選んだ場合、emit前ゲートとして`document-review`skillが当てる観点（内容の濃さ・記法・命名）を設計時から見込む。当て方の中身は`document-review`側の標準fileが正本であり、ここへ写さない。対象はdocsとskill本体に限り、steeringの作業記録には当てない。
 
 ### 2-4. 自己チェック
 

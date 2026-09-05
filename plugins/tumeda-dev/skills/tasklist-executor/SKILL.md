@@ -122,6 +122,14 @@ visual-inspector で確認対象のデータが存在しない場合:
 やってしまいがちな失敗: データが存在しないことを理由に「spec で green を確認」と書いて ✅ にする
 → 確認できていない = 完了していない。タスクの途中でも、他のタスクをまとめて終えた後でも、ユーザーへの報告は許容される
 
+# ドキュメントレビュー
+
+`docs/` 配下の標準 doc、または `skills/` 配下の `SKILL.md` と `templates/` を新規作成・更新する task では、実装後・DoD 確認前に `document-review` skill を通す。**対象はこの 2 種に限る**。steering の作業記録（`design.md` / `tasklist.md` / discussion file / `summary.md`）には当てない。
+
+- `document-review` が指摘尽きるまで観点（濃さ・記法・命名）を満たすことを確認してから、該当 task を `[x]` にする
+- 微細でない指摘（骨子・構造・実質の破綻）が出た場合は task を `[ ]` のまま維持し、書く工程へ戻って修正し、再度 `document-review` を通す
+- `document-review` はtasklistを更新しない。checkbox反映はこのskillだけが行う
+
 # Codex parent→child契約
 
 Codexでは親sessionがこのskillをchildとして起動し、必須入力を渡す。visual-inspector / test-runnerが必要な時は、直近parentが対応requestを渡してchildを起動し、完了まで待つ。返却resultを受け取ったexecutorだけがtasklistへ証跡とcheckboxを反映する。
