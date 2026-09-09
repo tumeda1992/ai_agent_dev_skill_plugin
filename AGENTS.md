@@ -6,7 +6,7 @@
 
 ### tumeda-dev
 
-このrepositoryが正本のskill plugin。実体は `plugins/tumeda-dev/`。
+このrepositoryは、複数repositoryで共有するskill pluginを保守する。実体は `plugins/tumeda-dev/`。
 
 ## 口調
 

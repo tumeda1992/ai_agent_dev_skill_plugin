@@ -905,7 +905,7 @@ requireText(steeringSkill, "branch_from_basename");
 requireText(escalateSkill, "branch_from_basename");
 for (const heading of [
   "## 起動gate",
-  "## 正本repositoryの判定",
+  "## plugin repositoryの判定",
   "### 作業対象の切り替え",
   "## 引き渡し後",
   "## 責務境界",
@@ -913,7 +913,7 @@ for (const heading of [
 ]) {
   requireText(escalateSkill, heading);
 }
-requireText(escalateSkill, "### 正本repositoryでの作業完了後の取り込み");
+requireText(escalateSkill, "### plugin repositoryでの作業完了後の取り込み");
 requireText(escalateSkill, "作業branchを`main`へmergeする");
 
 requireText(steeringSkill, "## Blocker resolution");
@@ -926,6 +926,15 @@ requireExists(skillPath("steering/.gitignore.sample"));
 requireText(
   `${pluginRoot}/docs/development_standards/naming/core.md`,
   "## 表現が同じでも、名前空間が違えば別の意味を持つ"
+);
+
+forbidText("AGENTS.md", "正本", "repositoryの自称としての「正本」");
+forbidText("README.md", "正本", "repositoryの自称としての「正本」");
+forbidText(escalateSkill, "正本repository", "plugin repositoryの自称としての「正本repository」");
+forbidText(
+  skillPath("README.md"),
+  "正本repository",
+  "skills READMEに残ったplugin repositoryの自称「正本repository」"
 );
 
 const portableFiles = [
