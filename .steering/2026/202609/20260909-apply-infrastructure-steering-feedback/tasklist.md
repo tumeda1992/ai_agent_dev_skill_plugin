@@ -377,9 +377,9 @@ Step 3 は不確実性ごとに解消手段を選ぶ手順を持つ。scope 判�
   - phaseごとに別commitにする
   - ユーザーが一部だけ承認した場合は承認範囲だけをcommitし、残りは待つ
 
-- [ ] 作業branchをpushする
-  - [ ] commit taskの結果としてlocal commitが実際に一件以上あることを確認する
-  - [ ] `git push` を実行する
+- [x] 作業branchをpushする
+  - [x] commit taskの結果としてlocal commitが実際に一件以上あることを確認する（9 commit）
+  - [x] `git push` を実行する
 
 - [ ] `main` へ取り込む
   - [ ] `escalate-plugin-skill-fix` の `plugin repositoryでの作業完了後の取り込み` が定める4stepに従う。PRを経由しない
