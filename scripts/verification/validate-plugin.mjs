@@ -385,6 +385,11 @@ for (const expected of [
   "task-design内で対象成果物へ適用済み",
   "tasklist_ready | roadmap_ready | planless_complete",
   "result=planless_complete",
+  "### 3-5. 実行して初めて確定することは、段階を分けて設計する",
+  "### 3-6. 設計は対話であり転記ではない",
+  "選んだ不確実性を、今回の段階のscopeへ含めるか判定する（3-5）",
+  "捨てられる成果物は土台にならず、土台になる成果物は捨てられない",
+  "起点以外の具体caseを二つ以上その基準へ当て",
 ]) {
   requireText(taskDesignSkill, expected);
 }
@@ -534,11 +539,14 @@ for (const expected of [
 ]) {
   requireText(taskDesignSkill, expected);
 }
+requireText(taskDesignSkill, "対象語の網羅確認");
+requireText(taskDesignSkill, "`head`等で打ち切ったまま全体として扱わない");
 for (const expected of [
   "## 上位roadmap制約（子phaseの場合のみ）",
   "{parent_roadmap_path}",
   "{parent_phase_id}",
   "{dependency_results}",
+  "運用documentの手順だけを入力として、対象環境に対する確認操作が通る",
 ]) {
   requireText(taskDesignTemplate, expected);
 }
@@ -576,6 +584,8 @@ for (const expected of [
   "良い分割:",
   "悪い分割:",
   "時間不足、難しさ、host停止、tool制限、外部環境未準備を取消理由にしない",
+  "未開拓の実行基盤を伴う作業では、基盤を立てるphaseを最初に置き",
+  "引き継ぎの観点（この作業を破棄しても残る変化を、後から更新・確認・復旧できること）を`design.md`の受け入れ基準へ入れる",
 ]) {
   requireText(tasklistDesign, expected);
 }
