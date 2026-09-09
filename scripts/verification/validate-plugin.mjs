@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "7.4.1";
+const expectedRelease = "7.4.2";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -896,6 +896,7 @@ for (const expected of [
 ]) {
   requireText(contextTemplate, expected);
 }
+forbidText(contextTemplate, "現在の宣言値は", "templateへ書かれたversion実値");
 
 const escalateSkill = skillPath("escalate-plugin-skill-fix/SKILL.md");
 const escalateMetadata = skillPath("escalate-plugin-skill-fix/agents/openai.yaml");
