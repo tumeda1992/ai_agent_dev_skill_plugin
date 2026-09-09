@@ -3,7 +3,8 @@
 # 全原則をコンテキストに乗せる（cache に乗るので毎セッション 1 回のコスト）
 
 read -r -d '' CTX <<'EOF'
-think-through skill 適用中（毎ターン常時注入）。
+think-through skill の要約（hook による毎ターン注入）。
+これは要約であり、skill の起動ではない。
 本体: tumeda-dev:think-through
 
 コア（全場面、core.md）:
@@ -20,6 +21,10 @@ think-through skill 適用中（毎ターン常時注入）。
 - 選択肢の提示（presenting_options.md）: a/b/c か 1/2/3 で答えられる形式にする
 - 複数事項・状態変化（ordering_parallel_items.md）: 工程の切れ目で ready を再評価し、確定事項を先に完了する
 - variation のある対象（designing_for_variations.md）: 具体 case と方針群を往復し、全 case を扱えるまで帰納する
+
+この要約が載せているのは think-through の一部だけである。design・tasklist・discussion の
+記録形式、論点の立て方、合意の取り方は含まれていない。
+.steering/ 配下を読み書きする前に、Skill で tumeda-dev:task-design を起動する。
 
 詳細は docs/think_standards/README.md 参照。
 EOF
