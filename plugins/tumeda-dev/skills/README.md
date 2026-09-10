@@ -32,16 +32,18 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
   - **test-runner** — テスト実行と失敗分析。executor が共通契約で child 委譲する。
   - **visual-inspector** — Playwright で UI をスクリーンショット目視確認。executor が委譲する（steering も現状のファクト確認に使う）。
 - **doc-enricher** — コードリーディング/タスク遂行後、永続性が高い知識をディレクトリ README に提案する（デフォルトは提案のみ）。
+- **share-work-in-progress** — 作業中branchの内容を、依頼者がGitHub上で読める状態にする。動作確認の完了を待たない点でtasklist-executorのcommit・push・PR契約とは前提が逆。
 - **escalate-plugin-skill-fix** — 利用先repositoryで生じたこのpluginの成果物への修正提案を、plugin repositoryの`steering`へ引き渡すrouting skill。
 - **maintenance-plugin-context** — plugin の repository context と配布 version 規約を管理するメタ skill。
 
 ## 共有リファレンス（skill ではない）
 
-直下に置く、skill 本文から参照される host 非依存の共通ドキュメント。
+直下に置く、skill 本文から参照される host 非依存の共通ドキュメントと script。
 
 - **runtime-execution-contracts.md** — tasklist-executor が visual-inspector / test-runner へ child 委譲する時の共通契約（状態の正本・single writer・停止理由）。
 - **runtime-model-profiles.md** — skill が要求する推論強度 profile を、各 host の実 model へ変換する対応表。
 - **tumeda-dev-plugin-context.md** — 利用先 repository に置く context ファイルのテンプレート雛形。
+- **scripts/github/create_or_get_pr.sh** — tasklist-executor と share-work-in-progress が対等に参照する PR 作成 script。`SKILL.md` を持たないため、loader も `scripts/verification/validate-plugin.mjs` も skill として拾わない。
 
 ## 詳細を知りたいとき
 
