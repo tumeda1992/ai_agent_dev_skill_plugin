@@ -120,7 +120,7 @@ tasklist作成途中では、解消対象を可視化するために`TBD`を使�
 - feedbackがdesignまたはplan構造へ影響する場合は、同じ`working_dir`でtask-designを`create_working_dir=false`として再開する。review後に実装を自動再開しない。
 - 自動testとscreenshotは機械的確認であり、ユーザーが実際に触る動作確認を代替しない。commit・push・PRより前にユーザー動作確認を必須にする。
 - local Git運用条件がrepository contextから返された場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け、部分承認なら承認範囲だけをcommitする。
-- GitHub公開条件が返され、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`tasklist-executor/scripts/github/create_or_get_pr.sh`を使う。
+- GitHub公開条件が返され、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`scripts/github/create_or_get_pr.sh`を使う。
 - push・PRの実行直前に、commit taskの結果としてlocal commitが実際に一件以上存在することを確認する。commit taskが取消完了になった等の理由でcommitが一件もなければ、push・PRを実行しない。
 - plan合意時点で適用できないcommit・push・PR actionは、条件付きの未確定taskとして残さずsection自体を生成しない。
 - 親roadmapのpath探索、status、完了日の更新taskは作らない。

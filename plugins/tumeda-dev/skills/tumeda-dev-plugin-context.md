@@ -33,7 +33,8 @@
 - remote: `origin` は `ssh://git@github.com/tumeda1992/ai_agent_dev_skill_plugin.git`。
 - default branch: `main`。commitとpushをdefault branchへ直接行わない。
 - PR作成script: `scripts/for_local/github/create_or_get_pr.sh`。同じhead branchのopen PRがあれば新規作成せずそのURLを返す。
-  - `tasklist-executor` skill配下の同名scriptとはpathが異なる。このrepositoryで作業する時はrepository側の `scripts/for_local/github/` を使う。
+  - pluginのskills directory直下の共用配置 `skills/scripts/github/create_or_get_pr.sh` とはpathが異なる。このrepositoryで作業する時はrepository側の `scripts/for_local/github/` を使う。
+  - この参照はplugin内のpathを指すsymlinkである。skill群やscriptを再配置した時は張り替えが要る。`scripts/for_local/` は`.gitignore`の対象のため、壊れてもgit差分にもCIにも現れない。
 
 ### Branch / issue 契約
 
