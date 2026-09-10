@@ -22,6 +22,7 @@
 - **[抽象を書く](./writing_abstraction.md)** — 抽象と具体の往復をワンショットで行う
 - **[型・スキル・テンプレートを直したい](./updating_types.md)** — スキル・テンプレートを直す前に、今のファイルで正しい形を合意する
 - **[エラーが出た](./handling_errors.md)** — エラーは消す前に原因を特定する
+- **[既存のものを消す・残すを判断する](./questioning_existing.md)** — 理由を歴史的経緯と合理的必然性へ分離し、必然性だけを残す
 - **[選択肢を提示する](./presenting_options.md)** — a/b/c または 1/2/3 で答えられる形式
 - **[複数事項が並ぶ、または作業中に事項の状態が変わった](./ordering_parallel_items.md)** — readyな確定事項を先に完了する
 - **[広くvariationのある対象へ適用方針を作る](./designing_for_variations.md)** — 具体caseと方針群を反復往復し、全caseを扱えるまで帰納する
