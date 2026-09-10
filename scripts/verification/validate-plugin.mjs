@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "7.5.1";
+const expectedRelease = "7.6.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -430,7 +430,7 @@ requireText(skillPath("steering/SKILL.md"), "discussion_directory=<steering dire
 requireText(skillPath("steering/SKILL.md"), "discussion_file_name=implementation_review.md");
 requireText(skillPath("steering/SKILL.md"), "working_dir_parent=<steering ディレクトリの絶対パス>");
 requireText(skillPath("steering/SKILL.md"), "create_working_dir=false");
-requireText(skillPath("task-design/templates/tasklist.md"), "## 設計参照");
+requireText(skillPath("task-design/templates/tasklist.md"), "## 参照");
 requireText(skillPath("task-design/templates/tasklist.md"), "./design.md");
 requireText(skillPath("task-design/templates/tasklist.md"), "facilitate-discussion");
 requireText(skillPath("task-design/templates/tasklist.md"), "implementation_review.md");
@@ -487,6 +487,7 @@ const thinkStandardsFiles = [
   thinkStandardsPath("writing_abstraction.md"),
   thinkStandardsPath("updating_types.md"),
   thinkStandardsPath("handling_errors.md"),
+  thinkStandardsPath("questioning_existing.md"),
   thinkStandardsPath("presenting_options.md"),
   orderingParallelItemsDoc,
   designingForVariationsDoc,
@@ -548,7 +549,7 @@ for (const expected of [
 ]) {
   requireText(taskDesignSkill, expected);
 }
-requireText(taskDesignSkill, "対象語の網羅確認");
+requireText(taskDesignSkill, "確認範囲が主張範囲を覆っているか");
 requireText(taskDesignSkill, "`head`等で打ち切ったまま全体として扱わない");
 for (const expected of [
   "## 上位roadmap制約（子phaseの場合のみ）",
@@ -824,21 +825,28 @@ if (failedFixture && !failedFixture.summary.includes("未完了")) {
 }
 
 const prHelper = skillPath(
-  "tasklist-executor/scripts/github/create_or_get_pr.sh",
+  "scripts/github/create_or_get_pr.sh",
 );
 requireExists(prHelper);
 requireAbsent(skillPath("steering/scripts/github/create_or_get_pr.sh"));
-requireText(tasklistDesign, "tasklist-executor/scripts/github/create_or_get_pr.sh");
-requireText(tasklistTemplate, "tasklist-executor/scripts/github/create_or_get_pr.sh");
+requireAbsent(
+  skillPath("tasklist-executor/scripts/github/create_or_get_pr.sh"),
+);
+requireText(tasklistDesign, "scripts/github/create_or_get_pr.sh");
+requireText(tasklistTemplate, "scripts/github/create_or_get_pr.sh");
 for (const expected of [
-  "phase末や作業末にまとめて更新しない",
-  "時間不足",
-  "合意済みplanの変更によって元taskが不要または別実装へ置換",
   "原文、関連する実装・design・plan、原因、採用方針、決定",
   "review後に実装を自動再開しない",
   "current branchが公開可能なnon-default branch",
 ]) {
   requireText(tasklistTemplate, expected);
+}
+for (const expected of [
+  "phase末や作業末にまとめて更新しない",
+  "時間不足",
+  "合意済みplanの変更により元taskが不要または別実装へ置換",
+]) {
+  requireText(skillPath("tasklist-executor/SKILL.md"), expected);
 }
 requireText(
   skillPath("tasklist-executor/SKILL.md"),
