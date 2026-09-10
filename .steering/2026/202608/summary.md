@@ -12,7 +12,7 @@
 
 **概要:** `task-design` を単独でも配置先の事前決定なしに起動でき、`steering` から起動した場合も設計固有の成果物を steering ディレクトリ配下へ分離して保存できるようにする。
 
-**ステータス:** 完了
+**ステータス:** 不明
 
 ---
 
@@ -36,7 +36,7 @@
 
 **概要:** tasklist必須を正常系、planなしを例外とする構造が、document・skill等を不要なtasklistへ送っていた。完成後のtask-designは、設計の深さを落とさず、変化対象に応じた完成後の姿を合意し、対象成果物への変更をtask-designが完了するものとexecution planへ渡すものへ分ける。
 
-**ステータス:** 不明
+**ステータス:** 完了
 
 ---
 
@@ -52,7 +52,7 @@
 
 **概要:** 論点についてiterationを回し、その都度の意思決定と変遷を残す既存processは維持する。変更対象はformatだけである。過去のdiscussionから、壊れ方が異なる`だめだった・伝わらなかった`caseを少数キュレーションし、before、伝わらなかった内容、after、case固有の修正方針を比較する。仮の共通骨子とcase別variantを全iteration論点へ展開し、未対応caseがあればキュレーションとafterを更新する。この反復で既存caseを改善し、全体をcoverできた時にtemplateと`facilitate-discussion`のformat生成contractを固定する。
 
-**ステータス:** 不明
+**ステータス:** 完了
 
 ---
 
@@ -98,7 +98,7 @@
 
 ## [20260831-add-evacuation-standard-and-refine-task-design](./20260831-add-evacuation-standard-and-refine-task-design/)
 
-**概要:** 章番号を廃止する。番号は意味を足さず、並べ替えのたびに参照を壊すコストだけを持つ。 `naming/core.md` は連番IDでの相互参照を退けており、現行の参照は既に名前を伴っている。
+**概要:** 利用先での実装を通じて、このpluginの4種類の欠陥が露出した。うち3種類は利用先から引き渡され、1種類はこの設計の途中で自ら踏んで見つけた。
 
 **ステータス:** 完了
 

@@ -2,8 +2,6 @@
 name: steering
 description: "task-designのready resultを受け、plan resultをdispatchし、planless resultを安全gate後に完了する。roadmap treeの子steering bindingとruntime orchestrationはsteeringが所有する。明示指定時、および軽度でない複数file・複数stepの変更時に起動する"
 allowed-tools: Read, Grep, Write, Edit, Bash, Agent
-model: sonnet
-effort: high
 ---
 
 # Steering Skill

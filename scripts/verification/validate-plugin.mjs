@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "7.4.2";
+const expectedRelease = "7.5.1";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -159,6 +159,14 @@ requireText(skillPath("doc-enricher/SKILL.md"), "モジュール構想（Module 
 requireText(skillPath("doc-enricher/SKILL.md"), "命名意図（Naming Intent）");
 requireText(skillPath("doc-enricher/SKILL.md"), "進化の種（Evolution Seed）");
 requireText(skillPath("doc-enricher/SKILL.md"), "設計意図メモ（Design Intent Note）");
+requireText(
+  skillPath("doc-enricher/SKILL.md"),
+  "「登り切った命題に反例はないか」→ 反例が挙がるなら一般則として偽 → DROP",
+);
+requireText(
+  skillPath("doc-enricher/SKILL.md"),
+  "置き場所は規範fileでなく当該作業のledgerになる",
+);
 requirePattern(
   skillPath("task-design/SKILL.md"),
   /component(?:の)?input[\s\S]{0,120}供給元/,
@@ -440,9 +448,10 @@ const thinkThroughSkill = skillPath("think-through/SKILL.md");
 requireFrontmatter(steeringSkill, "明示指定時");
 requireFrontmatter(steeringSkill, "軽度でない複数file・複数stepの変更時");
 requireFrontmatter(steeringSkill, "Agent");
-requireFrontmatter(taskDesignSkill, "model: opus");
-requireFrontmatter(steeringSkill, "model: sonnet");
-requireFrontmatter(steeringSkill, "effort: high");
+forbidText(steeringSkill, "model:", "main session適用skillへのmodel宣言");
+forbidText(steeringSkill, "effort:", "main session適用skillへのeffort宣言");
+forbidText(taskDesignSkill, "model:", "main session適用skillへのmodel宣言");
+forbidText(taskDesignSkill, "effort:", "main session適用skillへのeffort宣言");
 const orderingParallelItemsDoc = thinkStandardsPath("ordering_parallel_items.md");
 const advancingDiscussionDoc = thinkStandardsPath("advancing_discussion.md");
 const designingForVariationsDoc = thinkStandardsPath("designing_for_variations.md");
@@ -657,6 +666,11 @@ for (const expected of [
   requireText(runtimeContract, expected);
 }
 
+const runtimeProfiles = skillPath("runtime-model-profiles.md");
+requireText(runtimeProfiles, "## 推論強度の基準");
+requireText(runtimeProfiles, "## delegated-execution");
+forbidText(runtimeProfiles, "standard-execution", "旧profile名");
+
 const agentDerivedSkills = [
   skillPath("tasklist-executor/SKILL.md"),
   skillPath("visual-inspector/SKILL.md"),
@@ -666,6 +680,7 @@ for (const relativePath of agentDerivedSkills) {
   requireFrontmatter(relativePath, "context: fork");
   requireText(relativePath, "../runtime-execution-contracts.md");
   requireText(relativePath, "../runtime-model-profiles.md");
+  requireText(relativePath, "delegated-execution");
   requireText(relativePath, "Codex");
 }
 requireText(skillPath("tasklist-executor/SKILL.md"), "tasklist、DoD判定、checkbox、child結果の転記を更新するのはこのskillだけ");
@@ -973,6 +988,16 @@ for (const relativePath of portableFiles) {
       failures.push(`${relativePath}: 禁止項目「${label}」を含む`);
     }
   }
+}
+
+const documentReviewSkill = skillPath("document-review/SKILL.md");
+requireExists(documentReviewSkill);
+for (const expected of [
+  "当て方の中身は `content_density.md` / `expression_notation.md` / `file_naming.md` が正本であり、skill 本文へ写さない",
+  "薄い（濃さ不足）は微細でない",
+  "「要素が揃った」でなく「観点を満たした」で判定する",
+]) {
+  requireText(documentReviewSkill, expected);
 }
 
 if (failures.length > 0) {

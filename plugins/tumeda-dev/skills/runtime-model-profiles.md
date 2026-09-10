@@ -2,7 +2,13 @@
 
 skillが要求するのはprovider固有のmodel名ではなく、必要な推論強度profileである。Claude CodeとCodexのadapterは、このprofileをそれぞれのhostで選べるmodelへ変換する。
 
-## standard-execution
+## 推論強度の基準
+
+main sessionで適用するskillはhostのdefaultで動かし、frontmatterで`model`と`effort`を宣言しない。現在のdefaultはOpus相当である。
+
+childとして委譲する先はSonnet相当で足りる。`delegated-execution`がこれを表す。
+
+## delegated-execution
 
 tasklist実行、test失敗分析、UI確認など、手順遵守と実装・調査を主とする作業用。
 
