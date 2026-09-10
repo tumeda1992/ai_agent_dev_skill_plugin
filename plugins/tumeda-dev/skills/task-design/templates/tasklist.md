@@ -1,59 +1,3 @@
-# タスクリスト
-
-## 設計参照
-
-- `./design.md`
-
-## 🚨 タスク完全完了の原則
-
-**このfileの全taskが完了するまで作業を継続すること**
-
-### 必須rule
-
-- **すべてのtaskを`[x]`にすること**
-- 「時間の都合により別taskとして実施予定」は禁止
-- 「実装が複雑すぎるため後回し」は禁止
-- host・tool・外部環境が動かないことを理由に完了扱いにすることは禁止
-- 未完了task（`[ ]`）を残したまま`completed`を返さない
-
-### 実装可能なtaskだけを計画
-
-- 計画段階で実装可能なtaskだけをlistする
-- 「将来やるかもしれないtask」は含めない
-- 「検討中のtask」は含めない
-- 未解消のTBDまたは実装者が決める設計判断は含めない
-
-### taskの取消完了が許可される唯一のcase
-
-合意済みplanの変更によって元taskが不要または別実装へ置換された場合だけ取消完了にできる。
-
-- 実装方針の変更により機能自体が不要になった
-- architecture変更により別の実装方法へ置き換わった
-- 依存関係の変更により元taskが不要または実行不能になった
-- ユーザーがplan変更としてscopeから除外した
-
-取消時は合意と具体的理由を必ず記録する。
-
-```markdown
-- [x] ~~task名~~（合意済みplan変更により不要: 具体的な理由）
-```
-
-時間不足、難しさ、host停止、tool制限、外部環境未準備は取消理由にしない。これらの場合は`[ ]`を維持し、停止・再開状態を返す。
-
-### taskが大きすぎる場合
-
-- taskを着手可能なsubtaskへ分割する
-- 分割したsubtaskをこのfileへ追加する
-- subtaskを一つずつ完了させる
-
-### tasklistの更新timing（必須）
-
-- **各task・subtaskを実測完了した直後に`[x]`へ更新する**
-- phaseが完了したら直ちにphaseの状態も更新する
-- phase末や作業末にまとめて更新しない。最後にまとめて更新することは禁止
-
----
-
 ## Phase 1: {一つの利用者操作または成果状態}
 
 ### DoD（完了条件）
@@ -185,7 +129,15 @@
   - [ ] commit taskの結果としてlocal commitが実際に一件以上あることを確認する。一件もなければpush・PRを実行しない
   - [ ] current branchが公開可能なnon-default branchであることを確認する
   - [ ] `git push -u origin <current-branch>`を実行する
-  - [ ] pluginのskills directory配下にある `tasklist-executor/scripts/github/create_or_get_pr.sh` を実行する
+  - [ ] pluginのskills directory配下にある `scripts/github/create_or_get_pr.sh` を実行する
     - pathの起点はpluginのskills directoryである。利用先repositoryからの相対pathではない
     - このscriptは`gh pr create`のwrapperではない。同じhead branchのopen PRがあれば新規作成せずそのURLを返し、repositoryが`feature-<issue番号>`契約を宣言していればbranch名からissue番号を導いてPR bodyへ`Closes #<番号>`を入れる
     - `--title`と`--body`を渡すとissueからの導出は行われない。issueへ紐づける場合はbody側へ明示する
+
+---
+
+## 参照
+
+- 設計の正本: 同じdirectoryの `./design.md`
+- 完了条件、取消完了、subtask分割、checkbox更新timingの規則の正本: `tasklist-executor/SKILL.md`
+- tasklistへ載せるtaskの範囲の正本: `task-design/tasklist-design.md`

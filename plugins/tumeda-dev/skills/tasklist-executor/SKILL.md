@@ -37,7 +37,7 @@ parentは次を渡す。
 
 task実行にプロジェクト指示、アーキテクチャ・開発・test方針、全体test/lint commandが必要な時は、`maintenance-plugin-context`へconsumer=`tasklist-executor`、必要理由、必要fact、確認元候補を渡す。tasklist.mdとdesign.mdの要求を置き換えず、返された範囲だけを実行条件として使う。
 
-このskillのdirectory配下に `scripts/github/create_or_get_pr.sh` を同梱している。tasklistがPR作成taskを持つ場合に使う。
+PR作成taskを持つtasklistでは、pluginのskills directory直下の共用配置 `scripts/github/create_or_get_pr.sh` を使う。このskillの配下には同梱していない。
 
 tasklist.md が与えられていないときには、tasklist.md を要求して終了する。受け取ったtasklist pathを絶対pathへ解決し、その同directoryの`./design.md`を設計の正本として必ず読む。sibling designが存在しない場合は別directoryを探索・推測せず`blocked`で返す。
 
@@ -56,6 +56,7 @@ tasklist.md が与えられていないときには、tasklist.md を要求し�
 
 # 停止・再開
 
+- checkboxはtask・subtaskを実測完了した直後に`[x]`へ更新する。phase末や作業末にまとめて更新しない。停止時点のcheckboxが実態とずれると、再開時にどこから再開すべきかが決まらない
 - Phase完了境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる
 - ユーザー動作確認がtasklistにある時は`user_confirmation_required`で停止し、確認前にcommit・pushへ進まない
 - 利用上限に達した時は、完了済みtask、pending request/result、次の`[ ]`を`limit_reached`として返す
