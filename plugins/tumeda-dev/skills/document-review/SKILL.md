@@ -62,6 +62,7 @@ md を作成・更新したら、**出す前にこれを通す**。doc を書く
 - 内容の濃さ → `content_density.md`
 - 記法 → `expression_notation.md`
 - 命名 → `file_naming.md`
+- 指示対象 → `referent_explicitness.md`
 
 ### 更新時観点
 
@@ -69,6 +70,8 @@ md を作成・更新したら、**出す前にこれを通す**。doc を書く
 
 - 内容の濃さ → `content_density.md`（**書き足した箇所だけでなく、前の版から削った要素も見る**）
 - 記法 → `expression_notation.md`
+- 指示対象 → `referent_explicitness.md`
+- 既存記述の直し方 → `modify_description_policy.md`
 
 ### ケース別観点
 

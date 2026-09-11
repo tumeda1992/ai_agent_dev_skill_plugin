@@ -15,10 +15,12 @@ docs の書き方・構造化に関する標準を置く場所。
 - **[stock-and-flow-information.md](./stock-and-flow-information.md)** — 情報を寿命（永続・使い捨て・ゴールまで）で分類し、置き場所と書き方を変えるための上位方針。
 - **[supplier-consumer-relation.md](./supplier-consumer-relation.md)** — 提供側と使う側の間で、知識と複雑さをどちらへ寄せるかの上位方針（consumer を薄く、supplier を厚く）。
 - **[file_naming.md](./file_naming.md)** — ファイル名の規約は命名標準側が正本であることを示すポインタ。
+- **[referent_explicitness.md](./referent_explicitness.md)** — 文中の語が指す実体を、読み手がその文だけから復元できるかを扱う標準（指示対象の明示）。
 
 ## 標準の置き方
 
 - 各標準は **基本 1 ファイル**。
 - ただし、1 つの標準を説明するのに複数ファイルが要る場合は **ディレクトリ化してよい**。
+- 標準を増やしたら、それが emit 前に当てる観点かを判断する。観点なら `document-review` の観点 list へ足す。判断の問いは「この標準は、書かれた文に当てて、満たすか満たさないかを判定できるか」。何を書くか・どこに置くか・誰に向けて書くかを扱う標準は観点でない。これらは `document-review` の能力境界の外である。
 
 （README／テーブル記述などの汎用雛形は [`../doc_templates/`](../doc_templates/) にある。この標準群は「構造化の思想・型」を扱い、雛形置き場とは役割が違う。）
