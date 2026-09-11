@@ -22,6 +22,8 @@ basename だけを決める。ディレクトリの作成や確認はしない�
 YYYYMMDD-slug
 ```
 
+slug の規則を適用する前に、`plugins/tumeda-dev/docs/development_standards/naming/README.md` を入口として引き、そこの引き方に従う。個別 file を名指ししないのは、どの file が該当するかの判断を README 側へ持たせ、`naming/` 配下の file の増減でこの skill を直さずに済ませるためである。
+
 `YYYYMMDD` には入力されたローカル日付を使う。`slug` は作業内容を英語で要約したものにする。
 
 - 英小文字の kebab-case とし、文字、数字、ハイフンだけを使う。

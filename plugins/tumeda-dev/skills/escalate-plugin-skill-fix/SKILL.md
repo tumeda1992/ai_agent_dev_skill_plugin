@@ -44,7 +44,7 @@ Git rootが取得できない、またはこの判定だけではplugin reposito
 - その提案が必要だと分かった具体例
 - 提案の根拠
 
-除去すべき固有情報（利用先repository名、所有者名、絶対path、固有ドメイン名、固有steering slugなど）の規約はこのskillが持たない。正本は`migration.md`である。除去すると提案の意味が保てなくなる場合は、無理に一般化せず、`migration.md`が定める規約に従って停止する。
+除去すべき固有情報（利用先repository名、所有者名、絶対path、固有ドメイン名、固有steering slugなど）の規約はこのskillが持たない。正本は`plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies/migration.md`である。除去すると提案の意味が保てなくなる場合は、無理に一般化せず、`migration.md`が定める規約に従って停止する。
 
 ### 作業対象の切り替え
 

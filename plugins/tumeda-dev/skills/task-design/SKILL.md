@@ -413,6 +413,8 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
 
 ### PrepareStep 3. 設計前調査
 
+`plugins/tumeda-dev/docs/development_standards/`配下をすべて読む。「今回は命名判断を含むか」「entity設計に該当するか」を自分で判定しない。判定を挟むと、判定を誤った経路だけが標準に触れないまま進み、その経路では判定を誤った自覚が残らない。参照を無条件にすれば、判定の誤りが参照の欠落へ伝播しない。
+
 `working_dir`を確定した後、初稿を書く前に、`maintenance-plugin-context`へconsumer=`task-design`、必要理由、必要fact、確認元候補を渡す。返された文書・command・環境だけを使い、固定pathやrepository構造を推測しない。
 
 1. 許可されたプロジェクト指示、architecture・開発規約、test方針を読む。
