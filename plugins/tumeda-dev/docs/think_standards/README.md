@@ -26,4 +26,5 @@
 - **[選択肢を提示する](./presenting_options.md)** — a/b/c または 1/2/3 で答えられる形式
 - **[複数事項が並ぶ、または作業中に事項の状態が変わった](./ordering_parallel_items.md)** — readyな確定事項を先に完了する
 - **[広くvariationのある対象へ適用方針を作る](./designing_for_variations.md)** — 具体caseと方針群を反復往復し、全caseを扱えるまで帰納する
+- **[叩き台を作る](./building_a_prototype.md)** — 叩き台は横展開で検証するまで成立していない。やりやすいところから始めない
 - **[evolution_policy.md](./evolution_policy.md)** — 維持規律。標準群を変える後続改善者が場面の追加・統合・分割時に読む
