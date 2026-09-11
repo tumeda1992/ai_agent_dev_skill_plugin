@@ -369,16 +369,22 @@ command を実行しうるのは `tasklist-executor` だけではない。`steer
 
 > ⚠️ 動作確認phaseが完了するまでcommit、push、`main` への取り込みを促したり実行したりしない。急かすことも禁止する。
 
-- [ ] commit（phase単位かつ意味単位で分割）
-  - MUST: まとめて一commitにしない
-  - Phase 1（指示対象の明示の標準）、Phase 2（設計標準の群の入口）、Phase 3（参照義務の追記）、Phase 4（条件文の書き直し）、Phase 5（空 commit 条件）、Phase 6（実行環境 gate）、Phase 7（version bump）、Phase 8（覆域 gate）を別commitにする
-  - `implementation_review.md` は Phase 8 の根拠であるため、Phase 8 の commit より前へ置く。`tasklist.md` のcheckbox確定は最後へ置く
-  - `runtime-execution-contracts.md` は Phase 4 と Phase 6、`tasklist-design.md` は Phase 4 と Phase 8 で変更している。同じ file でも意味単位が違うため、中間状態を再構成して別commitにする
-  - `design.md` と `task-design-discussion.md` は、対応する変更commitより前へ置く
-  - `tasklist.md` のcheckbox確定と `implementation_review.md` は、対応する変更commitより後へ置く
-  - Phase 5 の `.steering/.../20260910-add-publish-branch-diff-skill/design.md` の修正は、転記の欠落を補うものであり当時の判断を変えないことをcommit messageへ書く
-  - ユーザーが一部だけ承認した場合は承認範囲だけをcommitし、残りは待つ
-  - ユーザーが不要と回答した場合は`[x] ~~commit~~（ユーザーが不要と回答）`の形式で完了扱いにする
+- [x] commit（phase単位かつ意味単位で分割）
+
+  > 実測結果: 11 commit に分割した（2026-09-11、branch `20260911-make-skill-references-and-conditions-explicit`）。
+  > 1. `9373f5c` designと議論記録を確定する（`design.md`・`task-design-discussion.md`。実装commitより前へ配置）
+  > 2. `2c089ee` 指示対象の明示の標準を新設し、document-reviewの観点へ登録する（Phase 1）
+  > 3. `20565ed` 開発標準群の入口となるREADMEを新設する（Phase 2）
+  > 4. `5e0326a` 設計標準と移植規約への参照義務をskill本文へ書く（Phase 3）
+  > 5. `bc512f1` repository contextに項目が無い場合の動作を条件文へ書く（Phase 4）
+  > 6. `0032b96` 空commitの条件から指示対象の欠落を除く（Phase 5。原本を変更していないことをcommit messageへ明記）
+  > 7. `b955842` 実行環境に止められたときの契約を追加する（Phase 6）
+  > 8. `39e91bd` versionを 7.6.1 へ上げる（Phase 7）
+  > 9. `3db7a5a` 実装完了後reviewの決定を記録する（`implementation_review.md`。Phase 8 の根拠のためPhase 8 より前へ配置）
+  > 10. `40fb72e` designとtasklistの覆域を確認するgateを追加する（Phase 8）
+  > 11. `b2c2dd0` tasklistの完了記録を反映する（checkbox確定。全phase commitより後へ配置）
+  >
+  > `runtime-execution-contracts.md` は 5 と 7、`tasklist-design.md` は 5 と 10 で変更している。意味単位が違うため中間状態を再構成して分割した。分割後の内容がユーザー承認時点と byte 一致することを `diff` で確認済み。
 
 ## `main` への取り込み
 
@@ -394,24 +400,27 @@ command を実行しうるのは `tasklist-executor` だけではない。`steer
 
 ### Tasks
 
-- [ ] commit taskの結果としてlocal commitが実際に一件以上あることを確認する。一件もなければ以降を実行しない
+- [x] commit taskの結果としてlocal commitが実際に一件以上あることを確認する。一件もなければ以降を実行しない
+  - 実測: 11 commit を確認
 
-- [ ] `escalate-plugin-skill-fix` が定める 4 step で `main` へ取り込む
-  - [ ] 作業 branch を push する
-  - [ ] `main` へ切り替える
-  - [ ] 作業 branch を `main` へ merge する
-  - [ ] `main` を push する
+- [x] `escalate-plugin-skill-fix` が定める 4 step で `main` へ取り込む
+  - [x] 作業 branch を push する（`origin` へ new branch として作成）
+  - [x] `main` へ切り替える
+  - [x] 作業 branch を `main` へ merge する（fast-forward。`5907424..b2c2dd0`）
+  - [x] `main` を push する
   - PR は経由しない。`escalate-plugin-skill-fix/SKILL.md` が「plugin repositoryが利用先repositoryから見てsubであり、pluginの更新がメインの作業を再開するための前段だから」PR を開かないと定めている
 
+  > 実測結果: push 前に `git fetch origin` で `origin/main` が `5907424` から動いていないことを確認。merge は fast-forward で、merge commit を作っていない。取り込み後 `main` == `origin/main` == 作業 branch == `b2c2dd0`。`node scripts/verification/validate-plugin.mjs` は `main` 上で `plugin validation passed`。
+
 - [ ] ここで作業を停止し、対象actionの結果をユーザーに確認する。次へは進まない
-  - [ ] 取り込んだ内容を報告する
-  - [ ] 設計時点に決めた運用documentの記述と実態が合っているかを照合する
-  - [ ] 実装の過程で方針が変わっていた場合は、その場でdocumentを書き換えず `design.md` へ戻す
+  - [x] 取り込んだ内容を報告する
+  - [x] 設計時点に決めた運用documentの記述と実態が合っているかを照合する
+  - [x] 実装の過程で方針が変わっていた場合は、その場でdocumentを書き換えず `design.md` へ戻す（方針変更は生じていない）
   - [ ] reinstall して install cache の version が一致することを、ユーザーが確認できる状態にする
 
-- [ ] session を開き直す必要があることをユーザーへ伝える
-  - [ ] `escalate-plugin-skill-fix/SKILL.md` が「plugin repositoryで対象のskillを修正しても、それは今実行中のsessionには反映されない。skill内容はsession開始時にcacheされる」と定めている
-  - [ ] 利用先 repository の元 task を旧版の skill のまま続けるか、新しい session を開始して修正後の skill で再開するかは、ユーザーが選ぶ
+- [x] session を開き直す必要があることをユーザーへ伝える
+  - [x] `escalate-plugin-skill-fix/SKILL.md` が「plugin repositoryで対象のskillを修正しても、それは今実行中のsessionには反映されない。skill内容はsession開始時にcacheされる」と定めている
+  - [x] 利用先 repository の元 task を旧版の skill のまま続けるか、新しい session を開始して修正後の skill で再開するかは、ユーザーが選ぶ
 
 ---
 
