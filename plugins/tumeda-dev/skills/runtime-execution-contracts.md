@@ -1,6 +1,6 @@
 # Runtime execution contracts
 
-tasklist-executorがvisual-inspector / test-runnerへchild処理を委譲する時の、hostに依存しない共通契約。
+この file は二つの対象を持つ。ひとつはtasklist-executorがvisual-inspector / test-runnerへchild処理を委譲する時の、hostに依存しない共通契約。もうひとつは、command を実行しうる任意のskill（`tasklist-executor`、`steering`のBlocker resolution、`task-design`の技術検証実装等）が共通して従う、実行時一般の契約である。command を実行しうるのは`tasklist-executor`だけではないため、実行時契約はこのfileが持つ。
 
 ## 状態の正本とsingle writer
 
@@ -96,6 +96,16 @@ Phase checkpoint、user confirmation、blocked、limitで停止しても、taskl
 - physical launcherはhost adapterである。指定されたchildの起動、完了待ち、result到達だけを担い、tasklistやresult内容を解釈しない。
 - Codexでは直近parentがchildを起動し、完了まで待つ。parentはrequestをpromptへ渡し、child resultをlogical ownerへ返す。
 - agent由来の3skillはfrontmatterに`context: fork`を保持する。これは宣言の静的契約であり、特定hostのruntime動作をこの文書の受け入れ条件にはしない。
+
+## 実行環境gate
+
+agentがcommandを実行してよいとtask levelで判定したことは、実行環境がそのcommandを通すことを意味しない。task levelでの許可判定と、実行環境がcommandを実際に通すかどうかは別の層である。
+
+実行環境に止められた場合、agentは迂回せず停止し、利用者へ返す。別のcommandで同じ結果を得ようとしない。
+
+この事象は、上記「停止理由」の`blocked`（必須入力・外部状態・権限が不足している）に該当する。実行環境がcommandを止めることは、権限が不足している状態の一種である。
+
+特定の実行基盤（infrastructure-as-code toolなど）に依存する手順はこのfileへ書かない。利用先repository側で有効な具体手順が必要な場合は、repository固有のcontextとして別途持たせる。
 
 ## Repository context
 
