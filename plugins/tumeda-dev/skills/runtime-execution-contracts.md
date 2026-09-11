@@ -99,4 +99,8 @@ Phase checkpoint、user confirmation、blocked、limitで停止しても、taskl
 
 ## Repository context
 
-repository固有のapp URL、authentication、test / lint command、artifact root、browser helper、setup / run command、result template、permissionはrepository contextから解決する。共通skill本文とrequest fixtureへ固定しない。
+repository固有のapp URL、authentication、test / lint command、artifact root、browser helper、setup / run command、result template、permissionは、`maintenance-plugin-context`が`<repository root>/.agents/skills/tumeda-dev-plugin-context.md`から解決して返す。共通skill本文とrequest fixtureへ固定しない。
+
+同fileに該当項目が無い場合は、推測せず利用者へ確認する。確認するまでchild処理を実行しない。test commandやapp URLが分からないまま検証taskを省くと、検証して通ったのか検証できなかったのかが成果物の上で区別できなくなるためである。
+
+利用者の回答は`maintenance-plugin-context`が同fileへ書き戻す。否定の回答もfactとして記載する。書き戻すことで、同じrepositoryで二度目以降の確認が不要になる。

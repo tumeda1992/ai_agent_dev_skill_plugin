@@ -119,8 +119,8 @@ tasklist作成途中では、解消対象を可視化するために`TBD`を使�
   3. どこに書けば次回この議論が不要になるか。変更は合意後だけ行う。
 - feedbackがdesignまたはplan構造へ影響する場合は、同じ`working_dir`でtask-designを`create_working_dir=false`として再開する。review後に実装を自動再開しない。
 - 自動testとscreenshotは機械的確認であり、ユーザーが実際に触る動作確認を代替しない。commit・push・PRより前にユーザー動作確認を必須にする。
-- local Git運用条件がrepository contextから返された場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け、部分承認なら承認範囲だけをcommitする。
-- GitHub公開条件が返され、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`scripts/github/create_or_get_pr.sh`を使う。
+- `.agents/skills/tumeda-dev-plugin-context.md`にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け、部分承認なら承認範囲だけをcommitする。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答（`commitしない`等）もfactとして記載する。
+- `.agents/skills/tumeda-dev-plugin-context.md`にGitHub公開条件の記載があり、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`scripts/github/create_or_get_pr.sh`を使う。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答もfactとして記載する。
 - push・PRの実行直前に、commit taskの結果としてlocal commitが実際に一件以上存在することを確認する。commit taskが取消完了になった等の理由でcommitが一件もなければ、push・PRを実行しない。
 - plan合意時点で適用できないcommit・push・PR actionは、条件付きの未確定taskとして残さずsection自体を生成しない。
 - 親roadmapのpath探索、status、完了日の更新taskは作らない。
