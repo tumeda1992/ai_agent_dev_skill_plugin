@@ -37,7 +37,7 @@ current branchがremoteのdefault branchである場合、運用形態を推定�
 1. current branch、remoteの有無、default branch名を確認する。detached HEADまたはremote不在なら[停止条件](#停止条件)に従い停止する。
 2. current branchがdefault branchなら、[確認を取る条件](#確認を取る条件)に従い、commitする前に利用者へ確認を取る。承認されなければ停止する。
 3. 未commitの変更があれば、untrackedを含めてすべてstageし、一つのcommitにする。commit messageは`WIP: share work in progress`とする。
-4. 未commitの変更が無く、かつremoteとHEADが同じでpushできるcommitも無い場合だけ、空commitを作る。空commitはPRを成立させるための最小差分であり、見せるための差分ではない。
+4. commitするものが何も無く、かつremoteのdefault branchと同一HEADでPRを作れない場合だけ、空commitを作る。空commitはPRを成立させるための最小差分であり、見せるための差分ではない。
 5. current branchをpushする。rejectされたら停止し、remoteと分岐していることを報告する（[失敗の扱い](#失敗の扱い)）。
 6. default branchでなく、かつ`gh`が使える場合だけ、`../scripts/github/create_or_get_pr.sh`を呼ぶ。既にopen PRがあれば作成せずURLが返る。
 7. 到達した地点を報告する。PRのURL、またはpushまでで止まった理由を示す。

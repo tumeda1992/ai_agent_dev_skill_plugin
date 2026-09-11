@@ -82,7 +82,7 @@ push が reject されたとき、この skill は force push を行わない。
 利用者へ確認 --{承認}--> commit 判定
 起動 --{current branch が default branch でない}--> commit 判定
 commit 判定 --{未 commit の変更あり}--> working tree の全部を 1 commit
-commit 判定 --{未 commit なし、かつ remote と HEAD が同じ}--> 空 commit
+commit 判定 --{未 commit なし、かつ remote の default branch と同一 HEAD で PR を作れない}--> 空 commit
 commit 判定 --{未 commit なし、かつ push できる commit あり}--> push
 working tree の全部を 1 commit --> push
 空 commit --> push
@@ -99,7 +99,7 @@ PR 確認 --{open PR なし}--> create_or_get_pr.sh で作成して URL を返�
 1. current branch、remote の有無、default branch 名を確認する。detached HEAD または remote 不在なら停止する。
 2. current branch が default branch なら、commit する前に利用者へ確認を取る。承認されなければ停止する。
 3. 未 commit の変更があれば、untracked を含めてすべて stage し、一つの commit にする。commit message は `WIP: share work in progress` とする。
-4. 未 commit の変更が無く、かつ remote と HEAD が同じで push できる commit も無い場合だけ、空 commit を作る。空 commit は PR を成立させるための最小差分であり、見せるための差分ではない。
+4. commit するものが何も無く、かつ remote の default branch と同一 HEAD で PR を作れない場合だけ、空 commit を作る。空 commit は PR を成立させるための最小差分であり、見せるための差分ではない。
 5. current branch を push する。reject されたら停止し、remote と分岐していることを報告する。
 6. default branch でなく、かつ `gh` が使える場合だけ、`create_or_get_pr.sh` を呼ぶ。既に open PR があれば作成せず URL が返る。
 7. 到達した地点を報告する。PR の URL、または push までで止まった理由を示す。
