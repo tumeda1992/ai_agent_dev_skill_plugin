@@ -17,13 +17,14 @@
 
 - **[core.md](./core.md)** — 唯々諾々の禁止、修正前の方針合意、形式の優先順位。場面を問わず常時適用する
 - **[考え始め](./starting_to_think.md)** — 事象から原因へ降り、提案を検証まで通す
-- **[ユーザーから指摘・提案を受領した](./receiving_feedback.md)** — 自分で考えてから問う
+- **[ユーザーから指摘・提案を受領した](./receiving_feedback.md)** — 問うか自分で埋めるかは、情報の持ち主で決まる
 - **[議論進行中](./advancing_discussion.md)** — 問いはロジックツリーの上位から再帰的に掘り下げる
 - **[抽象を書く](./writing_abstraction.md)** — 抽象と具体の往復をワンショットで行う
 - **[型・スキル・テンプレートを直したい](./updating_types.md)** — スキル・テンプレートを直す前に、今のファイルで正しい形を合意する
 - **[エラーが出た](./handling_errors.md)** — エラーは消す前に原因を特定する
 - **[既存のものを消す・残すを判断する](./questioning_existing.md)** — 理由を歴史的経緯と合理的必然性へ分離し、必然性だけを残す
 - **[選択肢を提示する](./presenting_options.md)** — a/b/c または 1/2/3 で答えられる形式
+- **[二つ以上の案から一つを決める](./choosing_between_options.md)** — 選べないのは、材料が枯れていない合図
 - **[複数事項が並ぶ、または作業中に事項の状態が変わった](./ordering_parallel_items.md)** — readyな確定事項を先に完了する
 - **[広くvariationのある対象へ適用方針を作る](./designing_for_variations.md)** — 具体caseと方針群を反復往復し、全caseを扱えるまで帰納する
 - **[叩き台を作る](./building_a_prototype.md)** — 叩き台は横展開で検証するまで成立していない。やりやすいところから始めない

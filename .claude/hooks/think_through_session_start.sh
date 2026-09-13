@@ -13,13 +13,14 @@ think-through skill の要約（hook による毎ターン注入）。
 
 場面別（主軸）:
 - 考え始め（starting_to_think.md）: 事象（具体） → 原因（再発が止まる深さまで） → 提案（合意後に何が変わるか読める） → 検証（目下の課題が解けそうか）
-- 指摘・提案の受領（receiving_feedback.md）: 自分で先に考えてから問う
+- 指摘・提案の受領（receiving_feedback.md）: 問うか自分で埋めるかは、情報の持ち主で決まる
 - 議論進行中（advancing_discussion.md）: ロジックツリー上位から再帰。往復コストが高ければ TBD 暫定全体を先に出す
 - 抽象を書く（writing_abstraction.md）: 抽象と具体をワンショット。文脈外の具体でも成立するか確認する
 - 型・skill・template を直す（updating_types.md）: 今のファイルで正しい形を合意してから型へ反映する
 - エラー（handling_errors.md）: 消す前に原因を特定する
 - 既存を消す・残す（questioning_existing.md）: 理由を歴史的経緯と合理的必然性へ分離し、必然性だけを残す
 - 選択肢の提示（presenting_options.md）: a/b/c か 1/2/3 で答えられる形式にする
+- 案から一つを決める（choosing_between_options.md）: 選べないのは材料が枯れていない合図。足す前に何が分かれば選べるかを問う
 - 複数事項・状態変化（ordering_parallel_items.md）: 工程の切れ目で ready を再評価し、確定事項を先に完了する
 - variation のある対象（designing_for_variations.md）: 具体 case と方針群を往復し、全 case を扱えるまで帰納する
 - 叩き台を作る（building_a_prototype.md）: 横展開で検証するまで成立していない。やりやすいところから始めない
