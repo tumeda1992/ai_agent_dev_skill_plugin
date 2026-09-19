@@ -48,6 +48,7 @@ steeringはdesign、tasklist、roadmapの内容を設計または重複reviewし
 - **全成果物（`design.md`、`tasklist.md | roadmap.md`、`discussion.md`、`implementation_review.md`等）でdomain固有名詞を略称で書かない。** class名、model名、operation名は完全な名前で書く。内部だけで通じる頭字語は、未来の読み手に意味の再調査を強制しreading costを上げる。
   - 悪い例: 「UPの権限を確認する」「PMを作成する」
   - 良い例: 「`UserProfile`の権限を確認する」「`PaymentMethod`を作成する」
+- 成果物へ書く前に、その記述が機密情報にあたるかを [`confidentiality.md`](../../docs/documentation_standards/confidentiality.md) の判定で確認する。調査は網羅的に行ってよいが、成果物へ書く時点では別の判断が要る。判定の中身は同 file が正本であり、ここへ写さない。
 
 ## 命名規則とcanonical directory
 

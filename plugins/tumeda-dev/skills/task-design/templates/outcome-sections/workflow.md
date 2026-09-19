@@ -45,9 +45,10 @@ NG:
 
 **状態と遷移:**
 
-```text
-{state A} --{event / gate / owner}--> {state B}
-{state B} --{feedback / failure}--> {戻り先}
+```mermaid
+flowchart LR
+  A["{state A}"] -->|"{event / gate / owner}"| B["{state B}"]
+  B -->|"{feedback / failure}"| C["{戻り先}"]
 ```
 
 **必須順序とhandoff:**

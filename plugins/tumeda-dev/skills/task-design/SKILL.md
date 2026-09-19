@@ -38,6 +38,8 @@ Sonnet は「実装に入りたい衝動」を持っているため、このス�
 - 悪い例: 「UPの権限を確認する」「PMを作成する」
 - 良い例: 「`UserProfile`の権限を確認する」「`PaymentMethod`を作成する」
 
+成果物へ書く前に、その記述が機密情報にあたるかを [`confidentiality.md`](../../docs/documentation_standards/confidentiality.md) の判定で確認する。調査は網羅的に行ってよいが、成果物へ書く時点では別の判断が要る。判定の中身は同 file が正本であり、ここへ写さない。
+
 repository固有の設計文書、規約、技術検証環境・commandが必要な時は、`maintenance-plugin-context`へconsumer=`task-design`、必要理由、必要fact、確認元候補を渡す。返された範囲だけを使い、固定pathや固定commandを推測しない。
 
 ---
