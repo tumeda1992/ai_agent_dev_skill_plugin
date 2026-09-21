@@ -131,7 +131,7 @@ discussion fileの解決、entry形式、合意対象保存、採番、親子val
 ### Step 1. steering directoryと前月summaryを準備する
 
 1. `name-work-directory`で`YYYYMMDD-slug`を決める。
-2. `branch_from_basename=true`の場合だけ、現在のHEADから`YYYYMMDD-slug`という名前のbranchを作成して切り替える。基点となるbranchが意図どおりかはcallerが保証する。同名branchが既に存在する場合、または切替に失敗した場合は、作成も強制切替もせず作業を停止してユーザーへ報告する。stashを行わない。
+2. `branch_from_basename=true`の場合だけ、現在のHEADから`YYYYMMDD-slug`という名前のbranchを作成して切り替える。基点となるbranchが意図どおりかはcallerが保証する。同名branchが既に存在する場合、または切替に失敗した場合は、作成も強制切替もせず作業を停止してユーザーへ報告する。stashを行わない。branch名を決める前に[`branch_pr_issue.md`](../../docs/development_standards/development_flow/branch_pr_issue.md)を引き、merge済みのbranch名を再利用していないかを確かめる。判定の中身は同fileが正本であり、ここへ写さない。
 3. `.steering/YYYY/YYYYMM/`がなければ作成する。
 4. `.steering/YYYY/YYYYMM/YYYYMMDD-slug/`を作成する。
 5. 実行月の一か月前（年を跨ぐ場合は前年12月）のdirectoryが存在し、その月の`summary.md`が未存在の場合だけ、前月summaryを生成する。

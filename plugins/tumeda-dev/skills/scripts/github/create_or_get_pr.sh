@@ -25,20 +25,44 @@ git_root() {
   git rev-parse --show-toplevel 2>/dev/null || true
 }
 
-declares_feature_issue_contract() {
-  local root context section
+branch_contract_section() {
+  local root context
 
   root="$(git_root)"
   [[ -n "$root" ]] || return 1
   context="$root/.agents/skills/tumeda-dev-plugin-context.md"
   [[ -f "$context" ]] || return 1
 
-  section="$(awk '
+  awk '
     /^### Branch \/ issue 契約$/ { in_section=1; next }
     in_section && /^### / { exit }
     in_section { print }
-  ' "$context")"
-  [[ "$section" == *'feature-<issue番号>'* ]]
+  ' "$context"
+}
+
+# head branch から issue 番号と種別を解決する。
+# 出力は "<issue番号> <main|derived>"。宣言された形式に当たらなければ 1 を返す。
+resolve_issue_ref() {
+  local head="$1" section="$2"
+
+  if [[ "$section" == *'issue-<番号>'* ]]; then
+    if [[ "$head" =~ ^issue-([0-9]+)$ ]]; then
+      printf '%s main' "${BASH_REMATCH[1]}"
+      return 0
+    fi
+    if [[ "$head" =~ ^issue-([0-9]+)- ]]; then
+      printf '%s derived' "${BASH_REMATCH[1]}"
+      return 0
+    fi
+  fi
+
+  # 旧形式。派生の概念を持たないため常に本線として扱う。
+  if [[ "$section" == *'feature-<issue番号>'* ]] && [[ "$head" =~ ^feature-([0-9]+)$ ]]; then
+    printf '%s main' "${BASH_REMATCH[1]}"
+    return 0
+  fi
+
+  return 1
 }
 
 default_branch() {
@@ -82,12 +106,23 @@ if pr_url="$(open_pr_url "$head")" && [[ -n "$pr_url" ]]; then
   exit 0
 fi
 
-if declares_feature_issue_contract && [[ "$head" =~ ^feature-([0-9]+)$ ]]; then
-  issue_id="${BASH_REMATCH[1]}"
-  resolved_issue_title="$(issue_title "$issue_id")"
-  title="${title:-$resolved_issue_title}"
+contract_section="$(branch_contract_section || true)"
+
+if issue_ref="$(resolve_issue_ref "$head" "$contract_section")"; then
+  issue_id="${issue_ref%% *}"
+  issue_kind="${issue_ref##* }"
+
+  if [[ "$issue_kind" == main ]]; then
+    title="${title:-$(issue_title "$issue_id")}"
+  else
+    # 派生branchへissueのタイトルを付けると本線のPRと見分けがつかない。
+    title="${title:-$(default_title_from_branch "$head")}"
+  fi
+
+  # Closes はissueを閉じる宣言であり、branch名からは判定できない。
+  # 付けるかどうかは --body で明示する。
   if [[ "$body_is_set" == false ]]; then
-    body="Closes #${issue_id}"
+    body="参照: #${issue_id}"
   fi
 else
   title="${title:-$(default_title_from_branch "$head")}"

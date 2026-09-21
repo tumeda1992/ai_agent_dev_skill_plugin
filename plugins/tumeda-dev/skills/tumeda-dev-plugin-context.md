@@ -38,6 +38,12 @@
 
 ### Branch / issue 契約
 
+<!-- このrepositoryが採るbranch名の形式を宣言する。原則と推奨形式は
+     `docs/development_standards/development_flow/branch_pr_issue.md` が持つ。
+     推奨形式は本線 `issue-<番号>`、派生 `issue-<番号>-<説明>`。
+     `create_or_get_pr.sh` はこのsectionの宣言を読んで issue 番号と種別を解決する。
+     issueを持たないrepositoryは、その旨と代わりの識別子を書く -->
+
 - なし。利用先repositoryからの提案が起点になるため、issue番号のような安定した識別子を持たない。
 - branch名はsteering directoryのbasename（`YYYYMMDD-slug`）に揃える。`steering` を `branch_from_basename=true` で起動して作る。branch一覧が日付順に並び、branch名からsteering記録を一意に引ける。
 
