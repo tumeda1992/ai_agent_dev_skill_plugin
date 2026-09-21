@@ -240,30 +240,34 @@ iteration の中身が `提案N` に固定されているため、認識を合�
 
 ---
 
-## Phase: escalation-without-deferral — 提案が生じた時点で escalate する方針を置く
+## Phase: escalation-without-context-loss — escalate 後の context 喪失を止める
 
 ### 目的
 
-`escalate-plugin-skill-fix` の起動タイミングが縛られていないため、提案が溜まってから一括で引き渡される状態を解消する。
+escalate 後に session の新規作成を促され、context が失われる状態を解消する。
+
+<!-- この phase は当初 `escalation-without-deferral`（提案が溜まってから一括で引き渡される
+     状態を解消する）として定義していた。起点の発言を「いつ escalate するか」という
+     タイミングの話として誤読したものであり、子 steering の設計中に訂正した。
+     経緯は子 steering の task-design-discussion.md の論点1・2（取下げ）と論点4 にある。 -->
 
 ### Scope
 
-- `escalate-plugin-skill-fix` の起動 gate と「引き渡し後」の記述
-- 提案が生じた session で片付ける方針の明示
-- 後回しを許す例外条件があるか。あるならその条件
-- 溜めた場合に何が起きるかの記述
+- `escalate-plugin-skill-fix` の「引き渡し後」の記述
+- session の新規作成と resume の区別
+- 元 task をどう続けるかの選択
 
 ### Scope外
 
-- working directory の切り替えが唯一の手段だとする記述（別出自であり、再現条件が未確認。この roadmap の scope 外）
-- 元 task を旧版 skill で続けるか新 session で再開するかの選択（「ユーザーが選ぶ。このskillが代わりに決めない」として既に定まっている別の判断）
+- escalate の起動タイミング。後回しにするかどうかは利用側の判断であり、この skill が縛る対象ではない
+- 後回し中の提案の記録先。利用側が保留するだけで、その間この skill は起動されない
 - 他の 5 phase が扱う skill の内容
 
 ### DoD（完了条件）
 
-- 起動 gate または「引き渡し後」の記述に、提案が生じた時点で片付ける方針が明示されている
-- 後回しにしてよい例外条件が決まっている。無いなら無いと書かれている
-- 溜めた場合に何が起きるかが読み取れる
+- 「引き渡し後」に、escalate のために session を新規作成しないことが明示されている
+- resume が context を保ったまま skill を読み直す手段として示されている
+- 元 task をどう続けるかの選択が利用者に残されている
 - この phase 完了時点で `escalate-plugin-skill-fix` が単独で利用可能である
 
 ### 依存
@@ -278,9 +282,9 @@ iteration の中身が `提案N` に固定されているため、認識を合�
 
 ### 運用field（steeringだけが更新する）
 
-- 子steering: 未割当
-- status: 未着手
-- 完了日: 未完了
+- 子steering: `.steering/2026/202609/20260921-escalate-at-proposal-time/`
+- status: 完了
+- 完了日: 2026-09-21
 
 ---
 
