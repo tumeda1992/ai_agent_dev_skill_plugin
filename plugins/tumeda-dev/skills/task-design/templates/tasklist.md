@@ -98,11 +98,11 @@
 
 ### DoD
 
-ユーザーが実際に機能または契約を使い、意図どおりであることを確認した。
+Tasks に挙げた確認をユーザーが行い、期待どおりであることを確認した。
 
 ### Tasks
 
-- [ ] ユーザーに動作確認を依頼する
+- [ ] ユーザーに動作確認を依頼する（{どの操作をしてもらい、何を観測できれば満たすか}）
 - [ ] feedbackがあれば、直接受領したworkflow ownerがpluginの`facilitate-discussion`を`implementation_review.md`へ適用し、decisionをcallerへ返す
   - [ ] designまたはplan構造が変わる場合は同じworking directoryでtask-designへ戻す
   - [ ] feedbackがなければ`[x] ~~feedback収集~~（feedbackなし）`の形式で完了扱いにする

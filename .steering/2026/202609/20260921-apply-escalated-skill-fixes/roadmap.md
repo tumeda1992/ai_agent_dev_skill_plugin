@@ -234,9 +234,9 @@ iteration の中身が `提案N` に固定されているため、認識を合�
 
 ### 運用field（steeringだけが更新する）
 
-- 子steering: 未割当
-- status: 未着手
-- 完了日: 未完了
+- 子steering: `.steering/2026/202609/20260921-concretize-verification-dod/`
+- status: 完了
+- 完了日: 2026-09-21
 
 ---
 
