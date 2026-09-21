@@ -41,7 +41,7 @@ consumer skill またはその template が対象成果物の形式を指定す�
 preset の形式をそのまま保存 format へ流用すると、consumer 側の指定と衝突する。
 
 - やってしまいがちな行動: [考え始め](./starting_to_think.md) の「事象→原因→提案→検証」を、そのまま保存先 document の見出し構成として書き出す
-- やってしまいがちな行動: consumer が別の提示形式を指定していても、[選択肢を提示する](./presenting_options.md) の `a/b/c` を優先する
+- やってしまいがちな行動: consumer が別の提示形式を指定していても、[案を作る・提示する・選ぶ](./making_and_choosing_options.md) の `a/b/c` を優先する
 - それをやると何が起きるか: consumer 側が所有する配分を上書きし、本来別の見出しへ置くべき内容が混入する。
   形式上は preset を守っているため、書き手は衝突に気づかない
 - 正しい判断のための問い: 「この形式は consumer 側が指定しているものか、preset か？」

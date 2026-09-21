@@ -488,7 +488,7 @@ const thinkStandardsFiles = [
   thinkStandardsPath("updating_types.md"),
   thinkStandardsPath("handling_errors.md"),
   thinkStandardsPath("questioning_existing.md"),
-  thinkStandardsPath("presenting_options.md"),
+  thinkStandardsPath("making_and_choosing_options.md"),
   orderingParallelItemsDoc,
   designingForVariationsDoc,
 ];
