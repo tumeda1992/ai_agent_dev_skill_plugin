@@ -307,3 +307,20 @@ branch-pr-issue-correspondence   （依存なし）
 verification-concreteness        （依存なし）
 escalation-without-deferral      （依存なし）
 ```
+
+## その他（この roadmap の phase 外。扱う時期は未定）
+
+作業中に判明したが、6 件の提案とは別の問いを持つため phase へ入れていないもの。忘れないために記録する。
+
+### phase 化が決まっているもの
+
+- **`iteration-structure` — イテレーションを回すことを `facilitate-discussion` の workflow の主構造として持つ。**
+  `proposal-decidability` が「判断材料が枯れているかを確かめる段」の置き場を六案検討し、すべて否定された。原因は `2.2`（新規論点）と `2.3`（既存論点を進める）という variant 分割がイテレーションという実態を分断していることにある。`non-proposal-iteration` も同じ手順群（`2.2` と `2.3.1`。`2.3.2` は scope 外）を触るため、構造を先に決める必要がある。
+  `proposal-decidability` の残り（`facilitate-discussion` への参照位置）と `non-proposal-iteration` がこれに依存する。目的・scope・DoD・依存の設計は未了。
+
+### phase 化の要否が未決のもの
+
+- **`think_standards/evolution_policy.md` の density 不足。** 何が問題視されて存在するかが読み取れない。削除ではなく、必要性そのものが判定できない状態。`think-through` skill から分割される前の歴史を追う必要がある
+- **`think_standards` 全体の場面名の揺れ。** 5 形式が混在している（file 名のまま / 名詞 / 動詞句 / 過去形 / 願望形）。判定トリガーには行為と出来事の二種があり、その二分は正しいが、同じ種類の中で表記が揃っていない。`core.md` と `evolution_policy.md` は場面名を持たない
+- **`think_standards` 全体の `## 補助:` prefix の揺れ。** 4 file が prefix あり、5 file がなし、1 file が混在
+- **discussion file の見出しへ論点番号を付ける。** `### 決定` `#### 提案N` `#### 提案背景` `#### 提案Nへのフィードバック` は構造上どの論点にも存在するため、論点範囲を切らずに文字列検索すると誤った論点へ着地する。実際に 472 行を消す事故が起きた。**対象は今後作る file だけとし、既存 101 file は直さない**
