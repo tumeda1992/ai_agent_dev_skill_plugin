@@ -73,6 +73,7 @@ roadmap全体の完了は、全phaseのstatusが`完了`で、各phaseに完了�
 - [ ] 未担当scope、重複scope、曖昧な境界がないか。
 - [ ] 依存graphはDAGか。
 - [ ] 一子roadmap、親と同一scopeの子、単なる工程・layer分割がないか。
+- [ ] 複数の対象を一つのphaseへ束ねている場合、束ねる根拠が「答える問いが同じ」であるか。「触るfileが近い」「owner候補が重なる」で束ねていないか。同じ対象についてdesignで既に分離・結合の判断を下していれば、それを先に引いたか。
 - [ ] phase identityは並び替え後も安定して参照できるか。
 - [ ] 目的、scope、scope外、DoD、依存が子task-designの上位制約として十分か。
 - [ ] 各phase完了時点でappまたは成果物が正常に利用できるか。
