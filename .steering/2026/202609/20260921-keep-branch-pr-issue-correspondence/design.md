@@ -191,6 +191,32 @@ merge 後        既定 branch を本線へ取り込み、作業を続ける
 - この phase 完了時点で、触った skill が単独で利用可能である
 - 起点となった実例以外の具体 case を二つ以上、確定した契約へ当て、どちらの経路になるかが判定できることを確認する
 
+#### 契約の検証結果
+
+四つの case を確定した契約へ当てた。
+
+**経路 2（検証のための merge）になる二件。**
+
+1. **CI workflow を新設し、既定 branch 上で動くことを確認したい。** workflow file が既定 branch に無いと trigger されないため、一度 merge するしかない。「この merge で issue の作業が終わるか」→ 終わらない。`issue-<番号>-<検証内容>` で branch を立て、`Closes` を付けず参照として書く。既定 branch への merge が deploy を起こす repository なら、検証用の差分も適用される前提で選ぶ。
+2. **scheduled job の設定を変え、実際の起動時刻を確認したい。** 既定 branch 上でしか schedule が有効にならない。同じく経路 2。
+
+**経路 1（issue 完了の merge）になる二件。**
+
+3. **issue の作業を二つの branch へ分け、後半を merge する。** 派生形式（`issue-<番号>-<後半>`）だが、この merge で issue の作業は終わる。**派生形式であることは `Closes` を付けない理由にならない。** 経路 1 として `Closes` を付ける。
+4. **本線で作業を終え、PR を出す。** そのまま経路 1。
+
+四件とも、branch 名ではなく「この merge で issue の作業が終わるか」で判定できた。3 は branch 名で判定すると誤る case であり、判定基準が branch 名でないことを確かめる例になっている。
+
+**script の判定も確認した。**
+
+```text
+head branch            宣言形式   解決結果
+issue-42               新         42 main
+issue-42-verify-ci     新         42 derived
+feature-28             旧         28 main
+random-branch          両方       (不一致。title は branch 名から生成、body は付かない)
+```
+
 ---
 
 ## リスクと対策
