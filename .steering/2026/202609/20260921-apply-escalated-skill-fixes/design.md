@@ -133,13 +133,31 @@ skill へ入れる候補。
 
 `escalate-plugin-skill-fix` は「working directory を plugin repository へ移す。切り替えだけが、これから行う作業対象を `steering` へ伝える唯一の手段である」と定めているが、この session の shell は working directory を変更できない。そのため絶対 path を明示する形で代替している。これ自体が skill の前提の穴であり、扱うかどうかもこの設計で判断してよい。
 
+## 作業中に追加された提案
+
+引き渡しの実行中に、利用者から 1 件が追加された。
+
+### 提案6: escalate の起動タイミングが縛られていない
+
+> escalateスキルについて基本的に提案されたリポジトリのセッションで直す。提案したリポジトリの目下の課題解決してから、と後回しにされることもおおいから、長くなったセッションで別トピックだけど、それでも、問題があったからescalateされているわけで、その問題をわざわざ説明しなくても同じ視点で見てる人と解決を図りたいから長くなっても同じセッションで片付ける方針にしたい
+
+`escalate-plugin-skill-fix` の起動 gate は「このplugin のskill、docs、template、scriptに対する修正提案が生じた」という行為だけを条件にしており、いつ起動するかを縛っていない。「引き渡し後」の節も、元 task の中断と再開、skill cache の扱い、旧版で続けるか新 session かの選択を定めるだけで、起動タイミングには触れていない。この空白が「目下の課題を片付けてから」という後回しを許している。
+
+**後回しの帰結は、この引き渡し自体で観測できる。** 利用先 repository で最初の提案を論点として立てたのは設計中、実際に escalate したのは実装完了後だった。その間に 2 件が追加され、実装中にさらに 2 件が出た。5 件が溜まった結果、roadmap を要するほど大きな引き渡しになった。1 件ずつ escalate していれば、各々は小さい leaf steering で済んだ可能性が高い。
+
+説明コストも上がる。5 件を引き渡す際、各提案の背景・実例・利用者の原文を長文で再構成する必要があった。提案が生まれた直後であれば、同じ session 内の文脈で足りる。
+
+`steering` の必須 gate 4-2 は「設計議論の context が最も熱い時点を逃すと『なぜ変えるか』が薄れ、更新品質が下がる」として、再発防止の更新提案を実装 task へ先送りしないことを定めている。escalate はこの思想が及ぶ範囲にありながら、skill 側に同じ記述を持っていない。
+
+---
+
 ---
 
 ## TL;DR
 
-利用先 repository での実作業から、この plugin の skill が持つ穴が 5 件見つかった。いずれも「skill の記述が足りていたのに守らなかった」ではなく、**skill の記述自体に判断の段が無い**ことに起因する。放置すると同じ誤りが利用先を問わず再発し、特に提案4 は既定 branch への merge が本番適用を起こす repository で事故へ直結する。
+利用先 repository での実作業から、この plugin の skill が持つ穴が見つかった。引き渡し時点で 5 件、作業中に 1 件が加わり 6 件である。いずれも「skill の記述が足りていたのに守らなかった」ではなく、**skill の記述自体に判断の段が無い**ことに起因する。放置すると同じ誤りが利用先を問わず再発し、特に提案4 は既定 branch への merge が本番適用を起こす repository で事故へ直結する。
 
-5 件はそれぞれ別の問いを持つため、**一提案一 phase の composite** として扱う。終了時には、5 件それぞれについて所有する skill または docs が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない状態になる。
+各件はそれぞれ別の問いを持つため、**一提案一 phase の composite** として扱う。当初 5 件で、作業中に escalate の起動タイミングが 1 件加わり 6 件になった。終了時には、6 件それぞれについて所有する skill または docs が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない状態になる。
 
 ---
 
@@ -149,11 +167,11 @@ skill へ入れる候補。
 
 ### skillの役割と方針
 
-5 件の修正はいずれも、既存 skill へ「問いの段」を足すか、既存の段の定義を明確にするものである。skill の役割そのものを変える修正は含まない。
+6 件の修正はいずれも、既存 skill へ「問いの段」を足すか、既存の段の定義を明確にするものである。skill の役割そのものを変える修正は含まない。
 
-phase 間で共有する方針は一つある。**同じ判断を複数の正本が持たない。** 5 件のうち提案1 は `facilitate-discussion`・`task-design`・`think_standards` のいずれかへ置かれる可能性があり、提案4・5 は `task-design`・`tasklist-executor`・`steering` のいずれかへ置かれる可能性がある。どの phase も、自分が置く先を決めるときに、隣接する skill が同じ判断を持たないことを確認する。
+phase 間で共有する方針は一つある。**同じ判断を複数の正本が持たない。** 提案1 は `facilitate-discussion`・`task-design`・`think_standards` のいずれかへ置かれる可能性があり、提案4・5 は `task-design`・`tasklist-executor`・`steering` のいずれかへ置かれる可能性がある。どの phase も、自分が置く先を決めるときに、隣接する skill が同じ判断を持たないことを確認する。
 
-この方針が要るのは、5 件が独立した phase として並行に進みうるためである。各 phase が自分の owner だけを見て決めると、二つの phase が同じ判断を別の file へ書く事故が起きる。`naming/core.md` の「表現が同じでも、名前空間が違えば別の意味を持つ」が扱うのは名前の衝突だが、ここで問題になるのは判断の重複であり、避け方が異なる。名前は名前空間が違えば共存してよいが、判断の正本は一つでなければならない。
+この方針が要るのは、各件が独立した phase として並行に進みうるためである。各 phase が自分の owner だけを見て決めると、二つの phase が同じ判断を別の file へ書く事故が起きる。`naming/core.md` の「表現が同じでも、名前空間が違えば別の意味を持つ」が扱うのは名前の衝突だが、ここで問題になるのは判断の重複であり、避け方が異なる。名前は名前空間が違えば共存してよいが、判断の正本は一つでなければならない。
 
 ### workflow
 
@@ -164,6 +182,7 @@ proposal-background-scope ──> proposal-quality-gate ──> non-proposal-ite
 
 branch-pr-issue-correspondence   独立
 verification-concreteness        独立
+escalation-without-deferral      独立
 ```
 
 **ownerと責務:**
@@ -180,7 +199,7 @@ verification-concreteness        独立
 
 **全 phase 完了時に成立する状態:**
 
-5 件それぞれについて、所有する skill または docs が一つに決まっている。同じ判断を複数の正本が持たない。各修正は利用先を問わず成立する汎用知識として書かれており、利用先 repository 固有の情報を含まない。
+6 件それぞれについて、所有する skill または docs が一つに決まっている。同じ判断を複数の正本が持たない。各修正は利用先を問わず成立する汎用知識として書かれており、利用先 repository 固有の情報を含まない。
 
 ---
 
@@ -188,14 +207,14 @@ verification-concreteness        独立
 
 ### MUST（必達）
 
-- 5 件それぞれについて、所有する skill または docs が一つに決まっている。同じ判断を複数の正本が持たない
+- 6 件それぞれについて、所有する skill または docs が一つに決まっている。同じ判断を複数の正本が持たない
 - 各修正が、利用先を問わず成立する汎用知識として書かれている。利用先 repository 固有の情報（repository 名、絶対 path、issue・PR 番号、固有ドメイン名）を含まない
 - 提案1 について、既存の `choosing_between_options.md` と `presenting_options.md` との関係が決まっている。重複した判断基準を二箇所に持たない
 - 各 phase 完了時点で、その phase が触った skill が単独で利用可能な状態である。後続 phase がなければ成立しない記述を残さない
 
 ### SHOULD（できれば）
 
-- 5 件の修正から導かれる version bump を一度にまとめ、宣言値 4 箇所と `expectedRelease` の計 5 箇所を同時に変える
+- 6 件の修正から導かれる version bump を一度にまとめ、宣言値 4 箇所と `expectedRelease` の計 5 箇所を同時に変える
 
 ### MAY（あれば嬉しい）
 
@@ -203,8 +222,8 @@ verification-concreteness        独立
 
 ### 非目標
 
-- skill の役割そのものを変えない。5 件はいずれも既存 skill へ問いの段を足すか、既存の段の定義を明確にするものである
-- `escalate-plugin-skill-fix` の working directory 制約は、この roadmap の phase に含めない。この escalate の実行中に見つかった別出自の課題であり、5 件とは扱いが異なる
+- skill の役割そのものを変えない。6 件はいずれも既存 skill へ問いの段を足すか、既存の段の定義を明確にするものである
+- `escalate-plugin-skill-fix` の working directory 制約は、この roadmap の phase に含めない。この escalate の実行中に見つかった別出自の課題であり、再現条件が未確認のため他の件とは扱いが異なる
 
 ### 受け入れ基準
 
@@ -219,7 +238,7 @@ verification-concreteness        独立
 | リスク | 対策 |
 | --- | --- |
 | 独立した phase が並行に進み、二つの phase が同じ判断を別の file へ書く | 「同じ判断を複数の正本が持たない」を phase 間で共有する方針として置き、各 phase の DoD へ隣接 skill の確認を含める |
-| 5 件を個別に足した結果、skill が肥大化して読まれなくなる | 各 phase の子 design で「既存記述で足りないか」を先に確認する |
+| 6 件を個別に足した結果、skill が肥大化して読まれなくなる | 各 phase の子 design で「既存記述で足りないか」を先に確認する |
 | 提案1 を `think_standards` へ置くと、既存の二つの file と判断基準が重複する | phase `proposal-quality-gate` の DoD に、既存 file との関係確定を含める |
 | 依存を持つ phase が、先行 phase の想定範囲外の結果を受け取る | `roadmap.md` へ、想定範囲外だった場合に親 roadmap へ戻る条件を phase ごとに明記する |
 
@@ -260,4 +279,4 @@ verification-concreteness        独立
 
 | 対象 | 掲載理由 | 参照するdesign section |
 | --- | --- | --- |
-| `roadmap.md` の 5 phase | 各 phase が独立した子 design loop を必要とする composite である。子 steering が依存順に実行する | [workflow](#workflow) |
+| `roadmap.md` の 6 phase | 各 phase が独立した子 design loop を必要とする composite である。子 steering が依存順に実行する | [workflow](#workflow) |

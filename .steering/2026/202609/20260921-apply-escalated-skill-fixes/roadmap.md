@@ -6,9 +6,9 @@
 
 ## 概要
 
-利用先 repository から `escalate-plugin-skill-fix` で引き渡された 5 件の skill 修正提案を適用する。
+利用先 repository から `escalate-plugin-skill-fix` で引き渡された skill 修正提案を適用する。当初 5 件で、作業中に 1 件が加わり 6 件になった。
 
-一つの tasklist へまとめず複数の子 design scope へ分けるのは、**5 件がそれぞれ別の問いを持つ**ためである。提案の出し方（判断材料の gate、提案背景の定義、提案を出せない段階の受け皿）、git / GitHub の資源の対応、動作確認の具体化は、互いに独立した decision を必要とする。owner 候補が重なる組み合わせはあるが、それは触る file が近いだけで、答える問いは異なる。
+一つの tasklist へまとめず複数の子 design scope へ分けるのは、**各件がそれぞれ別の問いを持つ**ためである。提案の出し方（判断材料の gate、提案背景の定義、提案を出せない段階の受け皿）、git / GitHub の資源の対応、動作確認の具体化は、互いに独立した decision を必要とする。owner 候補が重なる組み合わせはあるが、それは触る file が近いだけで、答える問いは異なる。
 
 このroadmapは子scopeの構造一覧である。各phaseは独立した子steeringを通じて設計・実装し、各phase完了時点でappまたは成果物が正常に利用できる状態を保つ。
 
@@ -56,8 +56,8 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ### 運用field（steeringだけが更新する）
 
-- 子steering: 未割当
-- status: 未着手
+- 子steering: `.steering/2026/202609/20260921-scope-proposal-background/`
+- status: 進行中
 - 完了日: 未完了
 
 ---
@@ -240,6 +240,50 @@ iteration の中身が `提案N` に固定されているため、認識を合�
 
 ---
 
+## Phase: escalation-without-deferral — 提案が生じた時点で escalate する方針を置く
+
+### 目的
+
+`escalate-plugin-skill-fix` の起動タイミングが縛られていないため、提案が溜まってから一括で引き渡される状態を解消する。
+
+### Scope
+
+- `escalate-plugin-skill-fix` の起動 gate と「引き渡し後」の記述
+- 提案が生じた session で片付ける方針の明示
+- 後回しを許す例外条件があるか。あるならその条件
+- 溜めた場合に何が起きるかの記述
+
+### Scope外
+
+- working directory の切り替えが唯一の手段だとする記述（別出自であり、再現条件が未確認。この roadmap の scope 外）
+- 元 task を旧版 skill で続けるか新 session で再開するかの選択（「ユーザーが選ぶ。このskillが代わりに決めない」として既に定まっている別の判断）
+- 他の 5 phase が扱う skill の内容
+
+### DoD（完了条件）
+
+- 起動 gate または「引き渡し後」の記述に、提案が生じた時点で片付ける方針が明示されている
+- 後回しにしてよい例外条件が決まっている。無いなら無いと書かれている
+- 溜めた場合に何が起きるかが読み取れる
+- この phase 完了時点で `escalate-plugin-skill-fix` が単独で利用可能である
+
+### 依存
+
+- 依存phase: なし
+- dependency results: なし
+- 子designで解消する制約: なし
+
+### 親DoDとの対応
+
+- 提案6 について、所有する skill が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない
+
+### 運用field（steeringだけが更新する）
+
+- 子steering: 未割当
+- status: 未着手
+- 完了日: 未完了
+
+---
+
 ## 親DoD coverage
 
 | 親DoD | 担当phase |
@@ -249,6 +293,7 @@ iteration の中身が `提案N` に固定されているため、認識を合�
 | 提案3 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `non-proposal-iteration` |
 | 提案4 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `branch-pr-issue-correspondence` |
 | 提案5 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `verification-concreteness` |
+| 提案6 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `escalation-without-deferral` |
 | 各修正が利用先を問わず成立する汎用知識として書かれ、利用先固有情報を含まない | 全 phase |
 | 各 phase 完了時点で、その phase が触った skill が単独で利用可能である | 全 phase |
 | 引き渡し元の利用先 repository へ引き渡し完了が記載されている | `proposal-decidability` |
@@ -260,4 +305,5 @@ proposal-background-scope -> proposal-decidability -> non-proposal-iteration
 
 branch-pr-issue-correspondence   （依存なし）
 verification-concreteness        （依存なし）
+escalation-without-deferral      （依存なし）
 ```
