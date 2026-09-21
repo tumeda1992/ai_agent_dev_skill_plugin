@@ -174,6 +174,8 @@ template へ           → template は注入されないため発火しない
 | `docs/think_standards/presenting_options.md` | 削除。内容は統合先へ移す |
 | `docs/think_standards/README.md` | 収録一覧の 2 行を 1 行へ |
 | `docs/think_standards/core.md` | 44 行の link 先と文言 |
+| `scripts/verification/validate-plugin.mjs` | 必須 path 一覧の `presenting_options.md` を統合後 file 名へ |
+| `.claude/hooks/think_through_session_start.sh` | 場面別要約の 2 行を 1 行へ。毎 session 注入される内容のため統合を反映する |
 | `skills/task-design/SKILL.md` | section 5 Step 3 の 2 と 3 の間へ参照 |
 | `skills/facilitate-discussion/SKILL.md` | 手順へ参照。**この phase では扱わない**（`iteration-structure` phase が決める） |
 

@@ -19,8 +19,7 @@ think-through skill の要約（hook による毎ターン注入）。
 - 型・skill・template を直す（updating_types.md）: 今のファイルで正しい形を合意してから型へ反映する
 - エラー（handling_errors.md）: 消す前に原因を特定する
 - 既存を消す・残す（questioning_existing.md）: 理由を歴史的経緯と合理的必然性へ分離し、必然性だけを残す
-- 選択肢の提示（presenting_options.md）: a/b/c か 1/2/3 で答えられる形式にする
-- 案から一つを決める（choosing_between_options.md）: 選べないのは材料が枯れていない合図。足す前に何が分かれば選べるかを問う
+- 案を作る・提示する・選ぶ（making_and_choosing_options.md）: 材料が枯れていないと、案も作れず、選ぶこともできない。提案前に前提・時期・導出元を確かめる。提示は a/b/c か 1/2/3
 - 複数事項・状態変化（ordering_parallel_items.md）: 工程の切れ目で ready を再評価し、確定事項を先に完了する
 - variation のある対象（designing_for_variations.md）: 具体 case と方針群を往復し、全 case を扱えるまで帰納する
 - 叩き台を作る（building_a_prototype.md）: 横展開で検証するまで成立していない。やりやすいところから始めない
