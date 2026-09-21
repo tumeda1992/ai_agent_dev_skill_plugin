@@ -112,44 +112,16 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ## Phase: non-proposal-iteration — 提案を出せない段階の受け皿を作る
 
-### 目的
+**この phase は別の steering へ移した。** `iteration-structure`（`facilitate-discussion` の workflow 構造の再設計）に依存しており、構造が決まらなければ設計できないためである。
 
-iteration の中身が `提案N` に固定されているため、認識を合わせなければ提案を出せない段階でも提案の形へ押し込まれる状態を解消する。
-
-### Scope
-
-- `提案N` の代わりに `認識合わせ` を置ける形式の設計
-- `認識合わせ` を使ってよい条件と、提案との切替判定
-- `facilitate-discussion` の `2.2` と `2.3.1` の iteration 追加手順への反映
-- `templates/discussion_entry.md` への反映
-
-### Scope外
-
-- 提案が判断できる案かを確かめる段そのもの（`proposal-decidability` が扱う。この phase はその判定結果から認識合わせへ分岐する条件を設計する）
-- `提案背景` の定義（`proposal-background-scope` が扱う）
-
-### DoD（完了条件）
-
-- `認識合わせ` を `提案N` の代わりに置ける形式が定義され、`templates/discussion_entry.md` へ反映されている
-- `認識合わせ` へ分岐する条件が、`proposal-decidability` が置いた判定基準のどの分岐へ接続するかが明示されている
-- 記法だけを定義して使用条件を欠いた状態になっていない
-- この phase 完了時点で `facilitate-discussion` が単独で利用可能である
-
-### 依存
-
-- 依存phase: `proposal-decidability`
-- dependency results: 段が置かれた file と位置、および「提案を出せる状態か」の判定基準
-- 子designで解消する制約: 認識合わせへ分岐する条件を、判定基準のどの分岐へ接続するか
-- 想定範囲外だった場合: `proposal-decidability` が `think_standards` へ置かれ、`facilitate-discussion` の実行手順へ分岐点を持たない形に着地した場合、この phase が分岐条件を自前で設計する必要があるため、親 roadmap へ戻って scope を見直す
-
-### 親DoDとの対応
-
-- 提案3 について、所有する skill が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない
+- 移管先: `.steering/2026/202609/20260921-restructure-facilitate-discussion/`
+- 移管日: 2026-09-21
+- 引き継ぎ内容: 同 directory の `handoff.local.md`（gitignore 対象）
 
 ### 運用field（steeringだけが更新する）
 
 - 子steering: 未割当
-- status: 未着手
+- status: 移管
 - 完了日: 未完了
 
 ---
@@ -240,30 +212,34 @@ iteration の中身が `提案N` に固定されているため、認識を合�
 
 ---
 
-## Phase: escalation-without-deferral — 提案が生じた時点で escalate する方針を置く
+## Phase: escalation-without-context-loss — escalate 後の context 喪失を止める
 
 ### 目的
 
-`escalate-plugin-skill-fix` の起動タイミングが縛られていないため、提案が溜まってから一括で引き渡される状態を解消する。
+escalate 後に session の新規作成を促され、context が失われる状態を解消する。
+
+<!-- この phase は当初 `escalation-without-deferral`（提案が溜まってから一括で引き渡される
+     状態を解消する）として定義していた。起点の発言を「いつ escalate するか」という
+     タイミングの話として誤読したものであり、子 steering の設計中に訂正した。
+     経緯は子 steering の task-design-discussion.md の論点1・2（取下げ）と論点4 にある。 -->
 
 ### Scope
 
-- `escalate-plugin-skill-fix` の起動 gate と「引き渡し後」の記述
-- 提案が生じた session で片付ける方針の明示
-- 後回しを許す例外条件があるか。あるならその条件
-- 溜めた場合に何が起きるかの記述
+- `escalate-plugin-skill-fix` の「引き渡し後」の記述
+- session の新規作成と resume の区別
+- 元 task をどう続けるかの選択
 
 ### Scope外
 
-- working directory の切り替えが唯一の手段だとする記述（別出自であり、再現条件が未確認。この roadmap の scope 外）
-- 元 task を旧版 skill で続けるか新 session で再開するかの選択（「ユーザーが選ぶ。このskillが代わりに決めない」として既に定まっている別の判断）
+- escalate の起動タイミング。後回しにするかどうかは利用側の判断であり、この skill が縛る対象ではない
+- 後回し中の提案の記録先。利用側が保留するだけで、その間この skill は起動されない
 - 他の 5 phase が扱う skill の内容
 
 ### DoD（完了条件）
 
-- 起動 gate または「引き渡し後」の記述に、提案が生じた時点で片付ける方針が明示されている
-- 後回しにしてよい例外条件が決まっている。無いなら無いと書かれている
-- 溜めた場合に何が起きるかが読み取れる
+- 「引き渡し後」に、escalate のために session を新規作成しないことが明示されている
+- resume が context を保ったまま skill を読み直す手段として示されている
+- 元 task をどう続けるかの選択が利用者に残されている
 - この phase 完了時点で `escalate-plugin-skill-fix` が単独で利用可能である
 
 ### 依存
@@ -278,9 +254,9 @@ iteration の中身が `提案N` に固定されているため、認識を合�
 
 ### 運用field（steeringだけが更新する）
 
-- 子steering: 未割当
-- status: 未着手
-- 完了日: 未完了
+- 子steering: `.steering/2026/202609/20260921-escalate-at-proposal-time/`
+- status: 完了
+- 完了日: 2026-09-21
 
 ---
 
@@ -290,7 +266,7 @@ iteration の中身が `提案N` に固定されているため、認識を合�
 | --- | --- |
 | 提案1 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `proposal-decidability` |
 | 提案2 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `proposal-background-scope` |
-| 提案3 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `non-proposal-iteration` |
+| 提案3 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `non-proposal-iteration`（移管） |
 | 提案4 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `branch-pr-issue-correspondence` |
 | 提案5 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `verification-concreteness` |
 | 提案6 の owner が一つに決まり、対象 file へ反映され、同じ判断を複数の正本が持たない | `escalation-without-deferral` |
@@ -308,19 +284,31 @@ verification-concreteness        （依存なし）
 escalation-without-deferral      （依存なし）
 ```
 
-## その他（この roadmap の phase 外。扱う時期は未定）
+## その他（別 steering へ移管済み）
 
-作業中に判明したが、6 件の提案とは別の問いを持つため phase へ入れていないもの。忘れないために記録する。
+作業中に判明したが、6 件の提案とは別の問いを持つため phase へ入れていなかったもの。**すべて `.steering/2026/202609/20260921-restructure-facilitate-discussion/` へ移した。** 内容は同 directory の `handoff.local.md` にある。
 
-### phase 化が決まっているもの
+- `iteration-structure` — イテレーションを回すことを `facilitate-discussion` の workflow の主構造として持つ
+- `think_standards/evolution_policy.md` の density 不足
+- `think_standards` 全体の場面名の揺れ
+- `think_standards` 全体の `## 補助:` prefix の揺れ
+- discussion file の見出しへ論点番号を付ける
 
-- **`iteration-structure` — イテレーションを回すことを `facilitate-discussion` の workflow の主構造として持つ。**
-  `proposal-decidability` が「判断材料が枯れているかを確かめる段」の置き場を六案検討し、すべて否定された。原因は `2.2`（新規論点）と `2.3`（既存論点を進める）という variant 分割がイテレーションという実態を分断していることにある。`non-proposal-iteration` も同じ手順群（`2.2` と `2.3.1`。`2.3.2` は scope 外）を触るため、構造を先に決める必要がある。
-  `proposal-decidability` の残り（`facilitate-discussion` への参照位置）と `non-proposal-iteration` がこれに依存する。目的・scope・DoD・依存の設計は未了。
+## クロージング
 
-### phase 化の要否が未決のもの
+引き渡された 6 件のうち 5 件を完了した。
 
-- **`think_standards/evolution_policy.md` の density 不足。** 何が問題視されて存在するかが読み取れない。削除ではなく、必要性そのものが判定できない状態。`think-through` skill から分割される前の歴史を追う必要がある
-- **`think_standards` 全体の場面名の揺れ。** 5 形式が混在している（file 名のまま / 名詞 / 動詞句 / 過去形 / 願望形）。判定トリガーには行為と出来事の二種があり、その二分は正しいが、同じ種類の中で表記が揃っていない。`core.md` と `evolution_policy.md` は場面名を持たない
-- **`think_standards` 全体の `## 補助:` prefix の揺れ。** 4 file が prefix あり、5 file がなし、1 file が混在
-- **discussion file の見出しへ論点番号を付ける。** `### 決定` `#### 提案N` `#### 提案背景` `#### 提案Nへのフィードバック` は構造上どの論点にも存在するため、論点範囲を切らずに文字列検索すると誤った論点へ着地する。実際に 472 行を消す事故が起きた。**対象は今後作る file だけとし、既存 101 file は直さない**
+```text
+完了  提案1  proposal-decidability            判断材料が揃う前に選択肢へ畳まない段
+              ただし facilitate-discussion への参照位置は未実装。
+              構造再設計に依存するため移管した
+完了  提案2  proposal-background-scope        提案自体の背景の置き場
+移管  提案3  non-proposal-iteration           提案を出せない段階の受け皿
+完了  提案4  branch-pr-issue-correspondence   branch・PR・issue の対応
+完了  提案5  verification-concreteness        動作確認の具体化
+完了  提案6  escalation-without-context-loss  escalate 後の context 喪失
+```
+
+移管したものは `facilitate-discussion` の workflow 構造の再設計に依存する。構造が決まらなければ、参照位置も認識合わせの形式も決まらない。
+
+この roadmap はここで終了する。
