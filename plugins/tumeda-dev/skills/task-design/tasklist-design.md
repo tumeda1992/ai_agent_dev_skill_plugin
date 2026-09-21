@@ -121,6 +121,7 @@ tasklist作成途中では、解消対象を可視化するために`TBD`を使�
 - 自動testとscreenshotは機械的確認であり、ユーザーが実際に触る動作確認を代替しない。commit・push・PRより前にユーザー動作確認を必須にする。
 - `.agents/skills/tumeda-dev-plugin-context.md`にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け、部分承認なら承認範囲だけをcommitする。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答（`commitしない`等）もfactとして記載する。
 - `.agents/skills/tumeda-dev-plugin-context.md`にGitHub公開条件の記載があり、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`scripts/github/create_or_get_pr.sh`を使う。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答もfactとして記載する。
+- 既定branchへのmergeを含む場合は、[`branch_pr_issue.md`](../../docs/development_standards/development_flow/branch_pr_issue.md)を引き、issue完了のmergeか検証のためのmergeかを判定してからsectionを生成する。判定の中身は同fileが正本であり、ここへ写さない。
 - push・PRの実行直前に、commit taskの結果としてlocal commitが実際に一件以上存在することを確認する。commit taskが取消完了になった等の理由でcommitが一件もなければ、push・PRを実行しない。
 - plan合意時点で適用できないcommit・push・PR actionは、条件付きの未確定taskとして残さずsection自体を生成しない。
 - 親roadmapのpath探索、status、完了日の更新taskは作らない。
@@ -153,6 +154,8 @@ tasklistを書いたら、ユーザーへ提示する前にゼロベースで次
 - [ ] **横切りになっていないか**: 実装phaseの後にtest phaseを置くようなlayer分割になっていないか。
 - [ ] **commit・push・PRより前にユーザー動作確認があるか**: 自動test・screenshotをユーザー確認の代替にしていないか。
   - 失敗例: 機械的確認を「動作確認済み」と読み替え、tasklist-executorがそのままcommit・pushまで進む。
+- [ ] **既定branchへのmergeを含む場合、どちらの経路か判定したか**: `Closes`の有無とbranchの扱いが経路に合っているか。
+  - 失敗例: 検証のためのmergeへ`Closes`を付け、残作業があるのにissueが閉じる。
 - [ ] **完了後actionがrepository contextへ従うか**: local commitとGitHub公開を別条件で判定し、plan時点では実行可能なcommit task、runtimeでは実際のcommitを確認し、適用不能なsectionを生成していないか。
 - [ ] **対象actionを含むphaseで、差し込み宣言を要求したか**: `maintenance-plugin-context`へ要求し、返却の有無に応じて停止・確認taskを書いたか。
   - 宣言が返らなければ既定の停止・確認taskだけを置く。要求自体を省略しない。
