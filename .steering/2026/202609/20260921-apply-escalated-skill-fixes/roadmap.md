@@ -104,8 +104,8 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ### 運用field（steeringだけが更新する）
 
-- 子steering: 未割当
-- status: 未着手
+- 子steering: `.steering/2026/202609/20260921-guard-premature-decisions/`
+- status: 進行中
 - 完了日: 未完了
 
 ---
