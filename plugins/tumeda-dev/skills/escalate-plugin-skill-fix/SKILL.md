@@ -71,8 +71,9 @@ working directoryの切り替えが終わったら、plugin repositoryで`steeri
 ## 引き渡し後
 
 - 利用先repository側の元taskは中断したまま残る。plugin repository側の作業が終わってから、その続きに戻る。
-- plugin repositoryで対象のskillを修正しても、それは今実行中のsessionには反映されない。skill内容はsession開始時にcacheされるため、修正後のskillで動くには新しいsessionを開始する必要がある。
-- 元taskを旧版のskillのまま続けるか、新しいsessionを開始して修正後のskillで再開するかは、ユーザーが選ぶ。このskillが代わりに決めない。
+- 修正したskillは、今実行中のsessionへは反映されない。skill内容はsession開始時にcacheされるためである。修正後のskillで動きたい場合は、sessionをresumeする。resumeならcontextを保ったままskillが読み直される。
+- **escalateのためにsessionを新規作成しない。** 新規作成するとcontextが失われ、元taskと進行中の議論の両方を説明し直すところから始まる。escalateは、提案が生じたsessionの中で行う。
+- 元taskを旧版のskillのまま続けるか、resumeして修正後のskillで続けるかは、ユーザーが選ぶ。このskillが代わりに決めない。
 
 ### plugin repositoryでの作業完了後の取り込み
 
