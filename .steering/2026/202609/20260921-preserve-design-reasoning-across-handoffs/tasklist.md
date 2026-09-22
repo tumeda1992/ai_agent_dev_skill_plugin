@@ -186,13 +186,13 @@ attemptは一回のcatch-upだけに必要なflow情報であり、canonical成�
 
 ### Tasks
 
-- [ ] commit（phase単位かつ意味単位で分割）
+- [x] commit（phase単位かつ意味単位で分割）
   - [x] `design.md`、`task-design-discussion.md`、合意済み`tasklist.md`を実装変更より前のcommitにする（`788757b`）
   - [x] Phase 1の共有contract・extractor・test・ignore・READMEを意味単位でcommitする（`02e584e`）
   - [x] Phase 2のconsumer接続をPhase 1と別commitにする（`dbbef49`）
   - [x] Phase 4のvalidator・version bumpを別commitにする（`97ca335`）
   - [x] checkbox確定済み`tasklist.md`を実装変更より後のcommitにする（`16524d6`）
-  - [ ] README反映の最終decision、`implementation_review.md`のdecision再開記録、tasklistの状態同期を意味単位でcommitする
+  - [x] README反映の最終decision、`implementation_review.md`のdecision再開記録、tasklistの状態同期を意味単位でcommitする（`f8212f0`）
   - [x] ~~ユーザーが一部だけ承認した場合は承認範囲だけをcommitし、残りは待つ~~（全体承認のため該当なし）
   - [x] ~~ユーザーが不要と回答した場合は`[x] ~~commit~~（ユーザーが不要と回答）`の形式で完了扱いにする~~（ユーザーが実行を承認したため該当なし）
 - [ ] 作業branchをpushして`main`へ取り込む
