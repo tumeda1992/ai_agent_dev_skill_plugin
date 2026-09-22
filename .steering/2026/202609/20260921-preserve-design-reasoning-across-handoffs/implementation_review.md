@@ -31,13 +31,32 @@ attempt 2では、status literalではなくignore不成立、attempt未作成�
 
 ユーザーは変更後contractとsmoke結果の動作確認を承認した。README追記案については規範として反映するのでなく、なぜ案が生じ、なぜ採用しなかったかを後から追えるよう、このdiscussionに保存する判断を示した。
 
+### イテレーション1: README追記を承認する
+
+#### 提案1
+
+repository rootの`README.md`にある「変更時の検証と前提」へ、提案0の二点をagent behavior smokeの検証規則として追記する。
+
+- 期待値はcontractで定義済みの観測可能な意味条件を検証し、未定義のstatus literalを固定しない。
+- 同一contractの複数caseでprocess isolation自体が受け入れ条件でなければ、fixtureを分離しつつ単一fresh agent processを使い、skillとcontextの重複読込を避ける。process分離を検証するcaseだけ別processにする。
+
+#### 提案背景
+
+イテレーション0では、知見をdiscussionだけに残してREADMEを変更しない決定となった。その後、ユーザーからREADME更新を許可するfeedbackがあり、保存先の判断が変わった。
+
+discussionはproposalが生じた経緯と判断の変遷を保持する。READMEは将来のbehavior smokeで直接使う現在有効な検証規則だけを持つ。両者をこの役割で分ければ、経緯を失わず、次の実行者が同じ失敗を避けられる。
+
+#### 提案1へのフィードバック
+
+**結果:** README追記を承認
+
+> readme更新して良いよ。pushもマージもして良い
+
 ### 決定
 
-repository rootの`README.md`は変更しない。
-
-Phase 3 attempt 1からattempt 2へ至った次の知見は、今回の実装reviewで生じた経緯としてこのdiscussionに保持する。
+Phase 3 attempt 1からattempt 2へ至った経緯と保存先判断の変遷は、このdiscussionに保持する。そのうえで、現在有効な次の検証規則をrepository rootの`README.md`「変更時の検証と前提」へ反映する。
 
 - behavior smokeでは、contractに定義されていないstatus literalを受け入れ条件にしない。観測可能な意味条件で判定する。
-- process isolation自体が受け入れ条件でない複数caseでは、fixture分離とagent process分離を同一視しない。今回の再試験ではfixtureを分離し、単一fresh processで重複context読込を避けた。
+- process isolation自体が受け入れ条件でない複数caseでは、fixture分離とagent process分離を同一視しない。fixtureを分離したまま単一fresh processを使い、重複context読込を避ける。process分離を検証するcaseだけ別processにする。
 
-これらはrepository全体へ適用する新しい規範として確定していない。将来READMEまたはdocsへ一般則として昇格させる場合は、この論点を起点に改めて適用範囲と反例を検証する。
+READMEの反映後にvalidatorとdiff checkを再実行し、feature branchのpushと`main`へのmergeを進める。
