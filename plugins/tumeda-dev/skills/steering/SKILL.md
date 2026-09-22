@@ -174,6 +174,13 @@ create_working_dir=false
 
 task-designは新しい子directoryを作らず、steering rootへ`design.md`、必要時の`task-design-discussion.md`、execution plan対象がある場合だけ排他的な`tasklist.md | roadmap.md`を置く。既存設計を再開する場合も同じ入力を使い、別directoryを増やさない。
 
+既存designを引き継ぐdesign phaseでも、steeringは同じworking directoryの`task-design`へroutingする。
+steeringはcanonical designまたはdiscussionの本文を読まず、catch-upの要否、独立再構成の内容、完了可否を判断しない。
+catch-up gateと完了判定は、routing先の`task-design`が所有する。
+
+このroutingは`task-design`が所有するdesign phaseだけを対象とする。
+steering固有phase、任意workflow、skill間result handoff、tasklist実行再開へhandoff contractを一般化しない。
+
 子steeringの場合は次の四項目を一組として渡す。
 
 ```text
