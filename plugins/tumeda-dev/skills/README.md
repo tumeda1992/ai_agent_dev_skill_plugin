@@ -42,6 +42,7 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 
 - **runtime-execution-contracts.md** — tasklist-executor が visual-inspector / test-runner へ child 委譲する時の共通契約（状態の正本・single writer・停止理由）に加え、command を実行しうる任意の skill が従う実行時一般の契約（実行環境に止められたら迂回せず停止する）。
 - **runtime-model-profiles.md** — skill が要求する推論強度 profile を、各 host の実 model へ変換する対応表。
+- **task-design-work-handoff-contracts.md** — 進行中designを別の`task-design`実行が引き継ぐ際の、独立再構成、正本照合、attempt lifecycle、完了gateの共有contract。consumerは`task-design`であり、`steering`は同じworking directoryへのroutingだけを担う。
 - **tumeda-dev-plugin-context.md** — 利用先 repository に置く context ファイルのテンプレート雛形。
 - **scripts/github/create_or_get_pr.sh** — tasklist-executor と share-work-in-progress が対等に参照する PR 作成 script。`SKILL.md` を持たないため、loader も `scripts/verification/validate-plugin.mjs` も skill として拾わない。
 

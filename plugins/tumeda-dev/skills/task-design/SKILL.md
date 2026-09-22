@@ -426,7 +426,46 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
 1. `working_dir_parent`を絶対パスへ解決し、そのpath自体を`working_dir`とする。
 2. `.agents/skills/name-work-directory`を適用せず、ディレクトリも作成しない。pathが存在しなければ、既存ディレクトリの指定をユーザーへ求める。
 
-確定後、task-designは`working_dir`の絶対パスを呼び出し側へ返す。`<working_dir>/design.md`はStep 1で作成し、`<working_dir>/spike/`はStep 3で技術検証実装が必要になった時だけ作成する。discussion fileの作成・継続利用は、§4の設定を受けた`facilitate-discussion`が行う。execution planはdesign合意後、かつ対象が一件以上ある場合だけ作成する。
+#### 既存designのhandoff gate
+
+`working_dir`を確定した直後、task-designは`design.md`または`task-design-discussion.md`の存在だけを確認する。
+この時点ではcanonical成果物の本文を読まない。
+
+- `design.md`と`task-design-discussion.md`がどちらも存在しない: 新規designとして通常flowへ進む。
+- canonical成果物が存在し、callerまたはhostが同じtask-design実行の継続だと確認できる: ownershipは連続しているため、catch-upを再起動せず既存workflowを続ける。
+- canonical成果物が存在し、別のtask-design実行が引き継ぐ、またはownershipの連続性を確認できない: catch-upを必須にする。
+
+catch-up branchでは、[`task-design-work-handoff-contracts.md`](../task-design-work-handoff-contracts.md)をworkflowの正本として読む。
+共有referenceが指定するbounded extractionには`task-design/scripts/extract-handoff-input.mjs`を使い、canonical file全体を入力にしない。
+
+独立再構成へ渡す入力は次に限定する。
+
+- 現在適用中の`task-design`
+- 常時適用する`think-through`
+- このtaskへ適用される標準
+- `maintenance-plugin-context`が返したrepository固有指示
+- bounded extractionが返した元の依頼内容と任意の上位roadmap制約
+- 対象working directoryを除外した通常の設計前調査で得た外部事実
+
+task-designが判定するのは、現在の実行が既存ownerと同一かどうかだけである。
+attemptの採番、読取境界、停止・再開、completion validationは共有referenceへ委ね、task-design内へ別基準を作らない。
+
+- 同じtask-design実行の未完了catch-upは、共有referenceが選んだ同じattemptを続ける。
+- 別のtask-design実行は、既存attempt本文を独立再構成前に読まず、共有referenceが選んだ次の連番を使う。
+
+共有referenceの正本読取条件を満たした後だけ、task-designはcanonical designとdiscussionを読む。
+`正本へ疑義あり`または現在のdesignへ影響する新規TBDが見つかった場合は、task-designが`facilitate-discussion`へroutingする。
+疑義または新規TBDが解消されるまで、既存topicへ復帰しない。
+
+current-state coverage、差分分類、canonical file digestの再確認、safe cleanupの判定は共有referenceだけが所有する。
+canonical file digestが変化した場合の戻り先も共有referenceに従う。
+safe cleanupが停止した場合、task-designはcanonical成果物を変更せずcatch-upを未完了のまま返す。
+task-designはこれらの完了基準をconsumer側へ複製しない。
+
+共有referenceのcompletion gateとsafe cleanupが完了した場合だけ、catch-upを完了とする。
+task-designは確認済みのexactなactive topicと次の一問から既存workflowを再開する。
+
+確定後、task-designは`working_dir`の絶対パスを呼び出し側へ返す。新規designの`<working_dir>/design.md`はStep 1で作成し、`<working_dir>/spike/`はStep 3で技術検証実装が必要になった時だけ作成する。discussion fileの作成・継続利用は、§4の設定を受けた`facilitate-discussion`が行う。execution planはdesign合意後、かつ対象が一件以上ある場合だけ作成する。
 
 子roadmap phaseの入力を受けた場合、task-designは`parent_roadmap_path`の対応phaseを読み、`parent_phase_id`が一意に存在し、渡された親designとdependency resultsが対応することを確認する。Step 1の時点で、親roadmap path、親phase identity、親phaseの目的・scope・scope外・DoD・依存確定結果を`design.md`の「上位roadmap制約」へ記録する。これは参考情報ではなく子designの上位制約であり、子scopeは親phase scopeよりstrictly narrowerでなければならない。成果物種別にかかわらず省略しない。
 

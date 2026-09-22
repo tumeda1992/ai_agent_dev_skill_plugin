@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.0.0";
+const expectedRelease = "8.0.1";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -314,6 +314,49 @@ const taskDesignSkill = skillPath("task-design/SKILL.md");
 const taskDesignTemplate = skillPath("task-design/templates/design.md");
 const outcomeSectionPath = (fileName) =>
   skillPath(`task-design/templates/outcome-sections/${fileName}`);
+const taskDesignHandoffContract = skillPath(
+  "task-design-work-handoff-contracts.md",
+);
+const taskDesignHandoffExtractor = skillPath(
+  "task-design/scripts/extract-handoff-input.mjs",
+);
+const taskDesignHandoffTest =
+  "scripts/verification/test-task-design-handoff.mjs";
+for (const relativePath of [
+  taskDesignHandoffContract,
+  taskDesignHandoffExtractor,
+  taskDesignHandoffTest,
+]) {
+  requireExists(relativePath);
+}
+for (const expected of [
+  "対象は、別agentまたはownershipの連続性を確認できない新しい`task-design`実行",
+  "steering固有phaseの引き継ぎ、任意workflowのhandoff、skill間result handoff、tasklist実行の再開は対象外",
+  "scripts/extract-handoff-input.mjs",
+  "current design、全decision、activeまたは停止中topic",
+  "canonical file digest",
+  "`attempt-[0-9]{3}.md`だけ",
+]) {
+  requireText(taskDesignHandoffContract, expected);
+}
+for (const expected of [
+  "#### 既存designのhandoff gate",
+  "../task-design-work-handoff-contracts.md",
+  "task-design/scripts/extract-handoff-input.mjs",
+  "current-state coverage、差分分類",
+  "exactなactive topicと次の一問",
+]) {
+  requireText(taskDesignSkill, expected);
+}
+requireOrderedText(
+  taskDesignSkill,
+  [
+    "### PrepareStep 2. 配置先確定",
+    "#### 既存designのhandoff gate",
+    "### PrepareStep 3. 設計前調査",
+  ],
+  "working directory確定後かつ設計前調査前のhandoff gate",
+);
 for (const fileName of [
   "README.md",
   "catalog.md",
@@ -437,6 +480,8 @@ requireText(skillPath("task-design/templates/tasklist.md"), "implementation_revi
 requireText(skillPath("task-design/templates/tasklist.md"), "特定の`steering` callerへ固定しない");
 requireText(skillPath("README.md"), "facilitate-discussion");
 requireText(skillPath("README.md"), "escalate-plugin-skill-fix");
+requireText(skillPath("README.md"), "task-design-work-handoff-contracts.md");
+requireText(skillPath("README.md"), "consumerは`task-design`");
 requireText(
   skillPath("maintenance-plugin-context/SKILL.md"),
   "escalate-plugin-skill-fix",
@@ -445,6 +490,19 @@ requireAbsent(skillPath("design-consult/SKILL.md"));
 
 const steeringSkill = skillPath("steering/SKILL.md");
 const thinkThroughSkill = skillPath("think-through/SKILL.md");
+for (const expected of [
+  "既存designを引き継ぐdesign phase",
+  "同じworking directoryの`task-design`",
+  "steeringはcanonical designまたはdiscussionの本文を読まず",
+  "steering固有phase、任意workflow、skill間result handoff、tasklist実行再開へhandoff contractを一般化しない",
+]) {
+  requireText(steeringSkill, expected);
+}
+forbidText(
+  steeringSkill,
+  "task-design-work-handoff-contracts.md",
+  "steeringへの共有handoff contract直接接続",
+);
 requireFrontmatter(steeringSkill, "明示指定時");
 requireFrontmatter(steeringSkill, "軽度でない複数file・複数stepの変更時");
 requireFrontmatter(steeringSkill, "Agent");
@@ -946,6 +1004,7 @@ requireText(
   "唯一の例外は`Blocker resolution`であり、その成立条件と手順は同節が持つ。"
 );
 requireExists(skillPath("steering/.gitignore.sample"));
+requireText(skillPath("steering/.gitignore.sample"), "*/*/*/task-design-catch-up/");
 
 requireText(
   `${pluginRoot}/docs/development_standards/naming/core.md`,
@@ -967,6 +1026,9 @@ const portableFiles = [
   discussionMetadata,
   discussionTemplate,
   skillPath("task-design/SKILL.md"),
+  taskDesignHandoffContract,
+  taskDesignHandoffExtractor,
+  taskDesignHandoffTest,
   tasklistDesign,
   roadmapDesign,
   tasklistTemplate,

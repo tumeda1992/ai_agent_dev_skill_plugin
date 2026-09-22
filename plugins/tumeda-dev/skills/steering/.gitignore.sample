@@ -2,3 +2,5 @@
 # 不測の事態が起きたときの調査ログであり、design / tasklist / discussion のような
 # 合意の正本ではないため。
 */*/*/subagent_report/
+# task-designの引き継ぎ中だけ使う、steering working directory直下の一時成果物。
+*/*/*/task-design-catch-up/
