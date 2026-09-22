@@ -195,13 +195,13 @@ attemptは一回のcatch-upだけに必要なflow情報であり、canonical成�
   - [x] README反映の最終decision、`implementation_review.md`のdecision再開記録、tasklistの状態同期を意味単位でcommitする（`f8212f0`）
   - [x] ~~ユーザーが一部だけ承認した場合は承認範囲だけをcommitし、残りは待つ~~（全体承認のため該当なし）
   - [x] ~~ユーザーが不要と回答した場合は`[x] ~~commit~~（ユーザーが不要と回答）`の形式で完了扱いにする~~（ユーザーが実行を承認したため該当なし）
-- [ ] 作業branchをpushして`main`へ取り込む
+- [x] 作業branchをpushして`main`へ取り込む
   - [x] commit taskの結果としてlocal commitが一件以上存在することを確認する。一件もなければ以降を実行しない（`origin/main..HEAD`に8 commits、HEAD `e16078d`）
   - [x] 作業branch`20260921-preserve-design-reasoning-across-handoffs`を`origin`へpushする（remote branch作成、upstream設定済み）
-  - [ ] `main`へ切り替える
-  - [ ] remote更新を確認し、作業branchを`main`へ安全にmergeする。競合または想定外の進行があれば停止する
-  - [ ] merge後に`node scripts/verification/validate-plugin.mjs`を再実行する
-  - [ ] `main`を`origin`へpushする
+  - [x] `main`へ切り替える
+  - [x] remote更新を確認し、作業branchを`main`へ安全にmergeする。競合または想定外の進行があれば停止する（`origin/main`の`5bd09e6`から競合なくno-ff merge、merge commit `9942937`）
+  - [x] merge後に`node scripts/verification/validate-plugin.mjs`を再実行する（test-runner `phase-5-post-merge-validation-test-1`、`plugin validation passed`）
+  - [x] `main`を`origin`へpushする（merge commit `9942937`をpushし、remote ref一致を実測）
 - [ ] ここで作業を停止し、作業branchと`origin/main`のcommit、merge結果、validator結果をユーザーへ提示して確認を得る。次phaseへは進まない
 
 ---
