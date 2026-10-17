@@ -329,11 +329,14 @@ for (const expected of [
   "提示済みか不明"
 ]) requireText(discussionSkill, expected);
 
-requireText(discussionIteration, "making_and_choosing_options.md");
-requireText(discussionIteration, "該当fileを全文読む");
-requireText(discussionIteration, "次actionより前");
-requireText(discussionIteration, "内部logを開かずに理解・判断・応答");
-
+for (const expected of [
+  "making_and_choosing_options.md",
+  "該当fileを全文読む",
+  "入力",
+  "次actionより前",
+  "内部logを開かずに理解・判断・応答",
+  "提示済みか不明"
+]) requireText(discussionIteration, expected);
 
 for (const expected of [
   "未提示の具体案への合意へ変換しない",
