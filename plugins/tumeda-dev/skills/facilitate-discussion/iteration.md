@@ -123,6 +123,12 @@ skill起動済みという前提やtarget fileの解決を毎回分岐させな�
 対応の主単位は、file path、責務・contract、保持する意味等からcaseに合うものを選ぶ。
 各対象の内部表示はtree、機械的置換、完全diff、before / after、outline、flow等を使い分け、同じ方式へ揃えない。
 
+#### 表示patternと正式な提示種別を分ける
+
+上のpattern参照はすべて [templates/proposal-sections/](templates/proposal-sections/) 内である。内容の理解を共有するための表示patternと、次の正式な提示種別を混同しない。
+
+scopeまたは情報ownerの移動が元proposalから独立して変更できるdecisionなら、同じiterationへ累積せず別論点へ分ける。同じdecision内の判断材料として移動前後やowner境界を示す時は、process flow、tree、対応表、散文等から内容に合うproposal patternを選ぶ。
+
 認識合わせは `templates/discussion_entry.md` 全文から「認識合わせ本文」を使い、同じ位置へ置く。今は提案できない理由、確認したい理解、具体的な回答・訂正対象、回答で進む判断を示す。確認済み事実・自分の読解・未確定を区別し、調査結果と読解の根拠を内部logへ残したうえで、回答に必要な根拠をdiscussionの検討記録へ再構成する。
 調べられる事実の問い返し、単なる調査報告、調査許可の依頼に使わない。判断可能な定義・見方の採用は提案とし、未提示の案や別decisionの採否を質問へ混ぜない。初回もI=0で使い、形式だけの提案0や別counterを作らない。
 
