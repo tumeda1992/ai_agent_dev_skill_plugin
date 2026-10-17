@@ -144,3 +144,7 @@ scopeまたは情報ownerの移動が元proposalから独立して変更でき�
 固定の`ネクストアクション`fieldは置かない。「ユーザーが合意する」「consumerが正本へ反映する」「完了済み」だけのdefaultな後続処理を全entryへ反復しない。
 通常の次の焦点はfile末尾のactive proposalで示す。順序や委譲先そのものが合意内容なら`決定`が所有し、同じ未決decisionの再開位置が停止条件と不可分な時だけ`再開条件`へ含める。
 decision後にconsumerへ処理を返す既存handoff自体は維持する。
+
+## 見出しの所属
+
+新規fileでは論点Nと共通回Iをtemplateの所属suffixへ埋め、handlerの範囲検査を通す。既存fileは兄弟深度と識別表記を保ち、過去見出しを変換しない。

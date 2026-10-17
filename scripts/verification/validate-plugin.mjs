@@ -247,7 +247,7 @@ for (const expected of [
 for (const expected of ["templates/proposal-sections/README.md", "固定候補ではなくその回の結果が分かる短い", "同じdecision scope", "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す", "## 入る前に引き継ぐ状態", "skill起動済みという前提やtarget fileの解決を毎回分岐させない"]) requireText(discussionIteration, expected);
 
 for (const expected of [
-  "#### 提案Iへのフィードバック"
+  "#### 提案Iへのフィードバック（論点N）"
 ]) requireText(discussionTemplate, expected);
 
 for (const forbidden of [
@@ -280,14 +280,14 @@ for (const expected of [
   "**ステータス:** {調査中 / 提案中 / 子論点待ち / 決定 / 保留 / 分解済み}",
   "**親論点:** 論点M",
   "**種別:**",
-  "### イテレーションI:",
-  "#### 提案背景",
-  "#### 提案I",
-  "#### 提案Iへのフィードバック",
+  "### イテレーションI（論点N）:",
+  "#### 提案背景（論点N・イテレーションI）",
+  "#### 提案I（論点N）",
+  "#### 提案Iへのフィードバック（論点N）",
   "**結果:** {その回の結果が分かる短い表現}",
-  "### 仮決定",
-  "### 再開条件",
-  "### 決定",
+  "### 仮決定（論点N）",
+  "### 再開条件（論点N）",
+  "### 決定（論点N）",
 ]) requireText(discussionTemplate, expected);
 
 for (const forbidden of [
