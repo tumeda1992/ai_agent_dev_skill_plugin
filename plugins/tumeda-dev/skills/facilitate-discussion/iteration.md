@@ -66,7 +66,7 @@ skill起動済みという前提やtarget fileの解決を毎回分岐させな�
 
 #### 内部検討を記録する
 
-問い、方法、結果、限界、次actionを内部logへ保存し、根拠と解釈を分ける。
+[templates/consideration-records/README.md](templates/consideration-records/README.md) を読み、目的を選んで該当fileを全文読む。六用途へ無理に押し込まず、合わない時はREADMEのfallbackを使う。問い、方法、結果、限界、次actionを内部logへ保存し、根拠と解釈を分ける。
 
 #### 保存結果から判断材料を再判定する
 

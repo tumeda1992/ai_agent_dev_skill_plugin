@@ -196,6 +196,13 @@ const discussionSupportingFiles = [
   "templates/proposal-sections/file-change-set.md",
   "templates/proposal-sections/process-flow.md",
   "templates/proposal-sections/structure-tree.md",
+  "templates/consideration-records/README.md",
+  "templates/consideration-records/research.md",
+  "templates/consideration-records/judgment.md",
+  "templates/consideration-records/alignment.md",
+  "templates/consideration-records/verification.md",
+  "templates/consideration-records/diagnosis.md",
+  "templates/consideration-records/generalization.md"
 ].map((name) => skillPath("facilitate-discussion/" + name));
 
 for (const p of [discussionSkill, discussionIteration, discussionRecovery, discussionMetadata, discussionTemplate, discussionInternalTemplate, ...discussionSupportingFiles]) requireExists(p);
@@ -323,11 +330,13 @@ for (const expected of [
 ]) requireText(discussionSkill, expected);
 
 requireText(discussionIteration, "making_and_choosing_options.md");
+requireText(discussionIteration, "該当fileを全文読む");
 
 
 for (const expected of [
   "未提示の具体案への合意へ変換しない",
   "事後記録",
+  "実施前保存の履歴を作らない",
   "通常経路の代替ではない"
 ]) requireText(discussionRecovery, expected);
 
