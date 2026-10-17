@@ -1,0 +1,58 @@
+{
+  "request_id": "restructure-discussion-commit-series-validation",
+  "attempt": 2,
+  "status": "passed",
+  "artifact_directory": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2",
+  "result": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2/result.md",
+  "summary": "attempt 2の6commandすべてexit 0。reconcileはpending_candidates 0、unlinked []、旧source 686とentry 114の計800、added 306を出力。production投影は23file・1106unit・errors []、補助検査は21fileと限定frontmatterに成功。attempt 1の4成功2失敗は別証跡として保持。公式quick_validateは既存のPyYAML不足によるblockedを維持し、今回は未実行。",
+  "checks": [
+    {
+      "operation": "node scripts/verification/validate-plugin.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "log": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2/01.log"
+    },
+    {
+      "operation": "node scripts/verification/test-task-design-handoff.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "log": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2/02.log"
+    },
+    {
+      "operation": "node .steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/reconcile-ledger.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "log": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2/03.log"
+    },
+    {
+      "operation": "node .steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/project-production-evidence.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "log": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2/04.log"
+    },
+    {
+      "operation": "node .steering/2026/202609/20260921-restructure-facilitate-discussion/integration/verify-production-supplements.mjs",
+      "exit_code": 0,
+      "status": "passed",
+      "log": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2/05.log"
+    },
+    {
+      "operation": "git diff --check",
+      "exit_code": 0,
+      "status": "passed",
+      "log": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2/06.log"
+    }
+  ],
+  "previous_attempt": {
+    "attempt": 1,
+    "status": "failed",
+    "result": "/private/tmp/facilitate-commits.J1ftUw/final-tests/result.json",
+    "preserved": true
+  },
+  "official_quick_validate": {
+    "status": "blocked",
+    "executed": false,
+    "reason": "既存のPyYAML不足。今回再実行していない。"
+  },
+  "model": "gpt-6.1-sol"
+}

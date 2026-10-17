@@ -1,0 +1,141 @@
+{
+  "scope": "補助変更の正確な投影と、現物の二fieldだけに限定したfrontmatter/name/description/scaffold検査。公式quick_validateは未実行のまま",
+  "checks": [
+    {
+      "file": "scripts/verification/validate-plugin.mjs",
+      "scope": "合意済み置換片とversion以外は全文不変",
+      "sha256": "826c4dddac48f9d9fb9f5447385f0f0938fca5d70ca99fe324fbc1cfc67e00ad",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+      "scope": "二層接続の合意diffとcatch-up追記以外は全文不変",
+      "sha256": "c18cb7f089ef8c7f53e43457d3391463d8250c208577ff038f76609652ad061f",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md",
+      "scope": "二層接続の合意diffとcatch-up追記以外は全文不変",
+      "sha256": "a0152959232b6b4577296b83a027a283887061a94a32336ea6fa3469533c23a3",
+      "passed": true
+    },
+    {
+      "file": "scripts/verification/test-task-design-handoff.mjs",
+      "scope": "二assertion追加以外は全文不変",
+      "sha256": "2ca0e6b9a3611cbe831ec3187aa2c40bd9f1e15823481c53e7f0f00a10537443",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/evolution_policy.md",
+      "scope": "合意済み維持規律全文と一致",
+      "sha256": "741e2585e96a714d1df60242691b584ec53aca9d44a44b20c24ba978db836097",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/README.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "6e3d0dbe79ef7e4307d2500c407c7621a5a38df1bdc9b4b59a1630995c636800",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/advancing_discussion.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "0ba30687118facd481dd59624eb6cfe402ba0b102f2bf5c0bc66d61bcc1b339c",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/building_a_prototype.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "2bf990fb3795d9a5ffdd49edb1512dd27d5eb205fa952249bf0a8c9c3b72c79c",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/core.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "74f8551660b71945c7c2779a8f17f4ee9d71d50922fb5652891086a0d9acbebf",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/designing_for_variations.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "6ad5f41538ee13601ac860578470167aabf9689bad74183d0e7dc3bc7a4aa13f",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/handling_errors.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "aa9191ce1f1502a11304ce5ad283f78e8c164505c27589876e09e247cf105f18",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/making_and_choosing_options.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "6cdc7f0a4b2538bf4de93a07c535c3a4a61af709e267b032eb7b4534513a1442",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/ordering_parallel_items.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "234ce28f417f6380d18521e9574ad35a0321da72f73c111024c56ba084ae5092",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/questioning_existing.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "032ac00a66d793c20255d7867c99678fc4289a27be7557700552578dc0d690b3",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/receiving_feedback.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "f110b2db39c57e94f1dcb13f54051299baf9155c9eb3ed1535f8ec584c23e8b4",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/starting_to_think.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "0e4eb299fbc262ab9a30bc2e7eacdefdb0632e3b243e9d8e68d51b064a0c2ff9",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/updating_types.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "f9372faf9d15190d7471097906bf627484e97e6c3c896d41239bd2fdea66a097",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/docs/think_standards/writing_abstraction.md",
+      "scope": "11場面の表示名・対応link label・指定二h2以外は全文不変",
+      "sha256": "2bd14d9b9f15d4d93917a0cb9d249b966755e150772afadbb40fc013f6e907fb",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/.codex-plugin/plugin.json",
+      "scope": "versionのみ一度のPATCH更新",
+      "sha256": "0d616d6d7af62f8eb36c428f01d15c46f293d664e74694af4f330e8bca40c2be",
+      "passed": true
+    },
+    {
+      "file": "plugins/tumeda-dev/.claude-plugin/plugin.json",
+      "scope": "versionのみ一度のPATCH更新",
+      "sha256": "bd56d630641f1ed881790856a969da4a1c27a40f27539e8992f985fd4dcf3cab",
+      "passed": true
+    },
+    {
+      "file": ".claude-plugin/marketplace.json",
+      "scope": "versionのみ一度のPATCH更新",
+      "sha256": "e8db7812951fef87c75ef1ba4de4842c65ef2cbad1510538e8dc07294f5e21bf",
+      "passed": true
+    }
+  ],
+  "frontmatter": {
+    "passed": true,
+    "keys": [
+      "name",
+      "description"
+    ],
+    "description_characters": 272,
+    "parser_scope": "二行のplain scalarだけ"
+  },
+  "official_quick_validate": "blocked: yaml package不足"
+}

@@ -1,0 +1,531 @@
+{
+  "baseline": "a6e24853800fcb75eb6a7bdd91479a633f740d4a",
+  "scope": "1〜21本目の各commit直前の通常検査。22本目は最終完了記録として別途同じ検査を行う。",
+  "commits": [
+    {
+      "number": 1,
+      "revision": "8776292f538e023a76c84c8cb24dd988791b4944",
+      "subject": "再構成の目的・設計・合意を記録する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "revision": "3957cbcc3f55e8866f180c78f7ba3ba3f8ac7fe1",
+      "subject": "移行baselineと旧契約の対応表を固定する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "revision": "857dd61000d89f05a850633c91ebe345c4b5eaf4",
+      "subject": "prototype・比較案・レビュー結果を保存する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "revision": "db7a8a0af7f810b9b39e939d9b555430e7db3f9d",
+      "subject": "共通iterationを独立fileへ抽出する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "revision": "b9a356d6874110c1347567cb5be4e0dbaf8c776d",
+      "subject": "記録回復をhandlerから分離する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "revision": "28206e25b4b9ecadf9a07b963795d742bf2436b1",
+      "subject": "entry templateから適用制御を実行fileへ移す",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "revision": "8bdee5ba4dd783b46949e7e230443051f003711f",
+      "subject": "保存見出しへ論点・回の所属を明示する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "revision": "facc246d62f1ea7f869f221eee0619fe6718bfda",
+      "subject": "判断材料確認と認識合わせの提示・応答を導入する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "revision": "758834fa989816d42230fb4d0d72a13e68f98abe",
+      "subject": "discussionと内部logの二層保存を導入する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "revision": "be13a0f52e2490b805b23756647a325c4f244583",
+      "subject": "内部検討の六用途formatと共通入口を追加する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "revision": "f89de9b29083c6a507be4c29ea92984f7c12fa50",
+      "subject": "入力保存→実施→結果保存→再判定の内部loopを接続する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "revision": "6876feca0508efa6d608224a4b904b7177b41ca0",
+      "subject": "discussion背景と内部logの独立可読性を規定する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "revision": "49ec5ee01fd4bfc4028a697271ad279c130a2149",
+      "subject": "二層の保存境界からの中断復帰を整える",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "revision": "f808794ae253040552bd47d3198f2c0f173680e4",
+      "subject": "表示patternの理解共有と正式な認識合わせを区別する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "revision": "c11e2ee6e42d99217c6a241d6f65af6c6bb5136a",
+      "subject": "origin-reviewを共通の検討記録手順へ接続する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "revision": "dee3c0250321a6ec5a2df5779db2dd1fe91296af",
+      "subject": "独立decisionの判定を「別の問いへの結論」で行う",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "revision": "79498a23f6238b5d87d443c85bdf1eb72201de2a",
+      "subject": "思考標準の場面名を「〜とき」に統一する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "revision": "c5610be3396907b0ecc9e289c5ccf83b4956e354",
+      "subject": "選択肢標準の補助二見出しを明示する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "revision": "6949d276e089908e95120b8f2b4dd76d92af2967",
+      "subject": "思考標準の維持規律を具体化する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "revision": "1216634c2701daaf7a5681c31c8525d619ecc06f",
+      "subject": "移行検証補助のHEAD依存を整理する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "revision": "0efab1efec9f3a03a7070d18ecaf9e64ffc78743",
+      "subject": "plugin versionを8.0.2へ更新する",
+      "checks": [
+        {
+          "command": "node scripts/verification/validate-plugin.mjs",
+          "status": 0,
+          "stdout": "plugin validation passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "node scripts/verification/test-task-design-handoff.mjs",
+          "status": 0,
+          "stdout": "task-design handoff tests passed\n",
+          "stderr": ""
+        },
+        {
+          "command": "git diff --check",
+          "status": 0,
+          "stdout": "",
+          "stderr": ""
+        }
+      ]
+    }
+  ]
+}

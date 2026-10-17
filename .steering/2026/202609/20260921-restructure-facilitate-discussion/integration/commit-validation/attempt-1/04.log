@@ -1,0 +1,16 @@
+command: node .steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/project-production-evidence.mjs
+cwd: /private/tmp/facilitate-commits.J1ftUw/worktree
+exit_code: 1
+output_capture: 標準出力・標準エラーを統合したtoolのraw output
+
+file:///private/tmp/facilitate-commits.J1ftUw/worktree/.steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/project-production-evidence.mjs:26
+  if(kept.join('\n')!==actual)throw Error('許可投影以外の本文差: '+f);
+                                    ^
+
+Error: 許可投影以外の本文差: templates/discussion_entry.md
+    at file:///private/tmp/facilitate-commits.J1ftUw/worktree/.steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/project-production-evidence.mjs:26:37
+    at ModuleJob.run (node:internal/modules/esm/module_job:262:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:485:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:109:5)
+
+Node.js v22.4.0

@@ -1,0 +1,23 @@
+command: node .steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/project-production-evidence.mjs
+cwd: /private/tmp/facilitate-commits.J1ftUw/worktree
+exit_code: 0
+output_capture: 標準出力・標準エラーを統合したtoolのraw output
+
+{
+  "files": 23,
+  "units": 1106,
+  "classifications": {
+    "KEEP": 237,
+    "ADAPT": 329,
+    "CHANGE": 44,
+    "MOVE": 190,
+    "ADD": 306
+  },
+  "relations": 37,
+  "diff": {
+    "deleted": 254,
+    "added": 812
+  },
+  "links": 34,
+  "errors": []
+}

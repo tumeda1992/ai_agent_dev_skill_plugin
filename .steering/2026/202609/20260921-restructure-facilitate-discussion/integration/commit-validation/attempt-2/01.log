@@ -1,0 +1,6 @@
+command: node scripts/verification/validate-plugin.mjs
+cwd: /private/tmp/facilitate-commits.J1ftUw/worktree
+exit_code: 0
+output_capture: 標準出力・標準エラーを統合したtoolのraw output
+
+plugin validation passed

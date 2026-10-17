@@ -1,0 +1,33 @@
+{
+  "request_id": "restructure-discussion-production-validation",
+  "kind": "test-runner",
+  "tasklist": null,
+  "task": "task-design-planless-production-validation",
+  "attempt": 1,
+  "artifact_directory": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/production-validation/",
+  "status": "requested",
+  "checks": [
+    {"operation": "node scripts/verification/validate-plugin.mjs", "expected": "終了code 0、失敗0"},
+    {"operation": "node scripts/verification/test-task-design-handoff.mjs", "expected": "既存scenarioと追加二assertionが終了code 0"},
+    {"operation": "既存Python3のyaml importを調べ、利用可能なinterpreterでskill-creator quick_validate.pyを実行する", "expected": "新しいpackageをinstallせずに検査。実行不能なら未実測と明示"}
+  ],
+  "dod": ["各commandのexit codeと実出力を保存", "failedまたはblockedをpassedへ変換しない", "productionとcanonical design/discussionを変更しない"],
+  "repository_context": {
+    "root": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin",
+    "maintainer": "maintenance-plugin-context",
+    "consumer": "test-runner",
+    "test_command": "node scripts/verification/validate-plugin.mjs",
+    "additional_authorization": "完成設計とproduction反映後検証へのユーザーok。validator-caller-design.mdの既存handoff testと追加二assertionを検証する。skill-creatorに基づくquick_validateも既存環境で実施する。",
+    "context_instance_read_only": true,
+    "prohibited": ["global install", "network install", "commit", "push", "PR", "production編集", "design/discussion編集"]
+  },
+  "allowed_commands": [
+    "node scripts/verification/validate-plugin.mjs",
+    "node scripts/verification/test-task-design-handoff.mjs",
+    "/opt/homebrew/bin/python3 -c 'import yaml; print(yaml.__version__)'",
+    "/usr/local/bin/python3 -c 'import yaml; print(yaml.__version__)'",
+    "/usr/bin/python3 -c 'import yaml; print(yaml.__version__)'",
+    "利用可能な上記Python3 /Users/takahiroumeda/.codex/skills/.system/skill-creator/scripts/quick_validate.py plugins/tumeda-dev/skills/facilitate-discussion"
+  ],
+  "failure_read_paths": ["scripts/verification/validate-plugin.mjs", "scripts/verification/test-task-design-handoff.mjs", "plugins/tumeda-dev/skills/facilitate-discussion", "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md"]
+}

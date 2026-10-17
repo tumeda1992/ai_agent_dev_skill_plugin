@@ -1,0 +1,6 @@
+command: node .steering/2026/202609/20260921-restructure-facilitate-discussion/integration/verify-production-supplements.mjs
+cwd: /private/tmp/facilitate-commits.J1ftUw/worktree
+exit_code: 0
+output_capture: 標準出力・標準エラーを統合したtoolのraw output
+
+{"supplementary_files":21,"frontmatter":{"passed":true,"keys":["name","description"],"description_characters":272,"parser_scope":"二行のplain scalarだけ"},"official_quick_validate":"blocked: yaml package不足"}

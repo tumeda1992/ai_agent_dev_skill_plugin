@@ -1,0 +1,56 @@
+{
+  "request_id": "restructure-discussion-commit-series-validation",
+  "kind": "test-runner",
+  "tasklist": null,
+  "task": "approved-22-commit-series-final-validation",
+  "attempt": 2,
+  "artifact_directory": ".steering/2026/202609/20260921-restructure-facilitate-discussion/integration/commit-validation/attempt-2",
+  "status": "requested",
+  "checks": [
+    {
+      "operation": "node scripts/verification/validate-plugin.mjs",
+      "expected": "終了code 0"
+    },
+    {
+      "operation": "node scripts/verification/test-task-design-handoff.mjs",
+      "expected": "終了code 0、既存scenarioを維持"
+    },
+    {
+      "operation": "node .steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/reconcile-ledger.mjs",
+      "expected": "終了code 0、pending_candidates 0、unlinked 0"
+    },
+    {
+      "operation": "node .steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/project-production-evidence.mjs",
+      "expected": "終了code 0、errors 0、旧800と追加306を照合"
+    },
+    {
+      "operation": "node .steering/2026/202609/20260921-restructure-facilitate-discussion/integration/verify-production-supplements.mjs",
+      "expected": "終了code 0、補助21fileと限定frontmatter検査"
+    },
+    {
+      "operation": "git diff --check",
+      "expected": "終了code 0"
+    }
+  ],
+  "dod": [
+    "全6commandの実行結果、exit code、標準出力・標準エラーを保存する",
+    "quick_validateのPyYAML不足という既存限界を検査成功へ読み替えない",
+    "実装、設計、履歴、indexを変更せず、指定artifact領域だけへ結果を書く"
+  ],
+  "repository_context": {
+    "maintainer": "maintenance-plugin-context",
+    "consumer": "test-runner",
+    "test_command": "node scripts/verification/validate-plugin.mjs",
+    "additional_authorization": "失敗証拠を保持したうえで、不一致修正後の新attemptとして同じ6commandを再実行する。--write/--patchは禁止。",
+    "context_instance_read_only": true,
+    "prohibited": [
+      "network",
+      "install",
+      "commit",
+      "push",
+      "PR",
+      "実装・設計編集",
+      "auditの再生成"
+    ]
+  }
+}

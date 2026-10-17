@@ -6272,3 +6272,16 @@ prototypeの検証結果をproduction完了へ流用せず、反映先、実差�
 
 repository validatorとhandoff testは成功した。公式quick_validateはyaml不足で未実測であり、現物の二fieldを対象にした限定検査とは区別する。
 全agent経路の動作保証へ広げず、親steeringの横断safety gateへ返す。commit・push・PRは行っていない。
+
+## Commit計画の承認と実行
+
+完成設計の反映・検証とは別にcommit計画を提示した。当初の6分割では、本体の構造変更と進化をまとめすぎており、ユーザーから粒度の指摘を受けた。
+その後、設計・移行根拠、抽出、保存・応答・内部loop等の進化、思考標準三件、検証補助、version、完了記録という22分割を提示した。
+中間版を隔離領域で作り、関連validatorを同梱し、最終完成形を保つことも計画に含めた。
+
+ユーザーの回答原文:
+
+> ok。コミットして
+
+この許可は承認済み計画のcommitに限る。新しい設計変更、push、PR作成は含めない。
+[commit系列と最終検証](integration/commit-series.md) に分割、初回失敗と修正、再検査、共有記録の取扱いを保存した。

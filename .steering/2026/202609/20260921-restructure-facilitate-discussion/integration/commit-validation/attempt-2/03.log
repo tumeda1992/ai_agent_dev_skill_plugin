@@ -1,0 +1,28 @@
+command: node .steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/reconcile-ledger.mjs
+cwd: /private/tmp/facilitate-commits.J1ftUw/worktree
+exit_code: 0
+output_capture: 標準出力・標準エラーを統合したtoolのraw output
+
+{
+  "reference_files": 23,
+  "independent_units": {
+    "source": 686,
+    "entry": 114,
+    "added": 306,
+    "relation_not_counted": 37
+  },
+  "classifications": {
+    "KEEP": 237,
+    "MOVE": 190,
+    "ADAPT": 329,
+    "ADD": 306,
+    "CHANGE": 44,
+    "RETIRE": 0
+  },
+  "pending_candidates": 0,
+  "structural": 54,
+  "deleted": 255,
+  "added": 236,
+  "current_nonempty": 903,
+  "unlinked": []
+}

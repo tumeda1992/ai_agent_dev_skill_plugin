@@ -116,7 +116,7 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 - 移管先: `.steering/2026/202609/20260921-restructure-facilitate-discussion/`
 - 移管日: 2026-09-21
-- 引き継ぎ内容: 同 directory の `handoff.local.md`（gitignore 対象）
+- 引き継ぎ内容: 同 directory の `escalation-origin/handoff.local.md`（gitignore 対象）
 
 ### 運用field（steeringだけが更新する）
 
@@ -286,7 +286,7 @@ escalation-without-deferral      （依存なし）
 
 ## その他（別 steering へ移管済み）
 
-作業中に判明したが、6 件の提案とは別の問いを持つため phase へ入れていなかったもの。**すべて `.steering/2026/202609/20260921-restructure-facilitate-discussion/` へ移した。** 内容は同 directory の `handoff.local.md` にある。
+作業中に判明したが、6 件の提案とは別の問いを持つため phase へ入れていなかったもの。**すべて `.steering/2026/202609/20260921-restructure-facilitate-discussion/` へ移した。** 内容は同 directory の `escalation-origin/handoff.local.md` にある。
 
 - `iteration-structure` — イテレーションを回すことを `facilitate-discussion` の workflow の主構造として持つ
 - `think_standards/evolution_policy.md` の density 不足

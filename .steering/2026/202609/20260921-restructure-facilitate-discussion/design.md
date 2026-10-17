@@ -257,7 +257,7 @@ status、一意識別方式、物理構成は以下で定義し、対応名だ�
 statusは現在stateの要約であり、実際の提示・応答・保存範囲を置き換えない。保存後提示前なら未提示内容を提示し、回答保存後なら保存済み結果から次準備またはhandlerへ戻す。古い値だけを根拠に二重保存・再質問せず、状態不明・番号重複・書込み不能は既存の停止・回復contractで扱う。
 旧 `提案中` も実際の本文・応答・会話から読み取る。既存fileや過去iterationの一括変換はせず、現在statusの実際の更新時に採用語彙を使う。表記だけを揃える巡回更新は行わない。
 この対応をhandler・本体・templateと検証へ同時に接続する。
-validatorの具体的な置換本文と旧guardの移管先は [validator-caller-design.md](discussion-recording/validator-caller-design.md) に保存した。productionへの反映と通常検証は、この合意内容を適用する後続工程である。
+validatorの具体的な置換本文と旧guardの移管先は [validator-caller-design.md](discussion-recording/validator-caller-design.md) に保存し、productionへ反映した。適用結果は [production検証](behavior-preservation/production-verification.md) を参照する。
 
 ### 構造見出しの所属と、実際の書込範囲を一致させる
 
@@ -661,8 +661,9 @@ baselineを固定し、対象編集前に構造ledgerとcontract ledgerを作る
 具体的な検証範囲と実行の限界は [migration-verification.md](behavior-preservation/migration-verification.md) を正本とする。
 
 全24論点は決定16件・分解済み8件であり、応答待ち・調査中・保留はない。
-完成設計全体とproduction反映・検証への明示合意を受けた。付録の対象を後続工程で適用・検証する。
-新しい仕様選択は残っていない。prototypeの検証とproduction反映の完了は区別する。
+完成設計全体とproduction反映・検証への明示合意を別途受け、付録の対象を一括で適用した。
+productionの実fileを使った対応・通常検証と、その限界は [production検証](behavior-preservation/production-verification.md) に記録した。
+新しい仕様選択と適用待ちは残っていない。公式quick_validateの環境不足は限定検査と区別して保持する。
 
 ### 完成形を確認するprototype
 
@@ -674,7 +675,7 @@ baselineを固定し、対象編集前に構造ledgerとcontract ledgerを作る
 603原文候補のinventoryと旧IDを保全し、独立単位化したsource686・entry114、合意追加306の移動先と逆引きを監査結果へ保存した。
 旧規則へ戻る関係索引37は重複計上しない。候補数を独立contract数へ読み替えない。
 件数だけで全量移行完了とはしない。検証範囲・限界は [migration-verification.md](behavior-preservation/migration-verification.md) にある。
-validator・callerの具体接続と移管された思考標準三件は、それぞれの設計fileから合意済みの適用本文へ辿れる。
+productionへの反映は完了した。validator・callerの具体接続と移管された思考標準三件は、それぞれの設計fileから適用本文と検証へ辿れる。
 
 ---
 
@@ -843,10 +844,31 @@ decisionは、ユーザーが採否を決める問いとその結論の単位と
 
 ## （付録）変更の実行区分
 
+### task-design内で対象成果物へ適用済み
+
+次の確定部分を、一つの連続した反映・validationでproductionへ適用した。
+完成設計全体とproduction反映・検証は、[最終合意](task-design-discussion.md#完成設計全体の合意とproduction反映許可) の `ok` で承認された。
+production反映時点ではcommit・push・PRを許可範囲に含めず、実施していなかった。
+その後、ユーザーが22分割commit計画を承認したため、[commit系列と検証](integration/commit-series.md) に従ってcommitした。push・PRは実施していない。
+prototype作成とは別に実fileへの適用を確認した。
+
+| 反映対象 | 具体本文・対応の正本 |
+| --- | --- |
+| 三実行file、判断材料確認、応答処理、二層保存・回復 | prototypeのSKILL.md・iteration.md・record-recovery.mdと移行ledger |
+| entry十部品、内部log三部品、六用途guide、表示pattern三file | prototypeのactiveなtemplates。旧metadataと残る七patternはKEEP |
+| plugin validator、task-designとcatch-upの接続、handoff testの二assertion | discussion-recording/validator-caller-design.mdとintegrationの置換本文・旧guard対応 |
+| 思考標準の維持規律、11場面名、補助二見出し | thinking-standard-evolution/thinking-standards-design.mdの全文・対応表・局所diff |
+
+[productionへのpath投影](discussion-recording/validator-caller-design.md) と検査先を同じ変更で整合させた。
+旧metadata・七patternは保持し、配布versionは規約に従い `8.0.2` とした。
+[検証結果](behavior-preservation/production-verification.md) に、移行対応、validator/handoff test、限定frontmatter検査、document-reviewと未実測範囲を保存した。
+公式quick_validateはyaml不足で未実測のままであり、現物に限定した検査と通常検証を適用完了の根拠とする。
+
 ### task-design内の対象成果物反映待ち
 
-三実行file、保存形、六用途guide、表示pattern、validatorとcaller、思考標準三件を、合意済み具体本文と移行ledgerに従って反映・検証する。prototypeへの反映とproductionへの適用を区別する。
+なし。分類保留・未決設計もない。親steeringの横断safety gateへ返す。
 
 ### execution plan対象
 
-なし。今回の成果物は一つの連続した反映・validationへ具体化しているため、file数だけを理由にtasklist・roadmapを作らない。
+なし。今回の成果物はskill・規範・templateとその補助validatorであり、一つの連続した反映・validationへ具体化している。
+本番application coding、外部調整を伴う独立段階、ユーザーによるplan掲載指定は現時点でないため、file数だけを理由にtasklist・roadmapを作らない。

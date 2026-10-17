@@ -1,0 +1,16 @@
+command: node .steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/reconcile-ledger.mjs
+cwd: /private/tmp/facilitate-commits.J1ftUw/worktree
+exit_code: 1
+output_capture: 標準出力・標準エラーを統合したtoolのraw output
+
+file:///private/tmp/facilitate-commits.J1ftUw/worktree/.steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/reconcile-ledger.mjs:166
+  if (before !== current) throw new Error(`baselineとproductionが一致しない: ${file}`);
+                                ^
+
+Error: baselineとproductionが一致しない: plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md
+    at file:///private/tmp/facilitate-commits.J1ftUw/worktree/.steering/2026/202609/20260921-restructure-facilitate-discussion/behavior-preservation/reconcile-ledger.mjs:166:33
+    at ModuleJob.run (node:internal/modules/esm/module_job:262:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:485:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:109:5)
+
+Node.js v22.4.0
