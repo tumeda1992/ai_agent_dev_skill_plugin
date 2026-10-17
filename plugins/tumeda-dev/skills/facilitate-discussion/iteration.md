@@ -62,11 +62,27 @@ skill起動済みという前提やtarget fileの解決を毎回分岐させな�
 
 内容を作り始める直前に、[making_and_choosing_options.md](../../docs/think_standards/making_and_choosing_options.md) 全文を読み、今の判断材料へ適用する。起動時の読取、案への確信、調査や否定の回数で代替しない。判定基準の正本は標準に保ち、ここへ複製しない。
 
-不足は自力取得可能、user所有、外部条件、別decisionへ分ける。自力取得可能なら権限内で調べ、結果から判断材料を再判定する。判断可能なら提案、user所有の前提だけ残るなら認識合わせ、別decisionや外部条件ならhandlerへ戻る。
+```text
+現在の材料へ標準を適用
+  ├─ 自力で取得できる不足 → 目的別の実施前入力を保存
+  │                           → 調査・比較・検証等を実施
+  │                           → 結果・限界・次actionを保存 ─→ 再判定
+  ├─ 判断可能な案が成立 → 提案を形にする → case検証 ─→ 不足なら再判定
+  ├─ user所有の前提・見方が必要 → 認識合わせを形にする
+  ├─ 判断可能な別の上位decision → handlerの論点選択
+  └─ 今は解消不能な外部条件 → handlerの停止
+```
 
 #### 内部検討を記録する
 
-[templates/consideration-records/README.md](templates/consideration-records/README.md) を読み、目的を選んで該当fileを全文読む。六用途へ無理に押し込まず、合わない時はREADMEのfallbackを使う。問い、方法、結果、限界、次actionを内部logへ保存し、根拠と解釈を分ける。
+新しい検討blockを始める前に [templates/consideration-records/README.md](templates/consideration-records/README.md) を読み、目的を選び、該当fileを全文読む。目的が変われば再選択する。全六fileの毎回読取・使用や、常に調査から始めることは要求しない。
+選んだformatの実施前入力（問い・探索先・方法、判断対象・評価軸、検証claim等）を内部logの同じ回へ保存してから実施する。
+記録単位のanchorと意味ある用途titleを置き、formatの見出し深度はその配下へ合わせる。目的別の読み方を一律の三見出しへ変えない。
+結果・解釈・不足・次action・案への影響を得たら、次actionより前に同じ記録単位へ保存する。書込み前は毎回handler指定の `expression_notation.md` を全文読む。
+同じ問いと方法で判断材料を一段更新する単位にまとめ、tool一回・file一枚を単位にしない。複数sourceをまとめても、結果から問い・方法を変える時は結果と変更理由を先に保存する。内部blockだけ増えても外向きIを増やさない。
+事実と解釈、範囲内の不在と取得失敗・未実施を区別する。資料全文や生logは写さず、後のevidenceによる訂正は新blockから元を指す。完成済みblockへ遡って結果を混ぜない。
+既存findingだけで足りれば不要な調査を作らず、比較と案への影響を記録する。
+六用途へ合わない時は、[READMEの該当する形がない場合](templates/consideration-records/README.md#該当する形がない場合) に従い、理由と内容固有の形を記録する。
 
 #### 保存結果から判断材料を再判定する
 

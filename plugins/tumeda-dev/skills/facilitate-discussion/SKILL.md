@@ -310,7 +310,7 @@ templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再�
 「対象論点を選ぶ」で新しい上位decisionまたは親変更が必要だと判定した場合だけ行う。
 
 [templates/discussion_entry.md](templates/discussion_entry.md) 全文を読み、回の骨子・提案本文・空の提案応答欄・受領応答の本文を使う。本文は同じ回の検討記録の前、対応する応答欄は後へ置き、現在stateより前へ回を加える。別decisionの機械的反映なら結果まで保存し、通常提示の準備loopへ戻さない。
-この処理で新たな検討を行う場合は、内部logへ問いと実際の結果を保存する。単なる既決decisionの反映に不要な調査を作らない。
+この処理で新たな調査・判断過程を記録する場合も、内部logの保存形を全文読み、実施前入力→結果保存→discussion背景という境界を使う。単なる既決decisionの反映に不要な内部loopを作らない。
 
 1. 新しいparentがまだ存在しなければ、「共通本体へ接続する」の新規入口で実質的な分解decisionを持つ後発parentを先に作る。
 2. 新parentが同じdiscussion file内に存在し、一親、自己参照禁止、循環禁止を満たすことを検証する。失敗した場合は参照を変更しない。
