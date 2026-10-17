@@ -270,6 +270,11 @@ repository知識またはskillの不足では、具体ケース固有の修正�
 
 consumerがdecisionを対象成果物へ即時反映した場合、このskillは同じテーマの次の論点を選ぶ前に、そのoriginating decisionについて`doc-enricher`を提案modeで一度だけ起動する。repository知識不足の分類時に同じoriginから起動済みなら、それを一回として数える。`doc-enricher`が提案・適用したdocs変更から同じoriginのreviewを再帰起動しない。候補があれば`doc-enricher`の承認gateに従って同じdiscussionへ提案・合意・結果を保存し、候補がなければreview済みであることだけを適用結果として保存する。
 
+origin-reviewで追加の調査・比較・一般化等を行う場合は、[iteration.md](iteration.md) 全文を読み、その「内部検討を記録する」の手順を使う。
+originの既存logと該当する回へ接続し、目的別formatの入力保存から結果保存までを通す。
+この接続だけで次の外向き回を作ったり、提案準備を始めたりしない。新しい採否が必要になった時だけ論点選択へ戻す。
+既に得られたreview結果を保存するだけなら、未実施の調査や形式だけの内部loopを作らない。
+
 steering終了時などconsumerが持つtheme横断の`doc-enricher` reviewは、このdecision単位のreviewとは別の最終safety netである。decision単位でreview済みの候補を重複提案しない。この原因routingとdecision単位の起動条件をconsumer skillまたは`doc-enricher`へ複製しない。
 
 
