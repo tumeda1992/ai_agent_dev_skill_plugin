@@ -244,7 +244,18 @@ for (const expected of [
   "skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない"
 ]) requireText(discussionSkill, expected);
 
-for (const expected of ["templates/proposal-sections/README.md", "固定候補ではなくその回の結果が分かる短い", "同じdecision scope", "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す", "## 入る前に引き継ぐ状態", "skill起動済みという前提やtarget fileの解決を毎回分岐させない"]) requireText(discussionIteration, expected);
+for (const expected of [
+  "templates/proposal-sections/README.md",
+  "固定候補ではなくその回の結果が分かる短い",
+  "同じdecision scope",
+  "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す",
+  "### 作成中の回と検討記録を用意する",
+  "discussion scopeへ属する理由、別decisionとして分けた理由等",
+  "## 既存提示への応答を扱う",
+  "## 入る前に引き継ぐ状態",
+  "別decisionなら回を足さずhandlerへ戻る",
+  "skill起動済みという前提やtarget fileの解決を毎回分岐させない"
+]) requireText(discussionIteration, expected);
 
 for (const expected of [
   "#### 提案Iへのフィードバック（論点N）"
@@ -272,18 +283,20 @@ function requireSavedForms(relativePath, headings) {
   forbidText(relativePath, "<!--", "templateへ埋め込まれた適用制御");
 }
 
-requireSavedForms(discussionTemplate, ["論点metadata","回の骨子","提案本文","空の提案応答欄","受領応答の本文","仮決定","再開条件","決定"]);
+requireSavedForms(discussionTemplate, ["論点metadata","回の骨子","提案本文","空の提案応答欄","認識合わせ本文","空の認識合わせ回答欄","受領応答の本文","仮決定","再開条件","決定"]);
 
 
 for (const expected of [
   "## 論点N: {判断内容を表すタイトル}",
-  "**ステータス:** {調査中 / 提案中 / 子論点待ち / 決定 / 保留 / 分解済み}",
+  "**ステータス:** {調査中 / 応答待ち / 子論点待ち / 決定 / 保留 / 分解済み}",
   "**親論点:** 論点M",
   "**種別:**",
   "### イテレーションI（論点N）:",
-  "#### 提案背景（論点N・イテレーションI）",
+  "#### 検討記録（論点N・イテレーションI）",
   "#### 提案I（論点N）",
   "#### 提案Iへのフィードバック（論点N）",
+  "#### 認識合わせI（論点N）",
+  "#### 認識合わせIへの回答（論点N）",
   "**結果:** {その回の結果が分かる短い表現}",
   "### 仮決定（論点N）",
   "### 再開条件（論点N）",
@@ -300,11 +313,17 @@ for (const forbidden of [
 ]) forbidText(discussionTemplate, forbidden, "廃止したdiscussion entry固定field");
 
 
+requireText(discussionIteration, "making_and_choosing_options.md");
 
 
-for (const expected of ["未提示の具体案への合意へ変換しない", "事後記録", "通常経路の代替ではない"]) requireText(discussionRecovery, expected);
+for (const expected of [
+  "未提示の具体案への合意へ変換しない",
+  "事後記録",
+  "通常経路の代替ではない"
+]) requireText(discussionRecovery, expected);
 
 
+requireOrderedText(discussionIteration, ["### 作成中の回と検討記録を用意する", "### 判断材料を確かめ、検討記録を育てる", "### 提案または認識合わせを形にする", "### 保存した回を提示可能にする"], "提示準備の実行順");
 
 requireText(discussionMetadata, "allow_implicit_invocation: false");
 

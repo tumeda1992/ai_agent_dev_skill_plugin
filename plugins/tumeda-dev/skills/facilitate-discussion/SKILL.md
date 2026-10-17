@@ -7,7 +7,7 @@ description: 明示された議論を論点単位で進行し、委託された�
 
 ## 目的と成果
 
-明示された議論を一つのdecision単位で進行し、判断可能な提案、応答、決定をdiscussion fileへ保存する。
+明示された議論を一つのdecision単位で進行し、判断可能な提案・認識合わせ、応答、決定をdiscussion fileへ保存する。
 
 成果は次の二つである。
 
@@ -31,7 +31,7 @@ consumer向けの固定result schemaは設けない。一つの論点でdecision
 ### このskillが所有するもの
 
 - discussion fileの解決、作成、継続利用
-- 論点の開始、提案、検証、feedback routing、決定
+- 論点の開始、提案、必要な認識合わせ、検証、feedback routing、決定
 - 各proposalと決定のself-containedな保存
 - 議論履歴と現在状態の更新
 - 論点採番と親子validation
@@ -82,7 +82,7 @@ consumerの適用先を `design.md` や `tasklist.md` に固定しない。
 - canonicalな `## 論点N:` とlegacyな `### 論点N:` を走査する。同じ番号が複数存在すれば全書込みを停止してユーザーへ報告し、自動修復、renumber、欠番再利用を行わない。
 - feedback確定後の過去iteration、却下理由、当時の判断内容を変更・削除しない。既存h1、論点順序、legacy formatも一括変更しない。
 - entry末尾の未決提案が判断対象になるため、同じ内容を上部へ複製しない。
-- ユーザーへ提示する前に、その回の問いを初見の読者が単独で評価できるproposal、提案背景、対応する空の応答見出しをdiscussion fileへ保存する。完全状態そのものが判断対象の時だけ完全版を要求する。
+- ユーザーへ提示する前に、その回の問いを初見の読者が単独で評価できる提案または必要な認識合わせ、検討記録、対応する空の応答見出しをdiscussion fileへ保存する。完全状態そのものが判断対象の時だけ完全版を要求する。
 - 提案保存前にも「decisionの境界を判定する」を通す。別decisionがあれば対象論点の選択へ戻す。event到着後に自分で案へ追加した別decisionを見逃さないためであり、本体の判断材料確認とは別のgateとして両方を通る。
 - iterationを重ねた提案では、論点のタイトルが問うている範囲と、いま書いている提案の範囲を照合する。iterationごとに小さく足していると、累積して別decisionへ届いていることに気づけない。タイトルが「対象のどれを扱うか」を問うているのに、提案が「対象をどう分割し、どちらを先に扱うか」まで決めていれば、範囲を越えている。どれを扱うかへの答えは対象の特定であり、分割と順序は別のdecisionである。
 - chatではdiscussion file名、論点番号、提案番号または見出し、判断対象を特定する。`これ`、`上記`、`大枠`のようにsessionだけで解釈する指示語で合意を求めない。
@@ -141,8 +141,8 @@ skill起動、論点選択、iterationを無前提な兄弟分岐として扱わ
 
 #### statusの表示と導出
 
-表示値は `提案中 / 調査中 / 子論点待ち / 決定 / 保留 / 分解済み` とする。
-本文・応答・会話が正本であり、値だけで判断しない。
+表示値は `応答待ち / 調査中 / 子論点待ち / 決定 / 保留 / 分解済み` とする。
+本文・応答・会話が正本であり、旧`提案中`を含む値だけで判断しない。
 親子導出を通常のstatus更新より優先する。
 
 ## discussion fileを解決する
@@ -233,7 +233,7 @@ discussion fileが解決済みで、議論するdecision候補、既存論点へ
 
 repository知識またはskillの不足では、具体ケース固有の修正を先に合意しない。原因ownerの一般則を主decisionとして合意した後、元の具体ケースをその適用例として必ず再評価する。一般則だけで変更が一意に決まらなければ、残る判断を具体ケース側のdecisionとしてdiscussionへ保存する。
 
-ここでいう一般則は、原因ownerのdocsまたはskillへ実際に書き込む修正内容そのものを指す。原因の分類結果、抽象的な規則文、再発防止の方針だけを`提案N`へ置かない。どのfileのどの位置へ何を書き、何を削るかを読者が判断できる修正案として提示する。原因の分類と追跡は、その修正案がなぜ必要かを示す`提案背景`が所有する。
+ここでいう一般則は、原因ownerのdocsまたはskillへ実際に書き込む修正内容そのものを指す。原因の分類結果、抽象的な規則文、再発防止の方針だけを`提案N`へ置かない。どのfileのどの位置へ何を書き、何を削るかを読者が判断できる修正案として提示する。原因の分類と追跡は、その修正案がなぜ必要かを示す`検討記録`が所有する。
 
 一般則を先に合意することと、対象fileへ即時適用することは分ける。適用先、適用方法、適用時期はconsumerが所有する。consumerは他の未決事項との依存関係を判定し、独立していれば即時反映し、依存があれば自身のworkflowで反映待ちとして扱う。稼働中のskillまたはdocs体系自身の不備は通常、個別論点の結論から独立して存在するため、依存関係gateを通した結果として即時反映になることを基本的な期待とする。
 
@@ -261,7 +261,7 @@ handlerから [iteration.md](iteration.md) 全文を読んで、次のいずれ�
 
 ### 合意したdecisionを確定する
 
-保存済みの具体案と明示合意が一意な時だけ行う。作業再開指示から未提示案への合意を補完しない。
+保存済みの具体案と明示合意が一意な時だけ行う。認識合わせの回答や作業再開指示から未提示案への合意を補完しない。
 合意のfile・論点・提案が不明なら更新せず確認する。本体または回復で保存済みの同じ結果を重複記録せず、そのturnで現在有効な決定とstatusを更新する。
 [templates/discussion_entry.md](templates/discussion_entry.md) 全文を読み、「決定」のcode blockを全iterationの後へ置く。過去の部分判断を加算せず、現在有効な結論をself-containedに書く。任意の仮決定は外す。受容された弱点はデバッグ経緯でなく現在契約の制約・選択理由として残す。未決child集合が変わる場合だけ親statusを導出する。
 記録同期を通して一decisionずつconsumerへ具体的にhandoffする。適用先をdesignやtasklistへ固定せず、このskillが適用を自動実行しない。
@@ -272,7 +272,7 @@ consumerがdecisionを適用して全体状態を再評価するまで次論点�
 
 `templates/discussion_entry.md` 全文を読み、必要な名前のcode blockだけを使う。全entryへ空の欄を置かず、現在stateは全iterationの後へ置く。
 templateの任意`仮決定`は、[仮決定](templates/discussion_entry.md#仮決定) の形を現在成立する内容の要約が理解を助ける時だけ使う。過去の部分判断を機械的に加算せず、無効になった内容は外す。履歴は過去の回へ保持し、判断の足跡が役立つ時だけ典拠を付ける。最終合意で外す。
-templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再開条件) の形を同じ未決decisionが外部event・action・権限等で止まり、entryだけでは停止理由と再開位置を特定できない時だけ使う。固定小fieldへ分けない。通常応答待ち、consumer反映待ち、完了、直後の移動には置かない。条件成立は新しい提案背景へ接続して現在条件を外す。委譲自体が結論なら決定に書く。
+templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再開条件) の形を同じ未決decisionが外部event・action・権限等で止まり、entryだけでは停止理由と再開位置を特定できない時だけ使う。固定小fieldへ分けない。通常応答待ち、consumer反映待ち、完了、直後の移動には置かない。条件成立は新しい検討記録へ接続して現在条件を外す。委譲自体が結論なら決定に書く。
 固定の`ネクストアクション`fieldはentryへ置かない。次の焦点は末尾のactiveな提示、順序・委譲先の合意は決定、停止と不可分の再開判断は再開条件へ置き、具体的handoffはchatへ返す。
 別topicがdecision境界を保ったままpath・語彙等を具体化した場合は、先行topicの現在決定だけを典拠付きで同期する。置換理由と影響範囲は後続topicが所有する。先行topicの過去の回を変更・追加せず、境界が変わるなら再開／別論点へroutingする。`以前の決定`、`決定（更新）`、`決定（最終）`を並べない。
 
@@ -280,12 +280,12 @@ templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再�
 
 「対象論点を選ぶ」で新しい上位decisionまたは親変更が必要だと判定した場合だけ行う。
 
-[templates/discussion_entry.md](templates/discussion_entry.md) 全文を読み、回の骨子・提案本文・空の提案応答欄・受領応答の本文を使う。本文は同じ回の提案背景の前、対応する応答欄は後へ置き、現在stateより前へ回を加える。別decisionの機械的反映なら結果まで保存し、通常提示の準備loopへ戻さない。
+[templates/discussion_entry.md](templates/discussion_entry.md) 全文を読み、回の骨子・提案本文・空の提案応答欄・受領応答の本文を使う。本文は同じ回の検討記録の前、対応する応答欄は後へ置き、現在stateより前へ回を加える。別decisionの機械的反映なら結果まで保存し、通常提示の準備loopへ戻さない。
 
 
 1. 新しいparentがまだ存在しなければ、「共通本体へ接続する」の新規入口で実質的な分解decisionを持つ後発parentを先に作る。
 2. 新parentが同じdiscussion file内に存在し、一親、自己参照禁止、循環禁止を満たすことを検証する。失敗した場合は参照を変更しない。
-3. childの新しいiterationを`templates/discussion_entry.md`のiteration以下と`templates/discussion_entry.md#提案本文`の骨子で追加し、`提案N`へ新parentとの関係、`提案背景`へ旧parentと変更理由・典拠decisionを保存する。reparentが別論点の決定を反映する処理なら、feedback欄へその結果と典拠を保存して空の合意待ちにしない。
+3. childの新しいiterationを`templates/discussion_entry.md`のiteration以下と`templates/discussion_entry.md#提案本文`の骨子で追加し、`提案N`へ新parentとの関係、`検討記録`へ旧parentと変更理由・典拠decisionを保存する。reparentが別論点の決定を反映する処理なら、feedback欄へその結果と典拠を保存して空の合意待ちにしない。
 4. child側の`親論点`だけを更新する。parent側へ`子論点`fieldを追加しない。
 5. 旧parentと新parentの未決child集合が変わった場合だけ、それぞれのstatusを同期する。
 
@@ -304,7 +304,7 @@ templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再�
 
 ### 通常の同期と回復の検出
 
-提案の提示、decision、reparent、取下げ、scope外報告、停止、consumer返却のいずれでも最後に通る。
+提案・認識合わせの提示、decision、reparent、取下げ、scope外報告、停止、consumer返却のいずれでも最後に通る。
 discussionを再読込し、前回保存後に委託scope内で実際に生じた事象・原因・提案・回答・反論・訂正・合意を照合する。
 ユーザーが判断する内容、検討過程、原文応答、decisionをdiscussionへ同期する。
 同じdecisionは同じ論点、別decisionは論点選択を通して保存する。
