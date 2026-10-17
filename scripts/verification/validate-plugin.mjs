@@ -174,51 +174,37 @@ requirePattern(
 );
 
 const discussionSkill = skillPath("facilitate-discussion/SKILL.md");
+
 const discussionIteration = skillPath("facilitate-discussion/iteration.md");
+
 const discussionRecovery = skillPath("facilitate-discussion/record-recovery.md");
-function requireDiscussionText(expected) {
-  const files=[discussionSkill, discussionIteration, discussionRecovery];
-  if (!files.map(read).join("\n").includes(expected)) failures.push("discussion実行file群: 必須項目「"+expected+"」がない");
-}
-requireExists(discussionIteration);
-requireExists(discussionRecovery);
 
 const discussionMetadata = skillPath("facilitate-discussion/agents/openai.yaml");
-const discussionTemplate = skillPath(
-  "facilitate-discussion/templates/discussion_entry.md",
-);
-const discussionProposalTemplates = [
-  "README.md",
-  "compact-options.md",
-  "complete-state.md",
-  "detailed-options.md",
-  "document-heading-outline.md",
-  "element-correspondence.md",
-  "existing-file-local-diff.md",
-  "file-change-set.md",
-  "process-flow.md",
-  "structure-tree.md",
-].map((fileName) =>
-  skillPath(`facilitate-discussion/templates/proposal-sections/${fileName}`),
-);
-for (const relativePath of [
-  discussionSkill,
-  discussionMetadata,
-  discussionTemplate,
-  ...discussionProposalTemplates,
-]) {
-  requireExists(relativePath);
-}
-for (const relativePath of [
-  skillPath("task-design/templates/discussion_entry.md"),
-  skillPath("steering/templates/discussion_entry.md"),
-  skillPath("steering/templates/implementation_review.md"),
-]) {
-  requireAbsent(relativePath);
-}
+
+const discussionTemplate = skillPath("facilitate-discussion/templates/discussion_entry.md");
+
+
+const discussionSupportingFiles = [
+  "templates/proposal-sections/README.md",
+  "templates/proposal-sections/compact-options.md",
+  "templates/proposal-sections/complete-state.md",
+  "templates/proposal-sections/detailed-options.md",
+  "templates/proposal-sections/document-heading-outline.md",
+  "templates/proposal-sections/element-correspondence.md",
+  "templates/proposal-sections/existing-file-local-diff.md",
+  "templates/proposal-sections/file-change-set.md",
+  "templates/proposal-sections/process-flow.md",
+  "templates/proposal-sections/structure-tree.md",
+].map((name) => skillPath("facilitate-discussion/" + name));
+
+for (const p of [discussionSkill, discussionIteration, discussionRecovery, discussionMetadata, discussionTemplate, ...discussionSupportingFiles]) requireExists(p);
+
+for (const p of ["task-design/templates/discussion_entry.md", "steering/templates/discussion_entry.md", "steering/templates/implementation_review.md"]) requireAbsent(skillPath(p));
 
 requireFrontmatter(discussionSkill, "name: facilitate-discussion");
+
 requireFrontmatter(discussionSkill, "description:");
+
 for (const expected of [
   "discussion_directory",
   "discussion_file_name",
@@ -231,46 +217,39 @@ for (const expected of [
   "self-contained",
   "末尾のiterationとfeedback状態",
   "その回の問いを判断できる",
-  "templates/proposal-sections/README.md",
-  "提案Nへのフィードバック",
-  "固定候補ではなくその回の結果が分かる短い",
   "templateの任意`仮決定`",
   "templateの`再開条件`",
   "固定の`ネクストアクション`fieldはentryへ置かない",
-  "同じdecision scope",
   "親論点",
   "自己参照ではない",
   "循環しない",
   "一つのleaf論点を一つのdecision",
-  "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す",
   "activeな論点を作らない",
   "`独立論点` は現在のdiscussion目的には属する",
   "作成済み論点がscope外と判明した場合は履歴を削除しない",
   "通常の質問、説明、短い相談から暗黙起動してはならない",
   "## workflow全体で守る不変条件",
-  "## 実行workflow",
-  "### 1. skillを起動する",
-  "#### 起動phaseの完了gate",
-  "### 2. 論点を扱う",
-  "#### 2.1 対象論点を選ぶ",
-  "#### 2.2 新規論点を作るvariant",
-  "discussion scopeへ属する理由、別decisionとして分けた理由等",
-  "#### 2.3 選択した一つの論点を進める",
-  "##### 2.3.1 feedbackをiterationとして扱う",
-  "###### iterationの入口gate",
-  "iterationを追加せず、一段上の`2.1 対象論点を選ぶ`へ戻る",
-  "skill起動済みという前提やtarget fileの解決を毎回分岐させない",
-  "##### 2.3.2 合意したdecisionを確定する",
-  "##### 2.3.3 論点をreparentする",
-  "##### 2.3.4 scope外の既存論点を取り下げる",
-  "#### 論点levelの完了gate",
+  "## 実行経路",
+  "## discussion fileを解決する",
+  "### 解決の完了gate",
+  "## 対象論点を選ぶ",
+  "## 選択した論点を進める",
+  "### 合意したdecisionを確定する",
+  "### 論点をreparentする",
+  "### scope外の既存論点を取り下げる",
+  "### 返却の完了gate",
   "一つの論点でdecisionを確定するたびに",
   "複数論点のdecisionをまとめてから返さない",
   "consumerがdecisionを適用して全体状態を再評価",
-  "図のsubgraphはscopeの包含を表す",
-]) {
-  requireDiscussionText(expected);
-}
+  "skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない"
+]) requireText(discussionSkill, expected);
+
+for (const expected of ["templates/proposal-sections/README.md", "固定候補ではなくその回の結果が分かる短い", "同じdecision scope", "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す", "## 入る前に引き継ぐ状態", "skill起動済みという前提やtarget fileの解決を毎回分岐させない"]) requireText(discussionIteration, expected);
+
+for (const expected of [
+  "#### 提案Iへのフィードバック"
+]) requireText(discussionTemplate, expected);
+
 for (const forbidden of [
   "## 入口を選ぶ",
   "## skillを起動する手順",
@@ -279,46 +258,60 @@ for (const forbidden of [
   "## 合意したdecisionを確定する手順",
   "## 決定済み論点を再開する手順",
   "## 論点をreparentする手順",
-  "## scope外の既存論点を取り下げる手順",
-]) {
-  forbidText(discussionSkill, forbidden, "root直下へ平坦化した旧entry見出し");
+  "## scope外の既存論点を取り下げる手順"
+]) forbidText(discussionSkill, forbidden, "root直下へ平坦化した旧entry見出し");
+
+// 保存形だけを持つfile。本文内の見出し例を外側の部品として数えない。
+
+function requireSavedForms(relativePath, headings) {
+  const source = read(relativePath);
+  const withoutFences = source.replace(/^```markdown\n[\s\S]*?^```\s*$/gmu, "");
+  const actual = [...withoutFences.matchAll(/^## (.+)$/gmu)].map((m) => m[1]);
+  const count = [...source.matchAll(/^```markdown$/gmu)].length;
+  if (JSON.stringify(actual) !== JSON.stringify(headings) || count !== headings.length) failures.push(relativePath + ": 保存形の名前・順序・code block数が不一致");
+  forbidText(relativePath, "<!--", "templateへ埋め込まれた適用制御");
 }
+
+requireSavedForms(discussionTemplate, ["論点metadata","回の骨子","提案本文","空の提案応答欄","受領応答の本文","仮決定","再開条件","決定"]);
+
+
 for (const expected of [
   "## 論点N: {判断内容を表すタイトル}",
-  "**ステータス:**",
-  "**親論点:**",
+  "**ステータス:** {調査中 / 提案中 / 子論点待ち / 決定 / 保留 / 分解済み}",
+  "**親論点:** 論点M",
   "**種別:**",
-  "### イテレーションN: {この提案で成立させること、または変えること}",
-  "#### 提案N",
+  "### イテレーションI:",
   "#### 提案背景",
-  "#### 提案Nへのフィードバック",
+  "#### 提案I",
+  "#### 提案Iへのフィードバック",
   "**結果:** {その回の結果が分かる短い表現}",
   "### 仮決定",
   "### 再開条件",
   "### 決定",
-]) {
-  requireText(discussionTemplate, expected);
-}
+]) requireText(discussionTemplate, expected);
+
 for (const forbidden of [
   "**起点となった原文:**",
   "### 現在の合意対象",
   "#### 根本原因0 + 提案0",
   "##### 論点routingの判断",
   "**決定:**",
-  "**ネクストアクション:**",
-]) {
-  forbidText(discussionTemplate, forbidden, "廃止したdiscussion entry固定field");
-}
+  "**ネクストアクション:**"
+]) forbidText(discussionTemplate, forbidden, "廃止したdiscussion entry固定field");
+
+
+
+
+for (const expected of ["未提示の具体案への合意へ変換しない", "事後記録", "通常経路の代替ではない"]) requireText(discussionRecovery, expected);
+
+
+
 requireText(discussionMetadata, "allow_implicit_invocation: false");
 
-const discussionConsumers = [
-  skillPath("task-design/SKILL.md"),
-  skillPath("steering/SKILL.md"),
-  skillPath("task-design/templates/tasklist.md"),
-];
-for (const relativePath of discussionConsumers) {
-  requireText(relativePath, "facilitate-discussion");
-}
+const discussionConsumers = ["task-design/SKILL.md", "steering/SKILL.md", "task-design/templates/tasklist.md"].map(skillPath);
+
+for (const p of discussionConsumers) requireText(p, "facilitate-discussion");
+
 const taskDesignSkill = skillPath("task-design/SKILL.md");
 const taskDesignTemplate = skillPath("task-design/templates/design.md");
 const outcomeSectionPath = (fileName) =>
