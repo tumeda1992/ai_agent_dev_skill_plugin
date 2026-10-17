@@ -253,19 +253,7 @@ steering終了時などconsumerが持つtheme横断の`doc-enricher` reviewは�
 2. 現在の`決定`を、取下げと終了が分かる内容へ局所更新する。
 3. 未決child集合が変わる場合だけparent statusを同期し、chatで取下げ理由を具体的に示す。
 
-##### 2.3.5 chat上で合意済みのdiscussionを記録する
-
-委託されたテーマ内の議論がdiscussion fileへ未収録のままchat上でdecisionまで到達した場合に使う。成果物へ反映済みかどうかは、このvariantへ入る条件を変えない。
-
-このvariantへ入る前に、対象となる具体的な提案と、それに対するユーザーの明示的な合意をchat履歴から特定する。`続けて`、無反応、異議がなかったこと、抽象的な先行decision、assistantだけの推論を、未提示の具体案への合意へ変換しない。明示的な合意を特定できない場合はこのvariantを使わず、確認できた事実、assistantの未合意提案、先行して行ったactionを分けて未決の論点またはiterationへ保存し、合意を求める。
-
-1. 未収録の発言とfileの現在stateを比較し、`2.1 対象論点を選ぶ`の既存routingで、既存論点のiterationか新規論点かを決める。
-2. 起点となった原文、当初の判断材料とproposal、そのproposalが満たす条件、user feedback、誤っていた認識、修正後のproposalを、確認できる時系列どおりに番号付きiterationで保存する。各feedbackは評価したproposalと同じiterationへ置く。
-3. chat上で成立した合意を`決定`へ保存してstatusを確定し、そのdecisionから生じる処理はchatでconsumerへhandoffする。
-4. 同じdecisionへの合意を取り直さない。記録のために新しい判断を加える必要が生じた場合だけ、その追加判断を末尾の未決proposalとして保存して確認を求める。
-5. 結論だけの要約、変更file一覧、反省だけを議論の記録として扱わない。
-
-このvariantは、合意前に判断可能なproposalを保存する通常経路の代替ではない。通常経路で記録を先に行うことを基本とし、chat上で合意が先に成立した場合または記録漏れへ後から気づいた場合の回復に使う。
+[record-recovery.md](record-recovery.md) 全文を読み、同じownerが該当する回復手順を実行する。通常同期と現在decisionの確定はhandlerへ戻す。
 
 #### 論点levelの完了gate
 
@@ -298,18 +286,7 @@ feedbackが別decisionに属すると判定された場合だけ、decision未�
 
 成果物変更をhandoffする場合は、その変更の理由になった議論が、原文からdecisionまで同じdiscussion fileで追えることを確認する。保存済みdecisionとの対応が一対一で、新しいscope、routing、方針、成果物、実行単位を一切決めない適用だけは、新しい論点にしない。対応付けに具体的な判断が一つでも必要なら「既存decisionの機械的適用」と呼んでdiscussionを省略せず、proposalとして提示・保存して合意を得る。議論を伴わない誤字・format・linkの修正は新しい論点にしない。
 
-#### 3.2 記録漏れの事後reconstruction
-
-成果物変更または別の処理へ進んだ後に未収録の議論へ気づいた場合は、通常の次論点を進める前に次を行う。
-
-1. chat履歴、変更前後の成果物、discussion file、実際の変更差分を照合する。
-2. 起点となった発言、当初の判断材料とproposal、提案背景、feedback、誤っていた認識、修正後proposal、合意したdecision、すでに反映した成果物を番号付きiterationで時系列に再構成する。
-3. 既存decisionの修正ならiteration、別decisionなら新規論点として保存する。
-4. `事後記録`であること、記録漏れへ気づいた契機、すでに反映済みの成果物を明記する。あたかも成果物反映前に保存していたように履歴を偽装しない。
-5. ユーザー発言、assistantの提案、観測事実、合意済みdecision、未合意の推論を区別する。成果物の存在や変更結果から、提示していない提案または得ていない合意を逆算しない。
-6. chat履歴から対象となる具体案への明示的な合意を特定できない場合は、`合意なし`または`確認不能`と明記してstatusを未決にする。先行actionがあればprocess逸脱として記録し、事後記述によって正当化しない。
-7. chat履歴や変更前状態が失われている場合は、確認不能な範囲を明記し、もっともらしい内容で補完しない。
-8. 最終結論のsnapshot、変更file一覧、現在のassistantによる反省だけでは完了扱いにしない。実際に行われた起点、当初の判断材料とproposal、提案背景、feedback、修正過程、合意、事後状態が追えることを確認する。実際には存在しない段階は創作せず、存在しなかったこと自体を記録する。
+[record-recovery.md](record-recovery.md) 全文を読み、同じownerが該当する回復手順を実行する。通常同期と現在decisionの確定はhandlerへ戻す。
 
 #### 3.3 handoff完了gate
 

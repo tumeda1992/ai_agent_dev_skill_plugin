@@ -175,11 +175,13 @@ requirePattern(
 
 const discussionSkill = skillPath("facilitate-discussion/SKILL.md");
 const discussionIteration = skillPath("facilitate-discussion/iteration.md");
+const discussionRecovery = skillPath("facilitate-discussion/record-recovery.md");
 function requireDiscussionText(expected) {
-  const files=[discussionSkill, discussionIteration];
+  const files=[discussionSkill, discussionIteration, discussionRecovery];
   if (!files.map(read).join("\n").includes(expected)) failures.push("discussion実行file群: 必須項目「"+expected+"」がない");
 }
 requireExists(discussionIteration);
+requireExists(discussionRecovery);
 
 const discussionMetadata = skillPath("facilitate-discussion/agents/openai.yaml");
 const discussionTemplate = skillPath(
