@@ -1,0 +1,5238 @@
+{
+  "baseline": "a6e24853800fcb75eb6a7bdd91479a633f740d4a",
+  "state": "編集前の原文単位登録。entryは別ledger。destinationは予定先で、全量意味照合は未監査。",
+  "files": [
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "lines": 378,
+      "structure": [
+        {
+          "from": 1,
+          "to": 5
+        },
+        {
+          "from": 6,
+          "to": 7
+        },
+        {
+          "from": 8,
+          "to": 18
+        },
+        {
+          "from": 19,
+          "to": 28
+        },
+        {
+          "from": 29,
+          "to": 30
+        },
+        {
+          "from": 31,
+          "to": 43
+        },
+        {
+          "from": 44,
+          "to": 52
+        },
+        {
+          "from": 53,
+          "to": 65
+        },
+        {
+          "from": 66,
+          "to": 78
+        },
+        {
+          "from": 79,
+          "to": 93
+        },
+        {
+          "from": 94,
+          "to": 126
+        },
+        {
+          "from": 127,
+          "to": 130
+        },
+        {
+          "from": 131,
+          "to": 145
+        },
+        {
+          "from": 146,
+          "to": 149
+        },
+        {
+          "from": 150,
+          "to": 153
+        },
+        {
+          "from": 154,
+          "to": 174
+        },
+        {
+          "from": 175,
+          "to": 191
+        },
+        {
+          "from": 192,
+          "to": 217
+        },
+        {
+          "from": 218,
+          "to": 234
+        },
+        {
+          "from": 235,
+          "to": 238
+        },
+        {
+          "from": 239,
+          "to": 242
+        },
+        {
+          "from": 243,
+          "to": 254
+        },
+        {
+          "from": 255,
+          "to": 268
+        },
+        {
+          "from": 269,
+          "to": 277
+        },
+        {
+          "from": 278,
+          "to": 293
+        },
+        {
+          "from": 294,
+          "to": 303
+        },
+        {
+          "from": 304,
+          "to": 311
+        },
+        {
+          "from": 312,
+          "to": 325
+        },
+        {
+          "from": 326,
+          "to": 341
+        },
+        {
+          "from": 342,
+          "to": 345
+        },
+        {
+          "from": 346,
+          "to": 356
+        },
+        {
+          "from": 357,
+          "to": 369
+        },
+        {
+          "from": 370,
+          "to": 378
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0001",
+          "line": 2,
+          "source_text": "name: facilitate-discussion",
+          "destination": "SKILL.md / ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0002",
+          "line": 3,
+          "source_text": "description: 明示された議論を論点単位で進行し、委託されたテーマ内の提案、feedback、決定、親子関係を指定directoryのMarkdownへ継続記録する。",
+          "destination": "SKILL.md / ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0003",
+          "line": 3,
+          "source_text": "合意済みの議論も再合意なしで記録し、記録漏れへ後から気づいた場合は結論だけでなく議論の変遷を再構成するが、会話から確認できない提案や合意は補完しない。",
+          "destination": "SKILL.md / ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0004",
+          "line": 3,
+          "source_text": "ユーザーが `$facilitate-discussion`、議論のMarkdown保存・追記を明示した時、またはconsumer skillが保存を伴う議論workflowとして明示適用した時だけ使う。",
+          "destination": "SKILL.md / ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0005",
+          "line": 3,
+          "source_text": "通常の質問、説明、短い相談には使わない。",
+          "destination": "SKILL.md / ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0006",
+          "line": 10,
+          "source_text": "明示された議論を一つのdecision単位で進行し、委託されたテーマ内で起きた判断可能な提案、feedbackによる変遷、決定を一つのdiscussion fileへ保存する。",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0007",
+          "line": 10,
+          "source_text": "fileだけを読む人が、sessionの発言を補わずに各時点の判断内容とそこへ至った過程を評価できる状態を作る。",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0008",
+          "line": 12,
+          "source_text": "成果は次の二つである。",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0009",
+          "line": 14,
+          "source_text": "- 更新されたdiscussion file",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0010",
+          "line": 15,
+          "source_text": "- chat上で合意された決定とconsumerへの具体的なhandoff",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0011",
+          "line": 17,
+          "source_text": "consumer向けの固定result schemaは設けない。",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0012",
+          "line": 17,
+          "source_text": "一つの論点でdecisionを確定するたびに、決定後の成果物更新や後続workflowをconsumerへ返す。",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0013",
+          "line": 17,
+          "source_text": "複数論点のdecisionをまとめてから返さない。",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0014",
+          "line": 17,
+          "source_text": "ただし、decisionを返すことと、委託されたテーマの記録ownerを終了することは同じではない。",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0015",
+          "line": 17,
+          "source_text": "同じテーマの議論が続く間は、このskillが記録ownerであり続ける。",
+          "destination": "SKILL.md / 目的と成果",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0016",
+          "line": 21,
+          "source_text": "次のいずれかに該当するときだけ適用する。",
+          "destination": "SKILL.md / 起動gate",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0017",
+          "line": 23,
+          "source_text": "1. ユーザーが `$facilitate-discussion` を明示した。",
+          "destination": "SKILL.md / 起動gate",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0018",
+          "line": 24,
+          "source_text": "2. ユーザーが議論をMarkdownへ継続記録するよう明示した。",
+          "destination": "SKILL.md / 起動gate",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0019",
+          "line": 25,
+          "source_text": "3. `task-design`、`steering` 等のconsumer skillが、保存を伴う議論workflowとして明示適用した。",
+          "destination": "SKILL.md / 起動gate",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0020",
+          "line": 27,
+          "source_text": "通常の質問、説明、短い相談から暗黙起動してはならない。",
+          "destination": "SKILL.md / 起動gate",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0021",
+          "line": 33,
+          "source_text": "- discussion fileの解決、作成、継続利用",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0022",
+          "line": 34,
+          "source_text": "- 論点の開始、提案、検証、feedback routing、決定",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0023",
+          "line": 35,
+          "source_text": "- 各proposalと決定のself-containedな保存",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0024",
+          "line": 36,
+          "source_text": "- 議論履歴と現在状態の更新",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0025",
+          "line": 37,
+          "source_text": "- 論点採番と親子validation",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0026",
+          "line": 38,
+          "source_text": "- 委託されたテーマ内で前回保存後に生じた議論の検出と同期",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0027",
+          "line": 39,
+          "source_text": "- chat上で合意済みになった議論の再合意なしでの保存",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0028",
+          "line": 40,
+          "source_text": "- 記録漏れを事後検出した場合の議論の再構成",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0029",
+          "line": 41,
+          "source_text": "- 認識齟齬または修正要求を、具体案の前に原因ownerへroutingすること",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0030",
+          "line": 42,
+          "source_text": "- discussion decisionの即時反映後に行う、一回限りの`doc-enricher`提案review",
+          "destination": "SKILL.md / このskillが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0031",
+          "line": 46,
+          "source_text": "- 議論の起動条件",
+          "destination": "SKILL.md / consumerが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0032",
+          "line": 47,
+          "source_text": "- 議論対象とconsumer固有制約のcontext",
+          "destination": "SKILL.md / consumerが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0033",
+          "line": 48,
+          "source_text": "- discussion directoryの用意",
+          "destination": "SKILL.md / consumerが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0034",
+          "line": 49,
+          "source_text": "- 一つの論点ごとに返されたdecisionの適用先、適用方法、適用後の再評価と後続workflow",
+          "destination": "SKILL.md / consumerが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0035",
+          "line": 51,
+          "source_text": "consumerの適用先を `design.md` や `tasklist.md` に固定しない。",
+          "destination": "SKILL.md / consumerが所有するもの",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0036",
+          "line": 55,
+          "source_text": "明示設定は次の二つだけとする。",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0037",
+          "line": 57,
+          "source_text": "| 設定 | 意味 |",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0038",
+          "line": 59,
+          "source_text": "| `discussion_directory` | discussion fileを置く既存directory |",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0039",
+          "line": 60,
+          "source_text": "| `discussion_file_name` | 任意。",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0040",
+          "line": 60,
+          "source_text": "pathを含まないbasename。",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0041",
+          "line": 60,
+          "source_text": "defaultは `discussion.md` |",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0042",
+          "line": 62,
+          "source_text": "議論対象とconsumer固有制約は、現在の会話またはcallerから渡された自然言語contextとして受け取る。",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0043",
+          "line": 64,
+          "source_text": "`open`、`iterate`、`decide`、`reopen`、`topic_id`、`親論点`、`起点となった原文`は入力fieldではない。",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0044",
+          "line": 64,
+          "source_text": "外部event、会話、discussion fileの現在状態から、このskillがentry procedureを選び管理する内部状態である。",
+          "destination": "SKILL.md / 入力",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0045",
+          "line": 68,
+          "source_text": "- **discussion fileをsession外の正本にする**",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0046",
+          "line": 69,
+          "source_text": "- 合意確認より前に、その回の問いを判断できるproposalと背景を保存し、chatにしか判断対象が残らない状態を防ぐ。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0047",
+          "line": 70,
+          "source_text": "- **一つのleaf論点を一つのdecisionに限定する**",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0048",
+          "line": 71,
+          "source_text": "- feedbackごとにdecision scopeを再判定し、独立decisionを一つのiterationへ混ぜない。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0049",
+          "line": 72,
+          "source_text": "- 限定するのは、decisionごとに合意の可否が独立しているためである。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0050",
+          "line": 72,
+          "source_text": "二つを一つの提案へ入れると、片方だけを却下できない。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0051",
+          "line": 72,
+          "source_text": "ユーザーは全体を却下するか、どこが問題かを自分で切り分けて伝えるかを選ばされる。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0052",
+          "line": 73,
+          "source_text": "- 論点を分けると論点数が増え、往復が増える。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0053",
+          "line": 73,
+          "source_text": "これは分けない理由にならない。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0054",
+          "line": 73,
+          "source_text": "往復を減らしたいなら、未決事項をTBDのまま暫定全体として提示し、構造への合意を先に取る。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0055",
+          "line": 73,
+          "source_text": "一つの提案へ複数decisionを詰めることは、往復を減らさずに合意の粒度だけを粗くする。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0056",
+          "line": 74,
+          "source_text": "- **履歴と現在stateを両立する**",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0057",
+          "line": 75,
+          "source_text": "- feedback確定後の過去iterationを不変にし、activeな末尾proposal、status、現在有効な決定、必要時だけ置く再開条件を局所更新する。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0058",
+          "line": 76,
+          "source_text": "- **discussion processとdomain固有workflowを分ける**",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0059",
+          "line": 77,
+          "source_text": "- このskillは委託されたテーマの議論記録と決定を所有し、一つの論点を決定するたびに適用をconsumerへ返す。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0060",
+          "line": 77,
+          "source_text": "consumerが適用と再評価を終える前に次の論点を進めないが、同じテーマの記録ownerまでconsumerへ返さない。",
+          "destination": "SKILL.md / 全体の設計意図",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0061",
+          "line": 81,
+          "source_text": "- discussion fileをsession外の正本とする。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0062",
+          "line": 81,
+          "source_text": "書込み直前にfile全体を再読込し、同じfileへの書込みはsingle writerで行う。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0063",
+          "line": 82,
+          "source_text": "- canonicalな `## 論点N:` とlegacyな `### 論点N:` を走査する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0064",
+          "line": 82,
+          "source_text": "同じ番号が複数存在すれば全書込みを停止してユーザーへ報告し、自動修復、renumber、欠番再利用を行わない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0065",
+          "line": 83,
+          "source_text": "- feedback確定後の過去iteration、却下理由、当時の判断内容を変更・削除しない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0066",
+          "line": 83,
+          "source_text": "既存h1、論点順序、legacy formatも一括変更しない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0067",
+          "line": 84,
+          "source_text": "- ユーザーへ合意を求める前に、その回の問いを初見の読者が単独で評価できるproposal、提案背景、空のfeedback見出しをdiscussion fileへ保存する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0068",
+          "line": 84,
+          "source_text": "完全状態そのものが判断対象の時だけ完全版を要求する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0069",
+          "line": 85,
+          "source_text": "- 提案を保存する前に、その提案が含むdecisionを数える。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0070",
+          "line": 85,
+          "source_text": "数え方は、ユーザーが「ここは良いがここは違う」と言える箇所がいくつあるかである。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0071",
+          "line": 85,
+          "source_text": "二つ以上あるなら、それらは独立して却下できるため、一つの提案へ入れない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0072",
+          "line": 85,
+          "source_text": "分けた結果は、child、sibling、または独立論点として`2.1`のroutingで扱う。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0073",
+          "line": 85,
+          "source_text": "`2.1`の表と`2.3.1`の入口gateは、新しいdecision候補またはfeedbackが到着したときにしか通らない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0074",
+          "line": 85,
+          "source_text": "自分で次の提案を書くときに発火する判定はこれだけである。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0075",
+          "line": 86,
+          "source_text": "- iterationを重ねた提案では、論点のタイトルが問うている範囲と、いま書いている提案の範囲を照合する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0076",
+          "line": 86,
+          "source_text": "iterationごとに小さく足していると、累積して別decisionへ届いていることに気づけない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0077",
+          "line": 86,
+          "source_text": "タイトルが「対象のどれを扱うか」を問うているのに、提案が「対象をどう分割し、どちらを先に扱うか」まで決めていれば、範囲を越えている。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0078",
+          "line": 86,
+          "source_text": "どれを扱うかへの答えは対象の特定であり、分割と順序は別のdecisionである。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0079",
+          "line": 87,
+          "source_text": "- chatではdiscussion file名、論点番号、提案番号または見出し、判断対象を特定する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0080",
+          "line": 87,
+          "source_text": "`これ`、`上記`、`大枠`のようにsessionだけで解釈する指示語で合意を求めない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0081",
+          "line": 88,
+          "source_text": "- discussion fileとchatへ出す図は、raw textのまま読める形にする。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0082",
+          "line": 88,
+          "source_text": "アスキーアートを第一選択とし、mermaidはtextでは関係を保ったまま表せない複雑さがあり、かつ読み手の環境でrenderされる場合だけ使う。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0083",
+          "line": 88,
+          "source_text": "`text`のコードブロックへmermaid記法を入れる形は使わない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0084",
+          "line": 88,
+          "source_text": "fileとしてもchatとしても図にならない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0085",
+          "line": 88,
+          "source_text": "対象はflow、状態遷移、依存関係、構成を含む図全般である。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0086",
+          "line": 89,
+          "source_text": "- 成果物へ書く前に、その記述が機密情報にあたるかを [`confidentiality.md`](../../docs/documentation_standards/confidentiality.md) の判定で確認する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0087",
+          "line": 89,
+          "source_text": "調査は網羅的に行ってよいが、成果物へ書く時点では別の判断が要る。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0088",
+          "line": 89,
+          "source_text": "判定の中身は同 file が正本であり、ここへ写さない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0089",
+          "line": 90,
+          "source_text": "- userまたはconsumerへcontrolを返す前に、前回保存後に委託scope内で生じた議論とdiscussion fileを照合する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0090",
+          "line": 90,
+          "source_text": "未収録の事象、原因、提案、feedback、訂正、合意があれば先に同期する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0091",
+          "line": 91,
+          "source_text": "- 記録漏れへ事後に気づいた場合は、最終結論だけを追記しない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0092",
+          "line": 91,
+          "source_text": "確認できる履歴から議論の変遷を再構成し、事後記録であることと確認不能な範囲を明示する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0093",
+          "line": 92,
+          "source_text": "- 事後記述は書込み順序の修復であり、decisionの生成または合意の代替ではない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0094",
+          "line": 92,
+          "source_text": "会話履歴から明示的な合意を確認できない提案は`決定`にせず、未決proposalとして保存する。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0095",
+          "line": 92,
+          "source_text": "変更済みの成果物を、合意があったことの証拠に使わない。",
+          "destination": "SKILL.md / workflow全体で守る不変条件",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0096",
+          "line": 96,
+          "source_text": "skill起動は一回だけ通る初期phaseである。",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0097",
+          "line": 96,
+          "source_text": "起動後は論点levelへ進み、一つの論点を扱っている間だけ、その配下のiteration levelへ入る。",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0098",
+          "line": 96,
+          "source_text": "iterationの判定で別decisionだと分かった場合は、skill起動へ戻らず、一段上の論点選択へ戻る。",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0099",
+          "line": 99,
+          "source_text": "flowchart TD",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0100",
+          "line": 100,
+          "source_text": "S[\"1. skillを起動する\"] --> T",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0101",
+          "line": 101,
+          "source_text": "subgraph TL[\"2. 論点を扱う\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0102",
+          "line": 102,
+          "source_text": "T[\"2.1 対象論点を選ぶ\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0103",
+          "line": 103,
+          "source_text": "T --> C[\"2.1.1 必要なら原因ownerへrouting\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0104",
+          "line": 104,
+          "source_text": "C -->|新しいdecision| N[\"2.2 新規論点を作る\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0105",
+          "line": 105,
+          "source_text": "C -->|既存論点| A",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0106",
+          "line": 106,
+          "source_text": "subgraph AL[\"2.3 選択した一つの論点を進める\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0107",
+          "line": 107,
+          "source_text": "A[\"論点stateを観測する\"] --> I[\"2.3.1 feedbackをiterationとして扱う\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0108",
+          "line": 108,
+          "source_text": "A --> D[\"2.3.2 decisionを確定する\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0109",
+          "line": 109,
+          "source_text": "A --> R[\"reparent・取下げ\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0110",
+          "line": 110,
+          "source_text": "end",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0111",
+          "line": 111,
+          "source_text": "I -->|別decision| T",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0112",
+          "line": 112,
+          "source_text": "end",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0113",
+          "line": 113,
+          "source_text": "N -->|proposalを保存| G[\"3. handoff前に未収録議論を同期\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0114",
+          "line": 114,
+          "source_text": "I -->|同じdecisionの次proposalを保存| G",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0115",
+          "line": 115,
+          "source_text": "R -->|結果を保存| G",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0116",
+          "line": 116,
+          "source_text": "D -->|decisionを保存| G",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0117",
+          "line": 117,
+          "source_text": "D -->|次論点が一意| T",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0118",
+          "line": 118,
+          "source_text": "G -->|合意待ち| W[\"turn終了\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0119",
+          "line": 119,
+          "source_text": "G -->|一decisionごとに返却| H[\"consumerが適用・全体再評価\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0120",
+          "line": 120,
+          "source_text": "H -->|即時反映| K[\"doc-enricherを一回review\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0121",
+          "line": 121,
+          "source_text": "H -->|反映待ち・execution plan| E[\"skill処理終了\"]",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0122",
+          "line": 122,
+          "source_text": "K --> E",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0123",
+          "line": 125,
+          "source_text": "図のsubgraphはscopeの包含を表す。",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0124",
+          "line": 125,
+          "source_text": "skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない。",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0125",
+          "line": 125,
+          "source_text": "consumerによる適用・全体再評価はこのskillの外側にある。",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0126",
+          "line": 125,
+          "source_text": "`skill処理終了`は一回の処理の終了であり、同じテーマが継続している間の記録ownership終了を意味しない。",
+          "destination": "SKILL.md / 実行workflow",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0127",
+          "line": 129,
+          "source_text": "ユーザーまたはconsumerがskillを明示適用し、discussion fileがまだ確定していないときに一度だけ入る。",
+          "destination": "SKILL.md / 1. skillを起動する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0128",
+          "line": 129,
+          "source_text": "起動後のfeedbackごとにこのphaseを再実行しない。",
+          "destination": "SKILL.md / 1. skillを起動する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0129",
+          "line": 133,
+          "source_text": "1. `discussion_directory`が渡されていれば使う。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0130",
+          "line": 133,
+          "source_text": "未指定なら、議論を始める前に具体的なdirectory pathをユーザーへ確認する。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0131",
+          "line": 134,
+          "source_text": "2. directoryが存在することを確認する。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0132",
+          "line": 134,
+          "source_text": "存在しなければ推測作成せず、consumerまたはユーザーへ用意・再指定を求める。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0133",
+          "line": 135,
+          "source_text": "3. `discussion_file_name`がなければ`discussion.md`を使う。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0134",
+          "line": 135,
+          "source_text": "絶対path、`../`、`/`、`\\`等のpath separatorを含む指定は拒否し、basenameを求める。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0135",
+          "line": 136,
+          "source_text": "4. fileの有無によって起動variantを選ぶ。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0136",
+          "line": 138,
+          "source_text": "| 起動variant | action |",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0137",
+          "line": 140,
+          "source_text": "| fileが存在しない | 先頭に`# 議論記録`を持つfileを新規作成する |",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0138",
+          "line": 141,
+          "source_text": "| fileが存在する | 全内容を保持して継続利用する。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0139",
+          "line": 141,
+          "source_text": "h1の追加・置換や旧formatの一括整形は行わない |",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0140",
+          "line": 143,
+          "source_text": "5. file全体を読み、現在のdiscussion目的、既存論点、status、末尾のiterationとfeedback状態、決定、再開条件、`親論点`、未決child、論点番号を把握する。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0141",
+          "line": 144,
+          "source_text": "6. 論点番号の重複がないことを確認する。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0142",
+          "line": 144,
+          "source_text": "重複していれば書込みを停止し、自動修復しない。",
+          "destination": "SKILL.md / discussion fileを解決する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0143",
+          "line": 148,
+          "source_text": "target directory、discussion file、現在のdiscussion stateを一意に解決できた場合だけ論点levelへ進む。",
+          "destination": "SKILL.md / 起動phaseの完了gate",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0144",
+          "line": 148,
+          "source_text": "file解決だけを依頼された場合は、新規論点を作らずここでworkflowを終えてよい。",
+          "destination": "SKILL.md / 起動phaseの完了gate",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0145",
+          "line": 152,
+          "source_text": "discussion fileが解決済みで、議論するdecision候補、既存論点へのfeedback、または保存済み提案への合意が到着したときに入る。",
+          "destination": "SKILL.md / 2. 論点を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0146",
+          "line": 152,
+          "source_text": "ここでは一つのleaf論点を一つのdecisionとして選び、その論点が次のユーザー判断を待てる状態または終了状態になるまで扱う。",
+          "destination": "SKILL.md / 2. 論点を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0147",
+          "line": 156,
+          "source_text": "新しいdecision候補またはfeedbackを扱うときは、次を最初に問う。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0148",
+          "line": 158,
+          "source_text": "> このdecisionの結論が変わると、現在のdiscussion目的または指定parentの決定・実装範囲が変わるか。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0149",
+          "line": 160,
+          "source_text": "- 変わる場合だけdiscussion scope内として論点選択へ進む。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0150",
+          "line": 161,
+          "source_text": "- 変わらなければactiveな論点を作らない。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0151",
+          "line": 161,
+          "source_text": "consumer内部の判断またはscope外候補としてchatで区別する。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0152",
+          "line": 162,
+          "source_text": "- 影響が不明ならactiveな決定論点を作らず、必要な事実と調査候補を示す。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0153",
+          "line": 162,
+          "source_text": "ユーザーがdiscussion scopeへ含めた場合だけ論点化する。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0154",
+          "line": 164,
+          "source_text": "`独立論点` は現在のdiscussion目的には属するが、同じfile内の他論点へ直接依存しないdecisionだけを指す。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0155",
+          "line": 164,
+          "source_text": "discussion目的と無関係な事項の受け皿にしない。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0156",
+          "line": 166,
+          "source_text": "親子関係の正本はchild entryの任意field `親論点`だけとする。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0157",
+          "line": 166,
+          "source_text": "parent側へ`子論点`fieldを保存せず、child側の参照から一覧を導出する。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0158",
+          "line": 166,
+          "source_text": "親を保存・変更する前に、次をすべて確認する。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0159",
+          "line": 168,
+          "source_text": "- 直接の親は最大一つ",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0160",
+          "line": 169,
+          "source_text": "- 親は同じdiscussion file内に存在する",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0161",
+          "line": 170,
+          "source_text": "- 自己参照ではない",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0162",
+          "line": 171,
+          "source_text": "- 親参照を辿っても循環しない",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0163",
+          "line": 173,
+          "source_text": "親番号と子番号の大小は制約しない。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0164",
+          "line": 173,
+          "source_text": "別fileの論点は親にせず、本文からfile pathと論点番号で参照する。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0165",
+          "line": 173,
+          "source_text": "parent自身にも分解内容の実質的なdecisionを残す。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0166",
+          "line": 173,
+          "source_text": "未決childがあればparentを`子論点待ち`、全childが決定済みなら`分解済み`とする。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0167",
+          "line": 173,
+          "source_text": "未決child集合が変わったときだけparent statusを同期する。",
+          "destination": "SKILL.md / 論点levelで守る契約",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0168",
+          "line": 177,
+          "source_text": "到着したeventとfileの現在stateを比較し、どの論点を扱うかを決める。",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0169",
+          "line": 177,
+          "source_text": "この判定がiterationより上位にあるため、iteration中に別decisionを検出した場合はここへ戻る。",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0170",
+          "line": 179,
+          "source_text": "| 観測した関係・state | 次に行うこと |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0171",
+          "line": 181,
+          "source_text": "| activeな既存論点と同じdecisionの原因・提案・検証を変える | その論点を選び、`2.3.1 feedbackをiterationとして扱う`へ進む |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0172",
+          "line": 182,
+          "source_text": "| 決定済みの既存論点と同じdecisionを変える | その論点を選び、`決定済み論点を再開するvariant`へ進む |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0173",
+          "line": 183,
+          "source_text": "| 既存decisionに依存する下位decision | childとして新規論点を作る |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0174",
+          "line": 184,
+          "source_text": "| 共通parentに属する別decision | siblingとして新規論点を作る |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0175",
+          "line": 185,
+          "source_text": "| 複数の既存論点を規定する上位decision | 後発parentを新規作成し、必要な論点をreparentする |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0176",
+          "line": 186,
+          "source_text": "| discussion目的に属し、他論点へ直接依存しないdecision | 独立論点として新規作成する |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0177",
+          "line": 187,
+          "source_text": "| 保存済みproposalへの合意 | 対象論点を選び、decisionを確定する |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0178",
+          "line": 188,
+          "source_text": "| 作成済み論点がdiscussion scope外と判明した | 対象論点を選び、取下げる |",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0179",
+          "line": 190,
+          "source_text": "表で対象論点を決めた後、`2.2`または`2.3`へ進む前に必ず`2.1.1`を通る。",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0180",
+          "line": 190,
+          "source_text": "`2.1.1`で原因を分類するのは認識齟齬または修正要求を扱う場合だけだが、**該当するかどうかの判定自体は全経路で行う**。",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0181",
+          "line": 190,
+          "source_text": "表の「次に行うこと」列が指す遷移先は、この判定を終えた後の行き先である。",
+          "destination": "SKILL.md / 2.1 対象論点を選ぶ",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0182",
+          "line": 194,
+          "source_text": "選んだdecisionが認識齟齬または修正要求を扱う場合は、具体案を作る前に原因を次のいずれかへ分類する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0183",
+          "line": 194,
+          "source_text": "この分類は、具体ケースの症状だけを直して同じ齟齬を再発させないために行う。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0184",
+          "line": 196,
+          "source_text": "認識齟齬に該当するかは次で判定する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0185",
+          "line": 198,
+          "source_text": "> このfeedbackは、提案の選好を変えたのか。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0186",
+          "line": 198,
+          "source_text": "それとも提案が依拠していた前提知識の誤りを正したのか。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0187",
+          "line": 200,
+          "source_text": "後者なら認識齟齬である。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0188",
+          "line": 200,
+          "source_text": "assistantが「より良い案へ差し替えた」と感じている時ほど、実際には前提が誤っていた場合がある。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0189",
+          "line": 200,
+          "source_text": "差し替えた提案の内容ではなく、**差し替える理由になった知識がどこから来たか**で判定する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0190",
+          "line": 200,
+          "source_text": "その知識をassistantが持っていなかったなら、成果物固有ではなくrepository知識またはskillの不足である。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0191",
+          "line": 202,
+          "source_text": "| 原因owner | 判定 | discussionで先に合意するもの |",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0192",
+          "line": 204,
+          "source_text": "| 成果物固有 | 共有知識とprocessは足りており、今回の成果物だけが合意内容から外れている | 具体ケースの修正 |",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0193",
+          "line": 205,
+          "source_text": "| repository知識 | codeだけでは分からない永続的な設計意図、制約、探索導線がREADMEまたは既存docsに不足している | `doc-enricher`を提案modeで起動し、具体ケースを失敗例として一般化したdocs修正 |",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0194",
+          "line": 206,
+          "source_text": "| skill | repositoryを問わず再発する思考、設計、discussion、実行processの問いまたは順序がskillに不足している | 具体ケースを必要性の実例とし、別domainでも機能するか検証した対応skillの修正 |",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0195",
+          "line": 208,
+          "source_text": "repository知識またはskillの不足では、具体ケース固有の修正を先に合意しない。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0196",
+          "line": 208,
+          "source_text": "原因ownerの一般則を主decisionとして合意した後、元の具体ケースをその適用例として必ず再評価する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0197",
+          "line": 208,
+          "source_text": "一般則だけで変更が一意に決まらなければ、残る判断を具体ケース側のdecisionとしてdiscussionへ保存する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0198",
+          "line": 210,
+          "source_text": "ここでいう一般則は、原因ownerのdocsまたはskillへ実際に書き込む修正内容そのものを指す。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0199",
+          "line": 210,
+          "source_text": "原因の分類結果、抽象的な規則文、再発防止の方針だけを`提案N`へ置かない。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0200",
+          "line": 210,
+          "source_text": "どのfileのどの位置へ何を書き、何を削るかを読者が判断できる修正案として提示する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0201",
+          "line": 210,
+          "source_text": "原因の分類と追跡は、その修正案がなぜ必要かを示す`提案背景`が所有する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0202",
+          "line": 212,
+          "source_text": "一般則を先に合意することと、対象fileへ即時適用することは分ける。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0203",
+          "line": 212,
+          "source_text": "適用先、適用方法、適用時期はconsumerが所有する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0204",
+          "line": 212,
+          "source_text": "consumerは他の未決事項との依存関係を判定し、独立していれば即時反映し、依存があれば自身のworkflowで反映待ちとして扱う。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0205",
+          "line": 212,
+          "source_text": "稼働中のskillまたはdocs体系自身の不備は通常、個別論点の結論から独立して存在するため、依存関係gateを通した結果として即時反映になることを基本的な期待とする。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0206",
+          "line": 214,
+          "source_text": "consumerがdecisionを対象成果物へ即時反映した場合、このskillは同じテーマの次の論点を選ぶ前に、そのoriginating decisionについて`doc-enricher`を提案modeで一度だけ起動する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0207",
+          "line": 214,
+          "source_text": "repository知識不足の分類時に同じoriginから起動済みなら、それを一回として数える。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0208",
+          "line": 214,
+          "source_text": "`doc-enricher`が提案・適用したdocs変更から同じoriginのreviewを再帰起動しない。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0209",
+          "line": 214,
+          "source_text": "候補があれば`doc-enricher`の承認gateに従って同じdiscussionへ提案・合意・結果を保存し、候補がなければreview済みであることだけを適用結果として保存する。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0210",
+          "line": 216,
+          "source_text": "steering終了時などconsumerが持つtheme横断の`doc-enricher` reviewは、このdecision単位のreviewとは別の最終safety netである。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0211",
+          "line": 216,
+          "source_text": "decision単位でreview済みの候補を重複提案しない。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0212",
+          "line": 216,
+          "source_text": "この原因routingとdecision単位の起動条件をconsumer skillまたは`doc-enricher`へ複製しない。",
+          "destination": "SKILL.md / 2.1.1 認識齟齬を原因ownerへ戻す",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0213",
+          "line": 220,
+          "source_text": "`2.1`で新しいdecisionと判定した場合だけ入る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0214",
+          "line": 220,
+          "source_text": "新規entryには`templates/discussion_entry.md`を使い、template全文を`SKILL.md`へ複製しない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0215",
+          "line": 222,
+          "source_text": "1. fileを再読込し、canonical h2とlegacy h3の最大番号を再計算する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0216",
+          "line": 222,
+          "source_text": "新しい番号は最大値+1とし、既存論点がなければ`論点1`とする。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0217",
+          "line": 223,
+          "source_text": "2. `templates/discussion_entry.md`の新規entry骨子を使い、`イテレーション0`を作る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0218",
+          "line": 224,
+          "source_text": "3. `提案0`には、その回の問いを判断できる内容を書く。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0219",
+          "line": 224,
+          "source_text": "完全状態そのものが判断対象の時だけ完全版を示す。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0220",
+          "line": 224,
+          "source_text": "`templates/proposal-sections/README.md`を確認し、判断対象に合うpatternがあれば内容に合わせて使い、必要なら組み合わせる。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0221",
+          "line": 224,
+          "source_text": "該当patternがなければ内容固有の構成を使う。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0222",
+          "line": 225,
+          "source_text": "4. `提案背景`には、最初のuser input、finding、既存状態を必要な範囲で示し、提案0が満たす必要のある条件と、提案0のどの内容がそれを満たすかを書く。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0223",
+          "line": 225,
+          "source_text": "原因追跡、discussion scopeへ属する理由、別decisionとして分けた理由等は、proposalを評価するために必要な時だけ内容固有の見出しや段落で示す。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0224",
+          "line": 226,
+          "source_text": "5. `提案0へのフィードバック`見出しを置き、可視本文は空にする。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0225",
+          "line": 226,
+          "source_text": "`未回答`等を表示せず、feedbackを推測しない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0226",
+          "line": 227,
+          "source_text": "6. childまたは後発parentを作る場合は、論点levelの親子契約を検証する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0227",
+          "line": 228,
+          "source_text": "7. canonicalな`## 論点N: タイトル`としてfile末尾へ追加する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0228",
+          "line": 228,
+          "source_text": "childを追加した場合だけparent statusを同期する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0229",
+          "line": 229,
+          "source_text": "8. 保存後にdiscussion file名、論点番号、提案番号または見出し、判断対象をchatで具体的に示し、合意を求める。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0230",
+          "line": 231,
+          "source_text": "review起点の最上位論点では、ユーザーの言葉を提案0の背景へ変更せず保存する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0231",
+          "line": 231,
+          "source_text": "独立したfeedback ledgerや`FB-N`を作らない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0232",
+          "line": 231,
+          "source_text": "一つのfeedbackから複数decisionが生じる場合は、原文と分解自体の実質的なdecisionを持つparentを作り、leafごとにchildへ分ける。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0233",
+          "line": 231,
+          "source_text": "複数feedbackが一つのdecisionへ収束する場合は、一つの論点内に複数の原文を保持できる。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0234",
+          "line": 233,
+          "source_text": "新しい一decisionについて、判断可能な提案0、提案背景、空のfeedback見出しがactiveな論点として保存され、具体的な合意確認をchatへ返した時点で、このvariantを抜ける。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0235",
+          "line": 237,
+          "source_text": "`2.1`で既存論点を選んだ後に入る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0236",
+          "line": 237,
+          "source_text": "論点の現在stateと到着したeventに応じて、このscope内の処理を選ぶ。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0237",
+          "line": 241,
+          "source_text": "`2.1`でactiveな既存論点を選び、その論点へのfeedbackを処理するときだけ入る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0238",
+          "line": 241,
+          "source_text": "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0239",
+          "line": 241,
+          "source_text": "ここでいう分類は所属論点の判定であり、原因ownerの分類（`2.1.1`）とは別のものである。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0240",
+          "line": 241,
+          "source_text": "両方を通る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0241",
+          "line": 245,
+          "source_text": "| feedbackの判定 | 遷移 |",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0242",
+          "line": 247,
+          "source_text": "| 選択中のactive論点と同じdecisionの原因・提案・検証を変える | 同じ論点へiterationを追記する |",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0243",
+          "line": 248,
+          "source_text": "| child・sibling・後発parent・独立論点にあたる別decision | iterationを追加せず、一段上の`2.1 対象論点を選ぶ`へ戻る |",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0244",
+          "line": 249,
+          "source_text": "| 選択中の論点が決定済みで、同じdecisionを変更する | `決定済み論点を再開するvariant`へ進む |",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0245",
+          "line": 250,
+          "source_text": "| 作成済み論点自体がdiscussion scope外と判明した | iterationを追加せず、`scope外の既存論点を取り下げる`へ進む |",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0246",
+          "line": 251,
+          "source_text": "| discussion目的へ影響しない別事項 | activeな論点を作らず、chatでscope外と示す |",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0247",
+          "line": 253,
+          "source_text": "このgateはiterationの所属先を決める。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0248",
+          "line": 253,
+          "source_text": "skill起動済みという前提やtarget fileの解決を毎回分岐させない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0249",
+          "line": 257,
+          "source_text": "activeな論点に`再開条件`があり、その条件を満たすevent、evidence、actionを受けた場合は、その結果を新しいiterationの`提案背景`へ接続し、現在stateである`再開条件`を外す。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0250",
+          "line": 257,
+          "source_text": "条件が未成立なら、再開したようにiterationを進めない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0251",
+          "line": 259,
+          "source_text": "1. feedbackを受ける直前の末尾iterationに、対象proposalと同じ番号の`提案Nへのフィードバック`見出しがあり、本文が空であることを確認する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0252",
+          "line": 259,
+          "source_text": "空でなければ同じ評価結果を上書きせず、再開または別decisionへのroutingを判定する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0253",
+          "line": 260,
+          "source_text": "2. そのfeedback欄へ、固定候補ではなくその回の結果が分かる短い`結果`、必要な原文、原文だけでは分からない評価内容を保存する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0254",
+          "line": 260,
+          "source_text": "proposalと提案背景は変更しない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0255",
+          "line": 261,
+          "source_text": "3. feedbackがproposalを受諾した場合は、新しいiterationを作らず`2.3.2 合意したdecisionを確定する`へ進む。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0256",
+          "line": 262,
+          "source_text": "4. 同じdecisionの修正が必要なら、番号を一つ増やしたiterationを追加し、`提案N`へ今回の問いを判断できる修正案を書く。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0257",
+          "line": 262,
+          "source_text": "既決内容を完全性のためだけに再掲せず、完全状態そのものが判断対象の時だけ完全版を示す。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0258",
+          "line": 263,
+          "source_text": "5. 新しい`提案背景`へ、直前のfeedbackと今回の調査から今回満たす必要が生じた条件、その条件を導いたfindingとその整理、新proposalのどの内容が条件を満たすかを書く。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0259",
+          "line": 263,
+          "source_text": "feedback原文と評価結果は直前iterationが所有するため複製しない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0260",
+          "line": 263,
+          "source_text": "原因診断または修正scopeが変わった時は、前の診断の何を維持、置換、拡張したかを読み分けられるようにする。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0261",
+          "line": 264,
+          "source_text": "6. 新proposalと背景に続けて、可視本文が空の`提案Nへのフィードバック`見出しを置く。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0262",
+          "line": 265,
+          "source_text": "7. fileへ保存してから、discussion file名、論点番号、提案番号または見出し、判断対象をchatで具体的に示し、合意を求める。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0263",
+          "line": 267,
+          "source_text": "feedback確定後の過去iteration、却下理由、誤っていた認識は変更・削除せず、`ここまでの議論`等で再要約しない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0264",
+          "line": 267,
+          "source_text": "複数decisionを一つのiterationへ混ぜない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0265",
+          "line": 267,
+          "source_text": "同じdecision scopeの判断可能な修正案、提案背景、空のfeedback見出しが保存された時点で、このprocedureを抜ける。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0266",
+          "line": 271,
+          "source_text": "1. feedbackが以前のdecisionと同じscopeを変更することを確認する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0267",
+          "line": 271,
+          "source_text": "別decisionならiterationを追加せず`2.1 対象論点を選ぶ`へ戻る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0268",
+          "line": 272,
+          "source_text": "2. 以前の決定を現在結論として表示する末尾の`決定`を外し、statusをactiveな状態へ戻す。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0269",
+          "line": 272,
+          "source_text": "旧決定に至った過去iterationは変更しない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0270",
+          "line": 273,
+          "source_text": "3. 新しいiterationの`提案背景`へ、再開させたfeedbackまたはevidence、無効になった判断、置換に必要な条件を保存し、`提案N`へ今回判断する案を書く。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0271",
+          "line": 274,
+          "source_text": "4. 新proposalの末尾へ空のfeedback見出しを置いてから、具体的に合意を求める。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0272",
+          "line": 276,
+          "source_text": "過去iterationを上書きして旧決定へ至った判断を失わせない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0273",
+          "line": 276,
+          "source_text": "再開用iterationとfeedback用iterationを同じfeedbackから二重に作らない。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0274",
+          "line": 276,
+          "source_text": "旧判断を履歴に残したまま論点がactiveな合意待ちへ戻った時点で、このvariantを抜ける。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0275",
+          "line": 280,
+          "source_text": "ユーザーがfileへ保存済みのproposalへ合意した場合だけ行う。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0276",
+          "line": 282,
+          "source_text": "1. 合意対象がdiscussion file、論点、提案まで一意に特定できることを確認する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0277",
+          "line": 282,
+          "source_text": "特定できなければ更新せず、対象の明示を求める。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0278",
+          "line": 283,
+          "source_text": "2. 同じturnで、対象proposalのfeedback欄が空なら合意結果を保存する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0279",
+          "line": 283,
+          "source_text": "直前のprocedureですでに同じ合意結果を保存済みなら重複記録せず、対象論点の`ステータス`と末尾の`決定`を局所更新する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0280",
+          "line": 283,
+          "source_text": "`決定`は過去iterationの部分判断や任意の`仮決定`を機械的に加算せず、現在有効な最終結論を自己完結して書く。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0281",
+          "line": 283,
+          "source_text": "`仮決定`があれば現在stateから外す。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0282",
+          "line": 284,
+          "source_text": "3. 未決child集合が変わる場合だけparent statusを導出する。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0283",
+          "line": 285,
+          "source_text": "4. 更新済みfileと決定をchatで示し、決定後の成果物更新、phase遷移、実装開始等の具体的なhandoffをconsumerへ返す。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0284",
+          "line": 286,
+          "source_text": "5. 次に扱う論点が一意に定まるなら`2.1 対象論点を選ぶ`へ戻り、その論点の提案を作る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0285",
+          "line": 286,
+          "source_text": "定まらなければそのまま進む。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0286",
+          "line": 286,
+          "source_text": "いずれの場合も`3. handoff前に委託scopeの記録を同期する`を最後に通る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0287",
+          "line": 286,
+          "source_text": "consumerがdecisionを適用して全体状態を再評価する間も、同じテーマの議論記録はこのskillのownershipに残る。",
+          "destination": "iteration.md / 次の提示を準備する・既存提示への応答を扱う",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0288",
+          "line": 288,
+          "source_text": "固定の`ネクストアクション`fieldはentryへ置かない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0289",
+          "line": 288,
+          "source_text": "通常のfeedback待ち、consumerによる反映、完了を全entryへ反復しない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0290",
+          "line": 288,
+          "source_text": "順序や委譲先そのものがdecisionなら`決定`へ書き、同じ未決decisionが外部event、user action、後続phase等を待って止まる時は、必要な場合だけtemplateの`再開条件`を使う。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0291",
+          "line": 288,
+          "source_text": "このskillが決定後の適用を自動実行しない点と、chatでconsumerへ具体的にhandoffする契約は維持する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0292",
+          "line": 290,
+          "source_text": "議論中に現在成立している内容をまとめる価値がある時だけ、templateの任意`仮決定`を現在stateとして使う。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0293",
+          "line": 290,
+          "source_text": "方向転換で無効になった内容は外し、履歴は過去iterationに残す。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0294",
+          "line": 290,
+          "source_text": "判断の足跡が役立つ場合だけ典拠iterationを添える。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0295",
+          "line": 292,
+          "source_text": "別topicのdecisionが、先行topicのdecision boundaryを変えずに識別子、path、語彙等の具体表現だけを置換した場合は、先行topicの過去iterationを変更・追加せず、先行topicの`決定`だけを現在有効な表現と置換元topicの典拠へ同期する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0296",
+          "line": 292,
+          "source_text": "置換理由と影響範囲は後続topicが所有する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0297",
+          "line": 292,
+          "source_text": "先行decision自体が変わる場合はこの同期で済ませず、同一decisionの再開または別decisionへのroutingを行う。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0298",
+          "line": 296,
+          "source_text": "`2.1`で新しい上位decisionまたは親変更が必要だと判定した場合だけ行う。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0299",
+          "line": 298,
+          "source_text": "1. 新しいparentがまだ存在しなければ、`2.2 新規論点を作るvariant`で実質的な分解decisionを持つ後発parentを先に作る。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0300",
+          "line": 299,
+          "source_text": "2. 新parentが同じdiscussion file内に存在し、一親、自己参照禁止、循環禁止を満たすことを検証する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0301",
+          "line": 299,
+          "source_text": "失敗した場合は参照を変更しない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0302",
+          "line": 300,
+          "source_text": "3. childの新しいiterationをtemplate骨子で追加し、`提案N`へ新parentとの関係、`提案背景`へ旧parentと変更理由・典拠decisionを保存する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0303",
+          "line": 300,
+          "source_text": "reparentが別論点の決定を反映する処理なら、feedback欄へその結果と典拠を保存して空の合意待ちにしない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0304",
+          "line": 301,
+          "source_text": "4. child側の`親論点`だけを更新する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0305",
+          "line": 301,
+          "source_text": "parent側へ`子論点`fieldを追加しない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0306",
+          "line": 302,
+          "source_text": "5. 旧parentと新parentの未決child集合が変わった場合だけ、それぞれのstatusを同期する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0307",
+          "line": 306,
+          "source_text": "作成済み論点が現在のdiscussion目的または指定parentの決定・実装範囲へ影響しないと判明した場合だけ行う。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0308",
+          "line": 306,
+          "source_text": "作成済み論点がscope外と判明した場合は履歴を削除しない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0309",
+          "line": 308,
+          "source_text": "1. scope外であることを確定したeventまたはevidenceと理由を、評価対象proposalのfeedback欄が空ならその欄へ保存する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0310",
+          "line": 308,
+          "source_text": "すでにfeedback確定済みなら上書きせず、template骨子の新しいiterationへ取下げ判断とその背景・結果を保存する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0311",
+          "line": 309,
+          "source_text": "2. 現在の`決定`を、取下げと終了が分かる内容へ局所更新する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0312",
+          "line": 310,
+          "source_text": "3. 未決child集合が変わる場合だけparent statusを同期し、chatで取下げ理由を具体的に示す。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0313",
+          "line": 314,
+          "source_text": "委託されたテーマ内の議論がdiscussion fileへ未収録のままchat上でdecisionまで到達した場合に使う。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0314",
+          "line": 314,
+          "source_text": "成果物へ反映済みかどうかは、このvariantへ入る条件を変えない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0315",
+          "line": 316,
+          "source_text": "このvariantへ入る前に、対象となる具体的な提案と、それに対するユーザーの明示的な合意をchat履歴から特定する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0316",
+          "line": 316,
+          "source_text": "`続けて`、無反応、異議がなかったこと、抽象的な先行decision、assistantだけの推論を、未提示の具体案への合意へ変換しない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0317",
+          "line": 316,
+          "source_text": "明示的な合意を特定できない場合はこのvariantを使わず、確認できた事実、assistantの未合意提案、先行して行ったactionを分けて未決の論点またはiterationへ保存し、合意を求める。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0318",
+          "line": 318,
+          "source_text": "1. 未収録の発言とfileの現在stateを比較し、`2.1 対象論点を選ぶ`の既存routingで、既存論点のiterationか新規論点かを決める。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0319",
+          "line": 319,
+          "source_text": "2. 起点となった原文、当初の判断材料とproposal、そのproposalが満たす条件、user feedback、誤っていた認識、修正後のproposalを、確認できる時系列どおりに番号付きiterationで保存する。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0320",
+          "line": 319,
+          "source_text": "各feedbackは評価したproposalと同じiterationへ置く。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0321",
+          "line": 320,
+          "source_text": "3. chat上で成立した合意を`決定`へ保存してstatusを確定し、そのdecisionから生じる処理はchatでconsumerへhandoffする。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0322",
+          "line": 321,
+          "source_text": "4. 同じdecisionへの合意を取り直さない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0323",
+          "line": 321,
+          "source_text": "記録のために新しい判断を加える必要が生じた場合だけ、その追加判断を末尾の未決proposalとして保存して確認を求める。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0324",
+          "line": 322,
+          "source_text": "5. 結論だけの要約、変更file一覧、反省だけを議論の記録として扱わない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0325",
+          "line": 324,
+          "source_text": "このvariantは、合意前に判断可能なproposalを保存する通常経路の代替ではない。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0326",
+          "line": 324,
+          "source_text": "通常経路で記録を先に行うことを基本とし、chat上で合意が先に成立した場合または記録漏れへ後から気づいた場合の回復に使う。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0327",
+          "line": 328,
+          "source_text": "次のいずれかが成立したら、選択中の論点を扱う処理を抜ける。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0328",
+          "line": 330,
+          "source_text": "- 判断可能な末尾proposal、提案背景、空のfeedback見出しを保存し、具体的な合意確認をchatへ返した。",
+          "destination": "SKILL.md / 選択した論点を進める",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0329",
+          "line": 331,
+          "source_text": "- 合意されたfeedback結果、decision、statusを同じturnで保存し、具体的なhandoffをchatへ返した。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0330",
+          "line": 332,
+          "source_text": "- 履歴を保持したままreparentまたは取下げの結果を保存した。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0331",
+          "line": 333,
+          "source_text": "- feedbackが別decisionに属すると判定し、iterationを作らず`2.1 対象論点を選ぶ`へ戻した。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0332",
+          "line": 335,
+          "source_text": "feedbackが別decisionに属すると判定された場合だけ、decision未確定のまま`2.1`へ戻る。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0333",
+          "line": 335,
+          "source_text": "いずれかの条件を満たしても、userまたはconsumerへ返す前に`3. handoff前に委託scopeの記録を同期する`を通る。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0334",
+          "line": 336,
+          "source_text": "一つの論点のdecisionを確定した後、残る未決事項のうち次に扱う論点が一意に定まるなら、`2.1 対象論点を選ぶ`へ戻ってその論点の提案を作り、同じturnで返す。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0335",
+          "line": 336,
+          "source_text": "次に扱う論点を確認のためだけにユーザーへ問わない。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0336",
+          "line": 338,
+          "source_text": "次に扱う論点をユーザーへ確認するのは、候補が複数あってどれが上位か決められない場合、またはdiscussion scope内かを判断できない場合だけとする。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0337",
+          "line": 340,
+          "source_text": "次の論点へ進む場合も、一度に確定させるdecisionは一つのままとする。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0338",
+          "line": 340,
+          "source_text": "新しい論点では判断可能な提案と空のfeedback見出しを保存して合意を待ち、同じturnで続けて別のdecisionを確定しない。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0339",
+          "line": 344,
+          "source_text": "このphaseは、提案への合意確認、decision、reparent、取下げ、scope外報告、consumerへのhandoffのいずれを返す場合にも最後に通る。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0340",
+          "line": 344,
+          "source_text": "目的は新しいdecisionを無理に作ることではなく、委託されたテーマで実際に起きた議論をdiscussion fileから落とさないことである。",
+          "destination": "record-recovery.md / chat上で成立した合意を記録する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0341",
+          "line": 348,
+          "source_text": "1. discussion fileを再読込する。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0342",
+          "line": 349,
+          "source_text": "2. 前回のfile保存後に委託scope内で生じたuser発言とassistantの提案を確認する。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0343",
+          "line": 350,
+          "source_text": "3. fileへ未収録の事象、原因、提案、反論、訂正、合意があるかを確認する。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0344",
+          "line": 351,
+          "source_text": "4. 未収録内容が現在扱ったdecisionと同じなら、必要な内容をその論点へ保存する。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0345",
+          "line": 351,
+          "source_text": "別decisionなら、現在のdecisionへ混ぜず`2.1`のroutingで別論点へ保存する。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0346",
+          "line": 352,
+          "source_text": "5. chat上で合意済みの未収録discussionには`2.3.5`を使い、再合意せずdecisionまで保存する。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0347",
+          "line": 353,
+          "source_text": "6. 未収録がないことを確認してからhandoffする。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0348",
+          "line": 355,
+          "source_text": "成果物変更をhandoffする場合は、その変更の理由になった議論が、原文からdecisionまで同じdiscussion fileで追えることを確認する。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0349",
+          "line": 355,
+          "source_text": "保存済みdecisionとの対応が一対一で、新しいscope、routing、方針、成果物、実行単位を一切決めない適用だけは、新しい論点にしない。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0350",
+          "line": 355,
+          "source_text": "対応付けに具体的な判断が一つでも必要なら「既存decisionの機械的適用」と呼んでdiscussionを省略せず、proposalとして提示・保存して合意を得る。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0351",
+          "line": 355,
+          "source_text": "議論を伴わない誤字・format・linkの修正は新しい論点にしない。",
+          "destination": "SKILL.md / 返却前に記録を同期する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0352",
+          "line": 359,
+          "source_text": "成果物変更または別の処理へ進んだ後に未収録の議論へ気づいた場合は、通常の次論点を進める前に次を行う。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0353",
+          "line": 361,
+          "source_text": "1. chat履歴、変更前後の成果物、discussion file、実際の変更差分を照合する。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0354",
+          "line": 362,
+          "source_text": "2. 起点となった発言、当初の判断材料とproposal、提案背景、feedback、誤っていた認識、修正後proposal、合意したdecision、すでに反映した成果物を番号付きiterationで時系列に再構成する。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0355",
+          "line": 363,
+          "source_text": "3. 既存decisionの修正ならiteration、別decisionなら新規論点として保存する。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0356",
+          "line": 364,
+          "source_text": "4. `事後記録`であること、記録漏れへ気づいた契機、すでに反映済みの成果物を明記する。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0357",
+          "line": 364,
+          "source_text": "あたかも成果物反映前に保存していたように履歴を偽装しない。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0358",
+          "line": 365,
+          "source_text": "5. ユーザー発言、assistantの提案、観測事実、合意済みdecision、未合意の推論を区別する。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0359",
+          "line": 365,
+          "source_text": "成果物の存在や変更結果から、提示していない提案または得ていない合意を逆算しない。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0360",
+          "line": 366,
+          "source_text": "6. chat履歴から対象となる具体案への明示的な合意を特定できない場合は、`合意なし`または`確認不能`と明記してstatusを未決にする。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0361",
+          "line": 366,
+          "source_text": "先行actionがあればprocess逸脱として記録し、事後記述によって正当化しない。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0362",
+          "line": 367,
+          "source_text": "7. chat履歴や変更前状態が失われている場合は、確認不能な範囲を明記し、もっともらしい内容で補完しない。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0363",
+          "line": 368,
+          "source_text": "8. 最終結論のsnapshot、変更file一覧、現在のassistantによる反省だけでは完了扱いにしない。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0364",
+          "line": 368,
+          "source_text": "実際に行われた起点、当初の判断材料とproposal、提案背景、feedback、修正過程、合意、事後状態が追えることを確認する。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0365",
+          "line": 368,
+          "source_text": "実際には存在しない段階は創作せず、存在しなかったこと自体を記録する。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0366",
+          "line": 372,
+          "source_text": "次をすべて満たした場合だけuserまたはconsumerへcontrolを返す。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0367",
+          "line": 374,
+          "source_text": "- 委託scope内で前回保存後に生じた記録価値のある議論がdiscussion fileへ同期されている。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0368",
+          "line": 375,
+          "source_text": "- 合意済みdiscussionは再合意なしでfeedback結果、status、`決定`まで保存され、必要な後続処理がchatでconsumerへhandoffされている。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0369",
+          "line": 376,
+          "source_text": "- `決定`とした各内容について、対象となる具体案と明示的な合意をchat履歴から追跡できる。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0370",
+          "line": 376,
+          "source_text": "追跡できない内容は未決として分離されている。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0371",
+          "line": 377,
+          "source_text": "- 事後reconstructionを行った場合は、議論の変遷、事後記録であること、反映済み成果物、確認不能な範囲が記録されている。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0372",
+          "line": 378,
+          "source_text": "- 議論の結論だけでなく、そこへ至る原文、提案、feedbackをfileだけから追える。",
+          "destination": "record-recovery.md / 後から発見した記録漏れを再構成する",
+          "classification": "ADAPT",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/agents/openai.yaml",
+      "lines": 6,
+      "structure": [
+        {
+          "from": 1,
+          "to": 6
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0373",
+          "line": 1,
+          "source_text": "interface:",
+          "destination": "agents/openai.yaml",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0374",
+          "line": 2,
+          "source_text": "display_name: \"Facilitate Discussion\"",
+          "destination": "agents/openai.yaml",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0375",
+          "line": 3,
+          "source_text": "short_description: \"議論を構造化し、指定したMarkdownへ継続的に記録\"",
+          "destination": "agents/openai.yaml",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0376",
+          "line": 4,
+          "source_text": "default_prompt: \"$facilitate-discussion を使って、議論を構造化し指定directoryのMarkdownへ継続記録してください。",
+          "destination": "agents/openai.yaml",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0377",
+          "line": 4,
+          "source_text": "\"",
+          "destination": "agents/openai.yaml",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0378",
+          "line": 5,
+          "source_text": "policy:",
+          "destination": "agents/openai.yaml",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0379",
+          "line": 6,
+          "source_text": "allow_implicit_invocation: false",
+          "destination": "agents/openai.yaml",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/README.md",
+      "lines": 39,
+      "structure": [
+        {
+          "from": 1,
+          "to": 4
+        },
+        {
+          "from": 5,
+          "to": 11
+        },
+        {
+          "from": 12,
+          "to": 31
+        },
+        {
+          "from": 32,
+          "to": 39
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0380",
+          "line": 3,
+          "source_text": "このdirectoryは、discussion entryの`#### 提案N`本文に使える表示patternを置く。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0381",
+          "line": 3,
+          "source_text": "提案内容や判断を生成する正本ではなく、その回の問いへ答える提案を読者へ示す時の開始形である。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0382",
+          "line": 7,
+          "source_text": "1. feedback、調査結果、既存状態から、今回の問いと、それを判断するために提示すべき内容を先に考える。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0383",
+          "line": 8,
+          "source_text": "2. このREADMEから、判断対象を読み手が理解する助けになるpatternを確認する。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0384",
+          "line": 8,
+          "source_text": "patternは一つだけ選ぶ分類ではなく、必要なら複数を組み合わせる。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0385",
+          "line": 9,
+          "source_text": "3. 複数案から選んでもらう場合は、各案の重さに応じて`compact-options.md`または`detailed-options.md`をwrapperとして使う。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0386",
+          "line": 9,
+          "source_text": "各案の内部には他のpatternを使ってよい。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0387",
+          "line": 10,
+          "source_text": "4. 対応fileを読み、提案内容に合わせて構成を変更して使う。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0388",
+          "line": 10,
+          "source_text": "該当patternがなければ、内容に適した段落、固有見出し、表、tree、diff、図等で直接書く。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0389",
+          "line": 14,
+          "source_text": "各patternは排他的な種別ではない。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0390",
+          "line": 14,
+          "source_text": "認識合わせと選択肢提示も排他的ではなく、選択肢の一案がそれ自体で認識合わせになる。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0391",
+          "line": 16,
+          "source_text": "| pattern | 助ける判断 | 組み合わせ方 |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0392",
+          "line": 18,
+          "source_text": "| `complete-state.md` | 判断に必要な完成後の全体を直接見る | 内部にflow、表、tree等を含められる。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0393",
+          "line": 18,
+          "source_text": "重い選択肢の各案にも使える |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0394",
+          "line": 19,
+          "source_text": "| `compact-options.md` | 選択肢行とnested listで比較できる複数案から選ぶ | 各案が独立した図、完全状態、複数段落を必要とするなら`detailed-options.md`へ替える |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0395",
+          "line": 20,
+          "source_text": "| `detailed-options.md` | 独立した本文が必要な重い複数案から選ぶ | 各案の内部でcomplete stateや任意の内容patternを使える |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0396",
+          "line": 21,
+          "source_text": "| `process-flow.md` | 順序、分岐、戻り先、循環を持つ思考手順やworkflowを合わせる | 単独でも、complete stateや選択肢の内部でも使える |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0397",
+          "line": 22,
+          "source_text": "| `element-correspondence.md` | 少数の要素を短い共通観点で照合する | 単独でも、complete stateや選択肢の内部でも使える |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0398",
+          "line": 23,
+          "source_text": "| `structure-tree.md` | 見出し、file、directory等の包含・所有・配置を合わせる | 単独でも、complete stateや選択肢の内部でも使える |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0399",
+          "line": 24,
+          "source_text": "| `document-heading-outline.md` | 新規documentの見出し階層と、各見出しが扱う内容へ合意してからdraftを書く | file配置も判断する時は`structure-tree.md`を併用し、合意後は作成された実fileをreviewする |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0400",
+          "line": 25,
+          "source_text": "| `existing-file-local-diff.md` | 既存fileの局所修正について、何を残し、変え、削るかへ合意する | 全追加・削除行と必要contextが読みやすい一つのunified diffに収まる時に使う |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0401",
+          "line": 26,
+          "source_text": "| `file-change-set.md` | 複数file、file間対応、または不可分な複数hunkについて、変更対象と対応、許可・維持・削除・scope外、完了状態を閉じる | 対象内部にはtree、diff、before / after、outline、flow等を使い分ける。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0402",
+          "line": 26,
+          "source_text": "独立して採否を変えられる変更は一つへまとめない |",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0403",
+          "line": 28,
+          "source_text": "たとえば、思考手順そのものを確認する提案では`process-flow.md`だけを使える。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0404",
+          "line": 28,
+          "source_text": "二つのworkflowを比較する提案では、`detailed-options.md`の各案にprocess flowを置ける。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0405",
+          "line": 28,
+          "source_text": "二つの完成後document構造を比較する提案では、各案をcomplete stateとして示し、その内部にstructure treeを置ける。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0406",
+          "line": 28,
+          "source_text": "新規documentを一案として作る場合は、`document-heading-outline.md`で見出し構造へ合意し、配置も判断するなら`structure-tree.md`を組み合わせる。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0407",
+          "line": 28,
+          "source_text": "既存fileの局所修正なら、`existing-file-local-diff.md`で変更対象の全行だけを合意対象にできる。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0408",
+          "line": 28,
+          "source_text": "複数fileが一つの変更decisionを作る場合は、`file-change-set.md`で外側の変更集合を閉じ、各file内部にoutline、diff等を選ぶ。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0409",
+          "line": 30,
+          "source_text": "認識定義も認識合わせの対象になる。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0410",
+          "line": 30,
+          "source_text": "ただし、定義の示し方は散文、対比、例、境界条件等へ分かれる。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0411",
+          "line": 30,
+          "source_text": "再利用できる開始形が具体caseから得られるまでは、分類を埋めるためのpatternを作らず自由構成にする。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0412",
+          "line": 34,
+          "source_text": "- patternはproposalの表示を助ける雛形であり、診断、選択肢、結論を代わりに考えない。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0413",
+          "line": 35,
+          "source_text": "- `提案N`はその回の問いを判断できる案にする。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0414",
+          "line": 35,
+          "source_text": "既決内容は今回の判断に必要な範囲だけ示し、完全性のためだけに再掲しない。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0415",
+          "line": 36,
+          "source_text": "- 完全状態そのものが判断対象なら`complete-state.md`を使い、必要な全体像を省略しない。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0416",
+          "line": 36,
+          "source_text": "局所的な問いまで常に完全版へ広げない。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0417",
+          "line": 37,
+          "source_text": "- placeholderやpattern名を機械的に本文へ残さない。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0418",
+          "line": 38,
+          "source_text": "- pattern内の見出しや項目は、提案内容を理解しやすくする時だけ使う。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0419",
+          "line": 38,
+          "source_text": "不要な項目を空欄や`なし`として出さない。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0420",
+          "line": 39,
+          "source_text": "- patternの数、組み合わせ、適用順序は固定しない。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0421",
+          "line": 39,
+          "source_text": "patternの形を保つことより、一つの提案として理解できる順序を優先する。",
+          "destination": "templates/proposal-sections/README.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/compact-options.md",
+      "lines": 24,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 6
+        },
+        {
+          "from": 7,
+          "to": 24
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0422",
+          "line": 5,
+          "source_text": "複数案からユーザーが選ぶ必要があり、各案を一文の選択肢と、その一階層下の列挙で比較できる時に使う。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0423",
+          "line": 5,
+          "source_text": "選択肢数、子要素数、子要素の長さは固定しない。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0424",
+          "line": 10,
+          "source_text": "**推奨:** {推奨する選択肢の添字}。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0425",
+          "line": 10,
+          "source_text": "{推奨理由を書く。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0426",
+          "line": 10,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0427",
+          "line": 12,
+          "source_text": "- **a. {選択肢を一文で書く}**",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0428",
+          "line": 13,
+          "source_text": "- {この案を理解・比較するための要素を書く。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0429",
+          "line": 13,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0430",
+          "line": 14,
+          "source_text": "- {必要な別の説明、影響、trade-off、条件等を書く。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0431",
+          "line": 14,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0432",
+          "line": 15,
+          "source_text": "- {さらに必要な列挙要素があれば追加する。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0433",
+          "line": 15,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0434",
+          "line": 16,
+          "source_text": "- **b. {選択肢を一文で書く}**",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0435",
+          "line": 17,
+          "source_text": "- {aと同じ観点と粒度に倣い、この案に必要な子要素を必要な数だけ書く。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0436",
+          "line": 17,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0437",
+          "line": 19,
+          "source_text": "{b以降もc、d等の添字で必要な選択肢数だけ増やし、各案の子要素はaの記述形に倣う。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0438",
+          "line": 19,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0439",
+          "line": 22,
+          "source_text": "ユーザーが添字だけで選べるよう、各選択肢に`a`から始まる連続した添字を付ける。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0440",
+          "line": 22,
+          "source_text": "選択肢自体は添字の直後に一文で書く。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0441",
+          "line": 22,
+          "source_text": "一階層下には、その案を理解・比較するために必要な要素を列挙し、要素数と各要素の長さを固定しない。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0442",
+          "line": 24,
+          "source_text": "`a`は選択肢と子要素を省略せず、実際に必要な厚みを持つ記述形として使う。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0443",
+          "line": 24,
+          "source_text": "`b`以降は選択肢数に応じて増減させ、子要素の観点と粒度を`a`に揃える。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0444",
+          "line": 24,
+          "source_text": "説明にnested listでは収まらない複数段落、表、tree、図等が必要なら`detailed-options.md`を使う。",
+          "destination": "templates/proposal-sections/compact-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/complete-state.md",
+      "lines": 13,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 6
+        },
+        {
+          "from": 7,
+          "to": 13
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0445",
+          "line": 5,
+          "source_text": "判断に必要な修正後状態の全体を直接見る時に使う。",
+          "destination": "templates/proposal-sections/complete-state.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0446",
+          "line": 5,
+          "source_text": "単独の提案だけでなく、重い選択肢の各案にも使える。",
+          "destination": "templates/proposal-sections/complete-state.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0447",
+          "line": 5,
+          "source_text": "完全状態の内部にflow、表、tree等の別patternを組み込んでよい。",
+          "destination": "templates/proposal-sections/complete-state.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0448",
+          "line": 10,
+          "source_text": "{修正後の完全な状態を、内容に適した段落、固有見出し、表、tree、diff、図等で直接示す。",
+          "destination": "templates/proposal-sections/complete-state.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0449",
+          "line": 10,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/complete-state.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0450",
+          "line": 13,
+          "source_text": "前案との差分や変更理由だけで代替しない。",
+          "destination": "templates/proposal-sections/complete-state.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0451",
+          "line": 13,
+          "source_text": "file、directory、文書、code、UI等の具体像が判断に必要なら、pathだけでなく対象に合うpreviewを完全案へ含める。",
+          "destination": "templates/proposal-sections/complete-state.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/detailed-options.md",
+      "lines": 25,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 6
+        },
+        {
+          "from": 7,
+          "to": 11
+        },
+        {
+          "from": 12,
+          "to": 15
+        },
+        {
+          "from": 16,
+          "to": 19
+        },
+        {
+          "from": 20,
+          "to": 25
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0452",
+          "line": 5,
+          "source_text": "複数案からユーザーが選ぶ必要があり、各案の理解に複数段落、表、tree、図、代表例等が必要な時にwrapperとして使う。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0453",
+          "line": 5,
+          "source_text": "各案の内部には、complete stateや他の内容patternを必要に応じて組み込める。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0454",
+          "line": 10,
+          "source_text": "**推奨:** {a / b / c}。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0455",
+          "line": 10,
+          "source_text": "{推奨理由を書く。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0456",
+          "line": 10,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0457",
+          "line": 14,
+          "source_text": "{この案の内容を、必要な段落、固有見出し、表、tree、図、代表例等で示す。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0458",
+          "line": 14,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0459",
+          "line": 18,
+          "source_text": "{この案の内容を、必要な段落、固有見出し、表、tree、図、代表例等で示す。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0460",
+          "line": 18,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0461",
+          "line": 22,
+          "source_text": "{この案の内容を、必要な段落、固有見出し、表、tree、図、代表例等で示す。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0462",
+          "line": 22,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0463",
+          "line": 25,
+          "source_text": "ユーザーが`a`、`b`、`c`だけで選べる添字を保つ。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0464",
+          "line": 25,
+          "source_text": "各案の見出し自体で選択肢を一文表示し、その配下を案ごとの説明領域にする。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0465",
+          "line": 25,
+          "source_text": "すべての案へ同じ固定小見出しを要求せず、比較に必要な具体像とpatternを案ごとに選ぶ。",
+          "destination": "templates/proposal-sections/detailed-options.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/document-heading-outline.md",
+      "lines": 46,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 14
+        },
+        {
+          "from": 15,
+          "to": 20
+        },
+        {
+          "from": 21,
+          "to": 35
+        },
+        {
+          "from": 36,
+          "to": 39
+        },
+        {
+          "from": 40,
+          "to": 46
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0466",
+          "line": 5,
+          "source_text": "新しいdocumentを作る前に、本文全文ではなく、見出し階層と各見出しが扱う内容へ合意する時に使う。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0467",
+          "line": 5,
+          "source_text": "outlineの合意後に実fileを作成し、書かれたdocument自体をreviewできる場合を対象にする。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0468",
+          "line": 7,
+          "source_text": "次の条件を満たす時に選ぶ。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0469",
+          "line": 9,
+          "source_text": "- 新規documentの責務、含める範囲、含めない範囲を見出し単位で判断できる。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0470",
+          "line": 10,
+          "source_text": "- 各見出しの名前だけでなく、その見出しが成立させる理解または扱う内容を短く説明できる。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0471",
+          "line": 11,
+          "source_text": "- 本文の言い回しまで作成前に合意する必要はなく、outlineに沿って書かれた実fileを次のreview対象にできる。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0472",
+          "line": 13,
+          "source_text": "既存documentの修正内容を判断する時には使わない。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0473",
+          "line": 13,
+          "source_text": "outlineだけでは、既存本文から何を残し、変え、削るかを確認できないためである。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0474",
+          "line": 13,
+          "source_text": "本文の正確な文言そのものがdecisionなら、outlineで省略せず必要な本文を提示する。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0475",
+          "line": 18,
+          "source_text": "`{path/to/new-document.md}`を、{このdocumentが担う責務}として新規作成する。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0476",
+          "line": 22,
+          "source_text": "├── ## {heading}",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0477",
+          "line": 23,
+          "source_text": "│   ├── ### {subheading}",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0478",
+          "line": 24,
+          "source_text": "│   │   └── {この見出しが扱う内容または成立させる理解}",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0479",
+          "line": 25,
+          "source_text": "│   └── ### {subheading}",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0480",
+          "line": 26,
+          "source_text": "│       └── {この見出しが扱う内容または成立させる理解}",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0481",
+          "line": 27,
+          "source_text": "└── ## {heading}",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0482",
+          "line": 28,
+          "source_text": "└── {この見出しが扱う内容または成立させる理解}",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0483",
+          "line": 31,
+          "source_text": "{documentへ含めない内容、別の正本との境界、見出し順の理由等、treeだけでは判断できない条件があれば書く。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0484",
+          "line": 31,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0485",
+          "line": 34,
+          "source_text": "見出し名だけを並べず、各leafに扱う内容または読者が得る理解を添える。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0486",
+          "line": 34,
+          "source_text": "本文の要約を先に書き切るのではなく、outlineとしてscopeと役割を判断できる粒度に留める。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0487",
+          "line": 38,
+          "source_text": "outlineへ合意した後に実fileを作成する。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0488",
+          "line": 38,
+          "source_text": "作成されたdocumentは実fileを直接reviewし、修正が必要なら変更内容を省略せず提示して合意する。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0489",
+          "line": 38,
+          "source_text": "作成前のdiscussionへ本文全文を複製しない。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0490",
+          "line": 42,
+          "source_text": "- 新しいmodule READMEについて、責務、公開interface、設計意図、運用上の注意をどの見出しで扱うか決めてからdraftを書く。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0491",
+          "line": 43,
+          "source_text": "- 新しい運用policyについて、適用範囲、判断基準、例外、検証方法のoutlineへ合意してから本文を書く。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0492",
+          "line": 44,
+          "source_text": "- 新しい調査reportについて、問い、観測、解釈、未確認事項の境界を決めてから結果を記述する。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0493",
+          "line": 46,
+          "source_text": "fileの配置や、周辺fileとの関係、作らないfileも判断対象なら、`structure-tree.md`を組み合わせて完成後treeを先に示す。",
+          "destination": "templates/proposal-sections/document-heading-outline.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/element-correspondence.md",
+      "lines": 16,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 6
+        },
+        {
+          "from": 7,
+          "to": 16
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0494",
+          "line": 5,
+          "source_text": "要素が少なく、各要素を同じ少数の観点で照合する時に使う。",
+          "destination": "templates/proposal-sections/element-correspondence.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0495",
+          "line": 5,
+          "source_text": "列の意味が自明で、cellが短く、要素集合と観点が議論直後に独立して成長する見込みが低い場合を扱う。",
+          "destination": "templates/proposal-sections/element-correspondence.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0496",
+          "line": 10,
+          "source_text": "| {要素} | {共通観点1} | {共通観点2} |",
+          "destination": "templates/proposal-sections/element-correspondence.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0497",
+          "line": 12,
+          "source_text": "| {...} | {...} | {...} |",
+          "destination": "templates/proposal-sections/element-correspondence.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0498",
+          "line": 13,
+          "source_text": "| {...} | {...} | {...} |",
+          "destination": "templates/proposal-sections/element-correspondence.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0499",
+          "line": 16,
+          "source_text": "表を要素分解一般のdefaultにしない。",
+          "destination": "templates/proposal-sections/element-correspondence.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0500",
+          "line": 16,
+          "source_text": "cellが一文を超えて育つ、観点が要素ごとに異なる、要素が独立した話題へ進化する場合は、小見出し、階層箇条書き、散文等へ切り替える。",
+          "destination": "templates/proposal-sections/element-correspondence.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0501",
+          "line": 16,
+          "source_text": "表現の選択は`plugins/tumeda-dev/docs/documentation_standards/expression_notation.md`に従う。",
+          "destination": "templates/proposal-sections/element-correspondence.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/existing-file-local-diff.md",
+      "lines": 40,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 16
+        },
+        {
+          "from": 17,
+          "to": 35
+        },
+        {
+          "from": 36,
+          "to": 40
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0502",
+          "line": 5,
+          "source_text": "既存fileの何を残し、変え、削るかへ合意するために、変更内容の全体を読みやすい一つのunified diffで示せる時に使う。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0503",
+          "line": 5,
+          "source_text": "file全文ではなく、全変更行と変更位置を判断できるcontextを合意対象にする。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0504",
+          "line": 7,
+          "source_text": "次の条件を満たす時に選ぶ。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0505",
+          "line": 9,
+          "source_text": "- 変更が一つ、または一続きで読める少数の局所範囲に閉じている。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0506",
+          "line": 10,
+          "source_text": "- 追加行と削除行をすべて含めても、diffとして無理なく通読できる。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0507",
+          "line": 11,
+          "source_text": "- 変更しないfile残部を再掲しなくても、変更後の意味と既存内容への影響を判断できる。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0508",
+          "line": 13,
+          "source_text": "新規fileには使わない。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0509",
+          "line": 13,
+          "source_text": "新規documentは`document-heading-outline.md`でoutlineへ合意してから実fileを作成し、そのfileをreviewする。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0510",
+          "line": 15,
+          "source_text": "大規模な変更、離れた多数の変更、複数fileにまたがる変更、file移動等で、完全diffだけでは変更対象と対応関係を判断しにくい場合は`file-change-set.md`を使う。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0511",
+          "line": 15,
+          "source_text": "一つのdecisionとして不可分な変更だけを同じ変更集合へ置き、独立して採否を変えられる変更はdecisionを分ける。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0512",
+          "line": 20,
+          "source_text": "`{path/to/existing-file}`の{変更範囲}を変更する。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0513",
+          "line": 20,
+          "source_text": "diff外の{変更しない範囲}は変更しない。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0514",
+          "line": 23,
+          "source_text": "{変更位置を特定できる変更前context}",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0515",
+          "line": 24,
+          "source_text": "-{削除する既存内容}",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0516",
+          "line": 25,
+          "source_text": "+{追加する内容}",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0517",
+          "line": 26,
+          "source_text": "{変更位置と接続先を確認できる変更後context}",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0518",
+          "line": 29,
+          "source_text": "{diffだけでは判断できない境界、変更しない範囲、変更後の意味があれば書く。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0519",
+          "line": 29,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0520",
+          "line": 32,
+          "source_text": "変更対象に含まれる追加行と削除行を省略しない。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0521",
+          "line": 32,
+          "source_text": "変更hunkの途中へ`...`等の省略記号を置かない。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0522",
+          "line": 32,
+          "source_text": "contextはfile全文を再掲するためではなく、変更位置、保持される既存内容、変更後の接続先を特定できるだけ含める。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0523",
+          "line": 34,
+          "source_text": "実際のgit patchを適用することが判断対象でなければ、`diff --git`やindex行等のmetadataは必須にしない。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0524",
+          "line": 34,
+          "source_text": "合意対象となる内容差分が正確に読めることを優先する。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0525",
+          "line": 38,
+          "source_text": "- 既存READMEの一つのsectionを置換し、その前後の見出しは維持する。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0526",
+          "line": 39,
+          "source_text": "- 一つの設定blockで、削除する値と追加する値をすべて示す。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0527",
+          "line": 40,
+          "source_text": "- 一つの関数本体を修正し、signatureと隣接する処理をcontextとして残す。",
+          "destination": "templates/proposal-sections/existing-file-local-diff.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/file-change-set.md",
+      "lines": 71,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 15
+        },
+        {
+          "from": 16,
+          "to": 36
+        },
+        {
+          "from": 37,
+          "to": 52
+        },
+        {
+          "from": 53,
+          "to": 54
+        },
+        {
+          "from": 55,
+          "to": 58
+        },
+        {
+          "from": 59,
+          "to": 62
+        },
+        {
+          "from": 63,
+          "to": 66
+        },
+        {
+          "from": 67,
+          "to": 71
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0528",
+          "line": 5,
+          "source_text": "複数file、file間の対応、または一file内の複数箇所が、一つのdecisionとして不可分に変わる時に使う。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0529",
+          "line": 5,
+          "source_text": "対象名だけでなく、今回の変更へ含むもの、beforeからafterへの対応、変えてよい範囲、維持・削除・除外する範囲、完了状態を判断できる変更集合にする。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0530",
+          "line": 7,
+          "source_text": "次のいずれかに該当する時に選ぶ。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0531",
+          "line": 9,
+          "source_text": "- directoryまたはfileを移動し、旧配置の削除、本文補正、consumer更新まで一decisionで扱う。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0532",
+          "line": 10,
+          "source_text": "- 一つのfileを分割または複数fileを統合し、旧責務を新しい配置へ対応させる。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0533",
+          "line": 11,
+          "source_text": "- 複数fileを別の場所・形式へ移植し、保持する意味と許可する変換をfileごとに確定する。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0534",
+          "line": 12,
+          "source_text": "- 一つの意味変更が、離れた複数hunkまたは複数fileを不可分に変更する。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0535",
+          "line": 14,
+          "source_text": "一つの既存fileの局所修正が読みやすい完全diffに収まるなら`existing-file-local-diff.md`を使う。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0536",
+          "line": 14,
+          "source_text": "新規documentの主な判断が見出し構造なら`document-heading-outline.md`を使う。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0537",
+          "line": 14,
+          "source_text": "複数の変更が独立して採否を変えられるなら、一つの変更集合へまとめずdecisionを分ける。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0538",
+          "line": 18,
+          "source_text": "最初に、このdecisionへ含む変更対象を漏れなく列挙する。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0539",
+          "line": 18,
+          "source_text": "tree、file action一覧、source→target表等から、配置と対象範囲に合う表現を選ぶ。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0540",
+          "line": 20,
+          "source_text": "次に、beforeの何がafterのどこへ対応するかを示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0541",
+          "line": 20,
+          "source_text": "対応の主単位はcaseで変えてよい。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0542",
+          "line": 22,
+          "source_text": "- 一対一移動ではfile pathを対応させる。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0543",
+          "line": 23,
+          "source_text": "- file分割では旧fileの責務、contract、testを新fileへ対応させる。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0544",
+          "line": 24,
+          "source_text": "- 意味保持移植ではsource fileが持つ規則、禁止事項、状態遷移、出力形式等をtargetの保持・変換へ対応させる。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0545",
+          "line": 26,
+          "source_text": "対象ごとの具体的な変更は、機械的置換、unified diff、before / after、annotated outline、flow等から選ぶ。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0546",
+          "line": 26,
+          "source_text": "全対象を同じ表示方式へ揃える必要はない。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0547",
+          "line": 26,
+          "source_text": "判断に必要な変更を省略しないことを共通条件にする。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0548",
+          "line": 28,
+          "source_text": "最後に、変更集合の境界と完了状態を示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0549",
+          "line": 28,
+          "source_text": "判断に必要なら、次を内容固有の見出しや説明へ含める。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0550",
+          "line": 30,
+          "source_text": "- 変更してよい内容と維持する内容",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0551",
+          "line": 31,
+          "source_text": "- 削除後に存在してはいけない旧file、旧path、旧参照",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0552",
+          "line": 32,
+          "source_text": "- 今回のdecisionへ含めない変更",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0553",
+          "line": 33,
+          "source_text": "- 対象漏れ、意図しない意味変更、scope外diffを検出する確認方法",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0554",
+          "line": 35,
+          "source_text": "これらを固定見出しとして毎回すべて出さない。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0555",
+          "line": 35,
+          "source_text": "たとえば旧pathがない新規file群では、旧path不在を空欄で表示しない。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0556",
+          "line": 35,
+          "source_text": "caseの変更集合を閉じるために必要な内容だけを、読者が理解しやすい順序で構成する。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0557",
+          "line": 40,
+          "source_text": "{このdecisionで変更する対象と、変更後に成立させる状態を示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0558",
+          "line": 40,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0559",
+          "line": 42,
+          "source_text": "{必要なら、完成後treeまたはfile action一覧を示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0560",
+          "line": 42,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0561",
+          "line": 44,
+          "source_text": "{beforeのfile、責務、contract、意味等から、afterの配置・内容への対応を示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0562",
+          "line": 44,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0563",
+          "line": 46,
+          "source_text": "{各対象の変更内容を、機械的置換、完全diff、before / after、outline、flow等で省略せず示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0564",
+          "line": 46,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0565",
+          "line": 48,
+          "source_text": "{判断に必要な場合だけ、維持する内容、削除する旧状態、scope外、完了確認を示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0566",
+          "line": 48,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0567",
+          "line": 51,
+          "source_text": "placeholderや上記の説明順をそのまま可視本文へ残さない。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0568",
+          "line": 51,
+          "source_text": "対象に合う固有見出しへ変え、一つの提案として自然に読める順序へ組み直す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0569",
+          "line": 57,
+          "source_text": "完成後treeで旧directory不在まで示し、全fileのsource→target対応、階層変更に伴う完全なimport置換、外部consumer、移動から説明できないscope外変更を続ける。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0570",
+          "line": 57,
+          "source_text": "file本文が同一なら旧新の全文を複製せず、許可する補正だけを完全に示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0571",
+          "line": 61,
+          "source_text": "完成後treeに加え、旧fileの責務、fallback、test、公開APIを新しいどのfileへ移すか対応させる。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0572",
+          "line": 61,
+          "source_text": "分割後のfile間flowと、consumerから見た公開contractの維持を示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0573",
+          "line": 65,
+          "source_text": "source→target台帳を作り、defaultを意味保持とする。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0574",
+          "line": 65,
+          "source_text": "一般化、host形式、context委譲等、許可する変換だけを例外として示す。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0575",
+          "line": 65,
+          "source_text": "機械的でない変更は、fileごとにdiff、before / after、outline等を選び、未許可の意味差分がないことを完了条件にする。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0576",
+          "line": 69,
+          "source_text": "- `src/legacy-notifications/`を`src/notifications/legacy/`へ移し、内部importと全consumerを更新したうえで旧directoryを残さない。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0577",
+          "line": 70,
+          "source_text": "- `src/orders/service.ts`をcommand、query、mapperへ分割し、旧関数の責務とtestを新fileへ対応させながら既存の公開importを維持する。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0578",
+          "line": 71,
+          "source_text": "- project固有の運用規約群を共有packageへ移植し、固有例だけを一般化しながら、MUST、禁止事項、状態遷移、出力contractを保持する。",
+          "destination": "templates/proposal-sections/file-change-set.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/process-flow.md",
+      "lines": 21,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 6
+        },
+        {
+          "from": 7,
+          "to": 21
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0579",
+          "line": 5,
+          "source_text": "process、workflow、思考手順の順序、分岐、戻り先、循環について認識を合わせる時に使う。",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0580",
+          "line": 5,
+          "source_text": "手順名の列挙ではなく、どこからどこへ進み、何を条件に枝分かれまたは遡及するかが判断対象になる場合を扱う。",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0581",
+          "line": 10,
+          "source_text": "{この図で判断するprocessの範囲を一文で示す。",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0582",
+          "line": 10,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0583",
+          "line": 13,
+          "source_text": "{順序、分岐、戻り先、循環を、矢印、罫線、indent等で図示する。",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0584",
+          "line": 13,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0585",
+          "line": 16,
+          "source_text": "{図だけでは分からない分岐条件、意味、例外があれば必要な分だけ説明する。",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0586",
+          "line": 16,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0587",
+          "line": 19,
+          "source_text": "図の記法は`SKILL.md`の`workflow全体で守る不変条件`が正本である。",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0588",
+          "line": 21,
+          "source_text": "単独の認識合わせにも、complete stateや重い選択肢の内部にも使える。",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0589",
+          "line": 21,
+          "source_text": "図示する関係に合う記法を選び、特定caseの文言やnodeを固定templateとして複製しない。",
+          "destination": "templates/proposal-sections/process-flow.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/structure-tree.md",
+      "lines": 24,
+      "structure": [
+        {
+          "from": 1,
+          "to": 2
+        },
+        {
+          "from": 3,
+          "to": 6
+        },
+        {
+          "from": 7,
+          "to": 24
+        }
+      ],
+      "contracts": [
+        {
+          "id": "S-C0590",
+          "line": 5,
+          "source_text": "documentの見出し、file・directory、module、所有関係等について、包含階層と配置を認識合わせする時に使う。",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0591",
+          "line": 5,
+          "source_text": "順番を判断するprocess flowではなく、親子関係や全体内の配置が判断対象になる場合を扱う。",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0592",
+          "line": 10,
+          "source_text": "{このtreeで判断するrootとscopeを一文で示す。",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0593",
+          "line": 10,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0594",
+          "line": 13,
+          "source_text": "{root}",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0595",
+          "line": 14,
+          "source_text": "├── {child}",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0596",
+          "line": 15,
+          "source_text": "│   └── {grandchild}",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0597",
+          "line": 16,
+          "source_text": "└── {child}",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0598",
+          "line": 19,
+          "source_text": "{treeだけでは表せない各nodeの意味、変更理由、条件があれば必要な分だけ説明する。",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0599",
+          "line": 19,
+          "source_text": "}",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0600",
+          "line": 22,
+          "source_text": "単独の認識合わせにも、complete stateや重い選択肢の内部にも使える。",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0601",
+          "line": 22,
+          "source_text": "treeのnodeを置くだけで意味が伝わらない場合は、判断に必要な説明を補う。",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0602",
+          "line": 24,
+          "source_text": "新規documentの見出し階層と各見出しが扱う内容へ合意してからdraftを書く場合は、`document-heading-outline.md`を使う。",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        },
+        {
+          "id": "S-C0603",
+          "line": 24,
+          "source_text": "新規documentの配置と見出し構造の両方を判断する場合は、完成後のfile treeにこのpatternを、document内部のoutlineに`document-heading-outline.md`を使う。",
+          "destination": "templates/proposal-sections/structure-tree.md",
+          "classification": "KEEP",
+          "verification": "未監査"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6135 @@
+{
+  "steering_root": "..",
+  "prototype_root": "../faciliate-discussion",
+  "state": "レビュー後prototypeの追加・変更を合意根拠へ対応付けた。原文候補を完了数にせず、独立unitと関係索引を分離したfunction-migration-audit.jsonで集計する。",
+  "structures": [
+    {
+      "file": "templates/consideration-records/README.md",
+      "heading": "検討記録のformat",
+      "from": 1,
+      "to": 45,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/README.md",
+      "heading": "検討記録が支えるもの",
+      "from": 3,
+      "to": 9,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/README.md",
+      "heading": "今の目的に合う記入形を選ぶ",
+      "from": 10,
+      "to": 24,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/README.md",
+      "heading": "どの記入形でも辿れるようにすること",
+      "from": 25,
+      "to": 34,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/README.md",
+      "heading": "目的を変える時は根拠を引き継ぐ",
+      "from": 35,
+      "to": 39,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/README.md",
+      "heading": "該当する形がない場合",
+      "from": 40,
+      "to": 45,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/research.md",
+      "heading": "調査の記録",
+      "from": 1,
+      "to": 57,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/research.md",
+      "heading": "調べる問いと探索範囲",
+      "from": 3,
+      "to": 7,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/research.md",
+      "heading": "テーマ別finding",
+      "from": 8,
+      "to": 23,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/research.md",
+      "heading": "見つかった事実",
+      "from": 10,
+      "to": 14,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/research.md",
+      "heading": "範囲内で見つからなかったこと",
+      "from": 15,
+      "to": 19,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/research.md",
+      "heading": "取得できなかった・まだ調べていないこと",
+      "from": 20,
+      "to": 23,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/research.md",
+      "heading": "言える範囲と、調査を終える根拠",
+      "from": 24,
+      "to": 28,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/research.md",
+      "heading": "調査の記入形と例",
+      "from": 29,
+      "to": 57,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/judgment.md",
+      "heading": "比較・判断の記録",
+      "from": 1,
+      "to": 48,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/judgment.md",
+      "heading": "判断対象と選択条件",
+      "from": 3,
+      "to": 7,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/judgment.md",
+      "heading": "案を評価する",
+      "from": 8,
+      "to": 18,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/judgment.md",
+      "heading": "複数案の差を比べる",
+      "from": 10,
+      "to": 14,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/judgment.md",
+      "heading": "一案の成立条件を照合する",
+      "from": 15,
+      "to": 18,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/judgment.md",
+      "heading": "推奨の決め手と、引き受ける代償",
+      "from": 19,
+      "to": 23,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/judgment.md",
+      "heading": "判断の記入形",
+      "from": 24,
+      "to": 48,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/alignment.md",
+      "heading": "認識合わせを必要とする背景",
+      "from": 1,
+      "to": 29,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/alignment.md",
+      "heading": "共有事実と未共有の前提",
+      "from": 3,
+      "to": 7,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/alignment.md",
+      "heading": "問う対象と、回答で変わる判断",
+      "from": 8,
+      "to": 12,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/alignment.md",
+      "heading": "背景の記入形と例",
+      "from": 13,
+      "to": 29,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/verification.md",
+      "heading": "検証の記録",
+      "from": 1,
+      "to": 42,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/verification.md",
+      "heading": "主張と確かめ方",
+      "from": 3,
+      "to": 7,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/verification.md",
+      "heading": "期待と実際の結果",
+      "from": 8,
+      "to": 12,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/verification.md",
+      "heading": "反例・未検証範囲から結論の射程を定める",
+      "from": 13,
+      "to": 17,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/verification.md",
+      "heading": "検証の記入形と例",
+      "from": 18,
+      "to": 42,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/diagnosis.md",
+      "heading": "診断・修正の記録",
+      "from": 1,
+      "to": 29,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/diagnosis.md",
+      "heading": "期待との差と原因候補",
+      "from": 3,
+      "to": 7,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/diagnosis.md",
+      "heading": "原因を支持・反証する証拠",
+      "from": 8,
+      "to": 17,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/diagnosis.md",
+      "heading": "誤診を新しいevidenceで置き換える",
+      "from": 13,
+      "to": 17,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/diagnosis.md",
+      "heading": "修正先と再検証を結ぶ記入形",
+      "from": 18,
+      "to": 29,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/generalization.md",
+      "heading": "一般化の記録",
+      "from": 1,
+      "to": 44,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/generalization.md",
+      "heading": "起点caseと暫定原則",
+      "from": 3,
+      "to": 7,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/generalization.md",
+      "heading": "異なるcaseと反例で原則を育てる",
+      "from": 8,
+      "to": 12,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/generalization.md",
+      "heading": "修正した原則を既確認caseへ戻す",
+      "from": 13,
+      "to": 17,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    },
+    {
+      "file": "templates/consideration-records/generalization.md",
+      "heading": "原則と適用境界を示す記入形",
+      "from": 18,
+      "to": 44,
+      "classification": "ADD",
+      "agreement": [
+        7,
+        14,
+        19,
+        21
+      ],
+      "role": "目的別記入形の説明と例。実行・状態遷移はiterationとhandlerを参照する",
+      "locator": "見出しの連続範囲",
+      "owner": "prototype"
+    }
+  ],
+  "contracts": [
+    {
+      "id": "N-C001",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "二層の正本: discussionは判断context・応答・decision、logは過程と復帰を所有する。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "目的と成果",
+          "from": 10,
+          "to": 24,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "CHANGE",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点21の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "S-C0006",
+        "S-C0007",
+        "S-C0008",
+        "S-C0061"
+      ]
+    },
+    {
+      "id": "N-C002",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "logの配置: 一論点一fileをinternal-records配下に置く。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "二層の保存先と読取範囲を解決する",
+          "from": 155,
+          "to": 180,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点20の決定",
+        "task-design-discussion.md の論点21の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C003",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "既存logの継続: 既存の正しい接続を優先し、命名統一で新正本を作らない。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "二層の保存先と読取範囲を解決する",
+          "from": 155,
+          "to": 180,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点20の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C004",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "logの所属照合: discussion linkとlogの所属が不一致・複数なら停止する。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "二層の保存先と読取範囲を解決する",
+          "from": 155,
+          "to": 180,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点20の決定",
+        "task-design-discussion.md の論点21の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C005",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "対象logの全文読取: discussion全文に加え対象log全文を読み、根拠に使う他論点logと後続訂正を辿る。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "二層の保存先と読取範囲を解決する",
+          "from": 155,
+          "to": 180,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点21の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C006",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "位置識別: 回と記録単位へ固定anchorを使い、意味titleや進捗flagと分ける。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "二層の保存先と読取範囲を解決する",
+          "from": 155,
+          "to": 180,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点12の決定",
+        "task-design-discussion.md の論点20の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C007",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "記録直前の標準読取: 入力・結果・訂正・discussion背景を書く前に毎回expression_notation全文を読む。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "二層の保存先と読取範囲を解決する",
+          "from": 155,
+          "to": 180,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点21の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C008",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "書込範囲の限定: 例示見出しを除外し、論点→回→欄を一意にして書く。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "書込対象を範囲限定する",
+          "from": 125,
+          "to": 154,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "task-design-discussion.md の論点12の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "S-C0063",
+        "S-C0064"
+      ]
+    },
+    {
+      "id": "N-C009",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "新規追加の一意性: 挿入位置と未作成を確認し、既存なら中断か不整合かを判定する。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "書込対象を範囲限定する",
+          "from": 125,
+          "to": 154,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点12の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C010",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "所属suffix: 新規fileへ論点・回所属を付け、既存fileの過去表記は一括変換しない。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "書込対象を範囲限定する",
+          "from": 125,
+          "to": 154,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "CHANGE",
+      "agreement": [
+        "task-design-discussion.md の論点12の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "E-C022",
+        "E-C026",
+        "E-C027",
+        "E-C063"
+      ]
+    },
+    {
+      "id": "N-C011",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "応答待ちstatus: 提案と認識合わせに共通の応答待ちを使い、内容・会話から実stateを判定する。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "書込対象を範囲限定する",
+          "from": 125,
+          "to": 154,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "CHANGE",
+      "agreement": [
+        "task-design-discussion.md の論点11の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "E-C008"
+      ]
+    },
+    {
+      "id": "N-C012",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "三fileの読取: 同じownerが本体へ入る前に全文読み、回復だけは検出時に全文読む。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "実行経路",
+          "from": 104,
+          "to": 180,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "MOVE",
+      "agreement": [
+        "task-design-discussion.md の論点3の決定",
+        "task-design-discussion.md の論点4の決定",
+        "task-design-discussion.md の論点13の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "S-C0096",
+        "S-C0100",
+        "S-C0105"
+      ]
+    },
+    {
+      "id": "N-C013",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "二入口: 次提示の準備と既存提示の応答を分け、合意だけなら材料確認や新回を作らない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "二つの入口と戻り先",
+          "from": 12,
+          "to": 20,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "task-design-discussion.md の論点4の決定",
+        "task-design-discussion.md の論点8の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "S-C0237",
+        "S-C0247"
+      ]
+    },
+    {
+      "id": "N-C014",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "returnの分類: 提示・合意・別decision・scope外・外部停止・不整合・未収録を区別してhandlerへ戻る。",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "heading": "共通本体へ接続する",
+          "from": 295,
+          "to": 311,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点4の決定",
+        "task-design-discussion.md の論点8の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C015",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "作成中の保存形: 調査中の骨子だけを先に作り、未成立の案・応答・決定を作らない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "作成中の回と検討記録を用意する",
+          "from": 23,
+          "to": 60,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "CHANGE",
+      "agreement": [
+        "task-design-discussion.md の論点6の決定",
+        "task-design-discussion.md の論点8の決定",
+        "task-design-discussion.md の論点18の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "E-C011",
+        "E-C012",
+        "S-C0218"
+      ]
+    },
+    {
+      "id": "N-C016",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "二層初期化順: discussionの回を保存してから同じ回のlogを準備する。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "作成中の回と検討記録を用意する",
+          "from": 23,
+          "to": 60,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C017",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "log開始context: 問題・用語・範囲・既決条件・不足をlog単独で分かるように残す。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "作成中の回と検討記録を用意する",
+          "from": 23,
+          "to": 60,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点21の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C018",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "過去分離の境界: 新しい回から分離し、過去本文を移動・改名・再要約しない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "作成中の回と検討記録を用意する",
+          "from": 23,
+          "to": 60,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "S-C0065",
+        "E-C025"
+      ]
+    },
+    {
+      "id": "N-C019",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "標準の実手順発火: 内容作成直前にmaking_and_choosing_options全文を読み、現在材料へ適用する。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点5の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C020",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "不足の行先: 自力調査、判断可能案、user所有input、上位decision、外部条件を区別する。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点5の決定",
+        "task-design-discussion.md の論点6の決定",
+        "task-design-discussion.md の論点8の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C021",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "自力調査の実行: 自力で埋められる不足は調べて再判定し、調査許可を問い返さない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点5の決定",
+        "task-design-discussion.md の論点6の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C022",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "format選択: READMEで目的を選び該当file全文を読む。目的変更時に選び直す。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点7の決定",
+        "task-design-discussion.md の論点14の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C023",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "実施前入力保存: 問い・評価軸・claim等を実施前に保存する。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点6の決定",
+        "task-design-discussion.md の論点7の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C024",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "結果保存の境界: 結果・不足・次action・案への影響を次actionより前に保存する。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点6の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C025",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "内部block粒度: 問いと方法で材料が更新される単位にまとめ、tool一回・file一枚を単位にしない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点6の決定",
+        "task-design-discussion.md の論点7の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C026",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "後続訂正: 完成済みblockの結果を書き換えず、新blockから元を指す。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点6の決定",
+        "task-design-discussion.md の論点7の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C027",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "調査の失敗を分離: 不在、取得不能、未実施を区別する。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点7の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C028",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "目的別の自由構成: 六用途へ合わなければ読取contractを満たす形を使い、読取不能をfallback理由にしない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "判断材料を確かめ、検討記録を育てる",
+          "from": 61,
+          "to": 98,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点7の決定",
+        "task-design-discussion.md の論点14の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C029",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "弱い対抗馬の禁止: 形式的なa/b/cのための弱い案を作らない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "提案または認識合わせを形にする",
+          "from": 99,
+          "to": 139,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点7の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C030",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "認識合わせの成立: 提案できない理由、理解、回答対象、回答で進む判断を示す。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "提案または認識合わせを形にする",
+          "from": 99,
+          "to": 139,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点5の決定",
+        "task-design-discussion.md の論点8の決定",
+        "task-design-discussion.md の論点10の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C031",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "認識合わせの禁止範囲: 調査報告、調べられる事実、未提示案の採否を認識合わせへ混ぜない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "提案または認識合わせを形にする",
+          "from": 99,
+          "to": 139,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点5の決定",
+        "task-design-discussion.md の論点8の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C032",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "二提示の共通回番号: 認識合わせもIを使い、形式的な提案0や別counterを作らない。",
+      "destination": [
+        {
+          "file": "templates/discussion_entry.md",
+          "heading": "認識合わせ本文",
+          "from": 42,
+          "to": 49,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "task-design-discussion.md の論点10の決定",
+        "task-design-discussion.md の論点12の決定",
+        "task-design-discussion.md の論点18の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "E-C026",
+        "E-C027"
+      ]
+    },
+    {
+      "id": "N-C033",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "背景の再構成: 時系列要約ではなく、今回の判断に必要な事実・条件・決め手・代償・限界へ再構成する。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "保存した回を提示可能にする",
+          "from": 140,
+          "to": 154,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "CHANGE",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点21の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "E-C055",
+        "E-C056",
+        "E-C057",
+        "E-C058"
+      ]
+    },
+    {
+      "id": "N-C034",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "discussionの独立可読性: 内部logを開かず理解・判断・応答でき、重要反証や未確認をlinkへ追い出さない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "保存した回を提示可能にする",
+          "from": 140,
+          "to": 154,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点21の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C035",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "logの独立可読性: logだけで問い・方法・証拠・解釈・限界・次actionの因果を追える。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "保存した回を提示可能にする",
+          "from": 140,
+          "to": 154,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点21の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C036",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "二層同期後の提示: log結果保存後にdiscussion背景を完成し、同期後に提示する。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "保存した回を提示可能にする",
+          "from": 140,
+          "to": 154,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "E-C012",
+        "S-C0262"
+      ]
+    },
+    {
+      "id": "N-C037",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "実証拠による復帰: fileとtool結果と会話を照合し、未保存を未実行とみなさない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "保存境界から中断処理へ戻る",
+          "from": 155,
+          "to": 171,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C038",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "提示不明で停止: 提示保存済みでも提示済みか不明なら再送しない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "保存境界から中断処理へ戻る",
+          "from": 155,
+          "to": 171,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C039",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "再開指示は応答でない: 作業再開指示をproposalへのfeedback・合意にしない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "所属と評価対象を照合する",
+          "from": 174,
+          "to": 180,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点8の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C040",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "認識合わせの回答処理: 訂正・部分回答・回答不能を保存し、了承からdecisionを作らない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "原文と結果を一度保存する",
+          "from": 181,
+          "to": 188,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点8の決定",
+        "task-design-discussion.md の論点10の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C041",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "回答後の戻り先: 材料が揃えば同じturnで提案へ、不足なら取得方法を見直し、論点決定としない。",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "heading": "応答から次の行き先へ進む",
+          "from": 189,
+          "to": 194,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点8の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C042",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "回復時の二層分担: 実際の過程と欠落診断はlog、提示・判断背景・応答・合意はdiscussionへ戻す。",
+      "destination": [
+        {
+          "file": "record-recovery.md",
+          "heading": "二層へ戻す内容を分ける",
+          "from": 20,
+          "to": 35,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点21の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "S-C0352",
+        "S-C0354",
+        "S-C0367"
+      ]
+    },
+    {
+      "id": "N-C043",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "回復で順序偽装しない: 事後の整理を実施前保存の履歴として創作しない。",
+      "destination": [
+        {
+          "file": "record-recovery.md",
+          "heading": "記録できる変遷と合意の範囲を確かめる",
+          "from": 8,
+          "to": 35,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点6の決定",
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-C044",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "純粋な保存形: 十の名前付きcode blockへ保存形を集約し、適用制御は実行側が持つ。",
+      "destination": [
+        {
+          "file": "templates/discussion_entry.md",
+          "heading": "論点metadata",
+          "from": 4,
+          "to": 15,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "task-design-discussion.md の論点15の決定",
+        "task-design-discussion.md の論点16の決定",
+        "task-design-discussion.md の論点18の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施",
+      "source_contracts": [
+        "E-C007",
+        "E-C026",
+        "E-C027",
+        "E-C063",
+        "E-C064",
+        "E-C077",
+        "E-C084",
+        "E-C089"
+      ]
+    },
+    {
+      "id": "N-C045",
+      "source": null,
+      "kind": "合意済み追加・変更",
+      "meaning": "内部log保存形: 所属と開始context、回、意味titleを持つ記録単位を分ける。",
+      "destination": [
+        {
+          "file": "templates/internal_record.md",
+          "heading": "論点の骨子",
+          "from": 3,
+          "to": 16,
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "task-design-discussion.md の論点19の決定",
+        "task-design-discussion.md の論点20の決定",
+        "task-design-discussion.md の論点21の決定",
+        "task-design-discussion.md の論点22の決定"
+      ],
+      "verification": "prototype本文に明示される条件・行先を照合。旧contractとの重なりは削除せずADAPT側からも追える。動作検証は未実施"
+    },
+    {
+      "id": "N-F001",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "このdirectoryは内部検討記録の目的別format guideであり、discussion entryへ丸ごとcopyする雛形ではない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "検討記録が支えるもの",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F002",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "説明・実施前の開始形・結果後の読み方・具体例を持つ。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "検討記録が支えるもの",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F003",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "調査や判断の実行順序は [../../iteration.md](../../iteration.md)、logの所属・回・記録単位は [../internal_record.md](../internal_record.md)、案の表示はproposal-sectionsが所有する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "検討記録が支えるもの",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F004",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "discussion側の「検討記録」は、この蓄積から判断に必要な因果へ再構成する背景である。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "検討記録が支えるもの",
+          "from": 7,
+          "to": 7,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F005",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "経過を移す先でも、内部logへのlinkだけを置く欄でもない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "検討記録が支えるもの",
+          "from": 7,
+          "to": 7,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F006",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "ここで材料の充足判定やdiscussionの状態遷移を代行しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "検討記録が支えるもの",
+          "from": 8,
+          "to": 8,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F007",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "新しいblockの目的から一つを選び、該当file全文を読んで入力を保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 12,
+          "to": 12,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F008",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "目的変更時も選び直す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 12,
+          "to": 12,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F009",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "全fileを毎回読む必要はなく、既存根拠を判断する回に形式だけの調査を足さない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 12,
+          "to": 12,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F010",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "| 目的と判断材料の変化 | 記入形 |",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 14,
+          "to": 14,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F011",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "| 問いに対して外部sourceから事実と探索限界を得る | [research.md](research.md) |",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 16,
+          "to": 16,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F012",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "| 必須条件・評価軸へ案を当て、推奨と代償を定める | [judgment.md](judgment.md) |",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 17,
+          "to": 17,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F013",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "| 事実と読解を分け、user所有の未共有前提を特定する | [alignment.md](alignment.md) |",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 18,
+          "to": 18,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F014",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "| claimを方法と合格条件に照らし、支持できる範囲を定める | [verification.md](verification.md) |",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 19,
+          "to": 19,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F015",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "| 期待との差から原因と修正先を特定する | [diagnosis.md](diagnosis.md) |",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 20,
+          "to": 20,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F016",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "| 起点caseから原則を取り出し、異なるcaseで境界を育てる | [generalization.md](generalization.md) |",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 21,
+          "to": 21,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F017",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "同じ作業に複数の目的がある時は、調査のfindingを判断が参照する等、意味の変わる位置でblockを分ける。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 23,
+          "to": 23,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F018",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "短い補足まで機械的に分割しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "今の目的に合う記入形を選ぶ",
+          "from": 23,
+          "to": 23,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F019",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "目的と具体対象が分かるsemantic titleを使う。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F020",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "`確認N`、`検討内容`だけのlabelにしない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F021",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "共通なのはsyntaxでなく、目的・根拠・言える範囲・次への接続を辿れることである。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F022",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "目的に必要な情報の対応を保てば、見出し名や表・散文を調整してよい。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 28,
+          "to": 28,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F023",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "未確認と該当なしを分け、空の欄や成立前の結論で体裁を揃えない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 28,
+          "to": 28,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F024",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "生log、資料全文、tool回数を記録の厚みの代用にしない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 28,
+          "to": 28,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F025",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "各fileの例は記入方法の例であり、このprototypeで実測した事実ではない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 29,
+          "to": 29,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F026",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "内部logの開始contextと合わせて、何の問題をどの範囲で扱い、何を確かめ、何が判明・否定・未確認になり、なぜ次へ進んだかがlogだけで理解できる情報量を持たせる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 31,
+          "to": 31,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F027",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "短さやformatの充足だけを理由に、問いと証拠の因果を省略しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 32,
+          "to": 32,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F028",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "表や見出しへ構造化する時も、事実と解釈の違いは保つ。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 32,
+          "to": 32,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F029",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "各fileの例にある見出し深度は固定ではない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F030",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "実行側が内部logの記録単位へ合わせ、目的別の構成は維持する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "どの記入形でも辿れるようにすること",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F031",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "完了したblockは変えず、後続blockから必要なfindingを特定して参照し、新しい評価・解釈を加える。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "目的を変える時は根拠を引き継ぐ",
+          "from": 37,
+          "to": 37,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F032",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "原文や表を二重管理しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "目的を変える時は根拠を引き継ぐ",
+          "from": 37,
+          "to": 37,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F033",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "新evidenceで訂正する時も元の結論と置換理由を新blockに示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "目的を変える時は根拠を引き継ぐ",
+          "from": 37,
+          "to": 37,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F034",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "完成時に結論を先に読ませる目的では、取得後に結論を冒頭へ加える。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "目的を変える時は根拠を引き継ぐ",
+          "from": 38,
+          "to": 38,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F035",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "これは後付けの過程創作ではなく、実施前入力と結果の保存を保ったまま読順を整える操作である。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "目的を変える時は根拠を引き継ぐ",
+          "from": 38,
+          "to": 38,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F036",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "六用途に押し込まず、上の読み取りcontractを満たす内容固有の形を使う。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "該当する形がない場合",
+          "from": 42,
+          "to": 42,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F037",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "実例から不足する目的を検討する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "該当する形がない場合",
+          "from": 43,
+          "to": 43,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F038",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "必須fileが読めないことを未該当と呼んで迂回しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/README.md",
+          "heading": "該当する形がない場合",
+          "from": 45,
+          "to": 45,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F039",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "「何を知ればどの判断が進むか」を先に定める。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調べる問いと探索範囲",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F040",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "対象fileを読むこと自体を問いにしない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調べる問いと探索範囲",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F041",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "問い・探索範囲・source・方法・必要な証拠を実施前に保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調べる問いと探索範囲",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F042",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "sourceの所在を示し、検索だけなら検索語・対象範囲・除外範囲、実体を読んだなら対象箇所を残す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調べる問いと探索範囲",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F043",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "読むfile一枚ごとの日誌ではなく、同じ問いへのfindingをテーマ別にまとめる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調べる問いと探索範囲",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F044",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "問いに関係する事実と根拠を結び、引用や観測と自分の解釈を区別する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "見つかった事実",
+          "from": 12,
+          "to": 12,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F045",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "見つけた項目を列挙して終わらず、何の条件を満たしたか、何はまだ分からないかを示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "見つかった事実",
+          "from": 12,
+          "to": 12,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F046",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "問いが粗いと肯定的findingも空虚になる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "見つかった事実",
+          "from": 13,
+          "to": 13,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F047",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "「機能があるか」だけでなく、必要な入口・適用範囲・境界まで問う。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "見つかった事実",
+          "from": 13,
+          "to": 13,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F048",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "不在の主張には探索範囲と方法を付ける。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "範囲内で見つからなかったこと",
+          "from": 17,
+          "to": 17,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F049",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "文字列不一致は同じ能力の不在を証明しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "範囲内で見つからなかったこと",
+          "from": 17,
+          "to": 17,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F050",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "別名・間接参照等が残るなら限界として示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "範囲内で見つからなかったこと",
+          "from": 17,
+          "to": 17,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F051",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "何が見つからなかったかと、代わりに何が見つかったかを併記し、否定的結果によって候補を除外できるのか、調査方法を変える必要があるのかを示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "範囲内で見つからなかったこと",
+          "from": 18,
+          "to": 18,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F052",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "権限不足、接続失敗、未読はnegative findingではない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "取得できなかった・まだ調べていないこと",
+          "from": 22,
+          "to": 22,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F053",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "失敗した対象・方法・理由と、未確認のまま残る問いを残す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "取得できなかった・まだ調べていないこと",
+          "from": 22,
+          "to": 22,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F054",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "「不存在」へ言い換えない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "取得できなかった・まだ調べていないこと",
+          "from": 22,
+          "to": 22,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F055",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "事実からの解釈、残る不足、次actionと案への影響を記す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "言える範囲と、調査を終える根拠",
+          "from": 26,
+          "to": 26,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F056",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "終了は回数でなく、判断に必要な証拠が得られたか、取得可能範囲を尽くして外部条件へ返す必要があるかで判断する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "言える範囲と、調査を終える根拠",
+          "from": 26,
+          "to": 26,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F057",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "別の問いへ移る前に結果を保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "言える範囲と、調査を終える根拠",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F058",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "関連が薄いsourceを無制限に増やさず、必要判断との接続が失われたら問いを見直す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "言える範囲と、調査を終える根拠",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F059",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "開始時には次の入力だけを保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 31,
+          "to": 31,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F060",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "結果欄を先に埋めない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 31,
+          "to": 31,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F061",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "通知設定を再送時に読むか、初回値を保持するかで、設定変更後の扱いが変わる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 38,
+          "to": 38,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F062",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "送信入口、再送worker、保存schemaを読み、再送payloadと宛先解決の関係を追う。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 38,
+          "to": 38,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F063",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "結果後の例。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 41,
+          "to": 41,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F064",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "ここでいうsource名は例示である。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 41,
+          "to": 41,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F065",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "workerは通知IDだけを受け取り、そのIDから送信記録を読む。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 46,
+          "to": 46,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F066",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "初回の宛先snapshotはschemaに存在する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 46,
+          "to": 46,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F067",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "これは「設定を必ず読み直す」根拠にはならない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 46,
+          "to": 46,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F068",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "worker本体と直接calleeには設定の再取得がない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 50,
+          "to": 50,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F069",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "一方、配送adapter内部は取得失敗で未読であり、最終宛先が常にsnapshotに固定されるとはまだ言えない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 50,
+          "to": 50,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F070",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "worker単体では初回宛先を使うが、最終配送先の変更余地はadapterに残る。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 54,
+          "to": 54,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F071",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "次はadapterの読取を再試行し、取得不能ならその範囲を外部条件として返す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 54,
+          "to": 54,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F072",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "現時点で「再送は新設定を反映する」という案は採れない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 54,
+          "to": 54,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F073",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "positive／negative／取得不能の三見出しを毎回固定する必要はない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 57,
+          "to": 57,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F074",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "存在した種類をテーマに合う見出しで示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/research.md",
+          "heading": "調査の記入形と例",
+          "from": 57,
+          "to": 57,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F075",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "判断するdecision、必須条件、評価軸、使う根拠を評価前に保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断対象と選択条件",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F076",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "何を優先するかがuser所有で未共有なら、勝手に重みを補わない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断対象と選択条件",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F077",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "調査済みfindingは参照して使い、事実を調べ直す形式的な段を足さない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断対象と選択条件",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F078",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "実在する強い代替案を、同じ意味・粒度の軸へ当てる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "複数案の差を比べる",
+          "from": 12,
+          "to": 12,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F079",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "推奨案を勝たせる弱い対抗馬や、既に支持されたメタ方針を選ばせるためだけの比較を作らない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "複数案の差を比べる",
+          "from": 12,
+          "to": 12,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F080",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "必須条件を満たさない案と、成立するがtrade-offで選ばない案を区別する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "複数案の差を比べる",
+          "from": 13,
+          "to": 13,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F081",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "各案の優劣が別の問いなら一つの選択へ束ねない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "複数案の差を比べる",
+          "from": 13,
+          "to": 13,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F082",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "選択肢を水増しせず、必要条件と案の対応・反例・残る不足を示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "一案の成立条件を照合する",
+          "from": 17,
+          "to": 17,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F083",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "一案への採否もdecisionであり、形式的な「確認」と呼んで背景を省略しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "一案の成立条件を照合する",
+          "from": 17,
+          "to": 17,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F084",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "評価後、推奨と決め手を冒頭へ加え、条件・各案・代償・不確実性へ読める形にする。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "推奨の決め手と、引き受ける代償",
+          "from": 21,
+          "to": 21,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F085",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "推奨の根拠と棄却理由を自分の中だけに残さない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "推奨の決め手と、引き受ける代償",
+          "from": 21,
+          "to": 21,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F086",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "判断結果が最終案のどの内容を規定するかを示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "推奨の決め手と、引き受ける代償",
+          "from": 22,
+          "to": 22,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F087",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "調査不足を断定に変えたり、見出しが揃ったことを選べる証拠にしたりしない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "推奨の決め手と、引き受ける代償",
+          "from": 22,
+          "to": 22,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F088",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "複数案の開始形：",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 26,
+          "to": 26,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F089",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "再送の宛先を初回値と現在値のどちらにするか。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F090",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "必須条件は同じ通知の監査可能性、比較軸は利用者の変更意図との整合と再現性。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F091",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "根拠は「再送payloadで保持されるもの」のfindingと、合意済みの通知要件。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F092",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "評価後の完成時には、例えば「初回snapshotを推す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 36,
+          "to": 36,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F093",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "再現性を必須とする要件が決め手」と先頭へ加える。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 36,
+          "to": 36,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F094",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "本文には各案の充足、変更後も旧宛先へ届く代償、採用条件を残す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 36,
+          "to": 36,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F095",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "要件が未合意ならこの結論は書けない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 36,
+          "to": 36,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F096",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "一案の開始形：",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 38,
+          "to": 38,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F097",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "再送を再現でき、削除要求では宛先情報を消せる必要がある。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 45,
+          "to": 45,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F098",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "案はsnapshotを送信記録の一部とし、保存期間と削除単位も同じにする。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 45,
+          "to": 45,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F099",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "両要件との対応と、別保管が必要になる反例を調べる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 45,
+          "to": 45,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F100",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "評価後は成立する範囲を先頭へ加え、保存期間の異なる宛先がある等の反例が出た場合は案を修正する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 48,
+          "to": 48,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F101",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "形だけの二案目を作らない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/judgment.md",
+          "heading": "判断の記入形",
+          "from": 48,
+          "to": 48,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F102",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "自力で確認した事実と、そこから自分が読んだ意味を分ける。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "共有事実と未共有の前提",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F103",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "何が不足していて、なぜ外部sourceでは確定できないのかを示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "共有事実と未共有の前提",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F104",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "本formatは内部logに置く検討であり、discussion側の判断背景、外向き質問本文、受領した回答欄の代わりではない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "共有事実と未共有の前提",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F105",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "調べられる事実を質問へ逃がさず、必要なuser-owned inputだけを残す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "共有事実と未共有の前提",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F106",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "回答・訂正してもらう前提や見方を具体化し、それが分かるとどの判断が進むかを結ぶ。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "問う対象と、回答で変わる判断",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F107",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "答えを推論で補わず、未提示案への採否を混ぜない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "問う対象と、回答で変わる判断",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F108",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "判断可能な定義・見方の採用ならproposalであり、「認識合わせ」という語だけでこの形式へ分類しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "問う対象と、回答で変わる判断",
+          "from": 11,
+          "to": 11,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F109",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "実施前には共有事実、現在の読解、必要inputと確認方法を保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 15,
+          "to": 15,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F110",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "本人が答えるまで結果を確定しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 15,
+          "to": 15,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F111",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "仕様には失敗した通知を再送できるとある。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 22,
+          "to": 22,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F112",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "初回の配送内容を繰り返す意味にも、最新設定でもう一度届ける意味にも読める。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 22,
+          "to": 22,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F113",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "既存記録だけでは利用者の期待を特定できない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 22,
+          "to": 22,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F114",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "宛先を変更した直後、過去通知の再送でも新しい宛先へ届けたいか。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 26,
+          "to": 26,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F115",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "この経験と優先順位を聞く必要がある。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 26,
+          "to": 26,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F116",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "回答によってsnapshot固定と再解決のどちらを要件へ採るかが変わる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 26,
+          "to": 26,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F117",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "外向き本文ではこの対象を具体的な質問にする。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 29,
+          "to": 29,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F118",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "受領した原文・結果は同じ回の回答欄に保存し、次の検討記録は必要条件への影響だけを参照する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 29,
+          "to": 29,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F119",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "部分回答なら埋まった範囲と残る空白を分ける。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/alignment.md",
+          "heading": "背景の記入形と例",
+          "from": 29,
+          "to": 29,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F120",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "claim、合格条件、方法、対象範囲を実施前に保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "主張と確かめ方",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F121",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "期待どおり動いた例だけで広いclaimを支えないよう、境界と反例を含める。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "主張と確かめ方",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F122",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "実行、机上照合、目視、文字列検査を区別し、何を観測できる方法かを明記する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "主張と確かめ方",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F123",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "対象ごとに期待と実測を対応付ける。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "期待と実際の結果",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F124",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "成功・失敗・未実施・取得不能を区別し、出力の存在だけを挙動の正しさにしない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "期待と実際の結果",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F125",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "結果後、支持できる結論と限界を冒頭へ加え、方法と証拠へ降りて読める形にする。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "期待と実際の結果",
+          "from": 11,
+          "to": 11,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F126",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "反例があればclaimか案を修正し、次の検証を定める。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "反例・未検証範囲から結論の射程を定める",
+          "from": 15,
+          "to": 15,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F127",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "限定された成功を全能力保存へ拡張しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "反例・未検証範囲から結論の射程を定める",
+          "from": 15,
+          "to": 15,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F128",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "次actionや最終案への影響を残す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "反例・未検証範囲から結論の射程を定める",
+          "from": 16,
+          "to": 16,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F129",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "validatorが通ることと、理由・順序・失敗時挙動を保持したことは別に扱う。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "反例・未検証範囲から結論の射程を定める",
+          "from": 16,
+          "to": 16,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F130",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "開始形：",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 20,
+          "to": 20,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F131",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "初回送信後に宛先設定を変えて再送し、配送adapterへ渡る宛先が初回snapshotと一致するかをテスト環境で確認する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F132",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "新規送信は変更後の宛先になることも対照にする。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F133",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "結果後の例：",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 30,
+          "to": 30,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F134",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "**通常再送では初回宛先が保たれ、新規送信は現在値になった。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F135",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "** 手動の宛先override経路は未検証であり、すべての再送経路へ一般化しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F136",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "通常再送二件と新規送信一件でadapter入力を照合し、期待に一致した。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 37,
+          "to": 37,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F137",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "配送サービス側の実配達はこの検証に含めていない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 37,
+          "to": 37,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F138",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "override経路が同じcontractを持つかは別途確認する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 41,
+          "to": 41,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F139",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "今回の案が保証する範囲は通常再送に限定する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/verification.md",
+          "heading": "検証の記入形と例",
+          "from": 41,
+          "to": 41,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F140",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "期待した挙動と実際の差、原因候補、支持・反証のため調べるものを実施前に保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "期待との差と原因候補",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F141",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "「指摘どおり直す」を原因の代わりにしない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "期待との差と原因候補",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F142",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "共有知識の誤りか、成果物固有の逸脱かを区別する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "期待との差と原因候補",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F143",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "原因ownerのroutingはhandlerの判定を使い、このformatが独自に決めない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "期待との差と原因候補",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F144",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "症状と原因の間を具体的な証拠で結ぶ。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "原因を支持・反証する証拠",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F145",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "確定原因と仮説、調べて否定できた候補と未確認を分ける。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "原因を支持・反証する証拠",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F146",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "原因が分かったら、修正先・内容と期待する再発防止を対応させる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "原因を支持・反証する証拠",
+          "from": 11,
+          "to": 11,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F147",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "今回の見た目を直すことと原因を除くことを混同しない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "原因を支持・反証する証拠",
+          "from": 11,
+          "to": 11,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F148",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "前の診断の何を維持・置換・拡張したかを、新しいblockで示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "誤診を新しいevidenceで置き換える",
+          "from": 15,
+          "to": 15,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F149",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "旧結果や原文を書き換えず、訂正元と新evidenceを参照する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "誤診を新しいevidenceで置き換える",
+          "from": 15,
+          "to": 15,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F150",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "前の診断を残したまま矛盾する例外を足すのでなく、現在の原因と修正範囲が分かる形へ再構成する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "誤診を新しいevidenceで置き換える",
+          "from": 16,
+          "to": 16,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F151",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "利用者は宛先変更後の再送にも新設定が効くと期待したが、実際は初回宛先になった。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "修正先と再検証を結ぶ記入形",
+          "from": 25,
+          "to": 25,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F152",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "設定cacheの失効漏れか、意図的なsnapshot契約かを、worker・schema・設計記録で切り分ける。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "修正先と再検証を結ぶ記入形",
+          "from": 25,
+          "to": 25,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F153",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "結果後は、例えば「schemaと旧設計からsnapshot契約と分かった。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "修正先と再検証を結ぶ記入形",
+          "from": 28,
+          "to": 28,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F154",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "cache障害の仮説は棄却する」と証拠を示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "修正先と再検証を結ぶ記入形",
+          "from": 28,
+          "to": 28,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F155",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "その場合は即座にcacheを直さず、要件の認識齟齬をhandlerへ返す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "修正先と再検証を結ぶ記入形",
+          "from": 28,
+          "to": 28,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F156",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "修正が合意された後は、どのcontractをどこへ反映し、どのcaseで再検証するかを残す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "修正先と再検証を結ぶ記入形",
+          "from": 29,
+          "to": 29,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F157",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "この診断記録だけを対象修正の承認にはしない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/diagnosis.md",
+          "heading": "修正先と再検証を結ぶ記入形",
+          "from": 29,
+          "to": 29,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F158",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "起点case、抽出したい関係、暫定原則、反例になり得る異なるcaseを適用前に保存する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "起点caseと暫定原則",
+          "from": 5,
+          "to": 5,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F159",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "case固有の語を抽象語へ置換するだけで一般化したとみなさず、原則がどの判断を変えるかを示す。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "起点caseと暫定原則",
+          "from": 6,
+          "to": 6,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F160",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "起点と性質の違う実在caseへ当て、必要条件の抜けや適用外を確かめる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "異なるcaseと反例で原則を育てる",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F161",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "反例が出たら原則か適用範囲を修正する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "異なるcaseと反例で原則を育てる",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F162",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "都合のよい例だけを増やさない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "異なるcaseと反例で原則を育てる",
+          "from": 10,
+          "to": 10,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F163",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "結果後、成立する原則を冒頭へ置き、起点・反例・修正の過程を辿れる形へ整える。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "異なるcaseと反例で原則を育てる",
+          "from": 11,
+          "to": 11,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F164",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "反例に合わせて原則を変えたら、起点を含む既確認caseへ再適用する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "修正した原則を既確認caseへ戻す",
+          "from": 15,
+          "to": 15,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F165",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "一つの反例が解消しただけで完成にしない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "修正した原則を既確認caseへ戻す",
+          "from": 15,
+          "to": 15,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F166",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "残る適用境界、未確認範囲、次に確かめる対象を記録する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "修正した原則を既確認caseへ戻す",
+          "from": 16,
+          "to": 16,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F167",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "原則をどの成果物へ反映するかはdiscussionの合意を別に要する。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "修正した原則を既確認caseへ戻す",
+          "from": 16,
+          "to": 16,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F168",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "開始形：",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 20,
+          "to": 20,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F169",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "請求書の再送では発行時の内容を維持する必要がある。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F170",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "暫定原則を「再実行は初回入力を固定する」と置き、請求書再送と、期限切れURLの再発行を比べる。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 27,
+          "to": 27,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F171",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "結果後の例：",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 30,
+          "to": 30,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F172",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "**再現対象の内容と、実行時に更新すべき配送情報を分けて定める。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F173",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "** すべての入力を固定する原則は採らない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 33,
+          "to": 33,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F174",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "URL再発行は期限情報を更新しないと目的を果たせない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 37,
+          "to": 37,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F175",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "そこで、固定対象を結果の同一性に必要な情報へ限定し、鮮度を要する情報は別contractにする。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 37,
+          "to": 37,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F176",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "請求書本文は固定したまま配送用URLだけ更新でき、起点caseも扱える。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 41,
+          "to": 41,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F177",
+      "source": null,
+      "kind": "記入例",
+      "meaning": "ただし宛先変更時に誰へ届けるかは別の要件判断であり、この原則だけでは決まらない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 41,
+          "to": 41,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F178",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "例は型を説明するもので、このprototypeの実測結果ではない。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 44,
+          "to": 44,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-F179",
+      "source": null,
+      "kind": "目的別記入条件",
+      "meaning": "実際の議論では対象sourceとcaseの実在根拠を添える。",
+      "destination": [
+        {
+          "file": "templates/consideration-records/generalization.md",
+          "heading": "原則と適用境界を示す記入形",
+          "from": 44,
+          "to": 44,
+          "locator": "原文断片の節内一致",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の提案1・決定: 六用途の具体記入形と使い分け",
+        "論点14: READMEによる選択・全文読取",
+        "論点19・21: 内部logの独立した過程記録"
+      ],
+      "verification": "本文を通読し、問い・方法・事実・解釈・限界の用途差と、実施前入力から結果後の完成形を照合。例示を実測と誤認しない注記も保持。"
+    },
+    {
+      "id": "N-C046",
+      "source": null,
+      "kind": "file境界の接続",
+      "meaning": "認識合わせを議論ownerの責務へ含める",
+      "destination": [
+        {
+          "file": "SKILL.md",
+          "from": 37,
+          "to": 49,
+          "heading": "このskillが所有するもの",
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点5の決定",
+        "論点8の決定"
+      ],
+      "verification": "実際の入口・returnと保存形を照合。旧意味の読み替えはhandlerの正本と合算する。"
+    },
+    {
+      "id": "N-C047",
+      "source_contracts": [
+        "S-C0059",
+        "S-C0060",
+        "S-C0061",
+        "S-C0062"
+      ],
+      "source": null,
+      "kind": "file境界の接続",
+      "meaning": "本体も同じownerがhandler規則を使い、別agent・正本へ分離しない",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "from": 1,
+          "to": 194,
+          "heading": "共通イテレーション",
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "論点4の決定",
+        "論点13の決定"
+      ],
+      "verification": "実際の入口・returnと保存形を照合。旧意味の読み替えはhandlerの正本と合算する。"
+    },
+    {
+      "id": "N-C048",
+      "source_contracts": [
+        "S-C0042",
+        "S-C0146",
+        "S-C0216",
+        "E-C011",
+        "E-C012",
+        "E-C016"
+      ],
+      "source": null,
+      "kind": "file境界の接続",
+      "meaning": "準備・応答に必要な実stateを受け取り、新規番号を先決めしない",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "from": 5,
+          "to": 11,
+          "heading": "入る前に引き継ぐ状態",
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "論点4の決定",
+        "論点13の決定"
+      ],
+      "verification": "実際の入口・returnと保存形を照合。旧意味の読み替えはhandlerの正本と合算する。"
+    },
+    {
+      "id": "N-C049",
+      "source": null,
+      "kind": "file境界の接続",
+      "meaning": "対象二層の全文を読み、引継ぎ後のstate差分・読取不能・一意性欠如なら停止する",
+      "destination": [
+        {
+          "file": "iteration.md",
+          "from": 5,
+          "to": 11,
+          "heading": "入る前に引き継ぐ状態",
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点12の決定",
+        "論点19の決定",
+        "論点21の決定",
+        "論点22の決定"
+      ],
+      "verification": "実際の入口・returnと保存形を照合。旧意味の読み替えはhandlerの正本と合算する。"
+    },
+    {
+      "id": "N-C050",
+      "source_contracts": [
+        "S-C0003",
+        "S-C0028",
+        "S-C0314",
+        "S-C0326",
+        "S-C0333"
+      ],
+      "source": null,
+      "kind": "file境界の接続",
+      "meaning": "独自の回復triggerと証拠を受け取り、通常応答・reparent・正しく保存した復帰を混ぜない",
+      "destination": [
+        {
+          "file": "record-recovery.md",
+          "from": 3,
+          "to": 7,
+          "heading": "入る条件と引き継ぐ証拠",
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "論点13の決定",
+        "論点22の決定"
+      ],
+      "verification": "実際の入口・returnと保存形を照合。旧意味の読み替えはhandlerの正本と合算する。"
+    },
+    {
+      "id": "N-C051",
+      "source_contracts": [
+        "S-C0012",
+        "S-C0060",
+        "S-C0089",
+        "S-C0090",
+        "S-C0321",
+        "S-C0333",
+        "S-C0366",
+        "S-C0368",
+        "S-C0371"
+      ],
+      "source": null,
+      "kind": "file境界の接続",
+      "meaning": "回復は保存結果と未確認をhandlerへ返し、未保存decision適用・次論点へ直行しない",
+      "destination": [
+        {
+          "file": "record-recovery.md",
+          "from": 53,
+          "to": 56,
+          "heading": "回復結果からhandlerへ戻る",
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADAPT",
+      "agreement": [
+        "論点13の決定",
+        "論点22の決定"
+      ],
+      "verification": "実際の入口・returnと保存形を照合。旧意味の読み替えはhandlerの正本と合算する。"
+    },
+    {
+      "id": "N-C052",
+      "source": null,
+      "kind": "file境界の接続",
+      "meaning": "内部logの回は固定anchorと今回の入口・変化・既存根拠を持つ",
+      "destination": [
+        {
+          "file": "templates/internal_record.md",
+          "from": 17,
+          "to": 26,
+          "heading": "回の骨子",
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点20の決定",
+        "論点21の決定",
+        "論点22の決定"
+      ],
+      "verification": "実際の入口・returnと保存形を照合。旧意味の読み替えはhandlerの正本と合算する。"
+    },
+    {
+      "id": "N-C053",
+      "source": null,
+      "kind": "file境界の接続",
+      "meaning": "記録単位は固定anchor・semantic title・用途別入力結果を持つ",
+      "destination": [
+        {
+          "file": "templates/internal_record.md",
+          "from": 27,
+          "to": 35,
+          "heading": "記録単位",
+          "locator": "見出しの連続範囲",
+          "owner": "prototype"
+        }
+      ],
+      "classification": "ADD",
+      "agreement": [
+        "論点7の決定",
+        "論点19の決定",
+        "論点22の決定"
+      ],
+      "verification": "実際の入口・returnと保存形を照合。旧意味の読み替えはhandlerの正本と合算する。"
+    }
+  ],
+  "reference_refresh": {
+    "method": "見出しを一意に解決し、同節内の原文一致が一つなら行へ絞る。section一致は意味保存の証明ではない。",
+    "files": {
+      "SKILL.md": {
+        "sha256": "27be280d33cce0a1f4b1edb92b8eb7f3f65b03af3b14934436dc4d4c4f75a2ba",
+        "owner": "prototype"
+      },
+      "iteration.md": {
+        "sha256": "4d89a037102502672838fb37e38b56b80671b23ac14f4a00065ec05840c1983c",
+        "owner": "prototype"
+      },
+      "record-recovery.md": {
+        "sha256": "c1a0f24677801ec53bf65c8ce317593243cdd938149d9e5983cb44c0eac8ca10",
+        "owner": "prototype"
+      },
+      "agents/openai.yaml": {
+        "sha256": "fa303aa9d9201a6a840a5a8ed9261d78e49adea93bafff7ae3244a2a811226ed",
+        "owner": "production-KEEP"
+      },
+      "templates/proposal-sections/README.md": {
+        "sha256": "4ea0350f2625d9c9d149b595ef1ce11e3fc1fa27e9f87a7dd9dc547f8a171d19",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/compact-options.md": {
+        "sha256": "002aa8ce3687b36583c36e086e58b2aa338b55fcdfaae213a2e3f33663ebb033",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/complete-state.md": {
+        "sha256": "6b4146c84255bc772128f69e200f383271961ec39d00fd2252e1db7e86b8ee63",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/detailed-options.md": {
+        "sha256": "99958d612b5e63c97ac03f62110f08bdf76a7cdde53a48f4f2a48871aa7f94a2",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/document-heading-outline.md": {
+        "sha256": "4a71a49136a4988bc7e29a1910cae85317b78441be2139b0c8c6daa77c3fffda",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/element-correspondence.md": {
+        "sha256": "1d0feb0ca0e784e577113782dd7b427f130963f72bb6dcec2ce03c71e90c4dfe",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/existing-file-local-diff.md": {
+        "sha256": "2eb2d0e8d523b54cddc8b7586d6a3e72aac333053830832dff0e2ac851ababb8",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/file-change-set.md": {
+        "sha256": "02431d85279c274c6c1605aaadd758a5ceccfdc2d42d78996912703b4b03c85d",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/process-flow.md": {
+        "sha256": "ad8a7f17a71d817094d759c7f98595497630f0ebcbeadcc981a3d9135df01785",
+        "owner": "prototype"
+      },
+      "templates/proposal-sections/structure-tree.md": {
+        "sha256": "2102c270cbdbca558fd9501f6191f6ed33b08d745e9851ac2410037bd359a116",
+        "owner": "prototype"
+      },
+      "templates/discussion_entry.md": {
+        "sha256": "2bc06c55bf93f0da93dd8a36fa4a49183f7f5b3370ba5a12a1dfa25010746517",
+        "owner": "prototype"
+      },
+      "templates/internal_record.md": {
+        "sha256": "d1057b73c34d3bff7c285f75171aed3558d6a517487c2cfe3cc7fbeb74eed0d2",
+        "owner": "prototype"
+      },
+      "templates/consideration-records/README.md": {
+        "sha256": "27de4cb5a0663a2fff79181503e40e5c978ad3d536f79abb9ffd1283857f72c6",
+        "owner": "prototype"
+      },
+      "templates/consideration-records/research.md": {
+        "sha256": "e02347856293bd0c97762b3619e0ba9edba4472d17c488252002165baad91551",
+        "owner": "prototype"
+      },
+      "templates/consideration-records/judgment.md": {
+        "sha256": "b17c44f9efe3ce4cdd767142473e65cc1c579e7ef57a285f3022862ce5857658",
+        "owner": "prototype"
+      },
+      "templates/consideration-records/alignment.md": {
+        "sha256": "908c5335de0f3d2768ea85f4b2f774ecca076af5abc5971aedcaabb2b512c10b",
+        "owner": "prototype"
+      },
+      "templates/consideration-records/verification.md": {
+        "sha256": "2e99c81a59c05f4d1c0ad3fb7f9acb4825cb93af3b0e58307380c5ca99dc7b27",
+        "owner": "prototype"
+      },
+      "templates/consideration-records/diagnosis.md": {
+        "sha256": "8acc771ee6d91e6eac037cbfd0d964764e9c884b826fdd0cc43df6c3ada8d644",
+        "owner": "prototype"
+      },
+      "templates/consideration-records/generalization.md": {
+        "sha256": "cba070ac3b0417901c3391420a3536117e584e50cdfb4630845aea86c4e4a1f5",
+        "owner": "prototype"
+      }
+    },
+    "source_inventory_sha256": "c4c6330fdd3255593b5e123baebbfd31e0b85c6e5752fb3a4bc714f5d8ab8061"
+  },
+  "audit": "function-migration-audit.json"
+}
