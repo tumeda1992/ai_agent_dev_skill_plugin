@@ -2,6 +2,7 @@
 // --write は位置情報を機械更新し、--patch は同じ更新のapply_patch入力を出す。
 import fs from 'node:fs';
 import path from 'node:path';
+import { tmpdir } from 'node:os';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -163,11 +164,22 @@ const sourceFiles = [...new Set([...ledger.contracts, ...entryRows].map(r => r.s
 for (const file of sourceFiles) {
   const before = execFileSync('git', ['show', `${ledger.baseline}:${file}`], { cwd: repository, encoding: 'utf8' });
   const current = fs.readFileSync(path.join(repository, file), 'utf8');
-  if (before !== current) throw new Error(`baselineとproductionが一致しない: ${file}`);
   const short = file.replace('plugins/tumeda-dev/skills/facilitate-discussion/', '');
+  // prototype-ownedの旧sourceは固定baselineから得る。反映済みproductionを旧版とみなさない。
+  // production-KEEPは従来どおりbaseline一致を必須とし、反映本文の照合はproject-production-evidenceが所有する。
+  if (!fs.existsSync(path.join(prototype, short)) && before !== current) throw new Error(`KEEP対象がbaselineと一致しない: ${file}`);
   baselineEqual.push({ file, sha256: digest(before), prototype_equal: fs.existsSync(path.join(prototype, short)) ? fs.readFileSync(path.join(prototype, short), 'utf8') === before : null });
   if (!fs.existsSync(path.join(prototype, short))) continue;
-  const diff = spawnSync('git', ['diff', '--no-index', '--unified=0', path.join(repository, file), path.join(prototype, short)], { encoding: 'utf8' });
+  const scratch = fs.mkdtempSync(path.join(tmpdir(), 'discussion-baseline-'));
+  const baselineFile = path.join(scratch, 'source');
+  let diff;
+  try {
+    fs.writeFileSync(baselineFile, before);
+    diff = spawnSync('git', ['diff', '--no-index', '--unified=0', baselineFile, path.join(prototype, short)], { encoding: 'utf8' });
+  } finally {
+    if (fs.existsSync(baselineFile)) fs.unlinkSync(baselineFile);
+    fs.rmdirSync(scratch);
+  }
   if (![0, 1].includes(diff.status)) throw new Error(diff.stderr);
   let oldLine = 0, newLine = 0;
   for (const line of diff.stdout.split('\n')) {
