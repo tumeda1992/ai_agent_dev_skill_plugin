@@ -117,7 +117,7 @@ skill起動済みという前提やtarget fileの解決を毎回分岐させな�
 #### 不可分な変更集合を示す
 
 複数file、file間の対応、または一file内の複数hunkが一つのdecisionとして不可分に変わる場合は、`file-change-set.md`を使う。
-ユーザーが「ここは良いがここは違う」と言える別decisionは、一つの変更集合へまとめず別論点へ分ける。
+独立して採否を変えられる変更は、一つの変更集合へまとめず別decisionへ分ける。
 
 変更集合では、次を判断できるようにする。
 
@@ -173,7 +173,7 @@ scopeまたは情報ownerの移動が元proposalから独立して変更でき�
 
 ### 所属と評価対象を照合する
 
-feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す。同じdecisionかどうかはSKILL.mdの「decisionの境界を判定する」を使う。
+feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す。同じdecisionかどうかはSKILL.mdの「decisionの境界を判定する」を使い、部分修正というだけで別論点にしない。
 handlerが選んだ論点と同じdecision scopeか、child・sibling・後発parent・独立論点か、決定済みの再開か、scope外かを実際の内容で確認する。別decisionなら回を足さずhandlerへ戻る。原因ownerの分類とは別であり、両方を通る。
 作業再開指示だけなら提示への回答にせず、実stateから未完処理へ復帰する。保存状態が不明なら停止する。
 同じdecisionなら提示種類・番号・確認対象を特定し、対応する空欄を選ぶ。既に同じ応答を保存済みなら二重保存せず次処理へ、異なる確定応答があれば上書きせず再開／別decisionをhandlerへ返す。
