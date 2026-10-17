@@ -1,0 +1,427 @@
+[
+  {
+    "old": "discussion_directory",
+    "owner": "SKILL.md",
+    "expected": "discussion_directory",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "discussion_file_name",
+    "owner": "SKILL.md",
+    "expected": "discussion_file_name",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "defaultは `discussion.md`",
+    "owner": "SKILL.md",
+    "expected": "defaultは `discussion.md`",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "既存directory",
+    "owner": "SKILL.md",
+    "expected": "既存directory",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "pathを含まないbasename",
+    "owner": "SKILL.md",
+    "expected": "pathを含まないbasename",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "# 議論記録",
+    "owner": "SKILL.md",
+    "expected": "# 議論記録",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "legacyな `### 論点N:`",
+    "owner": "SKILL.md",
+    "expected": "legacyな `### 論点N:`",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "最大値+1",
+    "owner": "SKILL.md",
+    "expected": "最大値+1",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "self-contained",
+    "owner": "SKILL.md",
+    "expected": "self-contained",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "末尾のiterationとfeedback状態",
+    "owner": "SKILL.md",
+    "expected": "末尾のiterationとfeedback状態",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "その回の問いを判断できる",
+    "owner": "SKILL.md",
+    "expected": "その回の問いを判断できる",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "templates/proposal-sections/README.md",
+    "owner": "iteration.md",
+    "expected": "templates/proposal-sections/README.md",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "提案Nへのフィードバック",
+    "owner": "templates/discussion_entry.md",
+    "expected": "#### 提案Iへのフィードバック（論点N）",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点10",
+      "論点12",
+      "論点16"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "固定候補ではなくその回の結果が分かる短い",
+    "owner": "iteration.md",
+    "expected": "固定候補ではなくその回の結果が分かる短い",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "templateの任意`仮決定`",
+    "owner": "SKILL.md",
+    "expected": "templateの任意`仮決定`",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "templateの`再開条件`",
+    "owner": "SKILL.md",
+    "expected": "templateの`再開条件`",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "固定の`ネクストアクション`fieldはentryへ置かない",
+    "owner": "SKILL.md",
+    "expected": "固定の`ネクストアクション`fieldはentryへ置かない",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "同じdecision scope",
+    "owner": "iteration.md",
+    "expected": "同じdecision scope",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "親論点",
+    "owner": "SKILL.md",
+    "expected": "親論点",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "自己参照ではない",
+    "owner": "SKILL.md",
+    "expected": "自己参照ではない",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "循環しない",
+    "owner": "SKILL.md",
+    "expected": "循環しない",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "一つのleaf論点を一つのdecision",
+    "owner": "SKILL.md",
+    "expected": "一つのleaf論点を一つのdecision",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す",
+    "owner": "iteration.md",
+    "expected": "feedbackを受けた時は、iterationを追加する前に必ずこの分類をやり直す",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "activeな論点を作らない",
+    "owner": "SKILL.md",
+    "expected": "activeな論点を作らない",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "`独立論点` は現在のdiscussion目的には属する",
+    "owner": "SKILL.md",
+    "expected": "`独立論点` は現在のdiscussion目的には属する",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "作成済み論点がscope外と判明した場合は履歴を削除しない",
+    "owner": "SKILL.md",
+    "expected": "作成済み論点がscope外と判明した場合は履歴を削除しない",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "通常の質問、説明、短い相談から暗黙起動してはならない",
+    "owner": "SKILL.md",
+    "expected": "通常の質問、説明、短い相談から暗黙起動してはならない",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "## workflow全体で守る不変条件",
+    "owner": "SKILL.md",
+    "expected": "## workflow全体で守る不変条件",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "## 実行workflow",
+    "owner": "SKILL.md",
+    "expected": "## 実行経路",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "### 1. skillを起動する",
+    "owner": "SKILL.md",
+    "expected": "## discussion fileを解決する",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "#### 起動phaseの完了gate",
+    "owner": "SKILL.md",
+    "expected": "### 解決の完了gate",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "### 2. 論点を扱う",
+    "owner": "SKILL.md",
+    "expected": "## 対象論点を選ぶ",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "#### 2.1 対象論点を選ぶ",
+    "owner": "SKILL.md",
+    "expected": "## 対象論点を選ぶ",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "#### 2.2 新規論点を作るvariant",
+    "owner": "iteration.md",
+    "expected": "### 作成中の回と検討記録を用意する",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点3",
+      "論点4",
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "discussion scopeへ属する理由、別decisionとして分けた理由等",
+    "owner": "iteration.md",
+    "expected": "discussion scopeへ属する理由、別decisionとして分けた理由等",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "#### 2.3 選択した一つの論点を進める",
+    "owner": "SKILL.md",
+    "expected": "## 選択した論点を進める",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "##### 2.3.1 feedbackをiterationとして扱う",
+    "owner": "iteration.md",
+    "expected": "## 既存提示への応答を扱う",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点3",
+      "論点4",
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "###### iterationの入口gate",
+    "owner": "iteration.md",
+    "expected": "## 入る前に引き継ぐ状態",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点4",
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "iterationを追加せず、一段上の`2.1 対象論点を選ぶ`へ戻る",
+    "owner": "iteration.md",
+    "expected": "別decisionなら回を足さずhandlerへ戻る",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点3",
+      "論点4",
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "skill起動済みという前提やtarget fileの解決を毎回分岐させない",
+    "owner": "iteration.md",
+    "expected": "skill起動済みという前提やtarget fileの解決を毎回分岐させない",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "##### 2.3.2 合意したdecisionを確定する",
+    "owner": "SKILL.md",
+    "expected": "### 合意したdecisionを確定する",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "##### 2.3.3 論点をreparentする",
+    "owner": "SKILL.md",
+    "expected": "### 論点をreparentする",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "##### 2.3.4 scope外の既存論点を取り下げる",
+    "owner": "SKILL.md",
+    "expected": "### scope外の既存論点を取り下げる",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "#### 論点levelの完了gate",
+    "owner": "SKILL.md",
+    "expected": "### 返却の完了gate",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  },
+  {
+    "old": "一つの論点でdecisionを確定するたびに",
+    "owner": "SKILL.md",
+    "expected": "一つの論点でdecisionを確定するたびに",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "複数論点のdecisionをまとめてから返さない",
+    "owner": "SKILL.md",
+    "expected": "複数論点のdecisionをまとめてから返さない",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "consumerがdecisionを適用して全体状態を再評価",
+    "owner": "SKILL.md",
+    "expected": "consumerがdecisionを適用して全体状態を再評価",
+    "classification": "KEEP",
+    "agreement": [],
+    "reason": "意味とピン留め語句は維持。ownerだけ移す場合も文字列を変えない"
+  },
+  {
+    "old": "図のsubgraphはscopeの包含を表す",
+    "owner": "SKILL.md",
+    "expected": "skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない",
+    "classification": "ADAPT",
+    "agreement": [
+      "論点13"
+    ],
+    "reason": "合意したfile分割・保存形・図のbindingへの適応"
+  }
+]
