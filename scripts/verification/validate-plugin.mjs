@@ -332,6 +332,7 @@ for (const expected of [
 requireText(discussionIteration, "making_and_choosing_options.md");
 requireText(discussionIteration, "該当fileを全文読む");
 requireText(discussionIteration, "次actionより前");
+requireText(discussionIteration, "内部logを開かずに理解・判断・応答");
 
 
 for (const expected of [
