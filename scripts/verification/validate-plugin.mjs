@@ -183,6 +183,7 @@ const discussionMetadata = skillPath("facilitate-discussion/agents/openai.yaml")
 
 const discussionTemplate = skillPath("facilitate-discussion/templates/discussion_entry.md");
 
+const discussionInternalTemplate = skillPath("facilitate-discussion/templates/internal_record.md");
 
 const discussionSupportingFiles = [
   "templates/proposal-sections/README.md",
@@ -197,7 +198,7 @@ const discussionSupportingFiles = [
   "templates/proposal-sections/structure-tree.md",
 ].map((name) => skillPath("facilitate-discussion/" + name));
 
-for (const p of [discussionSkill, discussionIteration, discussionRecovery, discussionMetadata, discussionTemplate, ...discussionSupportingFiles]) requireExists(p);
+for (const p of [discussionSkill, discussionIteration, discussionRecovery, discussionMetadata, discussionTemplate, discussionInternalTemplate, ...discussionSupportingFiles]) requireExists(p);
 
 for (const p of ["task-design/templates/discussion_entry.md", "steering/templates/discussion_entry.md", "steering/templates/implementation_review.md"]) requireAbsent(skillPath(p));
 
@@ -285,6 +286,7 @@ function requireSavedForms(relativePath, headings) {
 
 requireSavedForms(discussionTemplate, ["論点metadata","回の骨子","提案本文","空の提案応答欄","認識合わせ本文","空の認識合わせ回答欄","受領応答の本文","仮決定","再開条件","決定"]);
 
+requireSavedForms(discussionInternalTemplate, ["論点の骨子","回の骨子","記録単位"]);
 
 for (const expected of [
   "## 論点N: {判断内容を表すタイトル}",
@@ -301,6 +303,7 @@ for (const expected of [
   "### 仮決定（論点N）",
   "### 再開条件（論点N）",
   "### 決定（論点N）",
+  "{内部log相対path}#iteration-I"
 ]) requireText(discussionTemplate, expected);
 
 for (const forbidden of [
@@ -312,6 +315,12 @@ for (const forbidden of [
   "**ネクストアクション:**"
 ]) forbidText(discussionTemplate, forbidden, "廃止したdiscussion entry固定field");
 
+for (const expected of [
+  "internal-records/{D}.topic-{N}.md",
+  "同じownerがsingle writer",
+  "expression_notation.md",
+  "提示済みか不明"
+]) requireText(discussionSkill, expected);
 
 requireText(discussionIteration, "making_and_choosing_options.md");
 
@@ -322,6 +331,13 @@ for (const expected of [
   "通常経路の代替ではない"
 ]) requireText(discussionRecovery, expected);
 
+for (const expected of [
+  "<a id=\"iteration-I\"></a>",
+  "<a id=\"iteration-I-record-R\"></a>",
+  "**discussion:**",
+  "**論点:** 論点N",
+  "## 開始context"
+]) requireText(discussionInternalTemplate, expected);
 
 requireOrderedText(discussionIteration, ["### 作成中の回と検討記録を用意する", "### 判断材料を確かめ、検討記録を育てる", "### 提案または認識合わせを形にする", "### 保存した回を提示可能にする"], "提示準備の実行順");
 

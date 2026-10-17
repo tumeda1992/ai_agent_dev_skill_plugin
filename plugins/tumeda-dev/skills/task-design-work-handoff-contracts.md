@@ -14,7 +14,7 @@ steering固有phaseの引き継ぎ、任意workflowのhandoff、skill間result h
 
 working directoryを確定した直後、`task-design`は`design.md`または`task-design-discussion.md`の**存在だけ**を確認する。既存正本があれば、canonical本文を読む前にこのcatch-upを開始する。`task-design`と`think-through`、適用標準、repository固有指示を先に読み、通常の設計前調査は対象working directoryを除外して行う。
 
-独立再構成前に許可される対象design由来の入力は、`scripts/extract-handoff-input.mjs`がstdoutへ出す単一の`元の依頼内容`と、存在する場合の単一の`上位roadmap制約`だけである。summary、designの他section、discussion、既存attempt本文、canonical file全体を読むことは禁止する。extractorが欠落、重複見出し、壊れた境界、読取失敗を報告したときは、内容を推測または別経路で復元せずfail closedで停止する。
+独立再構成前に許可される対象design由来の入力は、`scripts/extract-handoff-input.mjs`がstdoutへ出す単一の`元の依頼内容`と、存在する場合の単一の`上位roadmap制約`だけである。summary、designの他section、discussion、接続された内部検討記録、既存attempt本文、canonical file全体を読むことは禁止する。extractorが欠落、重複見出し、壊れた境界、読取失敗を報告したときは、内容を推測または別経路で復元せずfail closedで停止する。
 
 ## attemptの作成と独立再構成
 
@@ -29,6 +29,10 @@ attemptは`<working_dir>/task-design-catch-up/attempt-NNN.md`へ一回のcatch-u
 対応表はcurrent design、全decision、activeまたは停止中topicを漏れなく置く。独立再構成との差分を`一致`、`正本から補完して理由まで理解`、`正本へ疑義あり`、`独立再構成だけにある新規TBD`の四分類へ一件ずつ置く。`正本へ疑義あり`は対応topicの再開へ、current designへ影響する新規TBDは新しいtopic候補として`facilitate-discussion`へroutingする。未分類差分または未解消疑義が一つでもある間はcatch-up未完了であり、既存topicへ戻らない。
 
 正本を比較する時点と完了直前にcanonical file digestを取り、両方が一致することを確認する。digestが変化していれば、独立再構成を捨てず最新正本との差分解消へ戻る。全対象のcoverage、四分類、未分類差分zero、未解消疑義zero、digest一致、exactな再開topicと次の一問がそろったときだけcatch-up完了とする。
+
+discussionから必要な判断過程を確認する場合は、facilitate-discussionの読取規則で、対象論点の内部検討記録を全文読み、参照した根拠と後続訂正を辿る。
+無関係な内部logを一律に読むことは要求しない。内部logから論点番号・現在decisionを逆算せず、discussionを判断とdecisionの正本として扱う。
+内部logを比較根拠として読んだ場合は、そのexactなfileをcanonical file digestの対象へ加える。読取集合へ追加したfileも、照合時と完了直前のdigest一致を確認する。
 
 ## 停止、再開、cleanup
 

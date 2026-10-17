@@ -75,6 +75,8 @@ expectIncludes(
     "current design、全decision、activeまたは停止中topic",
     "`一致`、`正本から補完して理由まで理解`、`正本へ疑義あり`、`独立再構成だけにある新規TBD`",
     "canonical file digest",
+    "discussion、接続された内部検討記録、既存attempt本文、canonical file全体を読むことは禁止",
+    "内部logを比較根拠として読んだ場合は、そのexactなfileをcanonical file digestの対象へ加える",
     "未分類差分zero",
     "未解消疑義zero",
     "working directory直下のexact path",
