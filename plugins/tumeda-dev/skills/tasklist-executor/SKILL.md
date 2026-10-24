@@ -124,6 +124,18 @@ visual-inspector で確認対象のデータが存在しない場合:
 やってしまいがちな失敗: データが存在しないことを理由に「spec で green を確認」と書いて ✅ にする
 → 確認できていない = 完了していない。タスクの途中でも、他のタスクをまとめて終えた後でも、ユーザーへの報告は許容される
 
+# 汎用skillの構造review
+
+`skill-update-review`の対象となる汎用skillの新設・更新では、skill-creatorによる実装後・DoD判定前に`skill-update-review`を明示適用する。
+対象全体と必要依存、構造案、保持要件、実在する更新前後の比較元、先行指摘、元作業と返却先を渡す。
+同じexecutorが明示適用してよく、別途指定された独立review・動作検証は省略しない。
+結果を既存のtask検証記録または実装reviewへ保存し、保存先・対象箇所・内容識別を残す。
+次工程や再開で使う前にも、内容・必要依存・file集合・参照・実解決先を照合する。
+設計時の合格を編集後へ流用せず、不合格・材料不足・影響不明ではtaskを未完に保ち、修正・追加確認・必要な全体再reviewへ戻る。
+合意済みdesignを越える整理は同じ作業のtask-designへ返し、勝手に再設計しない。
+対象判定・構造評価の詳細は同skillへ委ねる。document-review、機能・安全・独立した動作検証、利用者確認と既存の完了条件を維持する。
+tasklist・checkbox・DoD最終判定のsingle writerはこのexecutorのままとする。
+
 # ドキュメントレビュー
 
 `docs/` 配下の標準 doc、または `skills/` 配下の `SKILL.md` と `templates/` を新規作成・更新する task では、実装後・DoD 確認前に `document-review` skill を通す。**対象はこの 2 種に限る**。steering の作業記録（`design.md` / `tasklist.md` / discussion file / `summary.md`）には当てない。

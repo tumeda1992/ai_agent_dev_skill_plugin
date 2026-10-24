@@ -1071,7 +1071,36 @@ forbidText(
   "skills READMEに残ったplugin repositoryの自称「正本repository」"
 );
 
+// skill構造reviewの入口・分担・caller接続。旧guardの意味は変更しない。
+const structureReviewFiles = [
+  "skill-update-review/SKILL.md",
+  "skill-update-review/collect-review-material.md",
+  "skill-update-review/assess-structure.md",
+  "skill-update-review/templates/review-result.md",
+  "skill-update-review/agents/openai.yaml",
+].map(skillPath);
+for (const relativePath of structureReviewFiles) requireExists(relativePath);
+requireFrontmatter(structureReviewFiles[0], "name: skill-update-review");
+for (const expected of ["collect-review-material.md", "assess-structure.md", "templates/review-result.md", "構造の合格は", "旧合格を使わない"]) {
+  requireText(structureReviewFiles[0], expected);
+}
+for (const expected of ["source全文", "必要な比較元が読めなければ材料不足", "実解決先", "内容hash", "既存の必読条件を維持"]) {
+  requireText(structureReviewFiles[1], expected);
+}
+for (const expected of ["混線の実績がなくても不合格", "現在の単独利用・他callerの具体要求", "将来予測だけでは独立させない", "既存の不合格も通常完了までに解消", "不合格と未確認が併存", "別用途だけの独立問題"]) {
+  requireText(structureReviewFiles[2], expected);
+}
+for (const relativePath of [taskDesignSkill, tasklistDesign, tasklistTemplate, skillPath("tasklist-executor/SKILL.md"), skillPath("README.md")]) {
+  requireText(relativePath, "skill-update-review");
+}
+for (const relativePath of [taskDesignSkill, tasklistDesign, tasklistTemplate, skillPath("tasklist-executor/SKILL.md")]) {
+  requireText(relativePath, "内容識別");
+  requireText(relativePath, "材料不足");
+}
+requireText(structureReviewFiles[4], "$skill-update-review");
+
 const portableFiles = [
+  ...structureReviewFiles,
   skillPath("doc-enricher/SKILL.md"),
   discussionSkill,
   discussionMetadata,

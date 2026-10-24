@@ -81,6 +81,15 @@ tasklist作成途中では、解消対象を可視化するために`TBD`を使�
 - 「既存testが通ればよい」は不十分である。変更した挙動が今後も担保されるtestを必要とする。
 - testを書けない、または書きにくい時は、技術的理由をtask commentへ記録する。
 
+### 汎用skillの構造review
+
+`skill-update-review`の対象となる汎用skillの新設・更新を実装するphaseには、skill-creatorによる編集後・DoD判定前の`skill-update-review`明示起動をtaskとDoDへ含める。
+対象全体と必要依存、構造案、保持要件、実在する比較元、先行指摘、元作業と返却先を渡す。
+結果を既存の検証記録または実装reviewへ保存し、保存先・対象箇所・内容識別を残す。
+次工程・再開で使う前にも内容・必要依存・file集合・参照・解決先を照合し、不合格・材料不足・影響不明なら必要な修正・確認・全体再reviewへ戻す。
+設計時の合格を編集後へ流用せず、同じ担当による明示reviewを認める。独立した動作検証の別要件は維持する。
+構造reviewの対象判定と評価条件は同skillへ委ね、document-review、機能・安全・利用者確認を代替しない。
+
 ### 品質check
 
 - **MUST**: repository contextが返したrepository全体のstatic analysis、lint、format check、test commandを含める。固定commandを推測しない。

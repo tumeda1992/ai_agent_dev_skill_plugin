@@ -78,6 +78,17 @@
   - [ ] 問題があれば修正して再確認する
   - ⚠️ `npx playwright`またはPlaywright toolを直接呼ばない。必ずpluginの`visual-inspector` skillを使う。
 
+## 汎用skillを新設・更新する場合のreview
+
+<!-- 対象skillがある場合だけ、該当する実装phaseのtask・DoDへ以下を組み込む。対象外ならこのsectionを生成しない。 -->
+
+- [ ] skill-creatorによる編集後・DoD判定前に`skill-update-review`を明示適用する
+  - [ ] 実物全体・構造案・保持要件・更新前後の比較元・先行指摘・元作業と返却先を渡す
+  - [ ] 結果を既存の検証記録または実装reviewへ保存し、保存先・対象箇所・内容識別を残す
+  - [ ] 使用前・再開時にも内容・必要依存・file集合・参照・解決先を照合する
+  - [ ] 不合格・材料不足・影響不明があれば修正・追加確認・必要な全体再reviewを行い、未解消のままDoDを完了しない
+  - [ ] 設計時の合格を編集後へ流用せず、document-review・機能・安全・独立した動作検証・利用者確認を維持する
+
 ## Documentation reviewと実装後振り返り
 
 - [ ] code readingまたは実装で永続化候補を得た場合、その場でdoc-enricherを提案modeで適用する
