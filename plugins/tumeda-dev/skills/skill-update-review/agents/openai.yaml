@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill構造review"
+  short_description: "汎用skillの構造案と編集後の全体を確認し、問題と不足を担当へ返す"
+  default_prompt: "$skill-update-review で、元作業の要件と対象skill全体を読み、設計時または編集後の構造reviewを行う。"

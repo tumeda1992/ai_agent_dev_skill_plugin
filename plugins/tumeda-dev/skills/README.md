@@ -26,6 +26,7 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 
 - **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。steering / task-design を呼ぶ前段にも効く。思考標準の本体は[../docs/think_standards/](../docs/think_standards/README.md)にある。
 - **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定を指定directoryのMarkdownへ継続記録する。
+- **skill-update-review** — 汎用skillの構造案と編集後の全体を確認し、根拠付きの判定を設計・編集担当へ返す。
 - **steering** — task-designの`tasklist_ready | roadmap_ready | planless_complete`を受け、plan resultのdispatch、planless resultの共通gate後完了、roadmapの子steering binding・status伝播・再帰実行を担うruntime orchestrator。
   - **task-design** — task全体で一つの完成後の姿を設計・合意し、対象成果物変更を分類・適用する。execution plan対象がある場合だけ排他的な`tasklist.md | roadmap.md`を設計・review・合意し、対象zeroならplanなしで完了するowner。
 - **tasklist-executor** — task-designが生成した`tasklist.md`を上から順に実装・テスト・更新するsingle execution writer。roadmapは更新せず、完了resultをcallerへ返す。
