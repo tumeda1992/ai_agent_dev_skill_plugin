@@ -1,0 +1,11 @@
+# Frontmatter修復後のdocument-review
+
+前回の指摘なし結果はdocument-review-new-skill.mdへ履歴として残す。その後、公式validatorがdescription継続行のYAML不良を実測したため、前回結果だけで通常完了しない。
+
+原因は日本語散文の長行改行処理をYAML frontmatterへ適用したことである。descriptionをfolded scalarへ修復し、元の説明内容・対象・triggerを保持した。実行指示本文はbytes同一、内部指示三fileも同一、参照・file集合・実解決先・必要な前提は不変。差分はfrontmatter-fix.diff、比較元はpre-frontmatter-fix/SKILL.md。
+
+新規のfrontmatterはこのSKILL.mdだけであり、UI metadataはagents/openai.yamlだけである。metadataはquoted string三項目で、通常散文の自動改行を適用していない。fixtureの短いfrontmatterも生成時から別処理であり、この不良の波及先には含まれない。
+
+作成時と更新時の濃さ・記法・命名・指示対象・既存記述の直し方・機密性を再適用した。descriptionの行をYAMLのindent条件に従わせ、本文・境界・理由・例を削っていない。今は文書上の新しい指摘なし。公式構文再検証はattempt 3へ渡し、結果受領前に通過を認定しない。
+
+独立した12 caseは本文と依存の不変により再利用する。入口の自動選択を独立実行で検証したものではなく、実物pathの明示適用を検証した観測である。YAMLの構文修復をその挙動全体の変更と混同せず、構文は別に実測する。

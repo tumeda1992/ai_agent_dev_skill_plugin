@@ -1,0 +1,1 @@
+編集後review。before.mdからcommandを内部scriptへ移した。scriptのsourceも今回の対象。

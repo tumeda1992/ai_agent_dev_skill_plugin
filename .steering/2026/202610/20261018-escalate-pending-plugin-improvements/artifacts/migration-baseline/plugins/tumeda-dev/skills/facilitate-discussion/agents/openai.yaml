@@ -1,0 +1,6 @@
+interface:
+  display_name: "Facilitate Discussion"
+  short_description: "議論を構造化し、指定したMarkdownへ継続的に記録"
+  default_prompt: "$facilitate-discussion を使って、議論を構造化し指定directoryのMarkdownへ継続記録してください。"
+policy:
+  allow_implicit_invocation: false

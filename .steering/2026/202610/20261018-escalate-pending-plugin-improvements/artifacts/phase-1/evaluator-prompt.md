@@ -1,0 +1,3 @@
+# 独立実行の依頼
+
+/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/SKILL.md の新しい実物を明示的に適用し、/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures にある12 caseの利用者依頼を実行してほしい。各caseのrequirements.mdとraw sourceが入力。caseは別作業として扱う。評価対象を編集せず、対象全体をreviewし、結果と実際の読取範囲・内容識別・返却先を /Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-run-1/observations.md へ保存する。09〜12は既存判定を使う再開依頼。過去の結果を実物と照合して判断する。指定したskillの未作成templateを作る依頼ではなく、新しいskillを使った実行を依頼する。想定解や実装者の結論は与えていない。

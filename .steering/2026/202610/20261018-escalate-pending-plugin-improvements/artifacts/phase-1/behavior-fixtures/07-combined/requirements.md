@@ -1,0 +1,1 @@
+編集後review。before.mdから復旧recordを追加し、検査を内部scriptへ移す構造案。必要scriptも今回の対象。

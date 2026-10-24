@@ -1,0 +1,1 @@
+再review依頼。先行判定はprior-review.md。今回の現物はcase直下。前回の合格を今回の次工程で利用できるか確認し、必要なら同じ担当として全体を再reviewしてほしい。元作業はこのcase directory。

@@ -1,0 +1,39 @@
+{
+  "status": "restored_to_reviewed_source",
+  "files": [
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/SKILL.md",
+      "sha256": "0774f213c07fda6b73a49e1b8dff5ee28586d92286eb99488ae6342143784ef9",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/SKILL.md",
+      "bytes": 3544
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/agents/openai.yaml",
+      "sha256": "d7214906c3ae44ede3d61f07309bff0a19b7a2df21fac68db0c6dcae540eb7a7",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/agents/openai.yaml",
+      "bytes": 315
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/assess-structure.md",
+      "sha256": "3309e35279c99db4103c893e87a04add7968016f01d5977842a88508070679af",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/assess-structure.md",
+      "bytes": 4877
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/collect-review-material.md",
+      "sha256": "8874aaba39d2cfd4e20c7c63371d37716c9e64328166881bd2d41877706f33ed",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/collect-review-material.md",
+      "bytes": 2931
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md",
+      "sha256": "0809158eba573a0e846a66f6fd2c7f7f6490c34a9a82f0c69e64d214f1c2225f",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md",
+      "bytes": 2006
+    }
+  ],
+  "restoration_source": "破損出力内に誤書込前の正しいtemplate各原文行がA1行として残り、行番号順に空行を戻して復元。独立観測の旧hashと完全一致した。",
+  "expected_template_sha256": "0809158eba573a0e846a66f6fd2c7f7f6490c34a9a82f0c69e64d214f1c2225f",
+  "contract_ledger_sha256": "193ef1b0697fb20f765a56ad4e8eb843838ac4a8ec0b8e2aa87abb8fea2e05b5",
+  "corrupt_snapshot": "ledger-path-repair/corrupted-review-result.md"
+}

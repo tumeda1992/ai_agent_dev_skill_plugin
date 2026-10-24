@@ -1,0 +1,27 @@
+# 復元後の実物全体の構造review
+
+検証済みrepository実物のskill-update-reviewを明示適用し、材料収集・全体評価・先行指摘対応・結果返却をやり直した。対象は新skill、task-design、tasklist-executorの編集後の全体。失効したstructure-review-after-callers.mdの合格は使わない。
+
+## 実読と内容識別
+
+復元後の新skill入口・材料収集・評価・結果template・metadataを実物から全文再読した。templateは結果の部品と架空例の22行であり、ledger本文はない。task-designの実物入口全860行、tasklist設計の内部指示、tasklist template、tasklist-executorの実物全文、skills/READMEも再読した。長い出力の打切り箇所は範囲取得し直して補った。
+
+task-designの他の内部指示・専用extractor・全template/outcome sectionは先に全文読んだ同じbytesであることを再照合した。runtime契約、共有handoff契約、呼ぶ別skillの入口と受渡しも含む読取集合・実解決先・SHA-256・全文行数はfinal-review-identifiers.json。新skillとtask-designの全所有file集合を列挙し、未登録の追加・削除がないことを確認した。比較元はbaselineと新skillの保存済み修復前版。hashだけを読了の代用にしていない。
+
+## 判定と根拠
+
+構造は合格。新skillは入口の対象・段階・routing、材料収集の実読・比較・不足、評価の構造判断・再review・返却へ分かれる。内部指示の読取条件と親への返却を辿れ、固有の材料充足と構造判定を一fileへ抱え込まない。結果templateは判定規則の別正本ではなく、任意部品と明示した例である。
+
+独立した復旧工程、同じ規則の手管理、単なる出力形式の切替を別々に判断できる一般条件が実物へ残っている。たとえば復旧状態を追加する変更は内部工程として評価し、CSV/PDFのserializer選択だけなら分割を求めない。現在の単独reviewと設計・実装callerの具体要求があるため、別skillの独立も将来予測だけに基づかない。
+
+callerは構造案採用前と編集後・DoD前に対象全体と比較元を渡し、既存の設計議論/検証記録/実装reviewへ結果を保存する。対象判定と評価条件はreview skill、材料の準備と保存・次工程可否は既存caller、checkboxはexecutorという境界を保つ。tasklist templateは対象の実装phaseへ組み込む条件を持つ。既存design loop、plan設計の内部file、引き継ぎの共有契約と専用scriptも含め、今回未編集の処理を除外せず確認した。
+
+review条件の改訂はreview owner、plan掲載はtask-design、実測の完了更新はexecutorという具体caseで、二重正本や未担当の状態を増やしていない。利用者の合意・document-review・機能/安全/独立動作検証・停止と再開・commit前確認も同じownerに残る。必要な範囲の材料不足や構造上の未解決は確認しなかった。
+
+## 先行指摘と復元
+
+一般条件不足は実物の評価条件へ明示済み、descriptionのYAML不良は意味を保って修復済み。template混入は保存先変数の取り違えであり、正しい原文hashへ完全復元した。誤版へ適用したreviewは失効記録へ結び、今回の全体再読と新判定で置き換える。templateの比較は旧独立観測の2006bytes/22行/SHA-256と一致し、同じ新skill5 fileの実物へ戻った。
+
+独立12 case観測は、この復元と本文・必要依存・fixtureの一致を根拠に再利用可能である。構造合格で挙動や公式構文検証を代替せず、全体validatorのfailedをpassedへ書き換えない。
+
+返却直前にもfile集合・内容・実解決先・参照と前提を照合し、新識別と一致した。返却先はexecutor、保存先はこのphase検証記録。次は同じ既存validatorとnode --checkを新attemptで実測する。

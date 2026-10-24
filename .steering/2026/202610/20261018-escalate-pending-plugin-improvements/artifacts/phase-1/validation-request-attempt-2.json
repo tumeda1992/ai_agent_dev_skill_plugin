@@ -1,0 +1,49 @@
+{
+  "request_id": "phase-1-callers-validation-2",
+  "kind": "test-runner",
+  "tasklist": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/tasklist.md",
+  "task": "phase-1-task-5",
+  "attempt": 2,
+  "artifact_directory": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/validation-run-2",
+  "status": "requested",
+  "checks": [
+    {
+      "operation": "repository rootでnode scripts/verification/validate-plugin.mjsを実行する",
+      "expected": "exit 0、plugin validation passed。既存guardと追加した新skill/caller接続assertionが全て通る。"
+    },
+    {
+      "operation": "node --check scripts/verification/validate-plugin.mjsを実行する",
+      "expected": "exit 0、JavaScriptの構文errorなし。"
+    }
+  ],
+  "dod": [
+    "新skillと変更callerの既存validatorの該当assertionが通過する",
+    "旧guardを弱めず追加だけで検証できる"
+  ],
+  "allowed_context": {
+    "repository_root": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin",
+    "commands": [
+      "node scripts/verification/validate-plugin.mjs",
+      "node --check scripts/verification/validate-plugin.mjs"
+    ],
+    "writes": "artifact_directory内result.json/result.mdとcommandログのみ。tasklistと実装は変更しない。",
+    "repository_facts": "合意済み計画と親が返した実測command。lint/formatter/UI/appなし。context instanceは配布templateへのsymlinkなので書き込まない。",
+    "relevant_paths": [
+      "scripts/verification/validate-plugin.mjs",
+      "plugins/tumeda-dev/skills/skill-update-review",
+      "plugins/tumeda-dev/skills/task-design",
+      "plugins/tumeda-dev/skills/tasklist-executor/SKILL.md",
+      "plugins/tumeda-dev/skills/README.md",
+      "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/caller-connection.diff"
+    ],
+    "model_profile": "delegated-execution / 親model継承可"
+  },
+  "previous_result": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/validation-run-1/result.json",
+  "restoration_evidence": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/restoration-identifiers.json",
+  "review_evidence": [
+    "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/final-structure-review.md",
+    "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/final-document-review.md",
+    "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/final-review-identifiers.json"
+  ],
+  "instructions": "前回failedを保持し、復元後の同じ実物に同じ2commandを実行する。guardは変更していない。sourceの版と結果を対応付け、新attemptのresult.json/mdへ実測を保存する。実装やtasklistは変更しない。"
+}

@@ -1,0 +1,51 @@
+{
+  "request_id": "phase-1-callers-validation-1",
+  "attempt": 1,
+  "status": "failed",
+  "artifact_directory": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/validation-run-1",
+  "result": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/validation-run-1/result.md",
+  "summary": "2 command中passed 1 / failed 1 / blocked 0。node --checkはexit 0。全体validatorはexit 1、review-result.md内の移植元repository名・利用者の絶対pathの2件をportable guardが検出した。template実物の先頭が能力migration ledgerとなっており、保存内容の不整合が直接根拠。旧guardは変更せず、編集担当の復旧と再検証が必要。",
+  "counts": {
+    "passed": 1,
+    "failed": 1,
+    "blocked": 0,
+    "failed_assertions": 2
+  },
+  "commands": [
+    {
+      "command": "node scripts/verification/validate-plugin.mjs",
+      "status": "failed",
+      "exit_code": 1,
+      "output": "plugin validation failed:\n- plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md: 禁止項目「移植元repository名」を含む\n- plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md: 禁止項目「利用者の絶対path」を含む\n"
+    },
+    {
+      "command": "node --check scripts/verification/validate-plugin.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "findings": [
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md",
+      "evidence": "先頭は「# 能力migration ledger」。4157行目に/Users/...、8295行目に移植元名patternがある。",
+      "direct_cause": "portableFilesに追加されたtemplate実物にledger本文が入り、既存bannedPatternsが2項目へmatchした。",
+      "root_cause_candidate": "ledger保存先の取り違え、または並行更新による上書き。書込操作の追跡は本request対象外のため未確定。"
+    }
+  ],
+  "guard_preservation": {
+    "status": "observed",
+    "evidence": "caller-connection.diffのvalidator hunkは新skill/caller assertion blockとportableFilesへのstructureReviewFiles追加のみ。bannedPatternsや既存guardの削除・変更はdiffにない。"
+  },
+  "next_action": "編集担当がtemplateへledger本文が入った原因と変更範囲を確認し、意図したtemplateを復旧する。guardを弱めず、許可された同2commandを新requestで再検証する。新skill sourceが変化したため、既存behavior観測の再利用条件も照合する。",
+  "limitations": [
+    "tasklist・DoD最終判定・実装・既存guardは変更していない。",
+    "templateの意図しない内容を検出した後、調査は先頭12行と最初のpattern一致2件へ限定した。"
+  ],
+  "prior_review_applicability": {
+    "status": "not_applicable_to_current_source",
+    "prior_evidence": "behavior-run-1/observations.mdのtemplateは22行/2006bytes、SHA-256 0809158eba573a0e846a66f6fd2c7f7f6490c34a9a82f0c69e64d214f1c2225f。",
+    "current_evidence": "本agentの先頭とpattern一致観測に加え、parentが8506行/3452402bytesを独立確認した。",
+    "conclusion": "旧review時と現物の版が一致しない。旧合格・指摘なし結果を現物へ流用できない。混入を復旧し、内容識別と必要な再review・検証へ戻る。"
+  }
+}

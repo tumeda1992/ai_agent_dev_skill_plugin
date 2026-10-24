@@ -1,0 +1,8 @@
+{
+  "name": "tumeda-dev",
+  "description": "tumedaが、リポジトリ横断でよく使うskill集としてのplugin。特定テーマに特化したものは順次切り出す",
+  "version": "8.0.2",
+  "author": {
+    "name": "tumeda"
+  }
+}

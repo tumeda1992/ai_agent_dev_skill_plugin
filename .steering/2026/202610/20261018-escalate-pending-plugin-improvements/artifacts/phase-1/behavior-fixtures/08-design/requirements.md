@@ -1,0 +1,1 @@
+設計時review。新設予定skillの構造案を採用前に確認したい。目的・要件はstructure.md。元作業はこのcase directoryで、結果は設計担当へ返す。

@@ -1,0 +1,644 @@
+{
+  "revision": "c148a8199360b251f8b6f0d4d4aa254e053a4264",
+  "branch": "20261018-escalate-pending-plugin-improvements",
+  "direction": "保存した現行plugin → 合意済みdesignに従うplugin",
+  "files": [
+    {
+      "path": ".claude-plugin/marketplace.json",
+      "sha256": "e8db7812951fef87c75ef1ba4de4842c65ef2cbad1510538e8dc07294f5e21bf",
+      "lines": 21
+    },
+    {
+      "path": "README.md",
+      "sha256": "f1281d6c6872e9c8d7d1f20b3443b078f5d2af6a6305548c1ccea5d81cd120cf",
+      "lines": 21
+    },
+    {
+      "path": "plugins/tumeda-dev/.claude-plugin/plugin.json",
+      "sha256": "bd56d630641f1ed881790856a969da4a1c27a40f27539e8992f985fd4dcf3cab",
+      "lines": 8
+    },
+    {
+      "path": "plugins/tumeda-dev/.codex-plugin/plugin.json",
+      "sha256": "0d616d6d7af62f8eb36c428f01d15c46f293d664e74694af4f330e8bca40c2be",
+      "lines": 6
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/README.md",
+      "sha256": "a44aba0a8aa752b61145058d8ca20ad0e74c57d03deac6e100dafb0df88ba019",
+      "lines": 16
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/common_standard/function_migration_policy.md",
+      "sha256": "38a30b953818eaad762ce3c4f450c09b99e7991af1cfec8613f8209325e149ac",
+      "lines": 250
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/README.md",
+      "sha256": "f1053203534d07bec11b675d280586bc4633ebfde5e50dc53996399aa621b24d",
+      "lines": 38
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/development_flow/branch_pr_issue.md",
+      "sha256": "f5279c6e34bb2797d6fb795d5d3cae528e8c84d7c95e3429202ecff9d3120a69",
+      "lines": 92
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/entity_modeling/README.md",
+      "sha256": "3d1685afc20d8cea9d5a661728fc79cbb31680ed61eddc581c86f654cd2a707e",
+      "lines": 31
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/entity_modeling/core.md",
+      "sha256": "0a7292117056ec22028bc0d705a9f9c78f7756671f70c2d149491cce193fc857",
+      "lines": 51
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/entity_modeling/evacuation.md",
+      "sha256": "d96d00a485d10ebcf3ed8331252a67eaf078451ea28be00430f07c9a337a1369",
+      "lines": 41
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/naming/README.md",
+      "sha256": "e76454e318f36f9c0525ac93b130057baf84c864ff696e6d7e0349cb1779d120",
+      "lines": 40
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/naming/core.md",
+      "sha256": "230adc781432c4b214dab2e6021382aee0a3e6c3b6a9ad4f8460f9146759489d",
+      "lines": 162
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/naming/file.md",
+      "sha256": "110119214091e54b59ddca08ba0cf504707a0aae2d207cd2ef0a8ea5684c33ab",
+      "lines": 20
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/naming/method.md",
+      "sha256": "1592c990add0fa9f77038c9f2ca579335c5269675a4435a58fc763933d41d7a2",
+      "lines": 10
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/naming/reverse_translation.md",
+      "sha256": "a4025475da2b9a5ff27e56b8ab8e21d5ca5d94c3645af01fd23067cc6825df7d",
+      "lines": 47
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/naming/review.md",
+      "sha256": "9a8b5050082db5922a51b37eca8a00b8d8efe9735a9e8012b9dee17059d5a189",
+      "lines": 88
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/development_standards/naming/what_to_try.md",
+      "sha256": "0f6f5ba21e4232f8cb996ef5870e9ae96d73d7dabbf39e9a6501cedd0da9531a",
+      "lines": 76
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/doc_templates/table_description.template.md",
+      "sha256": "55691d69aa41340fa911047833de8d91501ee3be2064a114b529b99ab09371ca",
+      "lines": 25
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/README.md",
+      "sha256": "edaafdbbdcdbd461c618a06535df3a0d77d690f5ec96a4eac27460fae500a89d",
+      "lines": 29
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/business_specification.md",
+      "sha256": "f1c55fa6324f179a0360e5bc376a4dbcb63591fc9bfc2976c711ba6ce84e1002",
+      "lines": 79
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/README.md",
+      "sha256": "3a8c676b69cfe959752e13984b900eaf0644abe9787eaab2ebe3b667bac7c6d6",
+      "lines": 29
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/cases.template.md",
+      "sha256": "8d76fec31d2dafaf091c94f195dcc4e05e5ac2c155af3f9b3b4743d922e1a3ff",
+      "lines": 85
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/enumeration.md",
+      "sha256": "9c3d5f8b0211cfb1ce9c7d31cbad9e0b7c2ea0ea54fcd32d21a51084bbc7ee22",
+      "lines": 82
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/example_cases/cancel_cases.md",
+      "sha256": "879739637d5281aea9e73d0b993289cf52a5f1f7fce8499ac0bf70b48c1e941e",
+      "lines": 51
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/example_cases/data_integrity.md",
+      "sha256": "add996c8986042ea744a1161c3545d18e80c56988db46a90641d2bc1d5e1658c",
+      "lines": 50
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/example_cases/main_cases.md",
+      "sha256": "f3b675d32a62c05660f9745d3673c22ee25798d21c072610e67ccd161a94b020",
+      "lines": 67
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/example_cases/other_business_cases.md",
+      "sha256": "ba62d15dee61bf8e83df02ffc14b583ad7eb2b495bc8fdef98ac527a1b61a60d",
+      "lines": 9
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/example_cases/overview.md",
+      "sha256": "4af4c6e544a88b07c66d80b88f7997a1f5704bdedd68c31b404841acdfef84f2",
+      "lines": 36
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/case_coverage/presentation.md",
+      "sha256": "5552fac19041dc0881a519fcbf2e7354e8eea30ffa5c1887906b0887421fa294",
+      "lines": 122
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/confidentiality.md",
+      "sha256": "3c57ad8c9252ab78b91e7ab50b871f1b688b0bf8dc20e0c1dcd988ce251c268c",
+      "lines": 107
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/content_density.md",
+      "sha256": "442f5fdb14aa6793fba38cda29816d61db0789660f08e61fd4787eb89acd9c8e",
+      "lines": 240
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/core_readers.md",
+      "sha256": "910872a83676a9eff97a87b2f08236d577cc2df173ffe1f92acc948158446309",
+      "lines": 118
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/expression_notation.md",
+      "sha256": "bb1d3c1dfb01662ac6ff131076040e2fcca0539ab94c1973be82a023ebddfd61",
+      "lines": 439
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/file_naming.md",
+      "sha256": "5dab6a329622e7158603c5fe438e10a3bb4ebbd0a58dd4d8f1ec88567538f9cd",
+      "lines": 1
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/how_to_write_workflow.md",
+      "sha256": "c4ff37307e2d2321d79c4bf17c0efe5b1ff59bb1251b308d5e1d780e4a9ae00e",
+      "lines": 272
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/information_structuring/README.md",
+      "sha256": "03d001d54652d583b466d849b8a06ef886b188e59e401f6e41e99fe735f6f380",
+      "lines": 164
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/information_structuring/README.template.md",
+      "sha256": "976c660e5e83769f3260441f401119dbbde21807cfa793c9db825858934312c6",
+      "lines": 53
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/information_structuring/writing_overview.md",
+      "sha256": "7d6d079dee5557cddef71c37c16ff4f3a973b31ae3e11c89f9d9d4b04fb90ca0",
+      "lines": 54
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/modify_description_policy.md",
+      "sha256": "ca4f084a31bf217e15c3a500d47766f4a75bc541d77ae8d0e54c6344aef8d603",
+      "lines": 103
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/referent_explicitness.md",
+      "sha256": "83f191abc531bce95e2c086107238c0960f1a0cc9a4f1f8b5683d0af558a2eaf",
+      "lines": 65
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/stock-and-flow-information.md",
+      "sha256": "6502e62cd0d5322694979b8659785007cce097a0cf58294e01ec0c03dfee1ecd",
+      "lines": 57
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/documentation_standards/supplier-consumer-relation.md",
+      "sha256": "e99d032e53a8f18ea060729b7ed0ddff5e2e77c2d6f4423b9f9034f3ba9d8ee1",
+      "lines": 57
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/README.md",
+      "sha256": "6e3d0dbe79ef7e4307d2500c407c7621a5a38df1bdc9b4b59a1630995c636800",
+      "lines": 30
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/advancing_discussion.md",
+      "sha256": "0ba30687118facd481dd59624eb6cfe402ba0b102f2bf5c0bc66d61bcc1b339c",
+      "lines": 60
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/building_a_prototype.md",
+      "sha256": "2bf990fb3795d9a5ffdd49edb1512dd27d5eb205fa952249bf0a8c9c3b72c79c",
+      "lines": 156
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/core.md",
+      "sha256": "74f8551660b71945c7c2779a8f17f4ee9d71d50922fb5652891086a0d9acbebf",
+      "lines": 50
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/designing_for_variations.md",
+      "sha256": "6ad5f41538ee13601ac860578470167aabf9689bad74183d0e7dc3bc7a4aa13f",
+      "lines": 36
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/evolution_policy.md",
+      "sha256": "741e2585e96a714d1df60242691b584ec53aca9d44a44b20c24ba978db836097",
+      "lines": 58
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/handling_errors.md",
+      "sha256": "aa9191ce1f1502a11304ce5ad283f78e8c164505c27589876e09e247cf105f18",
+      "lines": 9
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/making_and_choosing_options.md",
+      "sha256": "6cdc7f0a4b2538bf4de93a07c535c3a4a61af709e267b032eb7b4534513a1442",
+      "lines": 145
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/ordering_parallel_items.md",
+      "sha256": "234ce28f417f6380d18521e9574ad35a0321da72f73c111024c56ba084ae5092",
+      "lines": 51
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/questioning_existing.md",
+      "sha256": "032ac00a66d793c20255d7867c99678fc4289a27be7557700552578dc0d690b3",
+      "lines": 39
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/receiving_feedback.md",
+      "sha256": "f110b2db39c57e94f1dcb13f54051299baf9155c9eb3ed1535f8ec584c23e8b4",
+      "lines": 76
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/starting_to_think.md",
+      "sha256": "0e4eb299fbc262ab9a30bc2e7eacdefdb0632e3b243e9d8e68d51b064a0c2ff9",
+      "lines": 36
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/updating_types.md",
+      "sha256": "f9372faf9d15190d7471097906bf627484e97e6c3c896d41239bd2fdea66a097",
+      "lines": 51
+    },
+    {
+      "path": "plugins/tumeda-dev/docs/think_standards/writing_abstraction.md",
+      "sha256": "2bd14d9b9f15d4d93917a0cb9d249b966755e150772afadbb40fc013f6e907fb",
+      "lines": 98
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/README.md",
+      "sha256": "385149b32383db8cf4fd77a099e7dcb8d6d9e382d5cce0f2f267adb125b38d2a",
+      "lines": 51
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/doc-enricher/SKILL.md",
+      "sha256": "fc2c259273bdc87985eed99f7df5590465159183e9773752e66318e0db576320",
+      "lines": 213
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/document-review/SKILL.md",
+      "sha256": "734800e7aa3f91c5d0224cb8870b64064a61eceeeb8700979fc5ead1223a0092",
+      "lines": 100
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/escalate-plugin-skill-fix/SKILL.md",
+      "sha256": "95108cf3ce136b3d13498ee0db42204684f74ede8fd78647c96d84c06875df9d",
+      "lines": 104
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/escalate-plugin-skill-fix/agents/openai.yaml",
+      "sha256": "0423d5eafdc89aa187e06c408e28a9682f5c0cac7b7c8cc766cb2d0f3f891491",
+      "lines": 6
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "sha256": "8ddf003572de5915aeae9ff6b45bbb8a1e61e2e70c5c19565a8abdda1b56df64",
+      "lines": 368
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/agents/openai.yaml",
+      "sha256": "fa303aa9d9201a6a840a5a8ed9261d78e49adea93bafff7ae3244a2a811226ed",
+      "lines": 6
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "sha256": "2cb0f6758aae53d62fc568e2981093de43727ae7c971dafe9458f2af3c578cfa",
+      "lines": 194
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/record-recovery.md",
+      "sha256": "c1a0f24677801ec53bf65c8ce317593243cdd938149d9e5983cb44c0eac8ca10",
+      "lines": 56
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+      "sha256": "ad01ed1fe5a4291b943c680935dc60e4882d962db6724fda940b0c7523df7fb1",
+      "lines": 45
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/alignment.md",
+      "sha256": "908c5335de0f3d2768ea85f4b2f774ecca076af5abc5971aedcaabb2b512c10b",
+      "lines": 29
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/diagnosis.md",
+      "sha256": "8acc771ee6d91e6eac037cbfd0d964764e9c884b826fdd0cc43df6c3ada8d644",
+      "lines": 29
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/generalization.md",
+      "sha256": "208e90abed625cbdc9b7bfb640c0a295f4e5756b5d36f235072b71df58116131",
+      "lines": 44
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/judgment.md",
+      "sha256": "b17c44f9efe3ce4cdd767142473e65cc1c579e7ef57a285f3022862ce5857658",
+      "lines": 48
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/research.md",
+      "sha256": "e02347856293bd0c97762b3619e0ba9edba4472d17c488252002165baad91551",
+      "lines": 57
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/verification.md",
+      "sha256": "2e99c81a59c05f4d1c0ad3fb7f9acb4825cb93af3b0e58307380c5ca99dc7b27",
+      "lines": 42
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md",
+      "sha256": "2bc06c55bf93f0da93dd8a36fa4a49183f7f5b3370ba5a12a1dfa25010746517",
+      "lines": 88
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md",
+      "sha256": "d1057b73c34d3bff7c285f75171aed3558d6a517487c2cfe3cc7fbeb74eed0d2",
+      "lines": 35
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/README.md",
+      "sha256": "4ea0350f2625d9c9d149b595ef1ce11e3fc1fa27e9f87a7dd9dc547f8a171d19",
+      "lines": 41
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/compact-options.md",
+      "sha256": "002aa8ce3687b36583c36e086e58b2aa338b55fcdfaae213a2e3f33663ebb033",
+      "lines": 24
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/complete-state.md",
+      "sha256": "6b4146c84255bc772128f69e200f383271961ec39d00fd2252e1db7e86b8ee63",
+      "lines": 13
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/detailed-options.md",
+      "sha256": "99958d612b5e63c97ac03f62110f08bdf76a7cdde53a48f4f2a48871aa7f94a2",
+      "lines": 25
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/document-heading-outline.md",
+      "sha256": "4a71a49136a4988bc7e29a1910cae85317b78441be2139b0c8c6daa77c3fffda",
+      "lines": 46
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/element-correspondence.md",
+      "sha256": "1d0feb0ca0e784e577113782dd7b427f130963f72bb6dcec2ce03c71e90c4dfe",
+      "lines": 16
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/existing-file-local-diff.md",
+      "sha256": "2eb2d0e8d523b54cddc8b7586d6a3e72aac333053830832dff0e2ac851ababb8",
+      "lines": 40
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/file-change-set.md",
+      "sha256": "02431d85279c274c6c1605aaadd758a5ceccfdc2d42d78996912703b4b03c85d",
+      "lines": 71
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/process-flow.md",
+      "sha256": "ad8a7f17a71d817094d759c7f98595497630f0ebcbeadcc981a3d9135df01785",
+      "lines": 21
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/structure-tree.md",
+      "sha256": "2102c270cbdbca558fd9501f6191f6ed33b08d745e9851ac2410037bd359a116",
+      "lines": 24
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/maintenance-plugin-context/SKILL.md",
+      "sha256": "d84238a854f0756c3e8cfcd9a8abee25f43442848a202ae23071206655ee15e6",
+      "lines": 114
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/maintenance-plugin-context/agents/openai.yaml",
+      "sha256": "df02c482ebebf5449347fa97c92f9581f315f915bf496f1cabea560342a074ac",
+      "lines": 4
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies/migration.md",
+      "sha256": "29143ab1f605acb2931207e0a8e5901ebcbef127bbb523a3ed70066c6f4c88a4",
+      "lines": 80
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/name-work-directory/SKILL.md",
+      "sha256": "2085d39a284f12820a7e5b2ae84d74887f0e2d55c5e343b9b125047c8dba3682",
+      "lines": 45
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/name-work-directory/agents/openai.yaml",
+      "sha256": "5e43dbbe6188595b9d6059fe69e6135b95b2b9c6d71ce28fc88104dc5002a705",
+      "lines": 4
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/runtime-execution-contracts.md",
+      "sha256": "33d2ad15917ef99d5ddd9456bbf7115c7446ba13673a2121f6f00a49a96fd4f3",
+      "lines": 116
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/runtime-model-profiles.md",
+      "sha256": "c30d08bec523165c91854b944a97d60b62d16d585e71f4759206c9e43dc66118",
+      "lines": 32
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/scripts/github/create_or_get_pr.sh",
+      "sha256": "42e88e690602a4bc59eb34f8653e7fb8003aa1665270ca67b7d0241b029c0219",
+      "lines": 133
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/share-work-in-progress/SKILL.md",
+      "sha256": "010fb9ba43bbeebc25999d9b06383fbff13a2431b4a47872870005cd9f5916b6",
+      "lines": 64
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/steering/.gitignore.sample",
+      "sha256": "690de4eaa4d05278862ce6731786a6951df50324e0966c50d6455046faa470bd",
+      "lines": 6
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/steering/SKILL.md",
+      "sha256": "438345a00d775badf102ac8aa71e88baa3575565cd617dcd601107f6ec52a895",
+      "lines": 488
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+      "sha256": "c18cb7f089ef8c7f53e43457d3391463d8250c208577ff038f76609652ad061f",
+      "lines": 842
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/roadmap-design.md",
+      "sha256": "022ae74bcec694bea84796c3b40defd07644f9954a5ce36317cce52eddee4cef",
+      "lines": 94
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/scripts/extract-handoff-input.mjs",
+      "sha256": "4d95acd73614525a7fa6cf84a79bbb6d6bfe6330699da72992dfa899579d09fd",
+      "lines": 58
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/tasklist-design.md",
+      "sha256": "1f204a98548bdf8c441412090ac5465021cd423284f8ca376c9d3294ca0127b7",
+      "lines": 186
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/design.md",
+      "sha256": "5e68d59a34ad8713d9fb6c301bb91818656cfad84235a90b9d5da91ec29966cb",
+      "lines": 168
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/README.md",
+      "sha256": "32a7c50c182bf8fa22f20f4fa5de4c4e015cde043082df8138cde89f0c88bf3e",
+      "lines": 166
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/caller-contracts.md",
+      "sha256": "c326bf07b3e17b03f42b0acab22cd84fbb1a3851ebe8689ae495e1cf4c531288",
+      "lines": 76
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/catalog.md",
+      "sha256": "5bb5238f367520ea73a29fcd9b725f6afb38fd8cfeb4f249e04cf1e22bb8260c",
+      "lines": 51
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/code-structure.md",
+      "sha256": "2fd1ddc04809c79995b344e0ff01b19fd7eeacab6a37c80c3ea21318e12d3fcd",
+      "lines": 72
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/contract-preservation.md",
+      "sha256": "2c502b11eda896bdcab382fe52760795cf6c1f29f88808c84c7456385eef7b59",
+      "lines": 104
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/data.md",
+      "sha256": "2608d594ea6236b54159ed576ca70365b15ba3820009be3ceee5f29e36bf6188",
+      "lines": 70
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/documentation.md",
+      "sha256": "24f53280b52698cac49d1ab5e094fe4c6017eda859bd0d110b4fda9feb3cd863",
+      "lines": 95
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/file-deliverables.md",
+      "sha256": "4141488a80c55e3cd694847f6aaa1ff1cb634aab1f46cd90506d71f0244ba992",
+      "lines": 58
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/interaction-flow.md",
+      "sha256": "b6bf83590612668c339e21c9c00227d4725cb790161b26d539c43140a663c060",
+      "lines": 60
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/research-findings.md",
+      "sha256": "662005daf580fdc0aad74794646c421d407cf58f02f7de0737e38adc25659a30",
+      "lines": 71
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/runtime-and-configuration.md",
+      "sha256": "a78b9d5b4371134553c71bcc994037ace9089e645bbf143fb8f0f9fbdc8fcd40",
+      "lines": 61
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/screen.md",
+      "sha256": "e52c20eb111ac1a83f0aa297f564f8763924508f41ff6f81cc7b89a8710beca4",
+      "lines": 67
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/skill-policy.md",
+      "sha256": "979f9f7d28f71ad9299937cd62437b67ea83709695cc65ede24347befea682d7",
+      "lines": 121
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/workflow.md",
+      "sha256": "a447047909a6d34ab89cf9561e5549adbe0f413c58c2576b804f34963e2bcf2b",
+      "lines": 64
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/roadmap.md",
+      "sha256": "2de12c37191a404c11b7f1f3ece6c04883d9530c18e80467cfb7f0b0314d6b0e",
+      "lines": 101
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/templates/tasklist.md",
+      "sha256": "c7962f894eb03ebaf287cd157c6a8b877ba603dee0fa77de74ee0eb5c6a609d0",
+      "lines": 143
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md",
+      "sha256": "a0152959232b6b4577296b83a027a283887061a94a32336ea6fa3469533c23a3",
+      "lines": 45
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/tasklist-executor/SKILL.md",
+      "sha256": "2bcb94bc8d5ebf3b2dc9ed6badd64ebc605984d2519dd9b148162537340480d5",
+      "lines": 152
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/test-runner/SKILL.md",
+      "sha256": "07c06858257b447d7cbea0df58466f0915dec33998b39193f903251aa15b837e",
+      "lines": 50
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/think-through/SKILL.md",
+      "sha256": "813e51aa2803f1091f097e7a5954a60f2ae28ab8b8393d8635fec87159446d71",
+      "lines": 34
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md",
+      "sha256": "e346a89bd6ffb4cd6838b8814128e9a40154fdac02a050867c006741e25cdbf7",
+      "lines": 120
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/visual-inspector/SKILL.md",
+      "sha256": "9e7279d539fabd7251cb7ecc7bea75984cdd10ab5e4c9bae91b01de3968cab75",
+      "lines": 86
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/visual-inspector/example/inspect.mjs",
+      "sha256": "c7d722f601f74a51541450c3355c1d290669f3326cab738bb20472312fe533a5",
+      "lines": 27
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/visual-inspector/example/result.md",
+      "sha256": "a2318061a7b66d7d2cd3878fcefcc86156a1d73ec2fcacdc25f0e3f212df61d2",
+      "lines": 22
+    },
+    {
+      "path": "scripts/verification/test-task-design-handoff.mjs",
+      "sha256": "2ca0e6b9a3611cbe831ec3187aa2c40bd9f1e15823481c53e7f0f00a10537443",
+      "lines": 110
+    },
+    {
+      "path": "scripts/verification/validate-plugin.mjs",
+      "sha256": "826c4dddac48f9d9fb9f5447385f0f0938fca5d70ca99fe324fbc1cfc67e00ad",
+      "lines": 1132
+    }
+  ],
+  "excluded_status": "?? .steering/2026/202609/summary.md\n?? .steering/2026/202610/\n",
+  "instance_policy": ".agents/skills/tumeda-dev-plugin-context.md はsymlink先の配布template。instanceとして編集しない。"
+}

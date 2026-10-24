@@ -1,0 +1,13 @@
+--- before/SKILL.md
++++ skill-update-review/SKILL.md
+@@ -1,7 +1,8 @@
+ ---
+ name: skill-update-review
+-description: 汎用skillの新設・更新で、構造案の採用前と編集後に全体の責務・判断・状態・受渡しをreviewする。構造上の問題と材料不足を根拠付きで元の設計・編集担当へ返す。
+-単独の構造reviewにも使う。
++description: >-
++  汎用skillの新設・更新で、構造案の採用前と編集後に全体の責務・判断・状態・受渡しをreviewする。
++  構造上の問題と材料不足を根拠付きで元の設計・編集担当へ返す。単独の構造reviewにも使う。
+ ---
+ 
+ # Skill構造review

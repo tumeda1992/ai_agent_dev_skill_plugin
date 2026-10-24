@@ -1,0 +1,64 @@
+{
+  "request_id": "phase-1-callers-validation-2",
+  "attempt": 2,
+  "status": "passed",
+  "artifact_directory": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/validation-run-2",
+  "result": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/validation-run-2/result.md",
+  "summary": "許可2commandはいずれもexit 0。全体validatorはplugin validation passed、node --checkは無出力で成功。旧portable guardを保持したまま、復元後templateを含む新skill/callerの追加assertionが通過した。復元識別とfinal review識別は同じ2006bytes/22行のtemplateを指す。passed 2 / failed 0 / blocked 0。",
+  "counts": {
+    "passed": 2,
+    "failed": 0,
+    "blocked": 0
+  },
+  "commands": [
+    {
+      "command": "node scripts/verification/validate-plugin.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "output": "plugin validation passed\n"
+    },
+    {
+      "command": "node --check scripts/verification/validate-plugin.mjs",
+      "status": "passed",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "previous_result": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/validation-run-1/result.json",
+  "restoration_evidence": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/restoration-identifiers.json",
+  "review_evidence": [
+    "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/final-structure-review.md",
+    "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/final-document-review.md",
+    "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/final-review-identifiers.json",
+    "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/review-invalidation.md"
+  ],
+  "source_identity": {
+    "template_path": "plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md",
+    "sha256": "0809158eba573a0e846a66f6fd2c7f7f6490c34a9a82f0c69e64d214f1c2225f",
+    "bytes": 2006,
+    "lines": 22,
+    "basis": "restoration-identifiers.jsonとfinal-review-identifiers.jsonの一致、現物全文読取。hashはexecutor記録を使用。"
+  },
+  "guard_preservation": {
+    "status": "confirmed_from_diff_and_source",
+    "evidence": "caller-connection.diffに旧guardを変える削除・変更なし。実物のbannedPatterns四項目とportableFilesへの新skill追加、failure記録loopを確認した。"
+  },
+  "prior_review_handling": {
+    "status": "replaced_by_fresh_reviews",
+    "invalidated": [
+      "structure-review-after-callers.md",
+      "document-review-callers.md"
+    ],
+    "replacement": [
+      "final-structure-review.md",
+      "final-document-review.md"
+    ],
+    "reason": "混入時のreviewはreview-invalidation.mdで失効し、復元後の実物全体再読と新識別を持つreviewで置き換えた。validation-run-1のfailedは履歴として保持。"
+  },
+  "next_action": "executorが今回resultと復元後reviewを消費し、対応DoDとtasklistの完了可否を判定する。",
+  "limitations": [
+    "本agentは構造reviewを再実行せず、指定された復元・再review証跡とsourceを照合した。",
+    "source hashは指定証跡の実測値を使用し、独自のhash計測commandは追加していない。",
+    "実装・旧guard・tasklist・過去のfailed resultは変更していない。"
+  ]
+}

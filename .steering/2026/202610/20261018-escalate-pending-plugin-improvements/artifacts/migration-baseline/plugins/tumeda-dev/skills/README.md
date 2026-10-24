@@ -1,0 +1,51 @@
+# plugins/tumeda-dev/skills/
+
+## このREADMEの位置付け
+
+このディレクトリは Claude Code / Codex 用の skill を格納している。
+
+AI は各 skill の `SKILL.md` 冒頭の description を読めば、
+いつ起動すべきか・何をする skill かを把握できる。
+したがって **このREADMEは AI 向けではなく、人間が skill 群の全体像を俯瞰するための目次** として用意した。
+
+このpluginは「リポジトリ横断でよく使う開発 skill 集」であり、
+repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-context.md` に置く
+（本文の作成・更新・読取範囲は `maintenance-plugin-context` が管理する）。
+
+## このREADMEを書くときの方針
+
+- **個々の skill の詳細は書かない**。詳細は各 skill ディレクトリの `SKILL.md` を見れば足りる。
+  ここでは1行程度の概略にとどめる。
+- **「トップ階層に何があるか」を一目で把握できること** を最優先する。
+- そのために、オーケストレータ skill が呼び出す下位 skill は **階層構造で表現** する。
+- 注意点として、階層配下の skill も単独起動可能であり、特定のオーケストレータ専用ではない。
+  ただし「トップ階層を見渡す」という観点では、配下を畳んだ方が見通しがよいため、便宜上ぶら下げて表示している。
+- skill が増減したらこのREADMEも更新する。詳細は書かず、見出し1行の追加・削除で済むように保つ。
+
+## 階層構造
+
+- **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。steering / task-design を呼ぶ前段にも効く。思考標準の本体は[../docs/think_standards/](../docs/think_standards/README.md)にある。
+- **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定を指定directoryのMarkdownへ継続記録する。
+- **steering** — task-designの`tasklist_ready | roadmap_ready | planless_complete`を受け、plan resultのdispatch、planless resultの共通gate後完了、roadmapの子steering binding・status伝播・再帰実行を担うruntime orchestrator。
+  - **task-design** — task全体で一つの完成後の姿を設計・合意し、対象成果物変更を分類・適用する。execution plan対象がある場合だけ排他的な`tasklist.md | roadmap.md`を設計・review・合意し、対象zeroならplanなしで完了するowner。
+- **tasklist-executor** — task-designが生成した`tasklist.md`を上から順に実装・テスト・更新するsingle execution writer。roadmapは更新せず、完了resultをcallerへ返す。
+  - **test-runner** — テスト実行と失敗分析。executor が共通契約で child 委譲する。
+  - **visual-inspector** — Playwright で UI をスクリーンショット目視確認。executor が委譲する（steering も現状のファクト確認に使う）。
+- **doc-enricher** — コードリーディング/タスク遂行後、永続性が高い知識をディレクトリ README に提案する（デフォルトは提案のみ）。
+- **share-work-in-progress** — 作業中branchの内容を、依頼者がGitHub上で読める状態にする。動作確認の完了を待たない点でtasklist-executorのcommit・push・PR契約とは前提が逆。
+- **escalate-plugin-skill-fix** — 利用先repositoryで生じたこのpluginの成果物への修正提案を、plugin repositoryの`steering`へ引き渡すrouting skill。
+- **maintenance-plugin-context** — plugin の repository context と配布 version 規約を管理するメタ skill。
+
+## 共有リファレンス（skill ではない）
+
+直下に置く、skill 本文から参照される host 非依存の共通ドキュメントと script。
+
+- **runtime-execution-contracts.md** — tasklist-executor が visual-inspector / test-runner へ child 委譲する時の共通契約（状態の正本・single writer・停止理由）に加え、command を実行しうる任意の skill が従う実行時一般の契約（実行環境に止められたら迂回せず停止する）。
+- **runtime-model-profiles.md** — skill が要求する推論強度 profile を、各 host の実 model へ変換する対応表。
+- **task-design-work-handoff-contracts.md** — 進行中designを別の`task-design`実行が引き継ぐ際の、独立再構成、正本照合、attempt lifecycle、完了gateの共有contract。consumerは`task-design`であり、`steering`は同じworking directoryへのroutingだけを担う。
+- **tumeda-dev-plugin-context.md** — 利用先 repository に置く context ファイルのテンプレート雛形。
+- **scripts/github/create_or_get_pr.sh** — tasklist-executor と share-work-in-progress が対等に参照する PR 作成 script。`SKILL.md` を持たないため、loader も `scripts/verification/validate-plugin.mjs` も skill として拾わない。
+
+## 詳細を知りたいとき
+
+各 skill ディレクトリ配下の `SKILL.md` を参照する。

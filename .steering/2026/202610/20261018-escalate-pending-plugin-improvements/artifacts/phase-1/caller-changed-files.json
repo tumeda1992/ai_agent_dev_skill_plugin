@@ -1,0 +1,8 @@
+[
+  "plugins/tumeda-dev/skills/task-design/SKILL.md",
+  "plugins/tumeda-dev/skills/task-design/tasklist-design.md",
+  "plugins/tumeda-dev/skills/task-design/templates/tasklist.md",
+  "plugins/tumeda-dev/skills/tasklist-executor/SKILL.md",
+  "plugins/tumeda-dev/skills/README.md",
+  "scripts/verification/validate-plugin.mjs"
+]

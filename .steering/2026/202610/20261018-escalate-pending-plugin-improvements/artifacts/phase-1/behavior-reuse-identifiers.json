@@ -1,0 +1,391 @@
+{
+  "prior_request_id": "phase-1-skill-update-review-behavior-1",
+  "prior_attempt": 1,
+  "status": "unchanged",
+  "scope": "fixture集合51 fileと実行skill4 fileを独立観測のSHA-256へ照合。追加・削除なし。実解決先は同じ。",
+  "files": [
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/01-report/SKILL.md",
+      "sha256": "02219279d69ebdfd3bfb848747bb0c109d52c7f1490526c2f9f9b5d8cd4863b8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/01-report/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/01-report/before.md",
+      "sha256": "08091e0162e5d76f15e955d345eb0e12831de94e6ff9a2cd90f3328addb50c16",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/01-report/before.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/01-report/requirements.md",
+      "sha256": "88f13f5996f448447a60754a537912cd2dfc16aeab88650be22d111734d63b43",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/01-report/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/02-deploy/SKILL.md",
+      "sha256": "07040f64ff41873b6248193366ab93ed66efa5f09f1a627dda7e84185d2f7f7e",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/02-deploy/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/02-deploy/requirements.md",
+      "sha256": "6fa56b052b009a5f35165ba66c9fd57c64abd4ddf6f0f963c389d726e56a2d3c",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/02-deploy/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/SKILL.md",
+      "sha256": "2eb36be8546a50cbf66a6696707f98d1aaf6b38c2bec8b676cc7ac48734d8c4e",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/before/SKILL.md",
+      "sha256": "57d5973e6d3c2152571b31e12602bd06715330aad13f725fd81fd41d6398b191",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/before/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/before/recover.md",
+      "sha256": "aa2a710e25eaf4ad7037039fc7b66483b48104f5b6a385899d41c4d6e8d06a25",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/before/recover.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/recover.md",
+      "sha256": "e78dcc3830d6fedeaa3336d028525f02033824140a06c57bfb6cfbed3b2e4277",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/recover.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/requirements.md",
+      "sha256": "680d47314601b819098397955fabd56229daa479cae525d2f2b6d59a5c700b09",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/03-record/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/04-split/SKILL.md",
+      "sha256": "57d1110e27b955bc79f987ec5e85c69e5d35fe3924b662452c92fed5a50094a3",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/04-split/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/04-split/before.md",
+      "sha256": "004e0e572fcbedcd8a813d9a7fd19d93cde27646d9e85f30fb05428224290336",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/04-split/before.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/04-split/recover.md",
+      "sha256": "ee3f2dcd70c991e80906cbdf098696db62d3b375b36727b506317bd86f99a99c",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/04-split/recover.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/04-split/requirements.md",
+      "sha256": "f3c65851c4d3c843b5de34286fa1b9990bfd9a46b2dc6a99ff64b44622ed7f0b",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/04-split/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/05-material/SKILL.md",
+      "sha256": "b4e0f0a461ecc3b7c2c0fd3a1f89f2ea589cbeca18c33f5afa02d2953914030c",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/05-material/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/05-material/before.md",
+      "sha256": "45892d43b19f7f7685206c8d810a9a8ce08703a5e76ae500d7714d73d020af5b",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/05-material/before.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/05-material/requirements.md",
+      "sha256": "edac8415fe82d6b4e388cbf29081f6aa95e504f38393dd67f2849403d4273220",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/05-material/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/06-shared/SKILL.md",
+      "sha256": "c42e083f999e200151247c3a5a5ff87dedfed6b4dfd587da9932f2519a9f5ff1",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/06-shared/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/06-shared/before.md",
+      "sha256": "428986e72ee46aeffad9f629e88e043c4dc8da3ac86b14e2d47c800f00bca2c6",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/06-shared/before.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/06-shared/requirements.md",
+      "sha256": "0a5a2fd55a08e28ce5d55a11115db0787957ec8aca27238e065210ffe0a26fe0",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/06-shared/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/06-shared/shared.md",
+      "sha256": "88669d95dc79ecf64aa006e1a4353373bdf6528314d3c39ae55caf8bffd84f41",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/06-shared/shared.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/07-combined/SKILL.md",
+      "sha256": "2b2e0ca587b6b73822d474cf56d10393041ce9b466ee92aa0accf32ff2b6683c",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/07-combined/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/07-combined/before.md",
+      "sha256": "6f60039a1a0f5d20321dcde9851e5d0beb7d044f5402cb1e42359b8fb0729db2",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/07-combined/before.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/07-combined/requirements.md",
+      "sha256": "943b0c0df1b7428299865477bb6b7cc21dd4226c8bd9c6830216032586ce64e8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/07-combined/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/08-design/requirements.md",
+      "sha256": "611b1c8348d53de9af3e1f82cd474e0f5f32a5659af5df5d575379d859b1697c",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/08-design/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/08-design/structure.md",
+      "sha256": "29c31f5b54f13bb458797b6b724dec7aa30f8810107adc0370a347e9edb9eb2b",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/08-design/structure.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/SKILL.md",
+      "sha256": "db07f6c47d5c028c78c754be0e2d98f14ccf220dd8def934f08fb6b3959b422e",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/before/SKILL.md",
+      "sha256": "fdc225bd265a95aff49e43de21f1dc15074e741f584d205bc62a7ca3bfcf7a67",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/before/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/before/definition.md",
+      "sha256": "46502fda7712c8f23d7746aed865a13c0a796810d79f4514536d2da3ad6010f8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/before/definition.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/definition.md",
+      "sha256": "46502fda7712c8f23d7746aed865a13c0a796810d79f4514536d2da3ad6010f8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/definition.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/prior-review.md",
+      "sha256": "4c73d126eabe389962d06214d898f644c93482de405dfbb93c9f13a166cb464f",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/prior-review.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/requirements.md",
+      "sha256": "02e163ee688e2a3eaab6ecff1641b79f4fe77ab652d4bcb5b1658c4c6e677096",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/09-content-change/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/SKILL.md",
+      "sha256": "520ae1e4943d45d43401956c9e8a6f879a0a68bf55afc1d3008baa8dbf883228",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/before/SKILL.md",
+      "sha256": "fdc225bd265a95aff49e43de21f1dc15074e741f584d205bc62a7ca3bfcf7a67",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/before/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/before/definition.md",
+      "sha256": "46502fda7712c8f23d7746aed865a13c0a796810d79f4514536d2da3ad6010f8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/before/definition.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/definition.md",
+      "sha256": "46502fda7712c8f23d7746aed865a13c0a796810d79f4514536d2da3ad6010f8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/definition.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/prepare.md",
+      "sha256": "2568a98cb09c220d3628e26d6c7ebbc14e887090bb541766efbecf1e6bd1747a",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/prepare.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/prior-review.md",
+      "sha256": "4c73d126eabe389962d06214d898f644c93482de405dfbb93c9f13a166cb464f",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/prior-review.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/requirements.md",
+      "sha256": "02e163ee688e2a3eaab6ecff1641b79f4fe77ab652d4bcb5b1658c4c6e677096",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/10-file-set-change/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/SKILL.md",
+      "sha256": "e0b97f73303a30992cf0d4398c2a16b4023e213a122b7db57044b7f459319c96",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/before/SKILL.md",
+      "sha256": "fdc225bd265a95aff49e43de21f1dc15074e741f584d205bc62a7ca3bfcf7a67",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/before/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/before/definition.md",
+      "sha256": "46502fda7712c8f23d7746aed865a13c0a796810d79f4514536d2da3ad6010f8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/before/definition.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/definition.md",
+      "sha256": "46502fda7712c8f23d7746aed865a13c0a796810d79f4514536d2da3ad6010f8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/definition.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/prior-review.md",
+      "sha256": "4c73d126eabe389962d06214d898f644c93482de405dfbb93c9f13a166cb464f",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/prior-review.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/requirements.md",
+      "sha256": "02e163ee688e2a3eaab6ecff1641b79f4fe77ab652d4bcb5b1658c4c6e677096",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/11-notation-change/requirements.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/SKILL.md",
+      "sha256": "fdc225bd265a95aff49e43de21f1dc15074e741f584d205bc62a7ca3bfcf7a67",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/before/SKILL.md",
+      "sha256": "fdc225bd265a95aff49e43de21f1dc15074e741f584d205bc62a7ca3bfcf7a67",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/before/SKILL.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/before/definition.md",
+      "sha256": "46502fda7712c8f23d7746aed865a13c0a796810d79f4514536d2da3ad6010f8",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/before/definition.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/definition.md",
+      "sha256": "0c8248a31f226fefc20dd9667477b5f54526c2aaf6c2305dd2029dcf04d51eb7",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/definition.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/prior-review.md",
+      "sha256": "4c73d126eabe389962d06214d898f644c93482de405dfbb93c9f13a166cb464f",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/prior-review.md"
+    },
+    {
+      "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/requirements.md",
+      "sha256": "02e163ee688e2a3eaab6ecff1641b79f4fe77ab652d4bcb5b1658c4c6e677096",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-fixtures/12-dependency-change/requirements.md"
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/SKILL.md",
+      "sha256": "518617f819c06b7684dfb826faf950c0b5ed0f2140dee5146351880abe1455a7",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/SKILL.md"
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/collect-review-material.md",
+      "sha256": "8874aaba39d2cfd4e20c7c63371d37716c9e64328166881bd2d41877706f33ed",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/collect-review-material.md"
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/assess-structure.md",
+      "sha256": "3309e35279c99db4103c893e87a04add7968016f01d5977842a88508070679af",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/assess-structure.md"
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md",
+      "sha256": "0809158eba573a0e846a66f6fd2c7f7f6490c34a9a82f0c69e64d214f1c2225f",
+      "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md"
+    }
+  ],
+  "expected_fixture_paths": [
+    "01-report/SKILL.md",
+    "01-report/before.md",
+    "01-report/requirements.md",
+    "02-deploy/SKILL.md",
+    "02-deploy/requirements.md",
+    "03-record/SKILL.md",
+    "03-record/before/SKILL.md",
+    "03-record/before/recover.md",
+    "03-record/recover.md",
+    "03-record/requirements.md",
+    "04-split/SKILL.md",
+    "04-split/before.md",
+    "04-split/recover.md",
+    "04-split/requirements.md",
+    "05-material/SKILL.md",
+    "05-material/before.md",
+    "05-material/requirements.md",
+    "06-shared/SKILL.md",
+    "06-shared/before.md",
+    "06-shared/requirements.md",
+    "06-shared/shared.md",
+    "07-combined/SKILL.md",
+    "07-combined/before.md",
+    "07-combined/requirements.md",
+    "08-design/requirements.md",
+    "08-design/structure.md",
+    "09-content-change/SKILL.md",
+    "09-content-change/before/SKILL.md",
+    "09-content-change/before/definition.md",
+    "09-content-change/definition.md",
+    "09-content-change/prior-review.md",
+    "09-content-change/requirements.md",
+    "10-file-set-change/SKILL.md",
+    "10-file-set-change/before/SKILL.md",
+    "10-file-set-change/before/definition.md",
+    "10-file-set-change/definition.md",
+    "10-file-set-change/prepare.md",
+    "10-file-set-change/prior-review.md",
+    "10-file-set-change/requirements.md",
+    "11-notation-change/SKILL.md",
+    "11-notation-change/before/SKILL.md",
+    "11-notation-change/before/definition.md",
+    "11-notation-change/definition.md",
+    "11-notation-change/prior-review.md",
+    "11-notation-change/requirements.md",
+    "12-dependency-change/SKILL.md",
+    "12-dependency-change/before/SKILL.md",
+    "12-dependency-change/before/definition.md",
+    "12-dependency-change/definition.md",
+    "12-dependency-change/prior-review.md",
+    "12-dependency-change/requirements.md"
+  ],
+  "actual_fixture_paths": [
+    "01-report/SKILL.md",
+    "01-report/before.md",
+    "01-report/requirements.md",
+    "02-deploy/SKILL.md",
+    "02-deploy/requirements.md",
+    "03-record/SKILL.md",
+    "03-record/before/SKILL.md",
+    "03-record/before/recover.md",
+    "03-record/recover.md",
+    "03-record/requirements.md",
+    "04-split/SKILL.md",
+    "04-split/before.md",
+    "04-split/recover.md",
+    "04-split/requirements.md",
+    "05-material/SKILL.md",
+    "05-material/before.md",
+    "05-material/requirements.md",
+    "06-shared/SKILL.md",
+    "06-shared/before.md",
+    "06-shared/requirements.md",
+    "06-shared/shared.md",
+    "07-combined/SKILL.md",
+    "07-combined/before.md",
+    "07-combined/requirements.md",
+    "08-design/requirements.md",
+    "08-design/structure.md",
+    "09-content-change/SKILL.md",
+    "09-content-change/before/SKILL.md",
+    "09-content-change/before/definition.md",
+    "09-content-change/definition.md",
+    "09-content-change/prior-review.md",
+    "09-content-change/requirements.md",
+    "10-file-set-change/SKILL.md",
+    "10-file-set-change/before/SKILL.md",
+    "10-file-set-change/before/definition.md",
+    "10-file-set-change/definition.md",
+    "10-file-set-change/prepare.md",
+    "10-file-set-change/prior-review.md",
+    "10-file-set-change/requirements.md",
+    "11-notation-change/SKILL.md",
+    "11-notation-change/before/SKILL.md",
+    "11-notation-change/before/definition.md",
+    "11-notation-change/definition.md",
+    "11-notation-change/prior-review.md",
+    "11-notation-change/requirements.md",
+    "12-dependency-change/SKILL.md",
+    "12-dependency-change/before/SKILL.md",
+    "12-dependency-change/before/definition.md",
+    "12-dependency-change/definition.md",
+    "12-dependency-change/prior-review.md",
+    "12-dependency-change/requirements.md"
+  ],
+  "added": [],
+  "removed": []
+}

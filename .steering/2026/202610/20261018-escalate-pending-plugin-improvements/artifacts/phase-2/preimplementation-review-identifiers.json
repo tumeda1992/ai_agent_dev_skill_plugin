@@ -1,0 +1,42 @@
+[
+  {
+    "path": "plugins/tumeda-dev/skills/steering/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/steering/SKILL.md",
+    "sha256": "438345a00d775badf102ac8aa71e88baa3575565cd617dcd601107f6ec52a895",
+    "bytes": 39522,
+    "lines": 488,
+    "read": "全文。steering入口は分割取得と欠落範囲の再取得を合わせて全体読取。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/steering/.gitignore.sample",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/steering/.gitignore.sample",
+    "sha256": "690de4eaa4d05278862ce6731786a6951df50324e0966c50d6455046faa470bd",
+    "bytes": 420,
+    "lines": 6,
+    "read": "全文。steering入口は分割取得と欠落範囲の再取得を合わせて全体読取。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/assess-structure.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/assess-structure.md",
+    "sha256": "3309e35279c99db4103c893e87a04add7968016f01d5977842a88508070679af",
+    "bytes": 4877,
+    "lines": 44,
+    "read": "全文。steering入口は分割取得と欠落範囲の再取得を合わせて全体読取。"
+  },
+  {
+    "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/design.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/design.md",
+    "sha256": "5aae54239f99e596c7d56ab6b04e8c5d90ef9f6090a0bc5c9407fbc7562be422",
+    "bytes": 10690,
+    "lines": 170,
+    "read": "全文。steering入口は分割取得と欠落範囲の再取得を合わせて全体読取。"
+  },
+  {
+    "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/design-details/discussion-records.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/design-details/discussion-records.md",
+    "sha256": "952ba9ff377d279e36e6850495498256085af70faaee84ecbacae303b6830790",
+    "bytes": 9429,
+    "lines": 142,
+    "read": "全文。steering入口は分割取得と欠落範囲の再取得を合わせて全体読取。"
+  }
+]

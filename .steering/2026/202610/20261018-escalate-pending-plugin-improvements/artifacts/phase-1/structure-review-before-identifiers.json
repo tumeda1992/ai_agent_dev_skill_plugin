@@ -1,0 +1,289 @@
+[
+  {
+    "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/caller-connection-plan.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/caller-connection-plan.md",
+    "sha256": "c1ced8c98778cc18b9bca25b41dbebd6c1f8318cf68049183aea394e8c80d42f",
+    "lines": 12,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/design-details/skill-update-review.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/design-details/skill-update-review.md",
+    "sha256": "1eb9ceb5a045d9c972a0daefcf29ccb6ad871f1312a4826b1e82bb5d566827f6",
+    "lines": 201,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": ".steering/2026/202610/20261018-escalate-pending-plugin-improvements/design.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/design.md",
+    "sha256": "5aae54239f99e596c7d56ab6b04e8c5d90ef9f6090a0bc5c9407fbc7562be422",
+    "lines": 170,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/README.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/README.md",
+    "sha256": "385149b32383db8cf4fd77a099e7dcb8d6d9e382d5cce0f2f267adb125b38d2a",
+    "lines": 51,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/doc-enricher/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/doc-enricher/SKILL.md",
+    "sha256": "fc2c259273bdc87985eed99f7df5590465159183e9773752e66318e0db576320",
+    "lines": 213,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/document-review/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/document-review/SKILL.md",
+    "sha256": "734800e7aa3f91c5d0224cb8870b64064a61eceeeb8700979fc5ead1223a0092",
+    "lines": 100,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+    "sha256": "8ddf003572de5915aeae9ff6b45bbb8a1e61e2e70c5c19565a8abdda1b56df64",
+    "lines": 368,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/maintenance-plugin-context/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/maintenance-plugin-context/SKILL.md",
+    "sha256": "d84238a854f0756c3e8cfcd9a8abee25f43442848a202ae23071206655ee15e6",
+    "lines": 114,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/name-work-directory/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/name-work-directory/SKILL.md",
+    "sha256": "2085d39a284f12820a7e5b2ae84d74887f0e2d55c5e343b9b125047c8dba3682",
+    "lines": 45,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/runtime-execution-contracts.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/runtime-execution-contracts.md",
+    "sha256": "33d2ad15917ef99d5ddd9456bbf7115c7446ba13673a2121f6f00a49a96fd4f3",
+    "lines": 116,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/runtime-model-profiles.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/runtime-model-profiles.md",
+    "sha256": "c30d08bec523165c91854b944a97d60b62d16d585e71f4759206c9e43dc66118",
+    "lines": 32,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/SKILL.md",
+    "sha256": "0774f213c07fda6b73a49e1b8dff5ee28586d92286eb99488ae6342143784ef9",
+    "lines": 40,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/agents/openai.yaml",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/agents/openai.yaml",
+    "sha256": "d7214906c3ae44ede3d61f07309bff0a19b7a2df21fac68db0c6dcae540eb7a7",
+    "lines": 4,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/assess-structure.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/assess-structure.md",
+    "sha256": "3309e35279c99db4103c893e87a04add7968016f01d5977842a88508070679af",
+    "lines": 44,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/collect-review-material.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/collect-review-material.md",
+    "sha256": "8874aaba39d2cfd4e20c7c63371d37716c9e64328166881bd2d41877706f33ed",
+    "lines": 30,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md",
+    "sha256": "0809158eba573a0e846a66f6fd2c7f7f6490c34a9a82f0c69e64d214f1c2225f",
+    "lines": 22,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/SKILL.md",
+    "sha256": "c18cb7f089ef8c7f53e43457d3391463d8250c208577ff038f76609652ad061f",
+    "lines": 842,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/roadmap-design.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/roadmap-design.md",
+    "sha256": "022ae74bcec694bea84796c3b40defd07644f9954a5ce36317cce52eddee4cef",
+    "lines": 94,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/scripts/extract-handoff-input.mjs",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/scripts/extract-handoff-input.mjs",
+    "sha256": "4d95acd73614525a7fa6cf84a79bbb6d6bfe6330699da72992dfa899579d09fd",
+    "lines": 58,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/tasklist-design.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/tasklist-design.md",
+    "sha256": "1f204a98548bdf8c441412090ac5465021cd423284f8ca376c9d3294ca0127b7",
+    "lines": 186,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/design.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/design.md",
+    "sha256": "5e68d59a34ad8713d9fb6c301bb91818656cfad84235a90b9d5da91ec29966cb",
+    "lines": 168,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/README.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/README.md",
+    "sha256": "32a7c50c182bf8fa22f20f4fa5de4c4e015cde043082df8138cde89f0c88bf3e",
+    "lines": 166,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/caller-contracts.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/caller-contracts.md",
+    "sha256": "c326bf07b3e17b03f42b0acab22cd84fbb1a3851ebe8689ae495e1cf4c531288",
+    "lines": 76,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/catalog.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/catalog.md",
+    "sha256": "5bb5238f367520ea73a29fcd9b725f6afb38fd8cfeb4f249e04cf1e22bb8260c",
+    "lines": 51,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/code-structure.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/code-structure.md",
+    "sha256": "2fd1ddc04809c79995b344e0ff01b19fd7eeacab6a37c80c3ea21318e12d3fcd",
+    "lines": 72,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/contract-preservation.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/contract-preservation.md",
+    "sha256": "2c502b11eda896bdcab382fe52760795cf6c1f29f88808c84c7456385eef7b59",
+    "lines": 104,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/data.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/data.md",
+    "sha256": "2608d594ea6236b54159ed576ca70365b15ba3820009be3ceee5f29e36bf6188",
+    "lines": 70,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/documentation.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/documentation.md",
+    "sha256": "24f53280b52698cac49d1ab5e094fe4c6017eda859bd0d110b4fda9feb3cd863",
+    "lines": 95,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/file-deliverables.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/file-deliverables.md",
+    "sha256": "4141488a80c55e3cd694847f6aaa1ff1cb634aab1f46cd90506d71f0244ba992",
+    "lines": 58,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/interaction-flow.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/interaction-flow.md",
+    "sha256": "b6bf83590612668c339e21c9c00227d4725cb790161b26d539c43140a663c060",
+    "lines": 60,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/research-findings.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/research-findings.md",
+    "sha256": "662005daf580fdc0aad74794646c421d407cf58f02f7de0737e38adc25659a30",
+    "lines": 71,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/runtime-and-configuration.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/runtime-and-configuration.md",
+    "sha256": "a78b9d5b4371134553c71bcc994037ace9089e645bbf143fb8f0f9fbdc8fcd40",
+    "lines": 61,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/screen.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/screen.md",
+    "sha256": "e52c20eb111ac1a83f0aa297f564f8763924508f41ff6f81cc7b89a8710beca4",
+    "lines": 67,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/skill-policy.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/skill-policy.md",
+    "sha256": "979f9f7d28f71ad9299937cd62437b67ea83709695cc65ede24347befea682d7",
+    "lines": 121,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/outcome-sections/workflow.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/outcome-sections/workflow.md",
+    "sha256": "a447047909a6d34ab89cf9561e5549adbe0f413c58c2576b804f34963e2bcf2b",
+    "lines": 64,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/roadmap.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/roadmap.md",
+    "sha256": "2de12c37191a404c11b7f1f3ece6c04883d9530c18e80467cfb7f0b0314d6b0e",
+    "lines": 101,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/tasklist.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design/templates/tasklist.md",
+    "sha256": "c7962f894eb03ebaf287cd157c6a8b877ba603dee0fa77de74ee0eb5c6a609d0",
+    "lines": 143,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md",
+    "sha256": "a0152959232b6b4577296b83a027a283887061a94a32336ea6fa3469533c23a3",
+    "lines": 45,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/tasklist-executor/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/tasklist-executor/SKILL.md",
+    "sha256": "2bcb94bc8d5ebf3b2dc9ed6badd64ebc605984d2519dd9b148162537340480d5",
+    "lines": 152,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/test-runner/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/test-runner/SKILL.md",
+    "sha256": "07c06858257b447d7cbea0df58466f0915dec33998b39193f903251aa15b837e",
+    "lines": 50,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/visual-inspector/SKILL.md",
+    "realpath": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/visual-inspector/SKILL.md",
+    "sha256": "9e7279d539fabd7251cb7ecc7bea75984cdd10ab5e4c9bae91b01de3968cab75",
+    "lines": 86,
+    "read": "全文。対象task-designの専用source・内部指示・templatesを含む。別skillは入口と受渡し条件を確認。"
+  }
+]

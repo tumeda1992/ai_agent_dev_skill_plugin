@@ -1,0 +1,29 @@
+# 新skill編集後・caller構造案のreview
+
+検証済みのrepository実物skill-update-review/SKILL.mdを明示適用し、collect-review-material.mdとassess-structure.mdの処理を同じexecutorが実行した。初回の新設前確認としては扱わない。
+
+## 対象と段階
+
+新skill-update-reviewは編集後の新設review。task-designとtasklist-executorは構造案採用前の更新review。目的・保持要件はdesign.mdとdesign-details/skill-update-review.md、追加接続案はcaller-connection-plan.md。callerの比較元はartifacts/migration-baseline/に保存した現物。
+
+実読file・全文行範囲・SHA-256・実解決先はstructure-review-before-identifiers.jsonへ記録した。task-designの入口だけでなく、二つのplan内部指示、全template/outcome section、専用extractor sourceを全文読んだ。executorの全文、runtime/共有handoff契約、呼ぶ別skillの入口と受渡しも照合した。依存先の全用途を独立reviewしたという主張ではない。
+
+## 新skillの編集後判定
+
+合格。入口は対象と段階の選択・進行・再利用時のroutingを持ち、材料収集は比較元・実読範囲・内容識別と不足、全体評価は構造判定・再review・返却を持つ。固有の判断と完了条件を持つ材料収集と評価が内部fileへ分かれ、読む条件と親への返却を入口から辿れる。結果templateは部品と例であり、判断条件の別正本ではない。
+
+たとえば必要依存の取得条件を変える改訂は材料収集、二重正本の判定条件を変える改訂は評価が所有する。callerへ条件本文を複写して同期させる構造ではない。内容識別の再利用条件は入口のroutingであり、収集側は実際の比較材料を揃える手順を持つ。独立した外部利用要求は設計時・編集後・単独reviewと複数callerの具体要求で確認できるため、単なる将来予測に基づく別skill化ではない。
+
+先行指摘の一般条件不足はassess-structure.mdに明示され、前回のYAML不良はfolded scalarへ修復済み。構文修復前後の本文と内部依存は不変であり、独立12 caseは条件付き再利用、公式validatorとUI parseは実測passedである。構造合格でこれらを代替していない。
+
+## Caller構造案の判定
+
+合格。task-designは構造案の採用前と内部編集後、tasklist-executorは実装後・DoD前にreview ownerへ対象全体・比較元・元作業を渡す。callerが保存と完了判定を持ち、review結果を既存記録へ接続する案である。規則本文・新しいstate正本・checkbox writerをcallerへ増やさない。
+
+task-designの既存全体も確認した。design loopは不確実性の解消と同じ完成状態を持ち、tasklist/roadmap設計はそれぞれ独立した内部file、既存designの引き継ぎは共有contractと専用extractorへ分かれている。技術検証と調査は同じdesign loopへ事実を返す解消手段であり、独立した復旧状態・別ownerを追加する構造ではない。executorは実測状態をtasklist一箇所で管理し、test/UI childの状態は共通request/resultへ分離済みである。今回未編集の処理も含め、構造上の不合格や必要資料の取得不能は確認しなかった。
+
+たとえばreview結果に新しい識別要件を追加する改訂はreview skill側を直し、callerは結果の保存・使用前照合を維持する。plan templateへの確認taskとexecutorの実行gateは、plan時とruntimeの異なる責務であり、同じ判断規則の二重正本ではない。既存の利用者合意・document-review・独立動作検証・single writer・commit前停止は保持する。
+
+## 返却と使用前照合
+
+executorへ返し、この既存phase検証記録へ保存する。保存時に読取集合・hash・実解決先と必要参照を再照合し、変化なし。caller編集後には新しい現物全体を再reviewし、この設計時合格を編集後へ流用しない。次は合意済み接続の編集、文書review、構造の編集後review、validatorの実測へ進む。

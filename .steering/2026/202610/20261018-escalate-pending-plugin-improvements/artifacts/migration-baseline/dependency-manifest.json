@@ -1,0 +1,44 @@
+[
+  {
+    "path": "AGENTS.md",
+    "sha256": "32f76839c4441e7204f1f2ab29d2d80ded67418228534cb92010b359d7f7babc",
+    "lines": 34,
+    "relation": "検査・runtime注入・適用規約の参照依存。変更対象外。"
+  },
+  {
+    "path": ".agents/AGENTS.md",
+    "sha256": "473ba8b417cb3676efbaab5d6bc9a94858b471ffb381d8f67ae6ec1d413ea198",
+    "lines": 3,
+    "relation": "検査・runtime注入・適用規約の参照依存。変更対象外。"
+  },
+  {
+    "path": ".claude/AGENTS.md",
+    "sha256": "45a2deb77f25f27db07ccacdb768669593a5d43e4aa96cb63647ce864f01a986",
+    "lines": 1,
+    "relation": "検査・runtime注入・適用規約の参照依存。変更対象外。"
+  },
+  {
+    "path": ".claude/settings.json",
+    "sha256": "b09db2e43bd2be8fd6f05deaee943bcc73730dcbe623940faf86d4c061680491",
+    "lines": 27,
+    "relation": "検査・runtime注入・適用規約の参照依存。変更対象外。"
+  },
+  {
+    "path": ".claude/hooks/think_through_session_start.sh",
+    "sha256": "89147cdea72dd2e314350d8b0045f85e8808b55a93517050e14adab8cc313446",
+    "lines": 34,
+    "relation": "検査・runtime注入・適用規約の参照依存。変更対象外。"
+  },
+  {
+    "path": ".claude/hooks/think_through_user_prompt.sh",
+    "sha256": "4ddd661fb84fcf1a97aad284878992c587bc8134838c039060e83bb8f164d134",
+    "lines": 7,
+    "relation": "検査・runtime注入・適用規約の参照依存。変更対象外。"
+  },
+  {
+    "path": ".agents/plugins/marketplace.json",
+    "sha256": "b9278a0a79ac02e8bff33241e3887b5d5ba8a470d16c0e1e14407d9bf84270fb",
+    "lines": 20,
+    "relation": "検査・runtime注入・適用規約の参照依存。変更対象外。"
+  }
+]

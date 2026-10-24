@@ -1,0 +1,542 @@
+[
+  {
+    "id": "B001",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:364",
+    "section": "Blocker resolution",
+    "meaning_source": "steeringが自ら手を動かしてよいのは、Flowが前提とする実行条件が崩れ、Flowの内側では復旧できなくなった`blocker`を解消するときだけである。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B002",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:364",
+    "section": "Blocker resolution",
+    "meaning_source": "この行為を`resolve-blocker`と呼ぶ。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B003",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:366",
+    "section": "Blocker resolution",
+    "meaning_source": "`blocker resolution`はFlowに対して並行して存在する経路であり、Flowの一部ではない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B004",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:366",
+    "section": "Blocker resolution",
+    "meaning_source": "任意のstepから離脱し、同じstepへ戻る。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B005",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:387",
+    "section": "Blocker resolution",
+    "meaning_source": "stepとして番号を与えない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B006",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:387",
+    "section": "Blocker resolution",
+    "meaning_source": "実行条件の崩壊はStep 6のdispatch中に限らずStep 1のbranch作成でも起こり得るため、特定stepの後続として置けない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B007",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:387",
+    "section": "Blocker resolution",
+    "meaning_source": "また既存Flowは「順序固定」であり、条件分岐のstepを挿すとその性質が崩れる。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B008",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:391",
+    "section": "例外が成立する2条件",
+    "meaning_source": "例外が成立する条件は次の2つがともに満たされることであり、片方だけでは成立しない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B009",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:393",
+    "section": "例外が成立する2条件",
+    "meaning_source": "- 設計を尽くした後である。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B010",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:393",
+    "section": "例外が成立する2条件",
+    "meaning_source": "designが合意され、tasklistが合意され、実行に入っている",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B011",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:394",
+    "section": "例外が成立する2条件",
+    "meaning_source": "- Flowの内側では復旧できない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B012",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:394",
+    "section": "例外が成立する2条件",
+    "meaning_source": "次のstepへ進めず、現在のstepも完了できず、skillが定めた手順のどれを実行しても状態が変わらない",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B013",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:396",
+    "section": "例外が成立する2条件",
+    "meaning_source": "条件1 が欠けて条件2 だけが成立するなら設計不足であり、designへ戻る。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B014",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:396",
+    "section": "例外が成立する2条件",
+    "meaning_source": "条件2 が欠けて条件1 だけが成立するなら通常のtask失敗であり、`tasklist-executor`の停止・再開contractで扱う。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B015",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:396",
+    "section": "例外が成立する2条件",
+    "meaning_source": "この2条件が、例外を「詰まったから手を動かす」へ拡張させない歯止めである。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B016",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:400",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "`resolve-blocker`が許容するのは実行条件の回復だけである。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B017",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:400",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "次の3つは`blocker`の解消に見えても許容しない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B018",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:402",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "- 実装中に、designで決めていないことを決める",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B019",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:403",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "- design中に決められたはずのことを、実装中に判断する",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B020",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:404",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "- spikeで潰せたはずの不確実性を、えいやで試しながら進める",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B021",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:406",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "いずれも「設計を尽くした」という前提を満たしていない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B022",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:406",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "これらを`resolve-blocker`として実行すると、設計と実行の分離そのものが崩れる。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B023",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:406",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "判断時は「この不確実性は、designまたはspikeで潰せたか」と問う。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B024",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:406",
+    "section": "設計で潰せた不確実性を持ち込まない",
+    "meaning_source": "潰せたならそれは`blocker`ではなく設計不足である。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B025",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:410",
+    "section": "blockerを解消してもFlowの成果にはしない",
+    "meaning_source": "`resolve-blocker`は実行条件を回復させるためだけの行為であり、tasklistのtaskを進めることを目的にしない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B026",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:410",
+    "section": "blockerを解消してもFlowの成果にはしない",
+    "meaning_source": "`blocker resolution`中に副次的にtaskが進んでいても、tasklistのcheckboxはstep内の通常手順で確定させる。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B027",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:412",
+    "section": "blockerを解消してもFlowの成果にはしない",
+    "meaning_source": "この区別を失うと、`resolve-blocker`が実装の抜け道になる。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B028",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:412",
+    "section": "blockerを解消してもFlowの成果にはしない",
+    "meaning_source": "「blockerを解消するついでに実装した」を成果として数えないことが、例外を例外のまま保つ条件である。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B029",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:416",
+    "section": "検知時の確認",
+    "meaning_source": "`blocker`を検知した時点で、ユーザーの指示の有無に関わらず次の3択を1回で問う。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B030",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:426",
+    "section": "検知時の確認",
+    "meaning_source": "2軸（離れるか / 離れた後どう進めるか）を`yes/no`の入れ子で2段に分けない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B031",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:426",
+    "section": "検知時の確認",
+    "meaning_source": "入れ子では1回目の回答時点で何を承諾したことになるのかが確定しないため、`no` / `yes-no` / `yes-yes`の3通りへ展開して1往復で取る。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B032",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:428",
+    "section": "検知時の確認",
+    "meaning_source": "`a`を先頭へ置くのは、離れることを既定にしないためである。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B033",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:428",
+    "section": "検知時の確認",
+    "meaning_source": "選択肢として提示されなければ、agentは「離れてよいか」という問い自体を離れる前提の確認として出しやすい。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B034",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:430",
+    "section": "検知時の確認",
+    "meaning_source": "既存の`5-2. planの実行開始をユーザーへ確認する`は「進むか否か」の2値を扱う形式であり、この2軸の判断には流用しない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B035",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:434",
+    "section": "自走の範囲と報告",
+    "meaning_source": "`c`を選ばれた場合も、次は自走の範囲に含めない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B036",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:434",
+    "section": "自走の範囲と報告",
+    "meaning_source": "該当したら`b`と同じく都度確認へ戻る。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B037",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:436",
+    "section": "自走の範囲と報告",
+    "meaning_source": "- 破壊的操作。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B038",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:436",
+    "section": "自走の範囲と報告",
+    "meaning_source": "削除、強制上書き、履歴の書き換え、稼働中の外部resourceの再作成",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B039",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:437",
+    "section": "自走の範囲と報告",
+    "meaning_source": "- repository外への影響。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B040",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:437",
+    "section": "自走の範囲と報告",
+    "meaning_source": "push、PR作成、外部serviceへの送信",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B041",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:438",
+    "section": "自走の範囲と報告",
+    "meaning_source": "- `blocker`の解消に必要な範囲を超える変更",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B042",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:440",
+    "section": "自走の範囲と報告",
+    "meaning_source": "選定基準は「取り返しがつかないか、影響がrepositoryの外へ出るか、`blocker`と無関係か」である。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B043",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:440",
+    "section": "自走の範囲と報告",
+    "meaning_source": "3つめは`resolve-blocker`が実行条件の回復だけを目的とすることに対応し、ここが緩むと`blocker`の解消を名目にした任意の実装が正当化される。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B044",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:442",
+    "section": "自走の範囲と報告",
+    "meaning_source": "報告は離脱したstepへ戻る時点で1回行い、何が`blocker`だったか、解消のために行ったこと、解消できたか、判明した事実のうちdesign・tasklist・repository知識へ影響するものを含める。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B045",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:442",
+    "section": "自走の範囲と報告",
+    "meaning_source": "自走中に逐一報告しない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B046",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:442",
+    "section": "自走の範囲と報告",
+    "meaning_source": "報告のたびに応答を待つなら`c`が`b`と同じになる。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B047",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:446",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "実行条件が回復したら、離脱したstepの先頭へ戻る。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B048",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:446",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "戻り先はこれ1つであり、「次のstepへ進む」を選べない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B049",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:446",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "離脱したstepの入口条件が満たされたかは、復帰時に改めて確認する必要があるためである。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B050",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:446",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "次へ進めると、崩れた条件のまま先へ行く経路ができる。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B051",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:448",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "復帰時に行うことは次の2つだけである。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B052",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:450",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "- 離脱したstepをその入口条件から改めて実行する",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B053",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:451",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "- 上記「自走の範囲と報告」で定めた報告を1回行う",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B054",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:453",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "`blocker resolution`中に副次的にtaskが進んでいても、tasklistのcheckboxはstep内の通常手順で確定させる。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B055",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:453",
+    "section": "離脱したstepへの復帰",
+    "meaning_source": "復帰した時点でcheckboxを更新しない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B056",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:457",
+    "section": "blocker resolution中の記録先",
+    "meaning_source": "判明した事実は`.steering/YYYY/YYYYMM/YYYYMMDD-slug/subagent_report/`へ記録する。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B057",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:459",
+    "section": "blocker resolution中の記録先",
+    "meaning_source": "追跡対象外にする。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B058",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:459",
+    "section": "blocker resolution中の記録先",
+    "meaning_source": "`design.md`、`tasklist.md`、discussion fileは「どの変更がどの合意に基づくか」を後から辿るために追跡されるが、`blocker resolution`の記録は実行条件の回復に関する調査ログであり、合意の正本ではないためこの性質を持たない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B059",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:461",
+    "section": "blocker resolution中の記録先",
+    "meaning_source": "利用先repositoryは`plugins/tumeda-dev/skills/steering/.gitignore.sample`を`.steering/.gitignore`へ複製して使う。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  },
+  {
+    "id": "B060",
+    "source": "plugins/tumeda-dev/skills/steering/SKILL.md:461",
+    "section": "blocker resolution中の記録先",
+    "meaning_source": "`.sample`のままでは効かない。",
+    "current_destination": "同じSKILL.mdの同節",
+    "classification": "KEEP（現物は未編集）",
+    "proposed_migration": "意味・理由・例・強度を保持する内部指示へのMOVEを設計へ返す。未合意のため未実装。"
+  }
+]

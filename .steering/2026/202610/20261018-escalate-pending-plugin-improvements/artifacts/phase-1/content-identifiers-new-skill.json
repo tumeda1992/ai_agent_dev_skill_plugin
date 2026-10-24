@@ -1,0 +1,27 @@
+[
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/SKILL.md",
+    "sha256": "518617f819c06b7684dfb826faf950c0b5ed0f2140dee5146351880abe1455a7",
+    "read": "全文"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/agents/openai.yaml",
+    "sha256": "d7214906c3ae44ede3d61f07309bff0a19b7a2df21fac68db0c6dcae540eb7a7",
+    "read": "全文"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/assess-structure.md",
+    "sha256": "3309e35279c99db4103c893e87a04add7968016f01d5977842a88508070679af",
+    "read": "全文"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/collect-review-material.md",
+    "sha256": "8874aaba39d2cfd4e20c7c63371d37716c9e64328166881bd2d41877706f33ed",
+    "read": "全文"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md",
+    "sha256": "0809158eba573a0e846a66f6fd2c7f7f6490c34a9a82f0c69e64d214f1c2225f",
+    "read": "全文"
+  }
+]

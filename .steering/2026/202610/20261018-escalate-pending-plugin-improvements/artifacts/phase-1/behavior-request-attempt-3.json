@@ -1,0 +1,43 @@
+{
+  "request_id": "phase-1-skill-update-review-behavior-3",
+  "kind": "test-runner",
+  "tasklist": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/tasklist.md",
+  "task": "phase-1-task-3",
+  "attempt": 3,
+  "artifact_directory": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-run-3",
+  "status": "requested",
+  "checks": [
+    {
+      "operation": "fixturesの各caseを新設skillの実物でreviewする",
+      "expected": "01:形式差だけでは分割しない。02:固有復旧工程の内部分割。03:二重正本。04:分割で失った承認・再開。05:材料不足。06:対象への無影響が確認できた別用途問題で対象完了を止めない。07:不合格と不足の併記。08:設計案だけで評価でき実行全文を要求しない。09/10/12:変化を照合し旧合格を無条件再利用しない。11:表記差と無影響を示した維持を許す。全caseで実読範囲と内容識別・返却先を記録する。"
+    },
+    {
+      "operation": "用意した隔離Pythonでskill-creator公式quick_validate.pyを実行する",
+      "expected": "exit 0、Skill is valid!。実際の出力とexit codeを保存する。"
+    },
+    {
+      "operation": "新規UI metadataを同じPyYAMLでparseする",
+      "expected": "exit 0、UI metadata YAML is valid。"
+    }
+  ],
+  "dod": [
+    "新skillが実物・構造案・先行判定を読み、合格／不合格／材料不足と理由・内容識別を返す",
+    "想定解を渡さないfresh agentの独立実行を実測し、case別に判定条件へ照合する",
+    "構文検証の依存不足が解消され、公式quick_validate.pyが実物を検証して通過する"
+  ],
+  "skill": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/SKILL.md",
+  "evaluator_prompt": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/evaluator-prompt.md",
+  "allowed_context": {
+    "repository": "このplugin repository内の公開可能なskill・fixtureのみ",
+    "writes": "指定artifact_directory内のobservations.md/result.md/result.jsonのみ。tasklistと実装は変更しない。",
+    "commands": [
+      "/private/tmp/plugin-skill-review-py314/bin/python /Users/takahiroumeda/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review",
+      "/private/tmp/plugin-skill-review-py314/bin/python -c 'from pathlib import Path; import yaml; p=Path('\"'\"'/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/plugins/tumeda-dev/skills/skill-update-review/agents/openai.yaml'\"'\"'); v=yaml.safe_load(p.read_text()); assert set(v)=={\"interface\"}; assert all(isinstance(x,str) for x in v[\"interface\"].values()); print(\"UI metadata YAML is valid\")'"
+    ],
+    "model_profile": "delegated-execution / 親model継承可"
+  },
+  "previous_result": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-run-2/result.json",
+  "observations": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-run-1/observations.md",
+  "reuse_evidence": "/Users/takahiroumeda/src/github.com/tumeda1992/ai_agent_dev_skill_plugin/.steering/2026/202610/20261018-escalate-pending-plugin-improvements/artifacts/phase-1/behavior-reuse-attempt-3.json",
+  "instructions": "本文・依存不変とdescription構文のみの修復を、差分・比較元・reuse証跡から確認し、前回の独立12 case観測を再利用する。前回resultは変更せず、新attemptのresult.json/mdを作成する。許可された二commandのみを実行する。"
+}

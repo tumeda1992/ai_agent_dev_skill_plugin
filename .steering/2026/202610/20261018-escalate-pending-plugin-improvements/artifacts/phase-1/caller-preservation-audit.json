@@ -1,0 +1,98 @@
+[
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+    "old_lines": 842,
+    "new_lines": 860,
+    "deleted_lines": 0,
+    "added_ranges": [
+      [
+        517,
+        522
+      ],
+      [
+        592,
+        600
+      ],
+      [
+        687,
+        689
+      ]
+    ],
+    "old_source_preserved_in_order": true,
+    "semantic_review": "合意済みreviewの追加。既存の設計合意・独立検証・停止・single writerを上書きしない。対象判定は新skillへ集約。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/tasklist-design.md",
+    "old_lines": 186,
+    "new_lines": 195,
+    "deleted_lines": 0,
+    "added_ranges": [
+      [
+        83,
+        91
+      ]
+    ],
+    "old_source_preserved_in_order": true,
+    "semantic_review": "合意済みreviewの追加。既存の設計合意・独立検証・停止・single writerを上書きしない。対象判定は新skillへ集約。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/task-design/templates/tasklist.md",
+    "old_lines": 143,
+    "new_lines": 154,
+    "deleted_lines": 0,
+    "added_ranges": [
+      [
+        81,
+        91
+      ]
+    ],
+    "old_source_preserved_in_order": true,
+    "semantic_review": "合意済みreviewの追加。既存の設計合意・独立検証・停止・single writerを上書きしない。対象判定は新skillへ集約。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/tasklist-executor/SKILL.md",
+    "old_lines": 152,
+    "new_lines": 164,
+    "deleted_lines": 0,
+    "added_ranges": [
+      [
+        127,
+        138
+      ]
+    ],
+    "old_source_preserved_in_order": true,
+    "semantic_review": "合意済みreviewの追加。既存の設計合意・独立検証・停止・single writerを上書きしない。対象判定は新skillへ集約。"
+  },
+  {
+    "path": "plugins/tumeda-dev/skills/README.md",
+    "old_lines": 51,
+    "new_lines": 52,
+    "deleted_lines": 0,
+    "added_ranges": [
+      [
+        29,
+        29
+      ]
+    ],
+    "old_source_preserved_in_order": true,
+    "semantic_review": "合意済みreviewの追加。既存の設計合意・独立検証・停止・single writerを上書きしない。対象判定は新skillへ集約。"
+  },
+  {
+    "path": "scripts/verification/validate-plugin.mjs",
+    "old_lines": 1132,
+    "new_lines": 1161,
+    "deleted_lines": 0,
+    "added_ranges": [
+      [
+        1074,
+        1101
+      ],
+      [
+        1103,
+        1103
+      ]
+    ],
+    "old_source_preserved_in_order": true,
+    "semantic_review": "合意済みreviewの追加。既存の設計合意・独立検証・停止・single writerを上書きしない。対象判定は新skillへ集約。"
+  }
+]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plugin Context Maintenance"
+  short_description: "Resolve and safely maintain plugin context"
+  default_prompt: "Use $maintenance-plugin-context to resolve or update this repository context."

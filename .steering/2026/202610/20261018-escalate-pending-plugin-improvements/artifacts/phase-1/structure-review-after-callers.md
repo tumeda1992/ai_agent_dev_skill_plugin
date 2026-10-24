@@ -1,0 +1,13 @@
+# 接続後の全体構造review
+
+検証済みのrepository実物skill-update-reviewを明示適用し、材料収集・全体評価・結果返却を行った。対象は新skill全体、更新したtask-design全体とtasklist-executor全体。今回は編集後reviewであり、設計時の合格の流用ではない。
+
+設計根拠はdesign.mdとdesign-details/skill-update-review.md、比較元はbaselineと保存済みの新skill構文修復前版。対象・専用source・template・必要共有契約と別skill入口の実読範囲はstructure-review-before-identifiers.jsonを引き継ぎ、実物全体と完全差分を再照合した。現行の取得元・実解決先・SHA-256・行範囲はstructure-review-after-identifiers.json。旧sourceの順序と無削除、全追加行の出典はcaller-preservation-audit.jsonとledgerのA1行に記録した。
+
+判定は合格。設計時reviewは構造案採用前、編集後reviewは実物と比較元を読む形で入り、結果は既存記録へ保存される。ready/DoDの前に未解消・不足・影響不明を止め、再開時には内容と集合・依存を照合する。skill-update-reviewだけが対象判定と評価条件を持ち、callerは起動・材料・保存・次工程の可否を所有する。review結果の新しい正本、固定提出構文、checkbox writerは増えていない。
+
+task-designのplanless内部編集、tasklist経由の実装、単独の構造reviewの経路を材料から返却・保存先まで追った。tasklist templateは対象phaseにreview taskを組み込む部品であり、phase外の品質checkへ一括先送りしない。変更後の識別要件を一つ足す机上caseでも、reviewの判断は一owner、callerの保存・使用前gateは各workflowの責務として維持できる。
+
+前回の一般条件不足・YAML不良は既存記録へ結び、構造条件・本文と依存・構文修復の範囲を再確認した。未変更の対象内部処理も含め、構造上の不合格・未確認は確認しなかった。共有先の全用途を独立reviewしたとの主張には広げず、機能・安全・独立挙動・利用者確認・validatorを代替しない。
+
+保存前に対象集合・実解決先・必要参照・hashを再照合し、上記識別の現物と一致した。返却先はexecutor、保存先はこの既存phase検証記録。次は全体validatorの実測resultを消費してPhase 1 DoDを判定する。
