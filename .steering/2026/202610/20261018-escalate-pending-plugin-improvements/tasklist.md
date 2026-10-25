@@ -183,6 +183,14 @@
 - [x] 実装・review・validationのfeedbackを、直接受領した担当がfacilitate-discussionでimplementation_review.mdへ記録する。原因・知識の所在・修正先を確認し、合意後だけ反映する。designやplan構造が変われば同じ作業のtask-designへ戻し、実装を自動再開しない。
 - [x] 実装中に得た永続化候補のdoc-enricher提案と承認判断が未処理で残っていないことを確認する。
 
+### 実行ハーネスのレビュー後修復（2026-10-25）
+
+過去のPhase 1〜10完了記録は当時の検証範囲を示す。
+利用者の修正指示を受け、次の不足を修復する。旧成功や失敗は書き換えない。
+本追加範囲では、利用者指示によりskill-creator・公式validator・全体validateを使わず、対象の回帰確認と実物レビューを行う。
+
+- [x] 実装review論点16: 分割後の親変更を同じ論理記録全体で扱う。本体修正と対応する確認を完了する。
+
 ### 検証command
 
 repository rootから実行する。

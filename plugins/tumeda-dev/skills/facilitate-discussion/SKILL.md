@@ -354,10 +354,10 @@ templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再�
 この処理で新たな調査・判断過程を記録する場合も、内部logの保存形を全文読み、実施前入力→結果保存→discussion背景という境界を使う。単なる既決decisionの反映に不要な内部loopを作らない。
 
 1. 新しいparentがまだ存在しなければ、「共通本体へ接続する」の新規入口で実質的な分解decisionを持つ後発parentを先に作る。
-2. 新parentが同じdiscussion file内に存在し、一親、自己参照禁止、循環禁止を満たすことを検証する。失敗した場合は参照を変更しない。
+2. 新parentを同じ論理的なdiscussion記録の全範囲から特定し、一親、自己参照禁止、循環禁止を検証する。別範囲fileも対象に含め、別の論理記録は親にしない。失敗した場合は参照を変更しない。
 3. childの新しいiterationを`templates/discussion_entry.md`のiteration以下と`templates/discussion_entry.md#提案本文`の骨子で追加し、`提案N`へ新parentとの関係、`検討記録`へ旧parentと変更理由・典拠decisionを保存する。reparentが別論点の決定を反映する処理なら、feedback欄へその結果と典拠を保存して空の合意待ちにしない。
 4. child側の`親論点`だけを更新する。parent側へ`子論点`fieldを追加しない。
-5. 旧parentと新parentの未決child集合が変わった場合だけ、それぞれのstatusを同期する。
+5. 同じ論理記録の全範囲から旧parent・新parentの未決child集合を導出し、集合が変わった場合だけ各parentの所属範囲fileでstatusを同期する。childと両parentが別fileでも、各保存で読取版の照合と全文再読を行う。中断後は保存済みの親参照とstatusを照合し、未完の同期から再開する。
 
 ### scope外の既存論点を取り下げる
 
