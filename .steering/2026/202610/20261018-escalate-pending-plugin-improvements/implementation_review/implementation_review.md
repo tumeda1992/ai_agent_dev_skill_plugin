@@ -20,3 +20,4 @@
 | 14 | 独立試行にconsumer実行元とGit前提がなかった | [本文](./implementation_review-11-15.md) |
 | 15 | 独立試行で別caseの語句が混入した | [本文](./implementation_review-11-15.md) |
 | 16 | 分割後の親変更を同じ論理記録全体で扱う | [本文](./implementation_review-16-20.md) |
+| 17 | 判断に使った読取版を保存前の比較起点として保持する | [本文](./implementation_review-16-20.md) |
