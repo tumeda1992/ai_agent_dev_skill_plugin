@@ -6,6 +6,22 @@ allowed-tools: Read, Grep, Write, Edit, Bash, Agent
 
 # Steering Skill
 
+## 作業限定の暫定指示を取得する
+
+起動・別sessionからの再開・resume・把握した指示変更時に、元作業のexactな場所、consumer `steering`、
+対象処理、実際に使うこのSKILL.mdの取得元を`maintenance-plugin-context`へ渡し、暫定指示を取得する。
+選択・競合・実行版の判断は管理担当へ委ねる。
+activeの実効指示に従い、paused/unavailableでは影響する暫定動作を止めて理由を返す。
+none/endedでは既存処理へ進む。
+元作業不明を別作業の探索で補わない。
+通常の返信・内部file再読・think-throughの毎turn適用を定期取得へ変えない。
+同一sessionの登録・改訂結果は返却された更新を使い、通知されていない編集を常時検知できるとは扱わない。
+
+
+元作業directoryが未確定なら、取得不能をnoneにせず管理担当へ不足を返す。
+既存ownerによる命名・directory確定に必要な処理は続け、影響する暫定動作だけを待ちにする。
+元作業が確定した直後に取得し、先に対象の暫定動作を実行しない。
+
 ## 入力
 
 - ユーザー入力: **達成したいこと**
@@ -72,6 +88,8 @@ rootへ次を置く。
 - 必要時だけ`investigation.md`、`requirements.md`、`spike/`
 
 task-design専用子directory、`task_design_dir`探索、`steering.json`を新規flowで作らない。
+議論記録は各basenameの単一fileまたは同名directoryの索引から`facilitate-discussion/resolve-discussion.md`で解決する。
+分割形式も同じ正本であり、配置一覧のfile名を単一形式だけの指定と解釈しない。
 
 ## 成果物のlifecycle
 
@@ -223,6 +241,9 @@ task-designからready resultが返った直後に実装、子steering起動、�
 
 #### 4-2. discussionを元に再発防止先をreviewする
 
+各議論basenameを解決し、`facilitate-discussion/read-discussion.md`で現在stateと対象範囲・必要logを取得する。
+reviewに必要な履歴はfull取得を全chunkで補う。
+共存・取得不能を未記録と扱わない。
 `discussion.md`と`task-design-discussion.md`に記録された各discussionについて、次の三問による再発防止reviewを順番に扱う。解決策より先に原因を特定する。
 
 1. この議論が起きた根本原因、すなわち共有されていなかった知識の前提は何か。
@@ -486,3 +507,10 @@ c. blockerの解消のためにFlowから離れる。解消できる限り自走
 - roadmapの`全フェーズ完了日`と`計画と実績の差分`fieldは廃止した。全体完了はphase status・完了日から導出し、意味ある逸脱は`implementation_review.md`へ記録する。
 
 上記以外の旧steeringの意味単位は、migration ledgerに従って新ownerへ移管または適応する。簡略化だけを理由に未分類のcontractを削除しない。
+
+
+## 元作業の完了を暫定指示の管理へ通知する
+
+このskillが単独で元作業の完了ownerを担い、既存workflowの完了条件を実際に満たした場合だけ、既存完了記録のpath・根拠と元作業のexactな場所を`maintenance-plugin-context`へ渡す。
+steering配下など別ownerが元作業を継続する場合はその担当へ結果を返し、元作業完了とは通知しない。
+一skill呼出しの終了、session終了、中断、承認待ち、引渡しは元作業完了ではない。終了判断と履歴保存は管理担当が持ち、この通知のための追加承認gateを設けない。

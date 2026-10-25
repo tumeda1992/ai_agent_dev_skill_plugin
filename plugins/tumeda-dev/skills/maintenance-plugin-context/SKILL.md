@@ -1,11 +1,32 @@
 ---
 name: maintenance-plugin-context
-description: tumeda-dev pluginのrepository contextと配布version規約を管理する。plugin skillがリポジトリ固有の文書、command、規約を必要とする時、`.agents/skills/tumeda-dev-plugin-context.md`を新規作成・更新する時、またはplugin versionを変更・検証する時に使う。文脈もversionも不要な通常作業には使わない。
+description: tumeda-dev pluginのrepository context、作業限定の暫定指示、配布version規約を管理する。plugin skillがリポジトリ固有の文書、command、規約を必要とする時、`.agents/skills/tumeda-dev-plugin-context.md`を新規作成・更新する時、またはplugin versionを変更・検証する時に使う。暫定指示の登録・改訂・取得・終了にも使う。文脈・暫定指示・versionが不要な通常作業には使わない。
 ---
 
 # Plugin context maintenance
 
+## 作業限定の暫定指示を取得する
+
+起動・別sessionからの再開・resume・把握した指示変更時に、元作業のexactな場所、対象処理、実際のこのSKILL.mdの取得元を[内部管理](temporary-overrides.md)へ渡して実効指示を取得する。
+自分自身を再帰呼出ししない。
+activeの指示を適用し、paused/unavailableでは影響する暫定動作を止めて理由を返す。
+none/endedでは有効な暫定指示がないものとして既存処理へ進む。
+通常返信や内部file再読のたびに定期取得しない。
+
+
 repository contextのlifecycleとpluginの配布version規約はこのskillだけが管理する。consumer skillはinstanceを直接作成・更新しない。
+
+元作業directoryが未確定なら、取得不能をnoneにせず管理担当へ不足を返す。
+既存ownerによる命名・directory確定に必要な処理は続け、影響する暫定動作だけを待ちにする。
+元作業が確定した直後に取得し、先に対象の暫定動作を実行しない。
+
+## 安定factと暫定指示の依頼を分ける
+
+安定したrepository factは既存のinstance解決へ進む。
+作業限定の動作指示の登録・改訂・取得・終了は、[暫定指示の管理](temporary-overrides.md)へ進む。
+元作業のexactな場所、目的、対象skill・処理、実際に使うSKILL.mdの取得元を受け取り、選択・競合・実行版・終了を同じ内部処理で扱う。
+両方の依頼があれば返却も別節にする。fact依頼がなければ空のinstanceを作らない。
+このskill自身が暫定指示を取得する場合も内部処理へ進み、自分自身を再帰呼出ししない。
 
 ## Maintenance policies
 

@@ -6,7 +6,7 @@
 ## 実行の共通条件
 
 - 対象pathは、特記しない限り `plugins/tumeda-dev/skills/` からの相対path。
-- phaseは番号順に進め、直前のDoDが完了してから次へ進む。
+- phase番号だけを実行の依存にしない。2026-10-24の利用者指示に従い、実際の意味的依存を確認してready taskを進める。独立した既存配置整理候補は残件noteへ明示し、実施済みreviewを未実施と扱わず、無関係な機能の実装・検証を止めない。reviewの実施・記録と候補の解消は区別する。未実測のtaskを完了にしない。
 - Phase 1〜10は作業branch内で完結させる。release、merge、cache更新、利用先への適用は含めない。
 - 現行skillの移動・分割前に、移行元の全文・依存先を保存し、構造ledgerとcontract ledgerを分類する。未分類の追加・削除、合意のない意味変更があれば設計へ戻す。
 - skillの作成・更新にはskill-creatorを使う。Phase 1で構造reviewを利用可能にした後は、各対象の構造案を採用する前と編集後に明示適用する。既存の未変更処理も含む対象全体を確認する。
@@ -43,7 +43,7 @@
 
 ## Phase 2: 一file・分割済みの議論記録を読める
 
-> 着手前構造reviewでsteeringの既存Blocker resolutionを不合格と判定した。合意済みscope外の内部指示分割が必要なため、artifacts/phase-2/design-return.mdを同じ作業のtask-designへ返す。Phase 2本体は未編集、checkboxは全て未完のまま保持する。
+> 旧停止の履歴はartifacts/phase-2/design-return.mdへ保持。2026-10-24の利用者指示により、論点53の既存Blocker resolutionの配置整理は新機能の依存ではないと確認した。合意外のBlocker分割本体は実行せず、既存配置候補は残件noteに保持する。reviewの実施と候補解消は区別し、議論読取・分割・変更報告などの機能実装を進める。
 
 ### DoD
 
@@ -51,12 +51,14 @@
 
 ### Tasks
 
-- [ ] `facilitate-discussion/resolve-discussion.md` と `facilitate-discussion/read-discussion.md` を作成し、同skillのSKILL.mdの入口・通常読取・書込前再読込へ接続する。
-- [ ] `facilitate-discussion/scripts/inspect-discussion.mjs` を実装する。resolve、各read、check、snapshot、compare、check-candidate、分割取得、終了値0／1／2を設計どおり提供し、書込みを行わない。
-- [ ] `facilitate-discussion/scripts/inspect-discussion.test.mjs` を作成する。10／11／12件、旧h3、引用・fence・HTML comment内の例、欠番、未完成iteration、未知形式、重複・親循環、file追加削除・解決先変更、原文chunkと分割取得、候補の差、source不変を検証する。
-- [ ] `task-design/SKILL.md`、`task-design-work-handoff-contracts.md`、`steering/SKILL.md` の存在確認・許可後読取へ接続する。`extract-handoff-input.mjs` は変更しない。
-- [ ] `scripts/verification/test-task-design-handoff.mjs` を更新し、分割済みを新規と誤認しないこと、独立再構成前に本文を読まないことを確認する。旧extractorの回帰caseも維持する。
-- [ ] 自己testとhandoff回帰を実行し、fresh agentに一file／分割済み記録の読取を依頼する。取得不能を読了にしないことまで観測する。root READMEの検証説明へ追加commandを反映する。
+- [x] `facilitate-discussion/resolve-discussion.md` と `facilitate-discussion/read-discussion.md` を作成し、同skillのSKILL.mdの入口・通常読取・書込前再読込へ接続する。
+- [x] `facilitate-discussion/scripts/inspect-discussion.mjs` を実装する。resolve、各read、check、snapshot、compare、check-candidate、分割取得、終了値0／1／2を設計どおり提供し、書込みを行わない。
+- [x] `facilitate-discussion/scripts/inspect-discussion.test.mjs` を作成する。10／11／12件、旧h3、引用・fence・HTML comment内の例、欠番、未完成iteration、未知形式、重複・親循環、file追加削除・解決先変更、原文chunkと分割取得、候補の差、source不変を検証する。
+  > helper実測: 18case成功の後、互換修復をstatic4で再検証。phase-10-static-validation-4 / attempt4 / passed、23自己test成功/skip0、7command成功、実在53論点12file100chunkの再構成・source不変。旧15/18caseとは版を区別して消費済み。
+
+- [x] `task-design/SKILL.md`、`task-design-work-handoff-contracts.md`、`steering/SKILL.md` の存在確認・許可後読取へ接続する。`extract-handoff-input.mjs` は変更しない。
+- [x] `scripts/verification/test-task-design-handoff.mjs` を更新し、分割済みを新規と誤認しないこと、独立再構成前に本文を読まないことを確認する。旧extractorの回帰caseも維持する。
+- [x] 自己testとhandoff回帰を実行し、fresh agentに一file／分割済み記録の読取を依頼する。取得不能を読了にしないことまで観測する。root READMEの検証説明へ追加commandを反映する。
 
 ## Phase 3: 長くなった議論を履歴を保って分割できる
 
@@ -66,11 +68,13 @@
 
 ### Tasks
 
-- [ ] `facilitate-discussion/split-discussion.md` を作成し、SKILL.mdから条件成立時の移行へ接続する。既存の長い記録は次の更新で対象にし、短い記録や読むだけの記録は動かさない。
-- [ ] Phase 2のcheck-candidateを使う候補検査、必要なhref変更の提示、元版の再確認、旧入口の最終除去、新入口からの再検査を接続する。切替中は通常提案・決定を混ぜない。
-- [ ] 10件の設計議論と短い通常議論・reviewを持つfixtureを作り、11件目追加後の配置・索引・link・原文保持を確認する。
-- [ ] 候補作成中断、元版の変更、候補本文改変、曖昧な参照、新旧共存からの再開caseを追加する。自動削除・上書き・rollbackで隠さず、一致する途中成果だけを再利用できることを独立実行で確認する。
-- [ ] 自己test、handoff回帰、文書・構造reviewを通し、ledgerへ原文・参照・停止・再開の保持を記録する。
+- [x] `facilitate-discussion/split-discussion.md` を作成し、SKILL.mdから条件成立時の移行へ接続する。既存の長い記録は次の更新で対象にし、短い記録や読むだけの記録は動かさない。
+- [x] Phase 2のcheck-candidateを使う候補検査、必要なhref変更の提示、元版の再確認、旧入口の最終除去、新入口からの再検査を接続する。切替中は通常提案・決定を混ぜない。
+- [x] 10件の設計議論と短い通常議論・reviewを持つfixtureを作り、11件目追加後の配置・索引・link・原文保持を確認する。
+- [x] 候補作成中断、元版の変更、候補本文改変、曖昧な参照、新旧共存からの再開caseを追加する。自動削除・上書き・rollbackで隠さず、一致する途中成果だけを再利用できることを独立実行で確認する。
+- [x] 自己test、handoff回帰、文書・構造reviewを通し、ledgerへ原文・参照・停止・再開の保持を記録する。
+
+> 初回独立操作で、候補作成後の通常compareが新旧共存を拒否して切替へ到達しない問題を観測したため、候補接続taskを未完へ戻した。通常gateは維持し、明示移行中だけ旧集合の直接実体/hash照合へ修復後のattempt2の02/03/15で旧入口除去と新入口検査まで再確認済み。旧sourceと観測は保持する。
 
 ## Phase 4: AIが具体化した変更を記録・報告して反映できる
 
@@ -80,11 +84,11 @@
 
 ### Tasks
 
-- [ ] `facilitate-discussion/derived-change.md` を作成する。SKILL.mdの原因判定後に四分類を接続し、通常提案は既存iteration.mdへ渡す。think-throughの標準は編集しない。
-- [ ] `facilitate-discussion/templates/discussion_entry.md` へ変更内容・現在の変更の部品と例を追加する。通常のfeedback形式を保ち、AI変更へ空feedbackや架空のokを作らない。
-- [ ] 親の未完判定とPhase 2の原文取得を接続し、未報告・応答待ち・部分反映・検証失敗・反映済みを区別する。
-- [ ] 通常decision、意味不変の機械適用、導出、委任のfixtureを作る。報告前、別件の応答、当該応答、訂正、新iteration、複数変更への一応答を独立実行で確認する。
-- [ ] 訂正で依存先だけを止め、前提が変わった問いへの回答を流用せず、同じ原文を個別の賛成へ分割しないことを検証する。文書・構造reviewと該当assertionを通す。
+- [x] `facilitate-discussion/derived-change.md` を作成する。SKILL.mdの原因判定後に四分類を接続し、通常提案は既存iteration.mdへ渡す。think-throughの標準は編集しない。
+- [x] `facilitate-discussion/templates/discussion_entry.md` へ変更内容・現在の変更の部品と例を追加する。通常のfeedback形式を保ち、AI変更へ空feedbackや架空のokを作らない。
+- [x] 親の未完判定とPhase 2の原文取得を接続し、未報告・応答待ち・部分反映・検証失敗・反映済みを区別する。
+- [x] 通常decision、意味不変の機械適用、導出、委任のfixtureを作る。報告前、別件の応答、当該応答、訂正、新iteration、複数変更への一応答を独立実行で確認する。
+- [x] 訂正で依存先だけを止め、前提が変わった問いへの回答を流用せず、同じ原文を個別の賛成へ分割しないことを検証する。文書・構造reviewと該当assertionを通す。
 
 ## Phase 5: 改善提案を元作業へ保留できる
 
@@ -94,10 +98,10 @@
 
 ### Tasks
 
-- [ ] `escalate-plugin-skill-fix/pending-escalations.md` と `escalate-plugin-skill-fix/templates/pending-escalation.md` を作成し、同skillのSKILL.mdの移動前へ保留判定を接続する。
-- [ ] 作業内の連番・slug、固定本文・関連情報・追跡、元の議論からの参照を実装する。元作業不明時は担当へ返す。
-- [ ] 個別保留、作業全体の保留、指示なし、範囲不明、plugin内の作業、作業directory未確定のfixtureを作り、保存先と分岐を独立実行で確認する。
-- [ ] 後の訂正を固定本文へ上書きしないこと、別作業の保留や暫定動作の権限へ広げないことを検証する。文書・構造reviewと該当assertionを通す。
+- [x] `escalate-plugin-skill-fix/pending-escalations.md` と `escalate-plugin-skill-fix/templates/pending-escalation.md` を作成し、同skillのSKILL.mdの移動前へ保留判定を接続する。
+- [x] 作業内の連番・slug、固定本文・関連情報・追跡、元の議論からの参照を実装する。元作業不明時は担当へ返す。
+- [x] 個別保留、作業全体の保留、指示なし、範囲不明、plugin内の作業、作業directory未確定のfixtureを作り、保存先と分岐を独立実行で確認する。
+- [x] 後の訂正を固定本文へ上書きしないこと、別作業の保留や暫定動作の権限へ広げないことを検証する。文書・構造reviewと該当assertionを通す。
 
 ## Phase 6: 保留した改善提案の引き渡しを再開できる
 
@@ -107,10 +111,12 @@
 
 ### Tasks
 
-- [ ] Phase 5の内部指示へ条件確認・固定本文と後発情報の併読・既存転送先の確認・受領先の記録を接続する。既存の汎用化・repository判定・steering起動を使う。
-- [ ] 「完了したら渡す」「完了したら聞く」「今は保留」「条件不明」、後からの保留継続・範囲変更のfixtureを作り、必要な応答と証拠を区別する。
-- [ ] 転送先作成後の失敗と中断復帰を独立実行で確認する。受領前は未完に保ち、同じ作業を二重起動しない。
-- [ ] 引渡し済みを改善済みにせず、修正・配布・導入の同期や暫定指示の自動終了を加えていないことを確認する。文書・構造reviewと該当assertionを通す。
+- [x] Phase 5の内部指示へ条件確認・固定本文と後発情報の併読・既存転送先の確認・受領先の記録を接続する。既存の汎用化・repository判定・steering起動を使う。
+- [x] 「完了したら渡す」「完了したら聞く」「今は保留」「条件不明」、後からの保留継続・範囲変更のfixtureを作り、必要な応答と証拠を区別する。
+- [x] 転送先作成後の失敗と中断復帰を独立実行で確認する。受領前は未完に保ち、同じ作業を二重起動しない。
+- [x] 引渡し済みを改善済みにせず、修正・配布・導入の同期や暫定指示の自動終了を加えていないことを確認する。文書・構造reviewと該当assertionを通す。
+
+> owner独立挙動: artifacts/phase-5/behavior-run-2/result.json、phase-5-9-owner-behavior-2 / attempt2 / passed。34case成功・source全件一致を消費済み。該当機能taskへ反映し、reviewは実施済みとして記録した。別process通し操作は別の未完taskで扱う。
 
 ## Phase 7: 作業限定の暫定指示を登録・改訂できる
 
@@ -120,10 +126,10 @@
 
 ### Tasks
 
-- [ ] `maintenance-plugin-context/temporary-overrides.md` と `maintenance-plugin-context/templates/temporary-override.md` を作成する。同skillのSKILL.mdで安定factと暫定指示の依頼を独立して受け付ける。
-- [ ] 元作業・対象skill・処理・条件・現行指示・終了条件と、適用状況・実行版・変更履歴を保存する。一指示一file、作業内連番、必要時だけ作成、複数skillへの同一指示を複写しない契約を実装する。
-- [ ] 登録・改訂、複数skillに効く指示、元作業不明、fact依頼なし、保留メモとの相互参照のfixtureを作り、独立実行で保存内容を確認する。
-- [ ] 指示原文と過去の意味が消えず、配布templateや別作業へ保存されず、空fact instanceも作られないことを確認する。文書・構造reviewと該当assertionを通す。
+- [x] `maintenance-plugin-context/temporary-overrides.md` と `maintenance-plugin-context/templates/temporary-override.md` を作成する。同skillのSKILL.mdで安定factと暫定指示の依頼を独立して受け付ける。
+- [x] 元作業・対象skill・処理・条件・現行指示・終了条件と、適用状況・実行版・変更履歴を保存する。一指示一file、作業内連番、必要時だけ作成、複数skillへの同一指示を複写しない契約を実装する。
+- [x] 登録・改訂、複数skillに効く指示、元作業不明、fact依頼なし、保留メモとの相互参照のfixtureを作り、独立実行で保存内容を確認する。
+- [x] 指示原文と過去の意味が消えず、配布templateや別作業へ保存されず、空fact instanceも作られないことを確認する。文書・構造reviewと該当assertionを通す。
 
 ## Phase 8: 起動・再開したskillへ実効指示を渡せる
 
@@ -133,14 +139,14 @@
 
 ### Tasks
 
-- [ ] Phase 7の管理処理へ全候補の選択・競合確認・実行version照合を実装する。active／none／paused／unavailable／endedを安定factとは別節で返す。
-- [ ] 次の13入口と新設skill-update-review/SKILL.mdへ、起動・別session再開・resume・把握した変更時の取得を接続する。
+- [x] Phase 7の管理処理へ全候補の選択・競合確認・実行version照合を実装する。active／none／paused／unavailable／endedを安定factとは別節で返す。
+- [x] 次の13入口と新設skill-update-review/SKILL.mdへ、起動・別session再開・resume・把握した変更時の取得を接続する。
   - doc-enricher、document-review、escalate-plugin-skill-fix、facilitate-discussion、maintenance-plugin-context、name-work-directory、share-work-in-progress
   - steering、task-design、tasklist-executor、test-runner、think-through、visual-inspector
-- [ ] 管理担当自身は内部処理へ進み、各consumerへ選択・競合・版の判断を複製しない。通常の返信やthink-throughの毎turn適用を定期取得へ変えない。
-- [ ] 同一作業再開、別作業、指示なし、読取失敗、複数指示の競合、明示置換、実行版不明、実行元とrepository最新版の違い、version更新のfixtureを作る。
-- [ ] 無関係な更新でも継続を毎回尋ねること、取得不能をnoneにしないこと、影響する暫定動作だけ止めることを独立実行で確認する。同一sessionの更新返却と、通知されていない編集の限界も確認する。
-- [ ] 全14入口の接続を一覧照合し、対象skill全体の構造reviewと文書review、該当assertionを通す。既存処理の問題で合意外の整理が必要なら設計へ戻す。
+- [x] 管理担当自身は内部処理へ進み、各consumerへ選択・競合・版の判断を複製しない。通常の返信やthink-throughの毎turn適用を定期取得へ変えない。
+- [x] 同一作業再開、別作業、指示なし、読取失敗、複数指示の競合、明示置換、実行版不明、実行元とrepository最新版の違い、version更新のfixtureを作る。
+- [x] 無関係な更新でも継続を毎回尋ねること、取得不能をnoneにしないこと、影響する暫定動作だけ止めることを独立実行で確認する。同一sessionの更新返却と、通知されていない編集の限界も確認する。
+- [x] 全14入口の接続を一覧照合し、対象skill全体の構造reviewと文書review、該当assertionを通す。既存処理の問題で合意外の整理が必要なら設計へ戻す。
 
 ## Phase 9: 不要になった暫定指示を終了できる
 
@@ -150,10 +156,15 @@
 
 ### Tasks
 
-- [ ] temporary-overrides.mdへ終了判断と記録を接続し、steeringと単独の作業担当の既存完了記録から管理担当への通知を追加する。一skill呼出しの終了は元作業の完了にしない。
-- [ ] 指定期限、取下げ、作業完了、中断・承認待ち、正式版の部分代替と全面代替、複数skillへの指示、後日再開のfixtureを作る。
-- [ ] 全面代替では追加承認なしで終了・報告し、部分代替・証拠不足は勝手に指示を分割・改訂しないことを独立実行で確認する。
-- [ ] 終了済みを実効指示から除外し、保留メモの引渡しだけでは終了しないことを確認する。文書・構造reviewと該当assertionを通す。
+- [x] temporary-overrides.mdへ終了判断と記録を接続し、steeringと単独の作業担当の既存完了記録から管理担当への通知を追加する。一skill呼出しの終了は元作業の完了にしない。
+- [x] 指定期限、取下げ、作業完了、中断・承認待ち、正式版の部分代替と全面代替、複数skillへの指示、後日再開のfixtureを作る。
+- [x] 全面代替では追加承認なしで終了・報告し、部分代替・証拠不足は勝手に指示を分割・改訂しないことを独立実行で確認する。
+- [x] 終了済みを実効指示から除外し、保留メモの引渡しだけでは終了しないことを確認する。文書・構造reviewと該当assertionを通す。
+
+
+> 2026-10-25 最終: Phase1〜10の全taskは実測/記録済み。helper23自己test、owner34、議論既存18+再試行2+新規3、通しA3/B7、static4の7command、最終表記validator1command成功を消費した。旧失敗/blockedと観測限界は保持。次はPhase11利用者確認のみ。
+
+> review実施と候補解消の区別: artifacts/phase-10/review-current-scope.mdへ全14入口・必要依存・文書の評価と内容識別を保存済み。独立した既存配置候補（steering論点53、escalateの引渡し後取込み）は未解消noteとして残すが、review未実施には戻さない。非.md互換・14/18再試行・同居fixture・通し/中断は実測結果を消費済み。再修正後は影響範囲を再reviewする。
 
 ## Phase 10: 変更一式を配布可能な内容として検証する
 
@@ -163,14 +174,14 @@
 
 ### Tasks
 
-- [ ] 全対象の二層ledgerを順方向・逆方向に照合する。削除・追加行と移動先を辿り、未監査0・未分類削除0・未分類追加0を記録する。状態・停止・再開・single writerを全体で確認する。
-- [ ] 「分割済み議論でAI変更を報告してから反映」「改善を保留し、同じ作業の暫定指示で再開」「skill更新を設計時・編集後にreviewし、結果を保存して再利用」の通しfixtureを追加し、各ownerの受渡しをfresh agentで確認する。
-- [ ] 現行8.0.2を確認し、新しい公開skill追加と既存入力の維持を根拠に8.1.0へ一度だけ更新する。
-  - [ ] plugins/tumeda-dev/.codex-plugin/plugin.jsonとplugins/tumeda-dev/.claude-plugin/plugin.jsonのversion、root .claude-plugin/marketplace.jsonのversionとtumeda-devのplugins[].version、scripts/verification/validate-plugin.mjsのexpectedReleaseを同時に揃える。別作業で現行版が変わっていれば上書きせず管理担当へ戻す。
-- [ ] 自己test、handoff回帰、全体validatorを実行し、失敗は原因を修正して再実行する。新scriptはnode --checkも通す。存在しないlint・formatter・UI確認taskは追加しない。
-- [ ] 更新したskill一式の編集後構造reviewとMarkdownのdocument-reviewを完了し、内容識別を結果へ記録する。再修正した対象は必要な再review・挙動検証を行う。
-- [ ] 実装・review・validationのfeedbackを、直接受領した担当がfacilitate-discussionでimplementation_review.mdへ記録する。原因・知識の所在・修正先を確認し、合意後だけ反映する。designやplan構造が変われば同じ作業のtask-designへ戻し、実装を自動再開しない。
-- [ ] 実装中に得た永続化候補のdoc-enricher提案と承認判断が未処理で残っていないことを確認する。
+- [x] 全対象の二層ledgerを順方向・逆方向に照合する。削除・追加行と移動先を辿り、未監査0・未分類削除0・未分類追加0を記録する。状態・停止・再開・single writerを全体で確認する。
+- [x] 「分割済み議論でAI変更を報告してから反映」「改善を保留し、同じ作業の暫定指示で再開」「skill更新を設計時・編集後にreviewし、結果を保存して再利用」の通しfixtureを追加し、各ownerの受渡しをfresh agentで確認する。
+- [x] 現行8.0.2を確認し、新しい公開skill追加と既存入力の維持を根拠に8.1.0へ一度だけ更新する。
+  - [x] plugins/tumeda-dev/.codex-plugin/plugin.jsonとplugins/tumeda-dev/.claude-plugin/plugin.jsonのversion、root .claude-plugin/marketplace.jsonのversionとtumeda-devのplugins[].version、scripts/verification/validate-plugin.mjsのexpectedReleaseを同時に揃える。別作業で現行版が変わっていれば上書きせず管理担当へ戻す。
+- [x] 自己test、handoff回帰、全体validatorを実行し、失敗は原因を修正して再実行する。新scriptはnode --checkも通す。存在しないlint・formatter・UI確認taskは追加しない。
+- [x] 更新したskill一式の編集後構造reviewとMarkdownのdocument-reviewを完了し、内容識別を結果へ記録する。再修正した対象は必要な再review・挙動検証を行う。
+- [x] 実装・review・validationのfeedbackを、直接受領した担当がfacilitate-discussionでimplementation_review.mdへ記録する。原因・知識の所在・修正先を確認し、合意後だけ反映する。designやplan構造が変われば同じ作業のtask-designへ戻し、実装を自動再開しない。
+- [x] 実装中に得た永続化候補のdoc-enricher提案と承認判断が未処理で残っていないことを確認する。
 
 ### 検証command
 
@@ -183,6 +194,8 @@ node scripts/verification/validate-plugin.mjs
 node --check plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs
 node --check plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs
 ```
+
+> 最終案内: artifacts/phase-11/user-check-guide.md。専用demo-workと新session用3入力を準備済み。利用者への案内/依頼の実送付と実際の確認結果は、未実施のPhase11 checkboxへ残す。
 
 ## Phase 11: 利用者が新しい進め方を確認する
 

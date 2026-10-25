@@ -6,7 +6,7 @@
 
 handlerが解決したdiscussion file、目的とconsumer固有制約、選択したdecision、実際の発言とevidenceを受け取る。
 既存論点では番号、現在の末尾提示と応答、履歴、決定・仮決定・再開条件、親と未決childを確認する。新規ではscopeと他論点との関係を受け取り、まだ論点番号を仮定しない。
-handlerの二層保存先・読取規則に従い、discussionと対象論点の内部log全文を読む。
+handlerと[読取](read-discussion.md)に従い、全体の現在state、対象範囲file全文と対象論点の内部log全文を読む。
 書込み直前は対象file全体を再読込し、引継ぎ時とstateが違えばhandlerへ戻す。必須fileが読めない、欄が一意でない、書けない場合は停止し、保存済み・未同期を区別する。
 
 ## 二つの入口と戻り先

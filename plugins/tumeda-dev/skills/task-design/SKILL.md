@@ -21,7 +21,23 @@ description: |
 
 # task-design スキル
 
+## 作業限定の暫定指示を取得する
+
+起動・別sessionからの再開・resume・把握した指示変更時に、元作業のexactな場所、consumer `task-design`、
+対象処理、実際に使うこのSKILL.mdの取得元を`maintenance-plugin-context`へ渡し、暫定指示を取得する。
+選択・競合・実行版の判断は管理担当へ委ねる。
+activeの実効指示に従い、paused/unavailableでは影響する暫定動作を止めて理由を返す。
+none/endedでは既存処理へ進む。
+元作業不明を別作業の探索で補わない。
+通常の返信・内部file再読・think-throughの毎turn適用を定期取得へ変えない。
+同一sessionの登録・改訂結果は返却された更新を使い、通知されていない編集を常時検知できるとは扱わない。
+
+
 ---
+
+元作業directoryが未確定なら、取得不能をnoneにせず管理担当へ不足を返す。
+既存ownerによる命名・directory確定に必要な処理は続け、影響する暫定動作だけを待ちにする。
+元作業が確定した直後に取得し、先に対象の暫定動作を実行しない。
 
 ## 1. スキルの目的
 
@@ -429,9 +445,12 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
 #### 既存designのhandoff gate
 
 `working_dir`を確定した直後、task-designは`design.md`または`task-design-discussion.md`の存在だけを確認する。
+議論の存在判定は`facilitate-discussion/resolve-discussion.md`のbasename解決を使い、
+同名directoryの索引も既存記録に含める。
+共存・索引欠落・取得不能は停止し、本文・hash・snapshotは独立再構成前に取得しない。
 この時点ではcanonical成果物の本文を読まない。
 
-- `design.md`と`task-design-discussion.md`がどちらも存在しない: 新規designとして通常flowへ進む。
+- `design.md`と、解決済みの単一または分割`task-design-discussion.md`がどちらも存在しない: 新規designとして通常flowへ進む。
 - canonical成果物が存在し、callerまたはhostが同じtask-design実行の継続だと確認できる: ownershipは連続しているため、catch-upを再起動せず既存workflowを続ける。
 - canonical成果物が存在し、別のtask-design実行が引き継ぐ、またはownershipの連続性を確認できない: catch-upを必須にする。
 
@@ -858,3 +877,10 @@ designが合意され、`tasklist_ready | roadmap_ready | planless_complete`の�
 更新の前に section 6 NG集 を自分に走らせる。1つでも該当したら、Opus に相談するか、対話を1段階戻す。
 
 ---
+
+
+## 元作業の完了を暫定指示の管理へ通知する
+
+このskillが単独で元作業の完了ownerを担い、既存workflowの完了条件を実際に満たした場合だけ、既存完了記録のpath・根拠と元作業のexactな場所を`maintenance-plugin-context`へ渡す。
+steering配下など別ownerが元作業を継続する場合はその担当へ結果を返し、元作業完了とは通知しない。
+一skill呼出しの終了、session終了、中断、承認待ち、引渡しは元作業完了ではない。終了判断と履歴保存は管理担当が持ち、この通知のための追加承認gateを設けない。

@@ -6,6 +6,22 @@ allowed-tools: Read, Grep, Write, Edit
 
 # skill: doc-enricher（ディレクトリREADME知識の強化）
 
+## 作業限定の暫定指示を取得する
+
+起動・別sessionからの再開・resume・把握した指示変更時に、元作業のexactな場所、consumer `doc-enricher`、
+対象処理、実際に使うこのSKILL.mdの取得元を`maintenance-plugin-context`へ渡し、暫定指示を取得する。
+選択・競合・実行版の判断は管理担当へ委ねる。
+activeの実効指示に従い、paused/unavailableでは影響する暫定動作を止めて理由を返す。
+none/endedでは既存処理へ進む。
+元作業不明を別作業の探索で補わない。
+通常の返信・内部file再読・think-throughの毎turn適用を定期取得へ変えない。
+同一sessionの登録・改訂結果は返却された更新を使い、通知されていない編集を常時検知できるとは扱わない。
+
+
+元作業directoryが未確定なら、取得不能をnoneにせず管理担当へ不足を返す。
+既存ownerによる命名・directory確定に必要な処理は続け、影響する暫定動作だけを待ちにする。
+元作業が確定した直後に取得し、先に対象の暫定動作を実行しない。
+
 ## repository固有文脈
 
 提案前にプロジェクト指示または上位アーキテクチャ文書が必要な時は、`maintenance-plugin-context`へconsumer=`doc-enricher`、必要理由、必要fact、確認元候補を渡す。返された範囲だけを読み、固定path・固定文書名を推測しない。

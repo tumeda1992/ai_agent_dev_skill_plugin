@@ -5,6 +5,22 @@ description: 明示された議論を論点単位で進行し、委託された�
 
 # Facilitate Discussion
 
+## 作業限定の暫定指示を取得する
+
+起動・別sessionからの再開・resume・把握した指示変更時に、元作業のexactな場所、consumer `facilitate-discussion`、
+対象処理、実際に使うこのSKILL.mdの取得元を`maintenance-plugin-context`へ渡し、暫定指示を取得する。
+選択・競合・実行版の判断は管理担当へ委ねる。
+activeの実効指示に従い、paused/unavailableでは影響する暫定動作を止めて理由を返す。
+none/endedでは既存処理へ進む。
+元作業不明を別作業の探索で補わない。
+通常の返信・内部file再読・think-throughの毎turn適用を定期取得へ変えない。
+同一sessionの登録・改訂結果は返却された更新を使い、通知されていない編集を常時検知できるとは扱わない。
+
+
+元作業directoryが未確定なら、取得不能をnoneにせず管理担当へ不足を返す。
+既存ownerによる命名・directory確定に必要な処理は続け、影響する暫定動作だけを待ちにする。
+元作業が確定した直後に取得し、先に対象の暫定動作を実行しない。
+
 ## 目的と成果
 
 明示された議論を一つのdecision単位で進行し、判断可能な提案・認識合わせ、応答、決定をdiscussion fileへ保存する。
@@ -124,7 +140,8 @@ skill起動、論点選択、iterationを無前提な兄弟分岐として扱わ
 
 #### 保存までの順序
 
-1. 各書込み直前に対象file全体を再読込する。code fence・引用・HTML comment内の例を除き、canonical h2とlegacy h3の実論点を走査する。
+1. [読取](read-discussion.md)で集合・実体・hashと使用logの不変を照合し、各書込み直前に対象file全体を再読込する。
+   code fence・引用・HTML comment内の例を除き、canonical h2とlegacy h3の実論点を走査する。
 2. 論点→必要なら回→欄の順に範囲を限定する。完全な番号、役割、所属suffix、終端と周辺文脈を照合し、先頭一致・部分一致で選ばない。
 3. 更新なら既存欄を一意に特定する。追加なら次の挿入位置と未作成を確認する。
    - 新論点: 最大値+1を採番し、file末尾へ追加する。
@@ -146,7 +163,8 @@ skill起動、論点選択、iterationを無前提な兄弟分岐として扱わ
 
 #### statusの表示と導出
 
-表示値は `応答待ち / 調査中 / 子論点待ち / 決定 / 保留 / 分解済み` とする。
+表示値は `応答待ち / 調査中 / 子論点待ち / 決定 / 保留 / 分解済み / 反映待ち / 反映済み` とする。
+導出変更・委託変更は調査中、報告・応答・適用・検証の未完は反映待ちとし、全範囲の反映と必要な検証を終えてから反映済みとする。通常の決定を反映済みへ一律に変換しない。
 本文・応答・会話が正本であり、旧`提案中`を含む値だけで判断しない。
 親子導出を通常のstatus更新より優先する。
 
@@ -162,7 +180,7 @@ Dは解決済みdiscussion basename全体（拡張子も保持）、Nはdiscussi
   - discussionからのlinkとlog先頭のdiscussion・論点表示を照合する。既存logが二つある、所属が違う、名前長等で書けない時は停止する。
   - 短縮名や別名へ逃げて二つ目の正本を作らず、過去の暫定名を命名統一だけのために移動しない。
 - 必要な読取
-  - discussion全文に加え、対象logを全文読む。新規なら未作成を確認する。
+  - [読取](read-discussion.md)に従い全体の現在state、対象範囲file全文と対象log全文を読む。新規logなら未作成を確認する。
   - 他論点の根拠を使う場合は、そのdiscussionの現在decisionと当該log全文へ広げ、後続訂正と参照を辿る。無関係な全logの毎回読取は要求しない。
   - 必須fileや根拠を読めなければ確認済みと扱わず、未同期・未確認と停止理由を返す。
 - 位置の識別
@@ -178,24 +196,13 @@ logを書き込む時も全文再読込から論点・回・記録単位の所�
 
 ## discussion fileを解決する
 
-ユーザーまたはconsumerがskillを明示適用し、discussion fileがまだ確定していないときに一度だけ入る。起動後のfeedbackごとにこのphaseを再実行しない。
-
-1. `discussion_directory`が渡されていれば使う。未指定なら、議論を始める前に具体的なdirectory pathをユーザーへ確認する。
-2. directoryが存在することを確認する。存在しなければ推測作成せず、consumerまたはユーザーへ用意・再指定を求める。
-3. `discussion_file_name`がなければ`discussion.md`を使う。絶対path、`../`、`/`、`\`等のpath separatorを含む指定は拒否し、basenameを求める。
-4. fileの有無によって起動variantを選ぶ。
-
-| 起動variant | action |
-| --- | --- |
-| fileが存在しない | 先頭に`# 議論記録`を持つfileを新規作成する |
-| fileが存在する | 全内容を保持して継続利用する。h1の追加・置換や旧formatの一括整形は行わない |
-
-5. file全体を読み、現在のdiscussion目的、既存論点、status、末尾のiterationとfeedback状態、決定、再開条件、`親論点`、未決child、論点番号を把握する。
-6. 論点番号の重複がないことを確認する。重複していれば書込みを停止し、自動修復しない。
-
-### 解決の完了gate
-
-target directory、discussion file、現在のdiscussion stateを一意に解決できた場合だけ論点levelへ進む。file解決だけを依頼された場合は、新規論点を作らずここでworkflowを終えてよい。
+ユーザーまたはconsumerが明示適用し、入口が未確定の時に一度だけ[入口の解決](resolve-discussion.md)を読む。起動後のfeedbackごとに入口をやり直さない。
+本文を読める段階では[読取](read-discussion.md)を使い、現在stateと対象範囲・必要logを取得する。
+単一形式の実論点が10件を超える更新では[分割](split-discussion.md)へ進む。
+既存の長い単一fileは次の更新時に扱う。
+読むだけでは移行しない。
+既に分割済みなら同fileの「分割済み記録を更新する」へ進み、単一からの移行を再試行しない。
+同じownerが全工程を実行し、helperへ意味判断・正本選択・修復を委ねない。
 
 
 ## 対象論点を選ぶ
@@ -233,11 +240,17 @@ discussion fileが解決済みで、議論するdecision候補、既存論点へ
 親子関係の正本はchild entryの任意field `親論点`だけとする。parent側へ`子論点`fieldを保存せず、child側の参照から一覧を導出する。親を保存・変更する前に、次をすべて確認する。
 
 - 直接の親は最大一つ
-- 親は同じdiscussion file内に存在する
+- 親は同じ論理的なdiscussion記録内に存在する
 - 自己参照ではない
 - 親参照を辿っても循環しない
 
-親番号と子番号の大小は制約しない。別fileの論点は親にせず、本文からfile pathと論点番号で参照する。parent自身にも分解内容の実質的なdecisionを残す。未決childがあればparentを`子論点待ち`、全childが決定済みなら`分解済み`とする。未決child集合が変わったときだけparent statusを同期する。
+親番号と子番号の大小は制約しない。
+別の論理記録の論点は親にせず、本文からfile pathと論点番号で参照する。
+parent自身にも分解内容の実質的なdecisionを残す。
+未決childがあればparentを`子論点待ち`、全childが決定済みまたは変更の反映済みなら`分解済み`とする。
+調査中・反映待ちは未完childとして数える。
+報告だけ・部分反映・検証失敗では完了にしない。
+未決child集合が変わったときだけparent statusを同期する。
 
 ### eventから所属を選ぶ
 
@@ -290,7 +303,14 @@ steering終了時などconsumerが持つtheme横断の`doc-enricher` reviewは�
 
 ## 選択した論点を進める
 
+### 変更の権限から経路を選ぶ
+
+原因ownerを判定した後、[導出変更](derived-change.md)で利用者の未決事項・一意な導出・明示委託・機械適用を分ける。
+新たな採否が必要な時だけ通常の提案・合意へ進み、導出・委託は報告と次の実応答、機械適用は既存権限を使う。
+
 ### 共通本体へ接続する
+
+通常の提案へ入る前に必ず直前の権限分類を行い、導出・委託なら[導出変更](derived-change.md)へ渡す。通常iterationの合意待ちを報告へ重ねない。
 
 handlerから [iteration.md](iteration.md) 全文を読んで、次のいずれかへ入る。入力は外部APIではなく同じownerが保持する実stateである。
 
@@ -321,7 +341,9 @@ consumerがdecisionを適用して全体状態を再評価するまで次論点�
 `templates/discussion_entry.md` 全文を読み、必要な名前のcode blockだけを使う。全entryへ空の欄を置かず、現在stateは全iterationの後へ置く。
 templateの任意`仮決定`は、[仮決定](templates/discussion_entry.md#仮決定) の形を現在成立する内容の要約が理解を助ける時だけ使う。過去の部分判断を機械的に加算せず、無効になった内容は外す。履歴は過去の回へ保持し、判断の足跡が役立つ時だけ典拠を付ける。最終合意で外す。
 templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再開条件) の形を同じ未決decisionが外部event・action・権限等で止まり、entryだけでは停止理由と再開位置を特定できない時だけ使う。固定小fieldへ分けない。通常応答待ち、consumer反映待ち、完了、直後の移動には置かない。条件成立は新しい検討記録へ接続して現在条件を外す。委譲自体が結論なら決定に書く。
-固定の`ネクストアクション`fieldはentryへ置かない。次の焦点は末尾のactiveな提示、順序・委譲先の合意は決定、停止と不可分の再開判断は再開条件へ置き、具体的handoffはchatへ返す。
+固定の`ネクストアクション`fieldはentryへ置かない。
+変更の報告・実応答・反映は[導出変更](derived-change.md)の現在の変更へ置く。
+次の焦点は末尾のactiveな提示、順序・委譲先の合意は決定、停止と不可分の再開判断は再開条件へ置き、具体的handoffはchatへ返す。
 別topicがdecision境界を保ったままpath・語彙等を具体化した場合は、先行topicの現在決定だけを典拠付きで同期する。置換理由と影響範囲は後続topicが所有する。先行topicの過去の回を変更・追加せず、境界が変わるなら再開／別論点へroutingする。`以前の決定`、`決定（更新）`、`決定（最終）`を並べない。
 
 ### 論点をreparentする
@@ -358,7 +380,9 @@ discussionと扱った論点の内部logを再読込し、前回保存後に委�
 同じdecisionは同じ論点、別decisionは論点選択を通して保存する。
 未保存のままchat合意へ到達したか、処理を進めた後に記録漏れを発見したなら、[record-recovery.md](record-recovery.md) を全文読んで回復する。到着直後の通常応答、通常のreparent・取下げ、正しく保存済みの中断復帰は回復へ集めない。
 成果物変更の理由が原文からdecisionまで追えることを確認する。保存済みdecisionとの一対一対応で新scope・routing・方針・成果物・実行単位を一切決めない適用だけは新論点にしない。
-対応付けに具体的な判断が一つでも必要なら「既存decisionの機械的適用」と呼んでdiscussionを省略せず、proposalとして提示・保存して合意を得る。議論のない誤字・format・link修正も新論点にしない。
+対応付けに判断が必要なら機械適用と呼んで記録を省略せず、[導出変更](derived-change.md)で権限と未決事項を判定して記録・報告する。
+議論のない誤字・format・link修正は新論点にしない。
+未報告・未反映の変更を完了として返さない。
 
 ### 返却の完了gate
 

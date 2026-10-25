@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.0.2";
+const expectedRelease = "8.1.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -219,11 +219,9 @@ for (const expected of [
   "defaultは `discussion.md`",
   "既存directory",
   "pathを含まないbasename",
-  "# 議論記録",
   "legacyな `### 論点N:`",
   "最大値+1",
   "self-contained",
-  "末尾のiterationとfeedback状態",
   "その回の問いを判断できる",
   "templateの任意`仮決定`",
   "templateの`再開条件`",
@@ -239,7 +237,6 @@ for (const expected of [
   "## workflow全体で守る不変条件",
   "## 実行経路",
   "## discussion fileを解決する",
-  "### 解決の完了gate",
   "## 対象論点を選ぶ",
   "## 選択した論点を進める",
   "### 合意したdecisionを確定する",
@@ -291,13 +288,13 @@ function requireSavedForms(relativePath, headings) {
   forbidText(relativePath, "<!--", "templateへ埋め込まれた適用制御");
 }
 
-requireSavedForms(discussionTemplate, ["論点metadata","回の骨子","提案本文","空の提案応答欄","認識合わせ本文","空の認識合わせ回答欄","受領応答の本文","仮決定","再開条件","決定"]);
+requireSavedForms(discussionTemplate, ["論点metadata","回の骨子","提案本文","空の提案応答欄","認識合わせ本文","空の認識合わせ回答欄","受領応答の本文","仮決定","再開条件","決定","変更内容","現在の変更"]);
 
 requireSavedForms(discussionInternalTemplate, ["論点の骨子","回の骨子","記録単位"]);
 
 for (const expected of [
   "## 論点N: {判断内容を表すタイトル}",
-  "**ステータス:** {調査中 / 応答待ち / 子論点待ち / 決定 / 保留 / 分解済み}",
+  "**ステータス:** {調査中 / 応答待ち / 子論点待ち / 決定 / 保留 / 分解済み / 反映待ち / 反映済み}",
   "**親論点:** 論点M",
   "**種別:**",
   "### イテレーションI（論点N）:",
@@ -1099,7 +1096,50 @@ for (const relativePath of [taskDesignSkill, tasklistDesign, tasklistTemplate, s
 }
 requireText(structureReviewFiles[4], "$skill-update-review");
 
+// 議論格納・導出変更・明示保留・暫定指示。旧解決guardは内部ownerへ移した。
+const discussionResolve = skillPath("facilitate-discussion/resolve-discussion.md");
+const discussionRead = skillPath("facilitate-discussion/read-discussion.md");
+const discussionSplit = skillPath("facilitate-discussion/split-discussion.md");
+const derivedChanges = skillPath("facilitate-discussion/derived-change.md");
+const pendingEscalations = skillPath("escalate-plugin-skill-fix/pending-escalations.md");
+const pendingTemplate = skillPath("escalate-plugin-skill-fix/templates/pending-escalation.md");
+const temporaryOverrides = skillPath("maintenance-plugin-context/temporary-overrides.md");
+const overrideTemplate = skillPath("maintenance-plugin-context/templates/temporary-override.md");
+const discussionHelper = skillPath("facilitate-discussion/scripts/inspect-discussion.mjs");
+const discussionHelperTest = skillPath("facilitate-discussion/scripts/inspect-discussion.test.mjs");
+const newFunctionalFiles = [discussionResolve, discussionRead, discussionSplit, derivedChanges, pendingEscalations, pendingTemplate, temporaryOverrides, overrideTemplate, discussionHelper, discussionHelperTest];
+for (const path of newFunctionalFiles) requireExists(path);
+requireText(discussionResolve, "# 議論記録");
+requireText(discussionResolve, "### 解決の完了gate");
+requireText(discussionRead, "末尾のiterationとfeedback状態");
+for (const name of ["resolve-discussion.md", "read-discussion.md", "split-discussion.md", "derived-change.md"]) requireText(discussionSkill, name);
+for (const expected of ["next_offset", "needs_full_read", "snapshot", "compare", "全chunk", "独立構成前"]) requireText(discussionRead, expected);
+for (const expected of ["10件を超えた", "最大番号+1", "check-candidate", "原文fileを削除", "自動修復"]) requireText(discussionSplit, expected);
+for (const expected of ["明示委託", "次の実応答", "変更内容", "現在の変更", "原文", "部分反映"]) requireText(derivedChanges, expected);
+requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り替える前の保留判定\n", "\n## plugin repositoryの判定\n"], "起動後・repository判定前の明示保留");
+for (const expected of ["保留を保存する", "再開条件を確認する", "現在の提案を引き渡す", "受領先を記録する", "二重起動しない", "引渡し済みは改善済みではない"]) requireText(pendingEscalations, expected);
+for (const expected of ["保留時の内容", "関連情報", "追跡"]) requireText(pendingTemplate, expected);
+for (const expected of ["元作業と依頼を確認する", "記録を登録・改訂する", "適用候補と実行版を照合する", "実効指示または停止理由を返す", "終了を記録する", "active", "none", "paused", "unavailable", "ended", "無関係な更新でも", "全面代替"]) requireText(temporaryOverrides, expected);
+for (const expected of ["## 指示", "## 適用状況", "## 変更と終了の履歴"]) requireText(overrideTemplate, expected);
+const overrideConsumers = ["doc-enricher", "document-review", "escalate-plugin-skill-fix", "facilitate-discussion", "maintenance-plugin-context", "name-work-directory", "share-work-in-progress", "steering", "task-design", "tasklist-executor", "test-runner", "think-through", "visual-inspector", "skill-update-review"];
+for (const name of overrideConsumers) {
+  const path = skillPath(`${name}/SKILL.md`);
+  for (const expected of ["## 作業限定の暫定指示を取得する", "resume", "SKILL.md", "paused/unavailable"]) requireText(path, expected);
+}
+for (const name of ["steering", "task-design", "tasklist-executor"]) requireText(skillPath(`${name}/SKILL.md`), "## 元作業の完了を暫定指示の管理へ通知する");
+requireText(contextMaintainer, "temporary-overrides.md");
+requireText(escalateSkill, "pending-escalations.md");
+
+// 独立実操作で検出した到達不能・出典切れの修復条件。
+for (const expected of ["分割済み記録を更新する", "通常のresolve/compareを呼ばない", "実体pathとSHA-256", "design等から旧入口"]) requireText(discussionSplit, expected);
+for (const path of [pendingEscalations, temporaryOverrides]) requireText(path, "保存先fileから相対pathを実解決");
+for (const expected of ["候補を比較", "選定理由", "報告した実際の問いまたは完了reviewと版"]) requireText(derivedChanges, expected);
+
+requireText(discussionResolve, "`.md`以外の拡張子や拡張子なしを追加拒否しない");
+requireText(discussionSplit, "## 元fileと最終directoryが同pathになる場合");
+
 const portableFiles = [
+  ...newFunctionalFiles,
   ...structureReviewFiles,
   skillPath("doc-enricher/SKILL.md"),
   discussionSkill,

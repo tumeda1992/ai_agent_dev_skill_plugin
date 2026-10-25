@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync, mkdirSync, chmodSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -8,6 +8,7 @@ const extractor = resolve(root, "plugins/tumeda-dev/skills/task-design/scripts/e
 const taskDesign = readFileSync(resolve(root, "plugins/tumeda-dev/skills/task-design/SKILL.md"), "utf8");
 const steering = readFileSync(resolve(root, "plugins/tumeda-dev/skills/steering/SKILL.md"), "utf8");
 const handoffContract = readFileSync(resolve(root, "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md"), "utf8");
+const discussionInspector = resolve(root, "plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs");
 const fixture = mkdtempSync(resolve(tmpdir(), "task-design-handoff-"));
 let failures = [];
 
@@ -94,6 +95,40 @@ expectExcludes("steering routing", steering, sharedOnly);
 expectExcludes("steering routing", steering, ["task-design-work-handoff-contracts.md"]);
 
 try {
+  // 存在だけのgate: designがなくても分割議論があれば既存記録である。
+  const splitWork = resolve(fixture, "split-existing"), splitDirectory = resolve(splitWork, "task-design-discussion");
+  mkdirSync(splitDirectory, { recursive: true });
+  const indexPath = resolve(splitDirectory, "task-design-discussion.md");
+  writeFileSync(indexPath, "FORBIDDEN_MARKER\n```unclosed\n"); chmodSync(indexPath, 0);
+  let result = spawnSync(process.execPath, [discussionInspector, "resolve", "--directory", splitWork, "--name", "task-design-discussion.md"], { encoding: "utf8" });
+  chmodSync(indexPath, 0o600);
+  if (result.status !== 0 || JSON.parse(result.stdout).format !== "split" || result.stdout.includes("FORBIDDEN_MARKER") || result.stdout.includes("sha256")) failures.push("split存在gate: 本文/hash取得なしで既存を解決できない");
+  expectIncludes("split consumer gate", taskDesign, ["resolve-discussion.md", "同名directoryの索引も既存記録", "本文・hash・snapshotは独立再構成前に取得しない"]);
+  expectIncludes("split catch-up", handoffContract, ["全範囲fileを全chunk読む", "集合・実解決先・hash", "追加・削除も変化"]);
+  const rows = [], expectedBodies = [];
+  for (const start of [1, 6, 11]) {
+    const rangeName = `task-design-discussion-${start}-${start + 4}.md`;
+    let body = "# 議論記録\n\n";
+    for (let number = start; number < Math.min(start + 5, 12); number++) {
+      body += `## 論点${number}: 問い${number}\n\n**ステータス:** 決定\n\n### 決定（論点${number}）\n\n判断${number}。\n\n`;
+      rows.push(`| ${number} | 問い${number} | [本文](./${rangeName}) |`);
+    }
+    writeFileSync(resolve(splitDirectory, rangeName), body); expectedBodies.push(body);
+  }
+  const indexText = "# 議論記録\n\n## 論点一覧\n\n| 番号 | 題名 | 本文 |\n| --- | --- | --- |\n" + rows.join("\n") + "\n";
+  writeFileSync(indexPath, indexText);
+  result = spawnSync(process.execPath, [discussionInspector, "read", "--directory", splitWork, "--name", "task-design-discussion.md", "--view", "full"], { encoding: "utf8" });
+  if (result.status !== 0 || JSON.parse(result.stdout).chunks.map(chunk => chunk.text).join("") !== indexText + expectedBodies.join("")) failures.push("split catch-up: 索引と全範囲の原文を完全取得できない");
+  const snapshot = spawnSync(process.execPath, [discussionInspector, "snapshot", "--directory", splitWork, "--name", "task-design-discussion.md"], { encoding: "utf8" });
+  const changedPath = resolve(splitDirectory, "task-design-discussion-6-10.md"); writeFileSync(changedPath, expectedBodies[1] + "後発訂正\n");
+  result = spawnSync(process.execPath, [discussionInspector, "compare", "--directory", splitWork, "--name", "task-design-discussion.md"], { encoding: "utf8", input: snapshot.stdout });
+  if (result.status !== 2) failures.push("split完了前: 範囲fileの後発変化を再照合できない");
+  const singlePath = resolve(splitWork, "task-design-discussion.md"); writeFileSync(singlePath, "旧入口\n");
+  result = spawnSync(process.execPath, [discussionInspector, "resolve", "--directory", splitWork, "--name", "task-design-discussion.md"], { encoding: "utf8" });
+  if (result.status !== 1) failures.push("split存在gate: 新旧共存を拒否しない");
+  rmSync(singlePath); rmSync(indexPath);
+  result = spawnSync(process.execPath, [discussionInspector, "resolve", "--directory", splitWork, "--name", "task-design-discussion.md"], { encoding: "utf8" });
+  if (result.status !== 1) failures.push("split存在gate: 索引欠落を拒否しない");
   run("standalone", "# Design\n\n## 元の依頼内容\n\nstandalone request\n\n## TL;DR\n\nFORBIDDEN_MARKER\n", 0, "## 元の依頼内容\n\nstandalone request\n");
   run("child-phase", "# Design\n\n## 元の依頼内容\n\nchild request\n\n## 上位roadmap制約\n\nparent constraint\n\n## TL;DR\n\nFORBIDDEN_MARKER\n", 0, "## 元の依頼内容\n\nchild request\n\n## 上位roadmap制約\n\nparent constraint\n");
   run("missing", "# Design\n\n## TL;DR\n\nFORBIDDEN_MARKER\n", 1);

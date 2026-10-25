@@ -8504,3 +8504,18 @@ artifacts/migration-baseline/dependency-manifest.jsonにroot規約・runtime hoo
 | A1-0160 | design-details/skill-update-review.md | gate・入力・理由・例・構文 | 判定は不合格。通常処理と復旧処理が配布record項目を別々に手管理しており、項目追加で二箇所の同期が必要となる。単一の定義へ集約し、復旧の状態と返却を維持することが解消条件となる。 | plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md:19 | ADD | 合意済み構造reviewとcaller接続 | 新skillの独立12 case・公式構文passed。callerは編集後review、validator待ち |
 | A1-0161 | design-details/skill-update-review.md | gate・入力・理由・例・構文 | さらに外部commandの失敗時の戻り値が未確認であり、既知の問題を直すだけでは合格にしない。 | plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md:20 | ADD | 合意済み構造reviewとcaller接続 | 新skillの独立12 case・公式構文passed。callerは編集後review、validator待ち |
 | A1-0162 | design-details/skill-update-review.md | gate・入力・理由・例・構文 | 編集担当へ返し、既存の実装reviewへ保存する。修正後は現物全体を再判定し、機能・安全・動作検証と既存の完了条件へ戻す。 | plugins/tumeda-dev/skills/skill-update-review/templates/review-result.md:22 | ADD | 合意済み構造reviewとcaller接続 | 新skillの独立12 case・公式構文passed。callerは編集後review、validator待ち |
+
+
+## 2026-10-24 機能実装後の追加照合
+
+今回の実変更は[二層照合](artifacts/phase-10/migration-audit.md)のContract ledgerへ記録した。元の列挙と失敗履歴は保持する。独立挙動・最終再照合は未完であり、本参照だけで全体完了にしない。
+
+
+## 現在実体のreviewと追加照合
+
+[構造/文書review](artifacts/phase-10/review-current-scope.md)と[実修復の意味照合](artifacts/phase-10/migration-audit-addendum.md)へ接続した。basename追加制約の修復は未完。独立legacy配置候補は他機能の依存にしない。
+
+
+## 2026-10-25 最終同期
+
+[最終二層照合](artifacts/phase-10/final-migration-audit.md)へ接続した。未監査0/未分類追加0/未分類削除0。既存配置候補は機能に非依存の残件noteへ保持。実装・検証の実測は完了し、利用者確認は未完。

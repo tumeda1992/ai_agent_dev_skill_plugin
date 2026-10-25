@@ -1054,3 +1054,18 @@ artifacts/migration-baseline/dependency-manifest.jsonにroot規約・runtime hoo
 ## Phase 1構造の順方向・逆方向照合
 
 caller-preservation-audit.jsonに旧source全連続範囲と追加範囲を記録した。既存6 fileに削除はなく、元の章・前後順・template・guardを同ownerで保持した。追加の構造はcaller-connection.diffと新skill5 fileの見出しに対応する。新skillは入口、材料収集、評価、結果部品、UIへ分担し、既存callerは各gateから明示呼出しと既存記録保存へ接続する。追加の意味単位はcontract ledgerのA1行へ逆引きする。
+
+
+## 2026-10-24 機能実装後の追加照合
+
+今回の実変更は[二層照合](artifacts/phase-10/migration-audit.md)の構造ledgerへ記録した。元の列挙と失敗履歴は保持する。独立挙動・最終再照合は未完であり、本参照だけで全体完了にしない。
+
+
+## 現在実体のreviewと追加照合
+
+[構造/文書review](artifacts/phase-10/review-current-scope.md)と[実修復の意味照合](artifacts/phase-10/migration-audit-addendum.md)へ接続した。basename追加制約の修復は未完。独立legacy配置候補は他機能の依存にしない。
+
+
+## 2026-10-25 最終同期
+
+[最終二層照合](artifacts/phase-10/final-migration-audit.md)へ接続した。未監査0/未分類追加0/未分類削除0。既存配置候補は機能に非依存の残件noteへ保持。実装・検証の実測は完了し、利用者確認は未完。

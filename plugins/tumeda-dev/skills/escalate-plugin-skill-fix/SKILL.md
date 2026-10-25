@@ -5,13 +5,34 @@ description: このpluginのskill、docs、template、scriptに対する修正�
 
 # Escalate plugin skill fix
 
+## 作業限定の暫定指示を取得する
+
+起動・別sessionからの再開・resume・把握した指示変更時に、元作業のexactな場所、consumer `escalate-plugin-skill-fix`、
+対象処理、実際に使うこのSKILL.mdの取得元を`maintenance-plugin-context`へ渡し、暫定指示を取得する。
+選択・競合・実行版の判断は管理担当へ委ねる。
+activeの実効指示に従い、paused/unavailableでは影響する暫定動作を止めて理由を返す。
+none/endedでは既存処理へ進む。
+元作業不明を別作業の探索で補わない。
+通常の返信・内部file再読・think-throughの毎turn適用を定期取得へ変えない。
+同一sessionの登録・改訂結果は返却された更新を使い、通知されていない編集を常時検知できるとは扱わない。
+
+
+元作業directoryが未確定なら、取得不能をnoneにせず管理担当へ不足を返す。
+既存ownerによる命名・directory確定に必要な処理は続け、影響する暫定動作だけを待ちにする。
+元作業が確定した直後に取得し、先に対象の暫定動作を実行しない。
+
 ## 目的と成果
 
 このpluginのskill・docs・template・scriptのいずれかに対して「こう直すべきだ」という提案が生じたとき、その提案を実際に直せる場所――このpluginのskill群を持つplugin repository――へ確実に運ぶ。
 
-このskillが存在しない状態では、提案は生まれた場所（多くは利用先repository）で議論が進み、合意してからplugin repositoryへ手作業で移設することになる。移設は記録の採番衝突、発言原文の意図しない改変、利用先固有情報の混入という事故を生む。このskillは「提案が生じた時点で、記録を始める前にplugin repositoryへ移る」ことを徹底し、移設という工程自体をなくす。
+このskillが存在しない状態では、提案は生まれた場所（多くは利用先repository）で議論が進み、合意してからplugin repositoryへ手作業で移設することになる。
+移設は記録の採番衝突、発言原文の意図しない改変、利用先固有情報の混入という事故を生む。
+明示保留がない場合は「提案が生じた時点で、記録を始める前にplugin repositoryへ移る」経路を使う。
+利用者が保留を明示した場合は、元作業へ固定した控えを保存し、指定条件から引渡しを再開する。
 
-成果は、plugin repositoryで`steering`が起動した状態で終わる。以降の設計・議論・実装は`steering`の通常flowが引き継ぐ。
+即時引渡しの成果は、plugin repositoryで`steering`が起動した状態である。
+明示保留では元作業のメモと追跡を保存して元の担当へ返す。
+以降の設計・議論・実装は`steering`の通常flowが引き継ぐ。
 
 ## 起動gate
 
@@ -21,6 +42,15 @@ description: このpluginのskill、docs、template、scriptに対する修正�
 - 次の場合は起動しない。
   - 通常の設計議論（新機能の要件整理、実装方針の相談など、修正提案という形を取っていないもの）
   - 利用先repository自身のcode・設定・docsへの修正提案（このpluginの成果物ではないもの）
+
+## 作業先を切り替える前の保留判定
+
+起動gateを通った後、実際の利用者指示に個別または同じ作業内の明示保留があるかを確認する。
+明示保留または既存保留メモからの再開では、[保留と再開](pending-escalations.md)を読み、元作業への保存・条件確認・受領追跡を行う。
+保留を保存した時は元作業へ返す。条件成立後の実際の転送は下の既存経路へ戻る。
+保留指示がなければ即時引渡しを継続し、メモの存在や慣習だけで保留にしない。
+この判定は現在がplugin repositoryでも省略しない。
+
 
 ## plugin repositoryの判定
 

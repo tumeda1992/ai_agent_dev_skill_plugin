@@ -25,7 +25,7 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 ## 階層構造
 
 - **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。steering / task-design を呼ぶ前段にも効く。思考標準の本体は[../docs/think_standards/](../docs/think_standards/README.md)にある。
-- **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定を指定directoryのMarkdownへ継続記録する。
+- **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定・導出変更を記録し、長い議論を原文保持で分割する。
 - **skill-update-review** — 汎用skillの構造案と編集後の全体を確認し、根拠付きの判定を設計・編集担当へ返す。
 - **steering** — task-designの`tasklist_ready | roadmap_ready | planless_complete`を受け、plan resultのdispatch、planless resultの共通gate後完了、roadmapの子steering binding・status伝播・再帰実行を担うruntime orchestrator。
   - **task-design** — task全体で一つの完成後の姿を設計・合意し、対象成果物変更を分類・適用する。execution plan対象がある場合だけ排他的な`tasklist.md | roadmap.md`を設計・review・合意し、対象zeroならplanなしで完了するowner。
@@ -34,8 +34,9 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
   - **visual-inspector** — Playwright で UI をスクリーンショット目視確認。executor が委譲する（steering も現状のファクト確認に使う）。
 - **doc-enricher** — コードリーディング/タスク遂行後、永続性が高い知識をディレクトリ README に提案する（デフォルトは提案のみ）。
 - **share-work-in-progress** — 作業中branchの内容を、依頼者がGitHub上で読める状態にする。動作確認の完了を待たない点でtasklist-executorのcommit・push・PR契約とは前提が逆。
-- **escalate-plugin-skill-fix** — 利用先repositoryで生じたこのpluginの成果物への修正提案を、plugin repositoryの`steering`へ引き渡すrouting skill。
-- **maintenance-plugin-context** — plugin の repository context と配布 version 規約を管理するメタ skill。
+- **escalate-plugin-skill-fix** — 利用先repositoryで生じたこのpluginの成果物への修正提案を、
+  plugin repositoryの`steering`へ引き渡し、明示保留の控えと条件付き再開も扱うrouting skill。
+- **maintenance-plugin-context** — repository fact、作業限定の暫定指示、配布version規約を管理するメタskill。
 
 ## 共有リファレンス（skill ではない）
 
