@@ -165,8 +165,14 @@ function current(record) {
       const iterations = nested.filter(h => /^イテレーション\d+/u.test(h.title));
       const results = nested.filter(h => /^(?:仮決定|決定|再開条件|現在の変更)(?:（|\s|$)/u.test(h.title));
       const unknown = nested.filter(h => !iterations.includes(h) && !results.includes(h));
+      const sectionEnd = section => nested.find(h => h.line > section.line)?.line ?? topic.end;
+      const hasBody = section => document.lines.slice(section.line + 1, sectionEnd(section)).join("").trim().length > 0;
+      const requiredResult = /^(決定|分解済み)$/u.test(topic.status ?? "") ? /^決定(?:（|\s|$)/u :
+        topic.status === "反映済み" ? /^現在の変更(?:（|\s|$)/u : null;
+      // 終端statusだけを根拠に本文を省かない。結果型と非空本文を確認し、意味判断はcallerへ残す。
+      const missingResult = requiredResult && !results.some(section => requiredResult.test(section.title) && hasBody(section));
       const knownStatus = !topic.status || /^(応答待ち|調査中|子論点待ち|決定|保留|分解済み|提案中|反映待ち|反映済み)$/u.test(topic.status);
-      if (unknown.length || !knownStatus || (!iterations.length && !results.length)) {
+      if (unknown.length || !knownStatus || missingResult || (!iterations.length && !results.length)) {
         needsFullRead.push(document.path); continue;
       }
       const metadataEnd = nested[0]?.line ?? topic.end;
@@ -175,7 +181,7 @@ function current(record) {
       if ((!/^(決定|分解済み|反映済み)$/u.test(topic.status ?? "") || results.some(h => /^現在の変更/u.test(h.title))) && iterations.length) selected.add(iterations.at(-1));
       // 「現在の変更」は原文を返す。完了の意味判定は行わずcallerが本文で確認する。
       for (const section of [...selected].sort((a, b) => a.line - b.line)) {
-        const end = nested.find(h => h.line > section.line)?.line ?? topic.end;
+        const end = sectionEnd(section);
         chunks.push(chunk(document, section.line, end));
       }
     }

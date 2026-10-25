@@ -146,3 +146,40 @@ test("拡張子なしは明示候補で原文を保持して検査し、旧除�
   const checked = inspect(["check-candidate", "--directory", directory, "--name", name, "--source", sourcePath, "--candidate", candidateDirectory]); assert.deepEqual(checked.problems, []); assert.equal(checked.href_changes.length, 1); assert.equal(readFileSync(sourcePath, "utf8"), original); assert.equal(cli(directory, "compare", ["--name", name], JSON.stringify(before)).status, 0);
   rmSync(sourcePath); renameSync(candidateDirectory, sourcePath); assert.equal(run(directory, "resolve", "--name", name).format, "split"); assert.deepEqual(run(directory, "check", "--name", name).problems, []); assert.ok(run(directory, "read", "--name", name, "--view", "full").complete);
 });
+
+test("終端statusで現在結果が欠落・別型・空なら全文読取へ戻す", t => {
+  const directory = fixture(t), path = join(directory, "discussion.md");
+  for (const status of ["決定", "分解済み", "反映済み"]) {
+    const expected = status === "反映済み" ? "現在の変更" : "決定";
+    const other = status === "反映済み" ? "決定" : "仮決定";
+    for (const extra of ["", "### " + other + "（論点1）\n\n別の状態。\n",
+      "### " + expected + "（論点1）\n\n   \n"]) {
+      writeFileSync(path, entry(1, { status, extra }));
+      const result = run(directory, "read");
+      assert.deepEqual(result.problems, []);
+      assert.deepEqual(result.needs_full_read, [path], status + ": " + extra);
+      assert.equal(result.complete, false);
+      assert.equal(run(directory, "read", "--view", "full").chunks.map(c => c.text).join(""), readFileSync(path, "utf8"));
+    }
+  }
+});
+
+test("終端の決定・適用結果と未完の最新回を取り違えず取得する", t => {
+  const directory = fixture(t), path = join(directory, "discussion.md");
+  for (const [status, heading] of [["決定", "決定"], ["分解済み", "決定"], ["反映済み", "現在の変更"]]) {
+    writeFileSync(path, entry(1, { status, extra: "### " + heading + "（論点1）\n\n確定した現在結果。\n" }));
+    const result = run(directory, "read"), text = result.chunks.map(c => c.text).join("");
+    assert.equal(result.complete, true, status);
+    assert.deepEqual(result.needs_full_read, []);
+    assert.ok(text.includes("確定した現在結果。"));
+    assert.equal(text.includes("CURRENT-1"), status === "反映済み");
+  }
+  for (const status of ["応答待ち", "調査中", "反映待ち", "提案中"]) {
+    writeFileSync(path, entry(1, { status }));
+    const result = run(directory, "read");
+    assert.equal(result.complete, true, status);
+    assert.ok(result.chunks.map(c => c.text).join("").includes("CURRENT-1"));
+  }
+  writeFileSync(path, "## 論点1: 作成途中\n\n**ステータス:** 調査中\n\n### イテレーション0（論点1）\n");
+  assert.equal(run(directory, "read").complete, true);
+});
