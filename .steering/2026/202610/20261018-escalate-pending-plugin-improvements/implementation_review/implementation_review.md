@@ -25,3 +25,4 @@
 | 19 | 元担当の状態遷移から保留条件の再確認へ接続する | [本文](./implementation_review-16-20.md) |
 | 20 | 現在結果が欠落した終端記録を全文読取へ戻す | [本文](./implementation_review-16-20.md) |
 | 21 | 実装feedbackの記録と返却を両入口から共通処理へ接続する | [本文](./implementation_review-21-25.md) |
+| 22 | ゼロベースレビューの8指摘を保留して今回の締めへ進む | [本文](./implementation_review-21-25.md) |

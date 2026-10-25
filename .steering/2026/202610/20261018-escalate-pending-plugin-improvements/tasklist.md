@@ -196,6 +196,8 @@
 - [x] 実装review論点20: 現在結果が欠落した終端記録を全文読取へ戻す。本体修正と対応する確認を完了する。
   > helper自己test: attempt1で24 passed / 0 failed / 1既存環境依存skip。新規2件成功。helper本体/testのhash不変を確認し、この対象結果だけを消費した。証跡: artifacts/harness-repair-20261025/test-run-1/result.md。
 - [x] 実装review論点21: 実装feedbackの記録と返却を両入口から共通処理へ接続する。本体修正と対応する確認を完了する。
+- [x] 6修復の呼出し・保存・停止・再開を再レビューし、検証結果と現物の版を照合する。Phase 11以降は未実施のまま返す。
+  > 対象修復完了: attempt1/2のfailedを保持し、attempt3で残存反例を解消。helper実測24 passed / 0 failed / 1既存skipは不変の本体/testへ再利用。指示経路は机上照合。実物12本の実解決先・hashをsource-final.jsonで再照合した。証跡: artifacts/harness-repair-20261025/test-run-3/result.md、structure-document-review.md。Phase11以降は未完。
 
 ### 検証command
 
@@ -211,36 +213,100 @@ node --check plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-dis
 
 > 最終案内: artifacts/phase-11/user-check-guide.md。専用demo-workと新session用3入力を準備済み。利用者への案内/依頼の実送付と実際の確認結果は、未実施のPhase11 checkboxへ残す。
 
+### ゼロベースレビュー後の保留（2026-10-25）
+
+利用者の指示原文:
+
+> うーん。ここは記録するだけで保留としてこのescalateの締めにいっちゃおうかな
+
+ゼロベースレビューで見つかった8件は、[保留メモ](./pending-escalations/)の001〜008へ保存した。
+8件とも未解消の保留であり、今回の締めでは本体修正・再検証を行わない。
+指摘と保留判断の正本は[実装review論点22](./implementation_review/implementation_review-21-25.md)に置く。
+
+既存の6修復・検証結果はその対象範囲の記録として維持し、今回の8件の解消や全体合格へ読み替えない。
+Phase 11の実操作確認は未実施である。後続の明示指示により、確認taskは実操作済みでなく省略による取消完了として扱う。
+保留の指示自体を、実操作確認の完了や実行許可へ読み替えない。今回のlocal commit許可は、後述する別の質問と実応答に基づく。
+
+### 今回の締めとlocal commitの実行指示（2026-10-25）
+
+rootが利用者へ確認した内容:
+
+> 今回は実操作確認を省略し、この計画でコミットへ進めていい？
+
+利用者の実際の応答:
+
+> ok
+
+この応答により、今回だけ実操作確認を省略し、commit-plan.mdの10仕事をlocal commitへ保存する。
+実操作確認の合格、新しい8指摘の解消、push・PR・merge・release・installの許可には広げない。
+8件は未解消保留のまま保持する。
+
 ## Phase 11: 利用者が新しい進め方を確認する
 
 ### DoD
 
-新しい実体を使った代表操作を利用者が確認し、期待する記録・報告・停止になっていると判断する。
+通常の条件は、新しい実体を使った代表操作を利用者が確認し、期待する記録・報告・停止になっていると判断すること。
+今回は上記の明示指示により実操作確認を省略して締める。動作合格・実操作済みとは記録しない。
 
 ### Tasks
 
-- [ ] repository内の更新済みSKILL.mdを明示する新しいsessionと、確認用の記録を案内する。cacheの自動更新や導入済みpluginの変更を前提にしない。
-- [ ] 利用者に、議論の再開、AI変更の報告、保留・暫定指示、構造reviewの代表操作と結果の保存先を示して確認を依頼し、ここで停止する。回答前にcommit・push・PRを促したり実行したりしない。
-- [ ] 実際の確認結果を記録する。feedbackがあれば直接受領した担当がimplementation_review.mdへ保存し、必要な設計差戻し・修正・再検証・再確認を完了する。feedbackがなければ、その事実を記録して本確認を完了する。
+- [x] ~~repository内の更新済みSKILL.mdを明示する新しいsessionと、確認用の記録を案内する。cacheの自動更新や導入済みpluginの変更を前提にしない。~~（今回の利用者指示により実操作確認を省略するため取消完了。元の確認作業は未実施。）
+- [x] ~~利用者に、議論の再開、AI変更の報告、保留・暫定指示、構造reviewの代表操作と結果の保存先を示して確認を依頼し、ここで停止する。回答前にcommit・push・PRを促したり実行したりしない。~~（今回の利用者指示により実操作確認を省略するため取消完了。元の確認作業は未実施。）
+- [x] ~~実際の確認結果を記録する。feedbackがあれば直接受領した担当がimplementation_review.mdへ保存し、必要な設計差戻し・修正・再検証・再確認を完了する。feedbackがなければ、その事実を記録して本確認を完了する。~~（今回の利用者指示により実操作確認を省略するため取消完了。元の確認作業は未実施。）
+
 
 ## Phase 12: 合意した変更だけを意味単位でコミットする
 
 ### DoD
 
-動作確認済みの変更だけが、無関係な作業を含まない意味単位のlocal commitとして残る。
+通常は動作確認済みの変更だけを保存する。
+今回は上記の利用者指示に従い、未確認と保留を明記した残差分を、合意済み10仕事のlocal commitとして保存する。
 
 ### Tasks
 
-- [ ] 利用者の動作確認完了とcommit対象への許可、現在のbranchがmain以外であることを確認する。部分承認はその範囲だけを扱う。
-- [ ] 次の意味単位で差分とcommit messageを確認し、重なるfileは該当するhunkだけstageする。実際の差分で分割を調整した場合は理由を記録する。
-  - 設計・作業記録: `docs: plugin改善の設計と実行計画を記録`
-  - 構造review: `feat(tumeda-dev): skill構造reviewを追加`
-  - 議論の保存・読取・分割: `feat(tumeda-dev): 長大な議論の分割と読取を共通化`
-  - AI変更: `feat(tumeda-dev): 導出変更の報告と反映を追跡`
-  - 保留: `feat(tumeda-dev): 改善提案の明示保留と再開に対応`
-  - 暫定指示: `feat(tumeda-dev): 作業限定の暫定指示を管理`
-  - 配布metadata: `chore(tumeda-dev): 配布versionを8.1.0へ更新`
-- [ ] 対象外の.steering変更、個人設定、不要な検証生成物を混ぜず、各commitの差分と実在を確認する。commit不要という回答なら、その回答を根拠に取消完了を記録する。
+- [x] 今回だけの実操作確認省略とcommit-plan.mdの10仕事を保存する利用者の明示許可、現在のbranchがmain以外であることを確認する。
+  > 上記の質問と実応答「ok」を確認。branchは20261018-escalate-pending-plugin-improvements。実操作確認は未実施。
+- [x] [commit-plan.md](./commit-plan.md)で、今回残る実差分の意味単位、各commit message、依存関係とrevertの効果を確認する。既にHEADへ保存済みの仕事を再計上せず、重なるfileは該当hunkだけstageする。実差分により分割を調整する場合は理由を記録する。
+  > 承認済み10仕事を中間版へ分け、1〜9は各目的とstaged差分を照合して通常commitした。10は下記の対象だけをindexへ構成してrootへ引き渡した。
+- [x] 対象外の.steering変更、個人設定、不要な検証生成物を混ぜず、各commitの差分と実在を確認する。commit不要という回答なら、その回答を根拠に取消完了を記録する。
+  > rootが通常commitの成功、開始HEAD1259528以降の10件の実在・subject・parent、最後の13pathと対象外混入なしを実物で確認した。
+  > indexは空、残差分は除外した202609/summary.mdだけだった。この実在確認の記録だけを、同じ未公開10件目へ同梱する。
+
+
+### local commitの実行結果と最終実行の引渡し
+
+以下の表は、最終実行をrootへ引き渡す直前に保存した1〜9件目の履歴である。
+
+| # | commit | 仕事 |
+| --- | --- | --- |
+| 1 | d703bff009b6 | コミット計画skill |
+| 2 | 3da2dfe44beb | 実装reviewの移譲と分割 |
+| 3 | 4ce1e2c844f4 | 52合意の対応表と作成記録 |
+| 4 | ea5225d390c1 | 親変更の全範囲検査 |
+| 5 | b07286a95b8a | 読取起点の保持 |
+| 6 | 1660e7a6854a | 訂正後の回答再評価 |
+| 7 | d792da825807 | 保留条件の再確認 |
+| 8 | d99372a0ee23 | 終端結果の全文fallback |
+| 9 | 1f09d437f37f | 両入口のfeedback移管 |
+
+10件目は、8件の未解消保留、実装review論点22・内部log22・索引、
+commit-plan.mdとこのtasklistの全体確認・今回の締め記録を含む。
+最終commitの通常git commit実行をrootへ引き渡し、rootが成功と10件の実在・対象範囲を確認した。
+10件目は、この実在確認の記録を同梱した最後のcommitとしてGit履歴から辿る。このfile自身へそのhashを埋め込む循環は作らない。
+
+各commit直前に予定pathとindex内容、git diff --cached --checkを確認し、hookは無効化していない。
+2・3の未公開分に混ざった対応表linkと保存結果は、先行checkpointと1を保ったままその2件だけ再構成した。
+3の最終tree、worktreeと当時のindex4を保持したことを確認した。
+詳細な分離対象と、記録4本の末尾重複改行だけを整えた理由はcommit-plan.mdに残した。
+
+rootは独立して、9コミットのsource対象集合が各仕事と完全一致すること、
+開始時skills配下86本のSHA-256・実解決先がworktreeとHEAD9のbytesに一致すること、
+対象外の202609/summary.mdが不変であることを照合した。
+これは差分・内容の照合であり、新しい動作試験ではない。
+
+artifactと対象外summaryはstageしていない。新しい8指摘の本体修正、実操作確認、
+validator、fresh-agent試験、push・PR・merge・release・installは行っていない。
+local 10件の保存と実在確認を記録したものであり、Phase 13の実施や元作業全体のcompletedを示すものではない。
 
 ## Phase 13: branchとPRを共有し、結果を確認する
 
