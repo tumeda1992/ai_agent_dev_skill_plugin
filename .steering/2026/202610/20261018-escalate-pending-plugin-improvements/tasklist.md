@@ -308,18 +308,52 @@ artifactと対象外summaryはstageしていない。新しい8指摘の本体�
 validator、fresh-agent試験、push・PR・merge・release・installは行っていない。
 local 10件の保存と実在確認を記録したものであり、Phase 13の実施や元作業全体のcompletedを示すものではない。
 
-## Phase 13: branchとPRを共有し、結果を確認する
+## Phase 13: escalateの通常締めとしてmainへ取り込む
 
 ### DoD
 
-実在する今回のcommitが非default branchへpushされ、同じheadのPRへ到達できる。共有した範囲を利用者が確認できる。
+作業branchとmainが同じ公開済み実装へ到達し、8件の未解消保留と検証の限界を明示して、引渡し元の作業へ戻れる。
 
-### Tasks
+### 今回の締め指示
 
-- [ ] Phase 11と12の完了、今回のlocal commitの実在、originと非default branchを確認する。commitが一件もなければ公開を実行しない。
-- [ ] current branchをoriginへpushし、repository側の `scripts/for_local/github/create_or_get_pr.sh` で既存PRを取得または作成する。同じheadに重複作成せず、issueのないbranch契約に従う。
-- [ ] PRのtitle・bodyを完成した四領域の変更と実施した検証に合わせ、作業記録への導線を付ける。本文を一時fileから安全に渡し、未実施の動作・releaseを完了と書かない。
-- [ ] pushした範囲・PR URL・残件を報告する。ここで停止し、共有結果を利用者に確認してもらう。merge・release・installへ進まない。
+利用者の実際の指示:
+
+> じゃあescalateの締め作業して
+
+この指示により、escalate-plugin-skill-fixの通常締めを適用し、PRを挟まないmain取込みへ切り替えた。
+前回のlocal commitだけの許可とは区別する。保留8件は再開せず、cache更新・install・release tagは行わない。
+
+### 旧PR経由taskの取消
+
+- [x] ~~current branchをoriginへpushし、repository側の `scripts/for_local/github/create_or_get_pr.sh` で既存PRを取得または作成する。同じheadに重複作成せず、issueのないbranch契約に従う。~~（取消完了。今回はPRを作らず、下記の作業branch push・main取込み・main pushへ置換した。）
+- [x] ~~PRのtitle・bodyを完成した四領域の変更と実施した検証に合わせ、作業記録への導線を付ける。本文を一時fileから安全に渡し、未実施の動作・releaseを完了と書かない。~~（取消完了。PR本文の作成は行わず、このtasklistとsummaryへ成果・根拠・保留を保存する。）
+- [x] ~~pushした範囲・PR URL・残件を報告する。ここで停止し、共有結果を利用者に確認してもらう。merge・release・installへ進まない。~~（取消完了。PR URLの共有とmerge禁止の旧経路は、今回の明示指示によるmain取込み結果の報告へ置換した。）
+
+### 実施した通常締め
+
+- [x] Phase 11と12の完了、今回のlocal commitの実在、originと非default branchを確認する。commitが一件もなければ公開を実行しない。
+  > rootがlocal commitの実在、branchとremoteを確認した。Phase11は実操作済みでなく、利用者指示による省略・取消完了のまま。
+- [x] 作業branchをoriginへpushする。
+- [x] mainへswitchする。
+- [x] 作業branchをmainへff-only mergeする。
+- [x] mainをoriginへpushする。
+- [x] 公開済み範囲、取り込み先main、8件の保留継続と実操作確認省略を利用者へ報告する。
+  > rootが「mainへ取り込みpush完了、mainと作業branchは1346274で一致、締め記録を保存して元作業へ反映先を残す、8件保留継続」とcommentaryで報告した。
+
+### 公開時点の実測と締め記録
+
+通常gitによる4stepが成功した後、rootがgit ls-remoteで確認した実装headは
+1346274f8b5f20954f6476e1dc362db19868442b。
+origin/mainとorigin/20261018-escalate-pending-plugin-improvementsは、この取り込み時点で同じhashだった。
+[公開実測receipt](./artifacts/escalation-close-20261025/integration.json)へ接続する。
+
+manifestの4宣言と検査側期待値は8.1.0で一致したが、validatorは実行していない。
+除外した202609/summary.mdは不変。8件の指摘は未解消保留、実操作確認は利用者指示で省略したままであり、品質の全体合格へは読み替えない。
+今回の締めは、この保留と限界を明示した上で依頼されたescalateの取込みを行ったことを意味する。
+
+[締めsummary](./summary.md)に成果、保留、引渡し元へ戻る導線をまとめた。
+この締め記録自体は、rootが追加の意味単位1commitとして保存し、両branchへ最終反映する。
+記録自身の最終hashは埋め込まず、Git履歴から辿る。
 
 ## 参照と完了判定
 
