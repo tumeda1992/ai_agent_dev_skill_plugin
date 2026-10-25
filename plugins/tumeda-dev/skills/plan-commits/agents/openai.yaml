@@ -1,0 +1,4 @@
+interface:
+  display_name: "コミット計画"
+  short_description: "意味のある一つの仕事を、実差分・依存・revertの効果から切り分ける"
+  default_prompt: "$plan-commits で、実際の変更を意味優先で分け、各commitの対象・メッセージ・依存・取り消す効果を示して。"
