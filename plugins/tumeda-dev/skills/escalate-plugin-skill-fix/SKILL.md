@@ -1,6 +1,6 @@
 ---
 name: escalate-plugin-skill-fix
-description: このpluginのskill、docs、template、scriptに対する修正提案が生じた時に使う。利用先repositoryで作業中でもplugin repositoryで作業中でも、提案が生じた瞬間に起動する。plugin repositoryかどうかの判定はこのskillの内部で行うため、起動条件には含めない。通常の設計議論や、利用先repository自身のcodeに対する修正では起動しない。
+description: このpluginのskill、docs、template、scriptに対する修正提案が生じた時に使う。利用先repositoryで作業中でもplugin repositoryで作業中でも、提案が生じた瞬間、または元担当が同じ作業の保留条件を再確認・再開する時に起動する。plugin repositoryかどうかの判定はこのskillの内部で行うため、起動条件には含めない。通常の設計議論や、利用先repository自身のcodeに対する修正では起動しない。
 ---
 
 # Escalate plugin skill fix
@@ -36,7 +36,9 @@ none/endedでは既存処理へ進む。
 
 ## 起動gate
 
-起動条件は「このpluginのskill、docs、template、scriptに対する修正提案が生じた」という観測可能な行為だけである。
+起動するのは、このpluginのskill、docs、template、scriptに対する修正提案が生じた時、
+または元担当が同じ作業の既存保留条件を再確認・再開する時である。
+後者は新しい提案の発生を要求せず、[保留と再開](pending-escalations.md)の「元担当の状態遷移から再確認する」へ渡す。
 
 - 今いるrepositoryがplugin repositoryかどうかは、起動条件に含めない。その判定は起動後にこのskill自身が行う（`## plugin repositoryの判定`）。判定を起動条件に混ぜると、判定を誤った経路がこのskillへ到達しなくなり、結局同じ事故が形を変えて再発する。起動は広く、判定は内側で行う。
 - 次の場合は起動しない。
@@ -46,7 +48,7 @@ none/endedでは既存処理へ進む。
 ## 作業先を切り替える前の保留判定
 
 起動gateを通った後、実際の利用者指示に個別または同じ作業内の明示保留があるかを確認する。
-明示保留または既存保留メモからの再開では、[保留と再開](pending-escalations.md)を読み、元作業への保存・条件確認・受領追跡を行う。
+明示保留または既存保留メモの再確認・再開では、[保留と再開](pending-escalations.md)を読み、元作業への保存・条件確認・受領追跡を行う。
 保留を保存した時は元作業へ返す。条件成立後の実際の転送は下の既存経路へ戻る。
 保留指示がなければ即時引渡しを継続し、メモの存在や慣習だけで保留にしない。
 この判定は現在がplugin repositoryでも省略しない。

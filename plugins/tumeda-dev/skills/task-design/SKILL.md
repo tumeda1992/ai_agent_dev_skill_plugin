@@ -38,6 +38,8 @@ none/endedでは既存処理へ進む。
 元作業directoryが未確定なら、取得不能をnoneにせず管理担当へ不足を返す。
 既存ownerによる命名・directory確定に必要な処理は続け、影響する暫定動作だけを待ちにする。
 元作業が確定した直後に取得し、先に対象の暫定動作を実行しない。
+同じ元作業を再開する時は、独立再構成を含む既存handoff gateで正本の本文読取が許可されてから、[保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)もescalate-plugin-skill-fixへ依頼する。
+元作業の場所と把握済みの状態・証拠を渡し、再開したことだけで条件成立を補完しない。
 
 ## 1. スキルの目的
 
@@ -641,6 +643,10 @@ document-review、機能・安全・独立した動作検証、利用者合意�
     - 具体例（実行結果の断定）: 「この入力でこの出力が出る」をDoDまたは手順へ書く場合、対象の分岐を読み、その入力が実際にその分岐へ到達することを照合する。対象を読んだことと、該当分岐まで照合したことは別である
 
 designの要点をchatで短く示し、自然言語でreviewを依頼する。`OK`、`はい`、`進めて`等の自然な合意を受け取ればStep 5へ進み、修正ならdesignを更新して再reviewする。特定の承認keywordを強制しない。
+
+design phaseの既存完了条件と実際の合意が揃った時は、Step 5へ進む前に、元作業の場所・設計完了の記録を添えて
+`escalate-plugin-skill-fix`へ[同じ作業の保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)を依頼する。
+design phaseだけの完了を、元作業全体の完了や暫定指示終了として通知しない。
 
 D11により、生の議論log、iterationごとの旧案、未決提案を`design.md`へ複製する旧`事前設計議論メモ`章は作らない。議論の変遷は`task-design-discussion.md`を正本とする。ただし、未来の実装者がdesignだけから「なぜこの設計を選んだか」を遡れるよう、最終設計の理解に必要な代替案と棄却理由は`design.md`へ残す。discussionへのlinkだけで決定理由を省略しない。
 
