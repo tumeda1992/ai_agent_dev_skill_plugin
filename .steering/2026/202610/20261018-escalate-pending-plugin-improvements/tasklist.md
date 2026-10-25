@@ -195,6 +195,7 @@
 - [x] 実装review論点19: 元担当の状態遷移から保留条件の再確認へ接続する。本体修正と対応する確認を完了する。
 - [x] 実装review論点20: 現在結果が欠落した終端記録を全文読取へ戻す。本体修正と対応する確認を完了する。
   > helper自己test: attempt1で24 passed / 0 failed / 1既存環境依存skip。新規2件成功。helper本体/testのhash不変を確認し、この対象結果だけを消費した。証跡: artifacts/harness-repair-20261025/test-run-1/result.md。
+- [x] 実装review論点21: 実装feedbackの記録と返却を両入口から共通処理へ接続する。本体修正と対応する確認を完了する。
 
 ### 検証command
 

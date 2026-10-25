@@ -24,3 +24,4 @@
 | 18 | 訂正で前提が変わった別の問いの回答を再評価する | [本文](./implementation_review-16-20.md) |
 | 19 | 元担当の状態遷移から保留条件の再確認へ接続する | [本文](./implementation_review-16-20.md) |
 | 20 | 現在結果が欠落した終端記録を全文読取へ戻す | [本文](./implementation_review-16-20.md) |
+| 21 | 実装feedbackの記録と返却を両入口から共通処理へ接続する | [本文](./implementation_review-21-25.md) |

@@ -149,9 +149,24 @@ visual-inspector で確認対象のデータが存在しない場合:
 結果を既存のtask検証記録または実装reviewへ保存し、保存先・対象箇所・内容識別を残す。
 次工程や再開で使う前にも、内容・必要依存・file集合・参照・実解決先を照合する。
 設計時の合格を編集後へ流用せず、不合格・材料不足・影響不明ではtaskを未完に保ち、修正・追加確認・必要な全体再reviewへ戻る。
-合意済みdesignを越える整理は同じ作業のtask-designへ返し、勝手に再設計しない。
+不合格・不足・訂正のfeedbackは下の「実装feedbackの記録と返却」を先に通し、必要なdesign差戻しもそのdecisionから行う。勝手に再設計しない。
 対象判定・構造評価の詳細は同skillへ委ねる。document-review、機能・安全・独立した動作検証、利用者確認と既存の完了条件を維持する。
 tasklist・checkbox・DoD最終判定のsingle writerはこのexecutorのままとする。
+
+# 実装feedbackの記録と返却
+
+実装、review、validation、利用者確認から不合格・不足・訂正・漏れ・追加要件・計画からの意味ある逸脱を直接受領したら、
+`../runtime-feedback-review.md`を読み、executor自身がpluginの`facilitate-discussion`を明示適用する。
+既存tasklistに記録taskがなくても省略しない。次の入力と、feedback原文・実装・design・合意済みplanを渡す。
+
+```text
+discussion_directory=<tasklist.mdと同じworking directory>
+discussion_file_name=implementation_review.md
+```
+
+共通指示から返るdecisionと未完範囲をcallerへ返し、必要なdesign／planの差戻しへ接続する。
+議論だけをchildへ渡さず、実装を自動再開しない。単純な成功結果の保存は構造review節の既存検証記録を使う。
+tasklist・DoD・checkboxのsingle writerはexecutorのまま維持する。
 
 # ドキュメントレビュー
 

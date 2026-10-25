@@ -358,35 +358,17 @@ source basenameの日付からdestinationを`.steering/YYYY/YYYYMM/<basename>/`�
 
 ## 実装完了後review
 
-実装、review、validation、ユーザー動作確認でfeedback・漏れ・追加要件・不具合が判明したら、同じworking directoryでpluginの`facilitate-discussion`を適用する。ユーザーから受け取ったものも、agent自身が見つけたものも同じ扱いにする。
-
-適用するのは、それを直接受領したworkflow ownerである。steeringが直接受領した場合はsteering自身が行い、議論だけを別childへ再委譲しない。
+実装、review、validation、ユーザー動作確認でfeedback・漏れ・追加要件・不具合が判明したら、
+直接受領したworkflow ownerが[共通の実装feedback処理](../runtime-feedback-review.md)を読み、pluginの`facilitate-discussion`を明示適用する。
+steeringが直接受領した場合はsteering自身が行い、次の入力を渡す。
 
 ```text
 discussion_directory=<steering directory>
 discussion_file_name=implementation_review.md
 ```
 
-feedback原文、関連する実装、`design.md`、排他的plan、原因、採用方針、決定を渡す。既に修正済みのfeedbackでも記録を省略しない。`implementation_review.md`はfeedback議論の正本だけを担い、designまたはplanの正本を複製しない。
-
-各feedbackについて、Step 4と同じ三問を順に扱う。
-
-1. 根本原因となる未共有知識は何か。
-2. codeから分かるか、設計意図か、process不足か。
-3. どこへ保存すれば次回の議論を不要にできるか。変更は合意後だけ行う。
-
-decision後、直接受領したworkflow ownerはcallerへdecisionを返し、次の戻り先を一意に選ぶ。
-
-- 完成後の姿、要件、設計根拠、公開API、module境界が変わる: 同じworking directoryでtask-designのdesign phaseへ戻す。
-- task順、task粒度、検証手順が変わる: task-designのtasklist plan phaseへ戻す。
-- roadmapのphase identity、目的、scope、scope外、DoD、依存、親DoD coverageが変わる: task-designのroadmap plan構造へ戻し、親designへの影響を判定する。親designが変わる場合だけdesign phaseへ戻す。
-- roadmapの子path、status、完了日だけが変わる: steering runtimeで更新する。
-- repository知識の永続化だけが必要: doc-enricher等のwriter contractに従い、承認後だけ既存READMEまたは既存docsへ反映する。
-- 認識合わせだけで完了する: designとplanを変更しない。
-
-設計判断が必要な変更では、design合意前にtaskを作らない。reviewのdecisionやtask追加後も実装を自動再開しない。同じfeatureの追加taskは合意済みdesign・planへ戻した後、既存tasklistへ追加する。
-
-計画からの意味ある逸脱も`implementation_review.md`で扱う。roadmapの`全フェーズ完了日`または`計画と実績の差分`fieldは作らない。全体完了は各phaseのstatusと完了日から導出する。
+共通指示が所有する原文保存・原因確認・合意・decision後のroutingを終えてから、返された先のphaseへ戻る。
+feedbackを記録せず直接designへ戻したり、実装を自動再開したりしない。
 
 ## Blocker resolution
 
