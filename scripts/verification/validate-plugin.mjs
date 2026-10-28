@@ -725,11 +725,17 @@ for (const expected of [
   "同じ作業中はbasenameを変更せず",
   "一か月前",
   "各steering実行時にもstatusを手動更新しない",
+  "runtime-feedback-review.md",
+]) {
+  requireText(steeringSkill, expected);
+}
+const runtimeFeedbackReview = skillPath("runtime-feedback-review.md");
+for (const expected of [
   "feedback原文",
   "既に修正済みのfeedbackでも記録を省略しない",
   "reviewのdecisionやtask追加後も実装を自動再開しない",
 ]) {
-  requireText(steeringSkill, expected);
+  requireText(runtimeFeedbackReview, expected);
 }
 for (const expected of [
   "adopt_task_design_working_dir=<absolute path>",
@@ -1111,7 +1117,7 @@ const newFunctionalFiles = [discussionResolve, discussionRead, discussionSplit, 
 for (const path of newFunctionalFiles) requireExists(path);
 requireText(discussionResolve, "# 議論記録");
 requireText(discussionResolve, "### 解決の完了gate");
-requireText(discussionRead, "末尾のiterationとfeedback状態");
+requireText(discussionRead, "末尾提示・原文応答・現在state・親子と根拠を判断する");
 for (const name of ["resolve-discussion.md", "read-discussion.md", "split-discussion.md", "derived-change.md"]) requireText(discussionSkill, name);
 for (const expected of ["next_offset", "needs_full_read", "snapshot", "compare", "全chunk", "独立構成前"]) requireText(discussionRead, expected);
 for (const expected of ["10件を超えた", "最大番号+1", "check-candidate", "原文fileを削除", "自動修復"]) requireText(discussionSplit, expected);
