@@ -1206,6 +1206,17 @@ for (const expected of [
 requireText(tasklistDesign, "`SKILL.md`のStep 4（design合意判定）で特定した、作業を破棄しても残る変化を起こすactionを対象action");
 forbidText(tasklistDesign, "| DB migrationの適用 | 残る | 対象 |", "Step 4へ移した判定の例の表");
 
+// 暫定の判断の暫定性・理由・見直す条件を落とさない契約
+const provisionalityStandard = `${pluginRoot}/docs/documentation_standards/provisionality_explicitness.md`;
+requireExists(provisionalityStandard);
+requireText(provisionalityStandard, "見直す条件を知らない読み手がこの文だけを読んだら、恒久の方針と受け取らないか");
+requireText(taskDesignSkill, "provisionality_explicitness.md");
+requireText(documentReviewSkill, "暫定性 → `provisionality_explicitness.md`");
+requireText(taskDesignTemplate, "見直す条件または切り出した先を書く");
+requireText(`${pluginRoot}/docs/documentation_standards/README.md`, "provisionality_explicitness.md");
+requireText(`${pluginRoot}/docs/documentation_standards/stock-and-flow-information.md`, "provisionality_explicitness.md");
+requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 提案が暫定か恒久かを示す");
+
 if (failures.length > 0) {
   console.error("plugin validation failed:");
   for (const failure of failures) {

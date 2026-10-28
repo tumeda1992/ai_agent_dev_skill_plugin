@@ -82,6 +82,7 @@ md を作成・更新したら、**出す前にこれを通す**。doc を書く
 - 命名 → `file_naming.md`
 - 指示対象 → `referent_explicitness.md`
 - 機密性 → `confidentiality.md`
+- 暫定性 → `provisionality_explicitness.md`
 
 ### 更新時観点
 
@@ -92,6 +93,7 @@ md を作成・更新したら、**出す前にこれを通す**。doc を書く
 - 指示対象 → `referent_explicitness.md`
 - 既存記述の直し方 → `modify_description_policy.md`
 - 機密性 → `confidentiality.md`
+- 暫定性 → `provisionality_explicitness.md`
 
 ### ケース別観点
 

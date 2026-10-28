@@ -58,6 +58,8 @@ Sonnet は「実装に入りたい衝動」を持っているため、このス�
 
 成果物へ書く前に、その記述が機密情報にあたるかを [`confidentiality.md`](../../docs/documentation_standards/confidentiality.md) の判定で確認する。調査は網羅的に行ってよいが、成果物へ書く時点では別の判断が要る。判定の中身は同 file が正本であり、ここへ写さない。
 
+成果物へ暫定の判断（今回の範囲に限った判断、条件付きの保留、別の作業への切り出し）を書くときは、暫定であること・理由・見直す条件または切り出した先が落ちていないかを [`provisionality_explicitness.md`](../../docs/documentation_standards/provisionality_explicitness.md) で確認する。後続の作業は先行の作業記録を前提として読むため、`design.md` の非目標や、先行の steering から写した記述でも確認する。判定の中身は同 file が正本であり、ここへ写さない。
+
 repository固有の設計文書、規約、技術検証環境・commandが必要な時は、`maintenance-plugin-context`へconsumer=`task-design`、必要理由、必要fact、確認元候補を渡す。返された範囲だけを使い、固定pathや固定commandを推測しない。
 
 ---
