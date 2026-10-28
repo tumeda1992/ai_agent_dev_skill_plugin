@@ -701,7 +701,7 @@ for (const expected of [
   "悪い分割:",
   "時間不足、難しさ、host停止、tool制限、外部環境未準備を取消理由にしない",
   "未開拓の実行基盤を伴う作業では、基盤を立てるphaseを最初に置き",
-  "引き継ぎの観点（この作業を破棄しても残る変化を、後から更新・確認・復旧できること）を`design.md`の受け入れ基準へ入れる",
+  "Step 4で受け入れ基準へ入れた引き継ぎの観点（この作業を破棄しても残る変化を、後から更新・確認・復旧できること）を前提にする",
 ]) {
   requireText(tasklistDesign, expected);
 }
@@ -1195,6 +1195,16 @@ for (const expected of [
 ]) {
   requireText(documentReviewSkill, expected);
 }
+
+// 作業の外へ残る変化の判定をdesign合意判定へ移した契約
+for (const expected of [
+  "**作業の外へ残る変化の引き継ぎ**",
+  "この作業で起きる変化は、この作業を破棄しても残るか",
+]) {
+  requireText(taskDesignSkill, expected);
+}
+requireText(tasklistDesign, "`SKILL.md`のStep 4（design合意判定）で特定した、作業を破棄しても残る変化を起こすactionを対象action");
+forbidText(tasklistDesign, "| DB migrationの適用 | 残る | 対象 |", "Step 4へ移した判定の例の表");
 
 if (failures.length > 0) {
   console.error("plugin validation failed:");
