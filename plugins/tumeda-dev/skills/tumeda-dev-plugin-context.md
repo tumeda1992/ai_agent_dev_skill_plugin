@@ -107,13 +107,18 @@
 ### テスト方針
 
 - 自動test frameworkを持たない。`package.json` は存在しない。
-- 検証は `scripts/verification/validate-plugin.mjs` によるplugin manifestの整合確認だけである。skill本文の内容は人のreviewで担保する。
+- 検証の規約は root `README.md` の「変更時の検証と前提」が正本である。`scripts/verification/validate-plugin.mjs` はplugin manifestの整合に加え、assertionでskillとdocsの内容を検査する。skillまたはdocsを追加・変更したら、対応するassertionを同じ変更で足す。
 
 ### 全体 test command
 
 - `node scripts/verification/validate-plugin.mjs`
   - repository rootで実行する。成功時は `plugin validation passed` を出力する。
   - version宣言値4箇所（`plugins/tumeda-dev/.codex-plugin/plugin.json`、`plugins/tumeda-dev/.claude-plugin/plugin.json`、root `.claude-plugin/marketplace.json` の `version` と `plugins[].version`）が一致し、かつ同fileの `expectedRelease` と等しいことを検査する。
+  - assertionでskillとdocsに契約の文が残っていること、撤去した文が戻っていないことを検査する。
+- `node scripts/verification/test-task-design-handoff.mjs`
+  - repository rootで実行する。成功時は `task-design handoff tests passed` を出力する。
+- `node --test plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs`
+  - repository rootで実行する。Node標準のtest runnerで、`facilitate-discussion` の読取helperを自己testする。
 
 ### 全体 lint command
 
