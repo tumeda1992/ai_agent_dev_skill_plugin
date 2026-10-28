@@ -553,12 +553,17 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 これはtask-designが所有する外側の設計loopである。discussionを選んだ後の提案、論点、iteration、feedback routing、合意は`facilitate-discussion`の内側loopであり、ここへ複製しない。
 
 1. `design.md`と合意済み設計を読み、解消すると下位判断を最も多く確定できる設計上の不確実性を一つ選ぶ。
-2. 選んだ不確実性を、今回の段階のscopeへ含めるか判定する（3-5）。次の二問で判定する。
+2. 選んだ不確実性（未決の判断、または作業中に気付いた不備）が今の作業の目的の内にあるかを、[`work_scope.md`](../../docs/development_standards/development_flow/work_scope.md) で判定する。判定の中身は同 file が正本であり、ここへ写さない。
+   - 目的の内: 次の手順へ進む。
+   - 目的の外の判断: designの論点にしない。`design.md`にTBDとして書いていた場合は外し、この判断は今回のStep 3の対象から外す。
+   - 目的の外の不備: 拾うか切り出すかを同 file で判定し、その判定を推奨として、どちらの結果もdiscussionで合意する。拾うと合意したものは今の作業のscopeに加え、目的の内として次の手順へ進む。切り出すと合意したものは、切り出し先を作ってから、`design.md`の非目標へ [`provisionality_explicitness.md`](../../docs/documentation_standards/provisionality_explicitness.md) に従って書く。
+   目的の内外の判定は、`facilitate-discussion`へ渡す前にtask-designが行う。同skillのscope判定は議論記録に論点を作るかの判定であり、作業の範囲の判断を兼ねない。
+3. 目的の内にある不確実性を、今回の段階のscopeへ含めるか判定する（3-5）。次の二問で判定する。
    - その論点の答えは、実行して初めて確定するか
    - その論点の答えは、作るものそのものを変えるか
    一つ目がYesで二つ目がNoなら、その段階のscopeへ含めない。`design.md`の非目標へ「実測後に設計する」と記し、この不確実性は今回のStep 3の対象から外す。両方Yesなら前に決める。実行しなければ確定しないため、下記の技術検証実装で潰す。一つ目がNoなら通常どおり解消手段を選ぶ。
    scopeへ含める場合は、解消手段を選ぶ前に、判断材料が枯れているかを [`making_and_choosing_options.md`](../../docs/think_standards/making_and_choosing_options.md) で確かめる。下の三手段は互いに排他的に書かれているため、`discussion`を選んだ時点で調査は終わったものとして扱われる。判定の中身は同 file が正本であり、ここへ写さない。
-3. 不確実性の解消手段を選ぶ。
+4. 不確実性の解消手段を選ぶ。
 
 | 判定 | 解消手段 |
 | --- | --- |
@@ -568,18 +573,18 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 
 解消手段はこの三つだけである。`確認`、`念のため聞く`、`選択肢を出して選んでもらう`は第四の手段ではなく、すべてdiscussionである。
 
-4. 選んだ手段を実行する。
+5. 選んだ手段を実行する。
    - discussion: §4のtask-design固有contextを渡して`facilitate-discussion`を明示適用し、内部processを委ねる。task-design側で先に提案0をchatへ出したり、論点・iteration・質問形式を組み立てたりしない。
    - 調査: repository contextが許可したsourceを読み、設計判断の入力になる事実を特定する。
    - 技術検証実装: 下記の配置・運用契約に従い、実行しなければ分からない事実だけを確認する。
-5. discussionでは、一つの論点でdecisionが返るたびに、そのdecisionだけを`design.md`の該当箇所へ直ちに反映する。調査・技術検証実装では、確定した事実だけを反映する。未決の提案や途中経過は書かず、複数decisionを最後まで溜めない。
-6. decisionまたは事実から対象成果物の変更が生じるたびに、tasklist作成直前まで待たず、`design.md`付録のrouting stateへ分類する。
+6. discussionでは、一つの論点でdecisionが返るたびに、そのdecisionだけを`design.md`の該当箇所へ直ちに反映する。調査・技術検証実装では、確定した事実だけを反映する。未決の提案や途中経過は書かず、複数decisionを最後まで溜めない。
+7. decisionまたは事実から対象成果物の変更が生じるたびに、tasklist作成直前まで待たず、`design.md`付録のrouting stateへ分類する。
    - 未決decisionによって内容またはownerが変わる: `分類保留`
    - task-designが適用するが、他の未決事項との整合性を待つ: `task-design内の対象成果物反映待ち`
    - 未決事項へ依存せず、合意済み内容から一意に反映・validationできる: task-design内で任意に適用し、`task-design内で対象成果物へ適用済み`へ結果を記録する
    - 本番application coding、実行時に段階を踏む作業、ユーザー指定の作業: `execution plan対象`
    - design.mdとdiscussion file自身のlifecycle更新、調査、技術検証実装は対象成果物変更として分類せず、execution planへ載せない
-7. 一つのdecisionまたは事実を反映・分類するたびに、`design.md`全体から残る不確実性と完了条件を再評価する。残る場合はStep 3を繰り返し、なければStep 4へ進む。
+8. 一つのdecisionまたは事実を反映・分類するたびに、`design.md`全体から残る不確実性と完了条件を再評価する。残る場合はStep 3を繰り返し、なければStep 4へ進む。
 
 #### 技術検証実装の配置・運用
 
@@ -627,6 +632,7 @@ document-review、機能・安全・独立した動作検証、利用者合意�
 以下が揃ったらdesign phaseを完了し、Step 5へ進む。task-design全体はまだ完了しない:
 - 保存・提示前に「要議論」項目をchatで解消し、各要件を`MUST | SHOULD | MAY | 非目標`のいずれかへ確定している。未確定の提案を分類済み要件として保存していない
 - 全 TBD が解消されている
+    - やってしまいがちな失敗: 進行中の試行・調査のうち、結果次第でdesignの範囲が変わるものをTBDに登録しないまま、designの合意を求める。具体例: designの範囲を左右する別の試行が進行中なのに、designの合意を催促した
 - 新たな論点が生まれない（収束している）
 - `design.md`付録の`分類保留`がzeroで、sectionごと削除されている
 - `task-design内の対象成果物反映待ち`がzeroで、`なし`と記録されている

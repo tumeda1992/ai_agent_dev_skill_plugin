@@ -22,9 +22,13 @@ feedback原文、関連する実装、`design.md`、排他的plan、原因、採
 2. codeから分かるか、設計意図か、process不足か。
 3. どこへ保存すれば次回の議論を不要にできるか。変更は合意後だけ行う。
 
+feedbackが今の作業の目的の外にある不備なら、decisionの提案を作る段階で、拾うか切り出すかを[`work_scope.md`](../docs/development_standards/development_flow/work_scope.md)で判定し、その判定をdecisionの提案にする。判定の中身は同fileが正本であり、ここへ写さない。
+
 decision後、直接受領したworkflow ownerはcallerへdecisionを返し、次の戻り先を一意に選ぶ。
 
 - 完成後の姿、要件、設計根拠、公開API、module境界が変わる: 同じworking directoryでtask-designのdesign phaseへ戻す。
+- 目的の外の不備を拾うと決めた: 完成後の姿が変わるため、上の項目と同じくdesign phaseへ戻す。
+- 目的の外の不備を切り出すと決めた: 切り出し先を作り、今はやらない理由と切り出し先をdecisionに記録する。今の作業の完成後の姿が変わらないなら、designとplanを変更しない。
 - task順、task粒度、検証手順が変わる: task-designのtasklist plan phaseへ戻す。
 - roadmapのphase identity、目的、scope、scope外、DoD、依存、親DoD coverageが変わる: task-designのroadmap plan構造へ戻し、親designへの影響を判定する。親designが変わる場合だけdesign phaseへ戻す。
 - roadmapの子path、status、完了日だけが変わる: steering runtimeで更新する。

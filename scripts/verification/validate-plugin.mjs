@@ -486,7 +486,7 @@ for (const expected of [
   "result=planless_complete",
   "### 3-5. 実行して初めて確定することは、段階を分けて設計する",
   "### 3-6. 設計は対話であり転記ではない",
-  "選んだ不確実性を、今回の段階のscopeへ含めるか判定する（3-5）",
+  "目的の内にある不確実性を、今回の段階のscopeへ含めるか判定する（3-5）",
   "捨てられる成果物は土台にならず、土台になる成果物は捨てられない",
   "起点以外の具体caseを二つ以上その基準へ当て",
 ]) {
@@ -1216,6 +1216,20 @@ requireText(taskDesignTemplate, "見直す条件または切り出した先を�
 requireText(`${pluginRoot}/docs/documentation_standards/README.md`, "provisionality_explicitness.md");
 requireText(`${pluginRoot}/docs/documentation_standards/stock-and-flow-information.md`, "provisionality_explicitness.md");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 提案が暫定か恒久かを示す");
+
+// 作業の範囲（目的の内外、目的の外の不備を拾うか切り出すか）の判定の契約
+const workScopeStandard = `${pluginRoot}/docs/development_standards/development_flow/work_scope.md`;
+requireExists(workScopeStandard);
+requireText(workScopeStandard, "「今の作業の目的の外である」ことは、切り出す理由にならない");
+for (const expected of [
+  "work_scope.md",
+  "目的の内外の判定は、`facilitate-discussion`へ渡す前にtask-designが行う",
+]) {
+  requireText(taskDesignSkill, expected);
+}
+requireText(runtimeFeedbackReview, "work_scope.md");
+requireText(runtimeFeedbackReview, "目的の外の不備を切り出すと決めた");
+requireText(`${pluginRoot}/docs/development_standards/README.md`, "work_scope.md");
 
 if (failures.length > 0) {
   console.error("plugin validation failed:");
