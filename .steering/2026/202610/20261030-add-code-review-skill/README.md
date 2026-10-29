@@ -12,4 +12,4 @@
 
 ## 検証・共有状態
 
-`node scripts/verification/validate-plugin.mjs`は成功。既存handoffテストは通常sandboxで子processの出力を取得できずJSON parseに失敗したため、環境を変えて確認中。実modelの自動切替やhostへのインストール検証は未実施。利用者の現状共有依頼に従ってcommit・push・draft PRへ保存する。アプリケーション固有の情報は含めない。
+`node scripts/verification/validate-plugin.mjs`は成功。既存handoffテストは通常sandboxでは子processの出力を取得できなかったが、追加権限付き実行では成功した。実modelの自動切替やhostへのインストール検証は未実施。利用者の現状共有依頼に従ってcommit・push・draft PRへ保存する。アプリケーション固有の情報は含めない。
