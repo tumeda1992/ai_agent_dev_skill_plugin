@@ -24,6 +24,8 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 
 ## 階層構造
 
+- **code-review** — 高推論モデルで全体・指定範囲・差分をレビューし、指定directoryへ指摘を保存し、合意範囲を1指摘1コミットで適用する。
+
 - **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。steering / task-design を呼ぶ前段にも効く。思考標準の本体は[../docs/think_standards/](../docs/think_standards/README.md)にある。
 - **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定・導出変更を記録し、長い議論を原文保持で分割する。
 - **skill-update-review** — 汎用skillの構造案と編集後の全体を確認し、根拠付きの判定を設計・編集担当へ返す。

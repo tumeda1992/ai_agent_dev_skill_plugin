@@ -30,3 +30,15 @@ tasklist実行、test失敗分析、UI確認など、手順遵守と実装・調
 - 各profileを使うClaude Code skillのfrontmatterが、このfileのClaude selectorと一致することを確認する。
 - Codexでchild model選択面がある時はprofile相当のmodel選択を、ない時は親model継承をsmoke testする。
 - hostのmodel提供が変わった時は、profileの目的を保ったままこのfileのhost adapterだけを更新する。
+
+## high-reasoning-review
+
+全体の契約、認可、データ整合性、異常系、設計境界を横断して判断するレビュー用。
+main sessionでは利用者が選択した高推論モデルを使い、frontmatterでmodel/effortを固定しない。
+
+- Claude Code: 利用者指定を優先し、選択可能ならOpus相当を使う。
+- Codex: 利用者指定を優先し、選択可能ならAstra相当の高推論モデルを使う。
+- 選択面がない場合は親モデルを継承し、制約を明示する。存在しないモデルを指定しない。
+- モデル名だけを品質の証拠にせず、対象スナップショットと指摘の根拠を残す。
+
+使用skill: `code-review`。
