@@ -41,4 +41,4 @@ main sessionでは利用者が選択した高推論モデルを使い、frontmat
 - 選択面がない場合は親モデルを継承し、制約を明示する。存在しないモデルを指定しない。
 - モデル名だけを品質の証拠にせず、対象スナップショットと指摘の根拠を残す。
 
-使用skill: `code-review`。
+使用skill: `high-reasoning-audit`。
