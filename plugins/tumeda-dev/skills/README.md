@@ -24,7 +24,7 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 
 ## 階層構造
 
-- **high-reasoning-audit** — 高推論モデルで全体・指定範囲・差分を観点横断で繰り返し精査し、問題を徹底的に洗い出して指定directoryへ指摘を保存する。合意した修正は1指摘1コミットで適用する。
+- **exhaustive-review** — 高知能モデルで全体・指定範囲・差分を複数の観点から繰り返し精査し、問題を徹底的に洗い出す。指摘と改善案を指定directoryへ独立保存し、合意した修正は1指摘1コミットで適用する。
 
 - **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。steering / task-design を呼ぶ前段にも効く。思考標準の本体は[../docs/think_standards/](../docs/think_standards/README.md)にある。
 - **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定・導出変更を記録し、長い議論を原文保持で分割する。

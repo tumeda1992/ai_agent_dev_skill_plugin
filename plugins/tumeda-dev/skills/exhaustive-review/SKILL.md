@@ -1,13 +1,12 @@
 ---
-name: high-reasoning-audit
+name: exhaustive-review
 description: >-
-  高推論モデルでリポジトリ全体・指定範囲・差分を観点横断で繰り返し精査し、
-  根拠のある問題を徹底的に洗い出したい時に使う。認可・整合性・異常系・設計・保守性を対象とし、
-  指摘だけを指定ディレクトリへ1件1ファイルで記録する。
-  合意した指摘だけを適用し、指摘ごとにテスト・コミットする。
+  高知能モデルで、リポジトリ全体・指定範囲・差分を複数の観点から繰り返し精査し、問題を徹底的に洗い出す。
+  指摘と改善案を指定ディレクトリへ独立して記録する。
+  修正はユーザーと合意した範囲だけを適用する。
 ---
 
-# 高推論モデルによる徹底的な問題の洗い出し
+# 高知能モデルによる徹底レビュー
 
 ## 目的とモデル
 
@@ -24,7 +23,7 @@ description: >-
 修正実行に同じ推論能力を必須とせず、レビューと適用の担当を区別してよい。
 
 repository固有の指示・テスト・公開条件が必要な場合は
-`maintenance-plugin-context`へconsumer=`high-reasoning-audit`として必要factを依頼する。
+`maintenance-plugin-context`へconsumer=`exhaustive-review`として必要factを依頼する。
 既存の合意と利用者の明示指示を保持し、不要な再承認を求めない。
 
 ## 入力
@@ -48,7 +47,7 @@ repository固有の指示・テスト・公開条件が必要な場合は
 ## 出力先の確定
 
 task-designと同じparameterの意味を使う。
-`create_working_dir=true`なら既存の親directoryの下へ`YYYYMMDD-high-reasoning-audit`等の作業directoryを作る。
+`create_working_dir=true`なら既存の親directoryの下へ`YYYYMMDD-exhaustive-review`等の作業directoryを作る。
 日付は利用者のtimezoneを使う。同名の既存成果物を上書きせず、再利用か別名かを確認する。
 `create_working_dir=false`は存在する`working_dir_parent`自体を使う。未指定なら場所を確認する。
 相対pathは起動時のcurrent directoryから解決し、確定した絶対pathを利用者へ伝える。
