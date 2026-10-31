@@ -119,3 +119,46 @@
 #### 判断結果が規定するもの
 
 - `tasklist-design.md` の commit の生成条件の文と、template の動作確認の task の二箇所。他は提案0 のまま。
+
+<a id="iteration-2"></a>
+
+## イテレーション2: 確認に必然性がある commit・push
+
+利用者の応答（2026-10-31）「え、なんでそんなことになってるの？ review環境で確認するとか必然性があるコミットを許可してるだけなのに」を受けた。
+
+<a id="iteration-2-record-1"></a>
+
+### 診断: 「phase ごとに確認前に commit する」が提案に入った経路
+
+#### 入力
+
+- 期待との差: 提案0・提案1 は phase ごとの確認前 commit を既定にした。利用者の意図は、確認環境で確かめるために必然性がある commit だけを許すことだった。
+- 確認元: 利用先の作業の tasklist の「全体の前提」、実装後の振り返りの論点1、保留メモ 002、論点2 の変更内容0。
+
+#### 結果
+
+- 利用先で利用者が言ったのは「つど確認必要？最後まで終わってでいいんじゃない？」で、確認の回数の話だった。
+- 「Phase 2 以降は、test・lint・tsc と visual-inspector の確認まで済んだら、利用者の確認を待たずに local で commit する」は、assistant がこの発言を受けて tasklist の例外として書いた文である。
+- 実装後の振り返りの論点1 で、assistant はこの例外を plugin へ広げる提案を書き、利用者は「1:b。多分あれか？動確環境立ち上げの時のコミットに引きずられたのか？」と答えた。後半は、確認環境とぶつかる問題への言及である。
+- plugin 側では、assistant が「1:b」を、提案文の中身（phase ごとの確認前 commit）まで含めた合意と読んだ。論点1 で「1:b」を理由の合意と読めたことを、論点2・3 の中身へ広げた。
+
+#### 原因の所在
+
+成果物固有（当てはめの誤り）。task-design 3-1 の違反シグナル「根拠が自分の書いた文しかない」に当たる。phase ごとの確認前 commit の根拠は、assistant が書いた tasklist の例外と提案文だけで、利用者の言葉ではなかった。design.md の「元の依頼内容」にも「提案の本文は assistant が書き、利用者は保留と引渡しの時期を選んだ」と書いていた。
+
+<a id="iteration-2-record-2"></a>
+
+### 判断: 確認に必然性がある commit・push の決め方
+
+推奨: repository の context file の `UI確認環境` が「確認環境へ載せるのに commit・push が要る」と定めている場合だけ、その commit・push を確認の前に許す。決め手は、何が必然かを executor の実行時の判断にしないこと。
+
+- `UI確認環境` の宣言で決める（推奨）
+    - context の template に既にある節であり、task-design が tasklist を設計する時に読める。
+    - 確認環境が作業 branch の HEAD を build する repository と、一時 commit を使う repository の両方を、同じ文で扱える。
+- 「確認に必要な commit・push は許す」とだけ書く
+    - 何が必要かを executor が実行時に判断することになる。
+
+#### 判断結果が規定するもの
+
+- 4 file・6 か所への例外の追記。
+- `share-work-in-progress/SKILL.md` と `skills/README.md` は変えない。

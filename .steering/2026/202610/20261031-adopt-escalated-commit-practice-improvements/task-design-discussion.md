@@ -58,7 +58,7 @@ design.md の TL;DR に、提案1 を取り込む理由として次を書く。
 
 ## 論点2: 提案2（利用者の動作確認を push の前に置き、local commit を先に許す）を取り込む理由
 
-**ステータス:** 反映待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -81,9 +81,25 @@ design.md の TL;DR の「提案2: TBD」を、次に置き換える。
 
 [内部検討記録: 論点2・イテレーション0](./internal-records/task-design-discussion.md.topic-2.md#iteration-0)
 
+### 決定（論点2）
+
+design.md の TL;DR に、提案2 を取り込む理由として次を書く。
+
+> 確認環境（review 環境など）で確かめるには commit・push が要る場合がある。今の契約は確認の前の commit・push を一律に禁じるため、確認に必然性がある commit・push まで禁じてしまう。それを許す。
+
+典拠は利用者の発言（2026-10-31、論点3 の提案1 への応答）「review環境で確認するとか必然性があるコミットを許可してるだけなのに」である。
+
+変更内容0 で報告した理由（確認で守るのは公開しないこと、push 前の local commit は直せるため確認を commit の前に置く必要はない）は採らない。利用先で利用者が「1:b」と答えたのは、確認環境とぶつかる問題を plugin へ回すことへの合意だった。phase ごとに確認前に commit するという中身は、利用先の tasklist で assistant が書いた例外を、assistant が提案文へ広げたものであり、利用者の意図ではなかった。
+
 ### 現在の変更（論点2）
 
-イテレーション0 の変更内容0。対象は design.md の TL;DR の提案2 の行。2026-10-31 に chat で報告した。対応する実応答は未着。未反映。
+イテレーション0 の変更内容0。2026-10-31 に chat で報告した。
+
+対応する実応答（2026-10-31、報告の後の利用者の発言。論点3 の提案1 への応答として述べられた）:
+
+> 「phase ごとに、DoD の確認（test・lint・型検査・画面）が済んだら、確認を待たずに local で commit する。」え、なんでそんなことになってるの？ review環境で確認するとか必然性があるコミットを許可してるだけなのに
+
+この応答で、変更内容0 の前提（利用先で合意された理由に、確認を commit の前に置かなくてよいことが含まれる）が覆った。変更内容0 は反映せず、上の決定の文を反映する。
 
 ## 論点3: 提案2 の新しい契約（利用者の動作確認・local commit・push・PR の順序）
 
@@ -197,3 +213,43 @@ Phase ごとに: 実装 → DoD の確認 → local commit
 [内部検討記録: 論点3・イテレーション1](./internal-records/task-design-discussion.md.topic-3.md#iteration-1)
 
 #### 提案1へのフィードバック（論点3）
+
+**結果:** 修正要求（認識齟齬）。phase ごとに確認前に commit することは、利用者の意図に無い
+
+> 「phase ごとに、DoD の確認（test・lint・型検査・画面）が済んだら、確認を待たずに local で commit する。」え、なんでそんなことになってるの？ review環境で確認するとか必然性があるコミットを許可してるだけなのに
+
+（2026-10-31、chat 上の発言）
+
+評価: 提案0・提案1 は、「phase ごとに確認前に local で commit する」を前提にしていた。この前提は、利用先の tasklist で assistant が書いた例外を、assistant が提案文へ広げたものだった。利用者の意図は、確認環境で確かめるために必然性がある commit・push を許すことだけである。前提が誤っていたため、提案0・提案1 の書き換えの大半（phase ごとの commit task、確認を push の前へ移すこと）は成り立たない。
+
+### イテレーション2（論点3）: 確認に必然性がある commit・push だけを許す
+
+#### 提案2（論点3）
+
+今の契約（commit・push・PR より前にユーザー動作確認を必須にする）は変えない。例外を一つだけ足す。
+
+> repository の context file の `UI確認環境` が、確認環境へ載せるのに commit・push が要ると定めている場合、その commit・push は確認の前に行ってよい。それ以外の commit・push・PR は、今までどおり確認の後に行う。
+
+書き換える箇所は 4 file・6 か所である。どれも「確認前に commit・push しない」に、この例外を添えるだけである。
+
+| file | 箇所 | 書き換え |
+| --- | --- | --- |
+| `task-design/tasklist-design.md` | 実装後feedbackと公開action の「commit・push・PRより前にユーザー動作確認を必須にする。」 | 直後に上の例外の文を足す |
+| 同 | 自己レビューgate「commit・push・PRより前にユーザー動作確認があるか」 | 「（`UI確認環境`が定める、確認環境へ載せるためのcommit・pushを除く）」を足す |
+| `task-design/templates/tasklist.md` | 完了後のaction の ⚠️「動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない。」 | 「確認環境へ載せるためのcommit・push（`UI確認環境`が定めるもの）を除き、」を頭に足す |
+| `tasklist-executor/SKILL.md` | 停止・再開「確認前にcommit・pushへ進まない」、返却「確認より先にcommit・push・PRへ進まない」 | どちらにも「（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）」を足す |
+| `steering/SKILL.md` | 6-1「確認が完了する前にcommit、push、PRへ進ませない」、やらないこと「確認前にcommit、push、PRを行う」 | どちらにも同じ除外を足す |
+
+`share-work-in-progress/SKILL.md` と `skills/README.md` は変えない（tasklist-executor の契約の原則は変わらないため）。確認で直したところは、今までどおり確認の後の commit に含まれる。確認の前に確認環境のための commit が既にある場合は、利用者の発言「指摘修正で追いコミットでいいんじゃ無い？」のとおり、既存の commit を書き換えず追加の commit にすることを、、`tasklist-design.md` の例外の文の後に一文で添える。
+
+#### 検討記録（論点3・イテレーション2）
+
+利用者の意図は、確認環境で確かめるために必然性がある commit・push を許すことだった。利用先の作業で問題になったのは、確認環境が commit の push で build されるため、「確認より先に commit しない」が確認環境で確かめること自体を禁じた点である。利用先では、作業 branch の外の一時 commit を確認用の branch へ載せる repository 固有の skill で回避したが、plugin の契約は一時 commit を含む commit・push を一律に禁じたままである。
+
+何が「必然性がある」かは、executor が実行時に判断しない。repository の context file の template には既に `UI確認環境` の節があり、task-design が tasklist を設計する時に読める。そこに「確認環境へ載せるのに commit・push が要る」と書かれている repository だけで、その commit・push を確認の前に許す。確認環境が作業 branch の HEAD を build する repository（branch ごとの preview 等）でも、一時 commit を使う repository でも、同じ文で扱える。
+
+提案0・提案1 から外すもの: phase ごとの commit task、確認を push の前へ移すこと、template の commit block の移動、`share-work-in-progress` と `skills/README.md` の書き換え。
+
+[内部検討記録: 論点3・イテレーション2](./internal-records/task-design-discussion.md.topic-3.md#iteration-2)
+
+#### 提案2へのフィードバック（論点3）

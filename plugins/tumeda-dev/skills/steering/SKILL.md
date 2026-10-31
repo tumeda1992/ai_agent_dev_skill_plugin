@@ -299,7 +299,7 @@ tasklist-executorへ`tasklist.md`と同階層の`design.md`の絶対pathを渡�
 - tasklist-executorだけをtasklistのsingle writerとする。
 - task、subtask、phaseを実測完了した直後に`[x]`へ更新させ、最後にまとめて更新させない。
 - tasklist-executorは親roadmapを探索・更新せず、完了resultだけをcallerへ返す。
-- tasklist内のユーザー動作確認が完了する前に作業branchのpush、PRへ進ませない。phaseのcommit taskは、そのphaseのDoDの確認の後に進めてよい。
+- tasklist内のユーザー動作確認が完了する前にcommit、push、PRへ進ませない（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）。
 
 executorがどの停止理由で返しても、返却resultだけで次の判断をしない。この手順は`Blocker resolution`の一部ではない。dispatch先の停止はそれ自体では`blocker`ではなく、`runtime-execution-contracts.md`が定める停止理由のうち`delegation_required`、`user_confirmation_required`、`phase_checkpoint`はFlowが想定する正常停止であるため、停止理由で分岐させず全停止理由で常に行う。
 
@@ -483,7 +483,7 @@ c. blockerの解消のためにFlowから離れる。解消できる限り自走
 - roadmapの構造fieldをruntime都合で直接変更する。
 - tasklist-executorへ親roadmapを探索・更新させる。
 - standalone bundleを明示承認前に移動する。
-- tasklist合意前に実装し、ユーザー動作確認前に作業branchのpush、PRを行う。push・PR前にはlocal commitが実際に一件以上存在することを確認する。
+- tasklist合意前に実装し、ユーザー動作確認前にcommit、push、PRを行う（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）。push・PR前にはlocal commitが実際に一件以上存在することを確認する。
 - 必須gateまたはユーザー確認を飛ばし、自動で次工程へ突入する。
 - `planless_complete`を未完了resultとしてtasklist作成へ戻す、または実行開始確認・executor・子steeringへdispatchする。
 - `planless_complete`を理由にReady result後の必須gateを省略する。

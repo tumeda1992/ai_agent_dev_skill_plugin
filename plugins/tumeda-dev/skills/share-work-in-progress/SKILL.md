@@ -1,6 +1,6 @@
 ---
 name: share-work-in-progress
-description: 作業中のbranchの内容を、依頼者がGitHub上で読める状態にする。「出来上がったものをちょっと見たい」など、動作確認の完了を待たずに今のbranchの中身を共有したい時に使う。tasklist-executorの「ユーザー動作確認が完了するまで作業branchのpush・PRを行わない」契約とは前提が逆であり、動作確認の後に呼ぶものではない。
+description: 作業中のbranchの内容を、依頼者がGitHub上で読める状態にする。「出来上がったものをちょっと見たい」など、動作確認の完了を待たずに今のbranchの中身を共有したい時に使う。tasklist-executorの「ユーザー動作確認が完了するまでcommit・push・PRを行わない」契約とは前提が逆であり、動作確認の後に呼ぶものではない。
 ---
 
 # 作業中branchの共有
@@ -33,7 +33,7 @@ none/endedでは既存処理へ進む。
 
 ## 起動gate
 
-`tasklist-executor`は「ユーザー動作確認が完了するまで作業branchのpush・PRを行わない」契約を持ち、公開は動作確認の後に来る。このskillは動作確認の**前**に呼ばれる。両者は公開の前提が逆であり、`tasklist-executor`が動いている最中の成果物へこのskillを重ねて呼ばない。
+`tasklist-executor`は「ユーザー動作確認が完了するまでcommit・push・PRを行わない」契約を持ち、公開は動作確認の後に来る。このskillは動作確認の**前**に呼ばれる。両者は公開の前提が逆であり、`tasklist-executor`が動いている最中の成果物へこのskillを重ねて呼ばない。
 
 このskillが作るcommitは、後からamendやrebaseで整理される前提を持つ。履歴として残すためのcommitではない。
 
