@@ -1251,6 +1251,12 @@ forbidText(tasklistDesign, "作業branchのpush・PRより前にユーザー動�
 requireText(skillPath("share-work-in-progress/SKILL.md"), "ユーザー動作確認が完了するまでcommit・push・PRを行わない");
 requireText(skillPath("README.md"), "tasklist-executorのcommit・push・PR契約");
 
+// commitの境界からplan-commitsへの導線。
+requireText(taskDesignSkill, "#### commitの境界が設計判断になる時");
+requireText(taskDesignSkill, "designの段階には実差分が無いため`plan-commits`は起動せず、基準だけを当てる");
+requireText(tasklistDesign, "分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める");
+requireText(tasklistTemplate, "境界は、実差分へ`plan-commits`を当てて決める");
+
 if (failures.length > 0) {
   console.error("plugin validation failed:");
   for (const failure of failures) {
