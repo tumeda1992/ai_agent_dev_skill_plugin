@@ -1052,7 +1052,15 @@ for (const heading of [
   requireText(escalateSkill, heading);
 }
 requireText(escalateSkill, "### plugin repositoryでの作業完了後の取り込み");
-requireText(escalateSkill, "作業branchを`main`へmergeする");
+// 取り込みと反映はescalateの内部指示が持つ。SKILL.mdは見出しと参照を残す（contextが見出しの名前で指す）。
+const escalateIntegration = skillPath("escalate-plugin-skill-fix/integrate-plugin-changes.md");
+requireExists(escalateIntegration);
+requireText(escalateSkill, "[取り込みと反映](integrate-plugin-changes.md)に従い、PRを経由せず`main`へ取り込み、pluginをupdateする。");
+requireText(escalateIntegration, "作業branchを`main`へmergeする");
+requireText(escalateIntegration, "## pluginをupdateする");
+requireText(escalateIntegration, "installされたpluginのcommitが`main`の先端と一致することを確かめる");
+requireText(escalateIntegration, "利用者へ依頼するのは、agentから実行できない7の操作だけである");
+forbidText(escalateSkill, "修正後のskillで動きたい場合は、sessionをresumeする");
 // contextのGit運用は、escalateの取り込み（PRを経由しないmerge）と食い違わない。
 requireText(contextTemplate, "default branchの上で直接commitしない。作業はbranchで行う。");
 requireText(contextTemplate, "同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。");
@@ -1171,6 +1179,7 @@ const portableFiles = [
   contextTemplate,
   runtimeContract,
   escalateSkill,
+  escalateIntegration,
   escalateMetadata,
   ...agentDerivedSkills,
   ...thinkStandardsFiles,
