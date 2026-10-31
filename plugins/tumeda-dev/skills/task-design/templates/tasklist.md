@@ -127,6 +127,7 @@ Tasks に挙げた確認をユーザーが行い、期待どおりであるこ�
 <!-- local Git運用条件が返された場合、またはユーザーがcommitを明示要求した場合だけ、次のsectionを生成する。条件を満たさない場合はsection自体をtasklistへ残さない。 -->
 
 - [ ] commit（phase単位かつ意味単位で分割）
+  - 境界は、実差分へ`plan-commits`を当てて決める
   - MUST: まとめて一commitにしない
   - phaseごとに別commitにする
   - 同一phase内でも意味的に異なる変更を分割する

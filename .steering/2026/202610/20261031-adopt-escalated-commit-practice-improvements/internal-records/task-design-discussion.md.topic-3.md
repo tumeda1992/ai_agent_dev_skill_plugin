@@ -162,3 +162,28 @@
 
 - 4 file・6 か所への例外の追記。
 - `share-work-in-progress/SKILL.md` と `skills/README.md` は変えない。
+
+<a id="iteration-3"></a>
+
+## イテレーション3: 例外の条件を書く場所の手掛かり
+
+利用者が提案2 に「ok」と答えた（2026-10-31）。例外が context file の `UI確認環境` の宣言に頼るため、その節に書き方の手掛かりがあるかを確かめた。
+
+<a id="iteration-3-record-1"></a>
+
+### 調査: `UI確認環境` の節の今の形
+
+#### 入力
+
+- 問い: context file の template の `### UI確認環境` は、利用先が何を書くかを示しているか。
+- 方法: 2026-10-31 に `plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md` と `.agents/skills/tumeda-dev-plugin-context.md` を読み、`diff` で比べた。`maintenance-plugin-context/SKILL.md` の `UI確認環境` への言及を読んだ。
+
+#### 結果
+
+- 二つの file は同じ中身だった。
+- `### UI確認環境` の本文は「なし。このrepositoryは…」だけで、何を書くかの comment が無い。`### Branch / issue 契約` と `### 作業の外へ残るactionの差し込み` は、見出しの直後に comment を持つ。
+- `maintenance-plugin-context/SKILL.md` は、task-design が execution plan を設計する時に `UI確認環境` を必要 fact として要求できると定める。
+
+#### 解釈
+
+例外の条件を `UI確認環境` に置いたので、利用先がそこへ「確認環境へ載せるのに commit・push が要る」と書けるよう、他の節と同じ形の comment を足す。決定から一意に導けるため、導出として報告する。

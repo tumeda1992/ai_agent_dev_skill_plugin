@@ -31,10 +31,31 @@
 
 ### workflow
 
-TBD: 利用者の動作確認・local commit・作業 branch の push・PR の順序と、それぞれの owner。提案2 の採否と中身で決まる。
+**利用者の動作確認と commit・push・PR の順序:**
 
-- 今の順序: 実装 → 機械的な確認 → 利用者の動作確認 → commit → push・PR（[付録の既存仕様](#付録前提とする既存仕様)）。
-- TBD: 確認環境へ載せるための push を、push の制限に含めるか。plugin が対象 branch を書くか。
+```text
+実装 → 機械的な確認（test、lint、型検査、UI 変更なら visual-inspector）
+  → [UI確認環境 が「確認環境へ載せるのに commit・push が要る」と定める時だけ]
+       その commit・push を行い、確認環境へ載せる
+  → 利用者の動作確認
+       ├─ 直すところなし → commit → push・PR
+       └─ 直すところあり → 直す → 動作確認へ戻る
+            （確認環境のための commit が作業 branch に既にあれば、直したところは追加の commit にする）
+```
+
+- 確認の前に許す commit・push は、repository の context file の `UI確認環境` に書かれたものだけである。何が必然かを tasklist-executor が実行時に判断しない。
+- それ以外の commit・push・PR は、今までどおり利用者の動作確認の後に行う。
+
+**ownerと責務:**
+
+| owner | 判断・更新するもの | 行わないこと | single source of truth |
+| --- | --- | --- | --- |
+| task-design（tasklist の設計） | `UI確認環境` を読み、確認環境へ載せる commit・push が要るなら、その task を動作確認の前に置く | `UI確認環境` に無い commit・push を確認の前に置く | context file の `UI確認環境`、tasklist |
+| tasklist-executor | tasklist の順に、確認環境へ載せる commit・push を行い、`user_confirmation_required` で止まる | 確認の前に、それ以外の commit・push・PR へ進む | tasklist |
+| steering | executor を dispatch し、確認の前にそれ以外の commit・push・PR へ進ませない | 確認環境へ載せる commit・push を止める | tasklist |
+| 利用先 repository | `UI確認環境` に、確認環境と載せ方、commit・push が要るかを書く | — | context file |
+
+この順序の理由: 確認環境（review 環境など）で確かめるには commit・push が要る場合があり、今の契約はそれまで禁じていた。必然性がある commit・push だけを許す（[議論記録](./task-design-discussion.md#論点3-提案2-の新しい契約利用者の動作確認local-commitpushpr-の順序)）。phase ごとに確認の前に commit する形は採らない。利用者の意図に無かった。
 
 ### documentation以外のfile deliverable
 
@@ -42,14 +63,23 @@ TBD: 利用者の動作確認・local commit・作業 branch の push・PR の�
 
 | file | 主な読者 | 読後または利用後にできること |
 | --- | --- | --- |
-| TBD: 提案1 の導線を置く file（`task-design/SKILL.md`、`task-design/tasklist-design.md`、`task-design/templates/` のどれか、または複数） | design の段階で commit の境界を決める task-design | TBD |
-| `task-design/tasklist-design.md`（提案2） | tasklist を設計する task-design | TBD |
-| `task-design/templates/tasklist.md`（提案2） | tasklist を書く task-design | TBD |
-| `tasklist-executor/SKILL.md`（提案2） | tasklist を実行する tasklist-executor | TBD |
-| `steering/SKILL.md`（提案2） | dispatch する steering | TBD |
-| `share-work-in-progress/SKILL.md`、`skills/README.md`（提案2） | 作業中の branch を共有する agent | TBD: tasklist-executor の契約を「確認まで commit・push・PR しない」と引いている記述を、新しい契約に合わせるか |
+| TBD: 提案1 の導線を置く file | commit の境界を決める task-design・tasklist-executor | TBD |
+| `task-design/tasklist-design.md` の「実装後feedbackと公開action」と自己レビューgate | tasklist を設計する task-design | 確認の前に置いてよい commit・push を、`UI確認環境` の宣言から決める |
+| `task-design/templates/tasklist.md` の「完了後のaction」 | tasklist を書く task-design | ⚠️ の除外から、確認環境へ載せる commit・push だけを確認の前に置く |
+| `tasklist-executor/SKILL.md` の「停止・再開」と「返却」 | tasklist を実行する tasklist-executor | 確認環境へ載せる commit・push だけを確認の前に行う |
+| `steering/SKILL.md` の「6-1. leafを実行する」と「このskillが絶対にやらないこと」 | dispatch する steering | 確認環境へ載せる commit・push を止めない |
+| `skills/tumeda-dev-plugin-context.md`（context file の template）の `### UI確認環境` | 利用先 repository で context を書く人・agent | 確認環境へ載せるのに commit・push が要るなら、その旨と載せ方を書く（論点3 の変更内容3。報告中） |
 | `scripts/verification/validate-plugin.mjs` | validator | 変えた契約の文に対応する assertion を持つ（repository の test 方針） |
-| version 宣言 5 箇所 | 配布 | TBD: bump の区分（既存 skill の内容修正なら PATCH） |
+| version 宣言 5 箇所 | 配布 | 既存 skill の内容修正なので PATCH（8.2.0 → 8.2.1） |
+
+**完成後の内容と構造（提案2）:**
+
+どの箇所も、「確認前に commit・push しない」の文に除外を添える。除外の文は次の二つである。
+
+- `tasklist-design.md` の規則の文の後: 「repositoryのcontext fileの`UI確認環境`が、確認環境へ載せるのにcommit・pushが要ると定めている場合、そのcommit・pushは確認の前に行ってよい。それ以外のcommit・push・PRは確認の後に行う。確認の前に確認環境のためのcommitが作業branchにある場合、確認で直したところは既存のcommitを書き換えず、追加のcommitにする。」
+- 他の 6 か所（gate、template の ⚠️、executor 2、steering 2）: 「（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）」またはそれと同じ意味の句。
+
+`share-work-in-progress/SKILL.md` と `skills/README.md` は変えない。tasklist-executor の契約の原則（確認まで commit・push・PR しない）は変わらないため。
 
 ---
 
@@ -57,7 +87,9 @@ TBD: 利用者の動作確認・local commit・作業 branch の push・PR の�
 
 ### MUST（必達）
 
-- TBD: WHY の合意の後に書く。
+- 確認の前に許す commit・push を、context file の `UI確認環境` が定めるものに限る。tasklist-design、template、tasklist-executor、steering の「確認前に commit・push しない」のすべてに、同じ除外を添える。
+- 確認で直したところは、既存の commit を書き換えず追加の commit にする（確認環境のための commit が作業 branch に既にある場合）。
+- TBD: 提案1 の要件。
 - 変えた skill・docs の契約の文に対応する assertion を `scripts/verification/validate-plugin.mjs` に足し、撤去した文が戻らないことも検査する。
 - plugin へ書く内容に、利用先 repository 固有の情報を入れない（`maintenance_policies/migration.md`）。
 
@@ -71,12 +103,15 @@ TBD: 利用者の動作確認・local commit・作業 branch の push・PR の�
 
 ### 非目標
 
-TBD
+- phase ごとに、利用者の確認の前に local で commit すること。利用者の意図に無い（論点3）。
+- `share-work-in-progress` と `skills/README.md` の書き換え。tasklist-executor の契約の原則は変わらない。
+- 確認環境へ載せる具体的な手順を plugin に書くこと。手順は repository ごとに違い、context file の `UI確認環境` と repository の文書が持つ。
 
 ### 受け入れ基準
 
 - `node scripts/verification/validate-plugin.mjs` が `plugin validation passed` を出す。
-- TBD: 契約の変更ごとの基準。
+- `grep` で「確認前にcommit・pushへ進まない」等の 6 か所に `UI確認環境` の除外があり、`share-work-in-progress/SKILL.md` と `skills/README.md` が `c1122f5` から変わっていない。
+- TBD: 提案1 の基準。
 
 ---
 
@@ -141,7 +176,10 @@ TBD
 
 ### task-design内の対象成果物反映待ち
 
-なし
+| 対象 | 待つ理由 | 依存decision | 参照するdesign section |
+| --- | --- | --- | --- |
+| 提案2 の除外（`tasklist-design.md`、`templates/tasklist.md`、`tasklist-executor/SKILL.md`、`steering/SKILL.md`） | 内容は決まった（論点3）。作業 branch に書き換えは入っている。提案1 の導線が同じ file に入るため、document-review・skill-update-review・validator の assertion を提案1 と一緒に行う | 提案1 の導線の置き場所 | [workflow](#workflow)、[documentation以外のfile deliverable](#documentation以外のfile-deliverable) |
+| context file の template の `### UI確認環境` の comment | 論点3 の変更内容3 として報告中。次の応答の後に反映する | 論点3 の変更内容3 への応答 | [documentation以外のfile deliverable](#documentation以外のfile-deliverable) |
 
 ### execution plan対象
 
@@ -151,6 +189,5 @@ TBD
 
 | 変更候補 | 保留理由 | 分類を確定するdecision |
 | --- | --- | --- |
-| 提案1 の導線 | 置く file と中身が決まっていない | 提案1 の WHY と、導線を置く場所 |
-| 提案2 の契約の変更（tasklist-design、template、tasklist-executor、steering、share-work-in-progress、skills/README） | 契約の中身が決まっていない | 提案2 の WHY と、新しい契約の中身 |
-| validator の assertion と version bump | 変える文が決まっていない | 上の二つ |
+| 提案1 の導線 | 置く file と中身が決まっていない | 提案1 の導線の置き場所 |
+| validator の assertion と version bump | 提案1 の文が決まっていない | 提案1 の導線の置き場所 |

@@ -103,7 +103,7 @@ design.md の TL;DR に、提案2 を取り込む理由として次を書く。
 
 ## 論点3: 提案2 の新しい契約（利用者の動作確認・local commit・push・PR の順序）
 
-**ステータス:** 応答待ち
+**ステータス:** 反映待ち
 
 **種別:** TBDヒアリング
 
@@ -253,3 +253,96 @@ Phase ごとに: 実装 → DoD の確認 → local commit
 [内部検討記録: 論点3・イテレーション2](./internal-records/task-design-discussion.md.topic-3.md#iteration-2)
 
 #### 提案2へのフィードバック（論点3）
+
+**結果:** 合意
+
+> ok
+
+（2026-10-31、chat 上の発言。利用者は作業中の PR（plugin repository の #9）で、提案2 を当てた diff を見られる状態だった）
+
+### イテレーション3（論点3）: 変更の報告
+
+#### 変更内容3（論点3）
+
+判断根拠: 決定からの導出。例外は「context file の `UI確認環境` が、確認環境へ載せるのに commit・push が要ると定めている場合」に効く。今の context file の template の `UI確認環境` の節には、何を書くかの comment が無く、利用先の repository はそう書けばよいことに気付けない。
+
+`plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md` の `### UI確認環境` の見出しの直後に、他の節と同じ形の comment を足す。
+
+```markdown
+<!-- 利用者の動作確認に使う環境と、そこへ載せる方法を書く。
+     確認環境へ載せるのに commit・push が要る場合（push で build される環境等）は、その旨と載せ方を書く。
+     tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push だけを、利用者の動作確認の前に許す -->
+```
+
+- 変更先: 上の 1 か所だけ。この file は plugin repository の context file の instance（`.agents/skills/tumeda-dev-plugin-context.md`）と同じ中身であり、instance にも同じ comment が入る。節の本文（「なし。…」）は変えない。
+- 検証: 反映後に validator を通す。
+
+#### 検討記録（論点3・イテレーション3）
+
+他の節（`### Branch / issue 契約`、`### 作業の外へ残るactionの差し込み`）は、見出しの直後に何を書くかの comment を持つ。`### UI確認環境` だけが comment を持たない。例外の条件をこの節に置いたため、書き方の手掛かりも同じ節に置く。
+
+[内部検討記録: 論点3・イテレーション3](./internal-records/task-design-discussion.md.topic-3.md#iteration-3)
+
+### 決定（論点3）
+
+今の契約（commit・push・PR より前にユーザー動作確認を必須にする）は変えず、例外を一つ足す。
+
+> repository の context file の `UI確認環境` が、確認環境へ載せるのに commit・push が要ると定めている場合、その commit・push は確認の前に行ってよい。それ以外の commit・push・PR は確認の後に行う。確認の前に確認環境のための commit が作業 branch にある場合、確認で直したところは既存の commit を書き換えず、追加の commit にする。
+
+- 書き換える箇所: `task-design/tasklist-design.md`（規則の文、自己レビュー gate）、`task-design/templates/tasklist.md`（完了後の action の ⚠️）、`tasklist-executor/SKILL.md`（停止・再開、返却）、`steering/SKILL.md`（6-1、やらないこと）。どれも除外を添えるだけ。
+- 変えないもの: `share-work-in-progress/SKILL.md`、`skills/README.md`、commit task を作る条件、作業の外へ残る action を含む phase で止まる規則。
+- 何が必然かは executor の実行時の判断にせず、`UI確認環境` の宣言で決める。
+
+選択理由: 利用者の意図は、確認環境で確かめるのに必然性がある commit・push を許すことだけだった（論点2）。phase ごとに確認前に commit する形（提案0・提案1）は、assistant が利用先の tasklist に書いた例外を広げたもので、利用者の意図に無かった。
+
+### 現在の変更（論点3）
+
+イテレーション3 の変更内容3。対象は `plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md` の `### UI確認環境`。2026-10-31 に chat で報告した。対応する実応答は未着。未反映。
+
+## 論点4: 提案1 の導線の置き場所と文
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点4）: 導線を置く場所と文を決める
+
+#### 提案0（論点4）
+
+commit の境界を決める三つの段階に、それぞれ短く置く。
+
+1. design の段階: `task-design/SKILL.md` の Step 3 の末尾（「discussionを選んだ場合の境界」の後）に小節を足す。
+
+    ```markdown
+    #### commitの境界が設計判断になる時
+
+    要件にrevertの単位がある時や、変更の分け方でreview・revert・本番適用の単位が変わる時は、commitの境界が設計判断になる。この時は`plan-commits`の判断基準（「分割の優先順位」と「境界を実物へ当てる」）を、designの変更の単位へ当てて境界を決める。designの段階には実差分が無いため`plan-commits`は起動せず、基準だけを当てる。実差分ができた後のcommit計画は`plan-commits`が持つ。
+
+    - やってしまいがちな行動: revertしてもcodeと文書が食い違わない、同じ行を二度直さずに済む、といった必要条件や手間を、境界を決める基準にする
+    - それをやると何が起きるか: 取り消す効果が独立した変更まで一つのcommitへまとまり、片方だけを戻せなくなる
+    - 正しい判断のための問い: 「この変更を取り消した時に消したい効果と、残したい効果は何か。それは他の変更と同じか」
+    ```
+
+2. tasklist の設計: `tasklist-design.md` の commit の生成条件の文の「phase単位かつ意味単位で分け、」を、「phase単位かつ意味単位で分け（分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める）、」にする。
+3. commit の実行: `templates/tasklist.md` の「- [ ] commit（phase単位かつ意味単位で分割）」の直下に「  - 境界は、実差分へ`plan-commits`を当てて決める」を足す。
+
+#### 検討記録（論点4・イテレーション0）
+
+commit の境界を決める段階は三つある。design（境界が設計判断になる時）、tasklist の設計（commit の分け方を書く）、commit の実行（実差分を commit する）である。どれか一つだけに置くと、他の段階で「意味単位」の中身が分からないまま残る。
+
+design の段階には実差分が無い。plan-commits は「Git情報を読まず、designやtasklistの見出しだけから計画を作らない」と定めるので、design では skill を起動せず基準だけを当てると書く。commit の実行の段階には実差分があるので、plan-commits をそのまま当てる。
+
+design の小節の「やってしまいがちな行動」には、利用先で起きた取り違え（必要条件と手間を基準にした）を一般化して置いた。plugin の docs と skill が使う、失敗例の三行の形に揃えた。
+
+採らなかった案:
+
+- design の段階だけに置く: tasklist の設計と commit の実行で、同じ取り違えが起きうる。
+- 「意味単位」の定義を task-design 側に書く: plan-commits と正本が二つになる。
+- design.md の template に「変更の単位と順序」節を足す: 境界が設計判断になる作業でだけ要る節で、すべての design に空の節が増える。
+
+作業中の PR（plugin repository の #9）に、この三か所を当てた diff を入れた。
+
+[内部検討記録: 論点4・イテレーション0](./internal-records/task-design-discussion.md.topic-4.md#iteration-0)
+
+#### 提案0へのフィードバック（論点4）
+
