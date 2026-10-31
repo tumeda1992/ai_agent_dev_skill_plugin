@@ -187,3 +187,17 @@
 #### 解釈
 
 例外の条件を `UI確認環境` に置いたので、利用先がそこへ「確認環境へ載せるのに commit・push が要る」と書けるよう、他の節と同じ形の comment を足す。決定から一意に導けるため、導出として報告する。
+
+<a id="correction-1"></a>
+
+## 訂正: context file への comment の二重追加
+
+#### 入力
+
+- 2026-10-31、commit の計画のために差分を読み直した時に、`plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md` に変更内容3 の comment が二つあることに気づいた。
+
+#### 結果
+
+- `.agents/skills` は `../plugins/tumeda-dev/skills` への symlink であり、`.agents/skills/tumeda-dev-plugin-context.md` は同じ file だった。
+- 変更内容3 の反映で、二つの file と取り違えて同じ comment を二度足していた。一つを消し、`grep -c` で一つだけであることを確かめた。
+- design.md の付録の行と、論点3 の現在の変更の記述を直した。変更内容3 の本文（「instance にも同じ comment が入る」）は、symlink によって正しいため変えていない。

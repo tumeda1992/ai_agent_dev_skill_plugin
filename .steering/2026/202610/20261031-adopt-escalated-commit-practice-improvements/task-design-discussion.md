@@ -103,7 +103,7 @@ design.md の TL;DR に、提案2 を取り込む理由として次を書く。
 
 ## 論点3: 提案2 の新しい契約（利用者の動作確認・local commit・push・PR の順序）
 
-**ステータス:** 反映待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -283,6 +283,25 @@ Phase ごとに: 実装 → DoD の確認 → local commit
 
 [内部検討記録: 論点3・イテレーション3](./internal-records/task-design-discussion.md.topic-3.md#iteration-3)
 
+### イテレーション4（論点3）: 変更の報告
+
+#### 変更内容4（論点3）
+
+判断根拠: 決定からの導出。skill-update-review の指摘2（`artifacts/skill-structure-review.md`）による。
+
+tasklist-executor は、context file の `## task-design` の中にある `UI確認環境` を読めない（`maintenance-plugin-context` は executor へ共通項目だけを返す）。そのため、確認環境へ載せる commit・push は、task-design が tasklist に task として書かない限り行われない。決定の文は「確認の前に行ってよい」とだけ書き、task を置く指示が無い。次の二か所を足す。
+
+- `task-design/tasklist-design.md` の規則の文: 「そのcommit・pushは確認の前に行ってよい。」の直後に、「その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。」を足す。
+- `task-design/templates/tasklist.md` の「動作確認」の Tasks: 先頭に「- [ ] 確認環境へ載せる（`UI確認環境`が載せ方を定めている場合だけ。{載せ方}）」を足す。
+
+あわせて、validator にこの二つの文の assertion を足す。
+
+#### 検討記録（論点3・イテレーション4）
+
+design.md の「ownerと責務」では、task-design が `UI確認環境` を読み、確認環境へ載せる task を動作確認の前に置くとした。skill の文がそれを指示していなかった。指示が無いと、例外は認められていても、確認環境へ載せる task がどの tasklist にも現れず、executor は載せないまま確認を頼む。
+
+同じ review の指摘1（除外の句が箇所によって違う）は、決定の範囲内の機械的な修正として、6 か所の句をそろえた。
+
 ### 決定（論点3）
 
 今の契約（commit・push・PR より前にユーザー動作確認を必須にする）は変えず、例外を一つ足す。
@@ -297,11 +316,27 @@ Phase ごとに: 実装 → DoD の確認 → local commit
 
 ### 現在の変更（論点3）
 
-イテレーション3 の変更内容3。対象は `plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md` の `### UI確認環境`。2026-10-31 に chat で報告した。対応する実応答は未着。未反映。
+イテレーション3 の変更内容3。対象は `plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md` の `### UI確認環境`。2026-10-31 に chat で報告した。
+
+対応する実応答（2026-10-31、報告と論点4 の提案0 を示した後の利用者の発言）:
+
+> ok
+
+反映済み。`### UI確認環境` の見出しの直後に、報告した comment を足した。反映後に validator を通した。
+
+訂正（2026-10-31）: `.agents/skills/` は `plugins/tumeda-dev/skills/` への symlink であり、`.agents/skills/tumeda-dev-plugin-context.md` は同じ file だった。別 file と取り違えて同じ comment を二度足していたため、一つを消した。
+
+イテレーション4 の変更内容4。対象は `task-design/tasklist-design.md` の規則の文と、`templates/tasklist.md` の「動作確認」。2026-10-31 に chat で報告した。
+
+対応する実応答（2026-10-31、報告と、WIP の commit の扱いの問いを示した後の利用者の発言）:
+
+> b
+
+「b」は同じ message の WIP の commit の扱いの問いへの答えであり、変更内容4 の前提を変えない。報告の後の実応答として受け取り、反映した。`tasklist-design.md` の規則の文と template の「動作確認」に報告した文を足し、validator に二つの assertion を足して通した。
 
 ## 論点4: 提案1 の導線の置き場所と文
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -346,3 +381,248 @@ design の小節の「やってしまいがちな行動」には、利用先で�
 
 #### 提案0へのフィードバック（論点4）
 
+**結果:** 合意
+
+> ok
+
+（2026-10-31、chat 上の発言。利用者は作業中の PR（plugin repository の #9）で、提案0 を当てた diff を見られる状態だった）
+
+### 決定（論点4）
+
+commit の境界を決める三つの段階に、plan-commits への導線を置く。
+
+1. design の段階: `task-design/SKILL.md` の Step 3 の末尾（「discussionを選んだ場合の境界」の後）に、小節「commitの境界が設計判断になる時」を足す。境界が設計判断になる時は plan-commits の判断基準（「分割の優先順位」と「境界を実物へ当てる」）を design の変更の単位へ当てる。実差分が無いため plan-commits は起動せず基準だけを当てる。失敗例（必要条件や手間を境界の基準にする）を三行の形で置く。
+2. tasklist の設計: `tasklist-design.md` の commit の生成条件の文に、「（分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める）」を足す。
+3. commit の実行: `templates/tasklist.md` の commit task の直下に「境界は、実差分へ`plan-commits`を当てて決める」を足す。
+
+選択理由: 境界を決める段階は三つあり、一つだけに置くと他の段階で同じ取り違えが起きうる。「意味単位」の定義を別に書くと plan-commits と正本が二つになる。design.md の template に節を足すと、境界が設計判断にならない作業でも空の節が増える。
+
+## 論点5: 既存の commit を書き換えないという考え方を plan-commits に書くか
+
+**ステータス:** 決定
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点5）: 書く先と文を決める
+
+#### 提案0（論点5）
+
+`plan-commits/SKILL.md` の「分割の優先順位」の末尾にある一文を、既存の commit 全般に広げた段落へ置き換える。
+
+```diff
+ 利用者が現状保存を明示した場合は、その目的を区別する。
+ チェックポイントを意味単位の完成版と称さず、保存範囲を示す。
+-既存の保存commitを、履歴が整わないという理由だけで改変しない。
++
++commitの単位は、歴史を理解する単位として、これから作るcommitで厳密に守る。
++一方、既にあるcommitを、履歴の単位を整えるためだけに書き換えない。
++書き換えても良い単位になるとは限らず、書き換えにはrebaseやforce pushが要るためである。
++既にあるcommitの上へ、意味の単位で積む。書き換えるのは利用者が明示した時だけである。
++
++- やってしまいがちな行動: 確認の後の指摘修正を該当commitへ入れ直す、作業中に積んだcommitを意味の単位へ作り直す、を既定にする
++- それをやると何が起きるか: 履歴の書き換えとforce pushを要する。作り直しても良い単位になる保証は無い
++- 正しい判断のための問い: 「この書き換えは利用者が求めたものか。積む形では歴史を理解できないか」
+```
+
+あわせて validator に assertion を足す。
+
+#### 検討記録（論点5・イテレーション0）
+
+利用者は design の合意と同じ発言で、WIP の commit を作り直さない理由を「コミット単位は、歴史を理解する単位として厳密にするけど、強硬派のように、コミットを書き換えてでも間違った歴史にしない強制力をするほどじゃ無いと思っているから。うまい単位にならない可能性もあるし」と説明した。
+
+plan-commits の今の文「既存の保存commitを、履歴が整わないという理由だけで改変しない」は、利用者が現状保存を明示した時の commit に限られる。この session で assistant は既存の commit の書き換えを二度既定にした。
+
+- 論点3 の提案0: 確認で直すところが出た phase の commit を、push の前に書き換える。利用者は「指摘修正で追いコミットでいいんじゃ無い？」と答えた。
+- steering の `discussion.md` の論点1: WIP の commit を作り直して force push する案を推した。利用者は作り直さない方を選んだ。
+
+どちらも、既存の commit を書き換えないという考え方が手元にあれば出なかった。commit の単位の正本は plan-commits であり、論点4 で task-design と tasklist から plan-commits へ辿る導線を置いたので、同じ正本に置く。
+
+この論点は design の合意の後に生じた。合意すると、design.md の要件に一つ足すことになる。
+
+[内部検討記録: 論点5・イテレーション0](./internal-records/task-design-discussion.md.topic-5.md#iteration-0)
+
+#### 提案0へのフィードバック（論点5）
+
+**結果:** 提案0 を採用。置き場所は暫定
+
+> plan-commitに関係ない気もするけど、一旦ここに間借りさせるか
+
+（2026-10-31、chat 上の発言）
+
+### イテレーション1（論点5）: 変更の報告
+
+#### 変更内容1（論点5）
+
+判断根拠: 決定からの導出。暫定性の明示の標準（`docs/documentation_standards/provisionality_explicitness.md`）の「書く 3 点」による。
+
+利用者は置き場所を暫定とし、理由も述べた。見直す条件は述べていない。
+標準は、暫定の判断に見直す条件を書くよう求める。
+design.md の MUST の論点5 の行で、「見直す条件は、論点5 の変更内容1 で報告中である。」を次の文に置き換える。
+
+> plan-commits を通らない場面（設計の議論、作業中の共有など）で既にある commit の書き換えを再び既定にした時、または `docs/development_standards/development_flow/` に commit や履歴の扱いを書く時に、置き場所を見直す。
+> 移す先の候補は `development_flow/` である。
+
+skill の本文には書かない。本文の規則そのものは暫定ではなく、暫定なのは置き場所だけであるため。
+
+#### 検討記録（論点5・イテレーション1）
+
+一つ目の条件を「plan-commits を通らない場面での再発」にしたのは、置き場所の弱点がそこにあるためである。
+plan-commits は commit を計画・実行する時に読まれる。
+この session で書き換えを既定にした二つの場面は、どちらも plan-commits を通らなかった。
+論点3 の提案0 は tasklist の契約を設計する議論の中、WIP の commit を作り直す案は作業中の PR を共有した後だった。
+
+移す先の候補を `development_flow/` にしたのは、開発標準の README が「開発そのもの（何を作るか、どう名付けるか、どう進めるか）」をこの群に置くと定め、task-design が設計前に配下をすべて読むためである。
+設計の議論で読まれる場所になる。今移さないのは、利用者が今回は間借りを選んだためである。
+
+[内部検討記録: 論点5・イテレーション1](./internal-records/task-design-discussion.md.topic-5.md#iteration-1)
+
+### 決定（論点5）
+
+`plan-commits/SKILL.md` の「分割の優先順位」の末尾の一文「既存の保存commitを、履歴が整わないという理由だけで改変しない。」を、次の段落と三行の失敗例（提案0 の diff のとおり）に置き換える。
+validator に assertion を足し、design.md の MUST に一つ足す。
+
+> commitの単位は、歴史を理解する単位として、これから作るcommitで厳密に守る。
+> 一方、既にあるcommitを、履歴の単位を整えるためだけに書き換えない。
+> 書き換えても良い単位になるとは限らず、書き換えにはrebaseやforce pushが要るためである。
+> 既にあるcommitの上へ、意味の単位で積む。書き換えるのは利用者が明示した時だけである。
+
+置き場所は暫定である（利用者「一旦ここに間借りさせるか」）。暫定にした理由は、利用者の「plan-commitに関係ない気もする」による。
+見直す条件（イテレーション1 の変更内容1）: plan-commits を通らない場面（設計の議論、作業中の共有など）で既にある commit の書き換えを再び既定にした時、または `docs/development_standards/development_flow/` に commit や履歴の扱いを書く時に、置き場所を見直す。移す先の候補は `development_flow/` である。
+
+選択理由: この session で assistant は、既にある commit の書き換えを二度既定にした（論点3 の提案0、steering の `discussion.md` の論点1）。
+今の文は現状保存の commit に限られ、どちらにも効かなかった。
+今ある skill のうち commit の単位を扱うのは plan-commits であり、論点4 で task-design と tasklist から辿る導線を置いた。
+
+### 現在の変更（論点5）
+
+イテレーション1 の変更内容1。対象は design.md の MUST の論点5 の行の、見直す条件の文。2026-10-31 に chat で報告した。
+
+対応する実応答（2026-10-31、報告と論点6 の提案0 を示した後の利用者の発言）:
+
+> ok
+
+「ok」は同じ message の論点6 の問いへの答えでもある。変更内容1 への異論は無く、論点6 の答えは変更内容1 の前提を変えない。報告の後の実応答として受け取り、反映した。design.md の MUST の論点5 の行で、報告中の文を見直す条件に置き換えた。
+
+## 論点6: share-work-in-progress の「後から整理される前提」を、論点5 の決定に合わせるか
+
+**ステータス:** 決定
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点6）: 書き換えるかと文を決める
+
+#### 提案0（論点6）
+
+`share-work-in-progress/SKILL.md` の「起動gate」の二段落目を書き換える。
+
+```diff
+-このskillが作るcommitは、後からamendやrebaseで整理される前提を持つ。履歴として残すためのcommitではない。
++このskillが作るcommitは、作業中の内容を見せるためのcommitであり、意味の単位になっているとは限らない。
++後から整理するかは利用者が決める。既にあるcommitの扱いは`plan-commits`に従う。
+```
+
+あわせて次を直す。
+
+- design.md: 非目標の「`share-work-in-progress` と `skills/README.md` の書き換え」から `share-work-in-progress` を外す。受け入れ基準の「`share-work-in-progress/SKILL.md` が `c1122f5` から変わっていない」を、この段落だけが変わった形に直す。完成後の姿と付録にこの段落を足す。
+- validator: 新しい文の assertion と、「後からamendやrebaseで整理される前提を持つ」が戻らない assertion を足す。
+
+#### 検討記録（論点6・イテレーション0）
+
+論点5 で plan-commits に「既にあるcommitを、履歴の単位を整えるためだけに書き換えない」「書き換えるのは利用者が明示した時だけ」と書いた。
+share-work-in-progress は、自分が作る commit を「後からamendやrebaseで整理される前提を持つ」と書く。
+WIP の commit を扱う agent は、二つの skill から逆の既定を受け取る。
+
+この文は実際に判断へ効いた。
+steering の `discussion.md` の論点1 で、assistant が WIP の commit を作り直して force push する案を推した時、検討記録の根拠はこの文だった。利用者は作り直さない b を選んだ。
+
+文を消すだけにはしない。消すと、WIP の commit が意味の単位になっていないことが読み手に伝わらない。
+利用者は論点1 で、WIP の commit が main の履歴に残ることを受け入れた。「意味の単位になっているとは限らない」は、利用者の「うまい単位にならない可能性もある」に合う。
+
+既にある commit の扱いの規則は、plan-commits への参照だけを置き、share-work-in-progress へ写さない。論点5 の置き場所を後で移す時に、写しが古く残らないようにするためである。
+
+design の合意では share-work-in-progress を変えないとした。その理由は「tasklist-executor の契約の原則は変わらない」であり、この段落は扱っていなかった。合意すると、非目標を一つ外すことになる。
+
+[内部検討記録: 論点6・イテレーション0](./internal-records/task-design-discussion.md.topic-6.md#iteration-0)
+
+#### 提案0へのフィードバック（論点6）
+
+**結果:** 提案0 を採用
+
+> ok
+
+（2026-10-31、chat 上の発言）
+
+### 決定（論点6）
+
+`share-work-in-progress/SKILL.md` の「起動gate」の二段落目を、次に書き換える。
+
+> このskillが作るcommitは、作業中の内容を見せるためのcommitであり、意味の単位になっているとは限らない。
+> 後から整理するかは利用者が決める。既にあるcommitの扱いは`plan-commits`に従う。
+
+- 既にある commit の扱いの規則は写さず、plan-commits への参照だけを置く。
+- design.md の非目標から「`share-work-in-progress` の書き換え」を外し、「起動gate」の二段落目以外は変えないとする。tasklist-executor の契約を引く段落は変えない。
+- validator に、新しい二文の assertion と、「後からamendやrebaseで整理される前提を持つ」が戻らない assertion を足す。
+
+選択理由: 元の文は、WIP の commit を書き換えるものとして読み手に渡し、論点5 の決定と逆の既定になっていた。steering の `discussion.md` の論点1 で WIP の commit を作り直す案が出た根拠も、この文だった。消すだけにすると、WIP の commit が意味の単位でないことが伝わらない。
+
+## 論点7: 引き渡す内容に、利用者が合意した範囲を足すか
+
+**ステータス:** 決定
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点7）: 足すかと文を決める
+
+#### 提案0（論点7）
+
+steering の Step 4 の再発防止 review で、論点2・論点3 の取り違えの原因を `escalate-plugin-skill-fix` に求めた。`escalate-plugin-skill-fix/SKILL.md` の「引き渡す内容」を次のように変える。
+
+```diff
+-次の三点を、利用先repository固有の情報を除いた形で取り出す。
++次の四点を、利用先repository固有の情報を除いた形で取り出す。
+
+ - 提案の内容
+ - その提案が必要だと分かった具体例
+ - 提案の根拠
++- 利用者が合意した範囲。引き渡すことへの合意と提案の中身への合意を分け、利用者の原文を添える。中身や根拠をassistantが書いた場合は、その旨を示す。
++
++受け取った側は、利用者の原文で確かめられない中身を未合意として扱い、設計で改めて合意を取る。
+```
+
+あわせて validator に assertion を足し、design.md の要件・完成後の姿・付録に足す。
+
+#### 検討記録（論点7・イテレーション0）
+
+論点2・論点3 で、assistant は引き渡された提案2 の中身（phase ごとに確認の前に local で commit する）を、利用者が合意したものとして設計を進めた。
+利用者の「1:b」は、確認環境とぶつかる問題を plugin へ回すことへの合意であり、中身への合意ではなかった。
+利用者は「review環境で確認するとか必然性があるコミットを許可してるだけなのに」と正した。
+
+引き渡しの記録は、根拠に「assistant の整理」と付けていたが、提案の中身が誰の言葉かは示していなかった。
+今の「引き渡す内容」は、提案・具体例・根拠の三点だけを求め、利用者が何に合意したかを求めない。
+受け取る側には、引き渡しへの合意と中身への合意を見分ける材料が無い。
+
+引き渡しは利用先から plugin への経路であり、利用先が変わっても同じ形で起きる。原因は skill の不足と判断した。
+保留の経路（`pending-escalations.md`）も、条件成立後は同じ「引き渡す内容」を通るため、置く場所は一か所でよい。
+
+[内部検討記録: 論点7・イテレーション0](./internal-records/task-design-discussion.md.topic-7.md#iteration-0)
+
+#### 提案0へのフィードバック（論点7）
+
+**結果:** 提案0 を採用
+
+> ok
+
+（2026-10-31、chat 上の発言）
+
+### 決定（論点7）
+
+`escalate-plugin-skill-fix/SKILL.md` の「引き渡す内容」を四点にし、受け取った側の扱いを足す。
+
+> - 利用者が合意した範囲。引き渡すことへの合意と提案の中身への合意を分け、利用者の原文を添える。中身や根拠をassistantが書いた場合は、その旨を示す。
+>
+> 受け取った側は、利用者の原文で確かめられない中身を未合意として扱い、設計で改めて合意を取る。
+
+- 置き場所はこの節だけとする。保留からの転送も、条件成立後はこの節を通る。
+- validator に、足した二文の assertion と、「次の三点を」が戻らない assertion を足す。design.md の要件・完成後の姿・付録に足す。
+
+選択理由: 論点2・論点3 で、引き渡しへの合意（「1:b」）を提案の中身への合意として読んだ。受け取る側が二つを見分ける材料は、渡す側でしか作れない。
