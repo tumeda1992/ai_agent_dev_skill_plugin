@@ -603,6 +603,14 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 - task-designが行わない: 論点採番、親子関係、提案番号、iteration、feedback routing、合意確認を独自に組み立てる。
 - `facilitate-discussion`が行う: discussion scopeと対象論点を判定し、単独で判断できる現在案・背景、feedback、routing、決定をdiscussion fileへ保存して合意を進める。調査・検証・訂正等の過程は、同skillが接続する論点単位の内部検討記録へ保存する。二層の保存・読取・回復は同skillへ委ねる。
 
+#### commitの境界が設計判断になる時
+
+要件にrevertの単位がある時や、変更の分け方でreview・revert・本番適用の単位が変わる時は、commitの境界が設計判断になる。この時は`plan-commits`の判断基準（「分割の優先順位」と「境界を実物へ当てる」）を、designの変更の単位へ当てて境界を決める。designの段階には実差分が無いため`plan-commits`は起動せず、基準だけを当てる。実差分ができた後のcommit計画は`plan-commits`が持つ。
+
+- やってしまいがちな行動: revertしてもcodeと文書が食い違わない、同じ行を二度直さずに済む、といった必要条件や手間を、境界を決める基準にする
+- それをやると何が起きるか: 取り消す効果が独立した変更まで一つのcommitへまとまり、片方だけを戻せなくなる
+- 正しい判断のための問い: 「この変更を取り消した時に消したい効果と、残したい効果は何か。それは他の変更と同じか」
+
 ### skill / docs 改善が必要になったとき
 
 discussion中に「この気づきはskillへ書くべき」「このruleはdocsへ置くべき」と判明することがある。contextが熱いうちに永続化できるよう候補と関連contextを`facilitate-discussion`へ渡し、返されたdecisionだけを扱う。認識齟齬では、具体ケースの修正案より先に原因ownerを分類し、docsまたはskillの不備なら一般則を主decisionとして扱う内部processも`facilitate-discussion`を正本とする。

@@ -26,12 +26,17 @@
 
 ### UI確認環境
 
+<!-- 利用者の動作確認に使う環境と、そこへ載せる方法を書く。
+     確認環境へ載せるのに commit・push が要る場合（push で build される環境等）は、その旨と載せ方を書く。
+     tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push だけを、利用者の動作確認の前に許す -->
+
 - なし。このrepositoryはskill・docsのMarkdownとmanifestのJSONだけを持ち、起動するappを持たない。`visual-inspector` を使う対象がない。
 
 ### Git / GitHub公開条件
 
 - remote: `origin` は `ssh://git@github.com/tumeda1992/ai_agent_dev_skill_plugin.git`。
-- default branch: `main`。commitとpushをdefault branchへ直接行わない。
+- default branch: `main`。default branchの上で直接commitしない。作業はbranchで行う。
+  - `escalate-plugin-skill-fix`で引き渡された作業は、同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。
 - PR作成script: `scripts/for_local/github/create_or_get_pr.sh`。同じhead branchのopen PRがあれば新規作成せずそのURLを返す。
   - pluginのskills directory直下の共用配置 `skills/scripts/github/create_or_get_pr.sh` とはpathが異なる。このrepositoryで作業する時はrepository側の `scripts/for_local/github/` を使う。
   - この参照はplugin内のpathを指すsymlinkである。skill群やscriptを再配置した時は張り替えが要る。`scripts/for_local/` は`.gitignore`の対象のため、壊れてもgit差分にもCIにも現れない。

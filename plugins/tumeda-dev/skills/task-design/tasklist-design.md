@@ -115,7 +115,9 @@ tasklist作成途中では、解消対象を可視化するために`TBD`を使�
   3. どこに書けば次回この議論が不要になるか。変更は合意後だけ行う。
 - feedbackがdesignまたはplan構造へ影響する場合は、同じ`working_dir`でtask-designを`create_working_dir=false`として再開する。review後に実装を自動再開しない。
 - 自動testとscreenshotは機械的確認であり、ユーザーが実際に触る動作確認を代替しない。commit・push・PRより前にユーザー動作確認を必須にする。
-- `.agents/skills/tumeda-dev-plugin-context.md`にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け、部分承認なら承認範囲だけをcommitする。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答（`commitしない`等）もfactとして記載する。
+  - 例外: repositoryのcontext fileの`UI確認環境`が、確認環境へ載せるのにcommit・pushが要ると定めている場合、そのcommit・pushは確認の前に行ってよい。その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。それ以外のcommit・push・PRは確認の後に行う。
+  - 確認の前に確認環境のためのcommitが作業branchにある場合、確認で直したところは既存のcommitを書き換えず、追加のcommitにする。
+- `.agents/skills/tumeda-dev-plugin-context.md`にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け（分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める）、部分承認なら承認範囲だけをcommitする。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答（`commitしない`等）もfactとして記載する。
 - `.agents/skills/tumeda-dev-plugin-context.md`にGitHub公開条件の記載があり、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`scripts/github/create_or_get_pr.sh`を使う。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答もfactとして記載する。
 - 既定branchへのmergeを含む場合は、[`branch_pr_issue.md`](../../docs/development_standards/development_flow/branch_pr_issue.md)を引き、issue完了のmergeか検証のためのmergeかを判定してからsectionを生成する。判定の中身は同fileが正本であり、ここへ写さない。
 - push・PRの実行直前に、commit taskの結果としてlocal commitが実際に一件以上存在することを確認する。commit taskが取消完了になった等の理由でcommitが一件もなければ、push・PRを実行しない。
@@ -148,7 +150,7 @@ tasklistを書いたら、ユーザーへ提示する前にゼロベースで次
   - やってしまいがちな失敗: testの一覧を先に作り、DoDと突き合わせずに揃ったとみなす。DoDに書いたのにtestが無い項目は、実装者に「書かなくてよい」と読まれる。
 - [ ] **UI変更phaseにscreenshot確認があるか**: 品質checkだけへまとめていないか。
 - [ ] **横切りになっていないか**: 実装phaseの後にtest phaseを置くようなlayer分割になっていないか。
-- [ ] **commit・push・PRより前にユーザー動作確認があるか**: 自動test・screenshotをユーザー確認の代替にしていないか。
+- [ ] **commit・push・PRより前にユーザー動作確認があるか**（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）: 自動test・screenshotをユーザー確認の代替にしていないか。
   - 失敗例: 機械的確認を「動作確認済み」と読み替え、tasklist-executorがそのままcommit・pushまで進む。
 - [ ] **既定branchへのmergeを含む場合、どちらの経路か判定したか**: `Closes`の有無とbranchの扱いが経路に合っているか。
   - 失敗例: 検証のためのmergeへ`Closes`を付け、残作業があるのにissueが閉じる。

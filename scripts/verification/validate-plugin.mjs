@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.2.0";
+const expectedRelease = "8.2.1";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -569,6 +569,8 @@ for (const expected of [
   requireText(orderingParallelItemsDoc, expected);
 }
 requireText(advancingDiscussionDoc, "同じmessage、task、sessionに含まれる");
+requireText(advancingDiscussionDoc, "## 補助: 見つけた不備を問いにする前に、誤る場面を一つ言う");
+requireText(advancingDiscussionDoc, "この不備を直さなかったら、いつ、誰が、何を誤るか。その答えは、既にある発言や決定から決まらないか");
 for (const expected of [
   "**主軸: 具体caseと方針群を反復往復し、全caseを扱えるまで帰納する**",
   "方針群が変わるたび5へ戻る",
@@ -1051,6 +1053,10 @@ for (const heading of [
 }
 requireText(escalateSkill, "### plugin repositoryでの作業完了後の取り込み");
 requireText(escalateSkill, "作業branchを`main`へmergeする");
+// contextのGit運用は、escalateの取り込み（PRを経由しないmerge）と食い違わない。
+requireText(contextTemplate, "default branchの上で直接commitしない。作業はbranchで行う。");
+requireText(contextTemplate, "同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。");
+forbidText(contextTemplate, "commitとpushをdefault branchへ直接行わない");
 
 requireText(steeringSkill, "## Blocker resolution");
 requireText(
@@ -1230,6 +1236,47 @@ for (const expected of [
 requireText(runtimeFeedbackReview, "work_scope.md");
 requireText(runtimeFeedbackReview, "目的の外の不備を切り出すと決めた");
 requireText(`${pluginRoot}/docs/development_standards/README.md`, "work_scope.md");
+
+// 確認の前に許すcommit・push（UI確認環境の宣言）。
+const confirmEnvExclusion = "（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）";
+requireText(tasklistDesign, "repositoryのcontext fileの`UI確認環境`が、確認環境へ載せるのにcommit・pushが要ると定めている場合、そのcommit・pushは確認の前に行ってよい。");
+requireText(tasklistDesign, "それ以外のcommit・push・PRは確認の後に行う。");
+requireText(tasklistDesign, "確認で直したところは既存のcommitを書き換えず、追加のcommitにする");
+requireText(tasklistDesign, "その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。");
+requireText(tasklistTemplate, "- [ ] 確認環境へ載せる（`UI確認環境`が載せ方を定めている場合だけ。{載せ方}）");
+requireText(tasklistDesign, `**commit・push・PRより前にユーザー動作確認があるか**${confirmEnvExclusion}`);
+requireText(tasklistTemplate, "確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない");
+requireText(skillPath("tasklist-executor/SKILL.md"), `確認前にcommit・pushへ進まない${confirmEnvExclusion}`);
+requireText(skillPath("tasklist-executor/SKILL.md"), `ユーザー動作確認より先にcommit・push・PRへ進まない${confirmEnvExclusion}`);
+requireText(skillPath("steering/SKILL.md"), `ユーザー動作確認が完了する前にcommit、push、PRへ進ませない${confirmEnvExclusion}`);
+requireText(skillPath("steering/SKILL.md"), `ユーザー動作確認前にcommit、push、PRを行う${confirmEnvExclusion}`);
+requireText(skillPath("tumeda-dev-plugin-context.md"), "tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push だけを、利用者の動作確認の前に許す");
+// 確認の前の除外は確認環境のためのcommit・pushに限る。phaseごとに確認の前にcommitする形へ広げない。
+forbidText(tasklistTemplate, "このphaseの差分をlocalでcommitする");
+forbidText(tasklistDesign, "作業branchのpush・PRより前にユーザー動作確認を必須にする");
+requireText(skillPath("share-work-in-progress/SKILL.md"), "ユーザー動作確認が完了するまでcommit・push・PRを行わない");
+requireText(skillPath("README.md"), "tasklist-executorのcommit・push・PR契約");
+
+// commitの境界からplan-commitsへの導線。
+requireText(taskDesignSkill, "#### commitの境界が設計判断になる時");
+requireText(taskDesignSkill, "designの段階には実差分が無いため`plan-commits`は起動せず、基準だけを当てる");
+requireText(tasklistDesign, "分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める");
+requireText(tasklistTemplate, "境界は、実差分へ`plan-commits`を当てて決める");
+
+// 既にあるcommitを、履歴の単位を整えるためだけに書き換えない。
+const planCommitsSkill = skillPath("plan-commits/SKILL.md");
+requireText(planCommitsSkill, "一方、既にあるcommitを、履歴の単位を整えるためだけに書き換えない。");
+requireText(planCommitsSkill, "既にあるcommitの上へ、意味の単位で積む。書き換えるのは利用者が明示した時だけである。");
+forbidText(planCommitsSkill, "既存の保存commitを、履歴が整わないという理由だけで改変しない。");
+const shareWipSkill = skillPath("share-work-in-progress/SKILL.md");
+requireText(shareWipSkill, "このskillが作るcommitは、作業中の内容を見せるためのcommitであり、意味の単位になっているとは限らない。");
+requireText(shareWipSkill, "後から整理するかは利用者が決める。既にあるcommitの扱いは`plan-commits`に従う。");
+forbidText(shareWipSkill, "後からamendやrebaseで整理される前提を持つ");
+
+// 引き渡しへの合意を、提案の中身への合意として渡さない。
+requireText(escalateSkill, "- 利用者が合意した範囲。引き渡すことへの合意と提案の中身への合意を分け、利用者の原文を添える。");
+requireText(escalateSkill, "受け取った側は、利用者の原文で確かめられない中身を未合意として扱い、設計で改めて合意を取る。");
+forbidText(escalateSkill, "次の三点を、利用先repository固有の情報を除いた形で取り出す。");
 
 if (failures.length > 0) {
   console.error("plugin validation failed:");

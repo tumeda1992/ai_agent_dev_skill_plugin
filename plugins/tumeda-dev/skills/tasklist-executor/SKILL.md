@@ -75,7 +75,7 @@ tasklist.md が与えられていないときには、tasklist.md を要求し�
 
 - checkboxはtask・subtaskを実測完了した直後に`[x]`へ更新する。phase末や作業末にまとめて更新しない。停止時点のcheckboxが実態とずれると、再開時にどこから再開すべきかが決まらない
 - Phase完了境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる
-- ユーザー動作確認がtasklistにある時は`user_confirmation_required`で停止し、確認前にcommit・pushへ進まない
+- ユーザー動作確認がtasklistにある時は`user_confirmation_required`で停止し、確認前にcommit・pushへ進まない（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）
 - 利用上限に達した時は、完了済みtask、pending request/result、次の`[ ]`を`limit_reached`として返す
 - 同じ元作業の再開時と、task／phaseの既存完了条件を実測して次へ進む時は、元作業の場所と現在の状態・証拠を`escalate-plugin-skill-fix`へ渡し、[保留条件を再確認する](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)。未実測の完了を通知せず、各返信のpollingにも変えない。
 - 再開時は最初の`[ ]`と既存artifactを再評価する
@@ -182,7 +182,7 @@ Codexでは親sessionがこのskillをchildとして起動し、必須入力を�
 
 # 返却
 
-停止時は、共通契約の停止理由、完了task、次の未完了task、pending request/result、実行した検証を親へ返す。全task完了時はtasklist path、sibling design path、完了結果をcallerへ返すが、親roadmapを探索・更新しない。tasklistが定めるユーザー動作確認より先にcommit・push・PRへ進まない。
+停止時は、共通契約の停止理由、完了task、次の未完了task、pending request/result、実行した検証を親へ返す。全task完了時はtasklist path、sibling design path、完了結果をcallerへ返すが、親roadmapを探索・更新しない。tasklistが定めるユーザー動作確認より先にcommit・push・PRへ進まない（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）。
 
 # 禁止事項
 - design.md を勝手に再設計しない
