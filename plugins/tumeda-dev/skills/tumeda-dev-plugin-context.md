@@ -26,6 +26,10 @@
 
 ### UI確認環境
 
+<!-- 利用者の動作確認に使う環境と、そこへ載せる方法を書く。
+     確認環境へ載せるのに commit・push が要る場合（push で build される環境等）は、その旨と載せ方を書く。
+     tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push だけを、利用者の動作確認の前に許す -->
+
 - なし。このrepositoryはskill・docsのMarkdownとmanifestのJSONだけを持ち、起動するappを持たない。`visual-inspector` を使う対象がない。
 
 ### Git / GitHub公開条件

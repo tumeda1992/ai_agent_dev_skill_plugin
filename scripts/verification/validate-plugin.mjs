@@ -1231,6 +1231,26 @@ requireText(runtimeFeedbackReview, "work_scope.md");
 requireText(runtimeFeedbackReview, "目的の外の不備を切り出すと決めた");
 requireText(`${pluginRoot}/docs/development_standards/README.md`, "work_scope.md");
 
+// 確認の前に許すcommit・push（UI確認環境の宣言）。
+const confirmEnvExclusion = "（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）";
+requireText(tasklistDesign, "repositoryのcontext fileの`UI確認環境`が、確認環境へ載せるのにcommit・pushが要ると定めている場合、そのcommit・pushは確認の前に行ってよい。");
+requireText(tasklistDesign, "それ以外のcommit・push・PRは確認の後に行う。");
+requireText(tasklistDesign, "確認で直したところは既存のcommitを書き換えず、追加のcommitにする");
+requireText(tasklistDesign, "その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。");
+requireText(tasklistTemplate, "- [ ] 確認環境へ載せる（`UI確認環境`が載せ方を定めている場合だけ。{載せ方}）");
+requireText(tasklistDesign, `**commit・push・PRより前にユーザー動作確認があるか**${confirmEnvExclusion}`);
+requireText(tasklistTemplate, "確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない");
+requireText(skillPath("tasklist-executor/SKILL.md"), `確認前にcommit・pushへ進まない${confirmEnvExclusion}`);
+requireText(skillPath("tasklist-executor/SKILL.md"), `ユーザー動作確認より先にcommit・push・PRへ進まない${confirmEnvExclusion}`);
+requireText(skillPath("steering/SKILL.md"), `ユーザー動作確認が完了する前にcommit、push、PRへ進ませない${confirmEnvExclusion}`);
+requireText(skillPath("steering/SKILL.md"), `ユーザー動作確認前にcommit、push、PRを行う${confirmEnvExclusion}`);
+requireText(skillPath("tumeda-dev-plugin-context.md"), "tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push だけを、利用者の動作確認の前に許す");
+// 確認の前の除外は確認環境のためのcommit・pushに限る。phaseごとに確認の前にcommitする形へ広げない。
+forbidText(tasklistTemplate, "このphaseの差分をlocalでcommitする");
+forbidText(tasklistDesign, "作業branchのpush・PRより前にユーザー動作確認を必須にする");
+requireText(skillPath("share-work-in-progress/SKILL.md"), "ユーザー動作確認が完了するまでcommit・push・PRを行わない");
+requireText(skillPath("README.md"), "tasklist-executorのcommit・push・PR契約");
+
 if (failures.length > 0) {
   console.error("plugin validation failed:");
   for (const failure of failures) {

@@ -113,6 +113,7 @@ Tasks に挙げた確認をユーザーが行い、期待どおりであるこ�
 
 ### Tasks
 
+- [ ] 確認環境へ載せる（`UI確認環境`が載せ方を定めている場合だけ。{載せ方}）
 - [ ] ユーザーに動作確認を依頼する（{どの操作をしてもらい、何を観測できれば満たすか}）
 - [ ] feedbackがあれば、直接受領したworkflow ownerがpluginの`facilitate-discussion`を`implementation_review.md`へ適用し、decisionをcallerへ返す
   - [ ] designまたはplan構造が変わる場合は同じworking directoryでtask-designへ戻す
@@ -122,7 +123,7 @@ Tasks に挙げた確認をユーザーが行い、期待どおりであるこ�
 
 ## 完了後のaction
 
-> ⚠️ 確認環境へ載せるためのcommit・push（`UI確認環境`が定めるもの）を除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない。急かすことも禁止する。
+> ⚠️ 確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない。急かすことも禁止する。
 
 <!-- local Git運用条件が返された場合、またはユーザーがcommitを明示要求した場合だけ、次のsectionを生成する。条件を満たさない場合はsection自体をtasklistへ残さない。 -->
 
