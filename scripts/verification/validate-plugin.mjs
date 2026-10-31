@@ -1267,6 +1267,11 @@ requireText(shareWipSkill, "このskillが作るcommitは、作業中の内容�
 requireText(shareWipSkill, "後から整理するかは利用者が決める。既にあるcommitの扱いは`plan-commits`に従う。");
 forbidText(shareWipSkill, "後からamendやrebaseで整理される前提を持つ");
 
+// 引き渡しへの合意を、提案の中身への合意として渡さない。
+requireText(escalateSkill, "- 利用者が合意した範囲。引き渡すことへの合意と提案の中身への合意を分け、利用者の原文を添える。");
+requireText(escalateSkill, "受け取った側は、利用者の原文で確かめられない中身を未合意として扱い、設計で改めて合意を取る。");
+forbidText(escalateSkill, "次の三点を、利用先repository固有の情報を除いた形で取り出す。");
+
 if (failures.length > 0) {
   console.error("plugin validation failed:");
   for (const failure of failures) {

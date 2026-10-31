@@ -70,11 +70,14 @@ Git rootが取得できない、またはこの判定だけではplugin reposito
 
 ### 引き渡す内容
 
-次の三点を、利用先repository固有の情報を除いた形で取り出す。
+次の四点を、利用先repository固有の情報を除いた形で取り出す。
 
 - 提案の内容
 - その提案が必要だと分かった具体例
 - 提案の根拠
+- 利用者が合意した範囲。引き渡すことへの合意と提案の中身への合意を分け、利用者の原文を添える。中身や根拠をassistantが書いた場合は、その旨を示す。
+
+受け取った側は、利用者の原文で確かめられない中身を未合意として扱い、設計で改めて合意を取る。
 
 除去すべき固有情報（利用先repository名、所有者名、絶対path、固有ドメイン名、固有steering slugなど）の規約はこのskillが持たない。正本は`plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies/migration.md`である。除去すると提案の意味が保てなくなる場合は、無理に一般化せず、`migration.md`が定める規約に従って停止する。
 
