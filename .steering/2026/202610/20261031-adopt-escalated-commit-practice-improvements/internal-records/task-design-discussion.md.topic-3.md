@@ -79,3 +79,43 @@
 
 - 上の表の 10 か所の書き換えと、validator の assertion。
 - template の commit task の置き場所（各 phase の末尾と品質 check の末尾）。これは提案1 の導線を tasklist 側のどこへ置くかの前提になる。
+
+<a id="iteration-1"></a>
+
+## イテレーション1: 確認で直したところの commit の仕方
+
+利用者の応答（2026-10-31）「local commit書き換えないでいいんじゃ無い？ tasklist終了後に指摘があったからって、指摘修正で追いコミットでいいんじゃ無い？」を受けた。あわせて、提案0 が箇所の数で読みにくいとの指摘を受けた。
+
+<a id="iteration-1-record-1"></a>
+
+### 診断: 書き換えを入れた理由
+
+#### 入力
+
+- 期待との差: 提案0 は、確認で直すところが出た phase の commit を push の前に書き換えるとした。利用者は追加の commit で足りるとした。
+- 確認元: 論点2 の理由、提案0 の検討記録、利用先の作業の tasklist。
+
+#### 結果
+
+- 論点2 の理由（確かめていない変更を公開しない、push 前の local commit は直せる）は、push の前に確認があれば満たされる。「直せる」は、確認を commit の前に置かなくてよい根拠であり、直す方法を書き換えに限る根拠ではない。
+- 書き換えは、利用先の作業で assistant が tasklist に「直すところが出たら、push 前に該当 phase の commit を local で直す」と書いた文が元になっている。利用者の指示ではない。利用先では直すところが出なかったため、この手順は試されていない。
+- 書き換えには rebase か amend が要る。interactive な rebase は使えない実行環境がある。
+
+#### 原因の所在
+
+成果物固有。assistant が、phase の commit を確認済みの状態に揃えることを、根拠なく必須条件に加えていた。skill や docs の不足ではない。
+
+<a id="iteration-1-record-2"></a>
+
+### 判断: 直したところの commit の仕方
+
+推奨: 直した差分を追加の commit にする。決め手は、合意済みの理由を満たしたまま、agent に履歴の書き換えをさせずに済むこと。
+
+- 追加の commit（推奨）
+    - 代償: phase の commit を単独で revert した時に、それを直した追加の commit が残りうる。依存がある時は両方を戻す。
+- 書き換え（提案0）
+    - 必須条件に無い性質（phase の commit が確認済みの状態と一致すること）のために、rebase か amend を要する。
+
+#### 判断結果が規定するもの
+
+- `tasklist-design.md` の commit の生成条件の文と、template の動作確認の task の二箇所。他は提案0 のまま。

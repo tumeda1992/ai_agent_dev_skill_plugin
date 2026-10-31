@@ -151,3 +151,49 @@ Phase n の task（実装、test の作成・変更）
 [内部検討記録: 論点3・イテレーション0](./internal-records/task-design-discussion.md.topic-3.md#iteration-0)
 
 #### 提案0へのフィードバック（論点3）
+
+**結果:** 修正要求。直すところが出た時に phase の commit を書き換える部分を外す。あわせて、提案が箇所の数で読みにくいとの指摘を受けた
+
+> 論点3について数が多くてあまり読めてない。というか、local commit書き換えないでいいんじゃ無い？ tasklist終了後に指摘があったからって、指摘修正で追いコミットでいいんじゃ無い？
+
+（2026-10-31、chat 上の発言。利用者は作業中の PR（plugin repository の #9）で提案0 を当てた diff を見られる状態だった）
+
+評価: 合意済みの理由（確かめていない変更を公開しない）は、push の前に確認があれば守れる。phase の commit を書き換えることは理由から出てこない。書き換えは、phase の commit を確認済みの状態に揃えるために assistant が足したもので、根拠が無い。追加の commit にすれば既存の commit に触れず、agent に履歴の書き換えをさせずに済む。
+
+### イテレーション1（論点3）: 確認で直したところを追加の commit にする
+
+#### 提案1（論点3）
+
+提案0 から一点だけ変える。利用者の確認で直すところが出たら、既存の commit は書き換えず、直した差分を追加の commit にする。
+
+```text
+Phase ごとに: 実装 → DoD の確認 → local commit
+品質 check（直した差分があれば local commit）
+動作確認
+  ├─ 直すところなし → 作業 branch の push・PR
+  └─ 直すところあり → 直して、その差分を追加で local commit → 動作確認へ戻る
+```
+
+提案0 の表から変わる箇所は二つだけである。
+
+| file | 提案0 の後の文 | 提案1 の後の文 |
+| --- | --- | --- |
+| `task-design/tasklist-design.md`（commit の生成条件の文） | 「利用者の確認で直すところが出たphaseは、pushの前にそのphaseのcommitをlocalで直す。」 | 「利用者の確認で直したところは、既存のcommitを書き換えず、追加のcommitにする。」 |
+| `task-design/templates/tasklist.md` 動作確認 の Tasks | 「直すところが出たら、pushの前に該当phaseのcommitをlocalで直す（commit taskを生成した時だけ）」 | 「直すところが出たら、直した差分を追加でlocalにcommitする（commit taskを生成した時だけ。既存のcommitは書き換えない）」 |
+
+それ以外の箇所（確認を作業 branch の push・PR の前に置くこと、phase ごとの local commit、executor・steering・share-work-in-progress・skills/README の書き換え）は提案0 のままである。
+
+#### 検討記録（論点3・イテレーション1）
+
+利用者の指摘のとおり、合意済みの理由（確かめていない変更を公開しない）は、push の前に確認があれば守れる。phase の commit を書き換えることは、この理由から出てこない。
+提案0 の書き換えは、phase の commit を「確認済みの状態」に揃えるために assistant が足したもので、利用先の作業でも assistant が tasklist に書いた文が元になっていた。利用者の指示や合意に根拠は無い。
+追加の commit にすると、次のことが成り立つ。
+
+- 既存の commit に触れないため、agent に rebase や amend をさせずに済む。interactive な rebase を使えない実行環境でも同じ手順で動く。
+- 確認で直したことが、別の commit として履歴に残る。
+
+代償は、phase の commit を単独で revert した時に、それを直した追加の commit が残りうることである。直した差分が phase の commit に依存するなら、revert する時に両方を戻す。
+
+[内部検討記録: 論点3・イテレーション1](./internal-records/task-design-discussion.md.topic-3.md#iteration-1)
+
+#### 提案1へのフィードバック（論点3）
