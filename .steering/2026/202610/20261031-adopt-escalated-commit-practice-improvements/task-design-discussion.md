@@ -1,0 +1,153 @@
+# 議論記録
+
+## 論点1: 提案1（commit の境界を決める段階で plan-commits の基準を当てる導線）を取り込む理由
+
+**ステータス:** 決定
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点1）: 取り込む理由を決める
+
+#### 提案0（論点1）
+
+design.md の TL;DR に、提案1 を取り込む理由として次を書く。
+
+> commit の境界を決める段階で、何を比べて境界を決めるかの基準が手元に無い。そのため、revert しても code と文書が食い違わないといった必要条件や、同じ行を二度直す手間を、境界を決める基準と取り違える。plan-commits はその基準（意味で分ける、取り消した時に消したい効果と残したい効果を比べる、編集の手間や本数で境界を変えない）を持つが、task-design からも tasklist の設計からも辿れない。境界を決める段階からその基準へ辿れるようにして、同じ取り違えを減らす。取り違えの主な原因は当てはめの誤りであり、導線はそれを減らす補助にとどまる。
+
+どの段階のどの file へ導線を置くかと、書く文は、この理由の合意の後に別の論点で決める。
+
+#### 検討記録（論点1・イテレーション0）
+
+利用先の作業では、要件「機能の削除を単体で revert できる一つの変更にする」の下で、assistant が「revert しても code と文書が食い違わない」だけを軸に、code・文書・呼び名の変更を一つの commit にする案を出した。利用者の「コミット計画のスキル考えても同じ結論に至る？」で plan-commits の基準に当てると、画面の依存の切り離しと呼び名の変更は取り消す効果が独立しており、四つの commit に分かれた。
+基準そのものは plan-commits にあった。足りなかったのは、境界を決めている最中にそこへ辿る道である。利用者の問いがその道として働いた。
+
+plugin の現状（8.2.0）:
+
+- `plan-commits` を参照しているのは `skills/README.md` の一覧だけで、task-design、`tasklist-design.md`、tasklist-executor、steering は参照していない。
+- commit の境界を決める段階は二つある。
+    - tasklist の commit section: 「phase単位かつ意味単位で分け」とだけ定め、何を比べるかを書かない。
+    - design: 要件に revert の単位がある時に境界が設計判断になるが、その節も手順も無い。
+- plan-commits は「実差分から」計画し、「designやtasklistの見出しだけから計画を作らない」と定める。design の段階には実差分が無いので、skill をそのまま起動する形ではなく、判断基準を当てる形になる。これは次の論点の前提である。
+
+採らなかった理由の案:
+
+- 「意味単位」の定義を plugin の別の場所へ書く: plan-commits が既に基準を持ち、別に書くと正本が二つになる。
+- 取り込まない: 利用者は保留の時点で「skill は直さない」を選ばなかった。利用先の一件で、基準へ辿る問い一つが結論を変えた。
+
+限界: 根拠は利用先の一件であり、他の repository で同じ取り違えが起きたかは分からない。
+
+[内部検討記録: 論点1・イテレーション0](./internal-records/task-design-discussion.md.topic-1.md#iteration-0)
+
+#### 提案0へのフィードバック（論点1）
+
+**結果:** 合意。あわせて、この問いを出したこと自体への疑問を受けた
+
+> そりゃOKだけど、なんでこんなことが聞かれてるかわからない
+
+（2026-10-31、chat 上の発言）
+
+問いは不要だった。理由は利用先の作業で既に合意されていた。利用先では、assistant が原因と再発防止の候補を示したうえで「plugin へ提案するか」を問い、利用者が「1:b」と答えている。task-design の判定（上位を別の答えに置き換えて下位が変わるか、変わるなら相手の言葉を引けるか）に当てると、引ける言葉はその「1:b」だった。assistant は「根拠の文を書いたのが assistant である」ことを未合意と取り違えた。
+
+### 決定（論点1）
+
+design.md の TL;DR に、提案1 を取り込む理由として次を書く。
+
+> commit の境界を決める段階で、何を比べて境界を決めるかの基準が手元に無い。そのため、revert しても code と文書が食い違わないといった必要条件や、同じ行を二度直す手間を、境界を決める基準と取り違える。plan-commits はその基準（意味で分ける、取り消した時に消したい効果と残したい効果を比べる、編集の手間や本数で境界を変えない）を持つが、task-design からも tasklist の設計からも辿れない。境界を決める段階からその基準へ辿れるようにして、同じ取り違えを減らす。取り違えの主な原因は当てはめの誤りであり、導線はそれを減らす補助にとどまる。
+
+この理由は、利用先の作業で利用者が「1:b」（plugin へ提案する）と答えた時点で合意されていた。
+
+## 論点2: 提案2（利用者の動作確認を push の前に置き、local commit を先に許す）を取り込む理由
+
+**ステータス:** 反映待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点2）: 変更の報告
+
+#### 変更内容0（論点2）
+
+判断根拠: 既決事項からの導出。利用先の作業で、assistant が次の理由を推奨として示したうえで「plugin へ提案するか」を問い、利用者が「1:b」と答えた（2026-10-30）。
+
+design.md の TL;DR の「提案2: TBD」を、次に置き換える。
+
+> 利用者の動作確認で守りたいのは、確かめていない変更を公開しないことである。push の前の local commit は amend や rebase で直せるため、確認を作業 branch の push・PR の前に置けば守れる。今の契約は確認を commit の前に置くため、phase ごとに確認を待たないと commit できない。確認環境が commit の push で build される repository では、この順序が確認環境の使い方と構造上ぶつかり、確認のたびに一時 commit・push・build の待ちが要った。
+
+- 典拠: 利用先の実装後の振り返りの論点1。推奨の文は「local の commit は push の前なら直せるため、利用者の確認で守りたいもの（確かめていない変更を公開しないこと）は push の前の確認で守れる」。確認環境とぶつかる点は、利用者の「多分あれか？動確環境立ち上げの時のコミットに引きずられたのか？」に assistant が「半分はそうだと見る」と答えた内容である。
+- 対象: design.md の TL;DR の提案2 の行だけ。新しい契約の中身は、次の論点で決める。
+
+#### 検討記録（論点2・イテレーション0）
+
+論点1 で、理由を問いにしたことが不要だったと分かった（利用先で「1:b」と答えた時点で合意されていた）。提案2 も同じ形で合意されているため、問いにせず導出として報告する。
+
+[内部検討記録: 論点2・イテレーション0](./internal-records/task-design-discussion.md.topic-2.md#iteration-0)
+
+### 現在の変更（論点2）
+
+イテレーション0 の変更内容0。対象は design.md の TL;DR の提案2 の行。2026-10-31 に chat で報告した。対応する実応答は未着。未反映。
+
+## 論点3: 提案2 の新しい契約（利用者の動作確認・local commit・push・PR の順序）
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点3）: 契約の書き換えを決める
+
+#### 提案0（論点3）
+
+plugin の既定の順序を次に変える。repository の context file（`.agents/skills/tumeda-dev-plugin-context.md`）の local Git 運用条件が commit の時期を別に定めていれば、そちらに従う。
+
+```text
+Phase n の task（実装、test の作成・変更）
+  → Phase n の DoD の確認（test green、lint、型検査、UI 変更なら visual-inspector）
+  → Phase n の差分を local で commit（commit task を作る条件を満たす時。push はしない）
+   … 各 phase で繰り返す …
+品質 check（直した差分があれば local で commit）
+動作確認（利用者が確かめる）
+  ├─ 直すところなし → 完了後の action: 作業 branch の push・PR
+  └─ 直すところあり → implementation_review で扱う
+                        → push の前に、該当 phase の commit を local で直す
+                        → 動作確認へ戻る
+```
+
+変えないもの:
+
+- commit task を作る条件（context に local Git 運用条件がある、または利用者が commit を求めた）。
+- 作業の外へ残る action を含む phase で止まって確かめる規則。
+- push・PR の前に local commit が一件以上あることを確かめる規則。
+
+##### 書き換える箇所
+
+| file | 今 | 後 |
+| --- | --- | --- |
+| `task-design/tasklist-design.md` 実装後feedbackと公開action | 「commit・push・PRより前にユーザー動作確認を必須にする。」 | 「作業branchのpush・PRより前にユーザー動作確認を必須にする。確認で守るのは、確かめていない変更を公開しないことである。push前のlocal commitはamendやrebaseで直せるため、確認をcommitの前に置く必要はない。」 |
+| 同（commit の生成条件の文） | 「…だけcommit sectionを生成する。phase単位かつ意味単位で分け、部分承認なら承認範囲だけをcommitする。」 | 「…だけcommit taskを生成する。commit taskは各phaseの末尾に置き、そのphaseのDoDの確認（test、lint、型検査、UI変更ならvisual-inspector）を通した後に、利用者の確認を待たずにlocalでcommitする。phase単位かつ意味単位で分ける。利用者の確認で直すところが出たphaseは、pushの前にそのphaseのcommitをlocalで直す。local Git運用条件がcommitの時期を別に定めている場合は、それに従う。」（後半の「同fileに該当項目が無い場合は…」以降は変えない） |
+| 同 自己レビューgate | 「**commit・push・PRより前にユーザー動作確認があるか**」と、失敗例「…tasklist-executorがそのままcommit・pushまで進む。」 | 「**作業branchのpush・PRより前にユーザー動作確認があるか**: 自動test・screenshotをユーザー確認の代替にしていないか。phaseのcommit taskが、そのphaseのDoDの確認の後にあるか。」と、失敗例「…tasklist-executorがそのままpush・PRまで進む。」 |
+| `task-design/templates/tasklist.md` 各 Phase の Tasks | （commit task なし） | 末尾に「- [ ] このphaseの差分をlocalでcommitする（DoDの確認の後。pushしない）」を置き、commit task を作る条件を満たす時だけ残すよう comment で示す。今の完了後の commit block にある「まとめて一commitにしない」「同一phase内でも意味的に異なる変更を分割する（例: DB migration、domain model、GraphQL、frontendは別commit）」「利用者が不要と回答した場合は`[x] ~~commit~~（ユーザーが不要と回答）`」は、この task の下へ移す |
+| 同 品質check の Tasks | （commit task なし） | 末尾に「- [ ] 品質checkで直した差分があればlocalでcommitする」 |
+| 同 動作確認 の Tasks | （直す task なし） | 「- [ ] 直すところが出たら、pushの前に該当phaseのcommitをlocalで直す」（commit task を作った時だけ） |
+| 同 完了後のaction | ⚠️「動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない。」と、commit block | ⚠️「動作確認phaseが完了するまでpush、PRを促したり実行したりしない。」。commit block は消す（中身は phase の commit task へ移した。「部分承認なら承認範囲だけをcommit」は、上の「直す」task に置き換わる） |
+| `tasklist-executor/SKILL.md` 停止・再開 | 「…`user_confirmation_required`で停止し、確認前にcommit・pushへ進まない」 | 「…`user_confirmation_required`で停止し、確認前に作業branchのpush・PRへ進まない。phaseのcommit taskは、そのphaseのDoDを実測で通した後に実行する」 |
+| 同 返却 | 「tasklistが定めるユーザー動作確認より先にcommit・push・PRへ進まない。」 | 「tasklistが定めるユーザー動作確認より先に作業branchのpush・PRへ進まない。」 |
+| `steering/SKILL.md` 6-1 | 「tasklist内のユーザー動作確認が完了する前にcommit、push、PRへ進ませない。」 | 「tasklist内のユーザー動作確認が完了する前に作業branchのpush、PRへ進ませない。phaseのcommit taskは、そのphaseのDoDの確認の後に進めてよい。」 |
+| 同 やらないこと | 「…ユーザー動作確認前にcommit、push、PRを行う。…」 | 「…ユーザー動作確認前に作業branchのpush、PRを行う。…」 |
+| `share-work-in-progress/SKILL.md` description と起動gate | 「ユーザー動作確認が完了するまでcommit・push・PRを行わない」 | 「ユーザー動作確認が完了するまで作業branchのpush・PRを行わない」 |
+| `skills/README.md` share-work-in-progress の行 | 「tasklist-executorのcommit・push・PR契約」 | 「tasklist-executorのpush・PR契約」 |
+
+あわせて、validator に、後の文があることと今の文が戻らないことの assertion を足す。
+
+#### 検討記録（論点3・イテレーション0）
+
+確認と commit・push・PR の順序を定めている、または引いている箇所を、plugin 全体（skill、docs、root の README と AGENTS.md、validator）から「動作確認」「commit・push」「commit、push」「確認前に」「承認範囲」で探し、上の表の 6 file に限られることを確かめた。validator には、これらの文を検査する assertion は無い。
+
+新しい順序を plugin の既定にする理由は、論点2 の理由（push 前の local commit は直せる）が repository に依らないことである。既定を変えずに、context に宣言した repository だけ変える形も考えたが、宣言しない repository では確認環境とぶつかる問題が残る。逆に、既に「確認の後に commit」を context に書いている repository は、context の宣言が優先されるので振る舞いが変わらない。
+
+「local commit を行ってよい」とだけ書き、行うかを executor に任せる形は採らない。commit の有無と時期が実行時の判断になり、tasklist から実行順が読めなくなる。
+
+今の「部分承認なら承認範囲だけを commit し、残りは待つ」は、commit が確認の前に済むと成り立たない。代わりに「確認で直すところが出た phase は、push の前にその phase の commit を local で直す」とする。利用先の作業でも、tasklist にこの形で書いて運用できた。
+
+この論点では、確認環境へ載せるための push を push の制限に含めるかは扱わない。上の後の文は「作業 branch の push・PR」と書くため、確認環境への push については何も定めない状態になる。その扱いは次の論点で決める。
+
+[内部検討記録: 論点3・イテレーション0](./internal-records/task-design-discussion.md.topic-3.md#iteration-0)
+
+#### 提案0へのフィードバック（論点3）
