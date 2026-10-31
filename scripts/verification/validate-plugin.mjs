@@ -569,6 +569,8 @@ for (const expected of [
   requireText(orderingParallelItemsDoc, expected);
 }
 requireText(advancingDiscussionDoc, "同じmessage、task、sessionに含まれる");
+requireText(advancingDiscussionDoc, "## 補助: 見つけた不備を問いにする前に、誤る場面を一つ言う");
+requireText(advancingDiscussionDoc, "この不備を直さなかったら、いつ、誰が、何を誤るか。その答えは、既にある発言や決定から決まらないか");
 for (const expected of [
   "**主軸: 具体caseと方針群を反復往復し、全caseを扱えるまで帰納する**",
   "方針群が変わるたび5へ戻る",
