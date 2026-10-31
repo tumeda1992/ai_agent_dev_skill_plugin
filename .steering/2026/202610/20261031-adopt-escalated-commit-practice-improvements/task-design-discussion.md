@@ -626,3 +626,327 @@ steering の Step 4 の再発防止 review で、論点2・論点3 の取り違�
 - validator に、足した二文の assertion と、「次の三点を」が戻らない assertion を足す。design.md の要件・完成後の姿・付録に足す。
 
 選択理由: 論点2・論点3 で、引き渡しへの合意（「1:b」）を提案の中身への合意として読んだ。受け取る側が二つを見分ける材料は、渡す側でしか作れない。
+
+## 論点8: escalate-plugin-skill-fix の取り込みの節と、context の Git 運用の記述をどうそろえるか
+
+**ステータス:** 決定
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点8）: 取り込みに PR を経由するかを決める
+
+#### 提案0（論点8）
+
+二つの記述は、出どころが違う。
+
+- `escalate-plugin-skill-fix/SKILL.md` の「plugin repositoryでの作業完了後の取り込み」は、2026-08-31 の利用者の指示による。作業 branch を push し、`main` へ merge して `main` を push する。PR は経由しない。
+  > このスキルが使われるホームポジションはpluginを使う側であり、使う側のリポジトリにとってpluginはサブであり、自活したい。わざわざgithubを開いてPRをマージするより、さっとpluginを更新してメインの動きに戻りたい
+- context file の `### Git / GitHub公開条件` の「default branch: `main`。commitとpushをdefault branchへ直接行わない。」は、同じ時期に、空だった context の instance を埋めた時に assistant が書いた。利用者と議論した記録は無い。
+
+食い違いは、この一文の「直接」が二通りに読めることから来る。「`main` の上で commit しない（作業は branch で行う）」と読めば 4 step と両立する。「`main` へ push しない」と読むと両立しない。
+
+次のどちらかを選ぶ。
+
+- a) PR を経由しない取り込みを続ける（推奨）。escalate は変えず、context の一文を次のように直す。
+
+  ```diff
+  -- default branch: `main`。commitとpushをdefault branchへ直接行わない。
+  +- default branch: `main`。default branchの上で直接commitしない。作業はbranchで行う。
+  +  - `escalate-plugin-skill-fix`で引き渡された作業は、同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。
+  ```
+
+- b) PR を経由する取り込みに変える。escalate の取り込みの節（4 step と PR を経由しない理由）を、作業 branch を push して PR を作り、merge は利用者が行う形に置き換える。context は変えない。
+
+どちらでも、validator の assertion（今は 4 step の文を検査している）を合わせ、design.md に足す。
+この作業（PR #9）の取り込みは、steering の `discussion.md` 論点2 で決めたとおり、利用者が PR #9 を merge する。
+
+推奨は a。08-31 の理由を取り下げる発言は記録に無い。この作業で PR を開いたのは、設計の途中の diff を見るため（share-work-in-progress）であり、取り込みの review のためではなかった。
+
+#### 検討記録（論点8・イテレーション0）
+
+steering の `discussion.md` 論点2 で、assistant は二つの記述を、同じ重みの決まりどうしの食い違いとして示した。論点8 の案を作る前に、それぞれの出どころを git の履歴と過去の steering の記録で確かめた。
+
+- 4 step は、2026-08-31 の steering の議論で利用者が手順と理由を指示し、そのまま合意された。
+- context の一文は、同じ時期の commit で、assistant が「検証した実fact」として instance に書いた。議論の記録は見つからなかった。
+- `main` の履歴には、PR を経由しない merge（`Merge branch '<steering の basename>'`）と、PR の merge（#8）の両方がある。
+
+また、論点2 で assistant は b（別の作業にする）を推奨し、理由を「この作業の目的の決定・実装範囲は、この判断で変わらない」とした。
+`development_flow/work_scope.md` は、目的の外であることを切り出す理由にしない。既定は今の作業で拾う。利用者の「a」は、この標準に沿う。
+
+a の一文は、context file の template にも入る。この file は配布する template と、この repository の instance を兼ねるためである。
+template がこの repository 固有の事実を持つことは、この論点の前からある（remote、version bump など）。この論点の結論は、それで変わらない。
+
+[内部検討記録: 論点8・イテレーション0](./internal-records/task-design-discussion.md.topic-8.md#iteration-0)
+
+#### 提案0へのフィードバック（論点8）
+
+**結果:** 提案0 を取り下げた（利用者の採否が要らない問いだった）
+
+> なんか、それでそんな問題起きる？みたいなことで何度か答えさせられてる感じがする。
+> skill-updatereviewがうるさいせいからか？
+> あれに依頼したことはskill.mdから切り出せるものがあったら分割透知しろってだけの内容だったのに
+
+（2026-10-31、chat 上の発言。提案0 の a / b へは答えていない）
+
+この発言は、この作業で出た問いの全体について述べたものであり、論点8 だけを指してはいない。
+assistant は、論点8 がそうした問いの一つにあたると判断し、提案0 を取り下げた。
+答えは 2026-08-31 の利用者の指示から一つに決まり、提案0 自身がそれを推奨の理由に挙げていた。
+次の回で、a を既決事項から導いた変更として報告する。
+
+### イテレーション1（論点8）: 変更の報告
+
+#### 変更内容1（論点8）
+
+判断根拠: 既決事項からの導出。2026-08-31 の利用者の指示（提案0 に引用した「わざわざgithubを開いてPRをマージするより、さっとpluginを更新してメインの動きに戻りたい」）による。この指示を取り下げる発言は記録に無い。
+
+PR を経由しない取り込みを続ける。`escalate-plugin-skill-fix/SKILL.md` は変えない。
+`plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md` の `### Git / GitHub公開条件` の一行を、提案0 の a のとおりに直す。
+
+```diff
+-- default branch: `main`。commitとpushをdefault branchへ直接行わない。
++- default branch: `main`。default branchの上で直接commitしない。作業はbranchで行う。
++  - `escalate-plugin-skill-fix`で引き渡された作業は、同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。
+```
+
+- 変更先: 上の 1 か所。この file は配布する template と、この repository の instance を兼ねるため、template にも同じ文が入る。
+- validator: 新しい二行の assertion を足す。escalate の 4 step の assertion はそのまま残す。
+- design.md: 論点8 の TBD を、この変更に置き換える。
+- この作業（PR #9）の取り込みは、steering の `discussion.md` 論点2 の決定のまま、利用者が PR #9 を merge する。この変更は次の作業から効く。
+- 検証: 反映後に validator を通す。
+
+#### 検討記録（論点8・イテレーション1）
+
+提案0 は、答えが既決事項から一つに決まるのに、a / b の採否として問うた。
+facilitate-discussion の `derived-change.md` は、既決事項から一意に導いた変更を、採否を問わずに報告し、次の実応答を確かめてから反映すると定める。論点8 はこれにあたった。
+この作業で出した問いの出どころと、利用者の採否が要らなかった問いを、内部検討記録にまとめた。
+
+[内部検討記録: 論点8・イテレーション1](./internal-records/task-design-discussion.md.topic-8.md#iteration-1)
+
+### 決定（論点8）
+
+PR を経由しない取り込み（`escalate-plugin-skill-fix/SKILL.md` の「plugin repositoryでの作業完了後の取り込み」）を続ける。escalate は変えない。
+context file の `### Git / GitHub公開条件` の一行を、変更内容1 の diff のとおりに直す。`main` の上で直接 commit しないことと、escalate で引き渡された作業は PR を経由せず `main` へ merge して push することを書く。
+validator に新しい二行の assertion と、元の一文が無いことの検査を足す。design.md の論点8 の TBD を、この変更の行に置き換える。
+
+典拠は 2026-08-31 の利用者の指示（提案0 に引用）であり、取り下げる発言は記録に無い。
+この作業（PR #9）の取り込みは、steering の `discussion.md` 論点2 の決定のまま、利用者が PR #9 を merge する。この変更は次の作業から効く。
+
+選択理由: context の一文は、空の instance を埋めた時に assistant が書いたもので、議論の記録が無い。「直接」を「`main` へ push しない」と読むと、利用者の指示による 4 step と食い違う。利用者の指示に合わせて、一文の方を直す。
+
+### 現在の変更（論点8）
+
+イテレーション1 の変更内容1。対象は context file の `### Git / GitHub公開条件` の一行、validator、design.md の論点8 の TBD。2026-10-31 に chat で報告した。
+
+対応する実応答（2026-10-31、報告の後の利用者の発言）:
+
+> 検出に絞るかどうかは、この論点に限らず、今回の一連のsteeringで、間違ってないわけではないけれども、価値が少ない問答が遅延行為になったかで決める
+
+この発言は論点9 の問いへの答えである。変更内容1 への異論は無い。報告の後の実応答として受け取り、反映した。
+反映後に validator を通した。
+
+## 論点9: skill-update-review を、SKILL.md から切り出せるものの検出に絞るか
+
+**ステータス:** 決定
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点9）: 絞るかを決める
+
+この回は事後記録である（2026-10-31 に記録）。chat で問いを出す前に、この file へ保存しなかった。
+
+#### 提案0（論点9）
+
+（2026-10-31 の chat で assistant が示した問い）
+
+skill-update-review を「SKILL.md から切り出せるもの」の検出だけに絞るか。
+
+- そのまま（推奨）: この作業で問いが多かった原因は assistant であり、skill-update-review から出た問い（論点3 の変更内容4、論点6）は、実際に起きていた問題だったため。
+- 絞る: `.steering/2026/202610/20261018-escalate-pending-plugin-improvements/` の論点46 などの決定を見直すことになるので、別の作業にする。
+
+#### 検討記録（論点9・イテレーション0）
+
+利用者が、問いの多さは skill-update-review のせいかと問い、skill-update-review に頼んだのは SKILL.md から切り出せるものの通知だけだったと述べた（発言の原文は論点8 の提案0 へのフィードバック）。
+assistant は、この作業の問いの出どころと、skill-update-review の元の目的を確かめた。
+
+[内部検討記録: 論点8・イテレーション1 の記録1](./internal-records/task-design-discussion.md.topic-8.md#iteration-1-record-1)
+
+#### 提案0へのフィードバック（論点9）
+
+**結果:** 判断の基準が示された。採否は未決
+
+> 検出に絞るかどうかは、この論点に限らず、今回の一連のsteeringで、間違ってないわけではないけれども、価値が少ない問答が遅延行為になったかで決める
+
+（2026-10-31、chat 上の発言）
+
+提案0 の推奨の理由（実際に起きていた問題だった）は、指摘が正しいかを見ていた。
+利用者の基準は、正しくても価値が少ない問答が、作業を遅らせたかである。
+提案0 の推奨は、この基準で見直す。
+
+### イテレーション1（論点9）: 利用者の基準に当てて、絞るかを決める
+
+#### 提案1（論点9）
+
+今回の一連の steering は、利用先 repository の steering（既存の「いいね」の一括取込みを外す作業。`request-check-on-review-environment` を作った）と、この作業の二つとした。
+この二つで skill-update-review は 8 回 review した（利用先で 3 回、この作業で 5 回）。
+そこから利用者との問答が 5 回生じた。
+
+| 問答 | 指摘 | 価値 |
+| --- | --- | --- |
+| 利用先の論点11 の報告 | 一時 commit の command 列が、実行する directory で変わる | 高い。agent の shell は steering の directory へ移ることがあり、そこで実行すると `.steering/` だけが確認環境へ載る |
+| 利用先の論点15 の報告 | skill の入力と返却が無い | 低い。main を取り込まずに載せると選んで呼び直すと、手順2 で再び止まる。agent がその場で気づいて避けられる |
+| 利用先の論点9 のイテレーション1 の報告 | 終了 code 4 が design.md に無い | 低い。skill と script には既に入っていた。design.md の記録を実物にそろえただけである |
+| この作業の論点3 の変更内容4 | 確認環境へ載せる task を置く指示が無い | 低い。確認環境を持つ利用先は今は一つで、そこでは `request-check-on-review-environment` が確認の task で起動して載せる |
+| この作業の論点6 | share-work-in-progress の一文が、逆の既定を渡す | 低い。誤りは一度起きたが、論点5 で plan-commits に規則が入った後は、効く場面が少ない |
+
+- 価値が高かったのは 1 回（利用先の論点11）。
+    - これも切り出しの指摘ではない。review の中で command を実行して見つけたものであり、動作の検証でも見つけられる。
+- 切り出しの指摘は、8 回の review で一件も無かった。
+- 問答の他に、review ごとに読んだ file の hash を記録し、再 review で照合した。これも作業を遅らせた。
+
+利用者の基準に当てると、価値が少ない問答が 5 回のうち 4 回あり、遅延になった。次のどれかを選ぶ。
+
+- a) 絞る。別の作業で行う（推奨）
+- b) 絞る。この作業で行う
+- c) そのまま
+
+推奨は a。絞るのは利用者の基準による。
+別の作業にするのは、絞ると 20261018 の論点31〜47 の決定（不合格なら完了にしない、受渡しや二重管理の確認、hash で版を結ぶ等）のどれを残すかを決め直す必要があり、この作業に含めると PR #9 の取り込みが遅れるためである（`development_flow/work_scope.md` の二段目「今の作業に含めると、本番への適用が遅れる」）。
+a か b を選んだ場合、受け入れる弱点として、論点11 のような動作の不備を skill-update-review では見つけなくなる。動作の検証で見つける。
+
+a を選んだ場合は、別の作業の steering を先に作り、この作業の design.md に今はやらない理由と切り出し先を書く。
+
+#### 検討記録（論点9・イテレーション1）
+
+利用先の steering の三つの報告と、この作業の二つの問答を、それぞれ「直さなかったら、いつ誰が何を誤ったか」で見直した。
+価値の判定の根拠と、各問答の出典は内部検討記録に置いた。
+
+[内部検討記録: 論点9・イテレーション1](./internal-records/task-design-discussion.md.topic-9.md#iteration-1)
+
+#### 提案1へのフィードバック（論点9）
+
+**結果:** 調査の観点を訂正された。採否は未決
+
+> えっと、調査観点が違う。skill-update-reviewが、切出しだけで機能してるならいいんだけど、それ以上のうるさい指摘存在になってないかというところ
+
+（2026-10-31、chat 上の発言）
+
+提案1 は、指摘一つ一つの価値を測った。
+利用者が見たいのは、skill-update-review が切り出しの検出を超えた指摘をしていないかである。価値が高い指摘でも、切り出しの指摘でなければ、範囲を超えている。
+
+### イテレーション2（論点9）: 切り出しを超えた指摘をしているかを確かめる
+
+#### 提案2（論点9）
+
+skill-update-review を使った三つの steering の記録を見た。20261027 の steering、利用先 repository の steering（既存の「いいね」の一括取込みを外す作業）、この作業である。
+
+指摘は 12 件あり、切り出しの指摘は 0 件だった。12 件すべてが切り出しを超えた指摘である。そのうち 9 件が、利用者への報告になった（20261027 で 4 回、利用先で 3 回、この作業で 2 回）。
+
+| 指摘の種類 | 件数 | 指摘 | 指摘を求めている skill の文 |
+| --- | --- | --- | --- |
+| 処理の順序・位置 | 3 | 20261027 の 1・2・5 | `assess-structure.md` の「全体の責務と進行を照合する」 |
+| 受渡し・入出力・状態の遷移 | 4 | 20261027 の 4・6、利用先の指摘2、この作業の 1 回目の指摘2 | 同じ節の「入出力、判断・状態、停止・再開・返却」、description の「受渡し」 |
+| 文・規則の食い違い | 3 | 20261027 の 3、この作業の 1 回目の指摘1（句）、3 回目の指摘1（share-work-in-progress） | 同じ節の「規則の正本」、「変更caseで構造を評価する」の二重正本 |
+| command の不具合 | 1 | 利用先の指摘1（実行する directory で結果が変わる） | script の中身まで読む範囲（20261018 の論点46） |
+| 記録と実物の差 | 1 | 利用先の編集後 review の終了 code 4 | 編集後 review の、構造案との照合 |
+
+切り出しを超えた指摘は、運用で広がったのではなく、skill の文が求めている。
+skill を作った commit（`b172223`）の時点で、description は「全体の責務・判断・状態・受渡しをreviewする」であり、`assess-structure.md` の最初の節は順序・入出力・状態・返却・規則の正本の照合を求めていた。
+切り出しに当たる文は、同じ節の「独立した改訂理由と検証のまとまり」と、一 file を維持するか・内部指示へ分けるか・別 skill にするかの判定の段落だけである。
+
+次のどれかを選ぶ。
+
+- a) 切り出しの検出に絞る。別の作業で行う（推奨）
+- b) 切り出しの検出に絞る。この作業で行う
+- c) そのまま
+
+推奨は a。
+絞るのは、skill-update-review が切り出しの検出では一度も働かず、切り出しを超えた指摘だけをしていたためである。
+別の作業にするのは、description、`assess-structure.md` の最初の節、再 review と hash の照合の節を書き直し、20261018 の論点31〜47 の決定のどれを残すかを決め直すことになるためである。この作業に含めると、PR #9 の取り込みが遅れる（`development_flow/work_scope.md` の二段目「今の作業に含めると、本番への適用が遅れる」）。
+受け入れる弱点として、利用先の指摘1 のような動作の不備を、skill-update-review では見つけなくなる。動作の検証で見つける。
+
+#### 検討記録（論点9・イテレーション2）
+
+三つの steering の review の記録から指摘を拾い、切り出しの指摘かどうかと、その指摘を求めている skill の文を対応づけた。
+20261018 の steering（skill-update-review を作った作業）の中の review は見ていない。
+
+[内部検討記録: 論点9・イテレーション2](./internal-records/task-design-discussion.md.topic-9.md#iteration-2)
+
+#### 提案2へのフィードバック（論点9）
+
+**結果:** 提案2 を a で採用
+
+> a
+
+（2026-10-31、chat 上の発言）
+
+### 決定（論点9）
+
+skill-update-review を、SKILL.md から切り出せるもの（独立した判断・状態・完了条件・改訂理由を持つ工程の抱え込み）の検出に絞る。
+この作業では行わず、別の作業にする。この作業の design と plan は変えない。
+
+- 切り出し先: 保留メモ [`pending-escalations/001-narrow-skill-update-review-to-split-detection.md`](./pending-escalations/001-narrow-skill-update-review-to-split-detection.md)。plugin repository は issue を持たないため（context file の `### Branch / issue 契約`）、別の steering を起動するまでの間は、escalate-plugin-skill-fix の保留の仕組みで追跡する。
+- 再開条件: この作業の完了の後に、plugin repository で別の steering を起動して扱う。
+- 書き直す範囲と残す決定（20261018 の論点31〜47）は、別の作業で決める。
+- design.md の非目標へ、今はやらない理由と切り出し先を書く。
+
+選択理由: skill-update-review を使った三つの steering で、指摘 12 件のうち切り出しの指摘は 0 件だった。切り出しを超えた指摘は、運用ではなく skill の文が求めていた。別の作業にするのは、この作業に含めると PR #9 の取り込みが遅れるためである（`development_flow/work_scope.md` の二段目）。
+受け入れる弱点: 動作の不備を skill-update-review では見つけなくなる。動作の検証で見つける。
+
+## 論点10: 見つけた不備を問いにする前に、何を確かめるか
+
+**ステータス:** 決定
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点10）: 確かめることと、書く場所を決める
+
+#### 提案0（論点10）
+
+`plugins/tumeda-dev/docs/think_standards/advancing_discussion.md`（議論を進めるとき）の末尾に、次の補助を足す。
+
+```markdown
+## 補助: 見つけた不備を問いにする前に、誤る場面を一つ言う
+
+作業中に、文と文の食い違いや記述の欠けに気付くことがある。問いにする前に、直さなかった時に、どの場面で誰が何を誤るかを一つ言う。
+言えなければ問いにしない。言えても、答えが既にある発言や決定から一つに決まるなら、採否を問わず、導いた結果として報告する（[ユーザーから指摘・提案を受領したとき](./receiving_feedback.md)の、外部にある情報は自分で取りに行く）。
+
+やってしまいがちな行動:
+- 二つの文の食い違いに気付いた時点で、どちらへ揃えるかを利用者の採否にする
+- 誤りが起きていない潜在的な欠けを、拾うか切り出すかの問いにする
+
+それをやると何が起きるか:
+- 間違ってはいないが価値の少ない問答が積み重なり、作業が遅れる。例えば、repository 固有の文書と skill の手順の食い違いを二択で問うたが、答えは利用者の過去の指示から一つに決まっていた。配布する template が配布元固有の事実を持つことを問うたが、利用先で誤りは起きていなかった
+
+正しい判断のための問い:
+「この不備を直さなかったら、いつ、誰が、何を誤るか。その答えは、既にある発言や決定から決まらないか」
+```
+
+あわせて validator に、見出しの assertion を足す。design.md の要件・完成後の姿に一行足す。
+
+#### 検討記録（論点10・イテレーション0）
+
+この作業で、答えが既にあった問い・誤りが起きていない問いを、assistant が三つ起こした（論点1、steering の論点2 と論点8、template の件。[論点8 の内部検討記録](./internal-records/task-design-discussion.md.topic-8.md#iteration-1-record-1)）。
+答えが既にあるかは、`receiving_feedback.md` の主軸（外部にある情報は自分で取りに行く）と facilitate-discussion の導出変更が既に扱う。assistant の当てはめの誤りである。
+直さなかった時に誤る場面を確かめる問いは、思考標準にも skill にも無い。これを足す。
+
+書く場所は、思考標準の「議論を進めるとき」にした。
+問いを出すのは設計・review・実装のどの場面でも起き、template の件は discussion を通さず chat で問うた。facilitate-discussion の論点を起こす判定に置くと、discussion の外で出す問いに効かない。
+主軸（問いはロジックツリーの上位から）とは別の判断なので、補助にする（`evolution_policy.md`）。
+
+[内部検討記録: 論点10・イテレーション0](./internal-records/task-design-discussion.md.topic-10.md#iteration-0)
+
+#### 提案0へのフィードバック（論点10）
+
+**結果:** 提案0 を採用
+
+> ok
+
+（2026-10-31、chat 上の発言）
+
+### 決定（論点10）
+
+`plugins/tumeda-dev/docs/think_standards/advancing_discussion.md` の末尾に、提案0 の「補助: 見つけた不備を問いにする前に、誤る場面を一つ言う」を、提案0 の文のとおり足す。
+validator に見出しと判断の問いの assertion を足し、design.md の要件・完成後の姿・受け入れ基準・付録に足す。
+
+選択理由: この作業で assistant は、答えが既にあった問い・誤りが起きていない問いを三つ起こした。答えが既にあるかは `receiving_feedback.md` と facilitate-discussion の導出変更が既に扱うため、参照だけにする。直さなかった時に誤る場面を確かめる問いは、どこにも無かった。
+思考標準に置くのは、問いを出す場面が設計・review・実装のどこでも起き、discussion を通さず chat で問うこともあるためである。

@@ -75,6 +75,8 @@
 | `tasklist-executor/SKILL.md` の「停止・再開」と「返却」 | tasklist を実行する tasklist-executor | 確認環境へ載せる commit・push だけを確認の前に行う |
 | `steering/SKILL.md` の「6-1. leafを実行する」と「このskillが絶対にやらないこと」 | dispatch する steering | 確認環境へ載せる commit・push を止めない |
 | `skills/tumeda-dev-plugin-context.md`（context file の template）の `### UI確認環境` | 利用先 repository で context を書く人・agent | 確認環境へ載せるのに commit・push が要るなら、その旨と載せ方を書く（[議論記録](./task-design-discussion.md#論点3-提案2-の新しい契約利用者の動作確認local-commitpushpr-の順序)） |
+| `skills/tumeda-dev-plugin-context.md`（この repository の instance を兼ねる）の `### Git / GitHub公開条件` | この repository で作業する agent | `main` の上で直接 commit せず、escalate で引き渡された作業は `escalate-plugin-skill-fix` の取り込みに従って PR を経由せず `main` へ merge する。escalate の手順と読み違えない（[議論記録](./task-design-discussion.md#論点8-escalate-plugin-skill-fix-の取り込みの節とcontext-の-git-運用の記述をどうそろえるか)） |
+| `docs/think_standards/advancing_discussion.md` の「補助: 見つけた不備を問いにする前に、誤る場面を一つ言う」 | 作業中に不備に気付いた agent | 問いにする前に、直さなかった時に誤る場面を一つ言う。言えなければ問わず、答えが既にある発言や決定から決まるなら導いた結果として報告する（[議論記録](./task-design-discussion.md#論点10-見つけた不備を問いにする前に何を確かめるか)） |
 | `scripts/verification/validate-plugin.mjs` | validator | 変えた契約の文に対応する assertion を持つ（repository の test 方針） |
 | version 宣言 5 箇所 | 配布 | 既存 skill の内容修正なので PATCH（8.2.0 → 8.2.1） |
 
@@ -109,6 +111,8 @@
 - `share-work-in-progress/SKILL.md` の「起動gate」で、作る commit を後から書き換える前提を外し、既にある commit の扱いを `plan-commits` へ委ねる。規則は写さない。
 - `escalate-plugin-skill-fix/SKILL.md` の「引き渡す内容」に、利用者が合意した範囲（引き渡すことへの合意と中身への合意を分け、原文を添える）を足す。受け取った側は、原文で確かめられない中身を未合意として扱う。
 - context file の template の `### UI確認環境` に、確認環境へ載せるのに commit・push が要るならその旨と載せ方を書く、という comment を置く。
+- context file の `### Git / GitHub公開条件` を、`main` の上で直接 commit しないことと、escalate で引き渡された作業は PR を経由せず `main` へ merge することに直す。escalate の取り込みの節は変えない。
+- 思考標準の「議論を進めるとき」に、見つけた不備を問いにする前に誤る場面を一つ言う補助を足す。答えが既にあるかは `receiving_feedback.md` への参照にし、規則を二か所に持たない。
 - version を 8.2.1 にする（既存 skill の内容修正のため PATCH）。
 - 変えた skill・docs の契約の文に対応する assertion を `scripts/verification/validate-plugin.mjs` に足し、撤去した文が戻らないことも検査する。
 - plugin へ書く内容に、利用先 repository 固有の情報を入れない（`maintenance_policies/migration.md`）。
@@ -127,6 +131,7 @@
 - phase ごとに、利用者の確認の前に local で commit すること。利用者の意図に無い（[議論記録](./task-design-discussion.md#論点3-提案2-の新しい契約利用者の動作確認local-commitpushpr-の順序)）。
 - `skills/README.md` の書き換えと、`share-work-in-progress/SKILL.md` の「起動gate」の二段落目以外の書き換え。tasklist-executor の契約の原則は変わらない。
 - 確認環境へ載せる具体的な手順を plugin に書くこと。手順は repository ごとに違い、context file の `UI確認環境` と repository の文書が持つ。
+- `skill-update-review` を、SKILL.md から切り出せるものの検出に絞ること（今回だけの判断）。理由は、この作業に含めると PR #9 の取り込みが遅れるため。切り出し先は保留メモ [`pending-escalations/001-narrow-skill-update-review-to-split-detection.md`](./pending-escalations/001-narrow-skill-update-review-to-split-detection.md) で、この作業の完了の後に別の steering で扱う（[議論記録](./task-design-discussion.md#論点9-skill-update-review-をskillmd-から切り出せるものの検出に絞るか)）。
 
 ### 受け入れ基準
 
@@ -135,6 +140,8 @@
 - `task-design/SKILL.md` に「commitの境界が設計判断になる時」の小節があり、`tasklist-design.md` と `templates/tasklist.md` に `plan-commits` への導線がある。
 - `plan-commits/SKILL.md` に、既にある commit を書き換えない段落があり、「既存の保存commit」の一文が無い。
 - `escalate-plugin-skill-fix/SKILL.md` の「引き渡す内容」が四点になり、受け取った側の扱いの文がある。
+- context file に「commitとpushをdefault branchへ直接行わない」が無く、escalate の取り込みを指す文がある。
+- `advancing_discussion.md` に「補助: 見つけた不備を問いにする前に、誤る場面を一つ言う」がある。
 - 変えた文と、変えていない `share-work-in-progress/SKILL.md` の tasklist-executor の契約を引く文・`skills/README.md` について、validator の assertion がある。
 - 変えた skill の file が document-review の更新時観点を通り、skill-update-review の編集後 review が合格する。
 - main へ取り込んだ後、`claude plugin marketplace update` と plugin の update で 8.2.1 が入り、install した commit が main の先端と一致することを確かめられる。取り込みは配布になり作業を破棄しても残るため、戻す時は revert と PATCH の bump で戻す。
@@ -211,6 +218,8 @@
 | `plan-commits/SKILL.md` | 「分割の優先順位」の末尾の一文を、既にある commit を書き換えない段落と三行の失敗例に置き換えた | validator の assertion が通り、旧文に戻すと 3 件で落ちることを確かめた。document-review の更新時観点で、置き換えた一文の対象（現状保存の commit）が新しい段落に含まれることを確かめた。skill-update-review の 3 回目は share-work-in-progress との食い違いで不合格になり、論点6 の反映後の 4 回目で合格した（`artifacts/skill-structure-review.md`） | [documentation以外のfile deliverable](#documentation以外のfile-deliverable) |
 | `share-work-in-progress/SKILL.md` | 「起動gate」の二段落目を、作る commit が意味の単位とは限らないことと、既にある commit の扱いを plan-commits に委ねることに書き換えた | validator の assertion が通り、旧文に戻すと 3 件で落ちることを確かめた。document-review の更新時観点で、消した「履歴として残すためのcommitではない」の役割（WIP の commit の性質を伝える）を「意味の単位になっているとは限らない」が引き継ぐことを確かめた。skill-update-review の 4 回目で合格（`artifacts/skill-structure-review.md`） | [documentation以外のfile deliverable](#documentation以外のfile-deliverable) |
 | `escalate-plugin-skill-fix/SKILL.md` | 「引き渡す内容」に、利用者が合意した範囲を四点目として足し、受け取った側の扱いを書いた | validator の assertion が通り、旧文に戻すと 3 件で落ちることを確かめた。document-review の更新時観点で、四点目が既存の「利用先repository固有の情報を除いた形で」の対象に入り、原文の固有情報は `migration.md` の規約で除くことを確かめた。skill-update-review の 5 回目で合格（`artifacts/skill-structure-review.md`） | [documentation以外のfile deliverable](#documentation以外のfile-deliverable) |
+| `skills/tumeda-dev-plugin-context.md` | `### Git / GitHub公開条件` の一行を、`main` の上で直接 commit しないことと、escalate で引き渡された作業の取り込みを指す子の項目に直した | validator の assertion が通る | [documentation以外のfile deliverable](#documentation以外のfile-deliverable) |
+| `docs/think_standards/advancing_discussion.md` | 末尾に「補助: 見つけた不備を問いにする前に、誤る場面を一つ言う」を足した | validator の assertion が通る | [documentation以外のfile deliverable](#documentation以外のfile-deliverable) |
 | `scripts/verification/validate-plugin.mjs`、version 宣言 5 箇所 | 上の文の assertion と、phase ごとの確認前 commit の形が戻らない assertion を足した。version を 8.2.1 にした | `validate-plugin.mjs`、`test-task-design-handoff.mjs`、`inspect-discussion.test.mjs` がすべて通る | [テスト方針](#テスト方針) |
 
 ### task-design内の対象成果物反映待ち
