@@ -9,6 +9,7 @@ tumedaが、リポジトリ横断でよく使うskill集としてのplugin。
 - shared skillはrepository固有の固定path・固定commandを暗黙に読まない。必要な文脈はcontext maintainerから返された範囲だけを使う。
 - hostごとのmodel差は`plugins/tumeda-dev/skills/runtime-model-profiles.md`の能力profileで吸収する。provider固有model名をskill手順が直接参照する基準にしない。
 - このrepository自身も`<repository-root>/.agents/skills/tumeda-dev-plugin-context.md`のinstanceを持つ。pluginを開発する時もshared skillは同じcontract上で動くため、このrepositoryだけを例外にしない。
+  - `.agents/skills`は`plugins/tumeda-dev/skills`へのsymlinkであり、このrepositoryのinstanceは配布するtemplateと同じfileである。
 
 ## 変更時の検証と前提
 
