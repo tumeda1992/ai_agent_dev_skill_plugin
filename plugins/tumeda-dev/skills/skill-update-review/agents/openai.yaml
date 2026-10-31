@@ -1,4 +1,4 @@
 interface:
-  display_name: "Skill構造review"
-  short_description: "汎用skillの構造案と編集後の全体を確認し、問題と不足を担当へ返す"
-  default_prompt: "$skill-update-review で、元作業の要件と対象skill全体を読み、設計時または編集後の構造reviewを行う。"
+  display_name: "Skillの切り出し候補review"
+  short_description: "汎用skillのSKILL.mdと内部指示から、切り出せる工程を候補として知らせる"
+  default_prompt: "$skill-update-review で、対象skillのSKILL.mdと内部指示の全体を読み、切り出せる工程を候補として返す。"

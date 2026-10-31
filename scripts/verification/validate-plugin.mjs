@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.2.1";
+const expectedRelease = "8.2.2";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -1052,7 +1052,15 @@ for (const heading of [
   requireText(escalateSkill, heading);
 }
 requireText(escalateSkill, "### plugin repositoryでの作業完了後の取り込み");
-requireText(escalateSkill, "作業branchを`main`へmergeする");
+// 取り込みと反映はescalateの内部指示が持つ。SKILL.mdは見出しと参照を残す（contextが見出しの名前で指す）。
+const escalateIntegration = skillPath("escalate-plugin-skill-fix/integrate-plugin-changes.md");
+requireExists(escalateIntegration);
+requireText(escalateSkill, "[取り込みと反映](integrate-plugin-changes.md)に従い、PRを経由せず`main`へ取り込み、pluginをupdateする。");
+requireText(escalateIntegration, "作業branchを`main`へmergeする");
+requireText(escalateIntegration, "## pluginをupdateする");
+requireText(escalateIntegration, "installされたpluginのcommitが`main`の先端と一致することを確かめる");
+requireText(escalateIntegration, "利用者へ依頼するのは、agentから実行できない7の操作だけである");
+forbidText(escalateSkill, "修正後のskillで動きたい場合は、sessionをresumeする");
 // contextのGit運用は、escalateの取り込み（PRを経由しないmerge）と食い違わない。
 requireText(contextTemplate, "default branchの上で直接commitしない。作業はbranchで行う。");
 requireText(contextTemplate, "同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。");
@@ -1080,33 +1088,35 @@ forbidText(
   "skills READMEに残ったplugin repositoryの自称「正本repository」"
 );
 
-// skill構造reviewの入口・分担・caller接続。旧guardの意味は変更しない。
+// skill-update-reviewは切り出しの候補だけを知らせる。合否・材料不足・内容hashと、切り出し以外の照合を持たない。
 const structureReviewFiles = [
   "skill-update-review/SKILL.md",
-  "skill-update-review/collect-review-material.md",
-  "skill-update-review/assess-structure.md",
+  "skill-update-review/find-split-candidates.md",
   "skill-update-review/templates/review-result.md",
   "skill-update-review/agents/openai.yaml",
 ].map(skillPath);
 for (const relativePath of structureReviewFiles) requireExists(relativePath);
+for (const removed of ["skill-update-review/collect-review-material.md", "skill-update-review/assess-structure.md"]) requireAbsent(skillPath(removed));
 requireFrontmatter(structureReviewFiles[0], "name: skill-update-review");
-for (const expected of ["collect-review-material.md", "assess-structure.md", "templates/review-result.md", "構造の合格は", "旧合格を使わない"]) {
+for (const expected of ["find-split-candidates.md", "templates/review-result.md", "## 見るもの、見ないもの", "候補が無いことは", "この指摘は、fileを分けるか、別skillにするかの判断か", "呼ぶだけの別skill、共有指示、script、更新前の比較元は読まない"]) {
   requireText(structureReviewFiles[0], expected);
 }
-for (const expected of ["source全文", "必要な比較元が読めなければ材料不足", "実解決先", "内容hash", "既存の必読条件を維持"]) {
+for (const forbidden of ["全体の責務・判断・状態・受渡し", "内容hash", "旧合格を使わない", "材料不足"]) forbidText(structureReviewFiles[0], forbidden);
+for (const expected of ["混線の実績がなくても候補とする", "現在の単独利用・他callerの具体要求", "将来予測だけでは独立させない", "変更caseで確かめる", "合格・不合格・材料不足の判定は持たない"]) {
   requireText(structureReviewFiles[1], expected);
 }
-for (const expected of ["混線の実績がなくても不合格", "現在の単独利用・他callerの具体要求", "将来予測だけでは独立させない", "既存の不合格も通常完了までに解消", "不合格と未確認が併存", "別用途だけの独立問題"]) {
-  requireText(structureReviewFiles[2], expected);
-}
+for (const forbidden of ["規則の正本", "停止・再開・返却", "二重正本", "別用途だけの独立問題"]) forbidText(structureReviewFiles[1], forbidden);
+requireText(structureReviewFiles[2], "候補が無ければ「候補なし」");
+requireText(structureReviewFiles[3], "$skill-update-review");
 for (const relativePath of [taskDesignSkill, tasklistDesign, tasklistTemplate, skillPath("tasklist-executor/SKILL.md"), skillPath("README.md")]) {
   requireText(relativePath, "skill-update-review");
 }
 for (const relativePath of [taskDesignSkill, tasklistDesign, tasklistTemplate, skillPath("tasklist-executor/SKILL.md")]) {
-  requireText(relativePath, "内容識別");
-  requireText(relativePath, "材料不足");
+  requireText(relativePath, "切り出しの候補が返ったら");
+  forbidText(relativePath, "内容識別");
+  forbidText(relativePath, "材料不足");
 }
-requireText(structureReviewFiles[4], "$skill-update-review");
+requireText(taskDesignSkill, "切り出しの候補ごとに、今切り出したか別の作業にしたかが記録されていることも共通の完了条件とする");
 
 // 議論格納・導出変更・明示保留・暫定指示。旧解決guardは内部ownerへ移した。
 const discussionResolve = skillPath("facilitate-discussion/resolve-discussion.md");
@@ -1171,6 +1181,7 @@ const portableFiles = [
   contextTemplate,
   runtimeContract,
   escalateSkill,
+  escalateIntegration,
   escalateMetadata,
   ...agentDerivedSkills,
   ...thinkStandardsFiles,

@@ -28,3 +28,4 @@
 
 - 2026-10-31: 元作業の steering を完了（planless 完了）とした時点で再確認した。論点1〜10 は決定・反映済みで、commit `9b7842e` まで push し、PR #9 は利用者の merge 待ちである。再開条件「この元作業の完了の後」は成立した。別の steering の起動は、後続の作業として利用者へ確認した。
 - 2026-10-31: 利用者が「a」と答えた。問いは「a) PR #9 の merge の後に、保留メモ 001 の steering を起動する（推奨） b) 今すぐ起動する c) 利用先 repository の作業に戻る」。PR #9 の merge の後に、`main` から別の steering を起動する。状態: 保留（起動の時期が決まり、PR #9 の merge 待ち）。
+- 2026-10-31: 取り込み（merge commit `6892989`）と plugin の 8.2.1 への update の後に再確認した。再開条件と起動の時期はどちらも成立した。`main` から steering `20261031-narrow-skill-update-review-and-add-plugin-update`（同名の branch）を起動し、その `design.md` の「元の依頼内容」がこのメモと論点9 を出典として引く。状態: 引渡し済み。以降の議論と決定は、引渡し先の steering の記録が正本である。

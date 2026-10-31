@@ -106,20 +106,13 @@ working directoryの切り替えが終わったら、plugin repositoryで`steeri
 ## 引き渡し後
 
 - 利用先repository側の元taskは中断したまま残る。plugin repository側の作業が終わってから、その続きに戻る。
-- 修正したskillは、今実行中のsessionへは反映されない。skill内容はsession開始時にcacheされるためである。修正後のskillで動きたい場合は、sessionをresumeする。resumeならcontextを保ったままskillが読み直される。
+- 修正したskillは、pluginをupdateしただけでは、今実行中のsessionへ反映されない。skill内容はsession開始時に読み込まれるためである。反映する操作は[取り込みと反映](integrate-plugin-changes.md)の7に従う。
 - **escalateのためにsessionを新規作成しない。** 新規作成するとcontextが失われ、元taskと進行中の議論の両方を説明し直すところから始まる。escalateは、提案が生じたsessionの中で行う。
-- 元taskを旧版のskillのまま続けるか、resumeして修正後のskillで続けるかは、ユーザーが選ぶ。このskillが代わりに決めない。
+- 元taskを旧版のskillのまま続けるか、反映して修正後のskillで続けるかは、ユーザーが選ぶ。このskillが代わりに決めない。
 
 ### plugin repositoryでの作業完了後の取り込み
 
-plugin repositoryでのsteeringがcommitまで終わったら、PRを経由せず次の4stepで`main`へ取り込む。
-
-1. 作業branchをpushする。
-2. `main`へ切り替える。
-3. 作業branchを`main`へmergeする。
-4. `main`をpushする。
-
-PRを経由しないのは、plugin repositoryが利用先repositoryから見てsubであり、pluginの更新がメインの作業を再開するための前段だからである。PRを開いてreviewを待つ相手がいないため、review単位としてのPRが機能しない。変更の妥当性はplugin repositoryでのsteeringがdesign合意とtasklist合意で担保しており、PRはその上に別のgateを重ねるものではない。
+plugin repositoryでのsteeringがcommitまで終わったら、[取り込みと反映](integrate-plugin-changes.md)に従い、PRを経由せず`main`へ取り込み、pluginをupdateする。
 
 ## 責務境界
 
