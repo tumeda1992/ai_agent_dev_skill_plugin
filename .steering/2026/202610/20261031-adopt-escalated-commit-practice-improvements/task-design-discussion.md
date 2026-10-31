@@ -729,7 +729,7 @@ context file の `### Git / GitHub公開条件` の一行を、変更内容1 の
 validator に新しい二行の assertion と、元の一文が無いことの検査を足す。design.md の論点8 の TBD を、この変更の行に置き換える。
 
 典拠は 2026-08-31 の利用者の指示（提案0 に引用）であり、取り下げる発言は記録に無い。
-この作業（PR #9）の取り込みは、steering の `discussion.md` 論点2 の決定のまま、利用者が PR #9 を merge する。この変更は次の作業から効く。
+この作業の取り込みも、この決定に従う。assistant が作業 branch を `main` へ merge して push する（steering の `discussion.md` 論点2 のイテレーション1）。
 
 選択理由: context の一文は、空の instance を埋めた時に assistant が書いたもので、議論の記録が無い。「直接」を「`main` へ push しない」と読むと、利用者の指示による 4 step と食い違う。利用者の指示に合わせて、一文の方を直す。
 

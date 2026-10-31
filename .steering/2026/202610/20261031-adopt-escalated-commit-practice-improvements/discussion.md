@@ -81,8 +81,33 @@ assistant は PR を merge しないため、どちらの経路でも、main へ
 
 この発言は chat の三つの問い（1: README への追記の提案、2: この論点の a / b、3: commit・push の許可）へまとめて答えたものである。「a」がこの論点の答えであり、「それ以外はok」は 1 と 3 への答えである。
 
+### イテレーション1（論点2）: 変更の報告
+
+#### 変更内容1（論点2）
+
+判断根拠: 利用者の訂正と、task-design-discussion の論点8 の決定。
+
+> え、escalateがやること終わってから私の作業じゃない？
+
+（2026-10-31、chat 上の発言。assistant が「PR #9 の merge 待ち。merge の後に plugin を update してほしい」と伝えた後）
+
+- 変更前: 利用者が PR #9 を merge して main へ取り込む。assistant は main へ push も merge もしない。
+- 変更後: `escalate-plugin-skill-fix/SKILL.md` の「plugin repositoryでの作業完了後の取り込み」に従い、assistant が作業 branch を `main` へ merge して `main` を push する。PR #9 は、作業 branch の commit が `main` に入ることで merged になる。利用者の作業は、その後の plugin の update から始まる。
+- 理由: 提案0 は、context file の「commitとpushをdefault branchへ直接行わない」を、取り込み方を決める決まりとして扱った。論点8 で、この一文は assistant が書いたもので、2026-08-31 の利用者の指示（PR を経由しない取り込み）と食い違うと分かり、指示に合わせて一文を直した。提案0 の前提はそこで崩れた。
+
+#### 検討記録（論点2・イテレーション1）
+
+assistant は論点8 で context の一文を直した時に、その一文に依っていた論点2 の決定を見直さなかった。論点8 の決定に「この作業の取り込みは、論点2 の決定のまま、利用者が PR #9 を merge する」と書き、前提が崩れた決定をそのまま残した。
+利用者の訂正は取り込み方を一つに指定しており、escalate の手順は利用者の指示に基づく既存の権限である。再承認を求めず反映する。
+
 ### 決定（論点2）
 
-この作業は、作業 branch へ commit を積んで push し、PR #9 を利用者が merge して main へ取り込む。assistant は main へ push も merge もしない。
+この作業は、作業 branch へ commit を積んで push する。作業が終わったら、`escalate-plugin-skill-fix/SKILL.md` の「plugin repositoryでの作業完了後の取り込み」に従い、assistant が作業 branch を `main` へ merge して `main` を push する。PR #9 は、それによって merged になる。
 
-`escalate-plugin-skill-fix` の取り込みの節と、この repository の context file の Git 運用の記述との関係は、この作業で扱う。task-design-discussion の論点8 として設計する。食い違いの中身（どちらを採るか、そもそも食い違いか）は論点8 で決める。
+イテレーション0 の決定（利用者が PR #9 を merge し、assistant は main へ push も merge もしない）は、context file の一文を前提にしていた。論点8 でその一文を直したため、イテレーション1 で置き換えた。
+
+`escalate-plugin-skill-fix` の取り込みの節と、この repository の context file の Git 運用の記述との食い違いは、task-design-discussion の論点8 で、context の一文を利用者の指示に合わせて直して解いた。
+
+### 現在の変更（論点2）
+
+イテレーション1 の変更内容1。利用者の訂正（2026-10-31）が取り込み方を一つに指定したため、報告と同時に反映する。この記録を commit して push した後、作業 branch を `main` へ merge して `main` を push する。
