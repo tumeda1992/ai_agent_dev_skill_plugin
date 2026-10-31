@@ -1257,6 +1257,16 @@ requireText(taskDesignSkill, "designの段階には実差分が無いため`plan
 requireText(tasklistDesign, "分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める");
 requireText(tasklistTemplate, "境界は、実差分へ`plan-commits`を当てて決める");
 
+// 既にあるcommitを、履歴の単位を整えるためだけに書き換えない。
+const planCommitsSkill = skillPath("plan-commits/SKILL.md");
+requireText(planCommitsSkill, "一方、既にあるcommitを、履歴の単位を整えるためだけに書き換えない。");
+requireText(planCommitsSkill, "既にあるcommitの上へ、意味の単位で積む。書き換えるのは利用者が明示した時だけである。");
+forbidText(planCommitsSkill, "既存の保存commitを、履歴が整わないという理由だけで改変しない。");
+const shareWipSkill = skillPath("share-work-in-progress/SKILL.md");
+requireText(shareWipSkill, "このskillが作るcommitは、作業中の内容を見せるためのcommitであり、意味の単位になっているとは限らない。");
+requireText(shareWipSkill, "後から整理するかは利用者が決める。既にあるcommitの扱いは`plan-commits`に従う。");
+forbidText(shareWipSkill, "後からamendやrebaseで整理される前提を持つ");
+
 if (failures.length > 0) {
   console.error("plugin validation failed:");
   for (const failure of failures) {

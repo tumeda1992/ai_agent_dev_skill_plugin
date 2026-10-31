@@ -35,7 +35,8 @@ none/endedでは既存処理へ進む。
 
 `tasklist-executor`は「ユーザー動作確認が完了するまでcommit・push・PRを行わない」契約を持ち、公開は動作確認の後に来る。このskillは動作確認の**前**に呼ばれる。両者は公開の前提が逆であり、`tasklist-executor`が動いている最中の成果物へこのskillを重ねて呼ばない。
 
-このskillが作るcommitは、後からamendやrebaseで整理される前提を持つ。履歴として残すためのcommitではない。
+このskillが作るcommitは、作業中の内容を見せるためのcommitであり、意味の単位になっているとは限らない。
+後から整理するかは利用者が決める。既にあるcommitの扱いは`plan-commits`に従う。
 
 ## 停止条件
 
