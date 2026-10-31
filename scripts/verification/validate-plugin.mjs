@@ -1051,6 +1051,10 @@ for (const heading of [
 }
 requireText(escalateSkill, "### plugin repositoryでの作業完了後の取り込み");
 requireText(escalateSkill, "作業branchを`main`へmergeする");
+// contextのGit運用は、escalateの取り込み（PRを経由しないmerge）と食い違わない。
+requireText(contextTemplate, "default branchの上で直接commitしない。作業はbranchで行う。");
+requireText(contextTemplate, "同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。");
+forbidText(contextTemplate, "commitとpushをdefault branchへ直接行わない");
 
 requireText(steeringSkill, "## Blocker resolution");
 requireText(
