@@ -11,6 +11,7 @@
   - [work_scope.md](./development_flow/work_scope.md) — 作業中に出た判断や気付いた不備を、今の作業で扱うか。作業の目的の内外の判定と、目的の外の不備を拾うか切り出すか。
 - **infrastructure/** — 本番の基盤（cloud の resource）の作り方の判断基準。
   - [log_retention.md](./infrastructure/log_retention.md) — ログをどれだけ残すか。application のログは無期限に残し、cloud の service が自分で持つログは service と一緒に消えてよい。
+  - [change_verification.md](./infrastructure/change_verification.md) — 基盤を作る・変えた後に、何を確かめれば完了とするか。変えた component の影響下にある動きを、すべて実物で確かめる。
 
 ## この群の引き方
 
@@ -37,6 +38,6 @@ docs を書くことも開発の一部だが、**書き方**の標準は `docume
 
 読み切れないなら、file を増やす前に参照契約自体を見直す。数値上限は置かない。分量が file 数に比例しないためである。
 
-現在は 14 file・約 60KB である（`naming/` に README・core・file・method・what_to_try・reverse_translation・review、`entity_modeling/` に README・core・evacuation、`development_flow/` に branch_pr_issue・work_scope、`infrastructure/` に log_retention、この README）。
+現在は 15 file・約 64KB である（`naming/` に README・core・file・method・what_to_try・reverse_translation・review、`entity_modeling/` に README・core・evacuation、`development_flow/` に branch_pr_issue・work_scope、`infrastructure/` に log_retention・change_verification、この README）。
 
 このうち `naming/` の手段（`what_to_try.md`、`reverse_translation.md`、`review.md`）は、名前を作る場面・評価する場面でのみ引く。判断基準（`core.md`、`file.md`、`method.md`）とは使う場面が違うが、**「詰まったときだけ読む」という例外を設けない**。例外を設けると「詰まっているか」の判定が入り、詰まっていることに気づいていない状態で標準に触れないまま進む経路ができる。判定を挟まないことがこの契約の目的である。
