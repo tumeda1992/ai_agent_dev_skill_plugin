@@ -4,7 +4,7 @@
 
 ## 収録している標準
 
-- **[naming/](./naming/README.md)** — 名前を付けるあらゆる場面で守る標準。判断基準（対象を問わない原則の core、対象種別ごとの file・method）と、手段（索引の what_to_try、検算の reverse_translation、レビューの review）を持つ。
+- **[naming/](./naming/README.md)** — 名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。判断基準（対象を問わない原則の core、対象種別ごとの file・method）と、手段（索引の what_to_try、検算の reverse_translation、レビューの review）を持つ。
 - **[entity_modeling/](./entity_modeling/README.md)** — エンティティ設計の判断基準。
 - **development_flow/** — 開発の進め方の判断基準。
   - [branch_pr_issue.md](./development_flow/branch_pr_issue.md) — branch・PR・issue の対応と、merge が何を終わらせるか。
@@ -38,6 +38,6 @@ docs を書くことも開発の一部だが、**書き方**の標準は `docume
 
 読み切れないなら、file を増やす前に参照契約自体を見直す。数値上限は置かない。分量が file 数に比例しないためである。
 
-現在は 15 file・約 64KB である（`naming/` に README・core・file・method・what_to_try・reverse_translation・review、`entity_modeling/` に README・core・evacuation、`development_flow/` に branch_pr_issue・work_scope、`infrastructure/` に log_retention・change_verification、この README）。
+現在は 15 file・約 67KB である（`naming/` に README・core・file・method・what_to_try・reverse_translation・review、`entity_modeling/` に README・core・evacuation、`development_flow/` に branch_pr_issue・work_scope、`infrastructure/` に log_retention・change_verification、この README）。
 
 このうち `naming/` の手段（`what_to_try.md`、`reverse_translation.md`、`review.md`）は、名前を作る場面・評価する場面でのみ引く。判断基準（`core.md`、`file.md`、`method.md`）とは使う場面が違うが、**「詰まったときだけ読む」という例外を設けない**。例外を設けると「詰まっているか」の判定が入り、詰まっていることに気づいていない状態で標準に触れないまま進む経路ができる。判定を挟まないことがこの契約の目的である。

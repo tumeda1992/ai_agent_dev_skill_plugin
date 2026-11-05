@@ -259,6 +259,7 @@ reviewに必要な履歴はfull取得を全chunkで補う。
    - codeを読んでも分からない: repositoryの上位architecture document等へ原則を提案する。
    - 設計processの不足: 対応するskillへ、設計時に問うべき問いを提案する。
 3. どこに書けば次回この議論が不要になるか。変更はユーザー合意後だけ行う。
+   - 既存の file へ書くなら、その file の範囲に入るかを [`naming/core.md` の「中身を足す前に、名前が約束する範囲に入るかを確かめる」](../../docs/development_standards/naming/core.md#中身を足す前に名前が約束する範囲に入るかを確かめる) で確かめてから提案する。
 
 ここで特定した更新提案と承認判断はこのStepで完了させ、実装taskへ先送りしない。設計議論のcontextが最も熱い時点を逃すと「なぜ変えるか」が薄れ、更新品質が下がるためである。「tasklistへdocument更新taskを入れようとしているが、これは今すぐ扱うべきものではないか」と自問する。
 

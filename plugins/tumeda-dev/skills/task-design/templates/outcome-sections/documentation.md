@@ -42,6 +42,7 @@ function migration policy:
 - 規範の根拠、MUST／SHOULD／MAY、適用対象、例外、非目標、誤適用を示す。
 - 正しいsnapshot、single source of truth、更新owner、更新trigger、腐敗signal、関連docsとの重複防止を示す。
 - 完成後のpath、見出し、entry、参照関係、具体例の配置を示し、既存documentへの統合または新owner作成の理由を明示する。
+  - 統合する時は、統合先の範囲に入ることを [`naming/core.md` の「中身を足す前に、名前が約束する範囲に入るかを確かめる」](../../../../docs/development_standards/naming/core.md#中身を足す前に名前が約束する範囲に入るかを確かめる) で確かめ、その結果を理由に含める。
 
 判断基準:
 - 読者が、記録された具体ケース以外にも同じ原則を適用できるか。
@@ -88,7 +89,7 @@ function migration policy:
 
 - 配置: `{path}`
 - 形式: {Markdown、既存template等}
-- 既存documentへ統合するか: {統合先または新ownerと理由}
+- 既存documentへ統合するか: {統合先または新ownerと理由。統合するなら、統合先の名前・入口の説明・既存の見出しが約束する範囲に入ること}
 
 ```text
 {見出し、entry、参照関係、具体例の配置}
