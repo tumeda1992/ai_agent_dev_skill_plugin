@@ -1291,12 +1291,20 @@ forbidText(escalateSkill, "次の三点を、利用先repository固有の情報�
 
 // 名前の付いたものへ中身を足す前に、名前が約束する範囲と照合する。
 const namingCoreDoc = docPath("development_standards/naming/core.md");
+const scopeCheckAnchor = "naming/core.md#中身を足す前に名前が約束する範囲に入るかを確かめる";
 requireText(namingCoreDoc, "## 中身を足す前に、名前が約束する範囲に入るかを確かめる");
 requireText(namingCoreDoc, "判断の問い: **「足そうとしている中身は、この名前・入口の説明・既に入っている中身が約束する範囲に入るか」**");
 requireText(namingCoreDoc, "やってしまいがちな失敗: 読まれる頻度や呼ばれる頻度で、足す先を選ぶ。");
 requireText(namingCoreDoc, "範囲に入れば、そのまま足す。");
 requireText(docPath("development_standards/naming/README.md"), "名前は本質。名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
 requireText(docPath("development_standards/README.md"), "名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
+requireText(skillPath("doc-enricher/SKILL.md"), "- 抽象レベルで選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
+requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
+requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");
+requireText(outcomeSectionPath("documentation.md"), "統合するなら、統合先の名前・入口の説明・既存の見出しが約束する範囲に入ること");
+requireText(outcomeSectionPath("documentation.md"), scopeCheckAnchor);
+requireText(steeringSkill, "既存の file へ書くなら、その file の範囲に入るかを");
+requireText(steeringSkill, scopeCheckAnchor);
 
 if (failures.length > 0) {
   console.error("plugin validation failed:");
