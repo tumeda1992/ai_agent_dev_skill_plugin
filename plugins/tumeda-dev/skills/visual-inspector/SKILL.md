@@ -71,8 +71,6 @@ request ID、attempt、checks、DoD、artifact directoryが不足する時は実
 
 # Codex parent→child契約
 
-Codexのchild model選択は`../runtime-model-profiles.md`の`delegated-execution`に従う。利用者指定を優先し、選択不能時は継承と制約を報告する。
-
 Codexでは直近parentがrequestと許可済みcontextをpromptへ渡してこのskillをchildとして起動し、完了まで待つ。このskillはresultと証跡だけを返し、tasklist、DoD最終判定、実装を変更しない。
 
 # 禁止事項

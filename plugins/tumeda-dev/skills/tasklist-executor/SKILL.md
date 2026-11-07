@@ -176,8 +176,6 @@ tasklist・DoD・checkboxのsingle writerはexecutorのまま維持する。
 
 # Codex parent→child契約
 
-Codexのchild model選択は`../runtime-model-profiles.md`の`delegated-execution`に従う。利用者指定を優先し、選択不能時は継承と制約を報告する。
-
 Codexでは親sessionがこのskillをchildとして起動し、必須入力を渡す。visual-inspector / test-runnerが必要な時は、直近parentが対応requestを渡してchildを起動し、完了まで待つ。返却resultを受け取ったexecutorだけがtasklistへ証跡とcheckboxを反映する。
 
 # 返却

@@ -21,8 +21,6 @@ description: |
 
 # task-design スキル
 
-Codexの方針検討・進行・結果監督と実作業の委譲は`../runtime-model-profiles.md`に従う。
-
 ## 作業限定の暫定指示を取得する
 
 起動・別sessionからの再開・resume・把握した指示変更時に、元作業のexactな場所、consumer `task-design`、

@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.3.0";
+const expectedRelease = "8.3.1";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -1309,9 +1309,11 @@ requireText(steeringSkill, scopeCheckAnchor);
 // Review boundaries, model roles, and unattended execution.
 for (const expected of ["正常な認可ユーザーの既存操作", "認可漏れの拒否", "部分保存のrollback", "未定義の並行操作の勝敗", "常設service費用"]) requireText(skillPath("exhaustive-review/SKILL.md"), expected);
 requireText(skillPath("exhaustive-review/templates/finding.md"), "全量固定の条件にしない");
-for (const expected of ["方針検討、進行のハンドリング、agent結果の監督をSol", "実装、テスト実行をTerraへ委譲", "利用者の明示model指定を優先", "Astra相当"]) requireText(runtimeProfiles, expected);
-forbidText(runtimeProfiles, "利用可能な標準のCodex coding model", "曖昧なCodex model指定");
-for (const relativePath of agentDerivedSkills) requireText(relativePath, "選択不能時は継承と制約を報告");
+for (const expected of ["Solが方針検討、ハンドリング、agent結果の監督", "Terraへ委譲できる", "hostを問わず", "高推論review担当"]) requireText(skillPath("exhaustive-review/SKILL.md"), expected);
+requireText(runtimeProfiles, "Astra相当");
+requireText(runtimeProfiles, "利用可能な標準のCodex coding model");
+forbidText(runtimeProfiles, "Codexでは方針検討、進行のハンドリング、agent結果の監督をSol", "一般workflowへの役割拡張");
+for (const relativePath of agentDerivedSkills) forbidText(relativePath, "Codexのchild model選択は", "前版の一般model指定");
 const unattended = skillPath("unattended-execution/SKILL.md");
 for (const expected of ["既承認scope", "paused/unavailable", "保存prefix", "事前確認できなければ保留", "別tool", "分割command", "approval-deferrals.md", "未実行か結果不明か", "外部状態、依存を再判定", "未完了をcompletedへ変えない", "## 元作業の完了を暫定指示の管理へ通知する"]) requireText(unattended, expected);
 requireText(skillPath("runtime-execution-contracts.md"), "unattended-execution/SKILL.md");
@@ -1320,6 +1322,7 @@ for (const expected of ["レビュー依頼だけでアプリケーションを�
 for (const expected of ["logical owner", "physical launcher", "single writer"]) requireText(skillPath("runtime-execution-contracts.md"), expected);
 for (const expected of ["通常進行への復帰", "実行環境の権限", "上位指示が特定の承認呼出しを要求", "権限境界を変えない正規の技術修復", "依存停止", "新しい承認が必要な操作だけ実際に承認"]) requireText(unattended, expected);
 requireText(skillPath("task-design/SKILL.md"), "議論だけを別child agentへ再委譲しない");
+for (const expected of ["作業指示、設計合意、工程移行の確認、command実行権限、公開許可", "設計合意や公開許可ではない", "合意に依存する実装を保留", "保存prefixがあっても公開しない"]) requireText(unattended, expected);
 
 if (failures.length > 0) {
   console.error("plugin validation failed:");
