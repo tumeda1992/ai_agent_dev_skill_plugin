@@ -55,6 +55,8 @@ requestと同じID / attemptで共通契約のresult artifactを作る。
 - command・前提・環境・権限不足で実行できない時は`blocked`
 - summaryには成功/失敗件数、失敗test、直接原因、根本原因候補、証跡、推奨する次の行動を含める
 
+Codexのchild model選択は`../runtime-model-profiles.md`の`delegated-execution`に従う。利用者指定を優先し、選択不能時は継承と制約を報告する。
+
 Codexでは直近parentがrequestと許可済みcontextをpromptへ渡してこのskillをchildとして起動し、完了まで待つ。このskillはtest結果と分析だけを返す。
 
 ## 禁止事項

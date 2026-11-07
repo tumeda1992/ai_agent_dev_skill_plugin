@@ -19,7 +19,9 @@ description: |
   排他的なtasklistまたはroadmapの設計・review・合意までを所有する。
 ---
 
-# task-design スキル
+# task-design
+
+Codexの方針検討・進行・結果監督と実作業の委譲は`../runtime-model-profiles.md`に従う。 スキル
 
 ## 作業限定の暫定指示を取得する
 

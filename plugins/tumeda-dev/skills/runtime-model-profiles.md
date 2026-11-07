@@ -4,16 +4,16 @@ skillが要求するのはprovider固有のmodel名ではなく、必要な推�
 
 ## 推論強度の基準
 
-main sessionで適用するskillはhostのdefaultで動かし、frontmatterで`model`と`effort`を宣言しない。現在のdefaultはOpus相当である。
+main sessionで適用するskillは利用者が選択したmodelで動かし、frontmatterで`model`と`effort`を固定しない。
 
-childとして委譲する先はSonnet相当で足りる。`delegated-execution`がこれを表す。
+Codexでは方針検討、進行のハンドリング、agent結果の監督をSolが担い、読取、事実調査、確定済み方針の実装、テスト実行をTerraへ委譲できる。これは委譲の許可であり、全作業のchild化を要求しない。既存のlogical ownerやsingle writerは変更しない。Claude Codeの委譲先はSonnet相当であり、`delegated-execution`がこれを表す。
 
 ## delegated-execution
 
 tasklist実行、test失敗分析、UI確認など、手順遵守と実装・調査を主とする作業用。
 
 - Claude Code: frontmatterは`model: sonnet`。
-- Codex: child modelを選べるruntimeでは、利用可能な標準のCodex coding modelを選ぶ。選択面がなければ親sessionのmodelを継承する。
+- Codex: 利用者の明示model指定を優先し、指定がなければ選択可能なTerraを選ぶ。選択できない時は親sessionのmodelを継承し、制約を報告する。存在しないselectorを作らない。
 - 返却: parentは必要なら、選択したmodelまたは親model継承をsummaryへ残す。
 
 使用skill: `visual-inspector`、`tasklist-executor`、`test-runner`。
@@ -22,7 +22,7 @@ tasklist実行、test失敗分析、UI確認など、手順遵守と実装・調
 
 - skill本文はprofile名を参照し、provider固有model名を判断根拠にしない。
 - Claude Codeではprofileに対応する`model` frontmatterを使う。
-- Codexでは各skillの`## Codex`がprofileを読み、直近parentへchild起動時のmodel選択または親model継承を指示する。
+- Codexでは各skillのCodex parent→child契約がprofileを参照し、直近parentがchild起動時にmodel選択または親model継承を行う。Solは返却結果を監督する。
 - hostがprofile相当のmodelを選べない時、存在しないmodel名を指定して失敗させない。親model継承をfallbackとし、必要なら返却summaryで明示する。
 
 ## release確認
