@@ -6,9 +6,11 @@
 
 三提案の原文と出典精度は[受領記録](escalation-receipt.md)に保持する。以下の詳細は原文に基づく設計上の具体化であり、詳細を発言したという帰属を利用者へ加えない。引継ぎownerは本案を既指示の具体化として採用し、追加のchoiceを要求しないと確認した。
 
+前版公開後、利用者が適用範囲と許可の意味を訂正した。現在仕様はその訂正を反映する。原文と前版の誤解は[実装feedback](implementation_review.md)と既存の議論履歴に保持し、利用者が最初から前版の詳細を合意したように書き換えない。
+
 ## TL;DR
 
-正常操作を保つ内部欠陥修正を取消す誤読を防ぎ、Solの方針・進行・結果監督とTerraへ委譲できる実作業を分ける。応答できない間にも承認不要の作業を進める単独skillを追加する。既存のレビュー採否、モデル指定、権限境界、single writerを保持する。
+正常操作を保つ内部欠陥修正の規範を保持し、exhaustive-review内でSolの方針・進行・結果監督とTerraへ委譲できる実作業を分ける。既存unattended-executionは必要な指示・合意・許可を維持し、その不足に依存しない既承認作業だけ先に進める。一般workflowのmodel既定値、レビュー採否、権限境界、single writerを保持する。
 
 ## 完成後の姿
 
@@ -22,21 +24,27 @@ exhaustive-review/SKILL.mdの「合意と適用」がこの意味を所有する
 
 レビュー依頼だけでは修正しない契約、合意済み範囲のみ適用、既存許可を再確認しない契約、1指摘1コミット、撤回、証拠を維持する。function_migration_policy.mdはplugin能力移行の全量維持を扱う別規範であり変更しない。
 
-### Solの監督とTerraの実作業
+### exhaustive-review内の役割分担
 
-runtime-model-profiles.mdをモデル役割とhost adapterの正本とする。方針検討、ハンドリング、agent結果の監督をSolが担い、読取、事実調査、確定済み方針の実装、テスト実行をTerraへ委譲できる。委譲許可であり、すべてを機械的にchild化する義務にはしない。
+Solが方針検討、ハンドリング、agent結果の監督を担い、その他の読取、事実調査、確定済み方針の実装、テスト等はTerraへ委譲できる。この分担の適用先はexhaustive-reviewであり、hostを限定しない。全skillの既定値やCodexだけの規則へ拡張しない。委譲許可であり、全作業を必ずchildにする義務にはしない。
 
-Codexのdelegated-execution adapterは選択可能ならTerraを選ぶ。方針・進行・結果監督にSolを使う対応をprofileへ記述し、skill本文は役割またはprofileを参照する。利用者の明示model指定を優先し、選択不能時は継承して制約を報告する。存在しないselectorを創作しない。Claude Codeの既存対応は保持する。
+モデルの明示指定と現実の選択可否を確認し、選べない時は制約と実際のmodelを示す。Solをhost名だけでOpus、TerraをSonnetへ自動読み替えする新対応は設けない。切替や独立reviewを実行していないのに実施したと記さない。
 
-high-reasoning-reviewの既存Astra相当指定は保持する。利用者の「他はTerraに投げていい」は委譲許可であり、独立した高推論review契約を廃止する指示ではない。レビュー担当から戻る結果もSolが監督する。
+高推論reviewの能力要求と既存high-reasoning-reviewの選択契約は保持する。Solの方針・監督と、横断判断を行うreview担当、Terraへ委譲できる実作業を区別する。高推論reviewを勝手に廃止せず、その担当の結果もSolが監督する。利用者指定を優先する既存契約は維持する。
 
-tasklist-executorはlogical ownerのままrequest作成、result消費、DoD、checkboxを更新する。直近parentによるphysical launchとSolの監督は、この権限を奪わない。test-runner・visual-inspectorはtasklistと実装を変更しない。task-designのdiscussionを別childへ渡さない契約も維持する。
+exhaustive-review/SKILL.mdの「目的とモデル」に役割分担と適用範囲を明記し、必要な共有定義はruntime-model-profiles.mdの既存high-reasoning-review内へ限定する。新しいprofileやhost mappingは追加しない。
 
-変更対象はruntime-model-profiles.md、既存のmodel adapter説明に従うtasklist-executor/test-runner/visual-inspectorのCodex節とsteeringの委譲説明。task-designのOpusに関する既存規定はClaude側の既存品質契約として残し、CodexのSol対応はprofile参照で明確にする。大量のmodel名置換は行わない。
+前版が一般runtime-model-profilesの推論強度基準、delegated-execution、adapter規則へ追加したSol/Terra既定値は撤回し、変更前の一般契約へ戻す。steering、task-design、tasklist-executor、test-runner、visual-inspectorへ前版が追加した参照文も今回分だけ撤回する。旧版全fileへの一括切戻しは行わず、無関係な契約を保持する。
+
+ownerとsingle writerは変えない。executorのrequest、result消費、DoD、checkbox、parentのphysical launch、test-runner・visual-inspectorの非書込み境界、task-designのdiscussion ownerはそれぞれ既存契約に従う。
 
 ### unattended-executionの役割
 
 unattended-executionは、利用者が応答できない間に、新規承認が不要な既承認scopeの作業を進める。権限の拡張や設計判断の代行をしない。通常の許可workflowを恒久的に書き換えず、明示された不在・応答不能中の自走指示で適用する。利用者が通常進行へ戻すか対象作業が終了したら、この動作を終了する。
+
+必要な作業指示、設計合意、工程移行の確認、command実行権限、公開許可はそれぞれ維持する。必要なものが欠ける操作と、その操作に依存する後続を保留し、既に許可されている独立作業だけ先に進める。commandの保存prefixで自動許可されることは、設計や公開の許可を得たことを意味しない。
+
+設計合意待ちなら、合意を前提としない既承認の調査や試験は継続できるが、その合意に依存する実装は保留する。公開許可待ちなら、公開に依存しない既承認のlocal検証はできるが、保存prefixがあっても公開しない。工程移行の確認が要るworkflowでは、その確認を不在skillが代行しない。保留のない許可済み操作へ新しい確認gateを追加することもない。
 
 作業ownerが、操作ごとにscope、既存許可、上位指示、実行環境の権限を実行直前に照合する。追加承認なしで実行できるなら進め、新たな利用者判断が必要ならその操作を未実行で保留し、依存しない作業を選ぶ。利用者が不在だからという理由で、すでに許可されている操作を再確認しない。
 
@@ -60,12 +68,12 @@ runtime-execution-contracts.mdには、明示不在時の適用入口と元owner
 
 ### 配布物
 
-新skillが増えるためMINOR 8.3.0へ一度だけbumpする。宣言四箇所とvalidator expectedReleaseを同時更新する。公開索引・manifestのskills列挙は既存構造に合わせて新skillを登録し、明示列挙がなければ新しい登録構造を作らない。root README等の既存モデル説明はprofileと整合する必要最小限の参照にする。
+前版8.3.0の適用範囲と許可維持の修正としてPATCH 8.3.1へ一度だけbumpする。新skill・parameter・profileは追加しない。宣言四箇所とvalidator expectedReleaseを同時更新する。既存のskill登録と公開索引は保持する。
 
 ## 要件（Requirements）
 
 - 正常操作・業務仕様を保つ内部欠陥修正を、関数挙動が変わるという理由だけで取消さない。
-- Solの方針・進行・結果監督とTerraへ委譲できる実作業を分け、既存model指定とowner契約を保持する。
+- exhaustive-review内だけでSolの方針・進行・結果監督とTerraへ委譲できる実作業を分け、hostを限定せず、既存model指定とowner契約を保持する。
 - unattended-executionを単独で呼び、新規承認が必要な操作のみ保留する。
 - 保留・依存停止を完了に数えず、承認境界を別toolやprefixで回避しない。
 - 利用先固有情報を公開物に入れない。
@@ -76,7 +84,7 @@ runtime-execution-contracts.mdには、明示不在時の適用入口と元owner
 
 ### 受け入れ基準
 
-正常な資源操作は維持し他者IDだけ拒否するcase、失敗rollback、未定義業務判断、新業務制約、構成費用をそれぞれ正しく分類できる。model指定あり/選択可能/選択不可を区別し、Terra結果をSolが監督し、Astra高推論reviewを保持する。不在中の既承認、保存prefix自動許可、新規人承認、境界迂回、依存停止、復帰を正しく扱い、未完了を完了にしない。
+正常な資源操作は維持し他者IDだけ拒否するcase、失敗rollback、未定義業務判断、新業務制約、構成費用をそれぞれ正しく分類できる。model指定あり/選択可能/選択不可を区別し、exhaustive-review内のTerra結果をSolが監督し、高推論reviewを保持する。一般workflowのmodel規則へ今回の役割を拡張せず、役割分担を特定hostへ限定しない。不在中の既承認、保存prefix自動許可、新規人承認、境界迂回、依存停止、復帰を正しく扱い、未完了を完了にしない。
 
 ## リスクと対策
 
@@ -101,28 +109,18 @@ exhaustive-reviewは依頼だけの修正を禁じ、既適用許可を保持す
 
 ### task-design内で対象成果物へ適用済み
 
-| 対象 | 反映内容 | validation結果 | 参照するdesign section |
-| --- | --- | --- | --- |
-| exhaustive-review本文とfinding template | 正常操作・業務仕様の維持と内部欠陥修正の境界を具体化 | validator成功、具体caseの机上確認、Solによる差分監督済み | レビューが保護する操作と業務仕様 |
-| runtime profileと参照adapter | Sol/Terraの役割を正本へ集約し、既存host契約とownerを保持 | validator成功、model指定/継承caseの机上確認、既存Astra/Claude差分の監督済み | Solの監督とTerraの実作業 |
-| unattended-execution、新skill参照と検査、version | 新skill、元ownerを維持する参照、具体case、8.3.0宣言と検査 | skill-creator簡易検証・編集後構造review・document-review・全体三検証を実施。結果と限界は下記参照 | unattended-executionの役割、配布物 |
-
-結果の正本は[反映・検証結果](implementation-results.md)、実行証跡は[validation-evidence.txt](validation-evidence.txt)。全体三検証は成功し、自己testは24 pass・1 skip・0 fail。追加実行のhandoffで一度空stdoutのJSON解析失敗を観測し、同じsourceの単独再実行は成功した。原因は未確定であり、環境・一過性・既存bugのいずれとも断定しない。この観測限界を残して検証結果を消費することを引継ぎownerが判断した。
-
-実際のhost selector切替と承認UIは実測せず、文面とcaseの確認である。実行したように扱わない。機能移行として旧工程を削除・移動しておらず、元のowner・gate・host差を保持することはbaseline差分の通読で監督した。
+前版のレビュー挙動維持の修正は保持する。前版の反映・検証と未再現incidentは[反映・検証結果](implementation-results.md)と[実行証跡](validation-evidence.txt)に保存されており、今回の実施結果へ読み替えない。
 
 ### task-design内の対象成果物反映待ち
 
-なし。
+| 対象 | 待つ理由 | 依存decision | 参照するdesign section |
+| --- | --- | --- | --- |
+| exhaustive-review、既存high-reasoning-review、一般profileと前版追記5skill | 訂正のsource差分あり。編集後review・検証・監督が未完了 | なし | exhaustive-review内の役割分担 |
+| unattended-executionと必要な参照、validator | 訂正のsource差分あり。編集後review・検証・監督が未完了 | なし | unattended-executionの役割 |
+| 配布version5値 | 8.3.1のsource差分あり。検証が未実施 | なし | 配布物 |
 
-### 設計文書の共有時点
-
-設計本文は完成し、設計上の未決事項はない。利用者の「design.mdが出来上がったら見たいから $tumeda-dev:share-work-in-progress もして」に応じ、実装完了前の設計文書を共有する。
-
-共有準備時の作業treeには既存14fileの変更と新skillがあった。その時点では全体三検証、対応assertionの完成、編集後の構造review、sourceのdocument-review、Solによる実装結果の監督が未完了だった。実装担当が利用上限で停止したため、共有までsourceを固定した。共有後は同じ作業treeから反映と検証を再開し、結果を上記へ反映した。
-
-本書の共有自体はtask-design全体の完了でも、plugin配布や正式cache更新の完了でもない。共有時の設計記録のdocument-reviewと、その後のsource品質確認を区別する。
+訂正designを先に共有するため、sourceをatomic編集完了時点で固定した。全三検証はまだ実行しておらず、証跡も未作成。共有後に編集後reviewと検証へ戻る。設計本文の完成とsource品質確認を区別する。
 
 ### execution plan対象
 
-なし。三件のskill・規範は既存契約を保持して一つの連続した反映・validationで実施でき、本番application codingでもない。空tasklist・roadmapを作らない。merge・push・reloadは既存escalate ownerの完了後取込みで扱い、task-designの対象成果物反映と混同しない。
+なし。今回の既存skillと検査の訂正は、一つの連続した反映とvalidationで実施できる。空tasklist・roadmapを作らない。main取り込み・正式reloadはroot ownerの後続工程であり、本書から勝手に実行しない。

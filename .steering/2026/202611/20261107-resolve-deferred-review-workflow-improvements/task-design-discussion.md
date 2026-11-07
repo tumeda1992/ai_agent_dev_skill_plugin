@@ -72,6 +72,8 @@ Terraによるread-only調査では、mainはhost default、Codexの実作業は
 
 変更報告済みというowner通知を受領、designとsourceへ反映し、validatorとSolの差分監督を完了した。既存ownerの書込み権限・停止・再開、Astraの高推論review、Claudeの既存対応は保持した。実selector切替は未実測であり、model指定と継承のcaseは文面で確認した。詳細は[反映・検証結果](implementation-results.md)を参照。
 
+前版としての反映記録である。利用者の後続訂正により、全workflowへの拡張とCodex限定は下記論点4で訂正する。過去の原文と当時の解釈を、今回の原文が最初からあったように書き換えない。
+
 ## 論点3: 不在中の承認不要作業を単独skillにする
 
 **ステータス:** 反映済み
@@ -121,3 +123,47 @@ SKILL.mdの見出しは「役割と適用条件」「操作前の承認判定」
 全三検証の成功と、自己testの24 pass・1 skip・0 failを[実行証跡](validation-evidence.txt)で確認した。追加実行ではhandoff子processの空stdoutによるJSON解析失敗が一度あり、同じ固定sourceの単独再実行は成功した。inspectorとhandoff testはbaseline差分なし。原因は未確定のまま記録し、引継ぎownerは最終成功と限界を対で消費することを判断した。実model selectorと承認UIは未実測。
 
 三件のsource反映待ちはなく、tasklistとroadmapは存在しない。設計記録の最終document-reviewでは、検証成功と未確認・原因未確定の範囲、設計文書共有時点と最終状態、旧提案と現在値を区別できることを確認した。後続の取り込みと正式reloadは引継ぎownerへ返す。
+
+## 論点4: exhaustive-reviewだけの役割分担として適用範囲を訂正する
+
+**ステータス:** 反映待ち
+
+**種別:** 認識齟齬 / レビュー指摘
+
+### イテレーション0（論点4）: 全体化とhost限定を撤回する
+
+#### 変更内容0（論点4）
+
+利用者の今回の原文は[実装feedbackの受領原文](implementation_review.md#受領した原文)に保持されている。「全体じゃなくて、exhaustive-reviewについて言ってて、別にCodex単体への指示ともとどめてない」という一意な訂正に従い、Solの方針・ハンドリング・結果監督とTerraへ委譲できる実作業をexhaustive-review内だけへ適用し、hostを限定しない。
+
+exhaustive-reviewの目的とモデル、および必要な共有定義を既存high-reasoning-review内へ置く。一般runtime profileへ前版で追加したSol/Terra既定値と、steering・task-design・tasklist-executor・test-runner・visual-inspectorへ前版が足した参照文は今回分だけ撤回する。新profileやhost別model対応は作らない。既高推論review・logical owner・single writerは保持し、レビュー挙動維持の修正は触らない。
+
+#### 検討記録（論点4・イテレーション0）
+
+前版はreview作業中の役割指定を全workflowの既定値へ拡張し、使っていたhostを適用条件と誤解した。今回の利用者訂正は、その二つを明確に否定している。元の誤解はコードだけからは正せず、今回の原文を根拠にする。新たな採否を足さず、利用者が修正を一意に指定した範囲として再承認不要で反映する。設計は更新済み、source反映と検証はTerraへ委譲する。
+
+### 現在の変更（論点4）
+
+rootが訂正範囲を利用者へ報告済み。design反映済み、source反映待ち。実行版はcache8.3.0、今回workdirに暫定指示候補なしを再確認し、既存ownerの継続として同じ作業を再開した。前の公開履歴は保持し、追加修正だけを行う。
+
+## 論点5: 必要な指示と各許可を維持した独立作業だけ進める
+
+**ステータス:** 反映待ち
+
+**種別:** 認識齟齬 / レビュー指摘
+
+### イテレーション0（論点5）: 保存prefixと作業内容の許可を区別する
+
+#### 変更内容0（論点5）
+
+利用者の「許可が必要なものは相変わらず必要で、それを保留した状態でできることがあったら先にやっていい」という訂正に従い、指示、設計合意、工程移行確認、実行権限、公開許可を維持する。不足する操作と依存先は保留し、既承認の独立作業だけ続ける。
+
+unattended-executionのscope・操作前判定・独立作業caseへ、設計合意待ちの既承認調査は可能だが依存実装は不可、公開許可待ちのlocal検証は可能だがprefixがあっても公開不可、と具体化する。既承認の再判定、上位指示優先、迂回禁止、保留を未完了として保持する契約は維持する。余分な確認gateは新設しない。
+
+#### 検討記録（論点5・イテレーション0）
+
+既存sourceはscopeと実行環境権限を確認するが、作業内容の合意・公開許可とcommand自動許可を区別する説明が足りなかった。今回の原文はgateの免除を与えず、許可済み作業の順序だけを変える。新skill・parameter追加ではないため、配布versionはbugfix 8.3.1として5値を同時更新する。今回の結果はcorrection-results.mdとcorrection-validation-evidence.txtへ記録し、前版の検証や未再現incidentを上書きしない。
+
+### 現在の変更（論点5）
+
+rootが既存gate維持の意味を利用者へ報告済み。design反映済み、source反映待ち。sourceとvalidatorはTerraへ委譲し、Solは方針と実結果の監督を保持する。

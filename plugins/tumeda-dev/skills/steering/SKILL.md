@@ -291,8 +291,6 @@ reviewに必要な履歴はfull取得を全chunkで補う。
 - plan合意を実行開始の承認と読み替えず、`roadmap_ready`を受けたこと自体を子実行の承認とみなさない。
 - Step 3直後に「実装へ進みますか」と聞き、Step 4を飛ばすことを禁止する。
 
-Codexの方針・進行・結果監督と実作業の委譲、およびmodel選択は`../runtime-model-profiles.md`に従う。委譲してもexecutorのlogical ownerとsingle writerは変わらない。
-
 ### Step 6. ready resultをdispatchする
 
 #### 6-1. leafを実行する
