@@ -50,7 +50,7 @@ require_escalated指定と人の新規承認を同一視しない。確認済み
 
 独立作業が残れば続ける。尽きた時点で完了済み・保留・依存停止を区別して返し、未完了をcompletedへ変えない。既存workflowのblocked等をそのまま使い、汎用result enumを増設しない。
 
-利用者の復帰時は保留操作を具体的に示し、実際に新しい承認を得てから同じ操作の現在状態と依存を再確認する。途中で外部状態が変わっている可能性があるため、過去の実行可判定だけで再実行しない。
+利用者の復帰時や許可の確認材料が得られた時は、保留操作の現在のscope、既存許可、外部状態、依存を再判定する。なお新しい承認が必要な操作だけ具体的に示し、実承認を得てから再開する。保存済みprefixへの適合など、既承認で実行できることが確認できた操作には新承認を取り直さない。途中で外部状態が変わっている可能性があるため、過去の実行可判定だけで再実行しない。
 
 #### 配置と見出し
 
@@ -101,23 +101,27 @@ exhaustive-reviewは依頼だけの修正を禁じ、既適用許可を保持す
 
 ### task-design内で対象成果物へ適用済み
 
-なし。下表の実装途中の差分は、反映結果の監督とvalidationが済んでいないため、適用済みとして集計しない。
+| 対象 | 反映内容 | validation結果 | 参照するdesign section |
+| --- | --- | --- | --- |
+| exhaustive-review本文とfinding template | 正常操作・業務仕様の維持と内部欠陥修正の境界を具体化 | validator成功、具体caseの机上確認、Solによる差分監督済み | レビューが保護する操作と業務仕様 |
+| runtime profileと参照adapter | Sol/Terraの役割を正本へ集約し、既存host契約とownerを保持 | validator成功、model指定/継承caseの机上確認、既存Astra/Claude差分の監督済み | Solの監督とTerraの実作業 |
+| unattended-execution、新skill参照と検査、version | 新skill、元ownerを維持する参照、具体case、8.3.0宣言と検査 | skill-creator簡易検証・編集後構造review・document-review・全体三検証を実施。結果と限界は下記参照 | unattended-executionの役割、配布物 |
+
+結果の正本は[反映・検証結果](implementation-results.md)、実行証跡は[validation-evidence.txt](validation-evidence.txt)。全体三検証は成功し、自己testは24 pass・1 skip・0 fail。追加実行のhandoffで一度空stdoutのJSON解析失敗を観測し、同じsourceの単独再実行は成功した。原因は未確定であり、環境・一過性・既存bugのいずれとも断定しない。この観測限界を残して検証結果を消費することを引継ぎownerが判断した。
+
+実際のhost selector切替と承認UIは実測せず、文面とcaseの確認である。実行したように扱わない。機能移行として旧工程を削除・移動しておらず、元のowner・gate・host差を保持することはbaseline差分の通読で監督した。
 
 ### task-design内の対象成果物反映待ち
 
-| 対象 | 待つ理由 | 依存decision | 参照するdesign section |
-| --- | --- | --- | --- |
-| exhaustive-review本文とfinding template | Terraによる未commitの変更あり。差分の監督と検証が未完了 | なし | レビューが保護する操作と業務仕様 |
-| runtime profileと参照adapter | Terraによる未commitの変更あり。差分の監督と検証が未完了 | なし | Solの監督とTerraの実作業 |
-| unattended-execution、新skill参照と検査、version | 新skillと関連fileの未commitの変更あり。対応assertionの完成と検証が未完了 | なし | unattended-executionの役割、配布物 |
+なし。
 
 ### 設計文書の共有時点
 
 設計本文は完成し、設計上の未決事項はない。利用者の「design.mdが出来上がったら見たいから $tumeda-dev:share-work-in-progress もして」に応じ、実装完了前の設計文書を共有する。
 
-共有準備時の作業treeには既存14fileの変更と新skillがある。全体三検証、対応assertionの完成、編集後の構造review、sourceのdocument-review、Solによる実装結果の監督は未完了。実装担当が利用上限で停止したため、共有までsourceを固定している。共有後に同じ作業treeから残る反映と検証を再開する。この途中状態は恒久的な未実装方針ではない。
+共有準備時の作業treeには既存14fileの変更と新skillがあった。その時点では全体三検証、対応assertionの完成、編集後の構造review、sourceのdocument-review、Solによる実装結果の監督が未完了だった。実装担当が利用上限で停止したため、共有までsourceを固定した。共有後は同じ作業treeから反映と検証を再開し、結果を上記へ反映した。
 
-本書の共有はtask-design全体の完了でも、plugin配布や正式cache更新の完了でもない。共有する設計記録のdocument-reviewと、未完了sourceの品質確認を区別する。
+本書の共有自体はtask-design全体の完了でも、plugin配布や正式cache更新の完了でもない。共有時の設計記録のdocument-reviewと、その後のsource品質確認を区別する。
 
 ### execution plan対象
 

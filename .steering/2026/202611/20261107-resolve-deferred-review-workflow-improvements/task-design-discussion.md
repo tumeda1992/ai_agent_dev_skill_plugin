@@ -4,7 +4,7 @@
 
 ## 論点1: 挙動維持が保護する対象を正常操作と業務仕様に定める
 
-**ステータス:** 反映待ち
+**ステータス:** 反映済み
 
 **種別:** レビュー指摘
 
@@ -48,11 +48,11 @@
 
 ### 現在の変更（論点1）
 
-提案0の対象はreview本文とfinding template。引継ぎownerは利用者へ境界を変更報告したと通知し、設計担当へ反映を指示した。designは更新済み。sourceにはTerraによる途中差分があり、結果監督と検証は未完了。実装担当の利用上限による停止後、設計文書を共有するためsourceを固定した。追加の利用者発言を捏造せず、元の指示による実行許可と区別する。共有後に同じ作業treeで検証へ戻る。
+提案0の対象はreview本文とfinding template。引継ぎownerは利用者へ境界を変更報告したと通知し、設計担当へ反映を指示した。designとsourceへ反映し、具体caseの机上確認、validator、Solの差分監督を完了した。結果は[反映・検証結果](implementation-results.md)を参照。追加の利用者発言を捏造せず、元の指示による実行許可と区別する。
 
 ## 論点2: モデル分担を既存の役割とprofileへ対応させる
 
-**ステータス:** 反映待ち
+**ステータス:** 反映済み
 
 **種別:** レビュー指摘
 
@@ -70,11 +70,11 @@ Terraによるread-only調査では、mainはhost default、Codexの実作業は
 
 ### 現在の変更（論点2）
 
-変更報告済みというowner通知を受領、design反映済み。sourceのprofile・関連adapterにはTerraによる途中差分があり、結果監督と検証は未完了。設計文書共有までsourceを固定し、共有後に同じ作業treeで検証へ戻る。モデルの役割は変更するが、既存ownerの書込み権限・停止・再開は移動しない。
+変更報告済みというowner通知を受領、designとsourceへ反映し、validatorとSolの差分監督を完了した。既存ownerの書込み権限・停止・再開、Astraの高推論review、Claudeの既存対応は保持した。実selector切替は未実測であり、model指定と継承のcaseは文面で確認した。詳細は[反映・検証結果](implementation-results.md)を参照。
 
 ## 論点3: 不在中の承認不要作業を単独skillにする
 
-**ステータス:** 反映待ち
+**ステータス:** 反映済み
 
 **種別:** レビュー指摘
 
@@ -94,9 +94,19 @@ SKILL.mdの見出しは「役割と適用条件」「操作前の承認判定」
 
 既存executorへ不在modeを埋め込む案では、task-designや任意command実行から単独で使えず、明示要求に届かない。別skillは入口と元ownerを分離できる。新たな全体状態fileを設ける案は既存checkboxと二重正本になるため採らない。判断に必要な境界caseをdesignへ保存し、引継ぎownerは名前と具体方針の変更報告後、反映を指示した。[内部検討記録](model-and-autonomy-consideration.md#topic-3-iteration-0)へcaseと構造reviewを保存する。
 
+### イテレーション1（論点3）: 許可不明から既承認と確認できた操作の再開
+
+#### 変更内容1（論点3）
+
+復帰時に全保留へ「新しい承認を得てから」と要求すると、保存prefixの適合が後から確認できた操作にも再承認を求める。これは既承認scopeをそのまま進める元の指示と一致しないため、現在のscope・既存許可・外部状態・依存を再判定し、なお新承認が必要な操作だけ実承認を得る文へ訂正する。既承認で通ると確認できた操作は再承認不要。
+
+#### 検討記録（論点3・イテレーション1）
+
+引継ぎownerの実source監督で指摘されたcase。権限不明で一旦保留した後に、保存済み許可の適合が確認できる状況を当てると、旧復帰文言は「既に許可されている操作を再確認しない」と競合する。新しい権限を加える変更ではなく、既承認と未承認を再開時にも区別する訂正である。design・source・対応assertionを訂正し、具体caseと検証を確認した。
+
 ### 現在の変更（論点3）
 
-変更報告済みというowner通知を受領、design反映済み。新skillと参照・validator・versionにはTerraによる途中差分があり、対応assertionの完成・編集後review・全体検証・結果監督は未完了。設計文書共有までsourceを固定し、共有後に同じ作業treeで再開する。main取り込み・正式reloadは元のescalate ownerが行い、設計担当は代行しない。利用者が追加依頼した作業途中のcommit・push・PRによる共有も、元のownerがshare-work-in-progressで行う。
+変更報告済みというowner通知を受領、designとsourceへ反映した。対応assertion、編集後skill-update-review、document-review、全体三検証とSolの結果監督を完了した。skill分割候補は追加なし。承認UIは実測せず具体caseを文面で確認した。main取り込み・正式reloadは元のescalate ownerが行い、設計担当は代行しない。利用者が追加依頼したshare-work-in-progressによる共有は元のownerが完了した。
 
 ## 設計文書の共有依頼
 
@@ -104,4 +114,10 @@ SKILL.mdの見出しは「役割と適用条件」「操作前の承認判定」
 
 > design.mdが出来上がったら見たいから $tumeda-dev:share-work-in-progress もして
 
-引継ぎownerからこの追加依頼を受領した。設計本文は完成しており、実装完了やplanless_completeを共有条件にしない。設計文書と実装途中状態を同期して共有する。実装の検証成功を主張せず、共有後に三件の完遂へ戻る。
+引継ぎownerからこの追加依頼を受領した。設計本文は完成しており、実装完了やplanless_completeを共有条件にしなかった。設計文書と実装途中状態を同期して共有し、その後に三件の反映と検証へ戻った。
+
+## 反映・検証の最終同期
+
+全三検証の成功と、自己testの24 pass・1 skip・0 failを[実行証跡](validation-evidence.txt)で確認した。追加実行ではhandoff子processの空stdoutによるJSON解析失敗が一度あり、同じ固定sourceの単独再実行は成功した。inspectorとhandoff testはbaseline差分なし。原因は未確定のまま記録し、引継ぎownerは最終成功と限界を対で消費することを判断した。実model selectorと承認UIは未実測。
+
+三件のsource反映待ちはなく、tasklistとroadmapは存在しない。設計記録の最終document-reviewでは、検証成功と未確認・原因未確定の範囲、設計文書共有時点と最終状態、旧提案と現在値を区別できることを確認した。後続の取り込みと正式reloadは引継ぎownerへ返す。
