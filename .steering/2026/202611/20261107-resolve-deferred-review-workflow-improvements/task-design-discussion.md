@@ -126,7 +126,7 @@ SKILL.mdの見出しは「役割と適用条件」「操作前の承認判定」
 
 ## 論点4: exhaustive-reviewだけの役割分担として適用範囲を訂正する
 
-**ステータス:** 反映待ち
+**ステータス:** 反映済み
 
 **種別:** 認識齟齬 / レビュー指摘
 
@@ -144,11 +144,11 @@ exhaustive-reviewの目的とモデル、および必要な共有定義を既存
 
 ### 現在の変更（論点4）
 
-rootが訂正範囲を利用者へ報告済み。design反映済み、source反映待ち。実行版はcache8.3.0、今回workdirに暫定指示候補なしを再確認し、既存ownerの継続として同じ作業を再開した。前の公開履歴は保持し、追加修正だけを行う。
+rootが訂正範囲を利用者へ報告済み。designとsource反映・編集後review・検証を完了した。5汎用入口とprofileの一般部分は前々版と一致し、review挙動維持節とfindingは前版から不変。review内の役割をhost非限定にし、高推論reviewの能力と既model契約を保持した。実行版はcache8.3.0、今回workdirに暫定指示候補なしを確認した。前の公開履歴は保持し、追加修正だけを行った。
 
 ## 論点5: 必要な指示と各許可を維持した独立作業だけ進める
 
-**ステータス:** 反映待ち
+**ステータス:** 反映済み
 
 **種別:** 認識齟齬 / レビュー指摘
 
@@ -166,4 +166,6 @@ unattended-executionのscope・操作前判定・独立作業caseへ、設計合
 
 ### 現在の変更（論点5）
 
-rootが既存gate維持の意味を利用者へ報告済み。design反映済み、source反映待ち。sourceとvalidatorはTerraへ委譲し、Solは方針と実結果の監督を保持する。
+rootが既存gate維持の意味を利用者へ報告済み。designとsource反映、validator、具体case、編集後構造reviewとdocument-reviewを完了した。sourceと検証はTerraへ委譲し、Solが実物差分と結果を監督した。新たなgateは追加せず、必要な指示・合意・各許可と既承認の再判定を維持した。
+
+今回の[訂正結果](correction-results.md)と[訂正検証証跡](correction-validation-evidence.txt)は前版の結果と分離している。validator成功後にsandboxの空stdout失敗と自己test中断があり、source不変更の一回probeではspawnSync EPERMを観測した。旧所有processを共有一覧で確認・停止し、承認済nodeの正規環境でhandoffと自己testだけを各一回実行して成功した。自己testは24 pass・1 skip・0 fail。旧wrapperの子exit未取得、過去の空stdout原因の未確定は履歴として保持する。model selectorと承認UIは未実測。

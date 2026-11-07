@@ -111,15 +111,21 @@ exhaustive-reviewは依頼だけの修正を禁じ、既適用許可を保持す
 
 前版のレビュー挙動維持の修正は保持する。前版の反映・検証と未再現incidentは[反映・検証結果](implementation-results.md)と[実行証跡](validation-evidence.txt)に保存されており、今回の実施結果へ読み替えない。
 
+| 対象 | 反映内容 | validation結果 | 参照するdesign section |
+| --- | --- | --- | --- |
+| exhaustive-review、既存high-reasoning-review、一般profileと前版追記5skill | review限定・host非限定の役割、一般規定への前版拡張の撤回 | 5入口と一般profile部分は前々版と一致、挙動維持節とfindingは前版と一致。差分とcaseをSol監督済み | exhaustive-review内の役割分担 |
+| unattended-executionとvalidator | 必要な指示・合意・各許可を維持し、既承認独立作業だけ進めるcase | 保存prefixと設計・公開許可の区別、既許可再判定、依存停止を確認。編集後構造reviewとdocument-review済み | unattended-executionの役割 |
+| 配布version5値 | 8.3.1へ更新 | validator exit 0、正規環境でhandoff exit 0、自己test exit 0（24 pass・1 skip・0 fail） | 配布物 |
+
+今回の結果は[訂正結果](correction-results.md)、実行条件・失敗と再検証・source hashは[訂正検証証跡](correction-validation-evidence.txt)に保存する。sourceを固定し、validator成功後に、sandbox内の空stdout失敗・中断を記録した。独立probeのspawnSync EPERMを根拠に正規の承認済node環境へ戻し、handoffと自己testだけを各一回実行して成功した。旧所有processの終了を共有一覧で確認したが、旧wrapperの子exit未取得という履歴は残す。過去incidentと初回失敗の原因を遡及断定しない。
+
+model selector切替と承認UIは実測しておらず、文面とcaseによる確認である。main取り込み・正式reloadはまだ完了として扱わない。
+
 ### task-design内の対象成果物反映待ち
 
-| 対象 | 待つ理由 | 依存decision | 参照するdesign section |
-| --- | --- | --- | --- |
-| exhaustive-review、既存high-reasoning-review、一般profileと前版追記5skill | 訂正のsource差分あり。編集後review・検証・監督が未完了 | なし | exhaustive-review内の役割分担 |
-| unattended-executionと必要な参照、validator | 訂正のsource差分あり。編集後review・検証・監督が未完了 | なし | unattended-executionの役割 |
-| 配布version5値 | 8.3.1のsource差分あり。検証が未実施 | なし | 配布物 |
+なし。
 
-訂正designを先に共有するため、sourceをatomic編集完了時点で固定した。全三検証はまだ実行しておらず、証跡も未作成。共有後に編集後reviewと検証へ戻る。設計本文の完成とsource品質確認を区別する。
+訂正designを先に共有する時点ではsourceをatomic編集完了後に固定し、全三検証は未実行だった。共有後に編集後reviewと検証を実施し、上記の現在結果へ同期した。共有当時の未検証状態と、現在のsource品質確認を区別する。
 
 ### execution plan対象
 

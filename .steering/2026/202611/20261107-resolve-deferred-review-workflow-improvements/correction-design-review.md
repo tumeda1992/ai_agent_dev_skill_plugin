@@ -19,3 +19,9 @@ cache8.3.0のdocument-reviewの作成時・更新時両観点を設計本文と�
 ## 取得した実行条件
 
 同じ作業directory・同じ設計ownerで再開。cache manifest8.3.0を実測し、この作業directoryの暫定指示候補なしを確認した。maintenance-plugin-contextの既存task-design許可範囲と日本語・機密性・検証commandの安定factは継続し、instanceは変更していない。今回versionは新しい呼出し能力を増やさない修正なので8.3.1とする。
+
+## 反映後の設計記録review
+
+2026-11-08、実測を消費してdesign付録の反映待ちをなしにし、task-design-discussionの論点4・5を反映済みに同期した。文書reviewの作成・更新観点で、review限定かつhost非限定の仕様、全gate維持、前版と今回の検証履歴、未実測のmodel selectorと承認UI、旧processの終了確認と旧wrapper子exit未取得の違いを通読確認した。新たな承認や原因帰属を補完していない。
+
+discussion helperのcheckはexit 0・problems空・5論点、read fullはexit 0・problems空・complete true。designの未決表示検索は一致なし。sourceは共有された固定版から変更せず、反映後は必要な正規再検証2件だけを実施した。取り込みと正式reloadはroot ownerへ返す。
