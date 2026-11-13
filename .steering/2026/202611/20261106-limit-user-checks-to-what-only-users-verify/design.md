@@ -34,7 +34,7 @@ escalate-plugin-skill-fix からの引き渡し（利用先 repository 固有の
 
 tasklist の設計の規則は、commit・push・PR の前に利用者の確認を必ず置く。その時点で利用者が確かめるものがあるかは問わない。そのため、利用者が触れるものが無い作業でも、assistant が自分で確かめられる確認が利用者の task になり、executor がそこで止まって利用者を待たせる。この待ちが、二つの作業で続けて起きた。
 
-この作業で、利用者の確認の task に入れるものと、その task を置く場所の規則を tasklist の設計に足す（TBD: 規則の境界と、前回の決定「commit・push・PR より前にユーザー動作確認を必須にする」との関係）。executor と steering の停止の契約を、その規則に合わせる（TBD: 変える箇所）。終了時には、tasklist の利用者の確認の task は利用者にしか確かめられないものだけを持ち、executor はそれ以外の確認を自分で行って先へ進む。
+この作業で、利用者の確認の task に入れるものを、利用者が触って確かめるもの（画面の操作の感触、利用者の端末での表示。部品を消すだけでも表示が変わるなら入る）と、利用者のところにだけ届くもの（email、通知、利用者の account でしか見えない結果）に限る規則を、tasklist の設計に足す。それ以外の確認は executor が自分で行う（[論点1の決定](task-design-discussion.md#決定論点1)）。利用者の確認の task は、利用者が触れるものが初めて現れる phase に置く。commit の前に利用者が触れるものがある作業は今の順序（確認の後に commit・push・PR）のまま、触れるものが無い作業では commit・push の前に確認を置かず、最後まで無い作業では確認を置かない（[論点2の決定](task-design-discussion.md#決定論点2)）。利用者の確認はまとめて一度、触れるものがすべて揃った後に置き、途中に置く例外は作らない。止めずに最後まで進むのが既定で、止まる場所は例外である。止まる場所を足す規則は「どこで止めてもよい」と読まれて広がるため、規則の文にこの既定を書く（[論点3の決定](task-design-discussion.md#決定論点3)）。止まる task を置くのは、作業の外へ残る action を含む phase の最後と利用者の確認の二つだけとする原則を tasklist の設計に書き、executor は tasklist が止まる task を置いた境界でだけ止まり、最後に利用者の確認を促すのは tasklist に確認の task がある時だけにする（[論点4](task-design-discussion.md#決定論点4)〜[論点6の決定](task-design-discussion.md#決定論点6)）。steering の文（tasklist 内の利用者の確認が完了する前に commit・push・PR へ進ませない）は、確認の task がある時の文として今のまま合う。終了時には、tasklist の利用者の確認の task は利用者にしか確かめられないものだけを持ち、executor はそれ以外の確認を自分で行って先へ進む。
 
 ---
 
@@ -46,25 +46,39 @@ tasklist の設計の規則は、commit・push・PR の前に利用者の確認�
 
 | owner | 判断・更新するもの | 行わないこと | single source of truth |
 | --- | --- | --- | --- |
-| task-design（`tasklist-design.md`） | TBD: 利用者の確認の task に入れるもの、置く phase、置かない場合の判定 | 実行時に確認を省くかを判断する | `tasklist.md` |
-| tasklist-executor | TBD: 利用者の確認の task で止まる契約と、それ以外の確認を自分で行う契約 | 利用者の確認の task を自分で完了にする | `tasklist.md` の checkbox |
-| steering | TBD: dispatch の時に、利用者の確認より前の commit・push・PR を止める契約 | tasklist の確認の置き方を再設計する | `tasklist.md` |
+| task-design（`tasklist-design.md`） | 利用者の確認の task に入れるもの（利用者が触って確かめるもの・利用者のところにだけ届くものだけ。[論点1の決定](task-design-discussion.md#決定論点1)）。それ以外の確認を DoD と品質 check の task に入れること。置く phase（利用者が触れるものが初めて現れる phase。commit の前に無ければ commit・push の前に置かない。[論点2の決定](task-design-discussion.md#決定論点2)）。複数の phase に現れても、まとめて一度（[論点3の決定](task-design-discussion.md#決定論点3)） | 実行時に確認を省くかを判断する | `tasklist.md` |
+| tasklist-executor | tasklist の止まる task（作業の外へ残る action の phase の最後、利用者の確認）でだけ止まる。止まる task の無い Phase 境界では止まらず次へ進む。利用者の確認の task が残っている時だけ、その task の文で確認を依頼する（[論点4](task-design-discussion.md#決定論点4)・[論点6の決定](task-design-discussion.md#決定論点6)） | 利用者の確認の task を自分で完了にする | `tasklist.md` の checkbox |
+| steering | tasklist に利用者の確認がある時は、その完了の前に commit・push・PR へ進ませない（今の文のまま。確認環境のための commit・push は除く） | tasklist の確認の置き方を再設計する | `tasklist.md` |
 
-**状態と遷移:** TBD: 規則の境界が決まった後に描く（利用者が触れるものがある作業と無い作業で、確認・commit・push の順序がどう分かれるか）
+**状態と遷移:** 利用者が触れるものがいつ揃うかで、三つに分かれる。
 
-**必須順序とhandoff:** TBD: 同上
+```text
+揃うのが commit の前（画面の変更など）
+  実装 → 機械的確認 →（確認環境へ載せる）→ 利用者の確認（一度）→ commit・push・PR
 
-**失敗・取消・再開:** TBD: 利用者の確認の task が無い tasklist で、executor が完了を返した後の steering の扱い
+揃うのが本番へ入れた後（本番で動く job と通知など）
+  実装 → 機械的確認 → commit・push・PR → merge・apply（作業の外へ残る action の停止）→ 利用者の確認（一度）
+
+最後まで揃わない（文書だけの変更など）
+  実装 → 機械的確認 → commit・push・PR（利用者の目は review と merge で入る）
+```
+
+**必須順序とhandoff:** task-design が tasklist の設計で、上のどの形かを決め、止まる task を置く。executor はその tasklist に従い、止まる task でだけ止まって steering へ返す。steering は返却を tasklist の checkbox と照合して次へ進む。
+
+**失敗・取消・再開:** 利用者の確認の task が無い tasklist では、executor は全 task の完了で `completed` を返し、確認を依頼しない。steering は通常どおり完了の処理へ進む。tasklist に無い止まり方（止まる task の無い Phase 境界での停止）は、executor の契約違反として扱う。
 
 ### documentation以外のfile deliverable
 
-TBD: 変更する file と位置。候補は次のとおり。
+| file | 位置 | 変更 | 決定 |
+| --- | --- | --- | --- |
+| `plugins/tumeda-dev/skills/task-design/tasklist-design.md` | 「作業の外へ残るactionを含むphaseの原則」の前 | 節「止まるtaskの原則」を足す | [論点4](task-design-discussion.md#決定論点4) |
+| 同上 | 「実装後feedbackと公開action」の利用者の確認の規則（確認環境の例外の二つの子は残す） | 入れるもの・回数・commit との順序の文へ置き換える | [論点5](task-design-discussion.md#決定論点5) |
+| 同上 | 自己レビューgate の「commit・push・PRより前にユーザー動作確認があるか」 | 項目と失敗例（二つ）を置き換える | [論点5](task-design-discussion.md#決定論点5) |
+| `plugins/tumeda-dev/skills/task-design/templates/tasklist.md` | 「動作確認」の節の先頭、依頼の task、「完了後のaction」の ⚠️ | comment を足し、依頼の文と ⚠️ を直す | [論点6](task-design-discussion.md#決定論点6) |
+| `plugins/tumeda-dev/skills/tasklist-executor/SKILL.md` | 「停止・再開」の `phase_checkpoint` の行、「実行手順」の 11 | 止まる task を置いた境界に限る。確認の task がある時だけ依頼する | [論点4](task-design-discussion.md#決定論点4)・[論点6](task-design-discussion.md#決定論点6) |
+| `scripts/verification/validate-plugin.mjs` | 確認の順序を検査する assertion、`expectedRelease` | 決まった文へ直し、新しい文を検査する。8.2.6 にする | 要件の MUST |
 
-- `plugins/tumeda-dev/skills/task-design/tasklist-design.md` の「実装後feedbackと公開action」の規則の文と、自己レビューgate の「commit・push・PRより前にユーザー動作確認があるか」
-- `plugins/tumeda-dev/skills/task-design/templates/tasklist.md` の「動作確認」の phase と「完了後のaction」の ⚠️
-- `plugins/tumeda-dev/skills/tasklist-executor/SKILL.md` の「停止・再開」と「実行手順」の 11（最後に必ず利用者へ動作確認を促す）
-- `plugins/tumeda-dev/skills/steering/SKILL.md` の 6-1 と「このskillが絶対にやらないこと」
-- `scripts/verification/validate-plugin.mjs` の、確認の順序を検査する assertion
+`steering/SKILL.md` は変えない。6-1 と「このskillが絶対にやらないこと」の文は、tasklist に利用者の確認がある時の文として、そのまま合う。
 
 ---
 
@@ -76,7 +90,8 @@ TBD: 変更する file と位置。候補は次のとおり。
 - 変更した skill の契約の文を、`scripts/verification/validate-plugin.mjs` の assertion で検査する。
 - 配布 version を PATCH で一度だけ上げる（宣言値 4 箇所と `expectedRelease`）。
 - 変更した skill に、編集後の skill-update-review を当てる。task-design は本文の全体を読む。
-- TBD: 規則の要件
+- 止まる task は、作業の外へ残る action を含む phase の最後と、利用者の確認の二つだけである。
+- 利用者の確認の task は、利用者が触って確かめるもの・利用者のところにだけ届くものだけを持ち、揃った後に一度だけ置かれる。
 
 ### SHOULD（できれば）
 
@@ -88,13 +103,15 @@ TBD: 変更する file と位置。候補は次のとおり。
 
 ### 非目標
 
-- TBD: 前回の決定（確認環境のための commit・push の例外と、利用者が触れるものがある時の順序）のうち、変えないもの
+- 前回の取り込みの決定（確認環境へ載せるための commit・push を確認の前に許す例外と、利用者が触れるものが commit の前にある時は確認の後に commit・push・PR をする順序）は変えない。
+- 作業の外へ残る action を含む phase の最後で止まる規則は変えない。
+- template の節の名前「動作確認」と DoD の文は変えない。既存の tasklist と validator の参照が広く動き、この作業の目的に要らない変更が増えるため。
 
 ### 受け入れ基準
 
 - `node scripts/verification/validate-plugin.mjs` が `plugin validation passed` を出す。
 - 起点以外の具体 case 二つ以上に規則を当て、意図した tasklist の形（利用者の確認の task の有無と位置）に落ちることを design に書ける。
-- TBD: 規則の観測基準
+- `validate-plugin.mjs` が、「止まるtaskの原則」の節、利用者の確認の規則の文、gate の項目と二つの失敗例、template の comment と ⚠️、executor の `phase_checkpoint` の行と手順 11 を検査する。
 
 ---
 
@@ -102,8 +119,8 @@ TBD: 変更する file と位置。候補は次のとおり。
 
 | リスク | 対策 |
 | --- | --- |
-| 「assistant が確かめられる」を広く取り、利用者が触って初めて分かるもの（操作の感触、端末での見え方）まで機械的な確認で済ませる | TBD: 利用者にしか確かめられないものの判定の仕方 |
-| 利用者の確認が無い作業で、確かめていない変更が公開される | TBD: 確認が無い作業での公開の前の扱い |
+| 「assistant が確かめられる」を広く取り、利用者が触って初めて分かるもの（操作の感触、端末での見え方）まで機械的な確認で済ませる | 今の規則（自動 test と screenshot は利用者の確認を代替しない）を残し、部品を消すだけでも表示が変わるなら利用者の確認に入ることを文に書く |
+| 利用者の確認が無い作業で、確かめていない変更が公開される | 確認を置かないのは、利用者が触れるものが commit の前に無い時だけである。機械的確認（test・lint・型検査、照合）は executor が必ず行い、利用者の目は review と merge で入る |
 
 ---
 
@@ -128,7 +145,12 @@ TBD: 変更する file と位置。候補は次のとおり。
 
 ### task-design内で対象成果物へ適用済み
 
-なし
+| 変更 | 参照するdesign section | validation |
+| --- | --- | --- |
+| `tasklist-design.md` の「止まるtaskの原則」の節、利用者の確認の規則、自己レビューgate の項目 | documentation以外のfile deliverable、[論点4](task-design-discussion.md#決定論点4)・[論点5の決定](task-design-discussion.md#決定論点5) | `node scripts/verification/validate-plugin.mjs` が `plugin validation passed`。設計時の skill-update-review は [記録](artifacts/skill-update-review.md)（候補 1 件、[論点7](task-design-discussion.md#決定論点7) で今は切り出さない） |
+| `templates/tasklist.md` の「動作確認」の comment・依頼の文・「完了後のaction」の ⚠️ | 同上、[論点6の決定](task-design-discussion.md#決定論点6) | 同上 |
+| `tasklist-executor/SKILL.md` の `phase_checkpoint` の行と「実行手順」の 11 | 同上、[論点4](task-design-discussion.md#決定論点4)・[論点6の決定](task-design-discussion.md#決定論点6) | 同上 |
+| `validate-plugin.mjs` の assertion の更新と追加、version の 8.2.6 への bump（宣言値 4 箇所と `expectedRelease`） | 要件の MUST | 同上 |
 
 ### task-design内の対象成果物反映待ち
 
@@ -137,11 +159,3 @@ TBD: 変更する file と位置。候補は次のとおり。
 ### execution plan対象
 
 なし
-
-### 分類保留（設計中のみ）
-
-| 変更候補 | 保留理由 | 分類を確定するdecision |
-| --- | --- | --- |
-| 利用者の確認の task に入れるものと置く場所の規則 | 規則の境界と、前回の決定との関係が未決 | 規則の境界 |
-| executor と steering の停止の契約 | 規則の境界が未決 | 規則の境界、変える箇所 |
-| `scripts/verification/validate-plugin.mjs` の assertion と version | 検査する文が未決 | 上の二つ |
