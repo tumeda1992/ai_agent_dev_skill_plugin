@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.3.1";
+const expectedRelease = "8.3.2";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -1255,7 +1255,9 @@ requireText(tasklistDesign, "それ以外のcommit・push・PRは確認の後に
 requireText(tasklistDesign, "確認で直したところは既存のcommitを書き換えず、追加のcommitにする");
 requireText(tasklistDesign, "その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。");
 requireText(tasklistTemplate, "- [ ] 確認環境へ載せる（`UI確認環境`が載せ方を定めている場合だけ。{載せ方}）");
-requireText(tasklistDesign, `**commit・push・PRより前にユーザー動作確認があるか**${confirmEnvExclusion}`);
+requireText(tasklistDesign, "**利用者の確認のtaskは、利用者にしか確かめられないものだけを持ち、利用者が触れるものが揃った後に一度だけあるか**");
+requireText(tasklistDesign, "揃うのがcommit・push・PRより前なら、確認の後にcommit・push・PRがあるか（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）。");
+forbidText(tasklistDesign, "commit・push・PRより前にユーザー動作確認を必須にする。");
 requireText(tasklistTemplate, "確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない");
 requireText(skillPath("tasklist-executor/SKILL.md"), `確認前にcommit・pushへ進まない${confirmEnvExclusion}`);
 requireText(skillPath("tasklist-executor/SKILL.md"), `ユーザー動作確認より先にcommit・push・PRへ進まない${confirmEnvExclusion}`);
@@ -1306,6 +1308,27 @@ requireText(outcomeSectionPath("documentation.md"), scopeCheckAnchor);
 requireText(steeringSkill, "既存の file へ書くなら、その file の範囲に入るかを");
 requireText(steeringSkill, scopeCheckAnchor);
 
+// 止めずに最後まで進むのが既定。止まるtaskは二つだけで、利用者の確認は利用者にしか確かめられないものだけを持つ。
+requireText(tasklistDesign, "### 止まるtaskの原則");
+requireText(tasklistDesign, "tasklistは、止めずに最後まで進む前提で作る。止まるtaskを置くのは、次の二つだけである。");
+requireText(tasklistDesign, "止まるtaskには、どちらに当たるかを書く。どちらにも当たらない止まるtaskを置かない。");
+requireText(tasklistDesign, "正しい判断のための問い: 「このtaskで止まる理由は、二つのどちらか」");
+requireOrderedText(tasklistDesign, ["### 止まるtaskの原則", "### 作業の外へ残るactionを含むphaseの原則"], "止まるtaskの原則は作業の外へ残るactionの原則の前");
+requireText(tasklistDesign, "- 利用者の確認のtaskに入れるのは、利用者にしか確かめられない次のものだけにする。");
+requireText(tasklistDesign, "部品を消すだけでも、表示が変わるなら入る。自動testとscreenshotは機械的確認であり、これを代替しない。");
+requireText(tasklistDesign, "利用者のところにだけ届くもの: 利用者の受信箱に届くemail、利用者の端末への通知、利用者のaccountでしか見えない結果。");
+requireText(tasklistDesign, "判断の問い: 「この確認の合否を、assistantがcommandの出力・file・撮影した画面から判定できるか」");
+requireText(tasklistDesign, "- 利用者の確認のtaskは、利用者が触れるものがすべて揃った後に一度だけ置く。phaseごとに置かず、途中に置く例外も作らない（上の「止まるtaskの原則」）。");
+requireText(tasklistDesign, "- 利用者が触れるものがcommit・push・PRより前に揃うなら、その確認の後にcommit・push・PRをする。");
+requireText(tasklistDesign, "最後まで利用者が触れるものが無い作業には、利用者の確認のtaskを置かない。");
+requireText(tasklistDesign, "失敗例: assistantが自分で確かめられる確認（commandのexit code、差分の照合）だけで利用者の確認のtaskを作り、利用者が確かめるものの無い待ちで作業を止める。");
+requireText(tasklistTemplate, "利用者が触れるものが無い作業では、この節を作らない。");
+requireText(tasklistTemplate, "- [ ] ユーザーに動作確認を依頼する（{利用者にしか確かめられないもの〈触って確かめる操作、届くもの〉と、何を観測できれば満たすか}）");
+requireText(tasklistTemplate, "> ⚠️ この section より前に動作確認phaseがある時は、");
+requireText(skillPath("tasklist-executor/SKILL.md"), "tasklistが止まるtaskを置いたPhase境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる。止まるtaskの無いPhase境界では止まらず、次のPhaseへ進む");
+requireText(skillPath("tasklist-executor/SKILL.md"), "11. tasklistに利用者の確認のtaskが残っている時だけ、そのtaskの文で利用者へ確認を依頼する。");
+forbidText(skillPath("tasklist-executor/SKILL.md"), "- Phase完了境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる");
+forbidText(skillPath("tasklist-executor/SKILL.md"), "11. ユーザーに動作確認を促す（「動作を確認していただけますか？」と伝えるのみ。次の行動は促さない）");
 // Review boundaries, model roles, and unattended execution.
 for (const expected of ["正常な認可ユーザーの既存操作", "認可漏れの拒否", "部分保存のrollback", "未定義の並行操作の勝敗", "常設service費用"]) requireText(skillPath("exhaustive-review/SKILL.md"), expected);
 requireText(skillPath("exhaustive-review/templates/finding.md"), "全量固定の条件にしない");

@@ -16,6 +16,19 @@
 
 tasklist作成途中では、解消対象を可視化するために`TBD`を使用できる。その場合は前提と解消方法を併記する。ただし、TBDを実装者へ残してはならない。`tasklist_ready`を返す前にすべて解消し、実装可能で今回の完了に必要なtaskだけを残す。
 
+### 止まるtaskの原則
+
+tasklistは、止めずに最後まで進む前提で作る。止まるtaskを置くのは、次の二つだけである。
+
+- 作業の外へ残るactionを含むphaseの最後（下の「作業の外へ残るactionを含むphaseの原則」）
+- 利用者の確認（「実装後feedbackと公開action」）
+
+止まるtaskには、どちらに当たるかを書く。どちらにも当たらない止まるtaskを置かない。
+
+- やってしまいがちな行動: 止まる場所が用意されていること自体を、止めてよい根拠にする。
+- それをやると何が起きるか: 止まるtaskは「どこで止めても安全」と読まれて広がる。phaseごとに利用者の確認が置かれたり、利用者が確かめるものの無い確認で作業が止まったりする。利用者は、確かめる必要の無い待ちを何度も受ける。
+- 正しい判断のための問い: 「このtaskで止まる理由は、二つのどちらか」
+
 ### 作業の外へ残るactionを含むphaseの原則
 
 `SKILL.md`のStep 4（design合意判定）で特定した、作業を破棄しても残る変化を起こすactionを対象actionとし、それを含むphaseに次のMUSTを当てる。判定の問い・例・判定に使わない観点はStep 4が正本であり、ここへ写さない。
@@ -112,9 +125,16 @@ document-review、機能・安全・独立した動作検証、利用者確認�
   2. その知識はcodeを読めば分かるか、読んでも分からない設計意図か、process不足か。
   3. どこに書けば次回この議論が不要になるか。変更は合意後だけ行う。
 - feedbackがdesignまたはplan構造へ影響する場合は、同じ`working_dir`でtask-designを`create_working_dir=false`として再開する。review後に実装を自動再開しない。
-- 自動testとscreenshotは機械的確認であり、ユーザーが実際に触る動作確認を代替しない。commit・push・PRより前にユーザー動作確認を必須にする。
+- 利用者の確認のtaskに入れるのは、利用者にしか確かめられない次のものだけにする。
+  - 利用者が触って確かめるもの: 画面を操作した時の感触、利用者の端末での表示。部品を消すだけでも、表示が変わるなら入る。自動testとscreenshotは機械的確認であり、これを代替しない。
+  - 利用者のところにだけ届くもの: 利用者の受信箱に届くemail、利用者の端末への通知、利用者のaccountでしか見えない結果。
+  - それ以外の確認（commandのexit codeやログ、test、APIのresponse、差分がdesignのとおりかの照合）は、そのphaseのDoDと品質checkのtaskに入れ、tasklist-executorが自分で行う。
+  - 判断の問い: 「この確認の合否を、assistantがcommandの出力・file・撮影した画面から判定できるか」
+- 利用者の確認のtaskは、利用者が触れるものがすべて揃った後に一度だけ置く。phaseごとに置かず、途中に置く例外も作らない（上の「止まるtaskの原則」）。
+- 利用者が触れるものがcommit・push・PRより前に揃うなら、その確認の後にcommit・push・PRをする。
   - 例外: repositoryのcontext fileの`UI確認環境`が、確認環境へ載せるのにcommit・pushが要ると定めている場合、そのcommit・pushは確認の前に行ってよい。その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。それ以外のcommit・push・PRは確認の後に行う。
   - 確認の前に確認環境のためのcommitが作業branchにある場合、確認で直したところは既存のcommitを書き換えず、追加のcommitにする。
+- 利用者が触れるものが本番へ入れた後に初めて現れるなら、commit・pushは機械的確認の後に進め、利用者の確認はそれが現れた後に置く。最後まで利用者が触れるものが無い作業には、利用者の確認のtaskを置かない。
 - `.agents/skills/tumeda-dev-plugin-context.md`にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け（分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める）、部分承認なら承認範囲だけをcommitする。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答（`commitしない`等）もfactとして記載する。
 - `.agents/skills/tumeda-dev-plugin-context.md`にGitHub公開条件の記載があり、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`scripts/github/create_or_get_pr.sh`を使う。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答もfactとして記載する。
 - 既定branchへのmergeを含む場合は、[`branch_pr_issue.md`](../../docs/development_standards/development_flow/branch_pr_issue.md)を引き、issue完了のmergeか検証のためのmergeかを判定してからsectionを生成する。判定の中身は同fileが正本であり、ここへ写さない。
@@ -148,8 +168,9 @@ tasklistを書いたら、ユーザーへ提示する前にゼロベースで次
   - やってしまいがちな失敗: testの一覧を先に作り、DoDと突き合わせずに揃ったとみなす。DoDに書いたのにtestが無い項目は、実装者に「書かなくてよい」と読まれる。
 - [ ] **UI変更phaseにscreenshot確認があるか**: 品質checkだけへまとめていないか。
 - [ ] **横切りになっていないか**: 実装phaseの後にtest phaseを置くようなlayer分割になっていないか。
-- [ ] **commit・push・PRより前にユーザー動作確認があるか**（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）: 自動test・screenshotをユーザー確認の代替にしていないか。
+- [ ] **利用者の確認のtaskは、利用者にしか確かめられないものだけを持ち、利用者が触れるものが揃った後に一度だけあるか**: 揃うのがcommit・push・PRより前なら、確認の後にcommit・push・PRがあるか（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）。
   - 失敗例: 機械的確認を「動作確認済み」と読み替え、tasklist-executorがそのままcommit・pushまで進む。
+  - 失敗例: assistantが自分で確かめられる確認（commandのexit code、差分の照合）だけで利用者の確認のtaskを作り、利用者が確かめるものの無い待ちで作業を止める。
 - [ ] **既定branchへのmergeを含む場合、どちらの経路か判定したか**: `Closes`の有無とbranchの扱いが経路に合っているか。
   - 失敗例: 検証のためのmergeへ`Closes`を付け、残作業があるのにissueが閉じる。
 - [ ] **完了後actionがrepository contextへ従うか**: local commitとGitHub公開を別条件で判定し、plan時点では実行可能なcommit task、runtimeでは実際のcommitを確認し、適用不能なsectionを生成していないか。

@@ -74,7 +74,7 @@ tasklist.md が与えられていないときには、tasklist.md を要求し�
 # 停止・再開
 
 - checkboxはtask・subtaskを実測完了した直後に`[x]`へ更新する。phase末や作業末にまとめて更新しない。停止時点のcheckboxが実態とずれると、再開時にどこから再開すべきかが決まらない
-- Phase完了境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる
+- tasklistが止まるtaskを置いたPhase境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる。止まるtaskの無いPhase境界では止まらず、次のPhaseへ進む
 - ユーザー動作確認がtasklistにある時は`user_confirmation_required`で停止し、確認前にcommit・pushへ進まない（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）
 - 利用上限に達した時は、完了済みtask、pending request/result、次の`[ ]`を`limit_reached`として返す
 - 同じ元作業の再開時と、task／phaseの既存完了条件を実測して次へ進む時は、元作業の場所と現在の状態・証拠を`escalate-plugin-skill-fix`へ渡し、[保留条件を再確認する](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)。未実測の完了を通知せず、各返信のpollingにも変えない。
@@ -94,7 +94,7 @@ tasklist.md が与えられていないときには、tasklist.md を要求し�
 8. tasklist.md の該当項目を `[x]` に更新する
 9. 次の未完了タスクへ進む
 10. 最後に tasklist.md を再読込し、`[ ]` がゼロであることを確認する
-11. ユーザーに動作確認を促す（「動作を確認していただけますか？」と伝えるのみ。次の行動は促さない）
+11. tasklistに利用者の確認のtaskが残っている時だけ、そのtaskの文で利用者へ確認を依頼する。次の行動は促さない。利用者の確認のtaskが無いtasklistでは、確認を依頼しない
 
 # 出力ルール
 - 何を完了したかを簡潔に報告する
