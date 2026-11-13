@@ -1306,6 +1306,15 @@ requireText(outcomeSectionPath("documentation.md"), scopeCheckAnchor);
 requireText(steeringSkill, "既存の file へ書くなら、その file の範囲に入るかを");
 requireText(steeringSkill, scopeCheckAnchor);
 
+// 止めずに最後まで進むのが既定。止まるtaskは二つだけで、利用者の確認は利用者にしか確かめられないものだけを持つ。
+requireText(tasklistDesign, "### 止まるtaskの原則");
+requireText(tasklistDesign, "tasklistは、止めずに最後まで進む前提で作る。止まるtaskを置くのは、次の二つだけである。");
+requireText(tasklistDesign, "止まるtaskには、どちらに当たるかを書く。どちらにも当たらない止まるtaskを置かない。");
+requireText(tasklistDesign, "正しい判断のための問い: 「このtaskで止まる理由は、二つのどちらか」");
+requireOrderedText(tasklistDesign, ["### 止まるtaskの原則", "### 作業の外へ残るactionを含むphaseの原則"], "止まるtaskの原則は作業の外へ残るactionの原則の前");
+requireText(skillPath("tasklist-executor/SKILL.md"), "tasklistが止まるtaskを置いたPhase境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる。止まるtaskの無いPhase境界では止まらず、次のPhaseへ進む");
+forbidText(skillPath("tasklist-executor/SKILL.md"), "- Phase完了境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる");
+
 if (failures.length > 0) {
   console.error("plugin validation failed:");
   for (const failure of failures) {
