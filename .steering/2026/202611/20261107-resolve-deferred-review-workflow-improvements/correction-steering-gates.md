@@ -1,0 +1,21 @@
+# 訂正後のReady gate（2026-11-08）
+
+## resultと元指示の対応
+
+planless_completeのdirectoryとdesignが同じ正本を指し、tasklist・roadmapはなく、反映待ちとexecution plan対象はともになし。今回の二訂正は利用者が対象と意味を一意に指定した範囲であり、過去の再開指示を新しい設計合意へ読み替えていない。main公開・導入はこの検証完了とは別に確認する。
+
+## doc-enricher（提案mode）
+
+変更対象、skills/README.md、root README.mdと既存profile・contractを照合した。review限定・host非限定の分担はexhaustive-reviewを正本とし、一般profileのmodel既定値を変更しない。許可済み独立作業はunattended-executionを正本とし、既存workflowのgateとownerを維持する。いずれも変更対象で説明されており、READMEへ規則を重複追加する候補はない。追加の恒久規範は適用しない。
+
+## 原因と保持範囲
+
+model分担は、review中の指示を全workflowへ広げ、実行中hostで限定したことが誤りだった。利用者の訂正に従ってその二点を撤回し、一般5入口とprofileの一般部分が前々版に一致すること、レビュー挙動維持は前版から不変なことを監督した。
+
+自走は、実行環境の自動許可と、指示・設計合意・工程確認・公開許可を分ける必要がある。必要なものが足りない操作と依存先は保留し、既承認の独立作業だけを進める。これを超える新しい例外やgateは作らない。steering自身も前版追記の撤回以外の改訂は不要。
+
+task-design-discussion全3chunkを読取り、checkは5論点・problemsなし、読取後compareはchanged false。rootのimplementation_reviewは原文を保持して現在の反映結果だけ同期した。文書reviewでは作成・更新観点で合意帰属、時点、未実測、履歴保持を確認した。
+
+## 検証と限界
+
+validator成功のsourceを保持し、残るhandoffと自己testを承認済nodeの正規require_escalated経路で各一回実行して成功した。自己testは24 pass・1 skip・0 fail。sandbox内の失敗と中断、旧processの終了確認、過去の原因未確定は訂正証跡へ保存している。過去結果を現在の成功へ流用していない。model selectorと承認UIは未実測である。

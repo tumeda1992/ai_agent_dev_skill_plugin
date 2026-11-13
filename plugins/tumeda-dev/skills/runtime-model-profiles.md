@@ -41,4 +41,6 @@ main sessionでは利用者が選択した高推論モデルを使い、frontmat
 - 選択面がない場合は親モデルを継承し、制約を明示する。存在しないモデルを指定しない。
 - モデル名だけを品質の証拠にせず、対象スナップショットと指摘の根拠を残す。
 
+役割分担は`exhaustive-review/SKILL.md`が定める。このprofileの高推論review担当の結果も、そのskillの監督を受ける。
+
 使用skill: `exhaustive-review`。

@@ -1,0 +1,91 @@
+Request: validation-2; attempt: 1
+Command: node scripts/verification/validate-plugin.mjs
+Exit: 0
+Output:
+plugin validation passed
+
+Command: node scripts/verification/test-task-design-handoff.mjs
+Exit: 0
+Output:
+task-design handoff tests passed
+
+Command: node --test plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs
+Exit: 0
+Output:
+✔ 入口は内容を読まずにnone/single/splitを判定し、共存や索引欠落を拒否する (24.263483ms)
+✔ 10実論点の閾値は最大番号ではなく件数 (26.342915ms)
+✔ 11実論点の閾値は最大番号ではなく件数 (5.797672ms)
+✔ 12実論点の閾値は最大番号ではなく件数 (4.98111ms)
+✔ 旧h3・全角colon・欠番を扱い、fence/引用/commentの例示は数えない (5.493176ms)
+✔ 未完成iterationは途中状態、未知の現在形式はneeds_full_read、境界不明は失敗 (188.696652ms)
+✔ 重複番号、親欠落、親循環、複数親、無効番号を拒否する (858.456593ms)
+✔ currentはmetadata/未決の最新回/現在の変更を原文で返し旧回を一律通読しない (12.177222ms)
+✔ 巨大な一fileも範囲fileも行境界chunkで全原文を分割取得できる (78.597844ms)
+✔ 一行が巨大でも原文と出典行を保持し、surrogateを破壊しない (10.285751ms)
+✔ 分割済みは番号順に読み、索引/所属の不整合を検出する (17.813378ms)
+✔ snapshot/compareは原文/log/集合/解決先の変化を検出し、差のexitは2 (846.413018ms)
+✔ 明示候補検査は新旧共存中に原文保持と全href差を返し、本文改変を拒否する (25.839533ms)
+✔ 無効引数/取得不能を成功にせず、全操作でsourceは不変 (1604.349641ms)
+﹣ 指定された実在の分割記録を修復せず原文・現在・snapshotで読む (0.416346ms) # SKIP
+✔ 親fieldの存在を無視せず、0・複数参照・空・非整数・過大整数を拒否する (903.592671ms)
+✔ compareは不正snapshotを変更ありexit2へ混ぜずexit1で拒否する (1213.060532ms)
+✔ href差の旧新を各fileの該当行へ辿れる (13.270761ms)
+✔ 既存basename notes.markdownを追加拒否せず単一/分割で読む (348.095162ms)
+✔ 既存basename review.txtを追加拒否せず単一/分割で読む (330.49341ms)
+✔ 既存basename sessionを追加拒否せず単一/分割で読む (328.54381ms)
+✔ 既存basename .journalを追加拒否せず単一/分割で読む (337.526618ms)
+✔ 拡張子なしは明示候補で原文を保持して検査し、旧除去後に同pathへ切り替える (149.553064ms)
+✔ 終端statusで現在結果が欠落・別型・空なら全文読取へ戻す (17.938616ms)
+✔ 終端の決定・適用結果と未完の最新回を取り違えず取得する (16.621488ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 7890.585873
+
+
+追加実行の記録（前掲の成功とは別）
+Command: node scripts/verification/test-task-design-handoff.mjs
+親exit: 未取得（同一shellは後続commandへ進んだ）
+Output:
+<anonymous_script>:1
+
+
+SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at file:///tmp/tumeda-dev-20261107-resolve-deferred-review-workflow-improvements/scripts/verification/test-task-design-handoff.mjs:105:35
+    at ModuleJob.run (node:internal/modules/esm/module_job:561:25)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.1
+
+子command: node plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs resolve --directory <fixture>/split-existing --name task-design-discussion.md
+子exit 0、stdout空。stderrは取得されず、原因未確定。
+
+最後の単独再実行:
+Command: node scripts/verification/test-task-design-handoff.mjs
+Exit: 0
+Output:
+task-design handoff tests passed
+
+検証対象の固定: git diff --name-only HEAD^ -- plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs scripts/verification/test-task-design-handoff.mjs は出力なし（baselineとの差分なし）。以下は現在の実測SHA256。
+e5a26ba8c88629be854d54b4106c18a3740f9a4c31c13787b765d68eb35870ea  plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs
+27b65451de79bafb8da04731171b18e9c799c22cb3b809b186a08a87184ea407  scripts/verification/test-task-design-handoff.mjs
+f4b942a89228d16dcbe70b80b5ce493cf253f5da5a6e5e070a83714375e1aff3  .claude-plugin/marketplace.json
+c96130338e69cbae8b2cd0614c9f58b39e1f11c779e9991213340af1c615fb21  plugins/tumeda-dev/.claude-plugin/plugin.json
+f05d2f7bc082a924460177b1a1ec840a20d7dcb71369aac30a27f818395f0b08  plugins/tumeda-dev/.codex-plugin/plugin.json
+cc626bd3593b0209622cb0c2347e7316c0496441c820464b00c77b87fc4e07e2  scripts/verification/validate-plugin.mjs
+681a54844f259eedc2380765661bed42efdcafc72dedfd3183a2bd632236c106  plugins/tumeda-dev/skills/README.md
+554c5ecd60af492cebb8aef508ae5820f44caa07e899e7fdcaecb6c2dbf31d45  plugins/tumeda-dev/skills/exhaustive-review/SKILL.md
+79ace5d87b2e135d624f0b7d9dbd980f53a32fda9719baa4dccc5e2e0b8187c4  plugins/tumeda-dev/skills/exhaustive-review/templates/finding.md
+c4c88d566d9fa925922513163ad6a2efc39380cecd44e51574291037d84497bf  plugins/tumeda-dev/skills/runtime-execution-contracts.md
+2d7cb70d9a7db126dde74a487fdf51f2ddac04ab99cd1342ef16f6e0f021309d  plugins/tumeda-dev/skills/runtime-model-profiles.md
+107273fcde2011b43a31efb27d3b4898d00b727d1f19b021f2421631dd346eec  plugins/tumeda-dev/skills/steering/SKILL.md
+dd627adb09196a484b81c591377002cff0d959635daad2be231a579325171a29  plugins/tumeda-dev/skills/task-design/SKILL.md
+74c7726eadfb5eb12f103914b60c24c9dc6809561c998d319eaecb5bdef68464  plugins/tumeda-dev/skills/tasklist-executor/SKILL.md
+6926f27bd46490263a7c94b9c776b3097191904718209861a50bd30582e2e2e2  plugins/tumeda-dev/skills/test-runner/SKILL.md
+d3b2e9f454aee72fc1debbe4dcdc8df989b2aa87ac0182f681c6d3ae7b95d04e  plugins/tumeda-dev/skills/unattended-execution/SKILL.md
+0087116bc512cfadf747362d4cf84cffc310ea19f8e10dae1eac9961da20473d  plugins/tumeda-dev/skills/visual-inspector/SKILL.md

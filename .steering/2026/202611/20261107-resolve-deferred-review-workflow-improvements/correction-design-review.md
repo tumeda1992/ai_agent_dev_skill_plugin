@@ -1,0 +1,27 @@
+# 適用範囲と許可維持の訂正設計review
+
+## 設計の根拠と範囲
+
+利用者が一意に指定した訂正は、exhaustive-review内の役割分担と、不在中でも既存の指示・合意・許可が必要であること。前版の全体化・host限定を撤回し、指示された範囲だけを訂正する。前版の原文・誤解・公開と検証の履歴を改竄せず、今回のsourceと検証結果はcorrection-results.mdとcorrection-validation-evidence.txtへ分離する。
+
+## 設計時skill-update-review
+
+既存exhaustive-reviewの本体とfinding template、新skillではない既存unattended-execution本体の全体を対象にした。今回の変更は既存workflowの役割範囲と操作前の許可判定条件を訂正するもので、独立した判断・状態・完了条件を持つ新工程を抱え込まない。追加の切り出し候補なし。model定義は既存profileの必要部分に限定し、役割の本文を共有profileへ複製しない。
+
+一般profileと5skillの前版追記を撤回する変更も、独立工程の移設ではなく、今回誤って拡張した適用条件を取り除く修正である。高推論reviewや既存のsingle writerは保存する。編集後の実物reviewは実装担当が明示適用し、結果をSolが監督する。
+
+## document-review
+
+cache8.3.0のdocument-reviewの作成時・更新時両観点を設計本文と議論へ適用した。読者はreview内限定・host非限定の役割、一般workflowへ拡張しない境界、保存prefixと作業内容の許可の違いを具体caseで判断できる。未反映と未検証はdesign付録へ残し、前版の成功を今回の成功に読み替えていない。利用先固有情報は追加していない。
+
+現在の役割・gateはdesign、今回の原文と原因はroot ownerのimplementation_review.md、設計側の変更履歴はtask-design-discussion.mdの論点4・5へ分けた。rootの議論正本をこの担当は変更しない。discussion helperのcheckはproblems空・5論点。設計本文に未解消の判断はなく、source反映と検証は残っている。空planは作成しない。
+
+## 取得した実行条件
+
+同じ作業directory・同じ設計ownerで再開。cache manifest8.3.0を実測し、この作業directoryの暫定指示候補なしを確認した。maintenance-plugin-contextの既存task-design許可範囲と日本語・機密性・検証commandの安定factは継続し、instanceは変更していない。今回versionは新しい呼出し能力を増やさない修正なので8.3.1とする。
+
+## 反映後の設計記録review
+
+2026-11-08、実測を消費してdesign付録の反映待ちをなしにし、task-design-discussionの論点4・5を反映済みに同期した。文書reviewの作成・更新観点で、review限定かつhost非限定の仕様、全gate維持、前版と今回の検証履歴、未実測のmodel selectorと承認UI、旧processの終了確認と旧wrapper子exit未取得の違いを通読確認した。新たな承認や原因帰属を補完していない。
+
+discussion helperのcheckはexit 0・problems空・5論点、read fullはexit 0・problems空・complete true。designの未決表示検索は一致なし。sourceは共有された固定版から変更せず、反映後は必要な正規再検証2件だけを実施した。取り込みと正式reloadはroot ownerへ返す。

@@ -90,6 +90,8 @@ executorは再開時に最初の`[ ]`を選び、対応するrequest / result ar
 
 Phase checkpoint、user confirmation、blocked、limitで停止しても、tasklistとartifactから同じ判定を再構築する。
 
+明示された不在・応答不能中の自走では`unattended-execution/SKILL.md`を適用できる。保留後に独立作業を進めても、元workflowのowner、停止状態、single writerは変わらず、拒否操作の実行やblocker解消を偽装しない。
+
 ## Logical ownerとphysical launcher
 
 - logical ownerはtasklist-executorである。委譲要否、request、result消費、DoD、tasklist更新を所有する。
