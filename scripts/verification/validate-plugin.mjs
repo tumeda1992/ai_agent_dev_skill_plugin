@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.3.3";
+const expectedRelease = "8.3.4";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -1234,6 +1234,8 @@ requireText(`${pluginRoot}/docs/documentation_standards/README.md`, "provisional
 requireText(`${pluginRoot}/docs/documentation_standards/stock-and-flow-information.md`, "provisionality_explicitness.md");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 提案が暫定か恒久かを示す");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 「後からでもできる」は、延期の間に作られるものを数えてから使う");
+requireText(thinkStandardsPath("starting_to_think.md"), "## 補助: 到達点は「間違いが無いこと」ではなく「機能すること」に置き、今の視座で届く限界を目指す");
+requireText(thinkStandardsPath("questioning_existing.md"), "必然性があり配置も正しいが中身の一部が誤っている（直す）");
 
 // 作業の範囲（目的の内外、目的の外の不備を拾うか切り出すか）の判定の契約
 const workScopeStandard = `${pluginRoot}/docs/development_standards/development_flow/work_scope.md`;
