@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.3.2";
+const expectedRelease = "8.3.3";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -1233,6 +1233,7 @@ requireText(taskDesignTemplate, "見直す条件または切り出した先を�
 requireText(`${pluginRoot}/docs/documentation_standards/README.md`, "provisionality_explicitness.md");
 requireText(`${pluginRoot}/docs/documentation_standards/stock-and-flow-information.md`, "provisionality_explicitness.md");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 提案が暫定か恒久かを示す");
+requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 「後からでもできる」は、延期の間に作られるものを数えてから使う");
 
 // 作業の範囲（目的の内外、目的の外の不備を拾うか切り出すか）の判定の契約
 const workScopeStandard = `${pluginRoot}/docs/development_standards/development_flow/work_scope.md`;
