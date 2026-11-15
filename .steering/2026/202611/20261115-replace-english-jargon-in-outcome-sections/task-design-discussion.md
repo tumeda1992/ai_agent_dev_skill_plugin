@@ -222,7 +222,7 @@ design.mdとroadmap.mdのテンプレートには、成果物へそのまま出�
 
 ## 論点3: 言い換えを、一語一訳の対応表で行うか、箇所ごとの書き直しで行うか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -274,3 +274,138 @@ ownerに「担当」を一律に当てると、「owner境界」は「担当境�
 [内部検討記録: 論点3・イテレーション0](internal-records/task-design-discussion.md.topic-3.md#iteration-0)
 
 #### 提案0へのフィードバック（論点3）
+
+**結果:** 合意
+
+> ok
+
+### 決定（論点3）
+
+一語ずつ訳語を決めて置き換える対応表は作らない。箇所ごとに、その文で言いたいことを普段の言葉で書き直す。同じ語が箇所によって違う意味で使われているためである（ownerは、どのsectionに書くか、codeの責務を持つmodule、workflowの担い手、文書を直す人、記述が置かれている場所、議論の記録先の少なくとも六つ。contractは、呼び出し元が依存する名前・入力・結果・保証と、移行前に存在した挙動と判断能力を生む記述の単位の二つ）。一語一訳では「owner境界」が「担当境界」になるだけで、何の境界かは読み取れない。
+
+ただし次の二つは揃える。
+
+- 一つのsectionの中で同じものを繰り返し指す語は、そのsectionの中で一つの語に揃える。
+- 全fileの記入guideに繰り返し出る小見出しは、file間で同じ言い換えに揃える。
+
+代償として、対応表が無いため、後から書く人が同じものを別の言い方で書く余地が残る。これは再発防止の論点で、書く時の基準として扱う。
+
+## 論点4: outcome-sectionsの見出し・記入欄のlabel・記入guideの小見出しを何へ言い換えるか
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点4）: 名前を全て抜き出し、見分ける問いを当てる
+
+#### 提案0（論点4）
+
+本文の書き直しより先に、design.mdへそのまま写る名前と、file間で揃える記入guideの小見出しを決める。本文はこの名前に合わせて書き直す。表に無い名前（「なぜ必要か」「NG」「判断基準」「記述のMUST」「具体的な記述例」「記入例」「移行元」「状態と遷移」等）は普段の意味のまま読めるため、そのまま残す。
+
+##### 各sectionの見出し（design.mdへ写る）
+
+| file | 今 | 後 |
+| --- | --- | --- |
+| `caller-contracts.md` | ### callerが依存するcontract | ### 呼び出し元から見た呼び出し方と保証 |
+| `contract-preservation.md` | ### contractの保存と明示差分 | ### 移行で変えない振る舞いと、意図して変える差分 |
+| `documentation.md` | ### documentationによって成立する知識体系 | ### 文書にまとめる知識と、その保ち方 |
+| `file-deliverables.md` | ### documentation以外のfile deliverable | ### 文書以外に作るfileの中身 |
+| `research-findings.md` | ### 調査・比較・技術検証によるfindings | ### 調査・比較・技術検証で分かったこと |
+| `workflow.md` | ### workflow | ### 作業の流れと担当 |
+
+残す見出し: codeの責務配置と依存構造、データモデル、操作フロー、runtime・設定・環境構築、画面イメージと配置意図、skillの役割と方針。
+
+`caller-contracts.md`は、issueの候補「xxの呼び元からの呼び出し方」に、このsectionが併せて持つ「成功・失敗時に何が起きるかの保証」を足した。「xxの呼ばれ方」の形（xxに対象名を入れる）は、一つのsectionで複数のfunctionやendpointを扱う時に見出しへ入りきらないため採らなかった。
+
+##### 記入欄のlabel・表の列名・placeholder（design.mdへ写る）
+
+| file | 今 | 後 |
+| --- | --- | --- |
+| `caller-contracts.md` | **新設・変更するcaller-facing class / function:** | **新設・変更する、呼び出し元が使うclass / function:** |
+| | **mutation / endpoint / caller contract:** | **mutation / endpointの呼び出し方:** |
+| | caller: / input contract: / 成功時のresult: / 成功時のside effect: | 呼び出し元: / 入力の条件: / 成功時の結果: / 成功時の副作用: |
+| | **失敗contract:** | **失敗時の返し方と、dataの状態の保証:** |
+| | \| 条件 \| caller-facingなerror contract \| state・side effectの保証 \| | \| 条件 \| 呼び出し元へ返すerror（type、status、payload） \| dataの状態と副作用の保証 \| |
+| `code-structure.md` | **境界のrule:** | **moduleの間の決まり:** |
+| | **全体のcall関係:** | **全体の呼び出し関係:** |
+| | {Caller-facing entry} -> {Owner A} -> {Owner B} -> {Result owner} | {呼び出し元が使う入口} -> {担当module A} -> {担当module B} -> {結果を返すmodule} |
+| `contract-preservation.md` | **baselineとevidence:** | **移行前の基準と、照合の記録:** |
+| | 表の行: baseline / 対象scope / ledger / 一般procedureの正本 | 移行前の基準 / 対象範囲 / 移行の対応表 / 移行手順を定める文書 |
+| | **完成後の差分宣言:** | **変わるものと、保存されるもの:** |
+| | \| 完成後の意味差分 \| 移行前との違い \| 詳細owner \| 出典 \| | \| 完成後に変わる意味 \| 移行前との違い \| 詳細を書いたsection \| 根拠 \| |
+| `data.md` | **典型case:** | **代表的なcase:** |
+| | \| operation \| 操作前 \| 操作後 \| relation・cascade・保持値 \| | \| 操作 \| 操作前 \| 操作後 \| 関連するdataへの影響・残る値 \| |
+| `documentation.md` | **形式知化する対象:** | **文書にする知識:** |
+| | **読者と成立させる判断:** | **読者と、読んでできるようになる判断:** |
+| | **知識構造:** | **知識の並べ方:** |
+| | **規範の根拠と適用境界:** | **決まりの理由と、当てはめる範囲:** |
+| | **snapshotと維持規律:** | **内容を最新に保つ方法:** |
+| | **完成後のdocument構造:** | **完成後の文書の構成:** |
+| | \| 読者 \| 利用場面 \| codeや過去会話を再調査せず可能になる判断・action \| 入口・読む順序・検索語 \| | \| 読者 \| 読む場面 \| codeや過去の会話を調べ直さずにできるようになる判断・作業 \| 最初に開く場所・読む順序・検索語 \| |
+| | \| 正しいsnapshot \| single source of truth \| 更新owner \| 更新trigger \| 腐敗signal・同時確認先 \| | \| 保つべき内容 \| 正とする記述の置き場所 \| 直す人 \| 直すきっかけ \| 古くなったと気づく兆候・あわせて確認する文書 \| |
+| `interaction-flow.md` | **ケース: {actorの操作名}** | **ケース: {操作する人の操作名}** |
+| | \| case \| success flowからの分岐 \| call・stateへの影響 \| actorの観測と次の操作 \| 参照するcontract \| | \| case \| 成功時の流れから分かれる点 \| 呼び出しと状態への影響 \| 操作する人に見えることと次の操作 \| 関係する呼び出し方 \| |
+| `research-findings.md` | **evidenceとfinding:** | **根拠と、分かったこと:** |
+| | **可能になった判断と限界:** | **できるようになった判断と、言えないこと:** |
+| | \| source / method \| comparison条件・environment・version \| 再現方法 \| | \| 情報源・方法 \| 比較の条件・環境・version \| 再現方法 \| |
+| | \| evidence \| evidenceから直接言えるfinding \| 確度・適用範囲 \| | \| 根拠 \| 根拠から直接言えること \| 確かさ・当てはまる範囲 \| |
+| `runtime-and-configuration.md` | **file配置と既存pattern:** | **fileの置き場所と、倣う既存の書き方:** |
+| | \| identifier / dependency \| 値または解決元 \| default \| 影響する挙動 \| | \| 設定名・依存 \| 値または値の取得元 \| 既定値 \| 影響する挙動 \| |
+| | {context / config / secret owner} | {context / config / secretの管理元} |
+| | \| environment \| 配置・起動条件 \| 観測可能な結果 \| | \| 環境 \| 配置・起動条件 \| 外から確かめられる結果 \| |
+| `screen.md` | **inputの供給元:** | **表示に使う値の出どころ:** |
+| | \| input \| 供給元 \| 受渡し経路 \| 未取得・失敗時 \| | \| 値 \| 出どころ \| 渡される経路 \| 取得前・失敗時 \| |
+| `skill-policy.md` | ##### {policyの内容を表す固有見出し} | ##### {方針の内容を表す見出し} |
+| `workflow.md` | **ownerと責務:** | **担当と、受け持つこと:** |
+| | **必須順序とhandoff:** | **守る順序と引き継ぎ:** |
+| | \| owner \| 判断・更新するもの \| 行わないこと \| single source of truth \| | \| 担当 \| 判断・更新するもの \| 行わないこと \| 正とする記録 \| |
+| | 図のlabel {event / gate / owner} | {きっかけ / 先へ進む条件 / 担当} |
+
+`workflow.md`では、判断・更新の担い手を指す語を「担当」に揃える（論点3の決定）。`contract-preservation.md`の「移行前の基準」「移行の対応表」は、`function_migration_policy.md`が定義するbaseline、ledgerに当たる。design.mdの読み手には言い換えた語を見せ、記入guideで定義元の語との対応を一度だけ示す。
+
+##### 記入guideの小見出し（file間で揃える）
+
+| 今 | 後 |
+| --- | --- |
+| owner境界:（7 file） | このsectionに書くこと・書かないこと: |
+| `skill-policy.md`の「このsectionが所有するもの:」と「owner境界:」 | このsectionに書くこと: / このsectionに書かないこと: |
+| selection gate:（`code-structure.md`）、選択gate:（`skill-policy.md`） | このsectionを選ぶ条件: |
+| 成功・失敗contractのselection gate: | 成功・失敗時の返し方を書く条件: |
+| 更新・削除caseと不変条件のselection gate: | 更新・削除caseと不変条件を書く条件: |
+| 失敗・操作中断・境界caseの選択gate: | 失敗・操作中断・境界caseを書く条件: |
+| 状態選択のgate: | 書く状態を選ぶ条件: |
+
+##### READMEとcatalogの見出し（agentがsectionを選び並べる時に読む）
+
+| file | 今 | 後 |
+| --- | --- | --- |
+| `README.md` | # outcome sectionの構成と未決候補 | # 完成後の姿のsectionの並べ方と、追加候補 |
+| | ### 同順位の既定順 | ### 前後が決まらない時の並び順 |
+| | ### 設計意図との合成 | ### 設計意図をどこに置くか |
+| | ## 未決outcome section | ## 追加を検討中のsection |
+| `catalog.md` | # 完成後の姿section catalog | # 完成後の姿のsection一覧 |
+| | ## 選択gate | ## sectionを選ぶ時の決まり |
+| | ## 非code中心steeringの必須mapping | ## codeが中心でない作業で必ず選ぶsection |
+| | ## `documentation`と`research findings`の分岐gate | ## `documentation.md`と`research-findings.md`のどちらを選ぶか |
+| | \| outcome \| 読むsection \| 主な移行元 \| 選択する問い \| | \| 完成後に変わるもの \| 読むsection \| 主な移行元 \| 選ぶかを決める問い \| |
+
+#### 検討記録（論点4・イテレーション0）
+
+論点3で、言い換えは箇所ごとの書き直しとし、sectionの中で繰り返し指す語とfile間で繰り返す小見出しだけを揃えると決めた。本文を書き直す前に、design.mdへそのまま写る名前と、file間で揃える小見出しを決める。本文はこれらの名前を使って書くため、先に決めないと書き直しが二度手間になる。
+
+14 fileから、見出し、太字label、行末が「:」の小見出し、表の列名を抜き出し、placeholderは記入欄を読んで拾った。
+
+- 記入guideの小見出しのうち、「なぜ必要か」「NG」「判断基準」「記述のMUST」は11 file前後に出るが、普段の意味のまま読めるため残す。
+- 「owner境界」は7 fileに出る。論点3の例どおり「このsectionに書くこと・書かないこと」へ揃える。
+- selection gate系は六通りに表記が割れている。中身はどれも「どの場合に書くか・選ぶか」なので、「〜を書く条件」「このsectionを選ぶ条件」の形へ揃える。
+- `skill-policy.md`だけ「このsectionが所有するもの」と「owner境界」の二つを持ち、前者は書くこと、後者は他sectionへ送るものを並べている。二つに分けたまま揃える。
+
+`caller-contracts.md`の見出しは、issueの候補「xxの呼び元からの呼び出し方」を基にした。このsectionは呼び出し方（名前、入力、結果）だけでなく、成功・失敗時に何が起きるか（保存、通知、dataが変わらない等）の保証も扱うため、「保証」を足した。「xxの呼ばれ方」の形はxxに対象名を入れる形だが、一つのsectionで複数のfunctionやendpointを扱うことがあり、見出しに入りきらない。
+
+ledgerとbaselineは`function_migration_policy.md`が定義する語である。design.mdの読み手は定義元を読まないため、言い換えた語（移行の対応表、移行前の基準）を見せる。agentは定義元の手順に従って対応表を作るため、記入guideで定義元の語との対応を一度だけ示す。
+
+限界: 残すと判断した見出し（「codeの責務配置と依存構造」「runtime・設定・環境構築」等）は、開発の会話で普段の意味のまま使う語だと判断した。違和感があれば個別に指摘してほしい。
+
+[内部検討記録: 論点4・イテレーション0](internal-records/task-design-discussion.md.topic-4.md#iteration-0)
+
+#### 提案0へのフィードバック（論点4）

@@ -64,6 +64,10 @@ TBD: `caller-contracts.md`の見出し。issueの候補は「xxの呼ばれ方�
   - 今回の具体例（耳馴染みがない表現）: precedence、tie-break、closed-world、baseline、ledger、handoff、意味正本、理解依存、全量保存宣言、明示差分、形式知化、通底
   - 今回の具体例（聞き慣れているが、ここで特別な意味を載せている表現）: owner（その内容に責任を持つ担い手）、contract（呼び出し方と、結果の保証）、gate（先へ進む前の判定）、「所有する」（そのsectionに書く）、正本
   - 意図に反する薄い記述: 英語を日本語へ置き換えるだけにする。「所有する」「正本」のように日本語でも解釈が要る表現が残り、ownerを「オーナー」とカタカナにしても意味は伝わらない。
+- 言い換えの仕方: 一語ずつ訳語を決めて置き換えず、箇所ごとに、その文で言いたいことを普段の言葉で書き直す。同じ語が箇所によって違う意味で使われているため、一語一訳では何を指すかが読み取れないまま残る。
+  - 今回の具体例: 「owner境界: このsectionは…side effect保証を所有する」は「このsectionに書くこと・書かないこと: …成功・失敗のそれぞれで何が起きるか（保存、通知等）の保証を書く」とする。「主ownerとなるsectionへ書き」は「その内容を主に扱うsectionへ書き」とする。同じownerが、前者では「どのsectionに書くか」、後者では「主に扱うsection」へ書き直される。
+  - 揃えるもの: 一つのsectionの中で同じものを繰り返し指す語は、そのsectionの中で一つの語に揃える（例: `workflow.md`の中で判断・更新の担い手を指す語）。全fileの記入guideに繰り返し出る小見出しは、file間で同じ言い換えに揃える。
+  - 意図に反する薄い記述: ownerを一律に「担当」へ置き換える。「担当境界」は何の境界かを依然として読み取れない。
 - 残す表現: 識別子・path・file名・code例、task-design全体で決まった形式（MUST／SHOULD／MAY、TBD、TL;DR、`KEEP | MOVE | ...`等）、普段の開発の会話で普段の意味のまま使う語（file、directory、code、test、API、class、function、module、error、data、Markdown、template、commit、branch等）。
 
 **配置・形式:**
