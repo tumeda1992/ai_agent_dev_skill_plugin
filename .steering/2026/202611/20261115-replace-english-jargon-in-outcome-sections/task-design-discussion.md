@@ -1016,7 +1016,7 @@ task-design以外のskillからの参照は、論点2の決定どおり今回は
 
 ## 論点9: 本文と記入の手引きの書き直しを、どう合意して反映するか
 
-**ステータス:** 反映待ち
+**ステータス:** 反映済み
 
 **種別:** TBDヒアリング
 
@@ -1070,7 +1070,11 @@ cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（
 - 任された範囲で選んだ主な言い換え: policy→方針、能力境界→受け持つ範囲、negative diagnosis→違反の見分け方、pain→困りごと、snapshot→その時点の内容・保つべき内容、single source of truth→正とする記録・正とする記述の置き場所、single writer→書き込む担当を一つにする、caller／consumer→呼び出す側／結果を受け取る側、gate→先へ進む条件・〜を書く条件、handoff→引き継ぎ、orchestration→処理の組み立て、evidence／finding→根拠／分かったこと、false positive→誤検知、ubiquitous language・bounded context→domainの中で共通に使う言葉・その言葉が通じる範囲の境目。
 - 論点5・6の決定どおり、labelを名前で読む側（`steering/SKILL.md`、`task-design/SKILL.md`、`tasklist-executor/SKILL.md`、`task-design/roadmap-design.md`、`skills/README.md`、`runtime-feedback-review.md`、`validate-plugin.mjs`）を追随させ、`task-design/templates/breaking_changes/`（READMEと記録1件）、`maintenance-plugin-context/SKILL.md`の版の規則、`steering/SKILL.md`の一文を足し、versionを9.0.0にした。
 - 検証: `node scripts/verification/validate-plugin.mjs`は`plugin validation passed`、`node scripts/verification/test-task-design-handoff.mjs`は`task-design handoff tests passed`、`node --test plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs`はpass 24・fail 0。言い換え対象の表現のgrepの当たりは、file名、移行元の引用、`function_migration_policy.md`の語との対応だけ。旧labelのgrepの当たりは`breaking_changes/20261115-rename-template-labels.md`だけ。
-- 未解決: 見本以外のfileの書き直しは、全体の差分を利用者がreviewする段階にある。
+- 利用者のreview: PR https://github.com/tumeda1992/ai_agent_dev_skill_plugin/pull/19 の全体の差分（commit `c92b589`、`232f311`）について、次の応答で合意を得た。
+
+  > 全部ok
+
+- 未解決は無い。
 
 ## 論点10: 見本2 fileの書き直しを、残りの書き方の基準にしてよいか
 
@@ -1131,7 +1135,7 @@ cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（
 
 ## 論点11: テンプレートの全fileで、ownerをそれぞれ何へ書き直すか
 
-**ステータス:** 反映待ち
+**ステータス:** 反映済み
 
 **種別:** TBDヒアリング
 
@@ -1269,4 +1273,4 @@ cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（
 
 ### 現在の変更（論点11）
 
-決定どおり、`task-design/templates/`配下のownerを意味ごとに書き直した。残るのは`workflow.md`の移行元の「roadmap-design.md「Field ownership」」（実在する見出し名の引用）だけである。反映は論点9の現在の変更と同じcommitの範囲にあり、全体の差分を利用者がreviewする段階にある。
+決定どおり、`task-design/templates/`配下のownerを意味ごとに書き直した。残るのは`workflow.md`の移行元の「roadmap-design.md「Field ownership」」（実在する見出し名の引用）だけである。反映は論点9の現在の変更と同じcommitの範囲にあり、全体の差分のreviewで合意を得た（「全部ok」）。未解決は無い。
