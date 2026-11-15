@@ -1063,7 +1063,7 @@ cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（
 
 ## 論点10: 見本2 fileの書き直しを、残りの書き方の基準にしてよいか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1109,3 +1109,131 @@ cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（
 [内部検討記録: 論点10・イテレーション0](internal-records/task-design-discussion.md.topic-10.md#iteration-0)
 
 #### 提案0へのフィードバック（論点10）
+
+**結果:** 合意（ownerの書き直しだけは、論点11で全箇所を洗い出して決める）
+
+> 基本的にok。ownerだけ、テンプレートファイル横断で全部洗い出して、それぞれの文や見出し表現に対する修正提案を一挙に出して
+
+### 決定（論点10）
+
+見本2 file（`caller-contracts.md`、`contract-preservation.md`）の書き直しを、残りのfileの書き方の基準にする。ownerの書き直しだけは、テンプレートの全fileで全箇所を洗い出し、論点11で一挙に決める。
+
+## 論点11: テンプレートの全fileで、ownerをそれぞれ何へ書き直すか
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点11）: 全箇所を抜き出し、意味ごとに書き直す
+
+#### 提案0（論点11）
+
+`task-design/templates/`配下の全file（outcome-sections 14 file、design.md、tasklist.md、roadmap.md）で、ownerは57行・63箇所に出る（見本2 fileには既に無い）。同じ語が七つの意味で使われているため、意味ごとに書き直す。同じ文の他の表現（state、gate、handoff等）はここでは変えず、論点10の基準で後から書き直す。「決定済み」は論点4で決めたものである。
+
+##### 1. どのsectionに書くか（sectionの書き分け）
+
+| 箇所 | 今 | 後 |
+| --- | --- | --- |
+| `README.md`:47 | owner境界だけでなく、既知のprecedenceとtie-break上の位置も | 他sectionとの書き分けだけでなく、既知のprecedenceとtie-break上の位置も |
+| `README.md`:51 | 内容のowner分割、共通概念の正本、section選択漏れをdiscussionへ戻す | どのsectionに何を書くかの分け方、共通概念の正本、section選択漏れをdiscussionへ戻す |
+| `README.md`:133、146、152、158 | owner境界候補: | 他sectionとの書き分けの候補: |
+| `README.md`:141 | 必要な具体case、owner境界、正式名、template | 必要な具体case、他sectionとの書き分け、正式名、template |
+| `README.md`:165 | discussionでscopeとownerを決めてから追加する | discussionでscopeと、他sectionとの書き分けを決めてから追加する |
+| `catalog.md`:25 | 主ownerとなるsectionへ書き | その内容を主に扱うsectionへ書き（決定済み） |
+| `code-structure.md`:38、`data.md`:37、`interaction-flow.md`:27、`screen.md`:37 | owner境界: | このsectionに書くこと・書かないこと:（決定済み） |
+| `skill-policy.md`:14 | owner境界: | このsectionに書かないこと:（決定済み） |
+| `code-structure.md`:44 | data schema、runtime／deployment条件、security、performanceはそれぞれのownerへ送る。 | data schema、runtime／deployment条件、security、performanceは、それぞれを扱うsectionへ送る。 |
+| `file-deliverables.md`:8 | source artifactとruntime contractのownerが曖昧になることを防ぐため。 | source artifactとruntime contractを、どのsectionに書くかが曖昧になることを防ぐため。 |
+
+##### 2. workflowで判断・更新を受け持つ担い手（skill、人）→「担当」
+
+`workflow.md`の中は「担当」に揃える（論点3）。
+
+| 箇所 | 今 | 後 |
+| --- | --- | --- |
+| `workflow.md`:9 | owner、single writer、正本、gate、停止・再開、handoffを合算して | 担当、single writer、正本、gate、停止・再開、handoffを合算して |
+| `workflow.md`:14 | 二つのownerが同じfieldを更新する二重正本や | 二つの担当が同じfieldを更新する二重正本や |
+| `workflow.md`:28 | 各ownerについて、行う判断・更新と、行わないことを両方示す。 | 各担当について、行う判断・更新と、行わないことを両方示す。 |
+| `workflow.md`:29 | 次ownerへ渡すresultを示す。 | 次の担当へ渡すresultを示す。 |
+| `workflow.md`:37 | 同じ判断またはstateを複数ownerが正本として持っていないか。 | 同じ判断またはstateを、複数の担当が正本として持っていないか。 |
+| `workflow.md`:40 | **ownerと責務:** | **担当と、受け持つこと:**（決定済み） |
+| `workflow.md`:42、44 | \| owner \|、`{owner}` | \| 担当 \|、`{担当}`（決定済み） |
+| `workflow.md`:50 | {event / gate / owner} | {きっかけ / 先へ進む条件 / 担当}（決定済み） |
+| `workflow.md`:56 | {開始条件、owner、読む正本} | {開始条件、担当、読む正本} |
+| `workflow.md`:64 | {停止するowner、維持するstate、再開入口} | {停止する担当、維持するstate、再開入口} |
+| `README.md`:111 | # owner、state、gate、handoffも変わる場合だけ | # 担当、state、gate、handoffも変わる場合だけ |
+| `README.md`:119 | owner、state、gate、停止・再開、handoffを持つ実行過程 | 担当、state、gate、停止・再開、handoffを持つ実行過程 |
+| `catalog.md`:16 | owner、gate、状態、handoffを持つworkflow | 担当、gate、状態、handoffを持つworkflow |
+| `catalog.md`:35、36 | owner、state、gate、handoffを設計する（が変わる）`workflow.md` | 担当、state、gate、handoffを設計する（が変わる）`workflow.md` |
+| `skill-policy.md`:15 | trigger、入力、owner、state、gate、handoff、停止・再開は`workflow.md`が所有する。 | trigger、入力、担当、state、gate、handoff、停止・再開は`workflow.md`に書く。 |
+| `skill-policy.md`:97 | 何をしないかだけでなく、隣接ownerまたは正しい戻り先を示す。 | 何をしないかだけでなく、それを代わりに受け持つ隣のskill、または正しい戻り先を示す。 |
+| `interaction-flow.md`:43 | 各stepのownerと、次stepへ渡す値が一意か。 | 各stepを誰（人、server、componentのどれ）が受け持つかと、次stepへ渡す値が一意か。 |
+| `documentation.md`:36（記述例） | workflowまたはowner境界を変更した時に | workflowや、skillの間の受け持ちの境目を変えた時に |
+| `file-deliverables.md`:16（記述例） | (2) ownerと入力 | (2) 担当と入力 |
+| `design.md`:166 | {実行ownerまたは内容をまだ決められない理由} | {誰が行うか、または内容をまだ決められない理由} |
+| `tasklist.md`:96、119 | 直接受領したworkflow ownerが | feedbackを直接受け取ったskillが |
+
+##### 3. codeの中でその責務を持つmodule・class・component
+
+| 箇所 | 今 | 後 |
+| --- | --- | --- |
+| `code-structure.md`:20 | class一覧だけを書き、各ownerが何を行わず | class一覧だけを書き、各classが何を行わず |
+| `code-structure.md`:30 | flowとowner境界が読める | flowと、各moduleが受け持つ範囲の境目が読める |
+| `code-structure.md`:50 | public entryからresult ownerまで | public entryから結果を返すmoduleまで |
+| `code-structure.md`:65 | {隣接ownerへ送る責務} | {隣のmoduleへ送る責務} |
+| `code-structure.md`:71 | {Owner A} -> {Owner B} -> {Result owner} | {担当module A} -> {担当module B} -> {結果を返すmodule}（決定済み） |
+| `interaction-flow.md`:51 | {serverまたは受信owner} | {serverまたは受け取るcomponent} |
+
+##### 4. 文書を直す人 →「直す人」
+
+| 箇所 | 今 | 後 |
+| --- | --- | --- |
+| `documentation.md`:14 | source of truth、更新owner、更新triggerがなく腐るsnapshotを防ぐため。 | どれを正として直すか、誰がいつ直すかが決まっておらず、書いた時点では正しかった内容が古くなるのを防ぐため。（論点3の例） |
+| `documentation.md`:22 | 更新ownerと腐敗検出条件を決めない | 直す人と、古くなったと気づく条件を決めない |
+| `documentation.md`:43 | 正しいsnapshot、single source of truth、更新owner、更新trigger | 正しいsnapshot、single source of truth、直す人、更新trigger |
+| `documentation.md`:84、86 | \| 更新owner \|、{owner} | \| 直す人 \|（決定済み）、{直す人} |
+
+##### 5. 記述やfunctionの置き場所 →「担当や置き場所」「新しいdocument」
+
+| 箇所 | 今 | 後 |
+| --- | --- | --- |
+| `catalog.md`:17、40 | 移動、分割、統合、owner変更、形式置換 | 移動、分割、統合、担当や置き場所の変更、形式の置き換え |
+| `documentation.md`:44 | 既存documentへの統合または新owner作成の理由を明示する | 既存documentへ統合するか、新しいdocumentを作るかの理由を明示する |
+| `documentation.md`:86 | `{pathまたはowner}` | `{pathまたは、その記述を持つsection}` |
+| `documentation.md`:92 | {統合先または新ownerと理由。…} | {統合先、または新しく作るdocumentと理由。…} |
+
+##### 6. secretや状態の管理元
+
+| 箇所 | 今 | 後 |
+| --- | --- | --- |
+| `runtime-and-configuration.md`:15 | secret値を書かずに、secret ownerと不足時の挙動を合意する | secretの値を書かずに、secretの管理元と不足時の挙動を合意する |
+| `runtime-and-configuration.md`:46 | {context / config / secret owner} | {context / config / secretの管理元}（決定済み） |
+| `interaction-flow.md`:52 | {repository / external service / state owner} | {repository / external service / 状態を持つcomponent} |
+
+##### 7. 議論の記録先
+
+| 箇所 | 今 | 後 |
+| --- | --- | --- |
+| `README.md`:135 | discussion owner: `task-design-discussion.md`の論点25。 | 議論の記録先: このplugin repositoryの`.steering/2026/202608/20260808-focus-tasklists-on-staged-implementation/task-design-discussion.md`の論点25。 |
+
+今の記述はどのsteeringの記録かが書かれておらず、同名の論点25が別のsteeringにもある。内容が一致する記録を具体的に書く。
+
+##### 残すもの
+
+- `workflow.md`:6「roadmap-design.md「Field ownership」」。`roadmap-design.md`に実在する見出し名を引いており、識別子として残す。
+
+#### 検討記録（論点11・イテレーション0）
+
+論点10で見本の書き方を基準にすると決め、ownerだけはテンプレートの全fileで全箇所を洗い出すよう求められた。
+
+`task-design/templates/`配下を`grep -rni "owner"`で抜き出すと、57行・63箇所に出た（見本2 fileには既に無い）。前後を読むと、ownerは七つの意味で使われていた。どのsectionに書くか（15行）、workflowの担い手（18行）、codeの責務を持つmodule等（8行）、文書を直す人（4行）、置き場所（4行）、管理元（3行）、議論の記録先（1行）である。論点3で一語一訳をやめ、箇所ごとに言いたいことを書くと決めた理由が、ここでも確かめられる。
+
+`workflow.md`の中は「担当」に揃えた。workflowの担い手を指す語が他のfile（README、catalog、skill-policy）にも出るため、そこも「担当」にした。
+
+`README.md`135行の議論の記録先は、どのsteeringの記録かが書かれていなかった。`.steering`配下で「## 論点25」を検索すると二つの記録に当たり、内容（domainの概念化・語彙・境界を拘束する方針section）が一致するのは`20260808-focus-tasklists-on-staged-implementation`の記録だった。書き直しに合わせて具体的に書く。
+
+同じ文の他の表現（state、gate、handoff、single source of truth等）は、ここでは変えない。ownerだけの判断として合意を取り、他の表現は論点10の基準で後から書き直す。
+
+[内部検討記録: 論点11・イテレーション0](internal-records/task-design-discussion.md.topic-11.md#iteration-0)
+
+#### 提案0へのフィードバック（論点11）
