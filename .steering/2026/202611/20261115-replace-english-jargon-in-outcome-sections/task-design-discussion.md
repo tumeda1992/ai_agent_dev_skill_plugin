@@ -906,7 +906,7 @@ design.md・roadmap.mdのテンプレートのlabelは、古い名前を残さ�
 
 ## 論点8: 「見分ける問い」を、ルー語の再発防止としてどこに置くか
 
-**ステータス:** 応答待ち
+**ステータス:** 反映済み
 
 **種別:** TBDヒアリング
 
@@ -992,3 +992,24 @@ plugins/tumeda-dev/docs/documentation_standards/
 [内部検討記録: 論点8・イテレーション0](internal-records/task-design-discussion.md.topic-8.md#iteration-0)
 
 #### 提案0へのフィードバック（論点8）
+
+**結果:** 合意
+
+> 素晴らしい提案。ok。さすがopusだね。
+
+### 決定（論点8）
+
+論点1の見分ける問いと論点3の書き直し方を、新しい標準`plugins/tumeda-dev/docs/documentation_standards/everyday_wording.md`（普段の言葉で書く）に置く。既存の`referent_explicitness.md`へは足さない。同標準は語が指す実体を復元できるかを扱い、耳馴染みがない語の型が名前の範囲（指示対象の明示）に入らないためである。
+
+標準の見出しは、見分ける問い、書き直す表現の二つの型、残す表現、書き直し方、当てはめる範囲、やってしまいがちな失敗とする。標準は特定のskillを名指さない。
+
+参照は個別から共通の標準への向きで、次の二つに置く。
+
+- `skills/document-review/SKILL.md`の作成時観点・更新時観点へ「普段の言葉 → `everyday_wording.md`」。テンプレートやskill本体を書く時に必ず通るため。
+- `skills/task-design/SKILL.md`の§1へ、成果物とchatで利用者へ向けて書く表現を同標準で確認する一行。design.mdとchatは`document-review`の対象外だが、利用者が読んで合意する文であるため。既存のconfidentiality・provisionalityの参照と同じ形にする。
+
+task-design以外のskillからの参照は、論点2の決定どおり今回は置かない。`documentation_standards/README.md`の収録一覧へ一行足し、`validate-plugin.mjs`へassertionを足す。
+
+### 現在の変更（論点8）
+
+決定どおり、`everyday_wording.md`を新設し、`documentation_standards/README.md`の収録一覧、`document-review/SKILL.md`の作成時・更新時観点、`task-design/SKILL.md`の§1へ参照を足し、`validate-plugin.mjs`へ標準の見出し・書き直し方・三つの参照のassertionを足した。`node scripts/verification/validate-plugin.mjs`は`plugin validation passed`を出力した。新設した標準のfile自体を利用者にreviewしてもらう段階にある。このdecisionのdoc-enricherの提案modeのreviewでは、`documentation_standards/README.md`の収録一覧へ足した一行以外に、既存READMEへ足す候補は無かった。

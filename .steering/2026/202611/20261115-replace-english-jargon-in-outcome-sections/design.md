@@ -223,9 +223,32 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 - 配置: 既存fileの書き換え。file追加・削除・改名はしない。
 - 形式: 既存のMarkdown構造（HTML commentの記入guideと、記入欄）を保つ。
 
-### TBD: 再発防止の判断基準
+### 普段の言葉で書くための標準
 
-TBD: 「見分ける問い」を文書として置くか、置くならどこか（`documentation_standards/`の新しい標準、既存の`referent_explicitness.md`への追記、プロジェクト指示への追記、`document-review`の観点への追加）は再発防止の論点で決める。置く場合はこのsectionを`documentation.md`の型で書く。
+#### 文書にする知識
+
+- 埋もれていた知識: プロジェクト指示の「code、command、path、識別子、規定された出力形式、固有名詞は原文を維持する」が、owner、contract等の普通の概念語まで英語で書くことを止めていなかった。どの表現を避けるかの線引きはどこにも無く、書き手ごとに耳馴染みのない表現が増え、テンプレートからdesign.mdへ持ち込まれた。
+- 原則へ引き上げるもの: 論点1の見分ける問い（このpluginを知らない読み手が、普段使っている意味のまま読んで受け取れるか）と、論点3の書き直し方（一語一訳にせず、箇所ごとに言いたいことを書く。同じものを指す語と、繰り返す小見出しは揃える）。
+
+#### 読者と、読んでできるようになる判断
+
+| 読者 | 読む場面 | codeや過去の会話を調べ直さずにできるようになる判断・作業 | 最初に開く場所・読む順序・検索語 |
+| --- | --- | --- | --- |
+| skillのテンプレートやdocsを書くagent・保守者 | `document-review`の作成時・更新時観点 | 書いた表現を書き直すか残すかを判定し、書き直し方を選べる | `document-review/SKILL.md`の観点list → `everyday_wording.md` |
+| task-designでdesign.mdやchatを書くagent | 成果物とchatで利用者へ向けて書く時 | 利用者が訳し直さずに読める表現で書ける | `task-design/SKILL.md`§1 → `everyday_wording.md` |
+
+#### 完成後の文書の構成
+
+- 配置: `plugins/tumeda-dev/docs/documentation_standards/everyday_wording.md`（新設）。収録一覧`documentation_standards/README.md`へ一行足す。
+- 既存の文書へ統合しない理由: `referent_explicitness.md`は語が指す実体を復元できるかを扱い、precedenceや全量保存宣言のような耳馴染みがない語の型が、名前の範囲（指示対象の明示）に入らない。
+- 見出し: 一般則、見分ける問い、書き直す表現の二つの型（今回の例と、業務の手順書の「突合する」「洗い替える」という文脈外の例）、残す表現、書き直し方、当てはめる範囲（利用者の目に出る文と、書き手が表現を持ち込む入口になる記入の手引き。skillの内部だけの指示の文は対象外）、やってしまいがちな失敗。
+- 参照: `document-review/SKILL.md`の作成時観点・更新時観点に「普段の言葉 → `everyday_wording.md`」、`task-design/SKILL.md`§1に、成果物とchatで利用者へ向けて書く表現を同標準で確認する一行。いずれも個別から共通の標準を参照する向きで、標準は特定のskillを名指さない。task-design以外のskillからの参照は今回は置かない（下の非目標）。
+
+#### 内容を最新に保つ方法
+
+| 保つべき内容 | 正とする記述の置き場所 | 直す人 | 直すきっかけ | 古くなったと気づく兆候・あわせて確認する文書 |
+| --- | --- | --- | --- | --- |
+| 見分ける問いと書き直し方 | `everyday_wording.md` | pluginの保守者 | 書き直すか残すかで迷う表現が出た時 | `document-review`の指摘が標準で判定できない。`validate-plugin.mjs`のassertion、`document-review/SKILL.md`、`task-design/SKILL.md`§1の参照 |
 
 ---
 
@@ -250,7 +273,7 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 
 - SKILL.md・tasklist-design.md・roadmap-design.md等、agentへの指示の文の言い換え。skillの内部だけでやり取りされる語は、内輪で通じればよい。言い換えたlabelを名前で読む箇所の文字列の追随だけは行う。
 - agentがchatで使う語の言い換え。出どころは指示の文であり、範囲に入れると指示の文を全部言い換えることになる。利用者へ向けて書く時の基準として、再発防止の側で扱う。
-- task-design以外のskill（facilitate-discussion等）が作る成果物の言い換え。今回のissueはtask-designの範囲である。再発防止の基準ができた後、必要になった時にその基準で扱う。
+- task-design以外のskill（facilitate-discussion等）が作る成果物の言い換えと、それらのskillから`everyday_wording.md`への参照。今回のissueはtask-designの範囲であり、範囲を広げると他skillの成果物の書き直しまで含むことになるためである。他のskillの成果物で同じ型の表現が問題になった時に、その作業でこの標準を参照させる。
 
 ### 受け入れ基準
 
@@ -292,6 +315,7 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 | 対象 | 反映内容 | validation結果 | 参照するdesign section |
 | --- | --- | --- | --- |
 | `plugins/tumeda-dev/docs/think_standards/writing_abstraction.md`、`.claude/hooks/think_through_session_start.sh`、`scripts/verification/validate-plugin.mjs` | 補助節「共通の場所に、今回の個別を書き込まない」の追加、場面別の要約への一言の追加、補助節の見出しと判断の問いのassertion | `node scripts/verification/validate-plugin.mjs`が`plugin validation passed`、`node scripts/verification/test-task-design-handoff.mjs`が`task-design handoff tests passed`。doc-enricherの提案modeで、`think_standards/README.md`の索引の一行（抽象と具体の往復をワンショットで行う）は補助節の追加後も正しく、既存READMEへ足す候補は無い | [共通の場所に個別を書き込まないための思考の作法](#共通の場所に個別を書き込まないための思考の作法) |
+| `plugins/tumeda-dev/docs/documentation_standards/everyday_wording.md`（新設）、`documentation_standards/README.md`、`skills/document-review/SKILL.md`、`skills/task-design/SKILL.md`、`scripts/verification/validate-plugin.mjs` | 普段の言葉で書く標準の新設と、収録一覧・観点list・task-designの§1からの参照、assertionの追加 | `node scripts/verification/validate-plugin.mjs`が`plugin validation passed`。doc-enricherの提案modeで、収録一覧の一行以外に足す候補は無い。新設したfile自体は利用者のreview待ち | [普段の言葉で書くための標準](#普段の言葉で書くための標準) |
 
 ### task-design内の対象成果物反映待ち
 
@@ -307,4 +331,3 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 | --- | --- | --- |
 | outcome-sections 14 fileの言い換え | 本文と記入guideの文の書き直しが未決 | 本文の書き直し |
 | design.md・tasklist.md・roadmap.mdのテンプレートの言い換えと、labelを名前で読む側の追随、`breaking_changes/`、`maintenance-plugin-context`の規則、`steering/SKILL.md`の一文、version 9.0.0 | 同じテンプレートの記入guideとtaskの文の書き直しが未決で、同じcommitで反映するため | 本文の書き直し |
-| 「見分ける問い」を再発防止の判断基準として置く場所 | 置くかどうか、置き場所が未決 | 再発防止 |

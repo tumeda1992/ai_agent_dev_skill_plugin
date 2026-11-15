@@ -1239,6 +1239,11 @@ requireText(thinkStandardsPath("questioning_existing.md"), "必然性があり�
 requireText(taskDesignSkill, "この中間の確認は、実行して初めて得られる状態を見るものか。それとも案への合意を取るものか");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "既存の構造から作業対象を列挙し、各対象に中身があるかを確かめずに含める");
 requireText(thinkStandardsPath("writing_abstraction.md"), "## 補助: 共通の場所に、今回の個別を書き込まない");
+requireText("plugins/tumeda-dev/docs/documentation_standards/everyday_wording.md", "## 見分ける問い");
+requireText("plugins/tumeda-dev/docs/documentation_standards/everyday_wording.md", "一語ずつ訳語を決めて置き換えない");
+requireText("plugins/tumeda-dev/docs/documentation_standards/README.md", "[everyday_wording.md](./everyday_wording.md)");
+requireText(skillPath("document-review/SKILL.md"), "- 普段の言葉 → `everyday_wording.md`");
+requireText(skillPath("task-design/SKILL.md"), "../../docs/documentation_standards/everyday_wording.md");
 requireText(thinkStandardsPath("writing_abstraction.md"), "今回の対象を、ここが効く別の対象に置き換えても、そのまま成り立つか");
 
 // 作業の範囲（目的の内外、目的の外の不備を拾うか切り出すか）の判定の契約
