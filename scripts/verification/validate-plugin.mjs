@@ -332,7 +332,8 @@ for (const expected of [
   "該当fileを全文読む",
   "入力",
   "次actionより前",
-  "内部logを開かずに理解・判断・応答",
+  "他のfileを開かずに理解・判断・応答",
+  "時系列で要約しすぎずに残す",
   "提示済みか不明"
 ]) requireText(discussionIteration, expected);
 
