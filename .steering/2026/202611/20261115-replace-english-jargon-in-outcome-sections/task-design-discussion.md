@@ -659,3 +659,45 @@ steeringに置く一文のpathも`task-design/templates/breaking_changes/`にす
 [内部検討記録: 論点5・イテレーション2](internal-records/task-design-discussion.md.topic-5.md#iteration-2)
 
 #### 提案2へのフィードバック（論点5）
+
+**結果:** 一部合意（directory名は合意。記録する線への明示の応答はまだ無い）
+
+> breaking_changes ok
+
+directory名`breaking_changes/`は合意された。READMEの「記録する変更」の線（以前の版のtask-designが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなる変更）への明示の応答はまだ無いため、次の応答で確かめる。
+
+## 論点6: 今後の破壊的変更で、記録を残すことをどこで思い出させるか
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点6）: 破壊的変更を行う人が必ず通る場所に一文を置く
+
+#### 提案0（論点6）
+
+`plugins/tumeda-dev/skills/maintenance-plugin-context/SKILL.md`の「Plugin version」節にある「破壊的変更はMAJOR、…を上げる」の直後へ、次の一文を足す。
+
+```diff
+ - 破壊的変更はMAJOR、後方互換な機能追加はMINOR、後方互換な修正・文書変更はPATCHを上げる
++  - MAJORを上げる理由が、以前の版のskillが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなることなら、その成果物のテンプレートを持つdirectoryの`breaking_changes/`へ、旧名と新名の対応を残す。記録する変更の線と1件のfileに書くことは`task-design/templates/breaking_changes/README.md`に従う。`breaking_changes/`が無いskillでは、同じ形で作る。
+ - MINORとPATCHの境界は「consumerが新たに呼べるものが増えたか」で判定する。…
+```
+
+置く理由: 配布する変更には必ずversion bumpを行うため、破壊的変更はこの節でMAJORの判定を通る。記録を残すことを思い出せる、必ず通る場所である。線と中身はREADMEに委ね、ここへ写さない。
+
+置かない場合: READMEは記録の置き場所にあるため、破壊的変更を行う人がそこを開かなければ記録を思い出せない。今回のように利用者が気づかない限り、記録が残らない。
+
+#### 検討記録（論点6・イテレーション0）
+
+利用者は論点5の応答で、破壊的変更が行われた時は今回のように追えるようにしたいと述べた。論点5で記録の置き場所とREADMEは決まったが、READMEは置き場所の中にあるため、破壊的変更を行う人がそこを開かなければ記録を残すことを思い出せない。
+
+破壊的変更を行う人が必ず通る場所を探した。`maintenance-plugin-context`の「Plugin version」節は、破壊的変更ならMAJORを上げると定め、配布する変更には必ずversion bumpを行う。つまり破壊的変更は、必ずこの節でMAJORの判定を通る。ここに一文を置けば、記録を思い出せる。
+
+一文は、どの変更で記録するかの線と、記録の中身をREADMEへ委ねる。ここへ写すと、READMEを直した時に食い違う。
+
+今は`task-design`だけが`breaking_changes/`を持つ。他のskill（facilitate-discussion等）の成果物で同じ変更が起きた時のために、そのskillのテンプレートを持つdirectoryに同じ形で作る、と書く。
+
+[内部検討記録: 論点6・イテレーション0](internal-records/task-design-discussion.md.topic-6.md#iteration-0)
+
+#### 提案0へのフィードバック（論点6）
