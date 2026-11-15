@@ -6,13 +6,13 @@
 
 ## 概要
 
-{task全体の目的と、なぜ一つのtasklistではなく複数の子design scopeへ分割するかを書く}
+{作業全体の目的と、なぜ一つのtasklistではなく、複数の子のdesignの範囲へ分けるかを書く}
 
-このroadmapは子scopeの構造一覧である。各phaseは独立した子steeringを通じて設計・実装し、各phase完了時点でappまたは成果物が正常に利用できる状態を保つ。
+このroadmapは、子の範囲の一覧である。各phaseは独立した子steeringを通じて設計・実装し、各phaseの完了の時点で、appまたは成果物が正常に使える状態を保つ。
 
-roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子steering path、status、完了日だけをsteeringが実行時に更新する。
+各phaseの計画は、task-designが設計・reviewする。各phaseの子steeringのpath、status、完了日だけを、steeringが実行中に更新する。
 
-## 構造field（task-designが設計・reviewする）
+## 各phaseの計画（task-designが設計・reviewする）
 
 ---
 
@@ -24,7 +24,7 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ### Scope
 
-- {親scopeよりstrictly narrowerな、このphaseで扱う範囲}
+- {親のscopeより狭い（親と同じ範囲にしない）、このphaseで扱う範囲}
 
 ### Scope外
 
@@ -32,20 +32,20 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ### DoD（完了条件）
 
-- {親designの完了条件へ対応し、一つの子scopeとして実測できる状態}
-- {このphase完了時点でappまたは成果物が正常に利用できる条件}
+- {親のdesignの完了条件に対応し、一つの子の範囲として実際に確かめられる状態}
+- {このphaseの完了の時点で、appまたは成果物が正常に使える条件}
 
 ### 依存
 
-- 依存phase: {なし、またはstable phase identity}
-- dependency results: {子task-designへ渡す確定結果。依存なしならなし}
-- 子designで解消する制約: {dependency resultsを使って確定する上位制約。依存なしならなし}
+- 依存phase: {なし、または依存するphaseのID}
+- 依存phaseの確定結果: {子のtask-designへ渡す確定した結果。依存が無ければなし}
+- 子のdesignで解消する制約: {依存phaseの確定結果を使って確定する上位の制約。依存が無ければなし}
 
 ### 親DoDとの対応
 
-- {親designの完了条件}
+- {親のdesignの完了条件}
 
-### 運用field（steeringだけが更新する）
+### 進み具合（steeringだけが更新する）
 
 - 子steering: 未割当
 - status: 未着手
@@ -61,7 +61,7 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ### Scope
 
-- {親scopeよりstrictly narrowerな、このphaseで扱う範囲}
+- {親のscopeより狭い（親と同じ範囲にしない）、このphaseで扱う範囲}
 
 ### Scope外
 
@@ -69,20 +69,20 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ### DoD（完了条件）
 
-- {親designの完了条件へ対応し、一つの子scopeとして実測できる状態}
-- {このphase完了時点でappまたは成果物が正常に利用できる条件}
+- {親のdesignの完了条件に対応し、一つの子の範囲として実際に確かめられる状態}
+- {このphaseの完了の時点で、appまたは成果物が正常に使える条件}
 
 ### 依存
 
-- 依存phase: {なし、またはstable phase identity}
-- dependency results: {子task-designへ渡す確定結果}
-- 子designで解消する制約: {dependency resultsを使って確定する上位制約}
+- 依存phase: {なし、または依存するphaseのID}
+- 依存phaseの確定結果: {子のtask-designへ渡す確定した結果}
+- 子のdesignで解消する制約: {依存phaseの確定結果を使って確定する上位の制約}
 
 ### 親DoDとの対応
 
-- {親designの完了条件}
+- {親のdesignの完了条件}
 
-### 運用field（steeringだけが更新する）
+### 進み具合（steeringだけが更新する）
 
 - 子steering: 未割当
 - status: 未着手
@@ -90,12 +90,12 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ---
 
-## 親DoD coverage
+## 親の完了条件と、それを満たすphase
 
 | 親DoD | 担当phase |
 | --- | --- |
-| {親designの完了条件} | {stable-phase-id} |
+| {親のdesignの完了条件} | {stable-phase-id} |
 
-## Dependency DAG
+## phase間の依存関係
 
-{cycleを持たないstable phase identity間の依存を記載する。例: `phase-a -> phase-b`}
+{phase IDの間の依存を、循環しない形で書く。例: `phase-a -> phase-b`}

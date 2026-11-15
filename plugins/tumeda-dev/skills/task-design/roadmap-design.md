@@ -6,8 +6,8 @@
 
 - 入力は同じ`working_dir`の合意済み`./design.md`である。
 - 出力は同じdirectoryの`roadmap.md`だけであり、`tasklist.md`と併存させない。
-- task-designはroadmapの構造fieldを設計・自己review・ユーザーreviewする。
-- steeringだけが実行時の運用fieldを更新する。task-designは子steeringを作成・bindingせず、statusや完了日を更新しない。
+- task-designはroadmapの各phaseの計画を設計・自己review・ユーザーreviewする。
+- steeringだけが実行時の進み具合を更新する。task-designは子steeringを作成・bindingせず、statusや完了日を更新しない。
 - roadmapはtasklist-executorが誤って拾わないよう`tasklist.md`という名前にしない。
 - roadmapのphase構成と子steering pathはroadmapを正本とし、月次`summary.md`へ複製しない。summaryはslug、概要、statusだけを持つ。
 
@@ -28,7 +28,7 @@ roadmapは「phaseが多い」時に選ぶものではない。一つのtasklist
 
 ## Field ownership
 
-### task-designが所有する構造field
+### task-designが所有する各phaseの計画
 
 - roadmap全体の目的と、複数の子scopeへ分ける意味的理由
 - 並び替え後も参照できるstable phase identity
@@ -37,17 +37,17 @@ roadmapは「phaseが多い」時に選ぶものではない。一つのtasklist
 - 親designのどの完了条件を担うか
 - 依存phaseの結果を子task-designでどの制約の解消に使うか
 
-### steeringだけが更新する運用field
+### steeringだけが更新する進み具合
 
 - 子steering path
 - `未着手 | 進行中 | 完了`のstatus
 - 完了日
 
-運用fieldの初期値は`未割当`、`未着手`、`未完了`とする。これらはruntime stateであり、`roadmap_ready`時点のTBDではない。実行中に構造fieldを変える必要が出た場合、steeringは直接変更せず、同じ`working_dir`でtask-designを`create_working_dir=false`として再開する。
+進み具合の初期値は`未割当`、`未着手`、`未完了`とする。これらはruntime stateであり、`roadmap_ready`時点のTBDではない。実行中に各phaseの計画を変える必要が出た場合、steeringは直接変更せず、同じ`working_dir`でtask-designを`create_working_dir=false`として再開する。
 
 ## 依存結果とTBD
 
-roadmap作成途中では、解消対象を可視化するためにTBDを使える。ただし`roadmap_ready`を返す前に、目的、scope、scope外、DoD、依存、親DoD coverageに残るTBDをすべて解消する。
+roadmap作成途中では、解消対象を可視化するためにTBDを使える。ただし`roadmap_ready`を返す前に、目的、scope、scope外、DoD、依存、「親の完了条件と、それを満たすphase」に残るTBDをすべて解消する。
 
 前phaseの実行結果によって後続phaseの詳細が決まる場合も、親roadmapの構造TBDとして残さない。後続phaseの目的、scope、scope外、DoD、依存を親roadmapで確定し、次を明記する。
 
@@ -77,17 +77,17 @@ roadmap全体の完了は、全phaseのstatusが`完了`で、各phaseに完了�
 - [ ] phase identityは並び替え後も安定して参照できるか。
 - [ ] 目的、scope、scope外、DoD、依存が子task-designの上位制約として十分か。
 - [ ] 各phase完了時点でappまたは成果物が正常に利用できるか。
-- [ ] 依存結果で決まる内容を構造TBDへ残さず、dependency resultsと子design制約へ変換したか。
-- [ ] 構造fieldとsteering運用fieldが混ざっていないか。
-- [ ] 親DoD coverageが全完了条件を具体的なphaseへ対応付けているか。
+- [ ] 依存結果で決まる内容を構造TBDへ残さず、依存phaseの確定結果と、子のdesignで解消する制約へ変換したか。
+- [ ] 各phaseの計画と、steeringが更新する進み具合が混ざっていないか。
+- [ ] 「親の完了条件と、それを満たすphase」が全完了条件を具体的なphaseへ対応付けているか。
 - [ ] 同じworking directoryに`tasklist.md`がないか。
 
 ## ユーザーレビューとfeedback routing
 
-分割理由、phase、依存、親DoD coverageを短く示し、自然言語で合意を求める。特定の承認keywordを強制しない。
+分割理由、phase、依存、「親の完了条件と、それを満たすphase」を短く示し、自然言語で合意を求める。特定の承認keywordを強制しない。
 
-- wordingまたは運用fieldの初期表現だけが変わる: roadmapを更新して自己レビューから繰り返す。
-- phase identity、目的、scope、scope外、DoD、依存、親DoD coverageが変わる: roadmapの構造設計へ戻り、親designへの影響を判定する。
+- wordingまたは進み具合の初期表現だけが変わる: roadmapを更新して自己レビューから繰り返す。
+- phase identity、目的、scope、scope外、DoD、依存、「親の完了条件と、それを満たすphase」が変わる: roadmapの構造設計へ戻り、親designへの影響を判定する。
 - 親designの完成後の姿、要件、設計根拠、公開API、module境界が変わる: `SKILL.md` Step 3へ戻る。
 - 単一のdesign loopで十分と判明した: leaf / composite判定へ戻り、plan種別の合意後にroadmapを正本として残さずtasklistへ切り替える。
 

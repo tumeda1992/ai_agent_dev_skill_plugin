@@ -17,6 +17,7 @@ docs の書き方・構造化に関する標準を置く場所。
 - **[file_naming.md](./file_naming.md)** — ファイル名の規約は命名標準側が正本であることを示すポインタ。
 - **[referent_explicitness.md](./referent_explicitness.md)** — 文中の語が指す実体を、読み手がその文だけから復元できるかを扱う標準（指示対象の明示）。
 - **[confidentiality.md](./confidentiality.md)** — その記述が公開されたとき読んだ人が何をできるようになるかで、document へ書いてよいかを判定する標準（機密性）。他の標準と判定の向きが逆で、読者が使えるかではなく、書いてはいけないものが入っていないかを見る。
+- **[everyday_wording.md](./everyday_wording.md)** — 書いた表現を、読み手が普段使っている意味のまま読んで、書き手の意図どおりに受け取れるかを扱う標準（普段の言葉）。耳馴染みがない表現と、聞き慣れた語にここだけの意味を載せた表現を、箇所ごとに普段の言葉で書き直す。
 - **[provisionality_explicitness.md](./provisionality_explicitness.md)** — 今回の範囲に限った判断を書くとき、暫定であること・理由・見直す条件を落とさず、読み手が恒久の方針と取り違えないようにする標準（暫定性の明示）。
 
 ## 標準の置き方

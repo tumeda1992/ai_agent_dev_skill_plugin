@@ -8,14 +8,14 @@ design.mdは「変更点の列挙」ではなく「完成後の世界を事前�
 
 完成後の姿が中心。元の依頼内容とTL;DRは前提、要件は認識が違ったときに確認する先、
 リスクとテスト方針は担保、付録は補足。
-section化するのは「完成後の姿」の変化対象別観点だけであり、既存仕様、Requirements、
-必要な設計意図を削除せずoutcome sectionのREADMEにあるgateで完成後の姿へ配置する。risk、testは削除・統合しない。
+sectionに分けるのは「完成後の姿」の、変わる対象ごとの観点だけである。既存仕様、要件、必要な設計意図は削除せず、
+完成後の姿のsectionのREADMEにある決まりで完成後の姿へ配置する。リスクとテスト方針は削除・統合しない。
 
 見出しは読む順に並べる。章番号は持たない。番号は意味を足さず、並べ替えのたびに参照を壊すため。
 参照するときは番号ではなく見出しの名前で指す。
 
 design.mdは議論履歴ではない。合意済みの完成後の世界と、steering開始時から
-終了時までに成立する差分を記録する。旧案、iteration、feedback原文はdiscussion fileへ置く。
+終了時までに成り立つ差分を記録する。以前の案、議論の各回、feedbackの原文はdiscussion fileへ置く。
 -->
 
 ## 元の依頼内容
@@ -25,14 +25,14 @@ design.mdは議論履歴ではない。合意済みの完成後の世界と、st
 ## 上位roadmap制約（子phaseの場合のみ）
 
 - 親roadmap: `{parent_roadmap_path}`
-- 親phase identity: `{parent_phase_id}`
+- 親phaseのID: `{parent_phase_id}`
 - 親phaseの目的: {目的}
 - 親phaseのscope: {scope}
 - 親phaseのscope外: {scope外}
 - 親phaseのDoD: {DoD}
 - 依存phaseの確定結果: {dependency_results}
 
-子phaseでない場合はこのsectionを削除する。子phaseの場合は参考情報ではなく上位制約として扱い、子scopeを親phase scopeよりstrictly narrowerにする。
+子phaseでない場合はこのsectionを削除する。子phaseの場合は参考情報ではなく上位の制約として扱い、子のscopeを親phaseのscopeより狭くする（親と同じ範囲にしない）。
 
 ---
 
@@ -45,14 +45,14 @@ design.mdは議論履歴ではない。合意済みの完成後の世界と、st
 ## 完成後の姿
 
 <!--
-`outcome-sections/catalog.md`から該当sectionを一つ以上選び、`outcome-sections/README.md`のcomposition ruleで整列してsection本文をここへ差し込む。
+`outcome-sections/catalog.md`から該当するsectionを一つ以上選び、`outcome-sections/README.md`の並べ方の決まりで並べて、sectionの本文をここへ差し込む。
 sectionの見出しはh3から始め、必要な具体値、例、状態、境界を埋める。
-完成後の姿はtask-design全体で一つであり、execution plan対象ごとに分割しない。
+完成後の姿はtask-design全体で一つであり、tasklist・roadmapに載せて実行する変更ごとに分割しない。
 完成後の姿が既存仕様へ言及するときは、付録の「前提とする既存仕様」へリンクする。
 読む順を優先して既存仕様を付録へ置いているため、飛び先が分かる状態を保つ。
 -->
 
-{選択したoutcome section}
+{選んだ完成後の姿のsection}
 
 ---
 
@@ -122,47 +122,47 @@ sectionの見出しはh3から始め、必要な具体値、例、状態、境�
 ## （付録）変更の実行区分
 
 <!--
-discussion decision自体は確定直後にdesign本文へ記録する。
-この付録はdecisionから生じる対象成果物の変更を扱い、decision記録と対象成果物への適用を混同しない。
-routing stateの単一正本はこの付録とし、専用のstate fileを作らない。
-完成後の姿は本文に一つだけ持ち、この付録へ対象ごとの完成後の姿やtask手順を複製しない。
-ここは「どこに何を足す／変えるか」という、設計から導き出されたtaskの前捌きであり、設計の代替ではない。
+discussionで決まった判断そのものは、決まった直後にdesignの本文へ記録する。
+この付録は、その判断から生じる、変更対象の成果物への変更を扱う。判断の記録と、変更対象への反映を混同しない。
+変更をどこで行うかの区分は、この付録だけを正とし、区分のための別のfileを作らない。
+完成後の姿は本文に一つだけ持ち、この付録へ対象ごとの完成後の姿やtaskの手順を写さない。
+ここは「どこに何を足す／変えるか」という、設計から導き出したtaskの下準備であり、設計の代わりではない。
 変更対象を全部正確に書いても、完成後の姿が書けていなければ設計は完了していない。
 付録に置く理由は、その主従関係を構造で示すためである。
 -->
 
-### task-design内で対象成果物へ適用済み
+### 設計中に反映を終えた変更
 
 | 対象 | 反映内容 | validation結果 | 参照するdesign section |
 | --- | --- | --- | --- |
-| `{pathまたは成果物}` | {確定済みdecisionから適用した内容} | {実測結果} | [{section名}](#{anchor}) |
+| `{pathまたは成果物}` | {決まった判断から反映した内容} | {実際に確かめた結果} | [{section名}](#{anchor}) |
 
-<!-- 該当なしでも見出しを残し「なし」と記載する。design.mdとdiscussion file自身のlifecycle更新、spikeは対象成果物変更として載せない。 -->
+<!-- 該当なしでも見出しを残し「なし」と書く。design.mdとdiscussion file自身の更新、spikeは、変更対象への変更として載せない。 -->
 
-### task-design内の対象成果物反映待ち
+### 設計中に反映する、他の判断を待っている変更
 
-| 対象 | 待つ理由 | 依存decision | 参照するdesign section |
+| 対象 | 待つ理由 | 依存する判断 | 参照するdesign section |
 | --- | --- | --- | --- |
 | `{pathまたは成果物}` | {今は一意に適用できない理由} | {依存する未決事項} | [{section名}](#{anchor}) |
 
-<!-- execution plan作成gateへ進む前にzeroにする。task-design完了時も見出しを残し「なし」と記載する。 -->
+<!-- tasklist・roadmapを作る段階へ進む前にzeroにする。task-designの完了時も見出しを残し「なし」と書く。 -->
 
-### execution plan対象
+### tasklist・roadmapに載せて実行する変更
 
 | 対象 | 掲載理由 | 参照するdesign section |
 | --- | --- | --- |
 | `{変更対象}` | {本番application coding / 段階実行 / ユーザー指定の具体的理由} | [{section名}](#{anchor}) |
 
 <!--
-一覧が空なら「なし」と記載し、tasklist.mdとroadmap.mdを作らない。
-一覧が一つ以上ある場合だけ、design全体を正本としてtasklistまたはroadmapへ具体化する。
-task-design完了時も確定scopeの索引として残す。
+一覧が空なら「なし」と書き、tasklist.mdとroadmap.mdを作らない。
+一覧が一つ以上ある場合だけ、design全体を正としてtasklistまたはroadmapへ具体化する。
+task-designの完了時も、確定した範囲の索引として残す。
 -->
 
 ### 分類保留（設計中のみ）
 
-| 変更候補 | 保留理由 | 分類を確定するdecision |
+| 変更候補 | 保留理由 | 分類を決める判断 |
 | --- | --- | --- |
-| {変更候補} | {実行ownerまたは内容をまだ決められない理由} | {TBDを解消するdecision} |
+| {変更候補} | {誰が行うか、または内容をまだ決められない理由} | {TBDを解消する判断} |
 
-<!-- design合意前に分類保留をzeroにし、sectionごと削除する。 -->
+<!-- designの合意の前に分類保留をzeroにし、sectionごと削除する。 -->

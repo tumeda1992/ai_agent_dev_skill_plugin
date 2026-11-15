@@ -42,6 +42,10 @@ repository contextのlifecycleとpluginの配布version規約はこのskillだ�
 
 - 禁止: `1.0.0+codex.20260720074613`、`1.0.0-dev`、日時・host名・cachebusterを足した形式
 - 破壊的変更はMAJOR、後方互換な機能追加はMINOR、後方互換な修正・文書変更はPATCHを上げる
+  - MAJORを上げる理由が、以前の版のskillが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなることなら、その成果物のテンプレートと同じdirectoryの`breaking_changes/`に記録を残す。無ければ作る。
+    - 記録しない変更: 成果物を読む側に影響しない変更（読まれない見出しの言い換え、テンプレートへのsectionの追加、記入guideの書き直し等）。git logと各作業の記録で辿る。
+    - 1件のfile: 名前は`YYYYMMDD-slug.md`。変わった版、旧名と新名の対応、変えた理由、古い成果物の読み方を書く。
+    - `breaking_changes/`のREADMEには、記録の対象がこの変更だけであることと、そのskillの成果物での具体例を書き、線と1件の書き方はこの規則を参照する。
 - MINORとPATCHの境界は「consumerが新たに呼べるものが増えたか」で判定する。新しいskill、新しいparameter等、利用側の呼び出し方が増えるならMINOR。既存skillの内容修正、docsの追加・変更はPATCH。新規fileの追加それ自体はMINORの根拠にならない。区別しているのは機能追加か文書変更かであり、file数の増減ではない
 - 配布する変更には、変更内容に見合うversion bumpを一度だけ行う。cacheを更新したいだけのsuffix追加や同一releaseの再versioningはしない
 - Codexのcache更新に`update_plugin_cachebuster.py`を使わない。必要なら正式にPATCH以上を上げてから、通常の再install / reload手順を使う
