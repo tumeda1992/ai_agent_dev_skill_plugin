@@ -32,7 +32,7 @@ decision後、直接受領したworkflow ownerはcallerへdecisionを返し、�
 - task順、task粒度、検証手順が変わる: task-designのtasklist plan phaseへ戻す。
 - roadmapのphase identity、目的、scope、scope外、DoD、依存、「親の完了条件と、それを満たすphase」が変わる: task-designのroadmap plan構造へ戻し、親designへの影響を判定する。親designが変わる場合だけdesign phaseへ戻す。
 - roadmapの子path、status、完了日だけが変わる: steering runtimeで更新する。
-- repository知識の永続化だけが必要: doc-enricher等のwriter contractに従い、承認後だけ既存READMEまたは既存docsへ反映する。
+- repository知識の永続化だけが必要: doc-enricher等のwriter contractに従い、承認後だけ、承認された文書へ反映する。
 - 認識合わせだけで完了する: designとplanを変更しない。
 
 設計判断が必要な変更では、design合意前にtaskを作らない。reviewのdecisionやtask追加後も実装を自動再開しない。同じfeatureの追加taskは合意済みdesign・planへ戻した後、既存tasklistへ追加する。

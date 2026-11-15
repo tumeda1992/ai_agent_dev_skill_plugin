@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "9.0.0";
+const expectedRelease = "9.0.1";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -161,12 +161,56 @@ requireText(skillPath("doc-enricher/SKILL.md"), "進化の種（Evolution Seed�
 requireText(skillPath("doc-enricher/SKILL.md"), "設計意図メモ（Design Intent Note）");
 requireText(
   skillPath("doc-enricher/SKILL.md"),
-  "「登り切った命題に反例はないか」→ 反例が挙がるなら一般則として偽 → DROP",
+  "広げた範囲の中に、成り立たない実例が一つでもあれば、その範囲では成り立たない。",
 );
 requireText(
   skillPath("doc-enricher/SKILL.md"),
-  "置き場所は規範fileでなく当該作業のledgerになる",
+  "置き場所は文書ではなく、この作業の記録になる。",
 );
+
+// doc-enricher: 払った手間を起点に、範囲を測り、repositoryの状態で変更の種類を決める。
+const docEnricherSkill = skillPath("doc-enricher/SKILL.md");
+for (const expected of [
+  "候補は、払った手間から作る。「まだ書かれていないこと」からは作らない",
+  "一件も挙がらなければ、「提案なし」を返して終える。",
+  "**今回の成果物が入った後のrepositoryで、同じ種類の作業をする人は、同じ手間を払うか。**",
+  "書くのは、これからも成り立つこと（決まり、性質、関係、理由）である。",
+  "狭い段で止まってよい。狭いことを理由に捨てない。",
+  "判断の問い: 「この範囲で成り立つと確かめた、今回とは別の実例のpathを書けるか」",
+  "| 書かれているが、辿り着けなかった |",
+  "| 読んでいたのに、守れなかった |",
+  "| 書かれた内容が誤っている・古い |",
+  "読んでいないfileを「書かれていない」の根拠にしない。",
+  "本体の置き場所と導線を、別々に決める。",
+  "合わない文書へは足さない。",
+  "「まだ書かれていない」ことは、候補にする理由にならない。",
+  "[置き場所の一覧](place-map.md)",
+  "[提案の形](templates/proposal.md)",
+  "[moduleのREADMEの雛形](templates/module-readme.md)",
+]) {
+  requireText(docEnricherSkill, expected);
+}
+forbidText(docEnricherSkill, "迷ったら、まず**抽象レベルを上げる**", "範囲を広げてGateを通す指示");
+forbidText(docEnricherSkill, "README優先", "置き場所の既定値");
+const docEnricherPlaceMap = skillPath("doc-enricher/place-map.md");
+const docEnricherProposal = skillPath("doc-enricher/templates/proposal.md");
+requireExists(docEnricherPlaceMap);
+requireExists(docEnricherProposal);
+requireExists(skillPath("doc-enricher/templates/module-readme.md"));
+requireText(docEnricherPlaceMap, "| 置き場所 | 約束する範囲 | 読まれる時 |");
+requireText(docEnricherPlaceMap, "中身を読んで推し量らない。");
+for (const expected of [
+  "| 払った手間 |",
+  "| 次の作業者も払う理由 |",
+  "| 当てはまる範囲 |",
+  "| repositoryの今の状態 |",
+  "| 本体の置き場所 |",
+  "| 導線 |",
+  "### 足す・直す文面",
+  "## 捨てた候補",
+]) {
+  requireText(docEnricherProposal, expected);
+}
 requirePattern(
   skillPath("task-design/SKILL.md"),
   /component(?:の)?input[\s\S]{0,120}供給元/,
@@ -1016,6 +1060,7 @@ forbidText(
 
 const contextMaintainer = skillPath("maintenance-plugin-context/SKILL.md");
 const contextTemplate = skillPath("tumeda-dev-plugin-context.md");
+requireText(contextTemplate, "置き場所の一覧（形と作り方は `doc-enricher/place-map.md`）");
 for (const expected of [
   "| `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |",
   "UI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込み",
@@ -1319,7 +1364,7 @@ requireText(namingCoreDoc, "やってしまいがちな失敗: 読まれる頻�
 requireText(namingCoreDoc, "範囲に入れば、そのまま足す。");
 requireText(docPath("development_standards/naming/README.md"), "名前は本質。名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
 requireText(docPath("development_standards/README.md"), "名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
-requireText(skillPath("doc-enricher/SKILL.md"), "- 抽象レベルで選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
+requireText(skillPath("doc-enricher/SKILL.md"), "- 選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
 requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
 requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");
 requireText(outcomeSectionPath("documentation.md"), "統合するなら、統合先の名前・入口の説明・既存の見出しが約束する範囲に入ること");

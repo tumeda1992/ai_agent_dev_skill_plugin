@@ -242,7 +242,7 @@ task-designからready resultが返った直後に実装、子steering起動、�
 - 関連file: 調査で読んだ、または参照したfile
 - steering path: `.steering/.../YYYYMMDD-slug/`
 
-`doc-enricher`を提案modeで適用し、再利用価値の高い知識が既存READMEまたは既存docsに不足するかを確認する。提案があれば内容と適用先をユーザーへ示す。明示承認された提案だけを適用し、拒否または保留なら変更しない。
+`doc-enricher`を提案modeで適用し、この作業で払った手間のうち、次の作業者が再び払うものが残っていないかを確認する。提案があれば内容と適用先をユーザーへ示す。明示承認された提案だけを適用し、拒否または保留なら変更しない。
 
 同じoriginating decisionについてtask-design中にreview済みなら重複提案しない。このStepはtheme全体を横断する最終safety netとして、新たな候補だけを扱う。
 
