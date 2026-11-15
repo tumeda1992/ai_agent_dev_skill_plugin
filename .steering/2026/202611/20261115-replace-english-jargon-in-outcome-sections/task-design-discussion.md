@@ -1013,3 +1013,38 @@ task-design以外のskillからの参照は、論点2の決定どおり今回は
 ### 現在の変更（論点8）
 
 決定どおり、`everyday_wording.md`を新設し、`documentation_standards/README.md`の収録一覧、`document-review/SKILL.md`の作成時・更新時観点、`task-design/SKILL.md`の§1へ参照を足し、`validate-plugin.mjs`へ標準の見出し・書き直し方・三つの参照のassertionを足した。`node scripts/verification/validate-plugin.mjs`は`plugin validation passed`を出力した。新設した標準のfile自体を利用者にreviewしてもらう段階にある。このdecisionのdoc-enricherの提案modeのreviewでは、`documentation_standards/README.md`の収録一覧へ足した一行以外に、既存READMEへ足す候補は無かった。
+
+## 論点9: 本文と記入の手引きの書き直しを、どう合意して反映するか
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点9）: 見本で書き方を合意し、残りを任せてもらう
+
+#### 提案0（論点9）
+
+| 案 | 内容 | 往復 |
+| --- | --- | --- |
+| a | 17 file（outcome-sections 14、design.md・tasklist.md・roadmap.mdのテンプレート）の書き直しを、discussionで一つずつ合意する | 17往復以上 |
+| b | 全て任せてもらい、出来上がった差分だけをreviewしてもらう | 少ない。ただし書き方がずれていると全fileをやり直す |
+| c（推奨） | 性質の違う2 fileを見本として書き直して合意し、その書き方で残りを任せてもらう。最後に全体の差分をreviewしてもらう | 2〜3往復 |
+
+cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（`building_a_prototype.md`の「やりやすいところから始めない」）。
+
+- `caller-contracts.md`: issueが名指しした。呼び出し方と保証という、code寄りの内容。
+- `contract-preservation.md`: 表現が最も込み入っている（全量保存宣言、明示差分、baseline、ledger等）。他の標準`function_migration_policy.md`の語との対応を持つ。
+
+見本の合意の後、残りの書き直し、design.md・roadmap.mdのlabelの切り替えと読む側の追随、`breaking_changes/`、`maintenance-plugin-context`の規則、`steering/SKILL.md`の一文、version 9.0.0を、同じ作業の中で反映し、全体の差分をreviewしてもらう。
+
+代償: 見本以外のfileは、最後の差分reviewまで利用者の目を通らない。書き方のずれは見本で潰すが、file固有の判断でずれる余地は残り、最後の差分で指摘を受けて直す。
+
+#### 検討記録（論点9・イテレーション0）
+
+見出し・labelの言い換えと書き直しの基準は決まった。残る本文と記入の手引きは、outcome-sectionsだけで1137行あり、箇所ごとの書き直しは一意に決まらない判断を含む。全てを一つずつ合意すると17往復以上になる。全てを任せて最後の差分だけを見てもらうと、書き方がずれていた時に全fileをやり直すことになる。
+
+そこで、性質の違う2 fileを見本として先に合意し、その書き方で残りを書く案を推奨する。`building_a_prototype.md`は「横展開で検証するまで成立していない。やりやすいところから始めない」としているため、見本は易しいfileを避け、issueが名指しした`caller-contracts.md`と、表現が最も込み入り他の標準の語との対応も持つ`contract-preservation.md`を選んだ。
+
+[内部検討記録: 論点9・イテレーション0](internal-records/task-design-discussion.md.topic-9.md#iteration-0)
+
+#### 提案0へのフィードバック（論点9）
