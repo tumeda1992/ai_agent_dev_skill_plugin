@@ -428,7 +428,7 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 
 ## 論点5: design.md・roadmap.mdのテンプレートの見出し・labelをどう言い換えるか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -666,6 +666,41 @@ steeringに置く一文のpathも`task-design/templates/breaking_changes/`にす
 
 directory名`breaking_changes/`は合意された。READMEの「記録する変更」の線（以前の版のtask-designが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなる変更）への明示の応答はまだ無いため、次の応答で確かめる。
 
+記録する線について、次の応答で合意を得た。
+
+> 論点5についてok。
+
+### 決定（論点5）
+
+design.md・roadmap.mdのテンプレートのlabelは、古い名前を残さず新しい名前へ切り替える。今後は新しい表記が中心になるため、読む側に新旧二つの名前を持たせない。
+
+| テンプレート | 今 | 後 |
+| --- | --- | --- |
+| `design.md` | ### task-design内で対象成果物へ適用済み | ### 設計中に反映を終えた変更 |
+| | ### task-design内の対象成果物反映待ち | ### 設計中に反映する、他の判断を待っている変更 |
+| | ### execution plan対象 | ### tasklist・roadmapに載せて実行する変更 |
+| `roadmap.md` | ## 構造field（task-designが設計・reviewする） | ## 各phaseの計画（task-designが設計・reviewする） |
+| | ### 運用field（steeringだけが更新する） | ### 進み具合（steeringだけが更新する） |
+| | ## 親DoD coverage | ## 親の完了条件と、それを満たすphase |
+| | ## Dependency DAG | ## phase間の依存関係 |
+| | dependency results: | 依存phaseの確定結果: |
+| | {親scopeよりstrictly narrowerな、このphaseで扱う範囲} | {親のscopeより狭い（親と同じ範囲にしない）、このphaseで扱う範囲} |
+| | {cycleを持たないstable phase identity間の依存を記載する。例: `phase-a -> phase-b`} | {phase IDの間の依存を、循環しない形で書く。例: `phase-a -> phase-b`} |
+
+「上位roadmap制約」「分類保留（設計中のみ）」「（付録）変更の実行区分」、表の「validation結果」「参照するdesign section」「掲載理由」は、普段の意味のまま読めるため変えない。「上位roadmap制約」を変えないので、`extract-handoff-input.mjs`の完全一致の照合は今のまま動く。
+
+新しい名前を使う読む側（`steering/SKILL.md`、`task-design/SKILL.md`、`tasklist-executor/SKILL.md`、`task-design/roadmap-design.md`、`skills/README.md`、`runtime-feedback-review.md`、`outcome-sections/workflow.md`、`scripts/verification/validate-plugin.mjs`）は、同じcommitで新しい名前へ揃え、旧名を併記しない。
+
+古い成果物は、`plugins/tumeda-dev/skills/task-design/templates/breaking_changes/`に残す記録で辿る。
+
+- directory名は、記録する線そのもの（破壊的変更だけ）が名前に出る`breaking_changes/`とする。`histories/`は全ての過去を残す場所に読め、管理が面倒になるため採らない。配布されるpluginの中に置き、利用先repositoryのagentも読めるようにする。
+- 記録する変更は、以前の版のtask-designが作った成果物（design.md、tasklist.md、roadmap.md）を、今の版のskillやscriptが見出し・labelの名前で読めなくなる変更だけである。outcome sectionの見出しだけの言い換え、テンプレートへのsectionの追加、記入guideの書き直しは、読む側に影響しないため記録しない。
+- 今回の記録は1 file（`YYYYMMDD-slug.md`）で、変わった版（9.0.0）、旧名と新名の対応（上の表のうち、名前で読まれていたもの）、変えた理由、古い成果物の読み方を書く。
+- `steering/SKILL.md`の、既存の成果物を読む箇所に共通する一文として、「既存のdesign.md・roadmap.mdで、ここで探す見出しが見つからない時は、作成時のpluginの版が古い可能性がある。`task-design/templates/breaking_changes/`で旧名を確かめて読む」を置く。
+- 破壊的変更なので、pluginのversionを8.3.5から9.0.0へ上げる。
+
+記録する線と1件の書き方を、directoryのREADMEとpluginの共通の規則のどちらに置くかは論点6で決める。
+
 ## 論点6: 今後の破壊的変更で、記録を残すことをどこで思い出させるか
 
 **ステータス:** 応答待ち
@@ -701,3 +736,61 @@ directory名`breaking_changes/`は合意された。READMEの「記録する変�
 [内部検討記録: 論点6・イテレーション0](internal-records/task-design-discussion.md.topic-6.md#iteration-0)
 
 #### 提案0へのフィードバック（論点6）
+
+**結果:** 修正要求（共通の規則に個別のskillを名指さない）
+
+> 論点6について、maintenance-plugin-context/SKILL.md に書くのはいいけど、それは全般に同じ規則を適用するから。だからtask-designを名指しで指名するとかありえない。共通の原則のところに個別の事書くとかセンスなさすぎるよね。それでもOpus？ メソッドに関係ない文脈のものぶっ込んで目先ifで解決するタイプ？
+
+置き場所（`maintenance-plugin-context/SKILL.md`）は合意。共通の規則から`task-design`のREADMEを線と書き方の正本として名指したのは誤りである。
+
+### イテレーション1（論点6）: 線と書き方を共通の規則へ置き、個別のREADMEは共通を参照する
+
+#### 提案1（論点6）
+
+##### 共通の規則（`maintenance-plugin-context/SKILL.md`の「Plugin version」節）
+
+「破壊的変更はMAJOR、…を上げる」の直下へ、どのskillにも当たる内容だけを書く。特定のskillやpathは名指さない。
+
+```diff
+ - 破壊的変更はMAJOR、後方互換な機能追加はMINOR、後方互換な修正・文書変更はPATCHを上げる
++  - MAJORを上げる理由が、以前の版のskillが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなることなら、その成果物のテンプレートと同じdirectoryの`breaking_changes/`に記録を残す。無ければ作る。
++    - 記録しない変更: 成果物を読む側に影響しない変更（読まれない見出しの言い換え、テンプレートへのsectionの追加、記入guideの書き直し等）。git logと各作業の記録で辿る。
++    - 1件のfile: 名前は`YYYYMMDD-slug.md`。変わった版、旧名と新名の対応、変えた理由、古い成果物の読み方を書く。
++    - `breaking_changes/`のREADMEには、記録の対象がこの変更だけであることと、そのskillの成果物での具体例を書き、線と1件の書き方はこの規則を参照する。
+ - MINORとPATCHの境界は「consumerが新たに呼べるものが増えたか」で判定する。…
+```
+
+##### 個別のREADME（`task-design/templates/breaking_changes/README.md`）
+
+論点5で決めた見出し構成から、線と1件の書き方の本文を共通の規則へ移し、ここには参照とtask-design固有の内容だけを残す。
+
+```text
+# 成果物を名前で読めなくなった変更の記録
+  以前の版のtask-designが作った成果物を、今の版で読むための対応だけを置く。全ての変更履歴ではない。
+  記録の対象と1件の書き方は、maintenance-plugin-contextの版の規則（「Plugin version」節）に従う。
+
+## task-designの成果物で記録する例・しない例
+  対象の成果物: design.md、tasklist.md、roadmap.md
+  記録する例: 9.0.0での付録・roadmapのlabelの切り替え（steeringが古いdesign.mdの付録を名前で探せなくなる）
+  記録しない例: 完成後の姿のsectionの見出しだけの言い換え（skillもscriptも名前で読まない）、
+                テンプレートへのsectionの追加、記入guideの書き直し
+
+## いつ読むか
+  既存のdesign.md・roadmap.mdで、skillが探す見出しが見つからない時。作成時の版が古い可能性がある。
+```
+
+参照の向き: 個別のREADMEが共通の規則を参照する。共通の規則は個別のskillを参照しない。
+
+#### 検討記録（論点6・イテレーション1）
+
+提案0は、共通の規則（`maintenance-plugin-context`の版の規則）から、記録する線と書き方の正本として`task-design`のREADMEを名指した。全skillに当たる規則から個別のskillを参照する、逆向きの依存である。
+
+原因は、論点5で線と書き方をtask-designのREADMEへ書く構成を先に決め、論点6でその構成を前提に一文を足したことにある。線（以前の版のskillが作った成果物を、今の版で名前で読めなくなる変更）も、書き方（版、旧名と新名、理由、読み方）も、どのskillの成果物にも当たる。全skillに当たる内容は共通の規則に置くべきだったのに、それを問い直さなかった。既存の標準（`naming/core.md`の「中身を足す前に、名前が約束する範囲に入るかを確かめる」）に当てても、task-designのpathは「Plugin version」節の範囲に入らない。
+
+修正では、線と書き方を共通の規則へ置き、task-designのREADMEには、このdirectoryに何が入るかと、task-designの成果物での具体例だけを残す。参照は個別から共通への向きになる。
+
+論点5で合意したREADMEの見出し構成（記録する変更、記録しない変更、いつ読むか、1件のfileに書くこと）のうち、「記録する変更」の線と「1件のfileに書くこと」の本文は共通の規則へ移り、READMEからは参照になる。記録する変更・しない変更の線そのものは論点5の合意から変わらない。
+
+[内部検討記録: 論点6・イテレーション1](internal-records/task-design-discussion.md.topic-6.md#iteration-1)
+
+#### 提案1へのフィードバック（論点6）
