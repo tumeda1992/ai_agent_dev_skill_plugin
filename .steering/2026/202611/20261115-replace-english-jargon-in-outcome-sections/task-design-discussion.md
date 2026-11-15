@@ -1128,7 +1128,7 @@ cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（
 
 #### 提案0（論点11）
 
-`task-design/templates/`配下の全file（outcome-sections 14 file、design.md、tasklist.md、roadmap.md）で、ownerは57行・63箇所に出る（見本2 fileには既に無い）。同じ語が七つの意味で使われているため、意味ごとに書き直す。同じ文の他の表現（state、gate、handoff等）はここでは変えず、論点10の基準で後から書き直す。「決定済み」は論点4で決めたものである。
+`task-design/templates/`配下の全file（outcome-sections 14 file、design.md、tasklist.md、roadmap.md）で、ownerは60行・63箇所に出る（見本2 fileには既に無い）。同じ語が七つの意味で使われているため、意味ごとに書き直す。同じ文の他の表現（state、gate、handoff等）はここでは変えず、論点10の基準で後から書き直す。「決定済み」は論点4で決めたものである。
 
 ##### 1. どのsectionに書くか（sectionの書き分け）
 
@@ -1226,7 +1226,7 @@ cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（
 
 論点10で見本の書き方を基準にすると決め、ownerだけはテンプレートの全fileで全箇所を洗い出すよう求められた。
 
-`task-design/templates/`配下を`grep -rni "owner"`で抜き出すと、57行・63箇所に出た（見本2 fileには既に無い）。前後を読むと、ownerは七つの意味で使われていた。どのsectionに書くか（15行）、workflowの担い手（18行）、codeの責務を持つmodule等（8行）、文書を直す人（4行）、置き場所（4行）、管理元（3行）、議論の記録先（1行）である。論点3で一語一訳をやめ、箇所ごとに言いたいことを書くと決めた理由が、ここでも確かめられる。
+`task-design/templates/`配下を`grep -rni "owner"`で抜き出すと、60行・63箇所に出た（見本2 fileには既に無い）。前後を読むと、ownerは七つの意味で使われていた。どのsectionに書くか（16行）、workflowの担い手（24行）、codeの責務を持つmodule等（6行）、文書を直す人（5行）、置き場所（5行）、管理元（3行）、議論の記録先（1行）、実在する見出し名の引用（1行）である。`documentation.md`86行は「直す人」と「置き場所」の両方を含む。論点3で一語一訳をやめ、箇所ごとに言いたいことを書くと決めた理由が、ここでも確かめられる。
 
 `workflow.md`の中は「担当」に揃えた。workflowの担い手を指す語が他のfile（README、catalog、skill-policy）にも出るため、そこも「担当」にした。
 

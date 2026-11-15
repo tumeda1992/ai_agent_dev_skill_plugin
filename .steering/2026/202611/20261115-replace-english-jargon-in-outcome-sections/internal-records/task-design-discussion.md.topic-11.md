@@ -25,15 +25,15 @@
 
 #### 見つかった事実
 
-出現は57行・63箇所。意味は次の七つに分かれる。
+出現は60行・63箇所。意味は次の七つと、実在する見出し名の引用一つに分かれる（`documentation.md`86行は「直す人」と「置き場所」の両方を含む）。
 
 | 意味 | 書き直し | 行数 |
 | --- | --- | --- |
-| どのsectionに書くか（sectionの書き分け） | 「他sectionとの書き分け」「このsectionに書くこと・書かないこと」「それを扱うsection」 | 15 |
-| workflowで判断・更新を受け持つ担い手（skill、人） | 「担当」。`workflow.md`の中は「担当」に揃える | 18 |
-| codeの中でその責務を持つmodule・class・component | 「class」「module」「component」と具体的に書く | 8 |
-| 文書を直す人 | 「直す人」 | 4 |
-| 記述やfunctionの置き場所（owner変更、owner移動） | 「担当や置き場所」 | 4 |
+| どのsectionに書くか（sectionの書き分け） | 「他sectionとの書き分け」「このsectionに書くこと・書かないこと」「それを扱うsection」 | 16 |
+| workflowで判断・更新を受け持つ担い手（skill、人） | 「担当」。`workflow.md`の中は「担当」に揃える | 24 |
+| codeの中でその責務を持つmodule・class・component | 「class」「module」「component」と具体的に書く | 6 |
+| 文書を直す人 | 「直す人」 | 5 |
+| 記述やfunctionの置き場所（owner変更、owner移動） | 「担当や置き場所」 | 5 |
 | secretや状態を持つ管理元 | 「管理元」「状態を持つcomponent」 | 3 |
 | 議論の記録先（discussion owner） | 「議論の記録先」 | 1 |
 
