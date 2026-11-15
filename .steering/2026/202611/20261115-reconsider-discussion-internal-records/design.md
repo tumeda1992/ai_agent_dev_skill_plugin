@@ -50,7 +50,12 @@ discussionの検討記録は、それ単体で回をまたいだ検討の時系�
 
 ### 作業の流れと担当
 
-TBD: 内部検討記録の位置づけが決まった後、提示準備の内部loop（実施前入力の保存→実施→結果の保存→再判定）、中断からの復帰、記録漏れの回復、読取helperの起点照合、task-designのhandoff catch-upが、何を正とする記録として使うかを決める。
+内部記録の位置づけは論点1で決まった。残る問いは次の四つである。
+
+- TBD3: 内部記録を前提にしている手順を、discussionだけで回る形へどう畳むか。対象は、調べる前に入力を内部記録へ保存する手順、中断からの復帰、記録漏れの回復、読取helperの起点照合（`--log`）、task-designのhandoffで内部記録を読む契約。
+- TBD4: 目的別の記入形（`templates/consideration-records/`）を、検討記録の書き方の例として残すか、やめるか。
+- TBD5: 利用先repositoryで内部記録をgit管理外にすることを、何で担保するか（skill本文の案内、各repositoryの`.gitignore`）。
+- TBD6: 検討記録へ回の変遷を書いても、論点19で起きたdiscussionの肥大化が戻らない書き方。
 
 ### 文書以外に作るfileの中身
 
@@ -115,7 +120,12 @@ TBD: 上の二sectionから導く。変更候補は付録「分類保留」に�
 
 ### 設計中に反映を終えた変更
 
-なし
+次の二つは、設計の合意前に先行して反映した。合意した設計と食い違えば戻す。
+
+| 対象 | 反映内容 | validation結果 | 参照するdesign section |
+| --- | --- | --- | --- |
+| root `.gitignore`、`facilitate-discussion/templates/discussion_entry.md`、`scripts/verification/validate-plugin.mjs`（commit `817f93f`） | `**/internal-records/`を除外。commit済みの内部記録122 fileは残す。templateの回の骨子から内部記録へのlink行を外す | `validate-plugin.mjs` 通過 | [skillの役割と方針](#skillの役割と方針) |
+| `facilitate-discussion/iteration.md`「保存した回を提示可能にする」、`validate-plugin.mjs`（commit `aa808e1`） | 検討記録を、その回の検討そのものを時系列で要約しすぎずに残す記録へ書き換え | `validate-plugin.mjs` 通過 | [skillの役割と方針](#skillの役割と方針) |
 
 ### 設計中に反映する、他の判断を待っている変更
 
@@ -129,11 +139,11 @@ TBD
 
 | 変更候補 | 保留理由 | 分類を決める判断 |
 | --- | --- | --- |
-| `plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md`、`iteration.md`、`record-recovery.md`、`read-discussion.md`、`derived-change.md` | 内容が内部検討記録の位置づけと自動okの扱いで変わる | 完成後の方針のTBD |
-| `plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md`、`templates/discussion_entry.md`、`templates/consideration-records/` | 目的別formatを内部記録側に残すか、discussionの検討記録側へ移すかで変わる | 完成後の方針のTBD |
-| `plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs`、`inspect-discussion.test.mjs` | `--log`の起点照合を残すかで変わる | 作業の流れのTBD |
-| `plugins/tumeda-dev/skills/task-design/SKILL.md`、`plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md` | 内部検討記録を読む契約を残すかで変わる | 作業の流れのTBD |
-| git管理外にする設定（root `.gitignore`、`.steering/.gitignore`、利用先repositoryへの案内） | 何で除外するかが未決 | 完成後の方針のTBD |
-| このrepositoryの `.steering/` 配下でcommit済みの内部検討記録 | 残すか消すかが未決 | 完成後の方針のTBD |
+| `plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md`、`iteration.md`（先行反映した節以外）、`record-recovery.md`、`read-discussion.md`、`derived-change.md`の内部記録への言及 | 内部記録を前提にした手順の畳み方で変わる | TBD3 |
+| `plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md`、`templates/consideration-records/` | 内部記録の保存形と目的別の記入形を残すかで変わる | TBD3、TBD4 |
+| `plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs`、`inspect-discussion.test.mjs` | `--log`の起点照合を残すかで変わる | TBD3 |
+| `plugins/tumeda-dev/skills/task-design/SKILL.md`、`plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md` | 内部記録を読む契約を残すかで変わる | TBD3 |
+| 利用先repositoryへの案内（skill本文、`.steering/.gitignore`） | 何で担保するかが未決 | TBD5 |
+| このrepositoryの `.steering/` 配下でcommit済みの内部記録（先行反映では残した） | 残す判断の合意が未了 | TBD3 |
 | `scripts/verification/validate-plugin.mjs`、`scripts/verification/test-task-design-handoff.mjs` | 検査する契約の文が上の変更で決まる | 上の全TBD |
 | 配布version（四つの宣言値と`expectedRelease`） | MAJOR／MINOR／PATCHが変更内容で決まる | 上の全TBD |
