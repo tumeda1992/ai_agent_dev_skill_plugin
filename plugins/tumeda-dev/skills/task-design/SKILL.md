@@ -15,7 +15,7 @@ description: |
   デフォルトモデル: Opus（設計判断の質が要求されるため）。
   Sonnet で起動された場合でも、このスキル実行中は Opus に切替が望ましい。
 
-  design中に対象成果物へ適用する変更の分類・反映・validationと、execution plan対象がある場合の
+  design中に対象成果物へ適用する変更の分類・反映・validationと、tasklist・roadmapに載せて実行する変更がある場合の
   排他的なtasklistまたはroadmapの設計・review・合意までを所有する。
 ---
 
@@ -117,7 +117,7 @@ repository固有の設計文書、規約、技術検証環境・commandが必要
 
 - 各sectionは単なる記入formatではない。「なぜ必要か」「NG」「具体的な記述例」「MUST」「判断基準」に反しない具体性で書く。
 - 該当しないsectionを「なし」で機械的に埋めない。選ばなかった観点の判断が実装者へ残る場合は、そのsectionを追加する。
-- 複数sectionを使っても完成後の姿はtask-design全体で一つであり、execution plan対象ごとの小さな設計書に分けない。
+- 複数sectionを使っても完成後の姿はtask-design全体で一つであり、tasklist・roadmapに載せて実行する変更ごとの小さな設計書に分けない。
 - 調査、比較、技術検証が主成果の場合だけ`research-findings.md`を選ぶ。別outcomeを設計する途中で得た事実は、該当outcome sectionへ根拠として書き戻す。
 - docsを本質的に新設・更新する場合は`documentation.md`を使い、物理fileの仕様だけなら`file-deliverables.md`、skill等のprocess contractなら`workflow.md`も組み合わせる。
 - `documentation.md`を選んだ場合、emit前ゲートとして`document-review`skillが当てる観点（内容の濃さ・記法・命名）を設計時から見込む。当て方の中身は`document-review`側の標準fileが正本であり、ここへ写さない。対象はdocsとskill本体に限り、steeringの作業記録には当てない。
@@ -353,7 +353,7 @@ task-designの成果物は、一つのdesign、必要時のdiscussion記録、�
 - **design.md** — 合意済みの設計内容を集約する場所。テンプレート: このskill directoryの`templates/design.md`
 - **task-design-discussion.md** — 議論の変遷を記録する場所。discussion processとentry形式の正本はpluginの`facilitate-discussion` skill
   - steering でも `discussion.md` を継続使用するため、task-design 起源の議論記録は `task-design-discussion.md` にして区別する
-- **tasklist.md | roadmap.md** — execution plan対象が一件以上ある場合だけ、合意済みdesignを実行可能にする排他的なplan。leafは`tasklist.md`、compositeは`roadmap.md`を作り、同じ`working_dir`に両方を正本として置かない
+- **tasklist.md | roadmap.md** — tasklist・roadmapに載せて実行する変更が一件以上ある場合だけ、合意済みdesignを実行可能にする排他的なplan。leafは`tasklist.md`、compositeは`roadmap.md`を作り、同じ`working_dir`に両方を正本として置かない
 
 execution planを作る場合、その設計はtask-designの一部である。詳細規則は長さのために本体から分割した`tasklist-design.md`または`roadmap-design.md`を、対応するplan phaseへ入る直前に先頭から末尾まで完全に読む。
 
@@ -581,9 +581,9 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 6. discussionでは、一つの論点でdecisionが返るたびに、そのdecisionだけを`design.md`の該当箇所へ直ちに反映する。調査・技術検証実装では、確定した事実だけを反映する。未決の提案や途中経過は書かず、複数decisionを最後まで溜めない。
 7. decisionまたは事実から対象成果物の変更が生じるたびに、tasklist作成直前まで待たず、`design.md`付録のrouting stateへ分類する。
    - 未決decisionによって内容またはownerが変わる: `分類保留`
-   - task-designが適用するが、他の未決事項との整合性を待つ: `task-design内の対象成果物反映待ち`
-   - 未決事項へ依存せず、合意済み内容から一意に反映・validationできる: task-design内で任意に適用し、`task-design内で対象成果物へ適用済み`へ結果を記録する
-   - 本番application coding、実行時に段階を踏む作業、ユーザー指定の作業: `execution plan対象`
+   - task-designが適用するが、他の未決事項との整合性を待つ: `設計中に反映する、他の判断を待っている変更`
+   - 未決事項へ依存せず、合意済み内容から一意に反映・validationできる: task-design内で任意に適用し、`設計中に反映を終えた変更`へ結果を記録する
+   - 本番application coding、実行時に段階を踏む作業、ユーザー指定の作業: `tasklist・roadmapに載せて実行する変更`
    - design.mdとdiscussion file自身のlifecycle更新、調査、技術検証実装は対象成果物変更として分類せず、execution planへ載せない
 8. 一つのdecisionまたは事実を反映・分類するたびに、`design.md`全体から残る不確実性と完了条件を再評価する。残る場合はStep 3を繰り返し、なければStep 4へ進む。
 
@@ -619,7 +619,7 @@ discussion中に「この気づきはskillへ書くべき」「このruleはdocs
 decisionの`design.md`への記録は直ちに行うが、対象skill／docsへの適用時期はStep 3のroutingで別に判定する。
 
 - 他の未決事項へ依存しなければ、次の論点へ進む前に適用・validationしてよい。
-- 他の未決事項によって内容が変わる、または複数file contractを一括で整合させる必要があれば、`task-design内の対象成果物反映待ち`へ置く。小手先のpatchを重ねない。
+- 他の未決事項によって内容が変わる、または複数file contractを一括で整合させる必要があれば、`設計中に反映する、他の判断を待っている変更`へ置く。小手先のpatchを重ねない。
 - 実際に即時適用した場合は、`facilitate-discussion`が返すcontractに従い、同じoriginating decisionについて`doc-enricher`を提案modeで一度だけreviewする。原因分類時に起動済みなら重複しない。
 
 **禁止（3-6 違反）:**
@@ -642,7 +642,7 @@ document-review、機能・安全・独立した動作検証、利用者合意�
     - やってしまいがちな失敗: 進行中の試行・調査のうち、結果次第でdesignの範囲が変わるものをTBDに登録しないまま、designの合意を求める。具体例: designの範囲を左右する別の試行が進行中なのに、designの合意を催促した
 - 新たな論点が生まれない（収束している）
 - `design.md`付録の`分類保留`がzeroで、sectionごと削除されている
-- `task-design内の対象成果物反映待ち`がzeroで、`なし`と記録されている
+- `設計中に反映する、他の判断を待っている変更`がzeroで、`なし`と記録されている
 - 2-4 自己チェック「設計外の判断が残っていないか」が No
 - 2-2 ネガティブ定義3つ全てに該当しない
 - **読み手セルフレビュー**: 「後続のplan taskまたはtask-design内で適用した変更を見たとき、その根拠（なぜそのパターン・なぜその変更か）を design.md 内で完結して辿れるか」を確認する
@@ -701,11 +701,11 @@ design.md は「議論の入力ではなく議論の結果を記録する場所�
 
 Stage 2 を省略すると「grep で 0 件だから完了」となり、grep パターンで拾えない議論残骸（見出し内の括弧書き・「〇〇しない」という文体・前提矛盾の例示など）が残る。
 
-### Step 5. execution plan対象を検証し、必要な場合だけplanを設計する
+### Step 5. tasklist・roadmapに載せて実行する変更を検証し、必要な場合だけplanを設計する
 
 ここはtasklist掲載可否を初めて判断するgateではない。Step 3でdecisionごとに分類した`design.md`付録を集計し、分類漏れ、即時適用済み変更との重複、掲載条件違反がないことを最終検証する。
 
-execution plan対象へ載せるのは次のいずれかに該当する作業だけである。
+tasklist・roadmapに載せて実行する変更へ載せるのは次のいずれかに該当する作業だけである。
 
 1. 対象repositoryで本番成果物として利用者へ届けるapplication、service、library、CLI、batch、infrastructure component等のruntime behaviorを変更し、testで正しさを確認する通常のapplication coding。本番成果物の変更に伴うtest code、schema、dependency、build設定、runtime設定は同じ実装scopeに含む
 2. 本番application coding以外でも、順序依存する複数段階、中間checkpoint、外部調整、rollback境界、独立した検証単位が必要で、一つの連続した反映・validationでは安全に完了できない作業
@@ -717,7 +717,7 @@ file数、調査量、discussion回数、実行可能な言語で書かれてい
 - それをやると何が起きるか: task-design内の議論と適用で済む文書の作業に、tasklistの合意と実行のgateが重なる。案への確認は合意すればその場で書けるため、tasklistに載せても確認の回数は減らず、往復だけが増える
 - 正しい判断のための問い: 「この中間の確認は、実行して初めて得られる状態を見るものか。それとも案への合意を取るものか」。後者はtask-designのdiscussionで扱う
 
-test codeは単独の自動掲載条件ではなく、本番application codingの正しさを確認するacceptanceとして扱う。testだけの変更や補助toolのself-testは、段階実行またはユーザー指定に該当するかで判定する。調査と技術検証実装はdesign phaseの不確実性解消手段であり、execution plan対象へ載せない。対象一覧は`対象`、`掲載理由`、`参照するdesign section`だけを持つ索引であり、対象ごとの完成後の姿や実行手順を複製しない。
+test codeは単独の自動掲載条件ではなく、本番application codingの正しさを確認するacceptanceとして扱う。testだけの変更や補助toolのself-testは、段階実行またはユーザー指定に該当するかで判定する。調査と技術検証実装はdesign phaseの不確実性解消手段であり、tasklist・roadmapに載せて実行する変更へ載せない。対象一覧は`対象`、`掲載理由`、`参照するdesign section`だけを持つ索引であり、対象ごとの完成後の姿や実行手順を複製しない。
 
 対象がzeroなら`tasklist.md`と`roadmap.md`を作らずStep 6へ進む。対象が一件以上ある場合だけ、以下のleaf / composite判定を行う。
 
@@ -733,7 +733,7 @@ test codeは単独の自動掲載条件ではなく、本番application coding�
 2. 同じ`working_dir`に反対側のplanがないことを確認する。既にあれば上書き・併存せず、designまたはplan種別の再合意へ戻る。
 3. 対応templateからplanを作り、分割fileのgateに従って自己レビューする。
 4. planの要点をユーザーへ示し、自然言語で合意を得る。
-5. feedbackを、planだけの変更かdesignへ戻る変更か分類する。完成後の姿、設計根拠、公開API、module境界、要件が変わるならStep 3へ戻る。task順、task粒度、検証手順はtasklist planを更新する。roadmapのphase identity、目的、scope、scope外、DoD、依存、親DoD coverageが変わる場合はroadmap planの構造設計へ戻り、その変更が親designへ影響するか判定する。親designへ影響する場合だけStep 3へ戻る。roadmap運用fieldだけならsteeringのruntime更新へ返す。
+5. feedbackを、planだけの変更かdesignへ戻る変更か分類する。完成後の姿、設計根拠、公開API、module境界、要件が変わるならStep 3へ戻る。task順、task粒度、検証手順はtasklist planを更新する。roadmapのphase identity、目的、scope、scope外、DoD、依存、「親の完了条件と、それを満たすphase」が変わる場合はroadmap planの構造設計へ戻り、その変更が親designへ影響するか判定する。親designへ影響する場合だけStep 3へ戻る。roadmap進み具合だけならsteeringのruntime更新へ返す。
 6. designへ戻った場合は、再合意後に同じplan種別を再生成するかleaf / compositeを再判定する。
 
 ### Step 6. task-design完了判定と返却
@@ -742,16 +742,16 @@ test codeは単独の自動掲載条件ではなく、本番application coding�
 
 - designが合意済み
 - designとdiscussionに未解消TBDまたは未確定decisionがない
-- `design.md`付録に`分類保留`sectionがなく、`task-design内の対象成果物反映待ち`が`なし`である
+- `design.md`付録に`分類保留`sectionがなく、`設計中に反映する、他の判断を待っている変更`が`なし`である
 - task-design内で対象成果物へ適用した変更にはvalidation結果と参照するdesign sectionがある
 
 対象判定に該当する汎用skillを扱った場合、設計時・編集後の`skill-update-review`の結果が保存され、切り出しの候補ごとに、今切り出したか別の作業にしたかが記録されていることも共通の完了条件とする。
 
 result固有の完了条件:
 
-- `tasklist_ready`: execution plan対象が一件以上あり、`tasklist.md`だけが存在して合意済みである。plan reviewからdesignへ戻る未解消feedbackと、plan内のTBD、未解消feedback、実装者へ残した設計判断がない
-- `roadmap_ready`: execution plan対象が一件以上あり、`roadmap.md`だけが存在して合意済みである。同じ未解消feedbackとTBDがなく、roadmapの構造fieldが確定している
-- `planless_complete`: execution plan対象が`なし`で、`tasklist.md`と`roadmap.md`がどちらも存在しない。対象成果物への必要な適用とvalidationはtask-design内で完了している
+- `tasklist_ready`: tasklist・roadmapに載せて実行する変更が一件以上あり、`tasklist.md`だけが存在して合意済みである。plan reviewからdesignへ戻る未解消feedbackと、plan内のTBD、未解消feedback、実装者へ残した設計判断がない
+- `roadmap_ready`: tasklist・roadmapに載せて実行する変更が一件以上あり、`roadmap.md`だけが存在して合意済みである。同じ未解消feedbackとTBDがなく、roadmapの各phaseの計画が確定している
+- `planless_complete`: tasklist・roadmapに載せて実行する変更が`なし`で、`tasklist.md`と`roadmap.md`がどちらも存在しない。対象成果物への必要な適用とvalidationはtask-design内で完了している
 
 返却形式:
 
@@ -831,10 +831,10 @@ Sonnet がよく陥る穴埋めパターン。設計レビュー時に自分で�
 ### G. 対象成果物変更のroutingを誤る
 
 - [ ] decision確定ごとに分類せず、tasklist作成直前に初めて掲載可否を判断した → 5 Step 3 / Step 5
-- [ ] 本番application coding、段階実行、ユーザー指定のいずれにも該当しない変更をexecution plan対象へ載せた → 5 Step 5
+- [ ] 本番application coding、段階実行、ユーザー指定のいずれにも該当しない変更をtasklist・roadmapに載せて実行する変更へ載せた → 5 Step 5
 - [ ] 他の未決decisionへ依存する対象成果物を、即時反映自体を目的に先行patchした → 5 Step 3
-- [ ] `分類保留`または`task-design内の対象成果物反映待ち`を残してdesignを完了した → 5 Step 4
-- [ ] execution plan対象がzeroなのに空のtasklistまたはroadmapを作った → 5 Step 5 / Step 6
+- [ ] `分類保留`または`設計中に反映する、他の判断を待っている変更`を残してdesignを完了した → 5 Step 4
+- [ ] tasklist・roadmapに載せて実行する変更がzeroなのに空のtasklistまたはroadmapを作った → 5 Step 5 / Step 6
 
 ---
 

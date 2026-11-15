@@ -131,7 +131,7 @@ routing stateの単一正本はこの付録とし、専用のstate fileを作ら
 付録に置く理由は、その主従関係を構造で示すためである。
 -->
 
-### task-design内で対象成果物へ適用済み
+### 設計中に反映を終えた変更
 
 | 対象 | 反映内容 | validation結果 | 参照するdesign section |
 | --- | --- | --- | --- |
@@ -139,7 +139,7 @@ routing stateの単一正本はこの付録とし、専用のstate fileを作ら
 
 <!-- 該当なしでも見出しを残し「なし」と記載する。design.mdとdiscussion file自身のlifecycle更新、spikeは対象成果物変更として載せない。 -->
 
-### task-design内の対象成果物反映待ち
+### 設計中に反映する、他の判断を待っている変更
 
 | 対象 | 待つ理由 | 依存decision | 参照するdesign section |
 | --- | --- | --- | --- |
@@ -147,7 +147,7 @@ routing stateの単一正本はこの付録とし、専用のstate fileを作ら
 
 <!-- execution plan作成gateへ進む前にzeroにする。task-design完了時も見出しを残し「なし」と記載する。 -->
 
-### execution plan対象
+### tasklist・roadmapに載せて実行する変更
 
 | 対象 | 掲載理由 | 参照するdesign section |
 | --- | --- | --- |

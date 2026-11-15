@@ -10,9 +10,9 @@
 
 このroadmapは子scopeの構造一覧である。各phaseは独立した子steeringを通じて設計・実装し、各phase完了時点でappまたは成果物が正常に利用できる状態を保つ。
 
-roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子steering path、status、完了日だけをsteeringが実行時に更新する。
+roadmapの各phaseの計画はtask-designが設計・reviewする。各phaseの子steering path、status、完了日だけをsteeringが実行時に更新する。
 
-## 構造field（task-designが設計・reviewする）
+## 各phaseの計画（task-designが設計・reviewする）
 
 ---
 
@@ -38,14 +38,14 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 ### 依存
 
 - 依存phase: {なし、またはstable phase identity}
-- dependency results: {子task-designへ渡す確定結果。依存なしならなし}
-- 子designで解消する制約: {dependency resultsを使って確定する上位制約。依存なしならなし}
+- 依存phaseの確定結果: {子task-designへ渡す確定結果。依存なしならなし}
+- 子designで解消する制約: {依存phaseの確定結果を使って確定する上位制約。依存なしならなし}
 
 ### 親DoDとの対応
 
 - {親designの完了条件}
 
-### 運用field（steeringだけが更新する）
+### 進み具合（steeringだけが更新する）
 
 - 子steering: 未割当
 - status: 未着手
@@ -75,14 +75,14 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 ### 依存
 
 - 依存phase: {なし、またはstable phase identity}
-- dependency results: {子task-designへ渡す確定結果}
-- 子designで解消する制約: {dependency resultsを使って確定する上位制約}
+- 依存phaseの確定結果: {子task-designへ渡す確定結果}
+- 子designで解消する制約: {依存phaseの確定結果を使って確定する上位制約}
 
 ### 親DoDとの対応
 
 - {親designの完了条件}
 
-### 運用field（steeringだけが更新する）
+### 進み具合（steeringだけが更新する）
 
 - 子steering: 未割当
 - status: 未着手
@@ -90,12 +90,12 @@ roadmapの構造fieldはtask-designが設計・reviewする。各phaseの子stee
 
 ---
 
-## 親DoD coverage
+## 親の完了条件と、それを満たすphase
 
 | 親DoD | 担当phase |
 | --- | --- |
 | {親designの完了条件} | {stable-phase-id} |
 
-## Dependency DAG
+## phase間の依存関係
 
 {cycleを持たないstable phase identity間の依存を記載する。例: `phase-a -> phase-b`}

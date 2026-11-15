@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "8.3.5";
+const expectedRelease = "9.0.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -428,9 +428,9 @@ for (const expected of [
   "outcome-sections/catalog.md",
   "outcome-sections/README.md",
   "完成後の姿はtask-design全体で一つ",
-  "### task-design内で対象成果物へ適用済み",
-  "### task-design内の対象成果物反映待ち",
-  "### execution plan対象",
+  "### 設計中に反映を終えた変更",
+  "### 設計中に反映する、他の判断を待っている変更",
+  "### tasklist・roadmapに載せて実行する変更",
   "### 分類保留（設計中のみ）",
   "| 対象 | 掲載理由 | 参照するdesign section |",
   "本番application coding / 段階実行 / ユーザー指定",
@@ -480,8 +480,8 @@ for (const expected of [
   "本番application coding",
   "補助tool code",
   "分類保留",
-  "task-design内の対象成果物反映待ち",
-  "task-design内で対象成果物へ適用済み",
+  "設計中に反映する、他の判断を待っている変更",
+  "設計中に反映を終えた変更",
   "tasklist_ready | roadmap_ready | planless_complete",
   "result=planless_complete",
   "### 3-5. 実行して初めて確定することは、段階を分けて設計する",
@@ -710,8 +710,8 @@ for (const expected of [
 requireText(roadmapDesign, "strictly narrower");
 requireText(roadmapDesign, "依存関係はcycleを持たないDAG");
 requireText(roadmapDesign, "一つだけの子");
-requireText(roadmapTemplate, "構造field（task-designが設計・reviewする）");
-requireText(roadmapTemplate, "運用field（steeringだけが更新する）");
+requireText(roadmapTemplate, "各phaseの計画（task-designが設計・reviewする）");
+requireText(roadmapTemplate, "進み具合（steeringだけが更新する）");
 
 for (const expected of [
   "working_dir_parent=<steering ディレクトリの絶対パス>",
@@ -1244,6 +1244,13 @@ requireText("plugins/tumeda-dev/docs/documentation_standards/everyday_wording.md
 requireText("plugins/tumeda-dev/docs/documentation_standards/README.md", "[everyday_wording.md](./everyday_wording.md)");
 requireText(skillPath("document-review/SKILL.md"), "- 普段の言葉 → `everyday_wording.md`");
 requireText(skillPath("task-design/SKILL.md"), "../../docs/documentation_standards/everyday_wording.md");
+// 以前の版の成果物を名前で読めなくなる変更は、テンプレートと同じdirectoryのbreaking_changes/に記録する。
+requireText(skillPath("maintenance-plugin-context/SKILL.md"), "その成果物のテンプレートと同じdirectoryの`breaking_changes/`に記録を残す。");
+requireText(skillPath("task-design/templates/breaking_changes/README.md"), "全ての変更履歴ではない。");
+requireText(skillPath("task-design/templates/breaking_changes/README.md"), "20261115-rename-template-labels.md");
+requireText(skillPath("task-design/templates/breaking_changes/20261115-rename-template-labels.md"), "| design.mdの付録 | ### execution plan対象 | ### tasklist・roadmapに載せて実行する変更 |");
+requireText(skillPath("steering/SKILL.md"), "../task-design/templates/breaking_changes/README.md");
+forbidText(skillPath("maintenance-plugin-context/SKILL.md"), "task-design/templates/breaking_changes", "共通の版の規則に個別のskillを名指さない");
 requireText(thinkStandardsPath("writing_abstraction.md"), "今回の対象を、ここが効く別の対象に置き換えても、そのまま成り立つか");
 
 // 作業の範囲（目的の内外、目的の外の不備を拾うか切り出すか）の判定の契約

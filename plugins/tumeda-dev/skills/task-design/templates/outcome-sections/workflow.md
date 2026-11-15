@@ -22,7 +22,7 @@ NG:
 具体的な記述例:
 - task-designはroadmapのphase identity、目的、scope、DoD、依存を設計する。
 - steeringだけが子steering path、status、完了日をruntimeで更新する。
-- 構造field変更が必要ならsteeringは直接編集せず、同じworking directoryでtask-designを再開する。
+- 各phaseの計画を変える必要があるならsteeringは直接編集せず、同じworking directoryでtask-designを再開する。
 
 記述のMUST:
 - 各ownerについて、行う判断・更新と、行わないことを両方示す。

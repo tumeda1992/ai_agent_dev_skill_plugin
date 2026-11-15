@@ -30,7 +30,7 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 - **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定・導出変更を記録し、長い議論を原文保持で分割する。
 - **skill-update-review** — 汎用skillのSKILL.mdと内部指示から、切り出せる工程を候補として知らせる。
 - **steering** — task-designの`tasklist_ready | roadmap_ready | planless_complete`を受け、plan resultのdispatch、planless resultの共通gate後完了、roadmapの子steering binding・status伝播・再帰実行を担うruntime orchestrator。
-  - **task-design** — task全体で一つの完成後の姿を設計・合意し、対象成果物変更を分類・適用する。execution plan対象がある場合だけ排他的な`tasklist.md | roadmap.md`を設計・review・合意し、対象zeroならplanなしで完了するowner。
+  - **task-design** — task全体で一つの完成後の姿を設計・合意し、対象成果物変更を分類・適用する。tasklist・roadmapに載せて実行する変更がある場合だけ排他的な`tasklist.md | roadmap.md`を設計・review・合意し、対象zeroならplanなしで完了するowner。
 - **unattended-execution** — 利用者が応答できない間、既承認scopeで独立作業を進め、新たな承認が必要な操作を保留する。
 - **tasklist-executor** — task-designが生成した`tasklist.md`を上から順に実装・テスト・更新するsingle execution writer。roadmapは更新せず、完了resultをcallerへ返す。
   - **test-runner** — テスト実行と失敗分析。executor が共通契約で child 委譲する。
