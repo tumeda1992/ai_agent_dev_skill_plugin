@@ -903,3 +903,92 @@ design.md・roadmap.mdのテンプレートのlabelは、古い名前を残さ�
 ### 現在の変更（論点7）
 
 決定どおり、`plugins/tumeda-dev/docs/think_standards/writing_abstraction.md`へ補助節を足し、`.claude/hooks/think_through_session_start.sh`の「抽象を書く」の行へ一言を足し、`scripts/verification/validate-plugin.mjs`へ補助節の見出しと判断の問いのassertionを足した。`node scripts/verification/validate-plugin.mjs`は`plugin validation passed`、`node scripts/verification/test-task-design-handoff.mjs`は`task-design handoff tests passed`を出力した。このdecisionのdoc-enricherの提案modeのreviewでは、`think_standards/README.md`の索引の一行が補助節の追加後も正しく、既存READMEへ足す候補は無かった。未解決は無い。
+
+## 論点8: 「見分ける問い」を、ルー語の再発防止としてどこに置くか
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点8）: 新しい標準を作り、書く時に通る二つの経路から参照する
+
+#### 提案0（論点8）
+
+##### 置き場所と参照の経路
+
+```text
+plugins/tumeda-dev/docs/documentation_standards/
+├── README.md                    # 収録一覧へ一行足す
+└── everyday_wording.md          # 新設。見分ける問いと書き直し方の正本
+
+参照する側（個別 → 共通の向き）
+├── skills/document-review/SKILL.md   # 作成時観点・更新時観点へ「普段の言葉 → everyday_wording.md」
+└── skills/task-design/SKILL.md §1    # design.mdとchatで利用者へ書く時に確認する一行
+```
+
+- `referent_explicitness.md`へは足さない。この標準は「語が指す実体を復元できるか」を扱い、precedenceや全量保存宣言のような耳馴染みがない語の型は、名前が約束する範囲（指示対象の明示）に入らない。
+- `document-review`の観点にするのは、テンプレートやskill本体を書く時に必ず通るためである。
+- task-designの§1に置くのは、design.mdとchatは`document-review`の対象外だが、利用者が読んで合意する文だからである。既存のconfidentiality・provisionalityの参照と同じ形にする。
+- 標準は特定のskillを名指さない（論点7で足した原則）。task-design以外のskillへの参照は、論点2の決定どおり今回は置かない。
+
+##### `everyday_wording.md`の見出しと扱う内容
+
+```text
+# 普段の言葉で書く
+  documentation_standards/の傘の下の1トピック。
+  書いた表現を、読み手が普段使っている意味のまま読んで、書き手の意図どおりに受け取れるかを扱う。
+
+## 見分ける問い
+  「この表現を知らない読み手が、普段使っている意味のまま読んで、書き手の意図どおりに受け取れるか」。
+  受け取れないなら書き直す。英語か日本語かは問わない。
+
+## 書き直す表現の二つの型
+  耳馴染みがない表現: 英語（precedence、tie-break、closed-world）、日本語の造語（全量保存宣言、理解依存）
+  聞き慣れているが、ここだけの意味を載せた表現: owner（責任を持つ担い手の意味）、contract、「所有する」（そのsectionに書く、の意味）
+  文脈を離れた例: 業務文書の「突合」「洗い替え」（社内でだけ通じる意味で使う場合）
+
+## 残す表現
+  識別子・path・file名・code例、決まった形式（MUST／SHOULD／MAY等）、
+  開発の会話で普段の意味のまま使う語（file、test、API、commit等）
+
+## 書き直し方
+  一語ずつ訳語を決めて置き換えない。箇所ごとに、その文で言いたいことを普段の言葉で書く。
+  例: 「owner境界」を「担当境界」にしても何の境界かは読めない → 「このsectionに書くこと・書かないこと」
+  揃えるもの: 一つの文書の中で同じものを繰り返し指す語、繰り返し出る小見出し
+
+## 当てはめる範囲
+  利用者の目に出る文（テンプレートの見出し・本文・記入欄、それを使って書かれる成果物、利用者への応答）と、
+  書き手がその語を成果物へ持ち込む入口（テンプレートの記入guide）。
+  skillの内部だけでやり取りされる指示の文は、内輪で通じればよいため対象外。
+
+## やってしまいがちな失敗
+  行動: 「識別子は原文を維持する」を広く読み、普通の概念語まで英語のまま書く／英語をカタカナにするだけで済ませる
+  起きること: 読み手が訳し直さないと読めず、書き手がその語を成果物へ持ち込み、読む人全員へ負担が移る
+  判断の問い: 見分ける問いと同じ
+```
+
+各見出しの本文は、この合意の後に実fileとして書き、作成されたfile自体をreviewしてもらう。
+
+##### 併せて行うこと
+
+- `documentation_standards/README.md`の収録一覧へ一行足す。
+- `scripts/verification/validate-plugin.mjs`へ、新しい標準の存在と、`document-review`・`task-design/SKILL.md`の参照が残っていることのassertionを足す。
+
+#### 検討記録（論点8・イテレーション0）
+
+論点3で対応表を作らないと決めた代償として、後から書く人が同じ型の表現を書く余地が残る。issueの原因は、プロジェクト指示の「識別子は原文を維持する」がowner等の普通の概念語まで英語で書くことを止めず、どの表現を避けるかの線引きがどこにも無かったことにある。論点1の見分ける問いと論点3の書き直し方を、書く時に当たる場所へ置く。
+
+既存の標準に足せるかを調べた。`referent_explicitness.md`は「語が指す実体を、読み手が復元できるか」を扱い、「system内部語」を指示語の範囲に含む。論点1の二つ目の型（聞き慣れているが特別な意味を載せた語）とは重なるが、一つ目の型（precedence、全量保存宣言のような耳馴染みがない語）は語の馴染みの問題で、指示対象の明示という名前の範囲に入らない。そのため新しい標準を1 fileとして作る。
+
+書く時に通る経路は二つある。
+
+- テンプレートやskill本体を書く時: `document-review`が作成時・更新時の観点を当てる。`documentation_standards/README.md`は、書かれた文に当てて判定できる標準を観点listへ足すと定めている。
+- task-designがdesign.mdとchatで利用者へ書く時: これらは`document-review`の対象外である。task-designの§1は、成果物へ書く前に`confidentiality.md`と`provisionality_explicitness.md`で確認する参照を既に持つので、同じ形で一行置く。
+
+どちらも個別のskillから共通の標準を参照する向きで、標準は特定のskillを名指さない（論点7の原則）。task-design以外のskill（facilitate-discussion等）が書く成果物への参照は、論点2の決定どおり今回は置かない。
+
+新しいfileの名前は、収録されている標準（`content_density.md`、`referent_explicitness.md`等）と同じく英語のsnake_caseで、中身（普段の言葉で書く）が分かる`everyday_wording.md`とした。
+
+[内部検討記録: 論点8・イテレーション0](internal-records/task-design-discussion.md.topic-8.md#iteration-0)
+
+#### 提案0へのフィードバック（論点8）
