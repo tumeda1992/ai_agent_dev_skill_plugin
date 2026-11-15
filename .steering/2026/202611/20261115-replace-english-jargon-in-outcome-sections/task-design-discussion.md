@@ -583,3 +583,79 @@ steeringは、前月summaryの判定やplanless resultの検証で、古いdesig
 [内部検討記録: 論点5・イテレーション1](internal-records/task-design-discussion.md.topic-5.md#iteration-1)
 
 #### 提案1へのフィードバック（論点5）
+
+**結果:** 修正要求（形式は合意。directory名を変え、記録する変更の線をREADMEで示す）
+
+> 形式はok。だけどhistoriesって名前は嫌だ。全ての記録を管理しなきゃいけないようで、管理だけ面倒になる。今回くらい大きい変更じゃないと残したくないからそれがわかるようなREADMEを書いて、それが書かれるようなディレクトリ名にしたい
+
+名前の切り替え、記録のfileの中身、steeringに置く一文、9.0.0への版上げは合意された。directory名と、何を記録するかの線を示すREADMEを変える。
+
+### イテレーション2（論点5）: 記録を残す変更の線を、directory名とREADMEで示す
+
+#### 提案2（論点5）
+
+提案1から変えるのは、directory名と、そのREADMEだけである。名前の切り替え、記録のfileの中身、steeringに置く一文、9.0.0への版上げは提案1のとおりとする。
+
+##### directory名
+
+`plugins/tumeda-dev/skills/task-design/templates/breaking_changes/`
+
+| 候補 | 名前から読めること |
+| --- | --- |
+| `breaking_changes/`（推奨） | 破壊的変更だけが入る。記録する線そのものが名前に出る |
+| `reading_older_artifacts/` | 古い成果物の読み方が入る。線は目的から間接に伝わるが、中身が変更の記録だとは読めない |
+
+breaking changeはSemVer等で確立した語であり、置くだけの場所なので、命名標準（`naming/core.md`）の「既に確立した名前があればoutputで名付けてよい」に当たる。
+
+steeringに置く一文のpathも`task-design/templates/breaking_changes/`にする。
+
+##### READMEの見出しと扱う内容
+
+```text
+# 成果物を名前で読めなくなった変更の記録
+  このdirectoryの目的を一文で示す。以前の版のtask-designが作った成果物を、今の版で読むための対応だけを残す。
+  全ての変更履歴ではないことを冒頭で示す。
+
+## 記録する変更
+  線: この版より前のtask-designが作った成果物（design.md、tasklist.md、roadmap.md）を、
+      今の版のskillやscriptが見出し・labelの名前で読めなくなる変更。pluginのMAJORを上げる理由にもなる。
+  例: 9.0.0での付録・roadmapのlabelの切り替え（steeringが古いdesign.mdの付録を名前で探せなくなる）。
+
+## 記録しない変更
+  成果物を読む側に影響しない変更。git logと各作業の記録で辿る。
+  例: 完成後の姿のsectionの見出しだけの言い換え（skillもscriptも名前で読まない）、
+      テンプレートへのsectionの追加（古い成果物も今までどおり読める）、記入guideの書き直し。
+
+## いつ読むか
+  既存のdesign.md・roadmap.mdで、skillが探す見出しが見つからない時。作成時の版が古い可能性がある。
+
+## 1件のfileに書くこと
+  file名: YYYYMMDD-slug.md
+  版、旧名と新名の対応、変えた理由、古い成果物の読み方。
+```
+
+提案1で「論点4で変えたoutcome sectionの見出しも記録に含める」としたが、上の線の外なので外す。
+
+##### 線を他の変更に当てた結果
+
+| 変更 | 記録するか | 理由 |
+| --- | --- | --- |
+| 今回の付録・roadmapのlabelの切り替え | する | steeringが古いdesign.mdの付録を名前で探せなくなる |
+| outcome sectionの見出しだけの言い換え | しない | skillもscriptも名前で読まない |
+| テンプレートへ新しいsectionを足す | しない | 古い成果物も今までどおり読める |
+| 「上位roadmap制約」の見出しを変える（仮） | する | scriptが古いdesign.mdから完全一致で抜き出せなくなる |
+| 記入guideの書き直しだけ | しない | 成果物の見出し・labelが変わらない |
+
+#### 検討記録（論点5・イテレーション2）
+
+利用者は、`histories`という名前だと全ての変更を記録・管理する場所に読めて、管理が面倒になると指摘した。記録するのは今回くらい大きい変更だけにしたく、それが分かるREADMEと、その線が伝わるdirectory名を求めている。
+
+名前は、記録する線そのものが出る`breaking_changes/`を推奨する。`reading_older_artifacts/`は目的（古い成果物を読む）を名指すが、中身が変更の記録だとは名前から読めない。命名標準は目的（outcome）での名付けを優先するが、置くだけの場所で、既に確立した名前がある時はoutputで名付けてよいとしている。breaking changeはSemVer等で確立した語である。
+
+「今回くらい大きい変更」を、他の変更にも当てられる線にした。「この版より前のtask-designが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなる変更」である。起点の今回以外に四つの変更へ当て、記録するか否かが一意に決まることを確かめた（上の表）。outcome sectionの見出しの言い換えは線の外になるため、提案1で記録に含めるとしたものは外す。
+
+代償: 線の外の変更は、古いdesign.mdを人が読む時に旧見出しとの対応をこのdirectoryでは辿れず、git logと各作業の記録で辿ることになる。利用者の「今回くらい大きい変更だけ」に合わせて受け入れる。
+
+[内部検討記録: 論点5・イテレーション2](internal-records/task-design-discussion.md.topic-5.md#iteration-2)
+
+#### 提案2へのフィードバック（論点5）
