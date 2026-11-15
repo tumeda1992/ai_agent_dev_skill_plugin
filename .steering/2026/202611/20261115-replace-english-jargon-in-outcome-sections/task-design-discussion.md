@@ -292,7 +292,7 @@ ownerに「担当」を一律に当てると、「owner境界」は「担当境�
 
 ## 論点4: outcome-sectionsの見出し・記入欄のlabel・記入guideの小見出しを何へ言い換えるか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -409,3 +409,97 @@ ledgerとbaselineは`function_migration_policy.md`が定義する語である。
 [内部検討記録: 論点4・イテレーション0](internal-records/task-design-discussion.md.topic-4.md#iteration-0)
 
 #### 提案0へのフィードバック（論点4）
+
+**結果:** 合意
+
+> 最高
+
+### 決定（論点4）
+
+outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、記入guideの小見出しを、[提案0（論点4）](#提案0論点4)の表のとおり言い換える。表に無い名前（「なぜ必要か」「NG」「判断基準」「記述のMUST」「具体的な記述例」「記入例」「移行元」等、および見出し「codeの責務配置と依存構造」「データモデル」「操作フロー」「runtime・設定・環境構築」「画面イメージと配置意図」「skillの役割と方針」）は、普段の意味のまま読めるため残す。
+
+主な決定は次のとおりである。
+
+- `caller-contracts.md`の見出しは「呼び出し元から見た呼び出し方と保証」とする。issueの候補「xxの呼び元からの呼び出し方」に、このsectionが併せて持つ成功・失敗時の保証を足した。「xxの呼ばれ方」の形は、一つのsectionで複数のfunctionやendpointを扱う時に見出しへ入りきらないため採らない。
+- `workflow.md`では、判断・更新の担い手を指す語を「担当」に揃える。
+- 「owner境界:」は全fileで「このsectionに書くこと・書かないこと:」へ揃える。`skill-policy.md`の二つの小見出しは「このsectionに書くこと:」「このsectionに書かないこと:」へ分ける。
+- selection gate系の小見出しは「〜を書く条件:」「このsectionを選ぶ条件:」の形へ揃える。
+- `contract-preservation.md`のbaseline、ledgerは「移行前の基準」「移行の対応表」とする。`function_migration_policy.md`が定義する語との対応は、記入guideで一度だけ示す。
+
+## 論点5: design.md・roadmap.mdのテンプレートの見出し・labelをどう言い換えるか
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点5）: labelの読まれ方を調べ、言い換え先を決める
+
+#### 提案0（論点5）
+
+##### 前提が一つ変わった
+
+論点2では「言い換えたlabelを名前で読む側の文字列を追随させる」とした。調べると、いくつかのlabelは、steeringとscriptが**既に作られた成果物**（過去のdesign.md、進行中のroadmap.md）からも名前で読んでいる。名前を変えると、利用先repositoryにある古い成果物を読めなくなる。
+
+- steeringは、前月のsummaryを作る時に前月の全design.mdを読み、付録の「分類保留」「task-design内の対象成果物反映待ち」「execution plan対象」の有無と`なし`で完了を判定する。
+- `extract-handoff-input.mjs`は、既存のdesign.mdからh2見出しが「上位roadmap制約」と完全一致するsectionを抜き出す。
+- steeringは、進行中のroadmap.mdの「運用field」を更新する。
+
+##### 案
+
+| 案 | 内容 |
+| --- | --- |
+| a（推奨） | 既存の成果物から名前で読まれるlabelは、決まった形式として名前を残す。意味が読み取れないものだけ、括弧で普段の言葉の説明を足す。名前で読まれないlabelは言い換え、指示側の文字列を追随させる |
+| b | 全て言い換え、読む側（steering、script、validator）が新旧両方の名前を受け付けるようにする |
+
+bは、読む側に新旧二つの名前を恒久的に持たせることになる。aは読む側を変えずに、読み手が意味を受け取れる。テンプレートには既に「分類保留（設計中のみ）」という括弧書きの前例がある。
+
+##### aの場合の完成形
+
+既存の成果物から名前で読まれるlabel:
+
+| テンプレート | 今 | 後 |
+| --- | --- | --- |
+| `design.md` | ### task-design内で対象成果物へ適用済み | ### task-design内で対象成果物へ適用済み（設計中にtask-designが反映を終えた変更） |
+| | ### task-design内の対象成果物反映待ち | ### task-design内の対象成果物反映待ち（設計中にtask-designが反映するが、他の判断を待っている変更） |
+| | ### execution plan対象 | ### execution plan対象（tasklist・roadmapに載せて実行する変更） |
+| `roadmap.md` | ## 構造field（task-designが設計・reviewする） | ## 構造field（各phaseの計画。task-designが設計・reviewする） |
+| | ### 運用field（steeringだけが更新する） | ### 運用field（進み具合。steeringだけが更新する） |
+
+そのまま残すもの: 「上位roadmap制約」（scriptが完全一致で照合するため括弧も足せないが、「上位のroadmapから受ける制約」と普段の意味のまま読める）、「分類保留（設計中のみ）」、表の「validation結果」「参照するdesign section」「掲載理由」（普段の意味のまま読める）。
+
+括弧を足しても、steering・validatorは見出しにlabelの文字列が含まれるかで読んでいるため、今のまま照合できる。`validate-plugin.mjs`の`構造field（task-designが設計・reviewする）`と`運用field（steeringだけが更新する）`の完全一致の検査だけ、新しい見出しへ合わせる。
+
+名前で読まれないlabel:
+
+| テンプレート | 今 | 後 |
+| --- | --- | --- |
+| `roadmap.md` | ## 親DoD coverage | ## 親の完了条件と、それを満たすphase |
+| | ## Dependency DAG | ## phase間の依存関係 |
+| | {cycleを持たないstable phase identity間の依存を記載する。例: `phase-a -> phase-b`} | {phase IDの間の依存を、循環しない形で書く。例: `phase-a -> phase-b`} |
+| | dependency results: | 依存phaseの確定結果: |
+| | {親scopeよりstrictly narrowerな、このphaseで扱う範囲} | {親のscopeより狭い（親と同じ範囲にしない）、このphaseで扱う範囲} |
+
+「親DoD coverage」「dependency results」を指示側（`roadmap-design.md`、`task-design/SKILL.md`、`steering/SKILL.md`、`runtime-feedback-review.md`）で名前として書いている箇所は、新しい名前へ追随させる。進行中のroadmap.mdには古い見出しが残るが、これらはagentが意味で読むだけでscriptの照合は無いため、読めなくなることはない。
+
+`tasklist.md`の見出し（Phase、DoD（完了条件）、Tasks、各task詳細、動作確認等）は普段の意味のまま読めるため残す。tasklist.mdのtaskの文（「workflow owner」「decisionをcallerへ返す」等）は本文として、本文の書き直しの論点で扱う。
+
+#### 検討記録（論点5・イテレーション0）
+
+論点2では、言い換えたlabelを名前で読む側は文字列を追随させればよいとした。この前提を確かめるため、design.md・roadmap.mdのテンプレートのlabelについて、誰がどの成果物から読んでいるかを調べた。
+
+- 「分類保留」「task-design内の対象成果物反映待ち」「execution plan対象」: steeringが前月のsummaryを作る時に、前月の全design.mdからsectionの有無と`なし`を読む。名前を変えると、変更前に作られたdesign.mdの完了判定ができなくなる。
+- 「上位roadmap制約」: `extract-handoff-input.mjs`が既存のdesign.mdからh2見出しの完全一致で抜き出す。
+- 「構造field」「運用field」: steeringが進行中のroadmap.mdの運用fieldを更新する。validatorは見出しの完全一致を検査する。
+- 「親DoD coverage」「dependency results」: agentが意味で読むだけで、scriptの照合は無い。「Dependency DAG」は読む側が無い。
+
+既存の成果物から読まれるlabelを追随で変えるには、読む側が新旧両方の名前を受け付ける必要がある（案b）。これは利用先repositoryの古い成果物のために、読む側へ二つの名前を恒久的に持たせることになる。
+
+これらのlabelは、論点1で残すと決めた「task-design全体で決まった形式」に当たると見ることができる。名前は残し、意味が読み取れない「execution plan対象」「対象成果物反映待ち」「構造field」「運用field」等だけ、括弧で普段の言葉の説明を足す（案a）。steering・validatorは見出しにlabelの文字列が含まれるかで読むため、今のまま照合できる。
+
+「上位roadmap制約」は完全一致で照合されるため括弧も足せない。ただし「上位のroadmapから受ける制約」と普段の意味のまま読めるため、言い換えの対象に当たらない。
+
+代償: 「execution plan対象」のような名前そのものは成果物に残り、括弧の説明で補う形になる。
+
+[内部検討記録: 論点5・イテレーション0](internal-records/task-design-discussion.md.topic-5.md#iteration-0)
+
+#### 提案0へのフィードバック（論点5）
