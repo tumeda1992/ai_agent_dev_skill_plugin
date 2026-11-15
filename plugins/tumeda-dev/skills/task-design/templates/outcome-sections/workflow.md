@@ -1,4 +1,4 @@
-### workflow
+### 作業の流れと担当
 
 <!--
 移行元:
@@ -6,13 +6,13 @@
 - roadmap-design.md「Field ownership」
 - steering/SKILL.md「役割とゴール」「Flow」
 
-単に「Aの後にBを行う」と書くのではなく、owner、single writer、正本、
-gate、停止・再開、handoffを合算して完成後のworkflowを描く。
+単に「Aの後にBを行う」と書くのではなく、担当、同じfileへ書き込む担当を一つにすること、正とする記録、
+先へ進む条件、停止・再開、引き継ぎを合わせて、完成後の作業の流れを描く。
 
 なぜ必要か:
-- 個別fileが正しくてもcallerとconsumerの境界でuser確認、停止、resultが落ちるため。
-- 二つのownerが同じfieldを更新する二重正本や、誰も更新しない責務の穴を防ぐため。
-- happy pathだけでは、feedback、失敗、再開時にどこへ戻るか決まらないため。
+- 個別のfileが正しくても、呼び出す側と結果を受け取る側の境目で、利用者の確認、停止、返す結果が落ちるため。
+- 二つの担当が同じ項目を更新して正とする記録が二つになることや、誰も更新しない責務の穴を防ぐため。
+- うまくいく場合の流れだけでは、feedback、失敗、再開の時にどこへ戻るかが決まらないため。
 
 NG:
 - task-designが設計し、steeringが実行する
@@ -20,45 +20,45 @@ NG:
 - 必要なら元へ戻る
 
 具体的な記述例:
-- task-designはroadmapのphase identity、目的、scope、DoD、依存を設計する。
-- steeringだけが子steering path、status、完了日をruntimeで更新する。
-- 各phaseの計画を変える必要があるならsteeringは直接編集せず、同じworking directoryでtask-designを再開する。
+- task-designはroadmapのphaseのID、目的、範囲、DoD、依存を設計する。
+- steeringだけが、子steeringのpath、status、完了日を実行中に更新する。
+- 各phaseの計画を変える必要があるなら、steeringは直接編集せず、同じworking directoryでtask-designを再開する。
 
 記述のMUST:
-- 各ownerについて、行う判断・更新と、行わないことを両方示す。
-- 各stateの入口event、先行gate、更新する正本、次ownerへ渡すresultを示す。
-- user合意、停止、失敗、取消、再開、feedbackの戻り先を示す。
-- lifecycleを跨ぐfileはsingle writerを一意にする。
-- callerとconsumerを合算し、途中でcontractが消えないことを確認する。
+- 各担当について、行う判断・更新と、行わないことを両方示す。
+- 各状態について、入るきっかけ、先に通る条件、更新する正とする記録、次の担当へ渡す結果を示す。
+- 利用者の合意、停止、失敗、取消、再開、feedbackの戻り先を示す。
+- 作業の段階を跨いで使うfileは、書き込む担当を一つに決める。
+- 呼び出す側と結果を受け取る側を合わせて見て、途中で約束した結果や保証が消えないことを確認する。
 
 判断基準:
-- 任意のstateで「次に誰が、どの正本を、何を根拠に更新するか」を一意に答えられるか。
-- errorまたはfeedback時の戻り先と、自動再開の可否が決まっているか。
-- 同じ判断またはstateを複数ownerが正本として持っていないか。
+- どの状態でも「次に誰が、どの正とする記録を、何を根拠に更新するか」を一意に答えられるか。
+- errorまたはfeedbackの時の戻り先と、自動で再開してよいかが決まっているか。
+- 同じ判断または状態を、複数の担当が正とする記録として持っていないか。
 -->
 
-**ownerと責務:**
+**担当と、受け持つこと:**
 
-| owner | 判断・更新するもの | 行わないこと | single source of truth |
+| 担当 | 判断・更新するもの | 行わないこと | 正とする記録 |
 | --- | --- | --- | --- |
-| `{owner}` | {責務} | {非責務} | `{file / result / state}` |
+| `{担当}` | {受け持つこと} | {行わないこと} | `{file / 結果 / 状態}` |
 
 **状態と遷移:**
 
 ```mermaid
 flowchart LR
-  A["{state A}"] -->|"{event / gate / owner}"| B["{state B}"]
-  B -->|"{feedback / failure}"| C["{戻り先}"]
+  A["{状態A}"] -->|"{きっかけ / 先へ進む条件 / 担当}"| B["{状態B}"]
+  B -->|"{feedback / 失敗}"| C["{戻り先}"]
 ```
 
-**必須順序とhandoff:**
+**守る順序と引き継ぎ:**
 
-1. {開始条件、owner、読む正本}
+1. {開始条件、担当、読む正とする記録}
 2. {判断または更新}
-3. {validationまたはuser合意gate}
-4. {返すresultとconsumer}
-5. {終了条件、または停止・再開状態}
+3. {確認、または利用者の合意を得る段階}
+4. {返す結果と、受け取る側}
+5. {終了条件、または停止・再開する状態}
 
 **失敗・取消・再開:**
 
-- {条件}: {停止するowner、維持するstate、再開入口}
+- {条件}: {停止する担当、保つ状態、再開する入口}

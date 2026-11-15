@@ -90,16 +90,16 @@
 
 ## Documentation reviewと実装後振り返り
 
-- [ ] code readingまたは実装で永続化候補を得た場合、その場でdoc-enricherを提案modeで適用する
+- [ ] codeを読んだ時や実装で、長く残す価値のある知識を得た場合、その場でdoc-enricherを提案modeで適用する
   - [ ] 提案がある場合だけユーザー承認後に既存READMEまたは既存docsへ反映する
   - [ ] 提案・承認判断を別taskへ先送りしない
-- [ ] 実装、review、validationからfeedbackまたは実装とのずれが生じた場合、直接受領したworkflow ownerがpluginの`facilitate-discussion`を`implementation_review.md`へ適用する。特定の`steering` callerへ固定しない
+- [ ] 実装、review、確認からfeedbackまたは実装とのずれが生じた場合、feedbackを直接受け取ったskillがpluginの`facilitate-discussion`を`implementation_review.md`へ適用する。適用する担当を`steering`に固定しない
   - [ ] `discussion_directory=<working_dir>`と`discussion_file_name=implementation_review.md`を渡す
   - [ ] 原文、関連する実装・design・plan、原因、採用方針、決定を渡し、修正済みでも記録を省略しない
   - [ ] 「共有されていなかった知識の前提は何か」を確認する
-  - [ ] 「codeを読めば分かるか、設計意図か、process不足か」を確認する
+  - [ ] 「codeを読めば分かるか、設計意図か、作業の進め方の不足か」を確認する
   - [ ] 「どこに書けば次回この議論が不要になるか」を確認し、合意後だけ反映する
-  - [ ] decisionをcallerへ返し、designまたはplan構造が変わる場合は同じworking directoryでtask-designへ戻す
+  - [ ] 決まった判断を呼び出し元へ返し、designまたはtasklist・roadmapの構造が変わる場合は同じworking directoryでtask-designへ戻す
   - [ ] review後に実装を自動再開しない
 
 ---
@@ -116,8 +116,8 @@ Tasks に挙げた確認をユーザーが行い、期待どおりであるこ�
 
 - [ ] 確認環境へ載せる（`UI確認環境`が載せ方を定めている場合だけ。{載せ方}）
 - [ ] ユーザーに動作確認を依頼する（{利用者にしか確かめられないもの〈触って確かめる操作、届くもの〉と、何を観測できれば満たすか}）
-- [ ] feedbackがあれば、直接受領したworkflow ownerがpluginの`facilitate-discussion`を`implementation_review.md`へ適用し、decisionをcallerへ返す
-  - [ ] designまたはplan構造が変わる場合は同じworking directoryでtask-designへ戻す
+- [ ] feedbackがあれば、feedbackを直接受け取ったskillがpluginの`facilitate-discussion`を`implementation_review.md`へ適用し、決まった判断を呼び出し元へ返す
+  - [ ] designまたはtasklist・roadmapの構造が変わる場合は同じworking directoryでtask-designへ戻す
   - [ ] feedbackがなければ`[x] ~~feedback収集~~（feedbackなし）`の形式で完了扱いにする
 
 ---
@@ -152,6 +152,6 @@ Tasks に挙げた確認をユーザーが行い、期待どおりであるこ�
 
 ## 参照
 
-- 設計の正本: 同じdirectoryの `./design.md`
-- 完了条件、取消完了、subtask分割、checkbox更新timingの規則の正本: `tasklist-executor/SKILL.md`
-- tasklistへ載せるtaskの範囲の正本: `task-design/tasklist-design.md`
+- 設計を正として書いた場所: 同じdirectoryの `./design.md`
+- 完了条件、取消の完了、subtaskの分け方、checkboxを更新する時機の決まり: `tasklist-executor/SKILL.md`
+- tasklistへ載せるtaskの範囲の決まり: `task-design/tasklist-design.md`

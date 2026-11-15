@@ -1,11 +1,12 @@
-### documentation以外のfile deliverable
+### 文書以外に作るfileの中身
 
 <!--
-skill、prompt、template、manifest等、documentation以外のfile成果物の「中身」を完成後の姿として設計する。documentationは`documentation.md`、runtime設定と環境構築は`runtime-and-configuration.md`が所有する。
+skill、prompt、template、manifest等、documentation以外のfileの成果物の「中身」を完成後の姿として設計する。
+documentationは`documentation.md`、実行環境の設定と環境構築は`runtime-and-configuration.md`に書く。
 
 なぜ必要か:
-- 「skillを更新する」「templateを作る」というlistingだけでは、実装者が内容、配置、形式を独自判断するため。
-- fileの役割と実行workflowを混ぜ、source artifactとruntime contractのownerが曖昧になることを防ぐため。
+- 「skillを更新する」「templateを作る」という列挙だけでは、実装者が内容、配置、形式を独自に判断するため。
+- fileの役割と、実行時の作業の流れを混ぜ、成果物のfileそのものと、実行時に守る約束を、どのsectionに書くかが曖昧になることを防ぐため。
 
 NG:
 - skillを更新する
@@ -13,23 +14,23 @@ NG:
 
 具体的な記述例:
 skills/review-workflow/SKILL.md:
-- 構成: (1) triggerと非trigger (2) ownerと入力 (3) workflow (4) failureとhandoff
-- 形式: Markdown、frontmatterを既存skill schemaに合わせる
+- 構成: (1) 起動する条件と起動しない条件 (2) 担当と入力 (3) 作業の流れ (4) 失敗と引き継ぎ
+- 形式: Markdown。frontmatterは既存のskillの形に合わせる
 - 配置: skills/review-workflow/
-- 実行時のgateと状態遷移は`workflow.md`で設計し、このsectionへ複製しない
+- 実行時に先へ進む条件と状態の遷移は`workflow.md`で設計し、このsectionへ写さない
 
 記述のMUST:
-- 対象file、主な読者、読後にできる判断またはactionを示す。
-- 完成後の見出し、section、entry、template構造を示す。
+- 対象のfile、主な読者、読んだ後にできる判断または作業を示す。
+- 完成後の見出し、section、項目、templateの構造を示す。
 - 書く原則だけでなく、今回の具体例を示す。
-- 配置と形式を、既存正本・重複防止・既存patternとの関係で説明する。
-- 該当するdeliverableがない場合だけ「なし」と明記する。
+- 配置と形式を、既存の正とする記述・重複の防止・既存の書き方との関係で説明する。
+- 該当する成果物が無い場合だけ「なし」と書く。
 
 判断基準:
-- このdeliverableを渡された実装者が、中身について独自判断せず作れるか。
-- このdeliverableを読んだ将来の利用者が、source artifactの目的と使い方を判断できるか。
-- file名だけでなく、内容と責務境界が完成後の状態として読めるか。
-- documentationの知識体系やruntime条件をこのsectionへ重複させていないか。
+- この成果物を渡された実装者が、中身について独自に判断せずに作れるか。
+- この成果物を読んだ将来の利用者が、そのfileの目的と使い方を判断できるか。
+- file名だけでなく、内容と責務の境目が完成後の状態として読めるか。
+- documentationの知識の並べ方や、実行環境の条件を、このsectionへ重ねて書いていないか。
 -->
 
 **対象と読者:**
@@ -41,18 +42,18 @@ skills/review-workflow/SKILL.md:
 **完成後の内容と構造:**
 
 ```text
-{見出し、section、entry、template、設定file等の具体構造}
+{見出し、section、項目、template、設定file等の具体的な構造}
 ```
 
 **記載する原則と例:**
 
 - {原則}
-  - 今回の具体例: {このtaskでの適用}
-  - 意図に反する薄い記述: {禁止する書き方と、なぜ判断能力が落ちるか}
+  - 今回の具体例: {この作業での当てはめ}
+  - 意図に反する薄い記述: {禁止する書き方と、なぜ判断の力が落ちるか}
 
 **配置・形式:**
 
 - 配置: `{path}`
-- 形式: {Markdown、config形式、既存template等}
-- 参照する既存pattern: `{pathまたは正本}`
-- 正本と重複防止: {他fileへ同じ内容を複製しない境界}
+- 形式: {Markdown、configの形式、既存template等}
+- 参照する既存の書き方: `{pathまたは、正とする記述}`
+- 正とする記述と重複の防止: {他のfileへ同じ内容を写さない境目}

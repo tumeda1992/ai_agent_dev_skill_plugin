@@ -525,7 +525,7 @@ requireText(skillPath("task-design/templates/tasklist.md"), "## 参照");
 requireText(skillPath("task-design/templates/tasklist.md"), "./design.md");
 requireText(skillPath("task-design/templates/tasklist.md"), "facilitate-discussion");
 requireText(skillPath("task-design/templates/tasklist.md"), "implementation_review.md");
-requireText(skillPath("task-design/templates/tasklist.md"), "特定の`steering` callerへ固定しない");
+requireText(skillPath("task-design/templates/tasklist.md"), "適用する担当を`steering`に固定しない");
 requireText(skillPath("README.md"), "facilitate-discussion");
 requireText(skillPath("README.md"), "escalate-plugin-skill-fix");
 requireText(skillPath("README.md"), "task-design-work-handoff-contracts.md");
