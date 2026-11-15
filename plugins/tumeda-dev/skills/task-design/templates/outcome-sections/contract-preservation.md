@@ -1,104 +1,122 @@
-### contractの保存と明示差分
+### 移行で変えない振る舞いと、意図して変える差分
 
 <!--
-code、skill、prompt、workflow、template、document等を移動、分割、統合、owner変更、形式置換する時、
-移行前に存在したcontractの何が保存され、何が合意済み差分として変わった状態になるかを描く。
+code、skill、prompt、workflow、template、document等を移動、分割、統合したり、担当や置き場所を変えたり、
+書く形式を置き換えたりする時に使う。移行前にあった振る舞いと判断の何をそのまま保存し、
+何を合意のうえで変えた状態になるかを描く。
 
-完成後の保存・差分状態は、次の二層で表す。
-- design.md: baseline scope、明示差分以外の全量保存宣言、人が理解できる完成後の意味差分、根拠となるledger IDへのcitation
-- ledger: contract IDごとの原文、`KEEP | MOVE | ADAPT | ADD | CHANGE | RETIRE`、source、destination、agreement、verification evidence
+このsectionの語と、移行の手順を定める`function_migration_policy.md`の語は次のように対応する。
+- 移行前の基準 = 同policyのbaseline。移行前を再現できるように固定した状態
+- 移行の対応表 = 同policyのledger（構造ledgerとcontract ledger）
+- 意味単位 = 同policyのcontract。保存の対象になる振る舞いと判断の単位
 
-design.mdへledger行を転記しない。baseline scope内のcontractは、design.mdに明示した意味差分以外を全量保存する。
-design.mdの各意味差分からledger IDへ降りることで、人が読む完成後の世界とcontract単位の証明を接続する。
+完成後に何を保存し何を変えたかは、次の二か所に分けて書く。
+- design.md: 移行前の基準と対象範囲、「次に書く変化以外は全て保存する」という宣言、
+  人が読んで分かる完成後の変化、根拠になる対応表のIDの出典
+- 移行の対応表: 意味単位のIDごとの原文、`KEEP | MOVE | ADAPT | ADD | CHANGE | RETIRE`の分類、
+  移行元、移行先、合意、確認の記録
 
-ここでいうcontractは公開APIだけではない。入力、action、結果、必須順序、gate、停止、再開、取消、
-owner、例外、理由、正しい例、失敗例、判断質問、強調等が生む挙動と判断能力を含む。
+design.mdへ対応表の行を写さない。対象範囲の中の意味単位は、design.mdに書いた変化以外を全て保存する。
+design.mdの各変化から対応表のIDへ辿れるようにして、人が読む完成後の姿と、意味単位ごとの証明をつなぐ。
 
-migrationやrefactoringは作業手段であって、完成後outcomeではない。
-このsectionは作業手順を所有せず、移行前と完成後の関係だけを所有する。
-baselineの固定、二層ledger、順方向・逆方向照合、black-box、validator等の一般procedureは
-`function_migration_policy.md`を正本として参照する。
+ここでいう意味単位は公開APIだけではない。入力、動作、結果、守る順序、先へ進む条件、停止、再開、取消、
+担当、例外、理由、正しい例、失敗例、判断の問い、強調等が生む振る舞いと判断の力を含む。
+
+移行やrefactoringは作業の手段であって、完成後に変わるものではない。
+このsectionは作業の手順を書かず、移行前と完成後の関係だけを書く。
+移行前の基準の固定、二つの対応表、移行元から移行先への照合と逆向きの照合、外から動かして確かめる検証、
+validator等の一般的な手順は、`function_migration_policy.md`を正として参照する。
 
 なぜ必要か:
-- 新しいownerに似た記述があるだけで、旧contractの判断能力が保存されたと誤認することを防ぐため。
-- baseline scopeを固定し、明示差分以外を全量保存するclosed-worldの完成状態を作るため。
-- ledgerの全contract IDをdesignへ複製せず、読者が許可された意味差分だけを理解できるようにするため。
+- 移行先に似た記述があるだけで、移行前の判断の力が保存されたと思い込むことを防ぐため。
+- 対象範囲を固定し、書いた変化以外は全て保存される、という閉じた完成状態を作るため。
+- 対応表の全IDをdesignへ写さず、読者が合意した変化だけを理解できるようにするため。
 
-owner境界:
-- このsectionは、移行前contractと完成後contractの関係、全量保存宣言、明示差分を所有する。
-- 変更後のworkflow、caller contract、code structure、file内容、data等の具体像は対応するoutcome sectionが所有し、ここでは参照する。
-- `KEEP | MOVE | ADAPT | ADD | CHANGE | RETIRE`、contract ID、source range、destination、agreement、verification evidenceの全明細はledgerが正本であり、ここへ複製しない。
-- designは完成後の意味差分を人が理解できる粒度で記載し、各項目から根拠となるledger IDへcitationする。
-- file分割、rename、owner移動、形式置換の完成後構造は対応するoutcome section、意味保存の分類と証拠はledgerが所有する。
-- migrationの手順、停止点、rollout順序、test commandはこのsectionへ書かない。
+このsectionに書くこと・書かないこと:
+- このsectionには、移行前と完成後の意味単位の関係、「書いた変化以外は全て保存する」という宣言、
+  意図して変える変化を書く。
+- 変更後のworkflow、呼び出し方と保証、codeの構造、fileの中身、data等の具体的な姿は、
+  それぞれを扱う完成後の姿のsectionに書き、ここでは参照する。
+- `KEEP | MOVE | ADAPT | ADD | CHANGE | RETIRE`の分類、意味単位のID、移行元の範囲、移行先、合意、
+  確認の記録の全明細は対応表を正とし、ここへ写さない。
+- designは完成後の変化を人が理解できる粒度で書き、各項目から根拠になる対応表のIDへ出典を付ける。
+- file分割、rename、担当の移動、形式の置き換えの後の構造は、それを扱う完成後の姿のsectionに書く。
+  意味を保存したかの分類と証拠は対応表に書く。
+- 移行の手順、止まる箇所、展開の順序、testのcommandはこのsectionに書かない。
 
 NG:
 - 既存仕様を維持する
-- migration policyに従う
-- 詳細はledgerを参照
-- 保存されるcontractをgroup別に一覧化する
-- `KEEP | MOVE | ADAPT`をledgerから転記する
-- `ADD | CHANGE | RETIRE`のclassificationとcontract原文を一行ずつ転記する
-- 許容するfile分割、rename、owner移動を別表で列挙する
-- baseline作成、ledger記入、順方向照合、逆方向照合、test実行を順に列挙する
-- ledgerのcontract IDを全件貼り、完成後に何が不変で何が変わるかを人が読めない状態にする
+- 移行のpolicyに従う
+- 詳細は対応表を参照
+- 保存する意味単位をgroupごとに一覧にする
+- `KEEP | MOVE | ADAPT`を対応表から写す
+- `ADD | CHANGE | RETIRE`の分類と意味単位の原文を一行ずつ写す
+- 許すfile分割、rename、担当の移動を別の表で並べる
+- 移行前の基準の作成、対応表の記入、移行元から移行先への照合、逆向きの照合、testの実行を順に並べる
+- 対応表の意味単位のIDを全件貼り、完成後に何が変わらず何が変わるかを人が読めない状態にする
 
 記述のMUST:
-- 移行前を再現できるbaseline、対象fileと連続範囲等のscope、ledgerへのlinkを示す。
-- 「次に記載する意味差分以外は全量保存する」というclosed-worldの完成後差分宣言を示す。
-- 完成後の意味差分を人が理解できる項目として記載し、移行前との違い、詳細owner、根拠となるledger IDと合意へ接続する。該当なしの場合も`なし`と明記する。
-- designへledgerのclassificationやcontract原文を転記しない。ledger IDは出典として使い、原contract、classification、source、agreement、verificationへ戻れるようにする。
-- 同じ上位decisionに完全に規定され、完成後に一つの意味差分として理解すべき複数IDだけを一項目へまとめる。独立した意味差分を要約で隠さない。
-- 意訳は短縮を意味しない。原contractの条件、限定、強度が変わる表現を避け、疑義があれば変更項目を分ける。
-- `KEEP | MOVE | ADAPT`、保存contract group、内部構造変更を一覧化しない。それらの全明細と証拠はledgerおよび変更後構造を所有するoutcome sectionへ委ねる。
-- ledgerを詳細evidenceの正本としてlinkし、designには合意された意味差分だけを人が読める粒度で示す。
-- migration procedureの完了を完成後outcomeの代わりにしない。
+- 移行前を再現できる基準、対象fileと連続した範囲等の対象範囲、対応表へのlinkを示す。
+- 「次に書く変化以外は全て保存する」という、閉じた完成後の宣言を示す。
+- 完成後の変化を人が理解できる項目として書き、移行前との違い、詳細を書いたsection、
+  根拠になる対応表のIDと合意へつなぐ。該当しない場合も`なし`と書く。
+- designへ対応表の分類や意味単位の原文を写さない。対応表のIDは出典として使い、
+  元の意味単位、分類、移行元、合意、確認へ戻れるようにする。
+- 同じ上位の判断に完全に決められ、完成後に一つの変化として理解すべき複数のIDだけを一項目へまとめる。
+  独立した変化を要約で隠さない。
+- 言い換えは短くすることではない。元の意味単位の条件、限定、強さが変わる表現を避け、
+  疑いがあれば変更項目を分ける。
+- `KEEP | MOVE | ADAPT`、保存する意味単位のgroup、内部構造の変更を一覧にしない。
+  それらの全明細と証拠は、対応表と、変更後の構造を扱う完成後の姿のsectionへ任せる。
+- 対応表を詳しい証拠の正としてlinkし、designには合意した変化だけを人が読める粒度で示す。
+- 移行の手順を終えたことを、完成後に変わるものの代わりにしない。
 
 判断基準:
-- baseline scopeと明示差分から、何が変わらないかを補集合として一意に判断できるか。
-- designだけで合意された意味差分を理解し、各項目のcitationからledgerのcontract、classification、合意、証拠まで辿れるか。
-- citationされたledger IDを合算した意味と、designの変更項目が過不足なく対応しているか。
-- 明示項目以外の差分が紛れ込んだ時、完成後の差分宣言との矛盾として気づけるか。
-- 保存contractや`KEEP | MOVE | ADAPT`を列挙してledgerの劣化copyを作っていないか。
-- classification tableを作り、`ADD | CHANGE | RETIRE`だけの劣化copyへ置き換えていないか。
-- 一般procedureをこのsectionへ複製せず、今回固有の保存・差分結果だけを記載しているか。
+- 対象範囲と、書いた変化から、何が変わらないかを残りの全てとして一意に判断できるか。
+- designだけで合意した変化を理解でき、各項目の出典から対応表の意味単位、分類、合意、証拠まで辿れるか。
+- 出典に挙げた対応表のIDを合わせた意味と、designの変更項目が過不足なく対応しているか。
+- 書いた項目以外の変化が紛れ込んだ時、「次に書く変化以外は全て保存する」という宣言との矛盾として
+  気づけるか。
+- 保存する意味単位や`KEEP | MOVE | ADAPT`を並べて、対応表の劣化した写しを作っていないか。
+- 分類の表を作り、`ADD | CHANGE | RETIRE`だけの劣化した写しへ置き換えていないか。
+- 一般的な手順をこのsectionへ写さず、今回固有の保存したもの・変えたものだけを書いているか。
 -->
 
-**baselineとevidence:**
+**移行前の基準と、照合の記録:**
 
 | 項目 | 内容 |
 | --- | --- |
-| baseline | {revision、tag、snapshot等、移行前を再現できる識別子} |
-| 対象scope | {移動、分割、統合、owner変更、形式置換の対象} |
-| ledger | [{ledger名}]({相対path}) |
-| 一般procedureの正本 | [`function_migration_policy.md`]({相対path}) |
+| 移行前の基準 | {revision、tag、snapshot等、移行前を再現できる識別子} |
+| 対象範囲 | {移動、分割、統合、担当の変更、形式の置き換えの対象} |
+| 移行の対応表 | [{対応表の名前}]({相対path}) |
+| 移行手順を定める文書 | [`function_migration_policy.md`]({相対path}) |
 
 <!--
 記入例:
-| baseline | `v1.4.0`の`skills/import/SKILL.md`全体と`templates/` |
-| 対象scope | import skillのowner分割とresult contract変更 |
-| ledger | [function-migration-ledger.md](./function-migration-ledger.md) |
-| 一般procedureの正本 | [Function migration policy]({policyへの相対path}) |
+| 移行前の基準 | `v1.4.0`の`skills/import/SKILL.md`全体と`templates/` |
+| 対象範囲 | import skillの担当の分割と、返す結果の変更 |
+| 移行の対応表 | [function-migration-ledger.md](./function-migration-ledger.md) |
+| 移行手順を定める文書 | [Function migration policy]({policyへの相対path}) |
 -->
 
-**完成後の差分宣言:**
+**変わるものと、保存されるもの:**
 
-{次に記載する意味差分だけが変わる。baseline scope内のその他すべてのcontractは、ownerや配置が変わっても意味、条件、順序、強度、判断能力を保存する}
+{次に書く変化だけが変わる。対象範囲の中のその他の全ての意味単位は、担当や置き場所が変わっても、意味、条件、順序、強さ、判断の力を保存する}
 
 <!--
 記入例:
-次に記載するresult contractだけが変わる。baseline scope内のその他すべてのcontractは、ownerや配置が変わっても意味、条件、順序、強度、判断能力を保存する。
+次に書く、返す結果の変化だけが変わる。対象範囲の中のその他の全ての意味単位は、担当や置き場所が変わっても、意味、条件、順序、強さ、判断の力を保存する。
 -->
 
 **完成後に変わること:**
 
-| 完成後の意味差分 | 移行前との違い | 詳細owner | 出典 |
+| 完成後に変わる意味 | 移行前との違い | 詳細を書いたsection | 根拠 |
 | --- | --- | --- | --- |
-| {人が完成後の世界の変化を理解できる記述} | {以前はどうで、何が変わるか} | [{outcome section}](#{anchor}) | {ledger ID群と合意根拠} |
+| {人が完成後の変化を理解できる記述} | {以前はどうで、何が変わるか} | [{完成後の姿のsection}](#{anchor}) | {対応表のID群と合意の根拠} |
 
-<!-- 該当しない場合は「なし。baseline scope内の全contractを保存する」と明記する。 -->
+<!-- 該当しない場合は「なし。対象範囲の中の全ての意味単位を保存する」と書く。 -->
 
 <!--
 記入例:
-| planを必要としない完了を`planless_complete`という通常resultとしてcallerへ返せる | 移行前は`legacy_ready`だけがplanなし完了を表していた | [公開contract](#公開contract) | ledger `A-011`〜`A-014`、discussion論点7 |
+| planを要らない完了を、`planless_complete`という通常の結果として呼び出し元へ返せる | 移行前は`legacy_ready`だけがplan無しの完了を表していた | [呼び出し元から見た呼び出し方と保証](#呼び出し元から見た呼び出し方と保証) | 対応表 `A-011`〜`A-014`、discussion論点7 |
 -->

@@ -1012,11 +1012,11 @@ task-design以外のskillからの参照は、論点2の決定どおり今回は
 
 ### 現在の変更（論点8）
 
-決定どおり、`everyday_wording.md`を新設し、`documentation_standards/README.md`の収録一覧、`document-review/SKILL.md`の作成時・更新時観点、`task-design/SKILL.md`の§1へ参照を足し、`validate-plugin.mjs`へ標準の見出し・書き直し方・三つの参照のassertionを足した。`node scripts/verification/validate-plugin.mjs`は`plugin validation passed`を出力した。新設した標準のfile自体を利用者にreviewしてもらう段階にある。このdecisionのdoc-enricherの提案modeのreviewでは、`documentation_standards/README.md`の収録一覧へ足した一行以外に、既存READMEへ足す候補は無かった。
+決定どおり、`everyday_wording.md`を新設し、`documentation_standards/README.md`の収録一覧、`document-review/SKILL.md`の作成時・更新時観点、`task-design/SKILL.md`の§1へ参照を足し、`validate-plugin.mjs`へ標準の見出し・書き直し方・三つの参照のassertionを足した。`node scripts/verification/validate-plugin.mjs`は`plugin validation passed`を出力した。新設した標準のfile自体は、利用者のreviewで合意を得た（「どっちもok」。論点9の提案0と同じ応答）。このdecisionのdoc-enricherの提案modeのreviewでは、`documentation_standards/README.md`の収録一覧へ足した一行以外に、既存READMEへ足す候補は無かった。
 
 ## 論点9: 本文と記入の手引きの書き直しを、どう合意して反映するか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1048,3 +1048,64 @@ cの見本は次の2 fileにする。どちらも易しくないfileを選ぶ（
 [内部検討記録: 論点9・イテレーション0](internal-records/task-design-discussion.md.topic-9.md#iteration-0)
 
 #### 提案0へのフィードバック（論点9）
+
+**結果:** 合意（同じ応答で、論点8で新設した`everyday_wording.md`のfile自体にも合意）
+
+> どっちもok
+
+### 決定（論点9）
+
+本文と記入の手引きの書き直しは、性質の違う2 fileを見本として先に書き直して合意し、その書き方で残りを書く。最後に全体の差分をreviewしてもらう。見本は、issueが名指しした`caller-contracts.md`（呼び出し方と保証。code寄り）と、表現が最も込み入り`function_migration_policy.md`の語との対応を持つ`contract-preservation.md`とする。易しいfileを見本にしない（`building_a_prototype.md`）。
+
+見本の合意の後、残りのoutcome-sectionsの書き直し、design.md・tasklist.md・roadmap.mdのテンプレートの記入の手引きとtaskの文の書き直し、design.md・roadmap.mdのlabelの切り替えと読む側の追随、`breaking_changes/`、`maintenance-plugin-context`の規則、`steering/SKILL.md`の一文、version 9.0.0を、同じ作業の中で反映する。
+
+代償として、見本以外のfileは最後の差分reviewまで利用者の目を通らない。file固有の判断でずれた箇所は、最後の差分で指摘を受けて直す。
+
+## 論点10: 見本2 fileの書き直しを、残りの書き方の基準にしてよいか
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点10）: 見本2 fileを書き直す
+
+#### 提案0（論点10）
+
+見本2 fileを、合意済みの見出し・label（論点4）と書き直し方（論点1・3）で書き直し、作業branchへ置いた。合意を得るまでは見本であり、この書き方を残りのfileへ広げない。
+
+- `plugins/tumeda-dev/skills/task-design/templates/outcome-sections/caller-contracts.md`
+- `plugins/tumeda-dev/skills/task-design/templates/outcome-sections/contract-preservation.md`
+
+##### 書き直しで決めたこと
+
+| 箇所 | 書き直し方 |
+| --- | --- |
+| `caller-contracts.md`のcaller、caller-facing、contract | 「呼び出し元」「呼び出し元から見える名前」「呼び出し方」「保証」へ、箇所ごとに書き分けた。例: 「caller contractへ昇格させない」は「このsectionへ書き足さない」 |
+| side effect、input、result、identifier | 副作用、入力、結果、名前 |
+| ubiquitous language | 「domainの概念と、それを呼ぶ共通の言葉」 |
+| placeholderの`{callerFacingName}` | `{operationName}`。placeholderの中にも呼び出し元を指す英語を残さない |
+| `contract-preservation.md`のcontract | 「意味単位」。`function_migration_policy.md`のcontract（保存の対象になる振る舞いと判断の単位）に当たる |
+| baseline、ledger | 「移行前の基準」「移行の対応表」。記入の手引きの冒頭で、同policyのbaseline、ledger（構造ledgerとcontract ledger）、contractとの対応を一度だけ示した |
+| 全量保存宣言、closed-world、明示差分 | 「次に書く変化以外は全て保存する」という宣言、「閉じた完成状態」（意味を同じ文で説明）、「意図して変える変化」 |
+| black-box、順方向・逆方向照合 | 「外から動かして確かめる検証」「移行元から移行先への照合と、逆向きの照合」 |
+| owner（担当、置き場所の意味） | 「担当」「担当や置き場所」 |
+
+残した語: `KEEP | MOVE | ADAPT | ADD | CHANGE | RETIRE`（決まった形式）、refactoring、validator、rollback、signature、application service、adapter、domain（開発の会話で普段の意味のまま使う語）、file名の`function-migration-ledger.md`（識別子）。
+
+判断能力の保存: 両fileとも、なぜ必要か、NG、記述例、書く条件、書くこと・書かないこと、MUST、判断基準の全ての項目を残し、項目の削除・統合はしていない。
+
+`node scripts/verification/validate-plugin.mjs`は`plugin validation passed`を出力した。
+
+#### 検討記録（論点10・イテレーション0）
+
+論点9で、見本2 fileを先に書き直して合意し、その書き方で残りを書くと決めた。見本は、論点4で決めた見出し・labelを使い、論点1の見分ける問いと論点3の書き直し方（箇所ごとに言いたいことを書く。sectionの中で同じものを指す語は揃える）で書いた。
+
+`caller-contracts.md`では、caller・contractを「呼び出し元」「呼び出し方」「保証」へ箇所ごとに書き分けた。sectionの中では「呼び出し元」に揃えた。
+
+`contract-preservation.md`は、`function_migration_policy.md`が定義するbaseline、ledger、contractを使って書かれている。design.mdの読み手には言い換えた語（移行前の基準、移行の対応表、意味単位）を見せ、記入の手引きの冒頭で一度だけ同policyの語との対応を示した（論点4の決定）。agentは対応を見て、同policyの手順へ辿れる。
+
+書き直しで項目を削ったり統合したりすると、記入の手引きが持っていた判断能力が落ちる。両fileとも全ての項目を残した。
+
+[内部検討記録: 論点10・イテレーション0](internal-records/task-design-discussion.md.topic-10.md#iteration-0)
+
+#### 提案0へのフィードバック（論点10）
