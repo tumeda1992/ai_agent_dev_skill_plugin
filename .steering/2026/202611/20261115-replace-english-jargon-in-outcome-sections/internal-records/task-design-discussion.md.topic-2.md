@@ -61,3 +61,39 @@ outcome-sectionsで他から名前で読まれているのは、`validate-plugin
 - `task-design/SKILL.md`等のagent向けの指示は、design.mdの読み手が直接読む文ではない。ただしagentがchatで使う語の出どころになる。
 - 推奨: outcome-sectionsの14 fileを今回の範囲とし、他テンプレートのlabelとSKILL.md等の語は、skill間の取り決めとして一つの別作業に切り出す。切り出す理由は、他skill・script・testへ波及して大きく、単体でrevertできる方がよいため（`work_scope.md`の二段目）。
 - outcome-sections内の「構造field」は、roadmapのlabelを指す参照なので今回はそのまま残し、別作業でlabelと一緒に変える。
+
+<a id="iteration-1"></a>
+
+## イテレーション1: 「表出するか」で範囲を引き直す
+
+入口は提案0への利用者の応答。
+
+> cを希望するけど、結果aを選んだときと同じ結果になると思う。skillの内部的で表出しない話は内輪で伝わればいいから
+
+範囲の引き方が「どのfileか」から「利用者の目に出るか」へ変わった。skillの内部だけでやり取りされる語は言い換えの対象外になる。利用者は、この引き方ならaと同じ結果になると見ている。その見立てが成り立つかを確かめる。
+
+<a id="iteration-1-record-1"></a>
+
+### 調査: outcome-sections以外のテンプレートで、成果物へそのまま出る語はあるか
+
+#### 問い・探索範囲・方法
+
+design.md・tasklist.md・roadmap.mdのテンプレートの見出しと表のlabelは、task-designが作る成果物へそのまま写り、利用者が読む。そこに論点1の言い換え対象の型が残っていれば、結果はaと同じにならない。
+
+- 範囲: `plugins/tumeda-dev/skills/task-design/templates/design.md`、`tasklist.md`、`roadmap.md`
+- 方法: `grep -n "^#"`で見出しを、本文を読んで表のlabelを抜き出し、論点1の見分ける問いを当てた。各語を言い換えるかの最終判定は言い換え先の論点で行う。ここでは候補に入るかだけを見る。
+
+#### 成果物へそのまま出る語のうち、言い換え候補になるもの
+
+| テンプレート | 成果物へ出る見出し・label | 候補になる理由 |
+| --- | --- | --- |
+| `design.md` | 上位roadmap制約、（付録）変更の実行区分、task-design内で対象成果物へ適用済み、task-design内の対象成果物反映待ち、execution plan対象、分類保留、表の「掲載理由」「参照するdesign section」「validation結果」 | 「execution plan対象」「対象成果物反映待ち」は、task-designの内部の区分を知らないと何の対象・何の反映か分からない |
+| `roadmap.md` | 構造field（task-designが設計・reviewする）、運用field（steeringだけが更新する）、`stable-phase-id`、Scope／Scope外、親DoD coverage、Dependency DAG | 「構造field」「運用field」「親DoD coverage」「Dependency DAG」は普段の会話で聞かない |
+| `tasklist.md` | Phase、DoD（完了条件）、Tasks、各task詳細 | DoDは括弧で言い換えが付いており、Phase・Tasksは普段の意味のまま読める。候補に入らない可能性が高い |
+
+#### 解釈・残る不足・次action
+
+- 利用者の見立て（結果はaと同じ）は成り立たない。design.mdとroadmap.mdのテンプレートには、成果物へそのまま出て、論点1の型に当たる語が残る。
+- これらの多くは、steering・tasklist-executor・script・validatorが名前で読むlabelでもある。言い換えるなら、名前で読む側を同時に追随させる。追随は語の差し替えであり、読む側の内部の文を言い換えることではない。
+- 記入guide（HTML comment）は成果物へは出ないが、論点1で「agentがdesign.mdへ持ち込む」ため対象とした。利用者の「内輪で伝わればいい」と矛盾するかを確認したい。assistantの読みは、持ち込みの経路があるので表出の一部として扱う、である。
+- agentがchatで使う語も利用者の目に出る。出どころはSKILL.md等の内部の文で、範囲に入れると内部の文を全部言い換えることになる。今回は入れず、再発防止の論点で「書くときの基準」として扱う案を示す。

@@ -134,3 +134,66 @@
 [内部検討記録: 論点2・イテレーション0](internal-records/task-design-discussion.md.topic-2.md#iteration-0)
 
 #### 提案0へのフィードバック（論点2）
+
+**結果:** 修正要求（cを希望。範囲を「利用者の目に出るか」で引く）
+
+> cを希望するけど、結果aを選んだときと同じ結果になると思う。skillの内部的で表出しない話は内輪で伝わればいいから
+
+範囲をfile単位ではなく、利用者の目に出るかで引くことになった。skillの内部だけでやり取りされる語は言い換えない。利用者は、この引き方なら結果はaと同じになると見ている。この見立ては次の回で確かめる。
+
+### イテレーション1（論点2）: 「利用者の目に出るか」で範囲を引き直す
+
+#### 提案1（論点2）
+
+##### 範囲の引き方
+
+task-design全体（outcome-sections、design.md・tasklist.md・roadmap.mdのテンプレート、SKILL.md等）を対象にし、その中で**利用者の目に出る表現**だけを言い換える。
+
+| 表現の置き場所 | 利用者の目に出るか | 扱い |
+| --- | --- | --- |
+| outcome-sectionsの見出し・記入欄のlabel | 出る（design.mdへそのまま写る） | 言い換える |
+| design.md・tasklist.md・roadmap.mdのテンプレートの見出し・表のlabel | 出る（成果物へそのまま写る） | 言い換える |
+| テンプレートの記入guide（HTML comment） | 直接は出ないが、agentがその語をdesign.mdへ持ち込む | 言い換える（論点1の決定どおり） |
+| SKILL.md・tasklist-design.md・roadmap-design.md等、agentへの指示の文 | 出ない | 言い換えない |
+| 上の言い換えで変わるlabelを、名前で読んでいるskill・script・validator | 出ない | labelの文字列だけ追随させる。周りの文は言い換えない |
+
+##### 結果はaと同じにならない
+
+design.mdとroadmap.mdのテンプレートには、成果物へそのまま出て、論点1の型に当たる見出し・labelがある。
+
+- `design.md`: 上位roadmap制約、（付録）変更の実行区分、task-design内の対象成果物反映待ち、execution plan対象、分類保留、表の「掲載理由」「参照するdesign section」
+- `roadmap.md`: 構造field、運用field、親DoD coverage、Dependency DAG
+
+各語を本当に言い換えるか、何へ言い換えるかは、次の論点（言い換え先）で一つずつ判定する。ここで決めるのは、これらが判定の候補に入ることである。`tasklist.md`のPhase、DoD（完了条件）、Tasksは、普段の意味のまま読めるため候補から外れる見込みである。
+
+これらのlabelの多くは、steering・tasklist-executor・script・validatorが名前で読んでいる。言い換えたlabelは、名前で読む側の文字列を同時に差し替える。同じcommitに含め、片方だけが変わった状態を作らない。
+
+##### 範囲に入れないもの
+
+- agentがchatで使う語。出どころはSKILL.md等の内部の文で、範囲に入れると内部の文を全部言い換えることになり、「内輪で伝わればいい」と食い違う。再発防止の論点で、利用者へ向けて書く時の基準として扱う。
+- task-design以外のskill（facilitate-discussion等）が作る成果物。今回のissueはtask-designの範囲であり、他skillは再発防止の基準ができた後に、その基準で扱う。
+
+##### 別issueは作らない
+
+提案0で別issueへ切り出すとしたもののうち、利用者の目に出るものは今回の範囲に入り、出ないものは言い換えの対象から外れる。切り出すものは残らない。
+
+#### 検討記録（論点2・イテレーション1）
+
+提案0では、file単位で範囲を引き、他のfileが名前で読むlabelを含むかで候補を分けた。利用者の応答で、引き方が「利用者の目に出るか」に変わった。skillの内部だけでやり取りされる語は、内輪で通じればよい。
+
+この引き方で、利用者は結果がaと同じになると見ていたため、outcome-sections以外のテンプレートの見出しとlabelを調べた。design.mdとroadmap.mdには、成果物へそのまま写り、論点1の型に当たる語がある。
+
+- 「execution plan対象」「対象成果物反映待ち」は、task-designの内部の区分を知らないと、何の対象か、何の反映かが分からない。
+- 「構造field」「運用field」「親DoD coverage」「Dependency DAG」は普段の会話で聞かない。
+
+そのため結果はaと同じにならず、これらは候補に入る。
+
+これらのlabelは、他skill・script・validatorも名前で読んでいる。提案0ではこれを切り出す理由にしたが、追随は語の差し替えだけで、読む側の文を言い換えるわけではない。同じcommitで両方を変えれば、取り決めは崩れない。
+
+記入guide（HTML comment）は成果物へは出ない。それでも論点1で対象に入れたのは、agentがguideの語をdesign.mdへ持ち込むからである。「内輪で伝わればいい」と食い違うように見えるが、持ち込みの経路がある以上、guideは表出の入口として扱う。なお、この作業の初稿のdesign.mdでは、assistantはoutcome sectionの見出し「documentation以外のfile deliverable」をそのまま写していた。見出しがそのまま成果物へ出ることの実例である。
+
+限界: 候補に入るかの判定は見出しと表のlabelを読んだ範囲である。テンプレート本文の全量は、言い換え先の論点で全文を読んで洗い出す。
+
+[内部検討記録: 論点2・イテレーション1](internal-records/task-design-discussion.md.topic-2.md#iteration-1)
+
+#### 提案1へのフィードバック（論点2）
