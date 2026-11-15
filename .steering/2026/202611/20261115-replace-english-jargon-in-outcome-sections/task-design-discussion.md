@@ -817,7 +817,7 @@ design.md・roadmap.mdのテンプレートのlabelは、古い名前を残さ�
 
 ## 論点7: 共通の場所に個別を書き込む提案を、再び出さないための指示をどこに書くか
 
-**ステータス:** 応答待ち
+**ステータス:** 反映済み
 
 **種別:** 認識齟齬
 
@@ -885,3 +885,21 @@ design.md・roadmap.mdのテンプレートのlabelは、古い名前を残さ�
 [内部検討記録: 論点7・イテレーション0](internal-records/task-design-discussion.md.topic-7.md#iteration-0)
 
 #### 提案0へのフィードバック（論点7）
+
+**結果:** 合意
+
+> ok
+
+### 決定（論点7）
+
+共通の場所に今回の個別を書き込む誤りを再び起こさないため、次の三つを行う。
+
+1. `plugins/tumeda-dev/docs/think_standards/writing_abstraction.md`の「文脈を離れた具体例で抽象の視野を確認する」の後へ、補助節「共通の場所に、今回の個別を書き込まない」を[提案0（論点7）](#提案0論点7)の本文どおりに足す。誤りが起きたのは共通の規則（抽象）を書く場面であり、その場面の思考の作法はthink-throughとして毎ターン注入されるため、利用先repositoryでも効く。既存の`naming/core.md`の範囲の照合は話題での照合を許し、`writing_abstraction.md`の文脈外の具体例は添える例の広さだけを扱い、`naming/README.md`の積集合の原則はnaming群に閉じているため、一般の原則としてはどこにも無かった。
+2. このrepositoryの`.claude/hooks/think_through_session_start.sh`の「抽象を書く」の行の末尾に「共通の場所に今回の個別を書き込まない」を足す。
+3. `scripts/verification/validate-plugin.mjs`へ、足した節の見出しと判断の問いが残っていることのassertionを足す。
+
+検知の問いは「今回の対象を、ここが効く別の対象に置き換えても、そのまま成り立つか」という関係で書く。「pathを書いたか」のような行為の検知にすると、個別から共通への正しい参照まで弾くためである。
+
+### 現在の変更（論点7）
+
+決定どおり、`plugins/tumeda-dev/docs/think_standards/writing_abstraction.md`へ補助節を足し、`.claude/hooks/think_through_session_start.sh`の「抽象を書く」の行へ一言を足し、`scripts/verification/validate-plugin.mjs`へ補助節の見出しと判断の問いのassertionを足した。`node scripts/verification/validate-plugin.mjs`は`plugin validation passed`、`node scripts/verification/test-task-design-handoff.mjs`は`task-design handoff tests passed`を出力した。このdecisionのdoc-enricherの提案modeのreviewでは、`think_standards/README.md`の索引の一行が補助節の追加後も正しく、既存READMEへ足す候補は無かった。未解決は無い。

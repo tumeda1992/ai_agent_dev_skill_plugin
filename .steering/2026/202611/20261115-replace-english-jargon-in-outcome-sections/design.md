@@ -36,11 +36,15 @@ issue #5「ルー語を改善する（改善 in クラウドセッション）�
 | --- | --- | --- |
 | `plugins/tumeda-dev/skills/task-design/templates/outcome-sections/*.md`（14 file） | design.mdを書くagent、design.mdを読む利用者 | 表現を訳し直さずに、sectionを選び、見出しと記入欄を埋め、出来上がったdesign.mdを読める |
 | `plugins/tumeda-dev/skills/task-design/templates/design.md`、`tasklist.md`、`roadmap.md` | 成果物を書くagent、design.md・tasklist.md・roadmap.mdを読む利用者 | 成果物の見出しと表のlabelを、task-designの内部の区分を知らなくても読める |
-| 言い換えたlabelを名前で読むskill・script・validator（TBD: 言い換え先が決まってから列挙する） | 各skillを実行するagent、検証を走らせる保守者 | 言い換え後のlabelで、これまでどおり成果物を検証・抽出できる |
+| 言い換えたlabelを名前で読むskill・script・validator（`steering/SKILL.md`、`task-design/SKILL.md`、`tasklist-executor/SKILL.md`、`task-design/roadmap-design.md`、`skills/README.md`、`runtime-feedback-review.md`、`outcome-sections/workflow.md`、`scripts/verification/validate-plugin.mjs`） | 各skillを実行するagent、検証を走らせる保守者 | 言い換え後のlabelで、これまでどおり成果物を検証できる |
+| `plugins/tumeda-dev/skills/task-design/templates/breaking_changes/`（READMEと今回の記録1件） | 以前の版のtask-designが作った成果物を読むagent・利用者 | 古いdesign.md・roadmap.mdの見出しを、今の名前に読み替えられる |
+| `plugins/tumeda-dev/skills/maintenance-plugin-context/SKILL.md`の「Plugin version」節 | pluginを保守する人とagent | MAJORを上げる破壊的変更の時に、古い成果物を読むための記録を残すことを思い出し、何を書くかが分かる |
+| `plugins/tumeda-dev/docs/think_standards/writing_abstraction.md`、`.claude/hooks/think_through_session_start.sh` | 共通の規則・関数・索引を書くagent | 共通の場所に今回の個別を書き込む前に気づける |
+| pluginのversion（宣言値4箇所と`validate-plugin.mjs`の`expectedRelease`） | 利用先repository | 破壊的変更を含む版（9.0.0）だと分かる |
 
 **完成後の内容と構造:**
 
-TBD: 本文と記入guideの文の完成形、design.md・tasklist.md・roadmap.mdのテンプレートの言い換えは、それぞれの論点で決める。
+TBD: outcome-sectionsの本文と記入guideの文、design.md・tasklist.md・roadmap.mdのテンプレートの記入guideとtaskの文の完成形は、本文の書き直しの論点で決める。
 
 現時点で確定している構造上の前提:
 
@@ -145,6 +149,63 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 | | ## `documentation`と`research findings`の分岐gate | ## `documentation.md`と`research-findings.md`のどちらを選ぶか |
 | | \| outcome \| 読むsection \| 主な移行元 \| 選択する問い \| | \| 完成後に変わるもの \| 読むsection \| 主な移行元 \| 選ぶかを決める問い \| |
 
+##### design.md・roadmap.mdのテンプレートのlabel
+
+古い名前を残さず、新しい名前へ切り替える。今後は新しい表記が中心になるため、読む側に新旧二つの名前を持たせない。
+
+| テンプレート | 今 | 後 |
+| --- | --- | --- |
+| `design.md` | ### task-design内で対象成果物へ適用済み | ### 設計中に反映を終えた変更 |
+| | ### task-design内の対象成果物反映待ち | ### 設計中に反映する、他の判断を待っている変更 |
+| | ### execution plan対象 | ### tasklist・roadmapに載せて実行する変更 |
+| `roadmap.md` | ## 構造field（task-designが設計・reviewする） | ## 各phaseの計画（task-designが設計・reviewする） |
+| | ### 運用field（steeringだけが更新する） | ### 進み具合（steeringだけが更新する） |
+| | ## 親DoD coverage | ## 親の完了条件と、それを満たすphase |
+| | ## Dependency DAG | ## phase間の依存関係 |
+| | dependency results: | 依存phaseの確定結果: |
+| | {親scopeよりstrictly narrowerな、このphaseで扱う範囲} | {親のscopeより狭い（親と同じ範囲にしない）、このphaseで扱う範囲} |
+| | {cycleを持たないstable phase identity間の依存を記載する。例: `phase-a -> phase-b`} | {phase IDの間の依存を、循環しない形で書く。例: `phase-a -> phase-b`} |
+
+変えないもの: 「上位roadmap制約」「分類保留（設計中のみ）」「（付録）変更の実行区分」、表の「validation結果」「参照するdesign section」「掲載理由」。普段の意味のまま読めるためである。「上位roadmap制約」は`task-design/scripts/extract-handoff-input.mjs`が既存のdesign.mdからh2見出しの完全一致で抜き出しているが、変えないので今のまま動く。`tasklist.md`の見出し（Phase、DoD（完了条件）、Tasks、各task詳細、動作確認等）も普段の意味のまま読めるため変えない。
+
+新しい名前を使う読む側（対象と読者の表に挙げた8 file）は、同じcommitで新しい名前へ揃え、旧名を併記しない。
+
+##### 古い成果物を読むための記録
+
+付録の三つのlabelは、steeringが前月summaryの判定とplanless resultの検証で、既存のdesign.mdから名前で読む。「運用field」は、steeringが進行中のroadmap.mdで更新する。名前を切り替えると、以前の版で作られたこれらの成果物を名前で探せなくなるため、次の三つで辿れるようにする。
+
+- `plugins/tumeda-dev/skills/task-design/templates/breaking_changes/`を作る。directory名は、記録する線そのもの（破壊的変更だけ）が名前に出る`breaking_changes/`とする。配布されるpluginの中に置くため、利用先repositoryのagentも読める。
+  - `README.md`: このdirectoryには古い成果物を読むための対応だけを置き、全ての変更履歴ではないこと。記録の対象と1件の書き方は`maintenance-plugin-context`の版の規則（「Plugin version」節）に従うこと。task-designの成果物（design.md、tasklist.md、roadmap.md）で記録する例（9.0.0での付録・roadmapのlabelの切り替え）と、記録しない例（完成後の姿のsectionの見出しだけの言い換え、テンプレートへのsectionの追加、記入guideの書き直し）。いつ読むか（既存のdesign.md・roadmap.mdで、skillが探す見出しが見つからない時）。
+  - 今回の記録1件（`20261115-rename-template-labels.md`）: 変わった版（9.0.0）、旧名と新名の対応（付録の三つのlabel、構造field、運用field、親DoD coverage、Dependency DAG、dependency results）、変えた理由（利用者の目に出る見出しから、普段の意味のまま読めない表現を無くすため）、古い成果物の読み方（旧名の見出しは新名と同じものとして読む。進行中のroadmap.mdを続ける時は、見出しを新名へ書き換えてよい）。
+- `steering/SKILL.md`の、既存の成果物を読む箇所に共通する一文として、次を置く。「既存のdesign.md・roadmap.mdで、ここで探す見出しが見つからない時は、作成時のpluginの版が古い可能性がある。`task-design/templates/breaking_changes/`で旧名を確かめて読む。」steeringはtask-designの成果物を読む個別のskillなので、task-designのdirectoryを名指してよい。
+- `maintenance-plugin-context/SKILL.md`の「Plugin version」節の「破壊的変更はMAJOR、…を上げる」の直下へ、全skillに当たる規則として次を足す。特定のskillやpathを名指さない。
+
+```diff
+ - 破壊的変更はMAJOR、後方互換な機能追加はMINOR、後方互換な修正・文書変更はPATCHを上げる
++  - MAJORを上げる理由が、以前の版のskillが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなることなら、その成果物のテンプレートと同じdirectoryの`breaking_changes/`に記録を残す。無ければ作る。
++    - 記録しない変更: 成果物を読む側に影響しない変更（読まれない見出しの言い換え、テンプレートへのsectionの追加、記入guideの書き直し等）。git logと各作業の記録で辿る。
++    - 1件のfile: 名前は`YYYYMMDD-slug.md`。変わった版、旧名と新名の対応、変えた理由、古い成果物の読み方を書く。
++    - `breaking_changes/`のREADMEには、記録の対象がこの変更だけであることと、そのskillの成果物での具体例を書き、線と1件の書き方はこの規則を参照する。
+```
+
+破壊的変更なので、pluginのversionを8.3.5から9.0.0へ上げる（宣言値4箇所と`validate-plugin.mjs`の`expectedRelease`）。
+
+記録する線（以前の版のskillが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなる変更）を、今回以外の変更に当てた結果は次のとおりである。
+
+| 変更 | 記録するか | 理由 |
+| --- | --- | --- |
+| 今回の付録・roadmapのlabelの切り替え | する | steeringが古いdesign.mdの付録を名前で探せなくなる |
+| outcome sectionの見出しだけの言い換え | しない | skillもscriptも名前で読まない |
+| テンプレートへ新しいsectionを足す | しない | 古い成果物も今までどおり読める |
+| 「上位roadmap制約」の見出しを変える（仮） | する | scriptが古いdesign.mdから完全一致で抜き出せなくなる |
+| 記入guideの書き直しだけ | しない | 成果物の見出し・labelが変わらない |
+
+##### 共通の場所に個別を書き込まないための思考の作法
+
+この設計の途中で、全skillに当たる版の規則から特定のskillのREADMEを正本として名指す案が出た。同じ誤りを繰り返さないため、`plugins/tumeda-dev/docs/think_standards/writing_abstraction.md`へ補助節「共通の場所に、今回の個別を書き込まない」を足し、このrepositoryの`.claude/hooks/think_through_session_start.sh`の「抽象を書く」の行の末尾に「共通の場所に今回の個別を書き込まない」を足す。補助節は、複数の対象に効く場所には全ての対象に当たる内容だけを書き、個別は個別の側に置いて個別から共通を参照する、という原則を、今回の例と文脈外の例（共通の金額整形の関数へ請求書画面のためだけの`if`を足す）、やってしまいがちな行動、帰結、判断の問い「今回の対象を、ここが効く別の対象に置き換えても、そのまま成り立つか」で示す。
+
+既存の標準では止められなかった。`naming/core.md`の「中身を足す前に、名前が約束する範囲に入るかを確かめる」は話題での照合を許し、`writing_abstraction.md`の「文脈を離れた具体例で抽象の視野を確認する」は添える例の広さだけを扱い、`naming/README.md`の積集合の原則はnaming群に閉じている。誤りが起きたのは共通の規則（抽象）を書く場面であり、その場面の思考の作法はthink-throughとして毎ターン注入されるため、利用先repositoryでも効く。
+
 **記載する原則と例:**
 
 - 見分ける問い: このpluginを知らない開発者が、task-designのテンプレートや、それを使って書かれたdesign.mdでこの表現を見たとき、普段使っている意味のまま読んで、書き手の意図どおりに受け取れるか。受け取れないなら言い換え、受け取れるなら残す。英語か日本語かは問わない。
@@ -228,7 +289,9 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 
 ### task-design内で対象成果物へ適用済み
 
-なし
+| 対象 | 反映内容 | validation結果 | 参照するdesign section |
+| --- | --- | --- | --- |
+| `plugins/tumeda-dev/docs/think_standards/writing_abstraction.md`、`.claude/hooks/think_through_session_start.sh`、`scripts/verification/validate-plugin.mjs` | 補助節「共通の場所に、今回の個別を書き込まない」の追加、場面別の要約への一言の追加、補助節の見出しと判断の問いのassertion | `node scripts/verification/validate-plugin.mjs`が`plugin validation passed`、`node scripts/verification/test-task-design-handoff.mjs`が`task-design handoff tests passed`。doc-enricherの提案modeで、`think_standards/README.md`の索引の一行（抽象と具体の往復をワンショットで行う）は補助節の追加後も正しく、既存READMEへ足す候補は無い | [共通の場所に個別を書き込まないための思考の作法](#共通の場所に個別を書き込まないための思考の作法) |
 
 ### task-design内の対象成果物反映待ち
 
@@ -242,6 +305,6 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 
 | 変更候補 | 保留理由 | 分類を確定するdecision |
 | --- | --- | --- |
-| outcome-sections 14 fileの言い換え | 言い換え先が未決 | 用語の対応 |
-| design.md・tasklist.md・roadmap.mdのテンプレートの言い換えと、labelを名前で読む側の追随 | 言い換え先が未決 | 用語の対応 |
-| 再発防止の判断基準の追加 | 置くかどうか、置き場所が未決 | 再発防止 |
+| outcome-sections 14 fileの言い換え | 本文と記入guideの文の書き直しが未決 | 本文の書き直し |
+| design.md・tasklist.md・roadmap.mdのテンプレートの言い換えと、labelを名前で読む側の追随、`breaking_changes/`、`maintenance-plugin-context`の規則、`steering/SKILL.md`の一文、version 9.0.0 | 同じテンプレートの記入guideとtaskの文の書き直しが未決で、同じcommitで反映するため | 本文の書き直し |
+| 「見分ける問い」を再発防止の判断基準として置く場所 | 置くかどうか、置き場所が未決 | 再発防止 |

@@ -1238,6 +1238,8 @@ requireText(thinkStandardsPath("starting_to_think.md"), "## 補助: 到達点は
 requireText(thinkStandardsPath("questioning_existing.md"), "必然性があり配置も正しいが中身の一部が誤っている（直す）");
 requireText(taskDesignSkill, "この中間の確認は、実行して初めて得られる状態を見るものか。それとも案への合意を取るものか");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "既存の構造から作業対象を列挙し、各対象に中身があるかを確かめずに含める");
+requireText(thinkStandardsPath("writing_abstraction.md"), "## 補助: 共通の場所に、今回の個別を書き込まない");
+requireText(thinkStandardsPath("writing_abstraction.md"), "今回の対象を、ここが効く別の対象に置き換えても、そのまま成り立つか");
 
 // 作業の範囲（目的の内外、目的の外の不備を拾うか切り出すか）の判定の契約
 const workScopeStandard = `${pluginRoot}/docs/development_standards/development_flow/work_scope.md`;
