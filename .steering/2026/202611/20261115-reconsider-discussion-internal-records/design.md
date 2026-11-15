@@ -130,6 +130,7 @@ TBD: 上の二sectionから導く。変更候補は付録「分類保留」に�
 | `facilitate-discussion/templates/internal_record.md`の削除、`templates/discussion_entry.md`の内部記録へのlink行の削除 | 同上 | TBD4、TBD6 | [作業の流れと担当](#作業の流れと担当) |
 | `facilitate-discussion/scripts/inspect-discussion.mjs`の`--log`引数と、`inspect-discussion.test.mjs`の該当test | `read-discussion.md`の書き換えと一緒に行う | TBD4、TBD6 | [作業の流れと担当](#作業の流れと担当) |
 | `task-design/SKILL.md`、`task-design-work-handoff-contracts.md`の内部記録を読む契約 | `facilitate-discussion`側の書き換えと一緒に行う | TBD4、TBD6 | [作業の流れと担当](#作業の流れと担当) |
+| root `.gitignore`に`**/internal-records/`を足す。commit済みの内部記録は残す（task-design-discussion.md 論点4） | 依存する判断は無い。他の変更と同じ単位で適用する | なし | [skillの役割と方針](#skillの役割と方針) |
 
 ### tasklist・roadmapに載せて実行する変更
 
@@ -141,6 +142,5 @@ TBD
 | --- | --- | --- |
 | `plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/` | 目的別の記入形を残すかで変わる | TBD4 |
 | git管理外にする設定（root `.gitignore`、`.steering/.gitignore`、利用先repositoryへの案内） | 何で担保するかが未決 | TBD5 |
-| このrepositoryの `.steering/` 配下でcommit済みの内部記録 | 残すか消すかが未決 | task-design-discussion.md 論点4 |
 | `scripts/verification/validate-plugin.mjs`、`scripts/verification/test-task-design-handoff.mjs` | 検査する契約の文が上の変更で決まる | 上の全TBD |
 | 配布version（四つの宣言値と`expectedRelease`） | MAJOR／MINOR／PATCHが変更内容で決まる | 上の全TBD |
