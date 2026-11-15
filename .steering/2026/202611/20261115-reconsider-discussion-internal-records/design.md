@@ -120,12 +120,7 @@ TBD: 上の二sectionから導く。変更候補は付録「分類保留」に�
 
 ### 設計中に反映を終えた変更
 
-次の二つは、設計の合意前に先行して反映した。合意した設計と食い違えば戻す。
-
-| 対象 | 反映内容 | validation結果 | 参照するdesign section |
-| --- | --- | --- | --- |
-| root `.gitignore`、`facilitate-discussion/templates/discussion_entry.md`、`scripts/verification/validate-plugin.mjs`（commit `817f93f`） | `**/internal-records/`を除外。commit済みの内部記録122 fileは残す。templateの回の骨子から内部記録へのlink行を外す | `validate-plugin.mjs` 通過 | [skillの役割と方針](#skillの役割と方針) |
-| `facilitate-discussion/iteration.md`「保存した回を提示可能にする」、`validate-plugin.mjs`（commit `aa808e1`） | 検討記録を、その回の検討そのものを時系列で要約しすぎずに残す記録へ書き換え | `validate-plugin.mjs` 通過 | [skillの役割と方針](#skillの役割と方針) |
+なし
 
 ### 設計中に反映する、他の判断を待っている変更
 
@@ -139,11 +134,12 @@ TBD
 
 | 変更候補 | 保留理由 | 分類を決める判断 |
 | --- | --- | --- |
-| `plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md`、`iteration.md`（先行反映した節以外）、`record-recovery.md`、`read-discussion.md`、`derived-change.md`の内部記録への言及 | 内部記録を前提にした手順の畳み方で変わる | TBD3 |
+| `plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md`、`iteration.md`、`record-recovery.md`、`read-discussion.md`、`derived-change.md`の内部記録への言及 | 内部記録を前提にした手順の畳み方で変わる | TBD3 |
 | `plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md`、`templates/consideration-records/` | 内部記録の保存形と目的別の記入形を残すかで変わる | TBD3、TBD4 |
 | `plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs`、`inspect-discussion.test.mjs` | `--log`の起点照合を残すかで変わる | TBD3 |
 | `plugins/tumeda-dev/skills/task-design/SKILL.md`、`plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md` | 内部記録を読む契約を残すかで変わる | TBD3 |
-| 利用先repositoryへの案内（skill本文、`.steering/.gitignore`） | 何で担保するかが未決 | TBD5 |
-| このrepositoryの `.steering/` 配下でcommit済みの内部記録（先行反映では残した） | 残す判断の合意が未了 | TBD3 |
+| `facilitate-discussion/templates/discussion_entry.md`の内部記録へのlink行 | 検討記録の書き方の決定から導く | TBD3 |
+| git管理外にする設定（root `.gitignore`、`.steering/.gitignore`、利用先repositoryへの案内） | 何で担保するかが未決 | TBD5 |
+| このrepositoryの `.steering/` 配下でcommit済みの内部記録 | 残すか消すかが未決 | TBD3 |
 | `scripts/verification/validate-plugin.mjs`、`scripts/verification/test-task-design-handoff.mjs` | 検査する契約の文が上の変更で決まる | 上の全TBD |
 | 配布version（四つの宣言値と`expectedRelease`） | MAJOR／MINOR／PATCHが変更内容で決まる | 上の全TBD |
