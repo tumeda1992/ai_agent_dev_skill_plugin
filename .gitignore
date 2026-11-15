@@ -2,3 +2,8 @@
 *.local.md
 
 .idea/
+
+# facilitate-discussionの内部記録は作業の副産物であり、git管理の対象にしない。
+# 議論の検討の経過は、discussion fileの検討記録だけで追えるようにする。
+# 以前にcommitした内部記録は、過去の議論からlinkされているため残す。
+**/internal-records/

@@ -306,9 +306,10 @@ for (const expected of [
   "**結果:** {その回の結果が分かる短い表現}",
   "### 仮決定（論点N）",
   "### 再開条件（論点N）",
-  "### 決定（論点N）",
-  "{内部log相対path}#iteration-I"
+  "### 決定（論点N）"
 ]) requireText(discussionTemplate, expected);
+
+forbidText(discussionTemplate, "{内部log相対path}", "検討記録から内部記録へのlink");
 
 for (const forbidden of [
   "**起点となった原文:**",
