@@ -28,7 +28,7 @@ issue #5「ルー語を改善する（改善 in クラウドセッション）�
 
 ## 完成後の姿
 
-### documentation以外のfile deliverable
+### 文書以外に作るfileの中身
 
 **対象と読者:**
 
@@ -44,7 +44,34 @@ issue #5「ルー語を改善する（改善 in クラウドセッション）�
 
 **完成後の内容と構造:**
 
-TBD: outcome-sectionsの本文と記入guideの文、design.md・tasklist.md・roadmap.mdのテンプレートの記入guideとtaskの文の完成形は、本文の書き直しの論点で決める。
+outcome-sectionsの本文と記入guideの文、design.md・tasklist.md・roadmap.mdのテンプレートの記入guideとtaskの文は、見本として先に書き直した`caller-contracts.md`と`contract-preservation.md`の書き方を基準に、全fileを書き直す。見本は、issueが名指しした`caller-contracts.md`（呼び出し方と保証）と、表現が最も込み入り`function_migration_policy.md`の語との対応を持つ`contract-preservation.md`であり、易しいfileを見本にしない。見本以外のfileの書き直しは任されたものであり、全体の差分を利用者がreviewする。
+
+見本で決めた書き方:
+
+| 元の表現 | 書き直し |
+| --- | --- |
+| caller、caller-facing、contract（`caller-contracts.md`） | 「呼び出し元」「呼び出し元から見える名前」「呼び出し方」「保証」へ、箇所ごとに書き分ける。sectionの中では「呼び出し元」に揃える |
+| side effect、input、result、identifier | 副作用、入力、結果、名前 |
+| ubiquitous language | domainの概念と、それを呼ぶ共通の言葉 |
+| contract（`contract-preservation.md`）、baseline、ledger | 意味単位、移行前の基準、移行の対応表。記入guideの冒頭で`function_migration_policy.md`のcontract、baseline、ledgerとの対応を一度だけ示す |
+| 全量保存宣言、closed-world、明示差分 | 「次に書く変化以外は全て保存する」という宣言、閉じた完成状態（意味を同じ文で説明）、意図して変える変化 |
+| black-box、順方向・逆方向照合 | 外から動かして確かめる検証、移行元から移行先への照合と逆向きの照合 |
+
+ownerは、テンプレートの全fileで60行・63箇所に出る。同じ語が七つの意味で使われているため、意味ごとに書き直す。行ごとの今と後の対照表は、同じdirectoryの`task-design-discussion.md`に残している。
+
+| ownerの意味 | 書き直し | 行数 |
+| --- | --- | --- |
+| どのsectionに書くか | 他sectionとの書き分け、このsectionに書くこと・書かないこと、それを扱うsection | 16 |
+| workflowで判断・更新を受け持つ担い手 | 担当。`workflow.md`の中は「担当」に揃える。`tasklist.md`の「直接受領したworkflow owner」は「feedbackを直接受け取ったskill」 | 24 |
+| codeの中で責務を持つ部品 | class、module、componentと具体的に書く | 6 |
+| 文書を直す人 | 直す人 | 5 |
+| 置き場所 | 担当や置き場所の変更、新しいdocument | 5 |
+| 管理元 | secretの管理元、状態を持つcomponent | 3 |
+| 議論の記録先 | 議論の記録先。`README.md`の候補では、どのsteeringの記録かを具体的に書く | 1 |
+
+`workflow.md`の移行元に書かれた「roadmap-design.md「Field ownership」」は、実在する見出し名の引用なので残す（`documentation.md`86行は「直す人」と「置き場所」の両方を含む）。
+
+残す表現の具体例: file名（`caller-contracts.md`、`function-migration-ledger.md`等）、`KEEP | MOVE | ADAPT | ADD | CHANGE | RETIRE`、移行元として引く旧見出しの名前、refactoring、validator、rollback、signature、adapter、domain、wireframe、section。
 
 現時点で確定している構造上の前提:
 
@@ -75,7 +102,7 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 
 残す見出し: codeの責務配置と依存構造、データモデル、操作フロー、runtime・設定・環境構築、画面イメージと配置意図、skillの役割と方針。
 
-`caller-contracts.md`は、issueの候補「xxの呼び元からの呼び出し方」に、このsectionが併せて持つ「成功・失敗時に何が起きるかの保証」を足した。「xxの呼ばれ方」の形（xxに対象名を入れる）は、一つのsectionで複数のfunctionやendpointを扱う時に見出しへ入りきらないため採らなかった。
+`caller-contracts.md`は、issueの候補「xxの呼び元からの呼び出し方」に、このsectionが併せて持つ「成功・失敗時に何が起きるかの保証」を足した。「xxの呼ばれ方」の形（xxに対象名を入れる）は、一つのsectionで複数のfunctionやendpointを扱う時に見出しへ入りきらないため採らない。
 
 ##### 記入欄のlabel・表の列名・placeholder（design.mdへ写る）
 
@@ -121,7 +148,7 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 | | \| owner \| 判断・更新するもの \| 行わないこと \| single source of truth \| | \| 担当 \| 判断・更新するもの \| 行わないこと \| 正とする記録 \| |
 | | 図のlabel {event / gate / owner} | {きっかけ / 先へ進む条件 / 担当} |
 
-`workflow.md`では、判断・更新の担い手を指す語を「担当」に揃える（論点3の決定）。`contract-preservation.md`の「移行前の基準」「移行の対応表」は、`function_migration_policy.md`が定義するbaseline、ledgerに当たる。design.mdの読み手には言い換えた語を見せ、記入guideで定義元の語との対応を一度だけ示す。
+`workflow.md`では、判断・更新の担い手を指す語を「担当」に揃える。`contract-preservation.md`の「移行前の基準」「移行の対応表」は、`function_migration_policy.md`が定義するbaseline、ledgerに当たる。design.mdの読み手には言い換えた語を見せ、記入guideで定義元の語との対応を一度だけ示す。
 
 ##### 記入guideの小見出し（file間で揃える）
 
@@ -228,7 +255,7 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 #### 文書にする知識
 
 - 埋もれていた知識: プロジェクト指示の「code、command、path、識別子、規定された出力形式、固有名詞は原文を維持する」が、owner、contract等の普通の概念語まで英語で書くことを止めていなかった。どの表現を避けるかの線引きはどこにも無く、書き手ごとに耳馴染みのない表現が増え、テンプレートからdesign.mdへ持ち込まれた。
-- 原則へ引き上げるもの: 論点1の見分ける問い（このpluginを知らない読み手が、普段使っている意味のまま読んで受け取れるか）と、論点3の書き直し方（一語一訳にせず、箇所ごとに言いたいことを書く。同じものを指す語と、繰り返す小見出しは揃える）。
+- 原則へ引き上げるもの: 見分ける問い（このpluginを知らない読み手が、普段使っている意味のまま読んで受け取れるか）と、書き直し方（一語一訳にせず、箇所ごとに言いたいことを書く。同じものを指す語と、繰り返す小見出しは揃える）。
 
 #### 読者と、読んでできるようになる判断
 
@@ -263,11 +290,11 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 
 ### SHOULD（できれば）
 
-- TBD
+- 見本以外のfileでも、見本と同じ語の選び方に揃える（呼び出し元、呼び出し方、保証、担当、正とする記録等）。
 
 ### MAY（あれば嬉しい）
 
-- TBD
+- なし
 
 ### 非目標
 
@@ -277,8 +304,11 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 
 ### 受け入れ基準
 
-- TBD: 用語の対応が決まったら、「言い換え対象と判定した表現が、対象fileに出現しない」をgrepで確かめられる形で書く。
-- `node scripts/verification/validate-plugin.mjs` が `plugin validation passed` を出力する。
+- `plugins/tumeda-dev/skills/task-design/templates/`の`outcome-sections/*.md`、`design.md`、`tasklist.md`、`roadmap.md`について、backtickの外の文から次の表現をgrepで抜き出すと、当たるのは下の「残してよい当たり」だけである。表現: owner、contract、caller、gate、ledger、baseline、evidence、finding、closed-world、handoff、outcome、precedence、tie-break、所有、正本、明示差分、全量保存、理解依存、通底、形式知、能力境界、single source、single writer、signal、orchestration、consumer、negative diagnosis、composition rule、side effect、identity、decision、routing。
+  - 残してよい当たり: `outcome-sections/README.md`のcode block内のfile名、`catalog.md`の移行元の「function migration ledger」、`contract-preservation.md`の記入guide冒頭の`function_migration_policy.md`の語との対応とfile名`function-migration-ledger.md`、`workflow.md`の移行元の「Field ownership」。
+- `plugins/`と`scripts/`で、旧label（task-design内で対象成果物へ適用済み、task-design内の対象成果物反映待ち、execution plan対象、構造field、運用field、親DoD coverage、Dependency DAG）が出るのは、`task-design/templates/breaking_changes/20261115-rename-template-labels.md`だけである。
+- 宣言値4箇所と`validate-plugin.mjs`の`expectedRelease`が`9.0.0`である。
+- `node scripts/verification/validate-plugin.mjs` が `plugin validation passed`、`node scripts/verification/test-task-design-handoff.mjs` が `task-design handoff tests passed` を出力する。
 
 ---
 
@@ -286,15 +316,17 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 
 | リスク | 対策 |
 | --- | --- |
-| 言い換えで、元の表現が担っていた区別（例: callerとconsumer、ownerとwriter）が潰れる | TBD: 用語対応表の論点で、区別が要る語の組を先に洗い出す |
+| 言い換えで、元の表現が担っていた区別（例: callerとconsumer、ownerとwriter）が潰れる | 一語一訳をやめ、箇所ごとに言いたいことを書く。callerは「呼び出す側・呼び出し元」、consumerは「結果を受け取る側」、single writerは「書き込む担当を一つにする」と、別の言い方で書き分ける。ownerは意味ごとに七通りに書き分ける |
 | テンプレートと、agentへの指示の文で、同じ概念の呼び方が二系統になる | 指示の文は内輪の語として残すと合意済み。成果物へ出るlabelは、名前で読む側の文字列を同じcommitで追随させ、取り決めの食い違いは作らない |
 
 ---
 
 ## テスト方針
 
-- TBD: 用語の対応が決まった後、言い換え対象と判定した表現を対象file全体からgrepで抽出し、zeroであることを確かめる。
-- `node scripts/verification/validate-plugin.mjs` を実行する。
+- 受け入れ基準のgrepを実行し、当たりが残してよいものだけであることを確かめる。
+- 旧labelのgrepを`plugins/`と`scripts/`に対して実行する。
+- `node scripts/verification/validate-plugin.mjs`、`node scripts/verification/test-task-design-handoff.mjs`、`node --test plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs`を実行する。
+- 書き直しで記入guideの項目（なぜ必要か、NG、記述例、書く条件、書くこと・書かないこと、MUST、判断基準）を削除・統合していないことを、元のfileと並べて確かめる。
 
 ---
 
@@ -302,32 +334,29 @@ outcome-sectionsの見出し、記入欄のlabel、表の列名、placeholder、
 
 - プロジェクト指示（`AGENTS.md`、`.agents/skills/tumeda-dev-plugin-context.md`の「プロジェクト指示」）: repository内のdocument本文は日本語で記述する。code、command、path、識別子、規定された出力形式、固有名詞は原文を維持する。owner、contract等の普通の概念語は、この例外のどれにも当たらない。
 - `outcome-sections/`の現状: 14 file、1137行。backtickの外にある英単語の出現数（大文字小文字を区別しない、2回以上のもの）を数えると、section 94、owner 70、contract 60、caller 31、ledger 29、outcome 27、state 24、gate 24、scope 20、evidence 20、baseline 16、finding 15、trigger 11、caller-facing 11、handoff 9、consumer 4、precedence 2、tie-break 2等である。
-- `scripts/verification/validate-plugin.mjs`: outcome-sectionsの14 fileの存在と、`documentation.md`の三つの文（「統合する時は、統合先の範囲に入ることを」等）を検査する。見出しの文字列は検査していない。
-- `documentation_standards/referent_explicitness.md`: 「system内部語」が実体と結ばれていなければ暗黙の指示語として働く、と定める。英語の概念語の問題はこれと近いが、同じかは未判定。
+- `scripts/verification/validate-plugin.mjs`: outcome-sectionsの14 fileの存在と、`documentation.md`の三つの文（「統合する時は、統合先の範囲に入ることを」等）を検査する。outcome sectionの見出しの文字列は検査していない。design.md・roadmap.md・tasklist.mdのテンプレートについては、付録の見出し、roadmapの「構造field（task-designが設計・reviewする）」「運用field（steeringだけが更新する）」、tasklistの「特定の`steering` callerへ固定しない」等を完全一致で検査している。
+- pluginのversion: 8.3.5。`maintenance-plugin-context`の版の規則で、破壊的変更はMAJORを上げる。
+- `documentation_standards/referent_explicitness.md`: 「system内部語」が実体と結ばれていなければ暗黙の指示語として働く、と定める。聞き慣れた語にここだけの意味を載せた型とは重なるが、耳馴染みがない語の型は、語が指す実体ではなく語の馴染みの問題であり、この標準の範囲に入らない。
 - `document-review`: 書いたmdをemit前に標準へ照らす。観点の中身は`documentation_standards/`の各fileが正本で、skillは参照だけを持つ。
 
 ---
 
 ## （付録）変更の実行区分
 
-### task-design内で対象成果物へ適用済み
+### 設計中に反映を終えた変更
 
 | 対象 | 反映内容 | validation結果 | 参照するdesign section |
 | --- | --- | --- | --- |
 | `plugins/tumeda-dev/docs/think_standards/writing_abstraction.md`、`.claude/hooks/think_through_session_start.sh`、`scripts/verification/validate-plugin.mjs` | 補助節「共通の場所に、今回の個別を書き込まない」の追加、場面別の要約への一言の追加、補助節の見出しと判断の問いのassertion | `node scripts/verification/validate-plugin.mjs`が`plugin validation passed`、`node scripts/verification/test-task-design-handoff.mjs`が`task-design handoff tests passed`。doc-enricherの提案modeで、`think_standards/README.md`の索引の一行（抽象と具体の往復をワンショットで行う）は補助節の追加後も正しく、既存READMEへ足す候補は無い | [共通の場所に個別を書き込まないための思考の作法](#共通の場所に個別を書き込まないための思考の作法) |
-| `plugins/tumeda-dev/docs/documentation_standards/everyday_wording.md`（新設）、`documentation_standards/README.md`、`skills/document-review/SKILL.md`、`skills/task-design/SKILL.md`、`scripts/verification/validate-plugin.mjs` | 普段の言葉で書く標準の新設と、収録一覧・観点list・task-designの§1からの参照、assertionの追加 | `node scripts/verification/validate-plugin.mjs`が`plugin validation passed`。doc-enricherの提案modeで、収録一覧の一行以外に足す候補は無い。新設したfile自体は利用者のreview待ち | [普段の言葉で書くための標準](#普段の言葉で書くための標準) |
+| `plugins/tumeda-dev/docs/documentation_standards/everyday_wording.md`（新設）、`documentation_standards/README.md`、`skills/document-review/SKILL.md`、`skills/task-design/SKILL.md`、`scripts/verification/validate-plugin.mjs` | 普段の言葉で書く標準の新設と、収録一覧・観点list・task-designの§1からの参照、assertionの追加 | `node scripts/verification/validate-plugin.mjs`が`plugin validation passed`。新設したfileは利用者のreviewで合意を得た。doc-enricherの提案modeで、収録一覧の一行以外に足す候補は無い | [普段の言葉で書くための標準](#普段の言葉で書くための標準) |
+| `plugins/tumeda-dev/skills/task-design/templates/outcome-sections/`の14 file、`templates/design.md`、`templates/tasklist.md`、`templates/roadmap.md` | 見出し・記入欄のlabel・記入guideの小見出しの言い換え、本文と記入guideの書き直し、ownerの意味ごとの書き直し、design.md・roadmap.mdのlabelの切り替え | 受け入れ基準のgrepの当たりは、残してよいもの（code block内のfile名、移行元の引用、`function_migration_policy.md`の語との対応）だけ。記入guideの項目の削除・統合は無い。見本2 fileと、ownerの60行は利用者のreviewで合意を得た。見本以外の書き直しは任されたもので、全体の差分のreview待ち | [文書以外に作るfileの中身](#文書以外に作るfileの中身) |
+| `steering/SKILL.md`、`task-design/SKILL.md`、`tasklist-executor/SKILL.md`、`task-design/roadmap-design.md`、`skills/README.md`、`runtime-feedback-review.md`、`scripts/verification/validate-plugin.mjs` | 切り替えたlabelの文字列の追随。`steering/SKILL.md`へ、見出しが見つからない時に`breaking_changes/`で旧名を確かめる一文を追加 | 旧labelのgrepの当たりは`breaking_changes/20261115-rename-template-labels.md`だけ。`node scripts/verification/validate-plugin.mjs`が`plugin validation passed`、`node scripts/verification/test-task-design-handoff.mjs`が`task-design handoff tests passed` | [design.md・roadmap.mdのテンプレートのlabel](#designmdroadmapmdのテンプレートのlabel) |
+| `task-design/templates/breaking_changes/README.md`、`20261115-rename-template-labels.md`（新設）、`maintenance-plugin-context/SKILL.md`、宣言値4箇所と`expectedRelease` | 古い成果物を読むための記録、全skillに当たる版の規則への追記、version 9.0.0 | `validate-plugin.mjs`のassertion（記録の存在、版の規則の文、共通の規則が`task-design/templates/breaking_changes`を名指さないこと）が通る | [古い成果物を読むための記録](#古い成果物を読むための記録) |
 
-### task-design内の対象成果物反映待ち
+### 設計中に反映する、他の判断を待っている変更
 
 なし
 
-### execution plan対象
+### tasklist・roadmapに載せて実行する変更
 
 なし
-
-### 分類保留（設計中のみ）
-
-| 変更候補 | 保留理由 | 分類を確定するdecision |
-| --- | --- | --- |
-| outcome-sections 14 fileの言い換え | 本文と記入guideの文の書き直しが未決 | 本文の書き直し |
-| design.md・tasklist.md・roadmap.mdのテンプレートの言い換えと、labelを名前で読む側の追随、`breaking_changes/`、`maintenance-plugin-context`の規則、`steering/SKILL.md`の一文、version 9.0.0 | 同じテンプレートの記入guideとtaskの文の書き直しが未決で、同じcommitで反映するため | 本文の書き直し |
