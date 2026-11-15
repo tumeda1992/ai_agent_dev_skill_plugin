@@ -503,3 +503,83 @@ bは、読む側に新旧二つの名前を恒久的に持たせることにな�
 [内部検討記録: 論点5・イテレーション0](internal-records/task-design-discussion.md.topic-5.md#iteration-0)
 
 #### 提案0へのフィードバック（論点5）
+
+**結果:** 修正要求（古い名前を残さず新しい名前へ切り替え、古い成果物はskillの中の履歴で辿れるようにする）
+
+> aでも良いけど、別にこれから先は新しい表記が中心になるから引きずりたくない。そのスキルのメジャーバージョンアップ的な破壊的変更が行われたときは今回みたいに追えるようにスキルディレクトリ内にxxx_historiesみたいなディレクトリに起こった事のファイル作って追えるようにADRのようなもの作れば丸く収まる？
+
+括弧で補うaではなく、名前を切り替えるbの方向を、読む側に新旧二つの名前を持たせずに実現したい。そのために、破壊的変更の記録をskillの中に残す、という提案を受けた。この応答には、今回の変更をどうするかと、今後の破壊的変更で毎回記録を残すかという二つの判断が含まれる。後者は別の論点に分ける。
+
+### イテレーション1（論点5）: 新しい名前へ切り替え、古い成果物はhistoriesで辿れるようにする
+
+#### 提案1（論点5）
+
+##### 丸く収まるかへの答え
+
+ほぼ収まる。足りないのは一点だけで、**読む側が履歴を引くきっかけ**が要る。
+
+steeringは、前月summaryの判定やplanless resultの検証で、古いdesign.mdの付録の見出しを名前で探す。履歴のfileがあっても、steeringがそれを引かなければ、古いdesign.mdは見出しが見つからず`不明`と判定される。label一つ一つの旧名を読む側に持たせる必要はなく、「見出しが見つからない時は作成時の版が古い可能性があるので、historiesで旧名を確かめる」という一般的な一文を、既存の成果物を読むsteeringに一つ置けばよい。
+
+##### 名前を切り替えるlabel
+
+| テンプレート | 今 | 後 |
+| --- | --- | --- |
+| `design.md` | ### task-design内で対象成果物へ適用済み | ### 設計中に反映を終えた変更 |
+| | ### task-design内の対象成果物反映待ち | ### 設計中に反映する、他の判断を待っている変更 |
+| | ### execution plan対象 | ### tasklist・roadmapに載せて実行する変更 |
+| `roadmap.md` | ## 構造field（task-designが設計・reviewする） | ## 各phaseの計画（task-designが設計・reviewする） |
+| | ### 運用field（steeringだけが更新する） | ### 進み具合（steeringだけが更新する） |
+| | ## 親DoD coverage | ## 親の完了条件と、それを満たすphase |
+| | ## Dependency DAG | ## phase間の依存関係 |
+| | dependency results: | 依存phaseの確定結果: |
+| | {親scopeよりstrictly narrowerな、このphaseで扱う範囲} | {親のscopeより狭い（親と同じ範囲にしない）、このphaseで扱う範囲} |
+| | {cycleを持たないstable phase identity間の依存を記載する。例: `phase-a -> phase-b`} | {phase IDの間の依存を、循環しない形で書く。例: `phase-a -> phase-b`} |
+
+変えないもの: 「上位roadmap制約」「分類保留（設計中のみ）」「（付録）変更の実行区分」、表の「validation結果」「参照するdesign section」「掲載理由」。普段の意味のまま読めるためである。「上位roadmap制約」を変えないので、`extract-handoff-input.mjs`の完全一致の照合は今のまま動く。
+
+##### 読む側の追随
+
+新しい名前だけを使い、旧名を併記しない。同じcommitで次の文字列を新しい名前へ揃える: `steering/SKILL.md`、`task-design/SKILL.md`、`tasklist-executor/SKILL.md`、`task-design/roadmap-design.md`、`skills/README.md`、`runtime-feedback-review.md`、`outcome-sections/workflow.md`、`scripts/verification/validate-plugin.mjs`。
+
+##### 履歴の置き方
+
+- 置き場所: `plugins/tumeda-dev/skills/task-design/templates/histories/`。labelが元々居た場所であり、配布されるpluginの中なので利用先repositoryのagentも読める。名前は既存の標準（`information_structuring/README.md`の「役目を終えたナレッジは元々居た場所に`histories`として残す」）に合わせる。
+- file: `20261115-rename-template-labels.md`のように、日付と内容で名付ける。
+- 中身:
+  - いつの版から変わったか（9.0.0）
+  - 何が変わったか: 旧名と新名の対応表。今回の論点4で変えたoutcome sectionの見出しも含める（古いdesign.mdを読む人が旧見出しを引けるようにするため）
+  - なぜ変えたか: 普段の意味のまま読めない表現を、利用者の目に出る場所から無くすため
+  - 古い成果物の読み方: 旧名の見出しは新名と同じものとして読む。進行中のroadmap.mdを続ける時は、見出しを新名へ書き換えてよい
+- 現行のテンプレートと指示の本文には新しい名前だけを書き、旧名は履歴に隔離する。
+
+##### 読む側に置く一文
+
+`steering/SKILL.md`の、既存の成果物を読む箇所（前月summaryの判定、planless resultの検証、roadmapの進み具合の更新）に共通する一文を置く。
+
+> 既存のdesign.md・roadmap.mdで、ここで探す見出しが見つからない時は、作成時のpluginの版が古い可能性がある。`task-design/templates/histories/`で旧名を確かめて読む。
+
+##### 版
+
+破壊的変更なので、pluginのversionを8.3.5から9.0.0へ上げる（宣言値4箇所と`validate-plugin.mjs`の`expectedRelease`）。
+
+##### 別の論点に分けるもの
+
+今後の破壊的変更でも、毎回このように履歴を残すという一般的な決まり（どこに書くか、何を破壊的変更とみなすか）は、この提案とは別の判断なので、次の論点で扱う。
+
+#### 検討記録（論点5・イテレーション1）
+
+利用者は、括弧で補う案aではなく、名前を新しいものへ切り替え、古い成果物はskillの中の履歴で辿れるようにしたいと応答した。その方法で足りるかを確かめた。
+
+既存の決まりとの関係: `docs/documentation_standards/information_structuring/README.md`の「時間軸の3状態で置き場所を分ける」に、役目を終えたナレッジは元々居た場所に`histories`として残し、現行の本文には最新版だけを書いて旧値を混ぜない、という決まりがある。利用者の案はこれと一致するため、名前は`histories`、置き場所はlabelが元々居た`task-design/templates/`とする。ADRやchangelogの決まりは無い。
+
+置き場所が配布物の中である必要: 設計の経緯はこのrepositoryの`.steering/`にも残るが、`.steering/`は配布されるpluginの外にあり、利用先repositoryのagentは読めない。古い成果物を読むのは利用先のagentなので、履歴は配布物の中に置く。
+
+履歴だけで足りない点: steeringは古いdesign.mdの付録の見出しを名前で探す。履歴があっても、steeringが引かなければ見出しは見つからず、前月summaryで`不明`になる。label一つ一つの旧名を読む側に持たせると、利用者が避けたい「引きずる」形になる。そこで、見つからない時に履歴を引く、という一般的な一文だけを置く。これは今後の別の破壊的変更でもそのまま使える。
+
+変えないlabel: 「上位roadmap制約」と「分類保留」は普段の意味のまま読めるため、論点1の問いで言い換え対象に当たらない。「上位roadmap制約」は`extract-handoff-input.mjs`が完全一致で照合するが、変えないので影響しない。
+
+版: `maintenance-plugin-context`の版の決まりで、破壊的変更はMAJORを上げる。現在の8.3.5から9.0.0にする。
+
+[内部検討記録: 論点5・イテレーション1](internal-records/task-design-discussion.md.topic-5.md#iteration-1)
+
+#### 提案1へのフィードバック（論点5）
