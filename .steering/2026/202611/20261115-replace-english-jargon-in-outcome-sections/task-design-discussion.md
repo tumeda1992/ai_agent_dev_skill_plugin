@@ -86,7 +86,7 @@
 
 ## 論点2: 言い換えをどのfileまで行うか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -197,3 +197,25 @@ design.mdとroadmap.mdのテンプレートには、成果物へそのまま出�
 [内部検討記録: 論点2・イテレーション1](internal-records/task-design-discussion.md.topic-2.md#iteration-1)
 
 #### 提案1へのフィードバック（論点2）
+
+**結果:** 合意
+
+> ok
+
+### 決定（論点2）
+
+範囲はfile単位ではなく、**利用者の目に出るか**で引く。task-design全体（outcome-sections、design.md・tasklist.md・roadmap.mdのテンプレート、SKILL.md等）を見渡し、利用者の目に出る表現だけを、論点1の見分ける問いで判定して言い換える。skillの内部だけでやり取りされる語は、内輪で通じればよいため言い換えない。
+
+| 表現の置き場所 | 扱い |
+| --- | --- |
+| outcome-sectionsの見出し・本文・記入欄のlabel | 言い換えの判定にかける |
+| design.md・tasklist.md・roadmap.mdのテンプレートの見出し・表のlabel | 言い換えの判定にかける |
+| テンプレートの記入guide（HTML comment） | 言い換えの判定にかける。成果物へは直接出ないが、agentがその語を成果物へ持ち込むため、表出の入口として扱う |
+| SKILL.md・tasklist-design.md・roadmap-design.md等、agentへの指示の文 | 言い換えない |
+| 言い換えたlabelを名前で読むskill・script・validator | labelの文字列だけを追随させ、同じcommitに含める。周りの文は言い換えない |
+
+design.mdとroadmap.mdのテンプレートには、成果物へそのまま出て論点1の型に当たる見出し・labelがある（上位roadmap制約、execution plan対象、task-design内の対象成果物反映待ち、分類保留、構造field、運用field、親DoD coverage、Dependency DAG等）。そのため、outcome-sectionsだけを直す提案0のaとは結果が異なる。各語を実際に言い換えるか、何へ言い換えるかは、言い換え先の論点で一つずつ判定する。
+
+範囲に入れないものは次の二つである。agentがchatで使う語は、出どころがSKILL.md等の内部の文であり、範囲に入れると内部の文を全部言い換えることになるため、再発防止の論点で利用者へ向けて書く時の基準として扱う。task-design以外のskillが作る成果物は、今回のissueの範囲外であり、再発防止の基準ができた後にその基準で扱う。
+
+別issueは作らない。利用者の目に出るものは今回の範囲に入り、出ないものは言い換えの対象から外れるため、切り出すものが残らない。

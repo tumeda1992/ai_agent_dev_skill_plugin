@@ -1,4 +1,4 @@
-# Design: outcome sectionのテンプレートから、解釈が要る耳馴染みのない表現をなくす
+# Design: task-designのテンプレートから、利用者の目に出る、解釈が要る耳馴染みのない表現をなくす
 
 ## 元の依頼内容
 
@@ -21,9 +21,8 @@ issue #5「ルー語を改善する（改善 in クラウドセッション）�
 
 `task-design`の`templates/outcome-sections/`は、普段の会話で聞かない表現（precedence、全量保存宣言等）や、聞き慣れた語にここだけの意味を載せた表現（owner、contract、「所有する」等）で書かれており、読者が訳し直さないと読めない。
 読者は、テンプレートを読んでdesign.mdを書くagentと、出来上がったdesign.mdを読む利用者である。agentがその表現をdesign.mdへ持ち込むため、design.mdの読み手にも同じ負担が移る。
-終了時には、outcome sectionの見出し、本文、記入guide、記入欄のlabelが、普段の意味のまま読んで正しく受け取れる表現で書かれ、同じ書き方が再び増えないための判断基準が置かれている。
-
-TBD: 対象範囲（outcome-sectionsだけか、参照元・plugin全体まで含むか）は「対象範囲」の論点で決める。
+同じ型の表現は、design.md・roadmap.mdのテンプレートの見出しや表のlabelにもあり、成果物へそのまま写る。
+終了時には、task-designのテンプレートのうち利用者の目に出る表現（見出し、本文、記入欄のlabel）と、agentがその語を成果物へ持ち込む入口になる記入guideが、普段の意味のまま読んで正しく受け取れる表現で書かれ、同じ書き方が再び増えないための判断基準が置かれている。agentへの指示の文など、skillの内部だけでやり取りされる語は内輪で通じればよいため、言い換えない。
 
 ---
 
@@ -35,8 +34,9 @@ TBD: 対象範囲（outcome-sectionsだけか、参照元・plugin全体まで�
 
 | file | 主な読者 | 読後または利用後にできること |
 | --- | --- | --- |
-| `plugins/tumeda-dev/skills/task-design/templates/outcome-sections/*.md`（14 file） | design.mdを書くagent、design.mdを読む利用者 | 英語の概念語の意味を推測せずに、sectionを選び、見出しと記入欄を埋め、出来上がったdesign.mdを読める |
-| TBD: 参照元（`task-design/SKILL.md`、`templates/design.md`等） | TBD | TBD: 対象範囲の論点で決める |
+| `plugins/tumeda-dev/skills/task-design/templates/outcome-sections/*.md`（14 file） | design.mdを書くagent、design.mdを読む利用者 | 表現を訳し直さずに、sectionを選び、見出しと記入欄を埋め、出来上がったdesign.mdを読める |
+| `plugins/tumeda-dev/skills/task-design/templates/design.md`、`tasklist.md`、`roadmap.md` | 成果物を書くagent、design.md・tasklist.md・roadmap.mdを読む利用者 | 成果物の見出しと表のlabelを、task-designの内部の区分を知らなくても読める |
+| 言い換えたlabelを名前で読むskill・script・validator（TBD: 言い換え先が決まってから列挙する） | 各skillを実行するagent、検証を走らせる保守者 | 言い換え後のlabelで、これまでどおり成果物を検証・抽出できる |
 
 **完成後の内容と構造:**
 
@@ -45,7 +45,16 @@ TBD: 用語の対応（各表現の言い換え先）が決まってから、各
 現時点で確定している構造上の前提:
 
 - file名（`caller-contracts.md`、`contract-preservation.md`等）は変えない。issueが「ファイル名はそれでいい」と明示している。
-- 見出し、本文、記入guide（HTML comment内）、記入欄のlabelの全てを、下の「見分ける問い」で見直す。記入guideはdesign.mdへ写らないが、design.mdを書くagentがその語をdesign.mdへ持ち込むため、対象から外さない。
+- 範囲は、利用者の目に出るかで引く。
+
+  | 表現の置き場所 | 扱い |
+  | --- | --- |
+  | outcome-sectionsの見出し・本文・記入欄のlabel | 「見分ける問い」で判定し、言い換える |
+  | design.md・tasklist.md・roadmap.mdのテンプレートの見出し・表のlabel | 「見分ける問い」で判定し、言い換える |
+  | テンプレートの記入guide（HTML comment） | 「見分ける問い」で判定し、言い換える。成果物へは直接出ないが、agentがその語を成果物へ持ち込むため、表出の入口として扱う |
+  | SKILL.md・tasklist-design.md・roadmap-design.md等、agentへの指示の文 | 言い換えない |
+  | 言い換えたlabelを名前で読むskill・script・validator | labelの文字列だけを追随させる。周りの文は言い換えない |
+- 言い換えたlabelと、それを名前で読む側の追随は、同じcommitに含める。片方だけが変わった状態を作らない。
 
 TBD: `caller-contracts.md`の見出し。issueの候補は「xxの呼ばれ方」「xxの呼び元からの呼び出し方」。contractという語をどう分解するかは用語の対応の論点で決める。
 
@@ -72,10 +81,10 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 
 ### MUST（必達）
 
-- outcome sectionの見出し、本文、記入guide、記入欄のlabelに、「見分ける問い」で言い換え対象と判定される表現を残さない。
+- 範囲に入る表現（outcome-sectionsの見出し・本文・記入欄のlabel・記入guide、design.md・tasklist.md・roadmap.mdのテンプレートの見出し・表のlabel・記入guide）に、「見分ける問い」で言い換え対象と判定される表現を残さない。
 - file名は変えない。
 - 既存の記入guideが持つ判断能力（なぜ必要か、NG、記述例、MUST、判断基準）を、言い換えで落とさない。
-- TBD: 対象範囲の論点の結果を反映する。
+- 言い換えたlabelを名前で読むskill・script・validatorを、同じcommitで追随させる。
 
 ### SHOULD（できれば）
 
@@ -87,7 +96,9 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 
 ### 非目標
 
-- TBD: 対象範囲の論点で決める。
+- SKILL.md・tasklist-design.md・roadmap-design.md等、agentへの指示の文の言い換え。skillの内部だけでやり取りされる語は、内輪で通じればよい。言い換えたlabelを名前で読む箇所の文字列の追随だけは行う。
+- agentがchatで使う語の言い換え。出どころは指示の文であり、範囲に入れると指示の文を全部言い換えることになる。利用者へ向けて書く時の基準として、再発防止の側で扱う。
+- task-design以外のskill（facilitate-discussion等）が作る成果物の言い換え。今回のissueはtask-designの範囲である。再発防止の基準ができた後、必要になった時にその基準で扱う。
 
 ### 受け入れ基準
 
@@ -101,7 +112,7 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 | リスク | 対策 |
 | --- | --- |
 | 言い換えで、元の表現が担っていた区別（例: callerとconsumer、ownerとwriter）が潰れる | TBD: 用語対応表の論点で、区別が要る語の組を先に洗い出す |
-| outcome-sectionsだけ言い換えると、同じ概念をSKILL.mdや他skillが元の表現で呼び、語が二系統になる | TBD: 対象範囲の論点で扱う |
+| テンプレートと、agentへの指示の文で、同じ概念の呼び方が二系統になる | 指示の文は内輪の語として残すと合意済み。成果物へ出るlabelは、名前で読む側の文字列を同じcommitで追随させ、取り決めの食い違いは作らない |
 
 ---
 
@@ -140,6 +151,6 @@ TBD: 「見分ける問い」を文書として置くか、置くならどこか
 
 | 変更候補 | 保留理由 | 分類を確定するdecision |
 | --- | --- | --- |
-| outcome-sections 14 fileの言い換え | 言い換え先と範囲が未決 | 対象範囲、用語の対応 |
-| 参照元（SKILL.md等）の言い換え | 対象範囲が未決 | 対象範囲 |
+| outcome-sections 14 fileの言い換え | 言い換え先が未決 | 用語の対応 |
+| design.md・tasklist.md・roadmap.mdのテンプレートの言い換えと、labelを名前で読む側の追随 | 言い換え先が未決 | 用語の対応 |
 | 再発防止の判断基準の追加 | 置くかどうか、置き場所が未決 | 再発防止 |
