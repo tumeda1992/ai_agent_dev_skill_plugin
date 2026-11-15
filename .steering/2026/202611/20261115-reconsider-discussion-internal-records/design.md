@@ -1,0 +1,142 @@
+# Design: facilitate-discussionの内部検討記録と自動okを、検討記録の質へ寄せて見直す
+
+## 元の依頼内容
+
+利用者の指示:
+
+> steeringスキルで https://github.com/tumeda1992/ai_agent_dev_skill_plugin/issues/10 を対応したい
+
+issue #10 の本文:
+
+> タイトル: faciliate-disscussionのinternalな記録と自動ok、claudeには不要かも。
+>
+> claudeの記録と比較して不要か判断してほしい。
+>
+> codexのsteering。
+> internalが必要か判断してほしいやつ
+> https://github.com/tumeda1992/grow-product-ideas/pull/17/changes
+>
+> 論点41くらいまでClaudeがやって、それ以降はCodexがやったやつ
+>
+> codexは自分で考える時間が長いから、internalなログが長くなりがちだけどClaudeは不要そう。
+> internalな記録を作った理由は、「提案背景」がその場の提案だけの背景になってしまって、
+> さらにCodexで長考した後は論理が飛躍したかのように見えてしまったから、間を埋めたかった。
+> だけど、それで問題になるのはCodexだけで、
+> CodexとClaudeで共通するのはちゃんとした検討記録を書いてもらうこと。それはサマリじゃなくて、ちゃんと検討を重ねた記録がdiscussionに載り、その果てに今の提案に活きていることが残せること。
+>
+> だから、今みたいな検討記録にinternalなログのリンクだけ載せるのではなく、
+> internalな記録ログはgit管理対象外にして、Codex特有の副産物のように扱って、検討記録は検討記録単体でイテレーション間の時系列をちゃんとサマリすぎないで残す扱いにすればいいかなって思った
+
+---
+
+## TL;DR
+
+利用者がCodexとClaudeに共通して求めているのは、検討を重ねた過程がdiscussionに載り、その果てに今の提案があることを辿れる記録である（issue #10）。
+内部検討記録は、Codexの長考の後に提案背景が飛躍して見えた間を埋めるために作られたが、現行の`facilitate-discussion`はdiscussion側の検討記録を「判断に必要な因果へ再構成した背景＋内部記録へのlink」にしており、回の間の変遷を内部記録へ押し出している。
+今回は、discussionの検討記録をそれ単体で回の間の変遷が追える記録にし、内部検討記録をgit管理外の副産物へ下げる。
+TBD: 「自動ok」が指すものと、それをClaudeに対してどう扱うか。
+
+---
+
+## 完成後の姿
+
+### skillの役割と方針
+
+#### facilitate-discussion
+
+TBD: 終了時の`facilitate-discussion`が、議論記録の何を正しい／誤りと判断するか。少なくとも次の三点を決める。
+
+- discussionの検討記録が、それ単体で何を満たせば「検討を重ねた記録」と言えるか（issueの「イテレーション間の時系列をちゃんとサマリすぎないで残す」の具体化）。
+- 内部検討記録を、廃止するか、git管理外の任意の副産物にするか、Codexで動く時だけ作るか。
+- 「自動ok」が指す仕組みを残すか、変えるか、やめるか。
+
+### 作業の流れと担当
+
+TBD: 内部検討記録の位置づけが決まった後、提示準備の内部loop（実施前入力の保存→実施→結果の保存→再判定）、中断からの復帰、記録漏れの回復、読取helperの起点照合、task-designのhandoff catch-upが、何を正とする記録として使うかを決める。
+
+### 文書以外に作るfileの中身
+
+TBD: 上の二sectionから導く。変更候補は付録「分類保留」に列挙した。
+
+---
+
+## 要件（Requirements）
+
+### MUST（必達）
+
+- discussionの検討記録だけで、回をまたいだ検討の変遷と、それが今の提案へどう活きたかを辿れる。内部検討記録へのlinkだけで説明を省かない（issue #10「検討記録は検討記録単体でイテレーション間の時系列をちゃんとサマリすぎないで残す」）。
+- 内部検討記録をgit管理の対象にしない（issue #10「internalな記録ログはgit管理対象外にして」）。
+- TBD: 自動okについての要件。
+
+### SHOULD（できれば）
+
+- TBD
+
+### MAY（あれば嬉しい）
+
+- TBD
+
+### 非目標
+
+- TBD
+
+### 受け入れ基準
+
+- TBD
+
+---
+
+## リスクと対策
+
+| リスク | 対策 |
+| --- | --- |
+| 内部検討記録を前提に組まれた中断復帰・回復・読取helper・handoffの契約が、片側だけ変わって矛盾する | TBD: 影響範囲を付録へ全件列挙し、各契約の正とする記録を決めてから変える |
+| 検討記録へ回の間の変遷を書くことで、論点19で起きた「discussionが長くなり、判断対象を読むのに読み飛ばす量が増える」問題が戻る | TBD |
+
+---
+
+## テスト方針
+
+- `node scripts/verification/validate-plugin.mjs`、`node scripts/verification/test-task-design-handoff.mjs`、`node --test plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs` が通る。
+- TBD: 変更した契約を検査するassertionの追加・撤去。
+
+---
+
+## （付録）前提とする既存仕様
+
+- `plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md`「二層の保存先と読取範囲を解決する」: 内部検討記録は論点ごとに `internal-records/{D}.topic-{N}.md` へ置く。discussionは判断context・応答・decisionの正本、内部検討記録はprocess evidence・中断復帰の正本とする（「workflow全体で守る不変条件」）。
+- `iteration.md`「内部検討を記録する」: 新しい検討blockは目的別format（`templates/consideration-records/`の六用途）を選び、実施前入力を内部logへ保存してから実施し、結果を保存してから次actionへ進む。
+- `iteration.md`「保存した回を提示可能にする」: discussionの検討記録は「時系列の短縮版ではなく、なぜこの問いになり、どの条件が必要で、どの事実・反証が案を規定し、何を代償として残すかを説明する」再構成とし、内部logへの回単位のlinkを添える。
+- `iteration.md`「保存境界から中断処理へ戻る」、`record-recovery.md`、`read-discussion.md`（`--log`による起点照合）、`scripts/inspect-discussion.mjs`、`task-design-work-handoff-contracts.md`、`task-design/SKILL.md`: 内部検討記録を読取・照合・復帰の対象に含める。
+- `derived-change.md`: 既決事項からAIが一意に導出した変更と、利用者が明示委託した範囲の選択は、利用者の採否を問わず「変更内容」を報告し、同じ作業の次の実応答を確認してから反映する。報告は追加の承認を求める手続ではない。
+- 導入の経緯: 内部検討記録は `.steering/2026/202609/20260921-restructure-facilitate-discussion/` の論点6（調査・検討の内部loopと提案背景への随時記録）と論点19（discussionの行数が増え、判断対象を見るのに読み飛ばす量が増えたため、経過を別fileへ分ける）で導入された。導出変更は `.steering/2026/202610/20261018-escalate-pending-plugin-improvements/` で「質問を減らしながら、根拠・変更前後・反映状況を追える記録を残す」ために導入された。
+- `.gitignore`（root）と `.steering/.gitignore` は内部検討記録を除外していない。このrepositoryの `.steering/` 配下には、Claudeで作業した回の内部検討記録もcommitされている。
+
+---
+
+## （付録）変更の実行区分
+
+### 設計中に反映を終えた変更
+
+なし
+
+### 設計中に反映する、他の判断を待っている変更
+
+なし
+
+### tasklist・roadmapに載せて実行する変更
+
+TBD
+
+### 分類保留（設計中のみ）
+
+| 変更候補 | 保留理由 | 分類を決める判断 |
+| --- | --- | --- |
+| `plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md`、`iteration.md`、`record-recovery.md`、`read-discussion.md`、`derived-change.md` | 内容が内部検討記録の位置づけと自動okの扱いで変わる | 完成後の方針のTBD |
+| `plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md`、`templates/discussion_entry.md`、`templates/consideration-records/` | 目的別formatを内部記録側に残すか、discussionの検討記録側へ移すかで変わる | 完成後の方針のTBD |
+| `plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs`、`inspect-discussion.test.mjs` | `--log`の起点照合を残すかで変わる | 作業の流れのTBD |
+| `plugins/tumeda-dev/skills/task-design/SKILL.md`、`plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md` | 内部検討記録を読む契約を残すかで変わる | 作業の流れのTBD |
+| git管理外にする設定（root `.gitignore`、`.steering/.gitignore`、利用先repositoryへの案内） | 何で除外するかが未決 | 完成後の方針のTBD |
+| このrepositoryの `.steering/` 配下でcommit済みの内部検討記録 | 残すか消すかが未決 | 完成後の方針のTBD |
+| `scripts/verification/validate-plugin.mjs`、`scripts/verification/test-task-design-handoff.mjs` | 検査する契約の文が上の変更で決まる | 上の全TBD |
+| 配布version（四つの宣言値と`expectedRelease`） | MAJOR／MINOR／PATCHが変更内容で決まる | 上の全TBD |
