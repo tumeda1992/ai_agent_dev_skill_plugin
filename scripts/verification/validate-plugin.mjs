@@ -1236,6 +1236,7 @@ requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: �
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 「後からでもできる」は、延期の間に作られるものを数えてから使う");
 requireText(thinkStandardsPath("starting_to_think.md"), "## 補助: 到達点は「間違いが無いこと」ではなく「機能すること」に置き、今の視座で届く限界を目指す");
 requireText(thinkStandardsPath("questioning_existing.md"), "必然性があり配置も正しいが中身の一部が誤っている（直す）");
+requireText(taskDesignSkill, "この中間の確認は、実行して初めて得られる状態を見るものか。それとも案への合意を取るものか");
 
 // 作業の範囲（目的の内外、目的の外の不備を拾うか切り出すか）の判定の契約
 const workScopeStandard = `${pluginRoot}/docs/development_standards/development_flow/work_scope.md`;

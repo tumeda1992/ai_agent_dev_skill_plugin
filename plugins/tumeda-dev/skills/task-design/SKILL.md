@@ -711,6 +711,10 @@ execution plan対象へ載せるのは次のいずれかに該当する作業だ
 
 file数、調査量、discussion回数、実行可能な言語で書かれていることだけを掲載理由にしない。skill、prompt、documentation、template、規範等のcontentと、それらを検査・生成・整形するrepository validator、generator、formatter等の補助tool codeは、今回の本番成果物でない限り第一条件に含めない。合意済み内容から一意に変更でき、他の未決事項へ依存せず、一つの連続した反映・validationで完了できるならtask-design内で扱う。補助tool自体が今回利用者へ届ける本番productなら、名前やpathでは除外せず第一条件へ戻す。
 
+- やってしまいがちな行動: 利用者に確かめる点があることを、条件2の中間checkpointと読み替える。例: domainのmoduleごとに資料とcodeから案を作り、利用者に確かめてからREADMEを書く作業を、moduleごとのtaskに分けてtasklistへ載せた
+- それをやると何が起きるか: task-design内の議論と適用で済む文書の作業に、tasklistの合意と実行のgateが重なる。案への確認は合意すればその場で書けるため、tasklistに載せても確認の回数は減らず、往復だけが増える
+- 正しい判断のための問い: 「この中間の確認は、実行して初めて得られる状態を見るものか。それとも案への合意を取るものか」。後者はtask-designのdiscussionで扱う
+
 test codeは単独の自動掲載条件ではなく、本番application codingの正しさを確認するacceptanceとして扱う。testだけの変更や補助toolのself-testは、段階実行またはユーザー指定に該当するかで判定する。調査と技術検証実装はdesign phaseの不確実性解消手段であり、execution plan対象へ載せない。対象一覧は`対象`、`掲載理由`、`参照するdesign section`だけを持つ索引であり、対象ごとの完成後の姿や実行手順を複製しない。
 
 対象がzeroなら`tasklist.md`と`roadmap.md`を作らずStep 6へ進む。対象が一件以上ある場合だけ、以下のleaf / composite判定を行う。
