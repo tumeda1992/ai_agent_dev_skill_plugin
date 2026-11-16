@@ -41,7 +41,7 @@ attemptは`<working_dir>/task-design-catch-up/attempt-NNN.md`へ一回のcatch-u
 digestが変化していれば、独立再構成を捨てず最新正本との差分解消へ戻る。
 全対象のcoverage、四分類、未分類差分zero、未解消疑義zero、digest一致、exactな再開topicと次の一問がそろったときだけcatch-up完了とする。
 
-discussionから必要な判断過程を確認する場合は、facilitate-discussionの読取規則で、対象論点の内部検討記録を全文読み、参照した根拠と後続訂正を辿る。
+discussionから必要な検討経緯と現在の判断を確認する。内部logが存在して実際の比較根拠として使う場合だけ、facilitate-discussionの読取規則でその全文と後続訂正を読む。内部logがないことだけでは引継ぎを止めず、必要な証拠の不足は未確認として明示する。
 無関係な内部logを一律に読むことは要求しない。内部logから論点番号・現在decisionを逆算せず、discussionを判断とdecisionの正本として扱う。
 内部logを比較根拠として読んだ場合は、そのexactなfileをcanonical file digestの対象へ加える。読取集合へ追加したfileも、照合時と完了直前のdigest一致を確認する。
 

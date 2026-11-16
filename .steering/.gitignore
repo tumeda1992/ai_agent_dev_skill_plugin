@@ -1,1 +1,3 @@
 **/artifacts/
+# 議論の内部logは任意のローカル作業控えとして扱う。
+**/internal-records/
