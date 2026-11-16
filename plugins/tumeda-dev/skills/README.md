@@ -35,7 +35,7 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 - **tasklist-executor** — task-designが生成した`tasklist.md`を上から順に実装・テスト・更新するsingle execution writer。roadmapは更新せず、完了resultをcallerへ返す。
   - **test-runner** — テスト実行と失敗分析。executor が共通契約で child 委譲する。
   - **visual-inspector** — Playwright で UI をスクリーンショット目視確認。executor が委譲する（steering も現状のファクト確認に使う）。
-- **doc-enricher** — コードリーディング/タスク遂行後、永続性が高い知識をディレクトリ README に提案する（デフォルトは提案のみ）。
+- **doc-enricher** — 作業で払った手間（探した・誤った・決めた）のうち、次の作業者が再び払うものを見つけ、払わずに済むようにする文書の変更（追加・導線・失敗例・訂正）と置き場所を提案する（デフォルトは提案のみ）。
 - **plan-commits** — 実差分を意味のある仕事へ分け、コミットメッセージ・依存・revert時の効果を計画する。
 - **share-work-in-progress** — 作業中branchの内容を、依頼者がGitHub上で読める状態にする。動作確認の完了を待たない点でtasklist-executorのcommit・push・PR契約とは前提が逆。
 - **escalate-plugin-skill-fix** — 利用先repositoryで生じたこのpluginの成果物への修正提案を、

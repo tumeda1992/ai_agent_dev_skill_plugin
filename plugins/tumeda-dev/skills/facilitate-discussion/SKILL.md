@@ -286,7 +286,7 @@ parent自身にも分解内容の実質的なdecisionを残す。
 | 原因owner | 判定 | discussionで先に合意するもの |
 | --- | --- | --- |
 | 成果物固有 | 共有知識とprocessは足りており、今回の成果物だけが合意内容から外れている | 具体ケースの修正 |
-| repository知識 | codeだけでは分からない永続的な設計意図、制約、探索導線がREADMEまたは既存docsに不足している | `doc-enricher`を提案modeで起動し、具体ケースを失敗例として一般化したdocs修正 |
+| repository知識 | codeだけでは分からない永続的な設計意図、制約、探索導線がREADMEまたは既存docsに不足している | `doc-enricher`を提案modeで起動し、具体ケースが当てはまる範囲を確かめたdocs修正 |
 | skill | repositoryを問わず再発する思考、設計、discussion、実行processの問いまたは順序がskillに不足している | 具体ケースを必要性の実例とし、別domainでも機能するか検証した対応skillの修正 |
 
 repository知識またはskillの不足では、具体ケース固有の修正を先に合意しない。原因ownerの一般則を主decisionとして合意した後、元の具体ケースをその適用例として必ず再評価する。一般則だけで変更が一意に決まらなければ、残る判断を具体ケース側のdecisionとしてdiscussionへ保存する。

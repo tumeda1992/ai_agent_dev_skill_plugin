@@ -91,7 +91,7 @@
 ## Documentation reviewと実装後振り返り
 
 - [ ] codeを読んだ時や実装で、長く残す価値のある知識を得た場合、その場でdoc-enricherを提案modeで適用する
-  - [ ] 提案がある場合だけユーザー承認後に既存READMEまたは既存docsへ反映する
+  - [ ] 提案がある場合だけユーザー承認後に、承認された文書へ反映する
   - [ ] 提案・承認判断を別taskへ先送りしない
 - [ ] 実装、review、確認からfeedbackまたは実装とのずれが生じた場合、feedbackを直接受け取ったskillがpluginの`facilitate-discussion`を`implementation_review.md`へ適用する。適用する担当を`steering`に固定しない
   - [ ] `discussion_directory=<working_dir>`と`discussion_file_name=implementation_review.md`を渡す
