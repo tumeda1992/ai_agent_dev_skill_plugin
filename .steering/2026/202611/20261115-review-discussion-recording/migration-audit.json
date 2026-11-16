@@ -1,0 +1,654 @@
+{
+  "baseline": "3f9abfe685e945ac110062821002caf49b5f340b",
+  "direction": "同じskill内の正本をdiscussionへ変更",
+  "agreement": "論点3・提案0へのok",
+  "structures": [
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "range": [
+        1,
+        392
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "baseline_sha256": "86c9a7e2cec8b5eecca3439d9a9d010d5a0a4cb9655faf24ae8ec71a2ff91fcb",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "range": [
+        1,
+        195
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "baseline_sha256": "f9276b450119b4e82240f2708c843fca55ab130367037b21724b55fbb63fc818",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/read-discussion.md",
+      "range": [
+        1,
+        76
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/read-discussion.md",
+      "baseline_sha256": "0d76dfe33f56614df3997b6c8f49f5f7a1ce90a5d61fd43fe7a85404523a521f",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/record-recovery.md",
+      "range": [
+        1,
+        56
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/record-recovery.md",
+      "baseline_sha256": "c1a0f24677801ec53bf65c8ce317593243cdd938149d9e5983cb44c0eac8ca10",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/derived-change.md",
+      "range": [
+        1,
+        50
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/derived-change.md",
+      "baseline_sha256": "180e53f1ab448d333893362efbf0d842e53d39f9b046a1527765b374f9e4146b",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/split-discussion.md",
+      "range": [
+        1,
+        73
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/split-discussion.md",
+      "baseline_sha256": "cf3a9730e017365fc627ee868ba627a33a8d48e0b0303de528a8af194d739502",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md",
+      "range": [
+        1,
+        134
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md",
+      "baseline_sha256": "850b41f94f34392a6bf6e00176768e0ac895bfcb7376d07c7b33410700e308b3",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+      "range": [
+        1,
+        45
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+      "baseline_sha256": "ad01ed1fe5a4291b943c680935dc60e4882d962db6724fda940b0c7523df7fb1",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/alignment.md",
+      "range": [
+        1,
+        29
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/alignment.md",
+      "baseline_sha256": "908c5335de0f3d2768ea85f4b2f774ecca076af5abc5971aedcaabb2b512c10b",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md",
+      "range": [
+        1,
+        35
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md",
+      "baseline_sha256": "d1057b73c34d3bff7c285f75171aed3558d6a517487c2cfe3cc7fbeb74eed0d2",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+      "range": [
+        1,
+        926
+      ],
+      "destination": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+      "baseline_sha256": "31d3258debd9e775346ec63a21d137c7bb0c68b07b5382d8b6e538ce599a73e5",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md",
+      "range": [
+        1,
+        56
+      ],
+      "destination": "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md",
+      "baseline_sha256": "5fc36d37064c34c7fa4e20f2252d011abd2190503ede8bdfb4bf6f44e35a5925",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": ".steering/.gitignore",
+      "range": [
+        1,
+        1
+      ],
+      "destination": ".steering/.gitignore",
+      "baseline_sha256": "8e95d82cf7f24109451a103bcb52dcaa1d1f1fd90425fd2b83aec006876e55ff",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/steering/.gitignore.sample",
+      "range": [
+        1,
+        6
+      ],
+      "destination": "plugins/tumeda-dev/skills/steering/.gitignore.sample",
+      "baseline_sha256": "690de4eaa4d05278862ce6731786a6951df50324e0966c50d6455046faa470bd",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/.codex-plugin/plugin.json",
+      "range": [
+        1,
+        6
+      ],
+      "destination": "plugins/tumeda-dev/.codex-plugin/plugin.json",
+      "baseline_sha256": "b627e99e36ac00583bd1d1651644808296055a91c30c6b8307aef73326623007",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/.claude-plugin/plugin.json",
+      "range": [
+        1,
+        8
+      ],
+      "destination": "plugins/tumeda-dev/.claude-plugin/plugin.json",
+      "baseline_sha256": "09d130e051d8799642cade764ea79aeb6e198ed9d125c8eff60a75cc3d1e87a9",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": ".claude-plugin/marketplace.json",
+      "range": [
+        1,
+        21
+      ],
+      "destination": ".claude-plugin/marketplace.json",
+      "baseline_sha256": "689ecb7a4f68d098762aea396af0360d40fafa1fca0f34d9ddccdb826ca58147",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "scripts/verification/validate-plugin.mjs",
+      "range": [
+        1,
+        1377
+      ],
+      "destination": "scripts/verification/validate-plugin.mjs",
+      "baseline_sha256": "9e8b73819f515cb96fe446ca4f860e9d439f372b0dc22ccadf888f91084e97df",
+      "classification": "CHANGE",
+      "unchanged_ranges": "差分外は同一内容を保持"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs",
+      "range": [
+        1,
+        185
+      ],
+      "destination": "plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs",
+      "baseline_sha256": "2e74ab93368dd495913b09278d719b0531efada63772fe51f335aee5aa8fd722",
+      "classification": "ADD",
+      "unchanged_ranges": "既存testを保持し、新しい2testを追加"
+    }
+  ],
+  "contracts": [
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "original": "明示された議論を一つのdecision単位で進行し、判断可能な提案・認識合わせ、応答、決定をdiscussion fileへ保存する。\n内部の調査・訂正・再判定・検証は論点ごとの内部検討記録へ保存する。\ndiscussionだけで各回の問いを理解して判断・応答でき、内部検討記録だけでも検討過程と限界を追える状態を作る。\nlinkは詳細証跡への導線であり、説明を省く理由にしない。\n\n成果は次の三つである。\n\n- 更新されたdiscussion file\n- 同じownerが管理する論点ごとの内部検討記録\n- chat上で合意された決定とconsumerへの具体的なhandoff\n\n",
+      "replacement": "明示された議論を一つのdecision単位で進行し、検討経緯、判断可能な提案・認識合わせ、応答、決定をdiscussion fileへ保存する。\ndiscussionだけで、前回の応答から何を確かめ、比較・訂正を経てなぜ今回の案へ至ったかを追い、判断・応答・再開できる状態を作る。\n最終案に都合のよい背景だけへ畳まず、成立しなかった案と理由、未確認と限界も本文に残す。\n\n必須の成果は更新されたdiscussion fileと、chat上で合意された決定・consumerへの具体的なhandoffである。\n内部検討記録は、調査の作業控えや中断時の補助が必要な場合だけ作るローカルの記録とする。\n内部logをGit管理対象や必須成果物にせず、存在・読取・linkをdiscussionの完成や再開の条件にしない。\n提案や決定の理解に必要な事実・比較結果・訂正が内部logだけにある場合は、提示前にdiscussionへ反映する。\n\n",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C001"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "original": "- discussion fileを判断context・応答・decisionの正本、内部検討記録をprocess evidence・中断復帰の正本とする。書込み直前に対象file全体を再読込し、二層とも同じownerがsingle writerで更新する。",
+      "replacement": "- discussion fileを検討経緯・判断context・応答・decisionの正本とする。内部検討記録は任意のローカル作業控えであり、別の正本にしない。書込み直前に対象file全体を再読込し、内部logを使う場合も同じownerがsingle writerで更新する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C002"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "original": "### 二層の保存先と読取範囲を解決する\n\ndiscussionはテーマの判断interface、内部logは一つの論点の過程であり、論点番号・stateを内部logから逆算しない。\n対象論点を選んだ後、既存の接続があればそのlogを継続利用する。新規logだけをdiscussion directory内の `internal-records/{D}.topic-{N}.md` へ置く。\nDは解決済みdiscussion basename全体（拡張子も保持）、Nはdiscussionの実論点番号である。\n例えば `task-design-discussion.md` の論点3なら `internal-records/task-design-discussion.md.topic-3.md` となる。\n必要な内部directoryはこの派生保存先として作成できるが、入力discussion directory自体を推測作成しない。\n\n- 所属の確認\n  - discussionからのlinkとlog先頭のdiscussion・論点表示を照合する。既存logが二つある、所属が違う、名前長等で書けない時は停止する。\n  - 短縮名や別名へ逃げて二つ目の正本を作らず、過去の暫定名を命名統一だけのために移動しない。\n- 必要な読取\n  - [読取](read-discussion.md)に従い全体の現在state、対象範囲file全文と対象log全文を読む。新規logなら未作成を確認する。\n  - 他論点の根拠を使う場合は、そのdiscussionの現在decisionと当該log全文へ広げ、後続訂正と参照を辿る。無関係な全logの毎回読取は要求しない。\n  - 必須fileや根拠を読めなければ確認済みと扱わず、未同期・未確認と停止理由を返す。\n- 位置の識別\n  - discussionから `#iteration-I`、個別根拠は `#iteration-I-record-R` を指す。Rはその回内で1始まりとし、進捗flagではない。\n  - labelにも論点・回・必要ならrecord番号を示す。logからはdiscussionへの相対linkと実論点番号で戻れるようにする。\n  - pathの特殊文字はsegmentごとにpercent-encodeし、実file名を変更しない。anchorとsemantic titleは分離し、曖昧なlegacy見出しslugを推測しない。\n\nlogを書き込む時も全文再読込から論点・回・記録単位の所属と一意性を検査し、新規なら未作成と挿入先を確認する。\n現在の記録単位へ結果を加えることはできるが、次の処理へ進んだ単位の訂正は新しい記録から元を指す。\n検討記録の入力・結果・訂正・discussion背景を書く直前には毎回 [expression_notation.md](../../docs/documentation_standards/expression_notation.md) を全文読む。\n単純な並列は箇条書き、短い補足を持つものはネスト、独立した話題へ育ったものは見出しへ分け、因果を長い散文一塊へ潰さない。\nこの記法指定だけを理由に記録後の追加reviewを新設しない。既存のemit gateは維持する。\n\n",
+      "replacement": "### discussionと任意の作業控えを解決する\n\ndiscussionから論点番号・現在state・検討経緯を読み、内部logから逆算しない。\n内部logがなくても、discussionの同じ論点・回で検討・提示・応答を続ける。\n内部logを作ること自体を工程にせず、長い調査の作業控えなど、実際に必要な場合だけ準備する。\n\n内部logを使う場合の保存先はdiscussion directory内の `internal-records/{D}.topic-{N}.md` とする。\nDは解決済みdiscussion basename全体（拡張子も保持）、Nはdiscussionの実論点番号である。\n例えば `task-design-discussion.md` の論点3なら `internal-records/task-design-discussion.md.topic-3.md` となる。\n必要な内部directoryはこの派生保存先として作成できるが、入力discussion directory自体を推測作成しない。\n内部logはGit管理対象外にする。steeringでは配布sampleと利用先の `.steering/.gitignore` の `**/internal-records/` を使う。\nsteering以外の保存先では、利用先のignoreへdiscussion directory配下の `internal-records/` を追加する。\n既存のtrackedな内部logや過去のdiscussionは一括削除・移動・再要約しない。\n\n- 所属の確認\n  - 内部logを使う時は先頭のdiscussion・論点表示を照合し、既存の対応が一意なら継続する。二つある、所属が違う、名前長等で書けない時はそのlogの更新を停止する。\n  - 短縮名や別名で二つ目の作業控えを作らない。必要な証拠が欠けているかと、任意のlogがないだけかを区別する。\n- 必要な読取\n  - [読取](read-discussion.md)に従い、全体の現在stateと対象範囲file全文を読む。内部logは存在して実際の根拠として使う場合だけ、対象log全文と必要な後続訂正を読む。\n  - 他論点の根拠を使う場合も、そのdiscussionの現在decisionと該当範囲が先である。内部logを使う必要がある場合だけ読取集合へ加え、無関係な全logを毎回読まない。\n  - 旧discussionにlogへのlinkが残っていても、任意のlogがないことだけでは停止しない。提案や決定の理解に必要な証拠が欠ける場合は、不足と判断への影響を示し、確認済みにしない。\n- 位置の識別\n  - 内部logを作る場合は `#iteration-I`、個別記録は `#iteration-I-record-R` を使う。Rはその回内で1始まりとし、進捗flagではない。\n  - logからdiscussionへ相対linkと実論点番号で戻れるようにする。新しいdiscussionへGit管理外logのlinkを必須として置かず、説明をlink先へ送らない。\n  - pathの特殊文字はsegmentごとにpercent-encodeし、実file名を変更しない。anchorとsemantic titleは分離し、曖昧なlegacy見出しslugを推測しない。\n\n内部logを書き込む時も全文再読込から論点・回・記録単位の所属と一意性を検査し、新規なら未作成と挿入先を確認する。\n現在の記録単位へ結果を加えることはできるが、次の処理へ進んだ単位の訂正は新しい記録から元を指す。\n検討記録の入力・結果・訂正・discussion本文を書く直前には毎回 [expression_notation.md](../../docs/documentation_standards/expression_notation.md) を全文読む。\n単純な並列は箇条書き、短い補足を持つものはネスト、独立した話題へ育ったものは見出しへ分け、因果を長い散文一塊へ潰さない。\nこの記法指定だけを理由に記録後の追加reviewを新設しない。既存のemit gateは維持する。\n\n",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C003"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "original": "originの既存logと該当する回へ接続し、目的別formatの入力保存から結果保存までを通す。",
+      "replacement": "originのdiscussionの該当する回へ接続し、目的別formatの入力保存から結果保存までを通す。内部logを使う場合だけ、その作業控えにも接続する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C004"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "original": "状態不明や書込み失敗では二層の実file、tool結果、会話を照合し、盲目的に追記しない。",
+      "replacement": "状態不明や書込み失敗ではdiscussionの実file、存在して使った作業控え、tool結果、会話を照合し、盲目的に追記しない。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C005"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "original": "この処理で新たな調査・判断過程を記録する場合も、内部logの保存形を全文読み、実施前入力→結果保存→discussion背景という境界を使う。単なる既決decisionの反映に不要な内部loopを作らない。",
+      "replacement": "この処理で新たな調査・判断を行う場合も、実施前入力と結果・変更理由をdiscussionの検討記録へ残す。内部logの保存形は作業控えを使う場合だけ読み、既決decisionの機械的反映に不要な内部loopを作らない。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C006"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "original": "discussionと扱った論点の内部logを再読込し、前回保存後に委託scope内で実際に生じた事象・原因・提案・回答・反論・訂正・合意を照合する。\n過程の実証拠はlog、ユーザーが判断する内容・原文応答・decisionはdiscussionへ同期し、二層の所属と根拠linkも確認する。",
+      "replacement": "discussionを再読込し、前回保存後に委託scope内で実際に生じた事象・原因・比較・提案・回答・反論・訂正・合意を照合する。\n内部logを使った場合だけその全文も読み、理解・引継ぎに必要な証拠と検討経緯をdiscussionへ同期する。任意のlogがなくても、本文から判断・応答・decisionと変遷を追えるか確認する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C007"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "全体の現在state、対象範囲file全文と対象論点の内部log全文を読む。",
+      "replacement": "全体の現在stateと対象範囲file全文を読む。内部logは存在して実際の根拠として使う場合だけ全文を読む。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C008"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "[templates/discussion_entry.md](templates/discussion_entry.md) と [templates/internal_record.md](templates/internal_record.md) を全文読む。\n両者は保存形だけを持ち、部品の選択・挿入・省略条件はこの節が所有する。",
+      "replacement": "[templates/discussion_entry.md](templates/discussion_entry.md) を全文読む。内部logを使う場合だけ [templates/internal_record.md](templates/internal_record.md) も全文読む。\nこれらは保存形だけを持ち、部品の選択・挿入・省略条件はこの節が所有する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C009"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "#### 二層の骨子を順に保存する\n\n1. 作成中は調査中とし、discussionへ論点metadataと回の骨子を保存する。未成立の提案、空の認識合わせ、空応答、空決定を作らない。\n2. 内部logへ論点・開始context・同じ回の骨子を準備する。開始contextには対象の問題と語の意味、決める範囲、開始時の既決条件、残る不足を、log単独でも読める内容で示す。\n\n既存論点の途中から二層へ分ける時は、分離開始の回を明記する。\nそれ以前の根拠は旧discussionの論点・回・見出しで参照し、新しい回から固定anchorを使う。\n既存logの過去blockへ一括採番せず、過去本文を移動・改名・再要約しない。\n\n",
+      "replacement": "#### discussionの骨子と、必要な場合の作業控えを準備する\n\n作成中は調査中とし、discussionへ論点metadataと回の骨子を保存する。\n未成立の提案、空の認識合わせ、空応答、空決定を作らない。\n検討に必要な問題・語の意味・決める範囲・既決条件・残る不足を、discussionの同じ回へ残す。\n\n長い調査の作業控え等が必要な場合だけ、内部logへ論点・開始context・同じ回の骨子を準備する。\n内部logを途中から使う時は開始した回を明記し、それ以前の根拠はdiscussionの論点・回・見出しを参照する。\n既存logの過去blockへ一括採番せず、過去本文を移動・改名・再要約しない。\n内部logを準備しない場合も、同じdiscussionの論点・回で次の検討へ進む。\n\n",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C010"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "選んだformatの実施前入力（問い・探索先・方法、判断対象・評価軸、検証claim等）を内部logの同じ回へ保存してから実施する。",
+      "replacement": "選んだformatの実施前入力（問い・探索先・方法、判断対象・評価軸、検証claim等）をdiscussionの同じ回の検討記録へ保存してから実施する。内部logを使う場合は作業控えを利用できるが、提示・引継ぎに必要な説明はdiscussionへ残す。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C011"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "記録単位のanchorと意味ある用途titleを置き、formatの見出し深度はその配下へ合わせる。目的別の読み方を一律の三見出しへ変えない。",
+      "replacement": "意味ある用途titleを置き、formatの見出し深度は記録先へ合わせる。内部logを使う場合だけ記録単位のanchorを加える。目的別の読み方を一律の三見出しへ変えない。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C012"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "内部blockだけ増えても外向きIを増やさない。",
+      "replacement": "検討のblockだけ増えても外向きIを増やさない。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C013"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "調査結果と読解の根拠を内部logへ残したうえで、回答に必要な根拠をdiscussionの検討記録へ再構成する。",
+      "replacement": "調査結果と読解の根拠をdiscussionの検討記録へ残す。内部logを使う場合も、回答に必要な根拠と見方が変わった経緯を本文へ反映する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C014"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "内部logの結果を保存した後、discussionの「検討記録」を今回の判断に必要な因果へ再構成する。\n時系列の短縮版ではなく、なぜこの問いになり、どの条件が必要で、どの事実・反証が案を規定し、何を代償として残すかを説明する。\n案または質問と背景を一緒に読めば、内部logを開かずに理解・判断・応答できる十分な情報量を持たせる。\n重要な反証・未確認・適用限界をlink先へ追い出さない。内部logへの回単位のlinkを添え、必要なら個別根拠も指す。\n新しい背景への再構成は過去提示を書き換える許可ではない。内部logの完了済み経過も移動・再要約しない。\n\n",
+      "replacement": "discussionの「検討記録」には、前回の応答から今回の提案までに行った調査・比較・検証と、その結果の訂正・絞込みを、起きた順序と理由が分かる本文で残す。\n最終案に都合のよい背景だけに整理せず、成立しなかった案とその理由、何が次の確認・提案を変えたかを残す。\n確認した事実、そこからの判断、未確認の範囲を区別する。実施していない検討や合意を補わない。\n案または質問と検討記録を一緒に読めば、内部logを開かずに理解・判断・応答でき、同じdiscussionから再開できる十分な情報量を持たせる。\n重要な反証・未確認・適用限界をlink先へ追い出さず、Git管理外の内部logへのlinkで説明を代替しない。\n過去の提案・応答はその場所に保ち、今回増えた検討と変化を記録する。内部logを使った場合も、完了済みの経過を移動・再要約しない。\n長い比較は見出しや表で区切り、短い訂正は一段落で示してよい。固定の欄や文字数を埋めることを目的にしない。\n\n例えば再送の宛先を議論する場合、「最新設定にする」と結論だけを残さず、初回の送信内容との対応を調べた結果、何を固定し何を更新するかを分けた経緯を記録する。\n単純な表記訂正なら、その箇所と意味が変わらない根拠で足りる。架空の比較や確認で同じ分量に揃えない。\n\n",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C015"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "内部logは目的別formatの完成時の読み順へ仕上げる。",
+      "replacement": "内部logを使った場合は、目的別formatの完成時の読み順へ仕上げる。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C016"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "保存後、discussionだけから判断・応答できるか、内部logだけから開始context・問い・方法・結果・訂正・限界を追えるかをそれぞれ確認する。\n不足があれば提示前に該当層を補う。",
+      "replacement": "保存後、discussionだけから検討経緯・判断・応答・再開位置を追えるか確認する。内部logを使った場合は、その作業控えと本文の事実・訂正・限界も照合する。\n不足があれば提示前にdiscussionの本文を補う。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C017"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "二層の実本文・tool結果・実際のchatから未完部分を特定する。",
+      "replacement": "discussionの実本文・tool結果・実際のchatと、使った場合の作業控えから未完部分を特定する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C018"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "| discussionの作成中骨子だけ | 未作成を確認し内部logを準備する。新しい回を増やさない |",
+      "replacement": "| discussionの作成中骨子だけ | 同じ回の検討を続ける。内部logは必要な場合だけ未作成を確認して準備する。新しい回を増やさない |",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C019"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "| 内部logの実施前入力 | 実行済みかをtool結果と照合し、未実行なら実施する |",
+      "replacement": "| 検討記録または任意の作業控えの実施前入力 | 実行済みかをtool結果と照合し、未実行なら実施する |",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C020"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "original": "| 内部logの結果まで保存済み | discussion背景の再構成・提示準備へ戻る |",
+      "replacement": "| 検討結果まで保存済み | discussionに結果・比較・訂正と次の案への接続が残っているか確認し、提示準備へ戻る |",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C021"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/read-discussion.md",
+      "original": "helperへ正本の選択や修復を委ねない。",
+      "replacement": "helperへ正本の選択や修復を委ねない。\n内部logは任意のローカル作業控えであり、存在・読取・linkをdiscussionの読取・再開の必須条件にしない。\n旧記録のlink先がないことだけでは停止しないが、必要な証拠が取得できなければ、不足と判断への影響を明示して未確認のまま扱う。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C022"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/read-discussion.md",
+      "original": "既に使うことが確定している既存logは反復可能な`--log <evidence-log>`で含める。",
+      "replacement": "存在し、実際の根拠として使うことが確定した内部logだけを反復可能な`--log <evidence-log>`で含める。作業控えを使わない場合は`--log`を省略する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C023"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/read-discussion.md",
+      "original": "5. 対象log全文、根拠に使う他論点の現在結果・該当範囲と内部log、後続訂正を必要な分だけ読む。",
+      "replacement": "5. 根拠に使う他論点の現在結果・該当範囲と後続訂正を必要な分だけ読む。内部logは存在して実際の根拠として使う場合だけ、その全文と後続訂正を読む。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C024"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/read-discussion.md",
+      "original": "更新対象file全体と使用log全文を保存直前に再読する。",
+      "replacement": "更新対象file全体と、使った場合の内部log全文を保存直前に再読する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C025"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/record-recovery.md",
+      "original": "[templates/discussion_entry.md](templates/discussion_entry.md) と [templates/internal_record.md](templates/internal_record.md) の全文を読み、必要なcode blockだけを使う。",
+      "replacement": "[templates/discussion_entry.md](templates/discussion_entry.md) の全文を読み、必要なcode blockだけを使う。内部logを使う場合だけ [templates/internal_record.md](templates/internal_record.md) も読む。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C026"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/record-recovery.md",
+      "original": "### 二層へ戻す内容を分ける\n\nhandlerの保存先規則で対象logを解決し、discussionと対象logを全文読む。\n一つの論点に正しく接続された既存logがあれば継続し、旧discussion内の経過を一括移動しない。\n\n- 内部logには、実際に辿れる調査・推論・訂正・検証、記録漏れの診断、実施済みactionと確認不能範囲を保存する。\n  - `事後記録`と分かる単位で、元記録・chat・差分の所在、なぜ現在の結論に至るかを残す。\n  - 既存の完了済み記録を上書きせず、追加した訂正から元の回・記録を指す。\n- discussionには、実際の提案・認識合わせ、判断に必要な背景、原文の応答、明示合意を保存する。\n  - 未提示の回復案を、過去に提示した案として偽装しない。\n  - 過去の提示本文が存在するならその内容を保ち、後の回復説明は新しい回または正当に空いている応答へ置く。\n  - 背景だけで判断の理由・限界を理解できる情報量を保ち、内部logへのlinkを補足証跡として添える。\n\nどちらを書く場合も、直前にhandler指定の `expression_notation.md` を全文読む。\n回復後は、discussionから判断・応答・合意、内部logから証拠・訂正・不足がそれぞれ独立して読めるかを確認する。\n\n",
+      "replacement": "### discussionへ変遷と根拠を戻す\n\ndiscussionを全文読み、実際の提案・認識合わせ、比較・訂正・検証の経緯、原文応答、明示合意、実施済みactionと確認不能範囲を、その順序と関係が追える形で保存する。\n未提示の回復案を、過去に提示した案として偽装しない。\n過去の提示本文が存在するならその内容を保ち、後の回復説明は新しい回または正当に空いている応答へ置く。\n`事後記録`と分かる単位で、元記録・chat・差分の所在、なぜ現在の結論へ至るかを示す。\n内部logへのlinkで本文の説明を代替しない。\n\n内部logは必要な場合だけ使い、存在して実際の証拠として使う場合はhandlerの保存先規則と読取規則に従って全文を読む。\n既存の完了済み作業控えを上書きせず、新しい訂正から元の回・記録を指す。旧discussionの経過は一括移動しない。\n任意のlogがないことだけでは回復を止めない。必要な原文・証拠が取得できなければ、不足と確認不能な範囲を明示し、推測で埋めない。\n\n書込み直前にhandler指定の `expression_notation.md` を全文読む。\n回復後は、discussionから判断・応答・合意だけでなく、それまでの検討経緯・訂正・不足を単独で追えるか確認する。\n\n",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C027"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/derived-change.md",
+      "original": "内部logへ入力・調査・検証の証拠を残す。",
+      "replacement": "入力・調査・比較・検証と選択の経緯をdiscussionの検討記録へ残す。内部logは必要な場合だけ使う作業控えとし、そこだけへ判断に必要な証拠を送らない。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C028"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/split-discussion.md",
+      "original": "複数file更新で中断したら、実際に保存できた境界を既存内部logから確認し、盲目的に二重追記しない。",
+      "replacement": "複数file更新で中断したら、原文snapshot・候補実体・tool結果と、使った場合の作業控えから実際に保存できた境界を確認し、盲目的に二重追記しない。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C029"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/split-discussion.md",
+      "original": "分割の起点と移動先、原文snapshot、各作業の実結果を既存の内部logへ記録する。",
+      "replacement": "分割の起点と移動先、原文snapshot、各作業の実結果をtool結果として保持し、必要な場合だけローカルの内部logにも記録する。内部logの存在を分割・再開の必須条件にしない。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C030"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/split-discussion.md",
+      "original": "そのexact pathと最終pathの対応を既存内部logへ記録する。",
+      "replacement": "そのexact pathと最終pathの対応をtool結果として保持し、必要な場合だけ内部logにも記録する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C031"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/split-discussion.md",
+      "original": "内部log・原文snapshot・候補実体が同じ分割処理を一意に示す場合だけ、検証済み境界から再開する。",
+      "replacement": "原文snapshot・候補実体・tool結果と、使った場合の内部logが同じ分割処理を一意に示す場合だけ、検証済み境界から再開する。\n内部logがないことだけでは停止しないが、原文の版やexactな候補を特定できなければ、その不足を示して該当更新を止める。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C032"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md",
+      "original": "{今回の判断・応答に必要な事実、条件、決め手、代償と限界を説明する本文}\n\n[内部検討記録: 論点N・イテレーションI]({内部log相対path}#iteration-I)",
+      "replacement": "{前回の応答から今回の提案へ至る調査・比較・訂正とその結果を、起きた順序と理由が分かる本文で残す。判断に必要な事実・反証・未確認・限界を含める}",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C033"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md",
+      "original": "内部logの該当回・recordへのlinkと、この変更を理解するための背景を書く。",
+      "replacement": "変更の入力・調査・比較・訂正と、今回の変更へ至った結果・理由・限界を本文へ残す。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C034"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md",
+      "original": "原文・内部logの実在する出典を付ける。",
+      "replacement": "原文と確認可能な証拠の出典を付ける。Git管理外の内部logだけを根拠にしない。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C035"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md",
+      "original": "参照先と更新対象を照合した経緯を説明し、同番号の内部logへ結ぶ。",
+      "replacement": "参照先と更新対象を照合し、何を確認してこの変更になったかを本文へ残す。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C036"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+      "original": "このdirectoryは内部検討記録の目的別format guideであり、discussion entryへ丸ごとcopyする雛形ではない。説明・実施前の開始形・結果後の読み方・具体例を持つ。",
+      "replacement": "このdirectoryは調査・比較・検証等の検討記録を組み立てる目的別format guideであり、discussion entryへ丸ごとcopyする雛形ではない。説明・実施前の開始形・結果後の読み方・具体例を持つ。内部logは必要な場合だけ使うローカルの作業控えである。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C037"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+      "original": "discussion側の「検討記録」は、この蓄積から判断に必要な因果へ再構成する背景である。経過を移す先でも、内部logへのlinkだけを置く欄でもない。",
+      "replacement": "discussion側の「検討記録」へ、前回の応答から今回の案へ至る調査・比較・訂正と、その結果が次の提案を変えた経緯を本文で残す。最終案の理由だけへ畳まず、内部logへのlinkで説明を代替しない。内部logを使った場合も、引継ぎに必要な説明をdiscussionへ反映する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C038"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+      "original": "内部logの開始contextと合わせて、何の問題をどの範囲で扱い、何を確かめ、何が判明・否定・未確認になり、なぜ次へ進んだかがlogだけで理解できる情報量を持たせる。",
+      "replacement": "何の問題をどの範囲で扱い、何を確かめ、何が判明・否定・未確認になり、なぜ次へ進んだかがdiscussionだけで理解できる情報量を持たせる。内部logを作る場合も、開始contextと検討結果の対応を保つ。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C039"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/alignment.md",
+      "original": "本formatは内部logに置く検討であり、discussion側の判断背景、外向き質問本文、受領した回答欄の代わりではない。",
+      "replacement": "本formatは認識合わせに必要な検討のguideであり、外向き質問本文、受領した回答欄の代わりではない。確認した事実と読解・不足をdiscussionへ残し、内部logは必要な場合だけ作業控えとして使う。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C040"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md",
+      "original": "# 内部検討記録の保存形\n",
+      "replacement": "# 内部検討記録の保存形\n\n必要な場合だけ作るGit管理外の作業控えに使う。discussionの完成・読取・再開の必須成果物にはしない。\n",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C041"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+      "original": "調査・検証・訂正等の過程は、同skillが接続する論点単位の内部検討記録へ保存する。二層の保存・読取・回復は同skillへ委ねる。",
+      "replacement": "調査・比較・検証・訂正等の経緯は、discussionの検討記録へ残す。内部logは必要な場合だけ使うローカル作業控えとし、その保存・読取・回復の条件は同skillへ委ねる。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C042"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md",
+      "original": "discussionから必要な判断過程を確認する場合は、facilitate-discussionの読取規則で、対象論点の内部検討記録を全文読み、参照した根拠と後続訂正を辿る。",
+      "replacement": "discussionから必要な検討経緯と現在の判断を確認する。内部logが存在して実際の比較根拠として使う場合だけ、facilitate-discussionの読取規則でその全文と後続訂正を読む。内部logがないことだけでは引継ぎを止めず、必要な証拠の不足は未確認として明示する。",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C043"
+    },
+    {
+      "source": ".steering/.gitignore",
+      "original": "**/artifacts/\n",
+      "replacement": "**/artifacts/\n# 議論の内部logは任意のローカル作業控えとして扱う。\n**/internal-records/\n",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C044"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/steering/.gitignore.sample",
+      "original": "# subagent の実行レポートは各 steering ディレクトリのローカル記録として扱い、追跡しない。\n# 不測の事態が起きたときの調査ログであり、design / tasklist / discussion のような\n# 合意の正本ではないため。\n*/*/*/subagent_report/\n# task-designの引き継ぎ中だけ使う、steering working directory直下の一時成果物。\n*/*/*/task-design-catch-up/\n",
+      "replacement": "# subagent の実行レポートは各 steering ディレクトリのローカル記録として扱い、追跡しない。\n# 不測の事態が起きたときの調査ログであり、design / tasklist / discussion のような\n# 合意の正本ではないため。\n*/*/*/subagent_report/\n# task-designの引き継ぎ中だけ使う、steering working directory直下の一時成果物。\n*/*/*/task-design-catch-up/\n# 議論の内部logは任意のローカル作業控えとして扱う。\n**/internal-records/\n",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C045"
+    },
+    {
+      "source": "plugins/tumeda-dev/.codex-plugin/plugin.json",
+      "original": "\"version\": \"9.0.0\"",
+      "replacement": "\"version\": \"9.0.1\"",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C046"
+    },
+    {
+      "source": "plugins/tumeda-dev/.claude-plugin/plugin.json",
+      "original": "\"version\": \"9.0.0\"",
+      "replacement": "\"version\": \"9.0.1\"",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C047"
+    },
+    {
+      "source": ".claude-plugin/marketplace.json",
+      "original": "\"version\": \"9.0.0\"",
+      "replacement": "\"version\": \"9.0.1\"",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C048"
+    },
+    {
+      "source": "scripts/verification/validate-plugin.mjs",
+      "original": "const expectedRelease = \"9.0.0\"",
+      "replacement": "const expectedRelease = \"9.0.1\"",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C049"
+    },
+    {
+      "source": "scripts/verification/validate-plugin.mjs",
+      "original": "  \"{内部log相対path}#iteration-I\"\n",
+      "replacement": "",
+      "classification": "CHANGE",
+      "agreement": "task-design-discussion.md 論点3・提案0への利用者のok",
+      "contract_id": "C050"
+    },
+    {
+      "source": "scripts/verification/validate-plugin.mjs",
+      "classification": "ADD",
+      "meaning": "discussion正本・内部log任意・必須link撤去・ignoreのassertion",
+      "agreement": "論点3",
+      "contract_id": "C051"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs",
+      "classification": "ADD",
+      "meaning": "内部logなし・既存log・指定logの消失を区別する2test",
+      "agreement": "task-design-discussion.md 論点3",
+      "contract_id": "C052"
+    },
+    {
+      "source": "scripts/verification/validate-plugin.mjs",
+      "classification": "ADAPT",
+      "meaning": "検査対象pathを宣言前の変数でなくskillPathで解決する。契約は維持",
+      "agreement": "同じ検査の機械的修正",
+      "contract_id": "C053"
+    },
+    {
+      "source": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+      "classification": "ADAPT",
+      "meaning": "例の見出し深度をdiscussionの回または利用時の内部logへ合わせる",
+      "agreement": "task-design-discussion.md 論点3",
+      "contract_id": "C054"
+    }
+  ],
+  "verification": {
+    "deleted_lines": "変更単位の原文から新しい保存先または合意済み変更へ逆引き。差分外は原文を保持",
+    "authority": "derived-changeの権限と反映時点は同一、記録先の1行だけ変更",
+    "fresh_agent": "指定2fixtureでPASS。任意log欠落時compare0、明示根拠log消失時compare1。限定結果であり一般性能の保証ではない",
+    "discussion": "保存前・更新後の全文読取とsnapshot compareはいずれもexit0、check problems=[]"
+  },
+  "status": "旧置換一覧。全契約の意味保存検証としての扱いは撤回",
+  "subsequent_review": "white-box-recovery.json と validation.mdの逸脱修復section"
+}
