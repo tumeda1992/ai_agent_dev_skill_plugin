@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "9.0.0";
+const expectedRelease = "9.0.1";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -349,6 +349,9 @@ for (const expected of [
   "**論点:** 論点N",
   "## 開始context"
 ]) requireText(discussionInternalTemplate, expected);
+
+// discussion本文から比較・訂正の経緯を追える契約。
+for (const expected of ["起きた順序と理由が分かる本文", "成立しなかった案とその理由"]) requireText(discussionIteration, expected);
 
 requireOrderedText(discussionIteration, ["### 作成中の回と検討記録を用意する", "### 判断材料を確かめ、検討記録を育てる", "### 提案または認識合わせを形にする", "### 保存した回を提示可能にする"], "提示準備の実行順");
 

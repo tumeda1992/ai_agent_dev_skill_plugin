@@ -4,7 +4,7 @@
 
 このdirectoryは内部検討記録の目的別format guideであり、discussion entryへ丸ごとcopyする雛形ではない。説明・実施前の開始形・結果後の読み方・具体例を持つ。
 調査や判断の実行順序は [../../iteration.md](../../iteration.md)、logの所属・回・記録単位は [../internal_record.md](../internal_record.md)、案の表示はproposal-sectionsが所有する。
-discussion側の「検討記録」は、この蓄積から判断に必要な因果へ再構成する背景である。経過を移す先でも、内部logへのlinkだけを置く欄でもない。
+discussion側の「検討記録」へ、前回の応答から今回の案へ至る調査・比較・訂正と、その結果が次の提案を変えた経緯を本文で残す。最終案の理由だけへ畳まず、内部logへのlinkで説明を代替しない。
 ここで材料の充足判定やdiscussionの状態遷移を代行しない。
 
 ## 今の目的に合う記入形を選ぶ
