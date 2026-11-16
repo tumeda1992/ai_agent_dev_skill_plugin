@@ -349,11 +349,15 @@ for (const expected of [
   "## 開始context"
 ]) requireText(discussionInternalTemplate, expected);
 
-// discussion単体で履歴を引き継ぎ、内部logは任意の作業控えとする契約。
-for (const expected of ["discussion fileを検討経緯・判断context・応答・decisionの正本", "必要な場合だけ準備する", "Git管理対象外", "内部logがなくても"]) requireText(discussionSkill, expected);
+// discussion単体で履歴を引き継ぎ、Codexの副産物を共通の作成工程にしない契約。
+for (const expected of ["discussion fileを検討経緯・判断context・応答・decisionの正本", "Codexの検討過程で生じる副産物", "共通workflowに内部logの作成・準備・更新工程を設けない", "Git管理対象外", "内部logがなくても"]) requireText(discussionSkill, expected);
 for (const expected of ["起きた順序と理由が分かる本文", "成立しなかった案とその理由", "内部logへのlinkで説明を代替しない"]) requireText(discussionIteration, expected);
-requireText(skillPath("facilitate-discussion/read-discussion.md"), "作業控えを使わない場合は`--log`を省略する");
+requireText(skillPath("facilitate-discussion/read-discussion.md"), "内部logを根拠として使わない場合は`--log`を省略する");
 forbidText(discussionTemplate, "{内部log相対path}#iteration-I", "Git管理外logへの必須link");
+for (const p of [discussionSkill, discussionIteration, discussionRecovery, skillPath("facilitate-discussion/split-discussion.md"), skillPath("facilitate-discussion/derived-change.md"), skillPath("facilitate-discussion/templates/consideration-records/README.md"), skillPath("facilitate-discussion/templates/consideration-records/alignment.md"), skillPath("task-design/SKILL.md")]) {
+  for (const forbidden of ["必要な場合だけ準備する", "長い調査の作業控え", "必要な場合だけ作業控えとして使う", "必要な場合だけ内部logにも記録する", "内部logへ論点・開始context・同じ回の骨子を準備する"]) forbidText(p, forbidden, "内部logの共通作成工程");
+}
+requireText(discussionInternalTemplate, "新規logの作成templateとしては使わない");
 for (const p of [skillPath("steering/.gitignore.sample"), ".steering/.gitignore"]) requireText(p, "**/internal-records/");
 
 requireOrderedText(discussionIteration, ["### 作成中の回と検討記録を用意する", "### 判断材料を確かめ、検討記録を育てる", "### 提案または認識合わせを形にする", "### 保存した回を提示可能にする"], "提示準備の実行順");

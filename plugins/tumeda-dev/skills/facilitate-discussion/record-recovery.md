@@ -11,7 +11,7 @@
 `続けて`、無反応、異議がなかったこと、抽象的な先行decision、assistantの推論を、未提示の具体案への合意へ変換しない。成果物の存在や差分は実行の証拠であり、案を提示したことや合意の証拠ではない。
 保存先はhandlerのscope・所属・原因owner・親子規則で選ぶ。別decisionを一回へ圧縮しない。事後かつchat合意済みなら、一つの再構成内で合意証拠を使い、二経路から同じ履歴を保存しない。
 
-[templates/discussion_entry.md](templates/discussion_entry.md) の全文を読み、必要なcode blockだけを使う。内部logを使う場合だけ [templates/internal_record.md](templates/internal_record.md) も読む。
+[templates/discussion_entry.md](templates/discussion_entry.md) の全文を読み、必要なcode blockだけを使う。
 新規はmetadataと回、既存は必要な回・欄だけを使い、実在しない段階を追加しない。
 応答を伴う提示は、提案なら「空の提案応答欄」、認識合わせなら「空の認識合わせ回答欄」へ「受領応答の本文」を入れる。
 本文・検討記録・対応応答の読順で、確認できる原文と結果まで同じ回に保存する。回復のため空の応答待ちを作らない。
@@ -25,8 +25,8 @@ discussionを全文読み、実際の提案・認識合わせ、比較・訂正�
 `事後記録`と分かる単位で、元記録・chat・差分の所在、なぜ現在の結論へ至るかを示す。
 内部logへのlinkで本文の説明を代替しない。
 
-内部logは必要な場合だけ使い、存在して実際の証拠として使う場合はhandlerの保存先規則と読取規則に従って全文を読む。
-既存の完了済み作業控えを上書きせず、新しい訂正から元の回・記録を指す。旧discussionの経過は一括移動しない。
+内部logが存在して実際の証拠として使う場合はhandlerの所属確認と読取規則に従って全文を読む。
+既存logを上書きせず、discussionの新しい訂正から元の回・記録を指す。旧discussionの経過は一括移動しない。
 任意のlogがないことだけでは回復を止めない。必要な原文・証拠が取得できなければ、不足と確認不能な範囲を明示し、推測で埋めない。
 
 書込み直前にhandler指定の `expression_notation.md` を全文読む。

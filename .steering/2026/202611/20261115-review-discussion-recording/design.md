@@ -7,7 +7,7 @@ steeringスキルで [https://github.com/tumeda1992/ai_agent_dev_skill_plugin/is
 ## TL;DR
 
 提案に至る比較・訂正が内部logへ分散すると、discussionを読んでも何が次案を変えたかを追えなくなる。
-discussionを検討経緯・提案・応答・決定の正本とし、内部logはGit管理外の任意の作業控えにする。
+discussionを検討経緯・提案・応答・決定の正本とし、内部logはCodexの検討過程で生じる副産物としてGit管理外に置く。
 本文、template、読取・再開・回復、consumer、ignore、validatorを合わせて変更し、内部logがない環境でも同じdiscussionから議論を続けられる。
 
 既合意の内容への再承認が重なる稀な用途は、通常は読まない同skill内のβ補助へ分ける。
@@ -36,11 +36,11 @@ assistantが今回任せる範囲を具体化し、既存の明示委託へつ�
 
 ##### 内部logを作ること自体を工程にしない
 
-内部logは、長い調査の作業控え等が必要な場合だけ作るローカルの記録であり、Git管理対象や必須成果物にしない。
-ClaudeとCodexへ別々の必須手順を作らず、共通してdiscussionの本文が完成することを要求する。
+内部logはCodexの検討過程で生じる副産物として扱い、Git管理外に置く。共通skillに作成・準備・更新工程を設けない。
+ClaudeとCodexに共通してdiscussionの本文完成を要求する。Codexでも副産物が生じないまま同じdiscussionで完了できる。
 内部logが存在すること、読めること、linkがあることを、discussionの完成や再開の条件にしない。
 
-作業控えだけへ経緯を残すと、別環境にはその説明が届かない。
+副産物だけへ経緯を残すと、別環境にはその説明が届かない。
 そのため、提案や決定の理解に必要な証拠・比較結果・訂正は、提示前にdiscussionへ反映する。
 新しいdiscussionにGit管理外logへの必須linkを置かず、linkで本文の説明を代替しない。
 
@@ -51,12 +51,12 @@ consumerは議論の目的・制約と適用先を持ち、facilitate-discussion
 
 1. discussionの入口・現在状態・対象範囲を解決し、本文の版を固定して読む。
 2. 同じ回の検討記録へ必要な入力を残し、確認・比較・検証と結果・訂正を積み重ねる。
-3. 内部logは必要な場合だけ作る。使った場合も、提示と引継ぎに必要な説明をdiscussionへ反映する。
+3. Codexの副産物がある場合は、提示と引継ぎに必要な説明をdiscussionへ反映する。副産物を作る工程は追加しない。
 4. 提案または認識合わせ、経緯を説明する検討記録、対応する応答欄を本文へ保存して提示する。
 5. 実際の応答を対応する提示へ保存し、具体案への明示合意があれば現在の決定を確定する。
 6. 同じdiscussionから再開し、内部logを利用しない場合も現在の案と検討経緯を読める。
 
-#### 必要な証拠の不足と、任意の控えの不存在を分ける
+#### 必要な証拠の不足と、副産物の不存在を分ける
 
 内部logは、存在して実際の根拠として使う場合だけ、その全文と必要な後続訂正を読む。
 この場合は既存のsnapshotへ対象を含め、原文の版を照合する。
@@ -64,7 +64,7 @@ consumerは議論の目的・制約と適用先を持ち、facilitate-discussion
 
 一方、既に比較根拠へ選んだlogの取得失敗、必要な証拠の不足、discussion自体の取得失敗は確認済みにしない。
 何が不足し、その不足が判断へどう影響するかを明示する。
-分割・回復でも原文snapshot、候補実体、tool結果と必要な控えから実施済み境界を確認し、原文の版や候補を特定できない状態で盲目的に再実行しない。
+分割・回復でも原文snapshot、候補実体、tool結果と根拠として使う既存logから実施済み境界を確認し、原文の版や候補を特定できない状態で盲目的に再実行しない。
 
 ### 文書以外に作るfileの中身
 
@@ -72,14 +72,14 @@ consumerは議論の目的・制約と適用先を持ち、facilitate-discussion
 
 | 対象 | 完成後の内容 |
 | --- | --- |
-| `facilitate-discussion/SKILL.md` | discussionの正本性、任意の内部log、保存先・読取条件、通常同期を定める |
-| `facilitate-discussion/iteration.md` | 必須のdiscussion骨子、必要時だけの控え、比較・訂正の経緯を本文へ残す提示と中断復帰を定める |
+| `facilitate-discussion/SKILL.md` | discussionの正本性、Codexの副産物のGit管理外の扱い、既存logの所属・読取条件、通常同期を定める |
+| `facilitate-discussion/iteration.md` | discussion骨子と比較・訂正の経緯を本文へ残す提示・中断復帰を定める。共通のlog準備・更新工程を持たない |
 | `facilitate-discussion/read-discussion.md` | logを使わない場合の読取と、根拠として使う場合の全文・版照合を分ける |
-| `facilitate-discussion/record-recovery.md` | 確認できる変遷と証拠をdiscussionへ戻し、控えを必須にしない |
+| `facilitate-discussion/record-recovery.md` | 確認できる変遷と証拠をdiscussionへ戻し、内部logを作成せずに回復する |
 | `facilitate-discussion/split-discussion.md` | logの有無によらず、原文snapshot・候補・tool結果から安全に移行と再開を行う |
 | `facilitate-discussion/derived-change.md` | 変更へ至る確認・比較・検証の記録先をdiscussionに揃える |
 | `facilitate-discussion/templates/discussion_entry.md` | 回の骨子と変更内容から必須log linkを外し、経緯を本文へ記載する保存形を持つ |
-| `facilitate-discussion/templates/internal_record.md` | 任意のGit管理外の作業控えであることを示す |
+| `facilitate-discussion/templates/internal_record.md` | 既存logの所属・回・記録単位を読む旧保存形として残し、新規作成templateにしない |
 | `facilitate-discussion/templates/consideration-records/README.md`、`alignment.md` | 目的別guideをdiscussionでも使え、内部fileの作成義務にしない |
 | `task-design/SKILL.md`、`task-design-work-handoff-contracts.md` | 呼出し側から内部logの必須条件が戻らないよう参照・引継ぎを整合させる |
 
@@ -89,9 +89,9 @@ skill本体、内部指示、templateはいずれもMarkdownで、各fileが従�
 #### Git管理と配布version
 
 `.steering/.gitignore`と`plugins/tumeda-dev/skills/steering/.gitignore.sample`へ`**/internal-records/`を加える。
-steering以外の利用先では、そのdiscussion directoryの内部logを利用先のignoreで管理外にする。
+steering以外や別pathに副産物がある場合は、その実際の保存先を利用先のignoreで管理外にする。
 既存のtrackedな内部logや過去のdiscussionは一括削除しない。
-既存記録で必要な説明が控えだけに見つかった場合は、その時点で確認した内容を本文へ追記し、昔から本文にあった形へ書き換えない。
+既存記録で必要な説明が内部logだけに見つかった場合は、その時点で確認した内容を本文へ追記し、昔から本文にあった形へ書き換えない。
 
 配布versionは`9.0.1`である。
 既存skill指示の修正であり、新しい呼出し方やparameterを増やさないためPATCHとする。
@@ -177,7 +177,7 @@ assistantが範囲の具体案を示し、任された後は同じ範囲の具�
 ### MUST（必達）
 
 - 指定された実記録の比較から、本文へ検討の積み重ねを残す共通の要求を判断する。
-- 内部logをGit管理外の任意の控えにし、その有無だけで提示・読取・再開・回復を止めない。
+- 内部logをCodexの副産物としてGit管理外に置き、共通の作成・準備・更新工程を設けない。その有無だけで提示・読取・再開・回復を止めない。
 - 取得不能な必要証拠と、任意のlogがないだけの場合を区別する。
 - 既存のtrackedな内部log、過去の提案・応答、採番・親子関係・single writerと、本文の版照合を維持する。
 - 新しい必須linkを外し、関連するconsumerと検証を同じ変更で整合させる。
@@ -192,11 +192,13 @@ assistantが範囲の具体案を示し、任された後は同じ範囲の具�
 
 ### 受け入れ基準
 
+- Claudeの通常処理にlog準備工程がなく、Codexでも副産物なしのままdiscussionの提示・応答・再開へ進める。
+- 副産物がある場合は必要な事実・比較・訂正を本文へ同期し、logだけへ説明を送らない。
 - 内部logなしのfixtureで、本文・現在の問い・snapshotを取得し、compareがexit 0になる。
 - 根拠として既存logを使う場合は版照合でき、そのlogが消失した場合はexit 1として取得不能を成功扱いしない。
 - 任意のlogを使わない場合はdiscussionだけで読取が成立する。
 - plugin validator、既存の引継ぎ検証、読取helperの自己testが成功する。
-- 新しい内部logがignoreされ、既存のtrackedな内部logの削除を含まない。
+- 副産物がある場合は実際の保存先がignoreされ、既存のtrackedな内部logの削除を含まない。
 - 通常の三経路とβの狭い入口が対応し、合意済みの具体化、既委託、未決判断、機械適用、苛立ちだけの場合を区別できる。
 - β本文に共用の反映状態を複写せず、既存の委託・機械適用と過去の導出記録の読取を維持する。
 - source適用後に文書review、編集後の切り出しreview、該当validatorと関連する検証を終え、未適用・未検証を残したままphase完了にしない。
@@ -206,7 +208,7 @@ assistantが範囲の具体案を示し、任された後は同じ範囲の具�
 | リスク | 対策 |
 | --- | --- |
 | ignoreだけを追加し、本文へ経緯が届かない | 正本と記録先、必須link、読取・再開を合わせて変更する |
-| logが任意であることを、証拠の取得失敗を無視する意味に取る | 明示根拠logの消失を失敗にするcaseを検証する |
+| 副産物が必須でないことを、証拠の取得失敗を無視する意味に取る | 明示根拠logの消失を失敗にするcaseを検証する |
 | 本文の記録を増やすため架空の比較や冗長な全文反復を作る | 短い訂正の境界例と、過去の回を保持した増分記録を指示する |
 | 記録の変更へ未合意の権限変更を混ぜる | 記録変更は既存権限を維持する。β変更は合意した独立導出の削除だけへ限定し、明示委託・機械適用・報告後の実応答と訂正を保持する |
 | βで苛立ちを承認に替える、または既存委託を問い直す | 合意と委託の原文・範囲を対応させ、未決判断と機械適用を境界caseで照合する |
@@ -231,8 +233,8 @@ Node標準testでlogなし・既存log・根拠logの消失を検証し、既存
 
 | 対象 | 反映内容 | validation結果 | 参照するdesign section |
 | --- | --- | --- | --- |
-| `facilitate-discussion`本体・内部指示・template | discussion正本、内部log任意、本文の経緯、読取・回復・分割を整合 | plugin validatorと読取helper自己test成功 | [skillの役割と方針](#skillの役割と方針) |
-| `task-design/SKILL.md`、共有handoff指示 | 任意logの条件をconsumerへ接続 | 引継ぎ検証成功 | [作業の流れと担当](#作業の流れと担当) |
+| `facilitate-discussion`本体・内部指示・template | discussion正本、内部logの共通作成工程の除去、本文の経緯、既存証拠の読取・回復・分割を整合 | plugin validatorと読取helper自己test成功 | [skillの役割と方針](#skillの役割と方針) |
+| `task-design/SKILL.md`、共有handoff指示 | 共通log作成工程をconsumerへ戻さず、既存証拠の読取・回復を接続 | 引継ぎ検証成功 | [作業の流れと担当](#作業の流れと担当) |
 | `.steering/.gitignore`、配布sample | 内部logのignoreを追加 | `git check-ignore`成功、既存tracked削除なし | [Git管理と配布version](#git管理と配布version) |
 | 配布manifest・marketplace・validator | `9.0.1`と新しい契約検査へ更新 | `plugin validation passed` | [Git管理と配布version](#git管理と配布version) |
 | 読取helperの自己test | logなし・根拠log消失の2caseを追加 | 26 pass、0 fail、既存条件付き1 skip | [テスト方針](#テスト方針) |

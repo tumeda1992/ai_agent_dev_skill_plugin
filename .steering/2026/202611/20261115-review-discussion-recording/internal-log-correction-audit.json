@@ -1,0 +1,456 @@
+{
+  "baseline": "8049e7528cad6aa2db13aa56efd914d491813b6a",
+  "authorization": "task-design-discussion.md 論点3・イテレーション1の原Issue原文と最新の訂正適用指示",
+  "source_quote": "internalな記録ログはgit管理対象外にして、Codex特有の副産物のように扱って、検討記録は検討記録単体でイテレーション間の時系列をちゃんとサマリすぎないで残す扱いにすればいいかなって思った",
+  "scope": "共通の内部log作成・準備・更新工程を除く。新しい生成条件を補わない。discussion正本、Git管理外、既存履歴、使用証拠の全文/版照合/不足時停止を保持。β未適用。",
+  "unchanged_contracts": [
+    "採番・親子・single writer・過去応答/既存tracked logの非削除",
+    "実際に根拠へ使う既存logの全文読取・後続訂正・snapshot/compare",
+    "必要証拠欠落と任意log不在の区別・停止",
+    "通常decision/導出/明示委託/機械適用の権限条件",
+    "version9.0.1・helper実装・既存test・βdraft/未適用の見出し指示"
+  ],
+  "files": [
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+      "baseline_sha256": "ad89eb2dd0cc3c5e719c71cec6515381b6a3e43d0a84da2f74e134897b7fb35e",
+      "expected_sha256": "0e2464c351d509811c4911f0a79a9e5e68e9409e086a400a2915fb6c55351954",
+      "units": [
+        {
+          "before": "内部検討記録は、調査の作業控えや中断時の補助が必要な場合だけ作るローカルの記録とする。",
+          "after": "内部logは、Codexの検討過程で生じる副産物としてGit管理外に置く。共通workflowに内部logの作成・準備・更新工程を設けない。",
+          "meaning": "変更: 共通作成運用を除去し原Issueの対象へ限定。生じる条件や必須作成を追加しない"
+        },
+        {
+          "before": "内部検討記録は任意のローカル作業控えであり、別の正本にしない。書込み直前に対象file全体を再読込し、内部logを使う場合も同じownerがsingle writerで更新する。",
+          "after": "内部logを別の正本にしない。書込み直前に対象file全体を再読込し、discussionの更新は同じownerがsingle writerで行う。",
+          "meaning": "保持: 正本/全文再読/single writer。削除: 共通writerのlog更新工程"
+        },
+        {
+          "before": "### discussionと任意の作業控えを解決する",
+          "after": "### discussionと既存の内部logを扱う",
+          "meaning": "変更: log作成導線を既存証拠の取扱いへ限定"
+        },
+        {
+          "before": "内部logを作ること自体を工程にせず、長い調査の作業控えなど、実際に必要な場合だけ準備する。",
+          "after": "Codexの副産物がある場合は、理解・引継ぎに必要な内容をdiscussionへ同期する。",
+          "meaning": "変更: 必要時準備の条件を除き実在副産物の同期を定める"
+        },
+        {
+          "before": "内部logを使う場合、既存の接続があればそのlogを継続利用する。新規logだけをdiscussion directory内の `internal-records/{D}.topic-{N}.md` へ置く。\nDは解決済みdiscussion basename全体（拡張子も保持）、Nはdiscussionの実論点番号である。\n例えば `task-design-discussion.md` の論点3なら `internal-records/task-design-discussion.md.topic-3.md` となる。\n必要な内部directoryはこの派生保存先として作成できるが、入力discussion directory自体を推測作成しない。",
+          "after": "既存logの接続先がある場合はその対応を保つ。旧保存形 `internal-records/{D}.topic-{N}.md` は既存記録の所属・参照を確認するために扱う。\nDは解決済みdiscussion basename全体（拡張子も保持）、Nはdiscussionの実論点番号である。\n例えば `task-design-discussion.md` の論点3なら `internal-records/task-design-discussion.md.topic-3.md` である。\nこの保存形のために新規logや内部directoryを準備しない。入力discussion directoryも推測作成しない。",
+          "meaning": "保持: 既存接続/旧pathの意味/入力directory推測禁止。削除: 新規log保存先と内部directory作成工程"
+        },
+        {
+          "before": "steering以外の保存先では、利用先のignoreへdiscussion directory配下の `internal-records/` を追加する。",
+          "after": "steering以外や別pathに副産物がある場合は、その実際の保存先を利用先のignoreで管理外にする。",
+          "meaning": "変更: 実在する副産物の保存先をignore、作成先の追加条件を補わない"
+        },
+        {
+          "before": "内部logを使う時は先頭のdiscussion・論点表示を照合し、既存の対応が一意なら継続する。二つある、所属が違う、名前長等で書けない時は停止する。",
+          "after": "既存logを根拠として使う時は先頭のdiscussion・論点表示を照合し、対応が一意であることを確認する。二つある、所属が違う時は停止する。",
+          "meaning": "保持: 所属/一意性/不整合停止。削除: 新規log書込を前提とする名前長の停止（discussion書込停止は共通不変条件に保持）"
+        },
+        {
+          "before": "短縮名や別名で二つ目の作業控えを作らず",
+          "after": "短縮名や別名で二つ目の内部logを作らず",
+          "meaning": "保持: 別名作成/旧名移動禁止"
+        },
+        {
+          "before": "内部logを作る場合は `#iteration-I`、個別記録は `#iteration-I-record-R` を使う。Rはその回内で1始まりとし、進捗flagではない。",
+          "after": "既存logの `#iteration-I` と `#iteration-I-record-R` は回・個別記録を識別する。Rはその回内で1始まりとし、進捗flagではない。",
+          "meaning": "保持: 既存anchor解釈。削除: 新規logへのanchor作成指示"
+        },
+        {
+          "before": "内部logを書き込む時も全文再読込から論点・回・記録単位の所属と一意性を検査し、新規なら未作成と挿入先を確認する。\n現在の記録単位へ結果を加えることはできるが、次の処理へ進んだ単位の訂正は新しい記録から元を指す。\n",
+          "after": "既存logに訂正が必要な場合は、元の回・記録を指し、その時点で確認した内容をdiscussionへ追記する。\n",
+          "meaning": "変更: 共通log writerの挿入/結果追記を除去。保持: 過去記録非改変と元への訂正対応"
+        },
+        {
+          "before": "originのdiscussionの該当する回へ接続し、目的別formatの入力保存から結果保存までを通す。内部logを使う場合だけ、その作業控えにも接続する。",
+          "after": "originのdiscussionの該当する回へ接続し、目的別formatの入力保存から結果保存までを通す。",
+          "meaning": "削除: origin-reviewから共通logへの書込導線。保持: discussion同回の検討保存"
+        },
+        {
+          "before": "存在して使った作業控え",
+          "after": "根拠として使った既存log",
+          "meaning": "保持: 実在証拠による中断位置確認"
+        },
+        {
+          "before": "内部logの保存形は作業控えを使う場合だけ読み、",
+          "after": "既存logの保存形は所属・参照の解釈に必要な場合だけ読み、",
+          "meaning": "保持: 既存記録の互換読取。削除: 作業控え準備を呼ぶ導線"
+        },
+        {
+          "before": "logからdiscussionへ相対linkと実論点番号で戻れるようにする。",
+          "after": "既存logのdiscussionへの相対linkと実論点番号も照合する。",
+          "meaning": "変更: 逆linkの新規作成指示を既存参照の照合へ限定。既存href移行の保持は分割手順に残す"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+      "baseline_sha256": "139ee328e5bdbf571973741385524caf37f2e27ab56936cc4df7671e34226a6d",
+      "expected_sha256": "ccfbe24fbf431a7aa2c0ae12c406d4ea102bab4fe2affe032a9a831f90483c3a",
+      "units": [
+        {
+          "before": "[templates/discussion_entry.md](templates/discussion_entry.md) を全文読む。内部logを使う場合だけ [templates/internal_record.md](templates/internal_record.md) も全文読む。",
+          "after": "[templates/discussion_entry.md](templates/discussion_entry.md) を全文読む。",
+          "meaning": "削除: 提示準備から内部log templateの作成用途の読取"
+        },
+        {
+          "before": "#### discussionの骨子と、必要な場合の作業控えを準備する",
+          "after": "#### discussionの骨子を準備する",
+          "meaning": "変更: 必須成果discussionだけを準備"
+        },
+        {
+          "before": "長い調査の作業控え等が必要な場合だけ、内部logへ論点・開始context・同じ回の骨子を準備する。\n内部logを途中から使う時は開始した回を明記し、それ以前の根拠はdiscussionの論点・回・見出しを参照する。\n既存logの過去blockへ一括採番せず、過去本文を移動・改名・再要約しない。\n内部logを準備しない場合も、同じdiscussionの論点・回で次の検討へ進む。",
+          "after": "同じdiscussionの論点・回で次の検討へ進む。\n既存logの過去blockへ一括採番せず、過去本文を移動・改名・再要約しない。",
+          "meaning": "削除: log開始context/骨子/開始回の共通準備。保持: discussion進行/過去log非改変"
+        },
+        {
+          "before": "選んだformatの実施前入力（問い・探索先・方法、判断対象・評価軸、検証claim等）をdiscussionの同じ回の検討記録へ保存してから実施する。内部logを使う場合は作業控えを利用できるが、提示・引継ぎに必要な説明はdiscussionへ残す。",
+          "after": "選んだformatの実施前入力（問い・探索先・方法、判断対象・評価軸、検証claim等）をdiscussionの同じ回の検討記録へ保存してから実施する。",
+          "meaning": "削除: format実行時の共通log利用導線。保持: discussion事前入力/実施の順"
+        },
+        {
+          "before": "意味ある用途titleを置き、formatの見出し深度は記録先へ合わせる。内部logを使う場合だけ記録単位のanchorを加える。目的別の読み方を一律の三見出しへ変えない。",
+          "after": "意味ある用途titleを置き、formatの見出し深度はdiscussionの同じ回へ合わせる。目的別の読み方を一律の三見出しへ変えない。",
+          "meaning": "削除: log anchorの作成。保持: title/見出し/目的別構成"
+        },
+        {
+          "before": "内部logを使った場合は、目的別formatの完成時の読み順へ仕上げる。判断は推奨、検証は保証できる結論を取得後に先頭へ置けるが、実施前入力と具体的な結果を保つ。\n",
+          "after": "",
+          "meaning": "削除: 内部log完成の共通編集工程。discussionの記録構成は既存format guideに保持"
+        },
+        {
+          "before": "その作業控えと本文の事実・訂正・限界も照合する",
+          "after": "その既存logと本文の事実・訂正・限界も照合する",
+          "meaning": "保持: 使用証拠とdiscussionの同期照合"
+        },
+        {
+          "before": "使った場合の作業控えから未完部分を特定する",
+          "after": "根拠として使った既存logから未完部分を特定する",
+          "meaning": "保持: 実際の証拠からの復帰"
+        },
+        {
+          "before": "同じ回の検討を続ける。内部logは必要な場合だけ未作成を確認して準備する。新しい回を増やさない",
+          "after": "同じ回の検討を続ける。新しい回を増やさない",
+          "meaning": "削除: 中断復帰時のlog準備。保持: 同回復帰"
+        },
+        {
+          "before": "検討記録または任意の作業控えの実施前入力",
+          "after": "検討記録または根拠として使った既存logの実施前入力",
+          "meaning": "保持: 既存logを証拠に実行済みか照合"
+        },
+        {
+          "before": "これらは保存形だけを持ち、部品の選択・挿入・省略条件はこの節が所有する。",
+          "after": "これは保存形だけを持ち、部品の選択・挿入・省略条件はこの節が所有する。",
+          "meaning": "参照調整: log template読取除去後の単数形"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/read-discussion.md",
+      "baseline_sha256": "5891f16d9a3355832ff93f0f03e9abdeb7b3c8165703c6accda34132823405eb",
+      "expected_sha256": "d31fd68084ac5fb1b66e1c437897699fb437efa92f42adaa53ef94f92e0d32f8",
+      "units": [
+        {
+          "before": "内部logは任意のローカル作業控えであり、存在・読取・linkをdiscussionの読取・再開の必須条件にしない。",
+          "after": "Codexの副産物や既存記録として内部logがあっても、その存在・読取・linkをdiscussionの読取・再開の必須条件にしない。",
+          "meaning": "変更: 共通作業控えを読む前提を既存証拠へ限定"
+        },
+        {
+          "before": "作業控えを使わない場合は`--log`を省略する",
+          "after": "内部logを根拠として使わない場合は`--log`を省略する",
+          "meaning": "保持: 任意--logと必要証拠の区別"
+        },
+        {
+          "before": "未作成の新規logは既存根拠として読んだことにせず、下の意図した保存として作成後に集合へ加える。",
+          "after": "存在しないlogを既存根拠として扱わず、その不存在を埋めるために作成しない。",
+          "meaning": "削除: 新規log作成後の集合追加工程。保持: 未作成を読取済みにしない"
+        },
+        {
+          "before": "   新規logを作った場合は、作成先と実体を確認し、そのlogを含む候補の全`--log`指定で更新後snapshotを取得する。\n   既存fileの更新では従来の全log指定で取得する。保存対象以外の集合・実体・hashが直前の起点と一致し、\n   保存対象の実体・hashが許された差分の実物と一致することを照合する。新規logの追加も、この照合の対象に含める。",
+          "after": "   従来の全log指定で更新後snapshotを取得する。保存対象以外の集合・実体・hashが直前の起点と一致し、\n   保存対象の実体・hashが許された差分の実物と一致することを照合する。",
+          "meaning": "削除: 新規log作成時のsnapshot更新。保持: 従来集合/他file不変/意図差分の照合"
+        },
+        {
+          "before": "意図した変更と検査結果のlog保存も、上の一file保存として扱う。",
+          "after": "意図した変更と検査結果をdiscussionへ保存する時も、上の一file保存として扱う。",
+          "meaning": "変更: 共通log保存導線をdiscussion保存へ限定"
+        },
+        {
+          "before": "次のfileや既存logの保存前比較は",
+          "after": "次のfileの保存前比較は",
+          "meaning": "削除: 共通writerによる既存log保存の参照。保持: 同じsnapshotで次fileを比較"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/record-recovery.md",
+      "baseline_sha256": "55a2f109902145a94e5cc2e05dabb0202d9f17be6f05798334119186123385e7",
+      "expected_sha256": "b3242e3789d734efab961c8ca625ca819d08402de3685b06d919ebdca2717265",
+      "units": [
+        {
+          "before": "[templates/discussion_entry.md](templates/discussion_entry.md) の全文を読み、必要なcode blockだけを使う。内部logを使う場合だけ [templates/internal_record.md](templates/internal_record.md) も読む。",
+          "after": "[templates/discussion_entry.md](templates/discussion_entry.md) の全文を読み、必要なcode blockだけを使う。",
+          "meaning": "削除: 回復時のlog template作成用途の読取"
+        },
+        {
+          "before": "内部logは必要な場合だけ使い、存在して実際の証拠として使う場合はhandlerの保存先規則と読取規則に従って全文を読む。\n既存の完了済み作業控えを上書きせず、新しい訂正から元の回・記録を指す。",
+          "after": "内部logが存在して実際の証拠として使う場合はhandlerの所属確認と読取規則に従って全文を読む。\n既存logを上書きせず、discussionの新しい訂正から元の回・記録を指す。",
+          "meaning": "保持: 既存証拠全文/訂正参照/過去不変。削除: 新規log保存運用"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/split-discussion.md",
+      "baseline_sha256": "f0f6a4b6900049e642e7e6cdd2e43c8a16c3c252b4849c8850ff6aea264923cb",
+      "expected_sha256": "cb9393538c9519355045ccdc44eab9cb13f308a1fbc5d7036eeab50e306a3f99",
+      "units": [
+        {
+          "before": "使った場合の作業控えから",
+          "after": "根拠として使った既存logから",
+          "meaning": "保持: 既存証拠から保存境界確認"
+        },
+        {
+          "before": "分割の起点と移動先、原文snapshot、各作業の実結果をtool結果として保持し、必要な場合だけローカルの内部logにも記録する。",
+          "after": "分割の起点と移動先、原文snapshot、各作業の実結果をtool結果として保持する。",
+          "meaning": "削除: 分割時の共通log記録工程。保持: tool証跡"
+        },
+        {
+          "before": "そのexact pathと最終pathの対応をtool結果として保持し、必要な場合だけ内部logにも記録する。",
+          "after": "そのexact pathと最終pathの対応をtool結果として保持する。",
+          "meaning": "削除: candidate対応の共通log記録工程。保持: exact path/最終pathの対応"
+        },
+        {
+          "before": "自分の移行log更新や下記の参照更新で使うfileを意図的に変える場合だけ",
+          "after": "下記の参照更新で使うfileを意図的に変える場合だけ",
+          "meaning": "削除: 自作移行log更新例外。保持: 外側参照更新と意図差分照合"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/derived-change.md",
+      "baseline_sha256": "264731f2a2a9b6bb6861aad31148291ba1a649d80f8cccf8947441f04a4b7804",
+      "expected_sha256": "d8ccd9923765a2f535c6cc651f121b937675ecb19d5160dc3d4b445ac33e46df",
+      "units": [
+        {
+          "before": "内部logは必要な場合だけ使う作業控えとし、そこだけへ判断に必要な証拠を送らない。",
+          "after": "内部logが存在する場合も、そこだけへ判断に必要な証拠を送らない。",
+          "meaning": "削除: 導出/委託経路の共通控え運用。保持: discussion証拠の自己完結"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md",
+      "baseline_sha256": "f48c9ace983fbe9d40a24d38566cc757da944e7ef21f660181f8a979083d9d80",
+      "expected_sha256": "09a039caae3c30a77d8dcb032a880f6e08b8868b00b5749b9702460f66431865",
+      "units": [
+        {
+          "before": "必要な場合だけ作るGit管理外の作業控えに使う。discussionの完成・読取・再開の必須成果物にはしない。",
+          "after": "既存の内部logの所属・回・記録単位を読み取るための旧保存形である。Git管理外の副産物や既存記録の互換参照に使い、新規logの作成templateとしては使わない。discussionの完成・読取・再開の必須成果物にはしない。",
+          "meaning": "変更: templateを新規writer用からlegacy読取互換へ限定。保持: 既存header/anchor/path参照"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+      "baseline_sha256": "6f8f129d3a4e5b03c671969a60a7d9bd47e2b407ccbeb58323a06e08883b0943",
+      "expected_sha256": "65e9e97ac69750d1ff877841f0027ad062a3d7c55668f8424622e094616ac841",
+      "units": [
+        {
+          "before": "内部logは必要な場合だけ使うローカルの作業控えである。",
+          "after": "",
+          "meaning": "削除: 目的別formatから共通作業控え運用を導入する説明"
+        },
+        {
+          "before": "logの所属・回・記録単位は [../internal_record.md](../internal_record.md)、",
+          "after": "既存logの所属・回・記録単位の解釈は [../internal_record.md](../internal_record.md)、",
+          "meaning": "変更: legacy記録の参照へ限定"
+        },
+        {
+          "before": "内部logを作る場合も、開始contextと検討結果の対応を保つ。",
+          "after": "開始contextと検討結果の対応を保つ。",
+          "meaning": "削除: format guideからのlog作成指示。保持: context/result対応"
+        },
+        {
+          "before": "実行側がdiscussionの回、または使う場合の内部logの記録単位へ合わせ、",
+          "after": "実行側がdiscussionの回へ合わせ、",
+          "meaning": "削除: format出力先として共通内部logを指定する導線"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/alignment.md",
+      "baseline_sha256": "277f630071d9c5c6e04fadad67df236293dcac52548c21f9084f9ca447bca4f9",
+      "expected_sha256": "9f43984234dae39e11ef9dc91525d2ac9505e437c83019066eb24db9687fb1bd",
+      "units": [
+        {
+          "before": "確認した事実と読解・不足をdiscussionへ残し、内部logは必要な場合だけ作業控えとして使う。",
+          "after": "確認した事実と読解・不足をdiscussionへ残す。",
+          "meaning": "削除: alignmentの共通作業控え作成運用。保持: discussionに事実/読解/不足"
+        }
+      ]
+    },
+    {
+      "path": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+      "baseline_sha256": "68745853e2af168ff873470b6c1f8cd21c60d43100eff84f16c7b23c8e98e5bc",
+      "expected_sha256": "27dc63ca649174acb136627ea28a0dd02e4e72d5e87bc5840184b6b0085a02f3",
+      "units": [
+        {
+          "before": "内部logは必要な場合だけ使うローカル作業控えとし、その保存・読取・回復の条件は同skillへ委ねる。",
+          "after": "内部logはCodexの副産物として扱い、共通の作成工程にしない。副産物や既存logの読取・回復の条件は同skillへ委ねる。",
+          "meaning": "変更: consumerから共通log運用を戻さず既存証拠の扱いを委譲"
+        }
+      ]
+    },
+    {
+      "path": "scripts/verification/validate-plugin.mjs",
+      "baseline_sha256": "9b71e0c7c39e83b7e3e26539dbab8cd908bf076d3264d43e1498338da0d2dd81",
+      "expected_sha256": "1f02af9eae60af0cd87424da421339a4ea771431afd117b87ecc5c84b57749df",
+      "units": [
+        {
+          "before": "// discussion単体で履歴を引き継ぎ、内部logは任意の作業控えとする契約。",
+          "after": "// discussion単体で履歴を引き継ぎ、Codexの副産物を共通の作成工程にしない契約。",
+          "meaning": "変更: 検査の対象契約を訂正"
+        },
+        {
+          "before": "\"必要な場合だけ準備する\"",
+          "after": "\"Codexの検討過程で生じる副産物\", \"共通workflowに内部logの作成・準備・更新工程を設けない\"",
+          "meaning": "変更: 未合意の必要時準備assertionを除き対象限定/工程なしを検査"
+        },
+        {
+          "before": "\"作業控えを使わない場合は`--log`を省略する\"",
+          "after": "\"内部logを根拠として使わない場合は`--log`を省略する\"",
+          "meaning": "保持: 任意--log省略の検査"
+        },
+        {
+          "before": "forbidText(discussionTemplate, \"{内部log相対path}#iteration-I\", \"Git管理外logへの必須link\");",
+          "after": "forbidText(discussionTemplate, \"{内部log相対path}#iteration-I\", \"Git管理外logへの必須link\");\nfor (const p of [discussionSkill, discussionIteration, discussionRecovery, skillPath(\"facilitate-discussion/split-discussion.md\"), skillPath(\"facilitate-discussion/derived-change.md\"), skillPath(\"facilitate-discussion/templates/consideration-records/README.md\"), skillPath(\"facilitate-discussion/templates/consideration-records/alignment.md\"), skillPath(\"task-design/SKILL.md\")]) {\n  for (const forbidden of [\"必要な場合だけ準備する\", \"長い調査の作業控え\", \"必要な場合だけ作業控えとして使う\", \"必要な場合だけ内部logにも記録する\", \"内部logへ論点・開始context・同じ回の骨子を準備する\"]) forbidText(p, forbidden, \"内部logの共通作成工程\");\n}\nrequireText(discussionInternalTemplate, \"新規logの作成templateとしては使わない\");",
+          "meaning": "保持: 必須link禁止。追加: 今回除去した実在の作成指示の逆戻りとlegacy用途を検査"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "method": "baselineの各fileへ保存済み49単位を順に適用して実物との全文一致を照合。差分と関係する内部指示・templateを読み、作成/更新運用の残存と既存証拠の保持を確認。",
+    "files": [
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md",
+        "declared_units": 14,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 14,
+        "unchanged_lines": 380
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/iteration.md",
+        "declared_units": 11,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 9,
+        "unchanged_lines": 189
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/read-discussion.md",
+        "declared_units": 6,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 7,
+        "unchanged_lines": 70
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/record-recovery.md",
+        "declared_units": 2,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 3,
+        "unchanged_lines": 52
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/split-discussion.md",
+        "declared_units": 4,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 5,
+        "unchanged_lines": 70
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/derived-change.md",
+        "declared_units": 1,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 2,
+        "unchanged_lines": 49
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/internal_record.md",
+        "declared_units": 1,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 2,
+        "unchanged_lines": 36
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/README.md",
+        "declared_units": 4,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 4,
+        "unchanged_lines": 41
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/facilitate-discussion/templates/consideration-records/alignment.md",
+        "declared_units": 1,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 2,
+        "unchanged_lines": 28
+      },
+      {
+        "path": "plugins/tumeda-dev/skills/task-design/SKILL.md",
+        "declared_units": 1,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 2,
+        "unchanged_lines": 925
+      },
+      {
+        "path": "scripts/verification/validate-plugin.mjs",
+        "declared_units": 4,
+        "actual_matches_declared": true,
+        "unchanged_line_ranges": 4,
+        "unchanged_lines": 1380
+      }
+    ],
+    "document_review": "更新時の濃さ・記法・指示対象・普段の言葉・既存記述の直し方・機密性・暫定性を適用。保存/準備/復帰の実行入口はdiscussionへ閉じ、既存logの保存形は互換読取と位置付ける。過去の誤りや指摘への弁解はsourceへ転記しない。",
+    "skill_update_review": {
+      "phase": [
+        "適用前",
+        "編集後"
+      ],
+      "scope": [
+        "facilitate-discussion/SKILL.mdと内部指示全体",
+        "task-design/SKILL.mdと既読の内部指示構造"
+      ],
+      "candidates": [],
+      "reason": "除くのは同じ検討・記録工程のlog作成運用であり、新しい判断・状態・完了条件を持つ工程を追加しない。入口/読取/反復/分割/回復/導出は既存内部fileの責務を維持。"
+    },
+    "boundary_cases": [
+      {
+        "case": "Claudeの通常処理",
+        "method": "共通入口→iteration→discussion保存/応答/再開を静的に追跡",
+        "result": "内部logの準備・更新工程なし。内部log templateへ入る作成導線なし。"
+      },
+      {
+        "case": "Codexで副産物なし",
+        "method": "本体のlog不在許容と同じiteration経路を机上照合",
+        "result": "logを作らずdiscussionの検討・提示・応答を進める。Codex必須作成条件なし。"
+      },
+      {
+        "case": "Codexの副産物あり",
+        "method": "本体の同期条件と提示可能化/通常同期を机上照合",
+        "result": "必要な事実・比較・訂正・限界をdiscussionへ同期しGit管理外に置く。共通の作成/更新工程は起動しない。"
+      },
+      {
+        "case": "必要証拠不足",
+        "method": "本体/読取/回復/分割/共有handoffの停止・版照合を原文と照合",
+        "result": "根拠に選んだ既存logは全文/後続訂正/snapshot/compareを要求。不足を確認済みにせず停止/未確認を返す。任意log不在だけでは停止しない。"
+      }
+    ],
+    "limits": "静的な契約照合と机上caseであり、Claude/Codexの新規実行・副産物生成条件・全案件の品質を検証したものではない。既存3commandの実測は別途validationへ記録する。",
+    "beta_draft_unchanged": true
+  }
+}

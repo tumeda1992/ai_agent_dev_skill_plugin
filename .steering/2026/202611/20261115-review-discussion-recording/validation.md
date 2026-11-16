@@ -146,3 +146,69 @@ PRで現状を読むための承認済みcommit計画に対し、公開前の中
 設計全体の合意は未取得、β本文は設計用draftのままで最終skill pathへ未適用である。
 今回の結果は未適用のβsourceや追加の記録構造指示を検証済みにせず、ready・phase完了の根拠にも使わない。
 source・分割patch・当初の検証履歴はこの記録追記で変更していない。
+
+## 内部logをCodexの副産物として扱う訂正の検証
+
+### 対象と保持した意味
+
+baselineは`8049e7528cad6aa2db13aa56efd914d491813b6a`。
+原Issueの対象限定を共通の作業控え運用へ置き換えた誤りを、論点3・イテレーション1に記録された適用指示に従って訂正した。
+長い調査・中断を理由に内部logを作成する指示、骨子・開始context・anchorの準備、共通writerによる追記・仕上げ、分割時のlog作成導線を除いた。
+副産物が生じる条件や、Codexでの必須作成条件は新設していない。
+
+対象sourceは次の11fileである。skill側のpathは`plugins/tumeda-dev/skills/`配下。
+
+- `facilitate-discussion/SKILL.md`、`iteration.md`、`read-discussion.md`、`record-recovery.md`、`split-discussion.md`、`derived-change.md`
+- `facilitate-discussion/templates/internal_record.md`、`templates/consideration-records/README.md`、`templates/consideration-records/alignment.md`
+- `task-design/SKILL.md`
+- `scripts/verification/validate-plugin.mjs`（repository rootからのpath）
+
+適用前に、原文・訂正文・保持/削除/変更の意味と根拠を[internal-log-correction-audit.json](internal-log-correction-audit.json)へ保存した。
+限定reviewで見つけた逆link作成の表現と保存前比較の旧writer参照も、各適用前に同fileへ対応を追加した。
+全49単位をbaselineへ順に適用した文字列と、11fileの実物全文・SHA-256の一致を確認した。
+変更対象以外の契約を再構成せず、既存logの所属・旧path・anchor・link label・暫定名維持、discussionのsingle writer、必要証拠の全文読取・後続訂正・版照合・不足時停止を保持した。
+旧保存形は既存logの互換読取に限定し、新規作成templateから外した。既存tracked log・過去応答を削除せず、配布versionは同じ未merge PRの`9.0.1`を維持した。
+
+### 文書と切り出しのreview
+
+更新時のdocument-reviewを、削った指示も含めて適用した。
+共通の実行入口がdiscussionの骨子・検討・提示・応答へつながり、内部logがなくても実行できること、既存証拠を読む入口が残ることを照合した。
+旧版への弁解や新しい作成基準をsourceへ加えず、最終仕様のdesignとsourceの参照を同期した。
+
+skill-update-reviewは適用前と編集後に明示適用した。
+facilitate-discussionの本体・内部指示全体と、consumerであるtask-designの既存構造に、追加の切り出し候補はない。
+今回除くのは同じ検討・記録工程のlog作成運用であり、独立した判断・状態・完了条件を持つ工程を追加していない。
+入口・読取・反復・分割・回復・導出は既存の内部fileの責務を保つ。
+
+| 境界case | 静的・机上照合で確認したこと |
+| --- | --- |
+| Claudeの通常処理 | 共通入口からiteration、discussion保存・応答・再開へ進み、logの準備・更新工程へ入らない |
+| Codexで副産物なし | 同じdiscussionで検討・提示・応答を続け、logを作らず完了できる。Codex必須作成条件はない |
+| Codexの副産物あり | 必要な事実・比較・訂正・限界をdiscussionへ同期し、実際の副産物をGit管理外に置く。共通のlog作成・更新工程は起動しない |
+| 必要証拠が不足 | 根拠として使う既存logは全文・後続訂正と版を確認する。取得不能を確認済みにせず、不足と停止/未確認を返す。任意のlog不在だけでは停止しない |
+
+この表は文面の実行経路と契約の照合であり、Claude/Codexを新たに動かした結果ではない。
+副産物が生じる条件や、全model・全案件での品質は検証していない。
+
+### 既存commandの実測
+
+rootが既存test-runnerへ依頼した`request_id=issue10-internal-log-correction-validation-1`、`attempt=1`は`passed`だった。
+最終49単位版のsourceで次の3commandがすべてexit 0だった。
+
+| command | 結果 |
+| --- | --- |
+| `node scripts/verification/validate-plugin.mjs` | `plugin validation passed` |
+| `node scripts/verification/test-task-design-handoff.mjs` | `task-design handoff tests passed` |
+| `node --test plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs` | 26 pass・0 fail・条件付き1 skip（全27件） |
+
+skipは既存の「指定された実在の分割記録を修復せず原文・現在・snapshotで読む」であり、成功件数に含めない。
+`/tmp/issue10-internal-log-correction-validation/`のrequest、result JSON/Markdown、`validate.log`・`handoff.log`・`helper.log`を照合した。
+helperの実測には、logなしの本文・現在の問いの読取と、任意log不在/根拠に選んだlog消失の区別を含む。
+空白検査も成功した。helper実装・既存testの追加変更や、新しいmodel生成検証は行っていない。
+
+### 適用後も残る状態
+
+今回の局所訂正は反映・検証したが、design全体への合意は未取得である。
+β本文draftはbyte単位で不変で、最終skill pathへ未適用。既合意の長い記録の構造も今回のsource変更へ混ぜていない。
+未適用の別変更と、その反映後の検証はdesignへ残しており、ready・phase完了は宣言しない。
+この追加実施を、以前の未実施時点や当初の検証へ遡って反映しない。
