@@ -602,7 +602,7 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 
 - task-designが行う: §4の設計contextを渡す。一つの論点ごとに返されたdecisionを直ちに`design.md`へ反映し、次の論点より先に残る不確実性を再評価する。
 - task-designが行わない: 論点採番、親子関係、提案番号、iteration、feedback routing、合意確認を独自に組み立てる。
-- `facilitate-discussion`が行う: discussion scopeと対象論点を判定し、単独で判断できる現在案・背景、feedback、routing、決定をdiscussion fileへ保存して合意を進める。調査・検証・訂正等の過程は、同skillが接続する論点単位の内部検討記録へ保存する。二層の保存・読取・回復は同skillへ委ねる。
+- `facilitate-discussion`が行う: discussion scopeと対象論点を判定し、単独で判断できる現在案・背景、feedback、routing、決定をdiscussion fileへ保存して合意を進める。調査・比較・検証・訂正等の経緯は、discussionの検討記録へ残す。内部logは必要な場合だけ使うローカル作業控えとし、その保存・読取・回復の条件は同skillへ委ねる。
 
 #### commitの境界が設計判断になる時
 

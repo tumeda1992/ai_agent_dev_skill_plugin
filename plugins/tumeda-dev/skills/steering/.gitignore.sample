@@ -4,3 +4,5 @@
 */*/*/subagent_report/
 # task-designの引き継ぎ中だけ使う、steering working directory直下の一時成果物。
 */*/*/task-design-catch-up/
+# 議論の内部logは任意のローカル作業控えとして扱う。
+**/internal-records/

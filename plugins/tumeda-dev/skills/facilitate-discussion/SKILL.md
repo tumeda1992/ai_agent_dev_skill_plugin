@@ -24,17 +24,13 @@ none/endedでは既存処理へ進む。
 ## 目的と成果
 
 明示された議論を一つのdecision単位で進行し、検討経緯、判断可能な提案・認識合わせ、応答、決定をdiscussion fileへ保存する。
-内部の調査・訂正・再判定・検証は論点ごとの内部検討記録へ保存する。
 discussionだけで、前回の応答から何を確かめ、比較・訂正を経てなぜ今回の案へ至ったかを追い、判断・応答・再開できる状態を作る。
-内部検討記録だけでも検討過程と限界を追える状態を作る。
 最終案に都合のよい背景だけへ畳まず、成立しなかった案と理由、未確認と限界も本文に残す。
-linkは詳細証跡への導線であり、説明を省く理由にしない。
 
-成果は次の三つである。
-
-- 更新されたdiscussion file
-- 同じownerが管理する論点ごとの内部検討記録
-- chat上で合意された決定とconsumerへの具体的なhandoff
+必須の成果は更新されたdiscussion fileと、chat上で合意された決定・consumerへの具体的なhandoffである。
+内部検討記録は、調査の作業控えや中断時の補助が必要な場合だけ作るローカルの記録とする。
+内部logをGit管理対象や必須成果物にせず、存在・読取・linkをdiscussionの完成や再開の条件にしない。
+提案や決定の理解に必要な事実・比較結果・訂正が内部logだけにある場合は、提示前にdiscussionへ反映する。
 
 consumer向けの固定result schemaは設けない。一つの論点でdecisionを確定するたびに、決定後の成果物更新や後続workflowをconsumerへ返す。複数論点のdecisionをまとめてから返さない。ただし、decisionを返すことと、委託されたテーマの記録ownerを終了することは同じではない。同じテーマの議論が続く間は、このskillが記録ownerであり続ける。
 
@@ -100,7 +96,7 @@ consumerの適用先を `design.md` や `tasklist.md` に固定しない。
 
 ## workflow全体で守る不変条件
 
-- discussion fileを判断context・応答・decisionの正本、内部検討記録をprocess evidence・中断復帰の正本とする。書込み直前に対象file全体を再読込し、二層とも同じownerがsingle writerで更新する。
+- discussion fileを検討経緯・判断context・応答・decisionの正本とする。内部検討記録は任意のローカル作業控えであり、別の正本にしない。書込み直前に対象file全体を再読込し、内部logを使う場合も同じownerがsingle writerで更新する。
 - canonicalな `## 論点N:` とlegacyな `### 論点N:` を走査する。同じ番号が複数存在すれば全書込みを停止してユーザーへ報告し、自動修復、renumber、欠番再利用を行わない。
 - feedback確定後の過去iteration、却下理由、当時の判断内容を変更・削除しない。既存h1、論点順序、legacy formatも一括変更しない。
 - entry末尾の未決提案が判断対象になるため、同じ内容を上部へ複製しない。
@@ -170,29 +166,36 @@ skill起動、論点選択、iterationを無前提な兄弟分岐として扱わ
 本文・応答・会話が正本であり、旧`提案中`を含む値だけで判断しない。
 親子導出を通常のstatus更新より優先する。
 
-### 二層の保存先と読取範囲を解決する
+### discussionと任意の作業控えを解決する
 
-discussionはテーマの判断interface、内部logは一つの論点の過程であり、論点番号・stateを内部logから逆算しない。
-対象論点を選んだ後、既存の接続があればそのlogを継続利用する。新規logだけをdiscussion directory内の `internal-records/{D}.topic-{N}.md` へ置く。
+discussionから論点番号・現在state・検討経緯を読み、内部logから逆算しない。
+内部logがなくても、discussionの同じ論点・回で検討・提示・応答を続ける。
+内部logを作ること自体を工程にせず、長い調査の作業控えなど、実際に必要な場合だけ準備する。
+
+内部logを使う場合、既存の接続があればそのlogを継続利用する。新規logだけをdiscussion directory内の `internal-records/{D}.topic-{N}.md` へ置く。
 Dは解決済みdiscussion basename全体（拡張子も保持）、Nはdiscussionの実論点番号である。
 例えば `task-design-discussion.md` の論点3なら `internal-records/task-design-discussion.md.topic-3.md` となる。
 必要な内部directoryはこの派生保存先として作成できるが、入力discussion directory自体を推測作成しない。
+内部logはGit管理対象外にする。steeringでは配布sampleと利用先の `.steering/.gitignore` の `**/internal-records/` を使う。
+steering以外の保存先では、利用先のignoreへdiscussion directory配下の `internal-records/` を追加する。
+既存のtrackedな内部logや過去のdiscussionは一括削除・移動・再要約しない。
 
 - 所属の確認
-  - discussionからのlinkとlog先頭のdiscussion・論点表示を照合する。既存logが二つある、所属が違う、名前長等で書けない時は停止する。
-  - 短縮名や別名へ逃げて二つ目の正本を作らず、過去の暫定名を命名統一だけのために移動しない。
+  - 内部logを使う時は先頭のdiscussion・論点表示を照合し、既存の対応が一意なら継続する。二つある、所属が違う、名前長等で書けない時は停止する。
+  - 短縮名や別名で二つ目の作業控えを作らず、過去の暫定名を命名統一だけのために移動しない。必要な証拠が欠けているかと、任意のlogがないだけかを区別する。
 - 必要な読取
-  - [読取](read-discussion.md)に従い全体の現在state、対象範囲file全文と対象log全文を読む。新規logなら未作成を確認する。
-  - 他論点の根拠を使う場合は、そのdiscussionの現在decisionと当該log全文へ広げ、後続訂正と参照を辿る。無関係な全logの毎回読取は要求しない。
+  - [読取](read-discussion.md)に従い、全体の現在stateと対象範囲file全文を読む。内部logは存在して実際の根拠として使う場合だけ、対象log全文と必要な後続訂正を読む。
+  - 他論点の根拠を使う場合も、そのdiscussionの現在decisionと該当範囲が先である。内部logを使う必要がある場合だけ読取集合へ加え、無関係な全logを毎回読まない。
+  - 旧discussionにlogへのlinkが残っていても、任意のlogがないことだけでは停止しない。提案や決定の理解に必要な証拠が欠ける場合は、不足と判断への影響を示し、確認済みにしない。
   - 必須fileや根拠を読めなければ確認済みと扱わず、未同期・未確認と停止理由を返す。
 - 位置の識別
-  - discussionから `#iteration-I`、個別根拠は `#iteration-I-record-R` を指す。Rはその回内で1始まりとし、進捗flagではない。
-  - labelにも論点・回・必要ならrecord番号を示す。logからはdiscussionへの相対linkと実論点番号で戻れるようにする。
+  - 内部logを作る場合は `#iteration-I`、個別記録は `#iteration-I-record-R` を使う。Rはその回内で1始まりとし、進捗flagではない。
+  - logへのlinkを置く場合はlabelにも論点・回・必要ならrecord番号を示す。logからdiscussionへ相対linkと実論点番号で戻れるようにする。新しいdiscussionへGit管理外logのlinkを必須として置かず、説明をlink先へ送らない。
   - pathの特殊文字はsegmentごとにpercent-encodeし、実file名を変更しない。anchorとsemantic titleは分離し、曖昧なlegacy見出しslugを推測しない。
 
-logを書き込む時も全文再読込から論点・回・記録単位の所属と一意性を検査し、新規なら未作成と挿入先を確認する。
+内部logを書き込む時も全文再読込から論点・回・記録単位の所属と一意性を検査し、新規なら未作成と挿入先を確認する。
 現在の記録単位へ結果を加えることはできるが、次の処理へ進んだ単位の訂正は新しい記録から元を指す。
-検討記録の入力・結果・訂正・discussion背景を書く直前には毎回 [expression_notation.md](../../docs/documentation_standards/expression_notation.md) を全文読む。
+検討記録の入力・結果・訂正・discussion本文を書く直前には毎回 [expression_notation.md](../../docs/documentation_standards/expression_notation.md) を全文読む。
 単純な並列は箇条書き、短い補足を持つものはネスト、独立した話題へ育ったものは見出しへ分け、因果を長い散文一塊へ潰さない。
 この記法指定だけを理由に記録後の追加reviewを新設しない。既存のemit gateは維持する。
 
@@ -296,7 +299,7 @@ repository知識またはskillの不足では、具体ケース固有の修正�
 consumerがdecisionを対象成果物へ即時反映した場合、このskillは同じテーマの次の論点を選ぶ前に、そのoriginating decisionについて`doc-enricher`を提案modeで一度だけ起動する。repository知識不足の分類時に同じoriginから起動済みなら、それを一回として数える。`doc-enricher`が提案・適用したdocs変更から同じoriginのreviewを再帰起動しない。候補があれば`doc-enricher`の承認gateに従って同じdiscussionへ提案・合意・結果を保存し、候補がなければreview済みであることだけを適用結果として保存する。
 
 origin-reviewで追加の調査・比較・一般化等を行う場合は、[iteration.md](iteration.md) 全文を読み、その「内部検討を記録する」の手順を使う。
-originの既存logと該当する回へ接続し、目的別formatの入力保存から結果保存までを通す。
+originのdiscussionの該当する回へ接続し、目的別formatの入力保存から結果保存までを通す。内部logを使う場合だけ、その作業控えにも接続する。
 この接続だけで次の外向き回を作ったり、提案準備を始めたりしない。新しい採否が必要になった時だけ論点選択へ戻す。
 既に得られたreview結果を保存するだけなら、未実施の調査や形式だけの内部loopを作らない。
 
@@ -323,7 +326,7 @@ handlerから [iteration.md](iteration.md) 全文を読んで、次のいずれ�
 
 本体からは、提示保存、合意保存、別decision、scope外、外部停止、state不整合、未収録履歴のどれかとして戻る。固定result schemaは作らない。合意保存なら直ちに下の確定へ、別decisionなら起動でなく論点選択へ、scope外なら取下げへ、未収録履歴なら回復へ進む。
 外部停止・明示保留ではstatusを保留にし、必要な時だけ下の再開条件を保存する。親子導出がある場合はそちらを優先する。通常の応答待ちを保留へ変えない。
-状態不明や書込み失敗では二層の実file、tool結果、会話を照合し、盲目的に追記しない。
+状態不明や書込み失敗ではdiscussionの実file、存在して使った作業控え、tool結果、会話を照合し、盲目的に追記しない。
 同じ中断処理への復帰は [iteration.mdの保存境界から中断処理へ戻る](iteration.md#保存境界から中断処理へ戻る) に従う。
 保存内容ごとの戻り先と、提示済みか不明な場合を含む停止条件の正本はその節とし、handlerへ重複した判定表を置かない。
 復帰後もhandlerは、返された結果の確定・通常同期を所有する。処理後に判明した記録漏れは下の回復検出へ渡す。
@@ -353,7 +356,7 @@ templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再�
 「対象論点を選ぶ」で新しい上位decisionまたは親変更が必要だと判定した場合だけ行う。
 
 [templates/discussion_entry.md](templates/discussion_entry.md) 全文を読み、回の骨子・提案本文・空の提案応答欄・受領応答の本文を使う。本文は同じ回の検討記録の前、対応する応答欄は後へ置き、現在stateより前へ回を加える。別decisionの機械的反映なら結果まで保存し、通常提示の準備loopへ戻さない。
-この処理で新たな調査・判断過程を記録する場合も、内部logの保存形を全文読み、実施前入力→結果保存→discussion背景という境界を使う。単なる既決decisionの反映に不要な内部loopを作らない。
+この処理で新たな調査・判断を行う場合も、実施前入力と結果・変更理由をdiscussionの検討記録へ残す。内部logの保存形は作業控えを使う場合だけ読み、既決decisionの機械的反映に不要な内部loopを作らない。
 
 1. 新しいparentがまだ存在しなければ、「共通本体へ接続する」の新規入口で実質的な分解decisionを持つ後発parentを先に作る。
 2. 新parentを同じ論理的なdiscussion記録の全範囲から特定し、一親、自己参照禁止、循環禁止を検証する。別範囲fileも対象に含め、別の論理記録は親にしない。失敗した場合は参照を変更しない。
@@ -377,8 +380,8 @@ templateの`再開条件`は、[再開条件](templates/discussion_entry.md#再�
 ### 通常の同期と回復の検出
 
 提案・認識合わせの提示、decision、reparent、取下げ、scope外報告、停止、consumer返却のいずれでも最後に通る。
-discussionと扱った論点の内部logを再読込し、前回保存後に委託scope内で実際に生じた事象・原因・提案・回答・反論・訂正・合意を照合する。
-過程の実証拠はlog、ユーザーが判断する内容・原文応答・decisionはdiscussionへ同期し、二層の所属と根拠linkも確認する。
+discussionを再読込し、前回保存後に委託scope内で実際に生じた事象・原因・比較・提案・回答・反論・訂正・合意を照合する。
+内部logを使った場合だけその全文も読み、理解・引継ぎに必要な証拠と検討経緯をdiscussionへ同期する。任意のlogがなくても、本文から判断・応答・decisionと変遷を追えるか確認する。
 同じdecisionは同じ論点、別decisionは論点選択を通して保存する。
 未保存のままchat合意へ到達したか、処理を進めた後に記録漏れを発見したなら、[record-recovery.md](record-recovery.md) を全文読んで回復する。到着直後の通常応答、通常のreparent・取下げ、正しく保存済みの中断復帰は回復へ集めない。
 成果物変更の理由が原文からdecisionまで追えることを確認する。保存済みdecisionとの一対一対応で新scope・routing・方針・成果物・実行単位を一切決めない適用だけは新論点にしない。

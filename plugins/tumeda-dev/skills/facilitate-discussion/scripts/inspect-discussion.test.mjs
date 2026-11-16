@@ -183,3 +183,29 @@ test("終端の決定・適用結果と未完の最新回を取り違えず取�
   writeFileSync(path, "## 論点1: 作成途中\n\n**ステータス:** 調査中\n\n### イテレーション0（論点1）\n");
   assert.equal(run(directory, "read").complete, true);
 });
+
+test("内部logを作らない記録も本文と現在の問いを保って読み直せる", t => {
+  const directory = fixture(t);
+  const text = "# 議論記録\n\n" + entry(1).replace("[根拠](detail.md)", "旧案では再送先を固定した。設定変更を照合し、本文と配送先を分けて最新の配送先を使う案に直した。未確認は実配達。");
+  writeFileSync(join(directory, "discussion.md"), text);
+  const before = run(directory, "snapshot");
+  assert.equal(before.snapshot.files.length, 1);
+  assert.equal(run(directory, "read", "--view", "full").chunks.map(c => c.text).join(""), text);
+  assert.match(run(directory, "read").chunks.map(c => c.text).join(""), /本文と配送先を分けて/u);
+  assert.equal(cli(directory, "compare", [], JSON.stringify(before)).status, 0);
+});
+
+test("任意の旧logがない場合と、根拠として指定したlogの消失を区別する", t => {
+  const directory = fixture(t), log = join(directory, "old-record.md");
+  single(directory, 1);
+  writeFileSync(log, "# 旧作業控え\n\n本文へ反映済みの照合。\n");
+  const withLog = run(directory, "snapshot", "--log", log);
+  assert.equal(withLog.snapshot.files.length, 2);
+  assert.equal(cli(directory, "compare", ["--log", log], JSON.stringify(withLog)).status, 0);
+  rmSync(log);
+  // 作業控えを使わない読取は成立するが、既に根拠へ選んだlogの消失は成功にしない。
+  assert.equal(run(directory, "snapshot").snapshot.files.length, 1);
+  assert.ok(run(directory, "read", "--view", "full").complete);
+  assert.equal(cli(directory, "compare", ["--log", log], JSON.stringify(withLog)).status, 1);
+  assert.equal(cli(directory, "snapshot", ["--log", log]).status, 1);
+});
