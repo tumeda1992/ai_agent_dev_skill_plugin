@@ -28,7 +28,7 @@
 
 <!-- 利用者の動作確認に使う環境と、そこへ載せる方法を書く。
      確認環境へ載せるのに commit・push が要る場合（push で build される環境等）は、その旨と載せ方を書く。
-     tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push だけを、利用者の動作確認の前に許す -->
+     tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push と、作業の外へ残る action を含む phase の最後の commit・push だけを、利用者の動作確認の前に許す -->
 
 - なし。このrepositoryはskill・docsのMarkdownとmanifestのJSONだけを持ち、起動するappを持たない。`visual-inspector` を使う対象がない。
 
@@ -54,7 +54,7 @@
 
 ### 作業の外へ残るactionの差し込み
 
-<!-- 対象actionを含むphaseの停止時に、既定の確認へ加えて行うこと、または問うことを記載する。
+<!-- 対象actionを含むphaseの最後に、既定のcommit・pushへ加えて行うこと、または問うことを記載する。
      対象action種別、差し込む内容、その背景。宣言がなければ何も差し込まれない。
      「actionを定める」形と「問いを定める」形のどちらでもよい。前者はreview時に問わず、後者は問う -->
 

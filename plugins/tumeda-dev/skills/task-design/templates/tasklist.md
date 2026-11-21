@@ -124,7 +124,7 @@ Tasks に挙げた確認をユーザーが行い、期待どおりであるこ�
 
 ## 完了後のaction
 
-> ⚠️ この section より前に動作確認phaseがある時は、確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない。急かすことも禁止する。
+> ⚠️ この section より前に動作確認phaseがある時は、確認環境へ載せるために`UI確認環境`が定めるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない。急かすことも禁止する。
 
 <!-- local Git運用条件が返された場合、またはユーザーがcommitを明示要求した場合だけ、次のsectionを生成する。条件を満たさない場合はsection自体をtasklistへ残さない。 -->
 

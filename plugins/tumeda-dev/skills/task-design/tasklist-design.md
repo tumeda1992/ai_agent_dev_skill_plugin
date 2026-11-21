@@ -20,7 +20,7 @@ tasklist作成途中では、解消対象を可視化するために`TBD`を使�
 
 tasklistは、止めずに最後まで進む前提で作る。止まるtaskを置くのは、次の二つだけである。
 
-- 作業の外へ残るactionを含むphaseの最後（下の「作業の外へ残るactionを含むphaseの原則」）
+- 利用者にしかできない操作（下の「利用者にしかできない操作」）
 - 利用者の確認（「実装後feedbackと公開action」）
 
 止まるtaskには、どちらに当たるかを書く。どちらにも当たらない止まるtaskを置かない。
@@ -29,28 +29,41 @@ tasklistは、止めずに最後まで進む前提で作る。止まるtaskを�
 - それをやると何が起きるか: 止まるtaskは「どこで止めても安全」と読まれて広がる。phaseごとに利用者の確認が置かれたり、利用者が確かめるものの無い確認で作業が止まったりする。利用者は、確かめる必要の無い待ちを何度も受ける。
 - 正しい判断のための問い: 「このtaskで止まる理由は、二つのどちらか」
 
+### 利用者にしかできない操作
+
+assistantが行うことを禁じられている操作と、assistantの権限では実行できないcommandは、利用者が行う。例えば、PRのmerge、既定branchへのmerge（どちらを禁じるかは、repositoryのcontext fileとpluginの規則が決める）、assistantに権限の無い設定の変更である。
+
+- そのtaskは、操作を必要とするphaseの最後に置く。`tasklist-executor`はそこで`phase_checkpoint`を返して止まる。
+- taskには、利用者が行う操作と、行われた後にassistantが確かめて続けることを書く。
+- 判断の問い: 「この操作を、assistantが行ってよく、行えるか」。どちらかがNoなら、利用者にしかできない操作である。
+
+下の「作業の外へ残るactionを含むphaseの原則」が置くcommit・pushも、assistantが行えない時はこの操作に当たる。
+
 ### 作業の外へ残るactionを含むphaseの原則
 
 `SKILL.md`のStep 4（design合意判定）で特定した、作業を破棄しても残る変化を起こすactionを対象actionとし、それを含むphaseに次のMUSTを当てる。判定の問い・例・判定に使わない観点はStep 4が正本であり、ここへ写さない。
 
 - **MUST**: 対象actionを含むphaseは必ず単独phaseとして切り出す。
-- **MUST**: そのphaseの最後に「ここで作業を停止し、対象actionの結果をユーザーに確認する。次phaseへは進まない」というtaskを置く。
-- **MUST**: Step 4で受け入れ基準へ入れた引き継ぎの観点（この作業を破棄しても残る変化を、後から更新・確認・復旧できること）を前提にする。`design.md`の受け入れ基準に入っていなければ、tasklistを作らず`design.md`へ戻す。停止・確認taskでは、設計時点に決めた運用documentの記述と実態が合っているかを照合する。実装の過程で方針が変わっていた場合は、その場でdocumentを書き換えず`design.md`へ戻す。
-- 理由: 対象actionは後続作業すべての前提になる。ユーザーが実際に適用されたことを確認する前に後続へ進むと、誤った前提上へ変更が積み上がる。加えて、作業破棄で戻せないため、適用の事実を独立に確認する必要がある。
+- **MUST**: そのphaseの最後に、対象actionの元になった変更（migrationのfile、Terraformの定義等）と、そのphaseまでの作業記録をcommitし、作業branchをpushするtaskを置く。止まらずに次のphaseへ進む。対象actionがmergeで動く適用（PRをmergeするとapplyが動く等）なら、元になった変更はmergeの前にremoteにあるため、このtaskは要らない。
+- **MUST**: Step 4で受け入れ基準へ入れた引き継ぎの観点（この作業を破棄しても残る変化を、後から更新・確認・復旧できること）を前提にする。`design.md`の受け入れ基準に入っていなければ、tasklistを作らず`design.md`へ戻す。phaseの最後のcommit・pushの前に、設計時点に決めた運用documentの記述と実態が合っているかを照合する。実装の過程で方針が変わっていた場合は、その場でdocumentを書き換えず`design.md`へ戻す。
+- 理由: 対象actionは作業を破棄しても残る。対象actionの後に作業環境（開発機のworking tree）が失われると、外の状態だけが進み、それを生んだ変更がどこにも無くなって、外の状態とrepositoryを同期できなくなる。例えば、共有のDBへmigrationを当てた後にworking treeを失うと、DBに当たっているmigrationのfileがどこにも無い。pushしておけば、別の環境から続きを行える。
+- やってしまいがちな行動: 対象actionのphaseの最後で止まり、利用者に適用の結果を確かめてもらう。
+- それをやると何が起きるか: 利用者は、assistantがcommandの出力で判定できる結果を見せられ、確かめるものの無い待ちを受ける。止まっても、対象actionの元になった変更はremoteに無いままで、その間に作業環境を失うと同期できなくなる。
+- 正しい判断のための問い: 「対象actionの元になった変更は、remoteにあるか」
 
 #### 利用先固有の差し込み
 
 対象actionを含むphaseがある時は、`maintenance-plugin-context`へconsumer=`task-design`として「作業の外へ残るactionの差し込み」宣言を要求する。宣言の内容をplugin側が推測して補完しない。
 
-| 宣言の形 | tasklist初稿のreview時 | 停止・確認taskへ書くもの |
+| 宣言の形 | tasklist初稿のreview時 | phaseの最後へ書くもの |
 | --- | --- | --- |
 | actionを定める | 問わない | 宣言された内容 |
 | 問いを定める | review依頼へ併せて出す | ユーザーの回答 |
-| 宣言なし、または`unavailable` | 問わない | 既定の停止・確認taskのみ |
+| 宣言なし、または`unavailable` | 問わない | commit・pushのtaskのみ |
 
 常に問う形にしない。利用先が既に決めている判断を毎回ユーザーへ差し戻すことになり、「実装中に新しい判断が生まれない状態を作る」というtask-designの目的と逆を向く。毎回問いたい利用先は、宣言を「問いを定める」形で書く。
 
-ユーザーの選択はreview後に停止・確認taskへ書き込む。実行時に`tasklist-executor`が問い直さない。設計段階で決められる判断を実行時まで持ち越さない。
+ユーザーの選択はreview後にphaseの最後のtaskへ書き込む。実行時に`tasklist-executor`が問い直さない。設計段階で決められる判断を実行時まで持ち越さない。
 
 ### phase分割の方針
 
@@ -131,9 +144,10 @@ document-review、機能・安全・独立した動作検証、利用者確認�
   - それ以外の確認（commandのexit codeやログ、test、APIのresponse、差分がdesignのとおりかの照合）は、そのphaseのDoDと品質checkのtaskに入れ、tasklist-executorが自分で行う。
   - 判断の問い: 「この確認の合否を、assistantがcommandの出力・file・撮影した画面から判定できるか」
 - 利用者の確認のtaskは、利用者が触れるものがすべて揃った後に一度だけ置く。phaseごとに置かず、途中に置く例外も作らない（上の「止まるtaskの原則」）。
-- 利用者が触れるものがcommit・push・PRより前に揃うなら、その確認の後にcommit・push・PRをする。
-  - 例外: repositoryのcontext fileの`UI確認環境`が、確認環境へ載せるのにcommit・pushが要ると定めている場合、そのcommit・pushは確認の前に行ってよい。その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。それ以外のcommit・push・PRは確認の後に行う。
-  - 確認の前に確認環境のためのcommitが作業branchにある場合、確認で直したところは既存のcommitを書き換えず、追加のcommitにする。
+- 利用者が触れるものがcommit・push・PRより前に揃うなら、その確認の後にcommit・push・PRをする。確認の前に行ってよいのは、次の二つだけである。それ以外のcommit・push・PRは確認の後に行う。
+  - 確認環境へ載せるcommit・push: repositoryのcontext fileの`UI確認環境`が、確認環境へ載せるのにcommit・pushが要ると定めている場合、そのcommit・pushは確認の前に行ってよい。その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。
+  - 作業の外へ残るactionのcommit・push: 作業の外へ残るactionを含むphaseの最後のcommit・push（上の「作業の外へ残るactionを含むphaseの原則」）。
+  - 確認の前のcommitが作業branchにある場合、確認で直したところは既存のcommitを書き換えず、追加のcommitにする。
 - 利用者が触れるものが本番へ入れた後に初めて現れるなら、commit・pushは機械的確認の後に進め、利用者の確認はそれが現れた後に置く。最後まで利用者が触れるものが無い作業には、利用者の確認のtaskを置かない。
 - `.agents/skills/tumeda-dev-plugin-context.md`にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け（分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める）、部分承認なら承認範囲だけをcommitする。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答（`commitしない`等）もfactとして記載する。
 - `.agents/skills/tumeda-dev-plugin-context.md`にGitHub公開条件の記載があり、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`scripts/github/create_or_get_pr.sh`を使う。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答もfactとして記載する。
@@ -168,14 +182,16 @@ tasklistを書いたら、ユーザーへ提示する前にゼロベースで次
   - やってしまいがちな失敗: testの一覧を先に作り、DoDと突き合わせずに揃ったとみなす。DoDに書いたのにtestが無い項目は、実装者に「書かなくてよい」と読まれる。
 - [ ] **UI変更phaseにscreenshot確認があるか**: 品質checkだけへまとめていないか。
 - [ ] **横切りになっていないか**: 実装phaseの後にtest phaseを置くようなlayer分割になっていないか。
-- [ ] **利用者の確認のtaskは、利用者にしか確かめられないものだけを持ち、利用者が触れるものが揃った後に一度だけあるか**: 揃うのがcommit・push・PRより前なら、確認の後にcommit・push・PRがあるか（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）。
+- [ ] **利用者の確認のtaskは、利用者にしか確かめられないものだけを持ち、利用者が触れるものが揃った後に一度だけあるか**: 揃うのがcommit・push・PRより前なら、確認の後にcommit・push・PRがあるか（確認環境へ載せるために`UI確認環境`が定めるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushを除く）。
   - 失敗例: 機械的確認を「動作確認済み」と読み替え、tasklist-executorがそのままcommit・pushまで進む。
   - 失敗例: assistantが自分で確かめられる確認（commandのexit code、差分の照合）だけで利用者の確認のtaskを作り、利用者が確かめるものの無い待ちで作業を止める。
 - [ ] **既定branchへのmergeを含む場合、どちらの経路か判定したか**: `Closes`の有無とbranchの扱いが経路に合っているか。
   - 失敗例: 検証のためのmergeへ`Closes`を付け、残作業があるのにissueが閉じる。
 - [ ] **完了後actionがrepository contextへ従うか**: local commitとGitHub公開を別条件で判定し、plan時点では実行可能なcommit task、runtimeでは実際のcommitを確認し、適用不能なsectionを生成していないか。
-- [ ] **対象actionを含むphaseで、差し込み宣言を要求したか**: `maintenance-plugin-context`へ要求し、返却の有無に応じて停止・確認taskを書いたか。
-  - 宣言が返らなければ既定の停止・確認taskだけを置く。要求自体を省略しない。
+- [ ] **対象actionを含むphaseの最後に、元になった変更と作業記録のcommit・pushのtaskがあるか**: 止まるtaskにしていないか。mergeで動く適用には置いていないか。
+- [ ] **利用者にしかできない操作のtaskが、操作を必要とするphaseの最後にあり、利用者が行う操作と、その後にassistantが確かめて続けることを書いているか**: assistantが行ってよく、行える操作で止めていないか。
+- [ ] **対象actionを含むphaseで、差し込み宣言を要求したか**: `maintenance-plugin-context`へ要求し、返却の有無に応じてphaseの最後のtaskを書いたか。
+  - 宣言が返らなければcommit・pushのtaskだけを置く。要求自体を省略しない。
   - やってしまいがちな失敗: 宣言が無い前提で進める。この契約は「宣言がなければ何もしない」ため、要求を忘れてもtasklistは正常に見え、差し込みが黙って落ちる。宣言が返らなかった場合と要求を忘れた場合が成果物の上で区別できない。
 - [ ] **設計前に確立済みの知識を記録するdocumentがPhase 1にあるか**: 実装終了まで書けないものかを問い、Noなら早期配置する。
 - [ ] **各deliverableのDoDが完成後の状態を具体的に示すか**: 「整備される」「作成する」というlistingだけになっていないか。

@@ -1332,21 +1332,37 @@ requireText(runtimeFeedbackReview, "目的の外の不備を切り出すと決�
 requireText(`${pluginRoot}/docs/development_standards/README.md`, "work_scope.md");
 
 // 確認の前に許すcommit・push（UI確認環境の宣言）。
-const confirmEnvExclusion = "（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）";
+const confirmEnvExclusion = "（確認環境へ載せるために`UI確認環境`が定めるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushを除く）";
 requireText(tasklistDesign, "repositoryのcontext fileの`UI確認環境`が、確認環境へ載せるのにcommit・pushが要ると定めている場合、そのcommit・pushは確認の前に行ってよい。");
 requireText(tasklistDesign, "それ以外のcommit・push・PRは確認の後に行う。");
 requireText(tasklistDesign, "確認で直したところは既存のcommitを書き換えず、追加のcommitにする");
 requireText(tasklistDesign, "その場合は、動作確認の依頼taskの前に、`UI確認環境`が定める載せ方で確認環境へ載せるtaskを置く。");
 requireText(tasklistTemplate, "- [ ] 確認環境へ載せる（`UI確認環境`が載せ方を定めている場合だけ。{載せ方}）");
 requireText(tasklistDesign, "**利用者の確認のtaskは、利用者にしか確かめられないものだけを持ち、利用者が触れるものが揃った後に一度だけあるか**");
-requireText(tasklistDesign, "揃うのがcommit・push・PRより前なら、確認の後にcommit・push・PRがあるか（確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除く）。");
+requireText(tasklistDesign, `揃うのがcommit・push・PRより前なら、確認の後にcommit・push・PRがあるか${confirmEnvExclusion}。`);
 forbidText(tasklistDesign, "commit・push・PRより前にユーザー動作確認を必須にする。");
-requireText(tasklistTemplate, "確認環境へ載せるために`UI確認環境`が定めるcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない");
+requireText(tasklistTemplate, "確認環境へ載せるために`UI確認環境`が定めるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない");
 requireText(skillPath("tasklist-executor/SKILL.md"), `確認前にcommit・pushへ進まない${confirmEnvExclusion}`);
 requireText(skillPath("tasklist-executor/SKILL.md"), `ユーザー動作確認より先にcommit・push・PRへ進まない${confirmEnvExclusion}`);
 requireText(skillPath("steering/SKILL.md"), `ユーザー動作確認が完了する前にcommit、push、PRへ進ませない${confirmEnvExclusion}`);
 requireText(skillPath("steering/SKILL.md"), `ユーザー動作確認前にcommit、push、PRを行う${confirmEnvExclusion}`);
-requireText(skillPath("tumeda-dev-plugin-context.md"), "tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push だけを、利用者の動作確認の前に許す");
+requireText(skillPath("tumeda-dev-plugin-context.md"), "tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push と、作業の外へ残る action を含む phase の最後の commit・push だけを、利用者の動作確認の前に許す");
+requireText(tasklistDesign, "確認の前に行ってよいのは、次の二つだけである。それ以外のcommit・push・PRは確認の後に行う。");
+requireText(tasklistDesign, "- 作業の外へ残るactionのcommit・push: 作業の外へ残るactionを含むphaseの最後のcommit・push（上の「作業の外へ残るactionを含むphaseの原則」）。");
+
+// 作業の外へ残るactionのphaseの最後では止まらず、元になった変更をcommit・pushする。止まるのは利用者にしかできない操作と利用者の確認だけ。
+requireText(tasklistDesign, "- 利用者にしかできない操作（下の「利用者にしかできない操作」）");
+requireOrderedText(tasklistDesign, ["### 止まるtaskの原則", "### 利用者にしかできない操作", "### 作業の外へ残るactionを含むphaseの原則"], "利用者にしかできない操作は止まるtaskの原則の直後");
+requireText(tasklistDesign, "- そのtaskは、操作を必要とするphaseの最後に置く。`tasklist-executor`はそこで`phase_checkpoint`を返して止まる。");
+requireText(tasklistDesign, "- 判断の問い: 「この操作を、assistantが行ってよく、行えるか」。どちらかがNoなら、利用者にしかできない操作である。");
+requireText(tasklistDesign, "- **MUST**: そのphaseの最後に、対象actionの元になった変更（migrationのfile、Terraformの定義等）と、そのphaseまでの作業記録をcommitし、作業branchをpushするtaskを置く。止まらずに次のphaseへ進む。");
+requireText(tasklistDesign, "対象actionがmergeで動く適用（PRをmergeするとapplyが動く等）なら、元になった変更はmergeの前にremoteにあるため、このtaskは要らない。");
+requireText(tasklistDesign, "対象actionの後に作業環境（開発機のworking tree）が失われると、外の状態だけが進み、それを生んだ変更がどこにも無くなって、外の状態とrepositoryを同期できなくなる。");
+requireText(tasklistDesign, "- 正しい判断のための問い: 「対象actionの元になった変更は、remoteにあるか」");
+forbidText(tasklistDesign, "「ここで作業を停止し、対象actionの結果をユーザーに確認する。次phaseへは進まない」というtaskを置く");
+requireText(tasklistDesign, "**対象actionを含むphaseの最後に、元になった変更と作業記録のcommit・pushのtaskがあるか**");
+requireText(tasklistDesign, "**利用者にしかできない操作のtaskが、操作を必要とするphaseの最後にあり、利用者が行う操作と、その後にassistantが確かめて続けることを書いているか**");
+requireText(skillPath("tumeda-dev-plugin-context.md"), "対象actionを含むphaseの最後に、既定のcommit・pushへ加えて行うこと、または問うことを記載する。");
 // 確認の前の除外は確認環境のためのcommit・pushに限る。phaseごとに確認の前にcommitする形へ広げない。
 forbidText(tasklistTemplate, "このphaseの差分をlocalでcommitする");
 forbidText(tasklistDesign, "作業branchのpush・PRより前にユーザー動作確認を必須にする");
