@@ -1382,6 +1382,9 @@ requireText(namingCoreDoc, "やってしまいがちな失敗: 読まれる頻�
 requireText(namingCoreDoc, "範囲に入れば、そのまま足す。");
 requireText(docPath("development_standards/naming/README.md"), "名前は本質。名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
 requireText(docPath("development_standards/README.md"), "名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
+requireText(docPath("development_standards/infrastructure/database_separation.md"), "個人用の service は、本番と開発で DB を共用してよい。特に、利用者が本当に自分しかいない service は共用する。");
+requireText(docPath("development_standards/infrastructure/database_separation.md"), "他の人が使う system と同じく、分けるかを利用者と検討する。");
+requireText(docPath("development_standards/README.md"), "[database_separation.md](./infrastructure/database_separation.md)");
 requireText(skillPath("doc-enricher/SKILL.md"), "- 選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
 requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
 requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");
