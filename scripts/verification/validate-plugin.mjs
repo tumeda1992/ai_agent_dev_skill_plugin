@@ -857,6 +857,8 @@ requireText(skillPath("tasklist-executor/SKILL.md"), "確認の途中で確認�
 requireText(skillPath("tasklist-executor/SKILL.md"), "変える前に通った手順の結果は、変えた後の対象について通過したことにならない");
 requireText(skillPath("tasklist-executor/SKILL.md"), "確認のために、作業を破棄しても残る場所（本番の環境、他の人や他の app と共用の DB 等）へデータを作ったら、確認の中で消し、消えたことを確かめてから `[x]`");
 requireText(skillPath("tasklist-executor/SKILL.md"), "落ちた時点で作ったデータが残っていないかを確かめ、残っていれば消してから報告する");
+requireText(taskDesignSkill, "- **確認の担当と手段**: designが定める確認（各段の確認、受け入れ基準、テスト方針の項目）のそれぞれについて、誰が（assistantか利用者か）、どの手段で確かめるか、その手段が今の環境で使えるかを、`design.md`の「テスト方針」に書いているかを確認する。書けていなければdesign合意へ進まない");
+requireText(taskDesignTemplate, "{何を、どの観点で、誰が（assistantか利用者か）どの手段で検証するか。その手段が今の環境で使えるか}");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "model: sonnet");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "context: fork");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "effort: medium");
