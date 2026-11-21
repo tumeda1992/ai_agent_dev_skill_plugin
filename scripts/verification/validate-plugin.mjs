@@ -292,6 +292,7 @@ for (const expected of [
   "consumerがdecisionを適用して全体状態を再評価",
   "skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない"
 ]) requireText(discussionSkill, expected);
+requireText(discussionSkill, "提案に図・表・構成や変更の一覧を含める時は、その一行ずつに、その行を消すか別の値にしても論点の問いへの答えとして提案が成り立つかを問う。");
 
 for (const expected of [
   "templates/proposal-sections/README.md",
