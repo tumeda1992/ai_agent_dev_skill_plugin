@@ -1380,6 +1380,7 @@ const scopeCheckAnchor = "naming/core.md#中身を足す前に名前が約束す
 requireText(namingCoreDoc, "## 中身を足す前に、名前が約束する範囲に入るかを確かめる");
 requireText(namingCoreDoc, "判断の問い: **「足そうとしている中身は、この名前・入口の説明・既に入っている中身が約束する範囲に入るか」**");
 requireText(namingCoreDoc, "やってしまいがちな失敗: 読まれる頻度や呼ばれる頻度で、足す先を選ぶ。");
+requireText(namingCoreDoc, "判断の問い: **「照合しているのは、元の依頼や具体例が指す中身か。足す先に合わせて言い直した中身か」**");
 requireText(namingCoreDoc, "範囲に入れば、そのまま足す。");
 requireText(docPath("development_standards/naming/README.md"), "名前は本質。名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
 requireText(docPath("development_standards/README.md"), "名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
