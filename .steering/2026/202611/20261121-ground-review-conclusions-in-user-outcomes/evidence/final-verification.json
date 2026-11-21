@@ -1,0 +1,23 @@
+{
+  "version": "9.1.1",
+  "references": {
+    "ok": true,
+    "files": 11,
+    "local_links": 40,
+    "external_not_fetched": 0,
+    "issues": []
+  },
+  "plugin_validation": "passed",
+  "official_skill_creator_quick_validate": "Skill is valid!",
+  "structure_review": "before and after: no split candidates",
+  "document_review": "content, notation, referents, scope, confidentiality, preserved meaning checked",
+  "ordinary_call_evidence": "evidence/ordinary-call-verification.json",
+  "independent_revision_review": "evidence/method-change-review.md",
+  "source_preservation": "evidence/source-preservation.json",
+  "source_specific_information_found": false,
+  "plans": {
+    "tasklist": false,
+    "roadmap": false
+  },
+  "remaining_target_changes": []
+}

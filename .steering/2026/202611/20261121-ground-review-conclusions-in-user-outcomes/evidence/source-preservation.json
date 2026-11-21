@@ -1,0 +1,12 @@
+{
+  "plugins/tumeda-dev/skills/exhaustive-review/SKILL.md": {
+    "all_original_lines_preserved_in_order": true,
+    "before_sha256": "4f86d39d3f6f773568dab188880c6b4bbd0c8bda8a212458f95d9b41a53d8f8f",
+    "final_sha256": "142b9b60639c304cfc552b04226948da5b6d36930669e2b556babc2b87ca709d"
+  },
+  "plugins/tumeda-dev/skills/exhaustive-review/review-findings.md": {
+    "all_original_lines_preserved_in_order": true,
+    "before_sha256": "4b16460fe2807e7ff50fb987ec0eba7cbc55e4dec61e8afa6d4af1b71bb222ee",
+    "final_sha256": "0398e61bb9c3d35256ad79facf87eff3cc742da9b42f5f6482fc70e179874de7"
+  }
+}
