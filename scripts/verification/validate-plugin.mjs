@@ -861,6 +861,7 @@ requireText(skillPath("tasklist-executor/SKILL.md"), "落ちた時点で作っ�
 requireText(taskDesignSkill, "- **確認の担当と手段**: designが定める確認（各段の確認、受け入れ基準、テスト方針の項目）のそれぞれについて、誰が（assistantか利用者か）、どの手段で確かめるか、その手段が今の環境で使えるかを、`design.md`の「テスト方針」に書いているかを確認する。書けていなければdesign合意へ進まない");
 requireText(taskDesignTemplate, "{何を、どの観点で、誰が（assistantか利用者か）どの手段で検証するか。その手段が今の環境で使えるか}");
 requireText(taskDesignSkill, "decisionが、この作業の外でも前提として読まれる事柄（構成、原則、環境）を変える時は、変わる前の前提を書いている文書をrepository全体から探す。");
+requireText(taskDesignSkill, "当てるcaseには、基準が当てはまらないはずのcaseを一つ以上含め、そこで基準が働かないことを確認する。");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "model: sonnet");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "context: fork");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "effort: medium");
