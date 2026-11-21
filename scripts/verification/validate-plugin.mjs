@@ -1385,6 +1385,17 @@ requireText(docPath("development_standards/README.md"), "名前を付けるあ�
 requireText(docPath("development_standards/infrastructure/database_separation.md"), "個人用の service は、本番と開発で DB を共用してよい。特に、利用者が本当に自分しかいない service は共用する。");
 requireText(docPath("development_standards/infrastructure/database_separation.md"), "他の人が使う system と同じく、分けるかを利用者と検討する。");
 requireText(docPath("development_standards/README.md"), "[database_separation.md](./infrastructure/database_separation.md)");
+const versionUpgradeStandard = docPath("development_standards/development_flow/version_upgrade.md");
+for (const expected of [
+  "上げる前に、今の版のまま起動と test を通す。",
+  "version を上げる段に入れてよいのは、上げるために要る変更（上げた版で使えなくなる library の置き換え等）だけである。",
+  "上げる対象が一つ: 大きく上げる → 動かなければ細かく刻む、の二段階。",
+  "上げる対象が二つの組み合わせ（例: 言語の runtime と framework）: どちらも上げる → 一方だけを最大まで上げ、他方をそれに合わせる → それでもエラーなら細かく刻む、の三段階。",
+  "まず major で刻む。",
+  "詰まった版（例: 7.2.1）の問題を解消したら、そこから刻み続けず、最初の段階",
+  "最終の版で動くと見込める時は、手前の版を経由せず、最終の版を狙う。",
+]) requireText(versionUpgradeStandard, expected);
+requireText(docPath("development_standards/README.md"), "[version_upgrade.md](./development_flow/version_upgrade.md)");
 requireText(skillPath("doc-enricher/SKILL.md"), "- 選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
 requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
 requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");
