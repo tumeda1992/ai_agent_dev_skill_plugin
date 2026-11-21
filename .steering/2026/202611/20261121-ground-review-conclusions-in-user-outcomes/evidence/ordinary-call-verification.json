@@ -1,0 +1,20 @@
+{
+  "mode": "fresh_context_gpt-6.2-astra_xhigh",
+  "skill_version": "9.1.1",
+  "source_sha256": {
+    "plugins/tumeda-dev/skills/exhaustive-review/SKILL.md": "f839f7dd618a00fc186894683db478fad9ecb8c113e4c7978a71f7e6a02a0d34",
+    "plugins/tumeda-dev/skills/exhaustive-review/review-findings.md": "0398e61bb9c3d35256ad79facf87eff3cc742da9b42f5f6482fc70e179874de7"
+  },
+  "answers_provided_before_first_return": false,
+  "additional_hints_about_defect_provided": false,
+  "first_return": "supplier P1=1; publication=0",
+  "parent_assessment": "事前に隔離した判定と一致。一社での適格性とその候補からの最安選択を同じ原因として扱い、複数社を組み合わせられる正常契約へ誤って制限を増やさなかった。修正後の実測をしたとは返さなかった。",
+  "replay_matches_byte_for_byte": true,
+  "finite_cases_per_entry": 13107,
+  "claim_limits": "今回の通常呼出しで重要な不足の発見・正常対照・指摘集合の責務と結論の範囲を確認。旧版に対する発見率の因果的改善や、すべてのテーマでの性能は測定していない。",
+  "subsequent_scope_fix": {
+    "final_source_sha256": "142b9b60639c304cfc552b04226948da5b6d36930669e2b556babc2b87ca709d",
+    "difference": "返却者が足した依頼外の保証を落とすことと、元テーマに必要な根拠を取得することの区別を明示。探索手順・対象契約は不変。",
+    "verification": "独立したAstraがCSVヘッダ限定・本番取込自体・広いテーマを通常モードだけへ狭める三対照を現物へ再適用し支持。初回通常起動のソースhashは当時のまま保持。"
+  }
+}
