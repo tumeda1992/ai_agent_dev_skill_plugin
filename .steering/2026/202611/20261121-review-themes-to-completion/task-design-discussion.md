@@ -18,7 +18,7 @@
 
 一周だけの探索から利用者へ返すと、局所の指摘を全て直しても、再開・失敗・依存する別の判断が残り、同じテーマで再依頼が必要になる。
 件数を増やすことで解決せず、指摘集合を仮に適用してテーマの重要な反例が残るかを問う。反例に対する修正責任と合否を磨き、重要な未知と無価値な候補を区別する。
-新しい外部callerを持たず、同じスナップショットと個票を使うので、再検討はexhaustive-reviewの内部指示へ置く。[検討・検証](validation.md)・[内部検討記録: 論点1・イテレーション0](internal-records/task-design-discussion.md.topic-1.md#iteration-0)
+新しい外部callerを持たず、同じスナップショットと個票を使うので、再検討はexhaustive-reviewの内部指示へ置く。[検討・検証](validation.md)・[契約の保存と変更](contract-ledger.md)
 
 ### 決定（論点1）
 
@@ -27,3 +27,5 @@
 ### 現在の変更（論点1）
 
 明示された委任の範囲を適用し、机上の対照、構造review、文書review、validatorとfrontmatterの実行検査を終えた。元の製品の指摘を適用していない。commit・main統合・配布元pushと利用先のsource更新は次の処理。
+
+内部の控えはrepositoryの現行規則に従いGit管理外に保つ。提案・判断・検証に必要な内容は、このdiscussionと公開するvalidation・contract ledgerだけで読めるようにした。
