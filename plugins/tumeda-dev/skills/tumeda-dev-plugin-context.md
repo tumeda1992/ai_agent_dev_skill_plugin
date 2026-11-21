@@ -58,6 +58,15 @@
      対象action種別、差し込む内容、その背景。宣言がなければ何も差し込まれない。
      「actionを定める」形と「問いを定める」形のどちらでもよい。前者はreview時に問わず、後者は問う -->
 
+### 基盤の参考実装
+
+<!-- 基盤（cloud の resource、Terraform の定義、それを本番へ届ける workflow）を建てる・変える時に倣う、
+     同じ形の基盤を持つ別の repository を書く。基盤の部分ごとに、参考にする repository と最初に読む場所を書く。
+     読み方と、何を論点にするかは `docs/development_standards/infrastructure/reference_implementation.md` が持つ。
+     参考にする repository が無ければ「なし」と書く -->
+
+- なし。このrepositoryは基盤を持たない。
+
 ## steering
 
 参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)

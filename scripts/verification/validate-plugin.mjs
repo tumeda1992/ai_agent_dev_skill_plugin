@@ -1398,6 +1398,12 @@ for (const expected of [
   "最終の版で動くと見込める時は、手前の版を経由せず、最終の版を狙う。",
 ]) requireText(versionUpgradeStandard, expected);
 requireText(docPath("development_standards/README.md"), "[version_upgrade.md](./development_flow/version_upgrade.md)");
+const referenceImplementationStandard = docPath("development_standards/infrastructure/reference_implementation.md");
+requireText(referenceImplementationStandard, "論点にするのは、参考実装との差分だけである。");
+requireText(referenceImplementationStandard, "ただし design の完成後の姿には、参考実装への参照ではなく、実際に作るもの（directory の構成、resource と権限、workflow の手順等）を具体的に書く。");
+requireText(referenceImplementationStandard, "参考実装の細部（directory の構成、role の権限、workflow の手順）は、plugin の docs・skill へ写さず、参考実装の最新を正とする。");
+requireText(docPath("development_standards/README.md"), "[reference_implementation.md](./infrastructure/reference_implementation.md)");
+requireText(skillPath("tumeda-dev-plugin-context.md"), "### 基盤の参考実装");
 requireText(skillPath("doc-enricher/SKILL.md"), "- 選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
 requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
 requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");
