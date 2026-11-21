@@ -1439,6 +1439,17 @@ for (const expected of [
 ]) requireText(costJudgmentStandard, expected);
 requireText(docPath("development_standards/README.md"), "[cost_judgment.md](./infrastructure/cost_judgment.md)");
 requireText(reviewEnvironmentStandard, "費用の考え方は [`cost_judgment.md`](./cost_judgment.md) が持つ。");
+const decommissioningStandard = docPath("development_standards/infrastructure/decommissioning.md");
+for (const expected of [
+  "- MUST: 消す一覧は、最初の調査で見えた resource で終えない。その仕組みの resource が作ったもの・付けたものまで辿って一覧にする。",
+  "例外: application のログは消さない。それを出す resource を消しても残す（[`log_retention.md`](./log_retention.md)）。",
+  "- MUST: 消す仕組み以外も使っている resource は、一覧から外して残す。",
+  "- MUST: 消す前に、一覧の各件が、消す仕組み以外から使われていないことを、読み取りで確かめる。",
+  "- MUST: 確かめた結果が一覧と違えば、消さない。一覧を直して、合意し直してから消す。",
+  "- MUST: 消した後、一覧と実物を突き合わせる。消すとした全件が無く、残すとした全件が残っていることを確かめる。",
+  "消したことで影響を受ける動きの確かめは、[`change_verification.md`](./change_verification.md) に従う。",
+]) requireText(decommissioningStandard, expected);
+requireText(docPath("development_standards/README.md"), "[decommissioning.md](./infrastructure/decommissioning.md)");
 requireText(skillPath("doc-enricher/SKILL.md"), "- 選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
 requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
 requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");
