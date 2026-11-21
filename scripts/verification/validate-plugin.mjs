@@ -853,6 +853,8 @@ for (const relativePath of agentDerivedSkills) {
   requireText(relativePath, "Codex");
 }
 requireText(skillPath("tasklist-executor/SKILL.md"), "tasklist、DoD判定、checkbox、child結果の転記を更新するのはこのskillだけ");
+requireText(skillPath("tasklist-executor/SKILL.md"), "確認の途中で確認の対象（code、依存の宣言、設定）を変えたら、変更を対象へ載せてから（起動・build・deploy をし直してから）、その確認を最初の手順からやり直し");
+requireText(skillPath("tasklist-executor/SKILL.md"), "変える前に通った手順の結果は、変えた後の対象について通過したことにならない");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "model: sonnet");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "context: fork");
 requireFrontmatter(skillPath("tasklist-executor/SKILL.md"), "effort: medium");
