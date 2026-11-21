@@ -1,0 +1,8 @@
+{
+  "head": "0b23f21ce83ddb85e0e1aa9d786a1478a9bc2cbb",
+  "version": "9.1.0",
+  "files": {
+    "plugins/tumeda-dev/skills/exhaustive-review/SKILL.md": "4f86d39d3f6f773568dab188880c6b4bbd0c8bda8a212458f95d9b41a53d8f8f",
+    "plugins/tumeda-dev/skills/exhaustive-review/review-findings.md": "4b16460fe2807e7ff50fb987ec0eba7cbc55e4dec61e8afa6d4af1b71bb222ee"
+  }
+}
