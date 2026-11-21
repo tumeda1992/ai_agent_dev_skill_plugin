@@ -1404,6 +1404,16 @@ requireText(referenceImplementationStandard, "ただし design の完成後の�
 requireText(referenceImplementationStandard, "参考実装の細部（directory の構成、role の権限、workflow の手順）は、plugin の docs・skill へ写さず、参考実装の最新を正とする。");
 requireText(docPath("development_standards/README.md"), "[reference_implementation.md](./infrastructure/reference_implementation.md)");
 requireText(skillPath("tumeda-dev-plugin-context.md"), "### 基盤の参考実装");
+const reviewEnvironmentStandard = docPath("development_standards/infrastructure/review_environment.md");
+for (const expected of [
+  "基盤を持つ repository は、review 環境を作ることを既定にする。作らない時は、その理由を design に書く。",
+  "review 環境は、本番と同じ定義（Terraform の module）を、環境の名前（stage）だけ変えて呼ぶ。resource と state は本番と分けて持つ。",
+  "定義は止めている状態を正とし、起動は一時的な逸脱として扱う。",
+  "review 環境に何が載っているかは保証しない。",
+  "閉じるかは、対象の resource と state で決める。",
+  "destroy（作り直しを含む）を含む apply は、閉じる操作に含めない。",
+]) requireText(reviewEnvironmentStandard, expected);
+requireText(docPath("development_standards/README.md"), "[review_environment.md](./infrastructure/review_environment.md)");
 requireText(skillPath("doc-enricher/SKILL.md"), "- 選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
 requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
 requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");
