@@ -86,11 +86,11 @@ exhaustive-reviewが、対象の範囲とレビューの目的を区別し、指
 
 ### task-design内で対象成果物へ適用済み
 
-なし。適用後に実物と検証結果へ更新する。
+skill本文・内部指示・finding雛形・配布versionへ適用済み。[検証と限界](validation.md)・[契約の対応](contract-ledger.md)を参照。
 
 ### task-design内の対象成果物反映待ち
 
-上記のskill・内部指示・雛形・配布version。内容を委任済みの指示から確定し、この設計の保存後に適用・validationする。
+なし。
 
 ### execution plan対象
 

@@ -1,0 +1,13 @@
+{
+  "plugin_validator": "passed",
+  "skill_creator_quick_validate": "passed",
+  "references": {
+    "ok": true,
+    "files": 11,
+    "local_links": 19,
+    "external_not_fetched": 4,
+    "issues": []
+  },
+  "private_source_identifiers_found": [],
+  "scope": "theme selection, finding-set review and release 9.1.0 only"
+}
