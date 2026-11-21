@@ -1300,6 +1300,7 @@ requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: �
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 「後からでもできる」は、延期の間に作られるものを数えてから使う");
 requireText(thinkStandardsPath("starting_to_think.md"), "## 補助: 到達点は「間違いが無いこと」ではなく「機能すること」に置き、今の視座で届く限界を目指す");
 requireText(thinkStandardsPath("questioning_existing.md"), "必然性があり配置も正しいが中身の一部が誤っている（直す）");
+requireText(thinkStandardsPath("questioning_existing.md"), "- 正しい判断のための問い: 「規則を広げる時、引き継ぐのは目的か手段か。その手段は、当時の運用が無くても目的に要るか」");
 requireText(taskDesignSkill, "この中間の確認は、実行して初めて得られる状態を見るものか。それとも案への合意を取るものか");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "既存の構造から作業対象を列挙し、各対象に中身があるかを確かめずに含める");
 requireText(thinkStandardsPath("writing_abstraction.md"), "## 補助: 共通の場所に、今回の個別を書き込まない");
