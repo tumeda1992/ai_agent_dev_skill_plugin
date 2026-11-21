@@ -1414,6 +1414,14 @@ for (const expected of [
   "destroy（作り直しを含む）を含む apply は、閉じる操作に含めない。",
 ]) requireText(reviewEnvironmentStandard, expected);
 requireText(docPath("development_standards/README.md"), "[review_environment.md](./infrastructure/review_environment.md)");
+const costJudgmentStandard = docPath("development_standards/infrastructure/cost_judgment.md");
+for (const expected of [
+  "継続的な費用は、一件の額ではなく、積み上がった額で考える。",
+  "月に 100 円程度の継続的な費用を、一件ずつ「この程度なら」と許さない。",
+  "要件に費用の上限を書く時は、「時間で課金される resource を入れない」のように種類で書かず、「止めている間の費用を月 N 円以内にする」のように金額で書く。",
+]) requireText(costJudgmentStandard, expected);
+requireText(docPath("development_standards/README.md"), "[cost_judgment.md](./infrastructure/cost_judgment.md)");
+requireText(reviewEnvironmentStandard, "費用の考え方は [`cost_judgment.md`](./cost_judgment.md) が持つ。");
 requireText(skillPath("doc-enricher/SKILL.md"), "- 選んだ既存のドキュメントへ足す前に、足す知識がそのドキュメントの範囲に入るかを確かめる。");
 requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
 requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");

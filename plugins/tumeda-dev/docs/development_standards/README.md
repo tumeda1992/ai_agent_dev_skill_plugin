@@ -16,6 +16,7 @@
   - [database_separation.md](./infrastructure/database_separation.md) — 開発の DB を本番と分けるか。個人用の service は共用してよく、他の人が使うことになる service や、溜まったデータを毀損しない形にしたい service は、分けるかを利用者と検討する。
   - [reference_implementation.md](./infrastructure/reference_implementation.md) — 基盤を建てる・変える時に、利用者が別の repository に持つ同じ形の基盤（参考実装）をどう使うか。最新を読んで同じ形を最初の案にし、差分だけを論点にする。
   - [review_environment.md](./infrastructure/review_environment.md) — 本番へ入れる前の変更を、開発機の外の実物で確かめる review 環境をどう持つか。作ることを既定にし、止めている状態を既定にして使う時だけ起動する。
+  - [cost_judgment.md](./infrastructure/cost_judgment.md) — 基盤の resource を構成に入れるかを費用で決める。ゼロは目指さないが、継続的な費用は一件の額ではなく積み上がった額で考える。
 
 ## この群の引き方
 
@@ -42,6 +43,6 @@ docs を書くことも開発の一部だが、**書き方**の標準は `docume
 
 読み切れないなら、file を増やす前に参照契約自体を見直す。数値上限は置かない。分量が file 数に比例しないためである。
 
-現在は 19 file・約 84KB である（`naming/` に README・core・file・method・what_to_try・reverse_translation・review、`entity_modeling/` に README・core・evacuation、`development_flow/` に branch_pr_issue・work_scope・version_upgrade、`infrastructure/` に log_retention・change_verification・database_separation・reference_implementation・review_environment、この README）。
+現在は 20 file・約 88KB である（`naming/` に README・core・file・method・what_to_try・reverse_translation・review、`entity_modeling/` に README・core・evacuation、`development_flow/` に branch_pr_issue・work_scope・version_upgrade、`infrastructure/` に log_retention・change_verification・database_separation・reference_implementation・review_environment・cost_judgment、この README）。
 
 このうち `naming/` の手段（`what_to_try.md`、`reverse_translation.md`、`review.md`）は、名前を作る場面・評価する場面でのみ引く。判断基準（`core.md`、`file.md`、`method.md`）とは使う場面が違うが、**「詰まったときだけ読む」という例外を設けない**。例外を設けると「詰まっているか」の判定が入り、詰まっていることに気づいていない状態で標準に触れないまま進む経路ができる。判定を挟まないことがこの契約の目的である。

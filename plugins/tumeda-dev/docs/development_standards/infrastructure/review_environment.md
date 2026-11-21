@@ -23,6 +23,7 @@ review 環境は、本番と同じ定義（Terraform の module）を、環境�
 - 存在するだけで時間ごとに課金される resource（load balancer、managed の DB、NAT gateway 等）を構成に入れない。
 
 review 環境を使う時間は短く、間が空く。起動したままにすると、使わない時間の費用が、使う時間の費用を大きく上回る。
+費用の考え方は [`cost_judgment.md`](./cost_judgment.md) が持つ。
 
 判断の問い: **「この resource は、止めている間も時間ごとに課金されるか。起動したまま忘れた時に、誰がいつ気づくか」**
 
