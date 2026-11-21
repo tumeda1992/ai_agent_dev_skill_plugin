@@ -23,7 +23,7 @@
 
 ## TL;DR
 
-基盤の仕組みを使わなくなって消す時、消す一覧を最初の調査で見えた resource だけで作ると、その仕組みが作ったもの・付けたもの（相手側の登録、それだけに付いた権限、書き出した成果物）が漏れる。逆に、他と共有しているものまで消す恐れもある。infrastructure の開発標準に `decommissioning.md` を足し、task-design が設計前調査（`development_standards/` の配下をすべて読む）で、基盤を消す設計の前に必ず触れるようにする。終了時には、新しい標準、`development_standards/README.md` の索引の一行と維持規律の更新、validator の assertion、release version 9.0.5 が `main` に入り、plugin を update した状態になる。
+基盤の仕組みを使わなくなって消す時、消す一覧を最初の調査で見えた resource だけで作ると、その仕組みが作ったもの・付けたもの（相手側の登録、それだけに付いた権限、書き出した成果物）が漏れる。逆に、他と共有しているものまで消す恐れもある。infrastructure の開発標準に `decommissioning.md` を足し、task-design が設計前調査（`development_standards/` の配下をすべて読む）で、基盤を消す設計の前に必ず触れるようにする。終了時には、新しい標準、`development_standards/README.md` の索引の一行と維持規律の更新、validator の assertion、release version 9.1.2 が `main` に入り、plugin を update した状態になる。
 
 ---
 
@@ -101,7 +101,7 @@
 - 新しい標準に、利用先固有の情報（repository 名、path、issue・PR 番号、commit、account の値、利用先の resource の実名）を書かない。
 - `development_standards/README.md` の「収録している標準」の infrastructure の下に、新しい標準への一行を足し、「維持規律」の file 数と分量を更新する。
 - `scripts/verification/validate-plugin.mjs` に、新しい標準の MUST の文、例外、参照の一文と、README の一行を検査する assertion を足す。
-- release version を 9.0.4 から 9.0.5（PATCH。docs の追加）へ上げる。宣言値 4 箇所と `expectedRelease` を一度に変える。
+- release version を PATCH で上げる（docs の追加）。宣言値 4 箇所と `expectedRelease` を一度に変える。作業の間に `main` へ別の作業の 9.1.0・9.1.1 が先に入ったため、`main` の 9.1.1 から 9.1.2 にする。
 
 ### SHOULD（できれば）
 
@@ -163,8 +163,8 @@
 | --- | --- | --- | --- |
 | `plugins/tumeda-dev/docs/development_standards/infrastructure/decommissioning.md`（新規） | 「知識の並べ方」の見出しで、四つの原則、application のログの例外、`change_verification.md` への参照、やってしまいがちな失敗を書いた | validator が pass。document-review の作成時観点を当て、100 字を超える散文の行を句点で改行した。利用先固有の語の grep は 0 件 | [文書にまとめる知識と、その保ち方](#文書にまとめる知識とその保ち方) |
 | `plugins/tumeda-dev/docs/development_standards/README.md` | infrastructure の下に一行を足し、維持規律を 21 file・約 94KB に更新し、括弧内に `decommissioning` を足した | validator が pass（README の一行の assertion を含む） | 同上 |
-| `scripts/verification/validate-plugin.mjs` | 新しい標準の MUST 五文、例外、参照の一文と、README の一行の assertion を足した。`expectedRelease` を 9.0.5 にした | pass。共有物の MUST の文を一時的に変えると「必須項目…がない」で失敗し、戻すと pass に戻った | [要件（Requirements）](#要件requirements) |
-| release version（`.claude-plugin/marketplace.json` の 2 箇所、`plugins/tumeda-dev/.claude-plugin/plugin.json`、`plugins/tumeda-dev/.codex-plugin/plugin.json`） | 9.0.4 から 9.0.5 へ上げた | validator の version 検査が pass。`test-task-design-handoff.mjs` が pass。`inspect-discussion.test.mjs` は 27 件中 pass 26、fail 0、skip 1 | 同上 |
+| `scripts/verification/validate-plugin.mjs` | 新しい標準の MUST 五文、例外、参照の一文と、README の一行の assertion を足した。`expectedRelease` を上げた（最終は 9.1.2） | pass。共有物の MUST の文を一時的に変えると「必須項目…がない」で失敗し、戻すと pass に戻った | [要件（Requirements）](#要件requirements) |
+| release version（`.claude-plugin/marketplace.json` の 2 箇所、`plugins/tumeda-dev/.claude-plugin/plugin.json`、`plugins/tumeda-dev/.codex-plugin/plugin.json`） | 9.0.4 から 9.0.5 へ上げた後、`main` の 9.1.1 を取り込む merge で 9.1.2 にした | merge の後も、validator の version 検査が pass。`test-task-design-handoff.mjs` が pass。`inspect-discussion.test.mjs` は 27 件中 pass 26、fail 0、skip 1 | 同上 |
 
 ### 設計中に反映する、他の判断を待っている変更
 
