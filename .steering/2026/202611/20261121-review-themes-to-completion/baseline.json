@@ -1,0 +1,8 @@
+{
+  "head": "921ebba1731627e2d8b468ebe6a94d43ed4bbf03",
+  "direction": "利用先で生じたレビュー改善の提案を、公開pluginの既存skillへ適応する。利用先の実装・固有情報は移植しない。",
+  "files": {
+    "plugins/tumeda-dev/skills/exhaustive-review/SKILL.md": "96987c8863f27319af7917a7dbdee7e875df1de1425cbc593bd0ab89c5cfceb0",
+    "plugins/tumeda-dev/skills/exhaustive-review/templates/finding.md": "79ace5d87b2e135d624f0b7d9dbd980f53a32fda9719baa4dccc5e2e0b8187c4"
+  }
+}
