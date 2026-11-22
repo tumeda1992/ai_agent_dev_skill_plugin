@@ -25,3 +25,4 @@
 - [論点21: `advancing_discussion.md`の改める文面](task-design-discussion-21-25.md#論点21-advancing_discussionmdの改める文面)
 - [論点22: 構造reviewで見つかった、facilitate-discussionの原因ownerの振り分けの候補をどう扱うか](task-design-discussion-21-25.md#論点22-構造reviewで見つかったfacilitate-discussionの原因ownerの振り分けの候補をどう扱うか)
 - [論点23: versionの上げ幅](task-design-discussion-21-25.md#論点23-versionの上げ幅)
+- [論点24: `round-trip.md`の本文](task-design-discussion-21-25.md#論点24-round-tripmdの本文)
