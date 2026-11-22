@@ -144,7 +144,7 @@ TBD: 終了時に成立することの具体（重さの表し方、一往復の
 | 2 | `facilitate-discussion/SKILL.md` | 往復は論点を混ぜずに軽い論点をまとめて示して減らす旨、論点を選ぶ節を一往復の組を1で選ぶ形へ、論点をわかった時点で立てること、まとめた返事で合意された論点を一つずつ確定・返却すること、変更の権限の分類から一意な導出を外すこと |
 | 3 | `facilitate-discussion/iteration.md` | 提案の重さ、確かめるだけの論点の仮決めの形、まとめた返事の各論点の応答欄への記録 |
 | 4 | `facilitate-discussion/derived-change.md` | 一意な導出を外し、仮決めの論点として立てる先を示す。明示委託と機械的適用は残す |
-| 5 | `facilitate-discussion/templates/discussion_entry.md` | 論点metadataの重さと依存先の欄（TBD: 書き方）、依存先の決定待ちを表す新しい状態の値「依存先待ち」 |
+| 5 | `facilitate-discussion/templates/discussion_entry.md` | 論点metadataの`**種別:**`の後に`**重さ:**`（段と中・大の観点ごとの理由、確かめるだけは仮決めの根拠）と、依存のある論点だけ`**依存先:**`（論点番号と、何が決まれば案を作れるか）を置く。依存先の決定待ちを表す新しい状態の値「依存先待ち」を足す |
 | 6 | `facilitate-discussion/scripts/inspect-discussion.mjs`とそのtest | 既知の状態の値へ「依存先待ち」を加え、testに一件足す |
 | 7 | `docs/think_standards/advancing_discussion.md` | 主軸の「やってしまいがちな行動」の一つ目に「重さを見ずに」を足す。主軸の直後に「補助: 一つずつ考える論点と、まとめてよい論点を分ける」を足す。補助「見つけた不備を問いにする前に、誤る場面を一つ言う」の「導いた結果として報告する」を「根拠として名指した仮決めとして示す」に改める（文面は議論記録の論点21の提案0のa） |
 | 8 | `task-design/SKILL.md` | Step 1でTBDを識別したら論点として渡すこと、Step 3の一つ選ぶ前提、保留の確かめ直しの依頼を絞ること |
@@ -152,7 +152,7 @@ TBD: 終了時に成立することの具体（重さの表し方、一往復の
 | 10 | `tasklist-executor/SKILL.md` | 再開時とtask・phaseの完了時の確かめ直しの依頼を外すこと |
 | 11 | `escalate-plugin-skill-fix/pending-escalations.md` | 確かめ直す時点と、利用者へ伝える時点 |
 | 12 | `scripts/verification/validate-plugin.mjs` | 変えた契約の文の検査と、固定している文の追随 |
-| 13 | version宣言の4箇所と`expectedRelease` | 上げる（TBD: 上げ幅） |
+| 13 | version宣言の4箇所と`expectedRelease` | PATCHを上げ、9.1.5を9.1.6にする。新しいskillやparameterを増やさないため |
 
 `steering`の議論の進め方、think-throughのhookの注入文、止まっている作業`20261115-review-discussion-recording`の記録は変えない。
 
@@ -179,7 +179,8 @@ TBD: 各fileの文面。
 
 ### 非目標
 
-- TBD
+- `facilitate-discussion/SKILL.md`「認識齟齬を原因ownerへ戻す」の工程を内部指示へ移すことは、今回は扱わない。設計時の`skill-update-review`で見つかった候補だが、この作業の目的（論点の進め方）の外にあり、移す前後の対応の照合を伴う別のrevertの単位になるためである。issue #27へ候補5として切り出した。#27で分けるかを決める。
+- TBD: その他の非目標。
 
 ### 受け入れ基準
 

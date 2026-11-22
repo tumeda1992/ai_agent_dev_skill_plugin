@@ -95,7 +95,7 @@
 
 ## 論点22: 構造reviewで見つかった、facilitate-discussionの原因ownerの振り分けの候補をどう扱うか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **親論点:** 論点16
 
@@ -122,9 +122,21 @@ bを採らないのは、工程を内部指示へ移すことが、この作業�
 
 #### 提案0へのフィードバック（論点22）
 
+**結果:** 合意（a）。「ok」は全部の仮決めへの合意である。
+
+論点20・22・23を、確かめるだけの論点として仮決めでまとめて示した往復への返事である。
+
+> ok
+
+### 決定（論点22）
+
+`facilitate-discussion/SKILL.md`「認識齟齬を原因ownerへ戻す」の工程は、今回は内部指示へ移さず、issue #27へ候補5として追記して切り出した。追記は2026-11-22に行い、#27の「事実」に候補5、「依存」に候補5は#11に依存しないこと、「経緯」に#2の設計で見つかったことを足した。#27の題名は、範囲がsteeringとtask-designの`SKILL.md`だけを名指していたため、「steering、task-design、facilitate-discussion の SKILL.md から、独立した工程を内部指示へ分けるかを決める」に広げた。この作業の`design.md`の非目標に、扱わない理由と切り出し先を書いた。
+
+工程を内部指示へ移すことは、この作業の目的（論点の進め方）の外にあり、移す前後の対応の照合を伴う別のrevertの単位になるためである。#27は同じ種類の候補を、同じ問いで扱っている。
+
 ## 論点23: versionの上げ幅
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **親論点:** 論点16
 
@@ -149,3 +161,15 @@ aにするのは、新しいskillやparameterを増やさず、既存skillの指
 今のversionは、両plugin manifestとmarketplaceの宣言値、`expectedRelease`がいずれも9.1.5である（2026-11-22に確認）。
 
 #### 提案0へのフィードバック（論点23）
+
+**結果:** 合意（a）。「ok」は全部の仮決めへの合意である。
+
+論点20・22・23を、確かめるだけの論点として仮決めでまとめて示した往復への返事である。
+
+> ok
+
+### 決定（論点23）
+
+PATCHを上げ、9.1.5を9.1.6にする。宣言値4箇所（両plugin manifest、marketplaceの二つ）と、`scripts/verification/validate-plugin.mjs`の`expectedRelease`を揃える。
+
+新しいskillやparameterを増やさず、既存skillの指示、内部指示file（`round-trip.md`）、docs、検査scriptの変更だけであるためである（`maintenance-plugin-context/SKILL.md`「Plugin version」）。新しい状態の値「依存先待ち」を足しても、以前の版の`inspect-discussion.mjs`は知らない値の範囲fileを全文読むよう返すだけで、以前の版の成果物も今の版で読めるため、MAJORにも当たらない。
