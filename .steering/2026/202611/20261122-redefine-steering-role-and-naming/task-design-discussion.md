@@ -314,7 +314,7 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 ## 論点6: 実行を始めてよいかの確認を、どこに置くか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -359,9 +359,19 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 #### 提案0へのフィードバック（論点6）
 
+**結果:** aに合意（論点11・6・8をまとめて示した往復で「他はok」と答えられた）
+
+> 論点11はb。今後変更を伴わない調査設計とかも行う可能性があるから、分けておきたい。他はok
+
+### 決定（論点6）
+
+実行を始めてよいかの確認は、task-designが結果を返す時に行う。`tasklist_ready`・`roadmap_ready`では、締めくくりの確認の結果を示した後に、実行を始めるかを利用者へ確かめる。planの合意を実行開始の承認と読み替えず、`roadmap_ready`を受けたこと自体を子の実行の承認とみなさない。明示の指示があれば、planの種類に対応するskill（`tasklist-executor`、roadmapを実行するskill）を起動する。拒否・保留・返事なしならそこで終える。roadmapを実行するskillから起動された子phaseのtask-designも同じく確かめ、明示の指示を結果に添えて返し、roadmapを実行するskillが起動する。
+
+実行側のskillの起動の条件に置かないのは、起動の条件はそのskillが起動された後に読まれ、起動の前に止められないためである。`tasklist-executor`は子agentとして起動され、起動された時点で利用者と対話できない。
+
 ## 論点7: 実装後のfeedbackの共通手順（`steering/implementation-feedback.md`）の置き場所
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
@@ -369,9 +379,25 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 **依存先:** 論点3（feedbackを直接受ける実行側のskillが決まれば、置き場所を決められる）
 
+### イテレーション0（論点7）: 実装後のfeedbackの共通手順の置き場所を仮決めする
+
+#### 提案0（論点7）
+
+- a. `tasklist-executor/implementation-feedback.md`へ移す（仮決め）
+  - 根拠: 今このfileを読むのはsteeringと`tasklist-executor`（`tasklist-executor/SKILL.md`「実装feedbackの記録と返却」が`../steering/implementation-feedback.md`を読む）。論点3の決定で、`tasklist-executor`を起動する側が行うことも`tasklist-executor/execution-contracts.md`に置くため、feedbackを直接受ける担当（`tasklist-executor`とそれを起動する側）がすべて`tasklist-executor`の約束の下に入る。roadmapを実行するskillも起動する側としてここを読む。
+  - 中身は変えず、「steeringまたはtasklist-executorが」等の担当の名指しを、起動する側を含む新しい担当へ書き換える。
+- b. task-designへ移す
+  - feedbackの戻し先の多くはtask-designのdesign phaseだが、このfileは戻す前に記録と原因の確認を行う手順であり、読むのはfeedbackを直接受けた実行側の担当である。
+
+#### 検討記録（論点7・イテレーション0）
+
+`steering/implementation-feedback.md`の冒頭（steeringまたは`tasklist-executor`が直接受領した時に読む）と、`tasklist-executor/SKILL.md`の参照を確かめた。読む担当は実行側だけで、論点3の決定の後は`tasklist-executor`とそれを起動する側（利用者の会話のagent、roadmapを実行するskill）になる。中身の変更は要らず、担当の名指しの書き換えだけで済む。
+
+#### 提案0へのフィードバック（論点7）
+
 ## 論点8: 実行の前提が崩れて進めない時の復旧（blocker resolution）の置き場所
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -420,9 +446,19 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 #### 提案0へのフィードバック（論点8）
 
+**結果:** aに合意（論点11・6・8をまとめて示した往復で「他はok」と答えられた）
+
+> 論点11はb。今後変更を伴わない調査設計とかも行う可能性があるから、分けておきたい。他はok
+
+### 決定（論点8）
+
+進めない時の復旧（blocker resolution）は、`tasklist-executor/execution-contracts.md`の、起動する側が行うことへ置く。`tasklist-executor`が`blocked`で返ってきた時の扱いとして、止まって返ってきた時の扱いと同じ場所に置く。roadmapを実行するskillは、`tasklist-executor`を起動する側としてこの約束に従い、phaseの間に自分の手順で進めなくなった時も同じ約束を参照する。中身（成立する二つの条件、設計で潰せた不確実性を持ち込まない、復旧をtaskの成果にしない、検知した時の三択、自走の範囲と報告、離脱した段への復帰、記録先の`subagent_report/`を追跡しない）は変えない。`docs/agent_execution_standards/blocked_commands.md`の冒頭で名指す「`steering`のBlocker resolution」は、置き場所に合わせて書き換える。
+
+`docs/agent_execution_standards/`へ置かないのは、成立する条件が実行に入った後に限られ、使う担当が`tasklist-executor`を起動する側だけであるためと、群の入口の説明（AI agentと実行環境の性質から起きる詰まり方）に、原因がそれに限らないblocker resolutionが入らないためである。
+
 ## 論点9: 記録をcommitへ載せる順序の規則の置き場所
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
@@ -430,9 +466,26 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 **依存先:** 論点1（決定済み）。steeringの「commitへ載せる順序」（記録を、対応する変更の前と後へ分ける）を、plan無しの公開を持つtask-design、tasklistのcommitの節を設計する`tasklist-design.md`、commit計画の`plan-commits`のどこへ置くかを問う。論点3の後に、他の論点とまとめて示す
 
+### イテレーション0（論点9）: 記録をcommitへ載せる順序の規則の置き場所を仮決めする
+
+#### 提案0（論点9）
+
+- a. `plan-commits`へ移す（仮決め）
+  - 根拠: `plan-commits`は「コミット計画、変更の分割、レビューする単位と順番」を受け持つ（`plan-commits/SKILL.md`のdescription）。tasklistのcommitの分け方も「分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める」（`task-design/tasklist-design.md`の「実装後feedbackと公開action」）。記録を、対応する変更の前と後へ分ける規則は、commitの境界と順序の規則である。
+  - plan無しで終わる作業の公開（task-design）も、tasklistのcommit taskも、`plan-commits`を通るため、どちらの経路でも読まれる。
+  - 移す時に「steering成果物」を「作業の記録（`design.md`、議論記録、`tasklist.md`、`implementation_review.md`等）」へ言い換える。判断の問い・やってしまいがちな行動・まとめてよい条件は変えない。
+- b. task-designの公開の手順へ置く
+  - plan無しで終わる作業では読まれるが、tasklistのcommit taskの実行時には読まれない。
+
+#### 検討記録（論点9・イテレーション0）
+
+`steering/SKILL.md`の「commitへ載せる順序」、`plan-commits/SKILL.md`のdescriptionと本文、`task-design/tasklist-design.md`152行目のcommit sectionの記述を確かめた。`plan-commits`の本文は作業の記録とcommitの関係をまだ扱っていない（「既存記録」は依存の観点として一度出るだけ）。新しい節として足すことになり、範囲（commit計画、変更の分割、レビューする単位と順番）に入る。
+
+#### 提案0へのフィードバック（論点9）
+
 ## 論点10: steering固有の議論記録（`discussion.md`）の扱い
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
@@ -440,9 +493,26 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 **依存先:** 論点3（段取りを持つ担当が決まれば、その担当の議論記録として残すか、無くすかを決められる）
 
+### イテレーション0（論点10）: steering固有の議論記録の扱いを仮決めする
+
+#### 提案0（論点10）
+
+- a. roadmapを実行するskillの議論記録として残す。basenameは`discussion.md`のまま（仮決め）
+  - 根拠: steeringの`discussion.md`の主な用途は「ready result後の進行判断: runtime state、dispatch、再開位置について複数往復で検討した過程」と「orchestration中に生じた疑問・背景」である（`steering/SKILL.md`「discussion.mdの使い方」）。論点3の決定で、この段取りを持つのはroadmapを実行するskill（tasklistの時は`tasklist-executor`を起動する側）になる。
+  - basenameを変えないのは、既にある記録と前月summaryの読み取りが`discussion.md`を前提にしており、名前を変える利益が無いためである。
+  - tasklistの時の段取りの議論も、起動する側が同じ`discussion.md`へ記録してよいことを`execution-contracts.md`の起動する側が行うことに書く。
+- b. 無くす
+  - 段取りの議論はtask-designの議論記録か`implementation_review.md`へ入れる。設計の議論と実装後のfeedbackの記録に、どちらでもない段取りの議論が混ざる。
+
+#### 検討記録（論点10・イテレーション0）
+
+`steering/SKILL.md`の「discussion.mdの使い方」と「成果物のlifecycle」を確かめた。`discussion.md`は設計の議論（`task-design-discussion.md`）とも実装後のfeedback（`implementation_review.md`）とも別の、段取りの上の議論の置き場所である。段取りを持つ担当へ移すと、置き場所の役割は変わらない。
+
+#### 提案0へのフィードバック（論点10）
+
 ## 論点11: 記録の置き場所の準備を、別のskillにするか、task-designの内部指示にするか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** レビュー指摘
 
@@ -482,9 +552,19 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 #### 提案0へのフィードバック（論点11）
 
+**結果:** bを選択
+
+> 論点11はb。今後変更を伴わない調査設計とかも行う可能性があるから、分けておきたい。他はok
+
+推す案aの根拠は、置き場所の準備を呼ぶのが今task-designだけであることだった。利用者は、変更を伴わない調査の設計のように、task-designを通さずに記録を置く作業を今後行う予定を示した。`find-split-candidates.md`の「現在の外部利用要求があれば、実装済みcallerや利用実績を待つ必要はない」に当たる、持ち主からの具体的な要求として扱う。
+
+### 決定（論点11）
+
+記録の置き場所の準備（`name-work-directory`での命名、directoryの作成、前月の`summary.md`の生成、任意のbranch作成）は、独立したskillにする。task-designはこのskillを呼んで置き場所を用意し、単独で起動しても、roadmapを実行するskillや`escalate-plugin-skill-fix`から起動されても同じ置き場所を使う。変更を伴わない調査の設計のように、task-designを通さずに記録を置く作業からも呼べるようにする。`name-work-directory`は今のまま、命名だけを持つ汎用のskillとして残す。論点1の決定の「task-designから呼ぶ小さなskillへ移す」と一致する。
+
 ## 論点12: 締めくくりの確認とplan無しの公開を、task-designの内部指示のfileへ分けるか
 
-**ステータス:** 調査中
+**ステータス:** 応答待ち
 
 **種別:** レビュー指摘
 
@@ -492,12 +572,44 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 論点3の検討記録「構造の見直し」の候補から立てた。論点3の後に示す。
 
+### イテレーション0（論点12）: 締めくくりの確認とplan無しの公開を、今の作業で別fileへ分けるかを仮決めする
+
+#### 提案0（論点12）
+
+- a. 今の作業で、task-designの内部指示の一つのfileへ分ける（仮決め）
+  - 根拠: `skill-update-review`の候補（論点3の検討記録「構造の見直し」）。`work_scope.md`の二段目では、分けても今の作業のreview・revert・本番適用の単位は崩れない。どのみちsteeringからtask-designへ書き移すため、`task-design/SKILL.md`へ書いてから後で分けると同じ内容を二度書くことになる。
+  - task-designのStep 6で、結果を返す前にこのfileを読む。論点6の決定（実行を始めてよいかの確認）もこのfileの末尾に置き、締めくくりの確認の結果を示してから確かめる順序を一つのfileで保つ。fileの名前は論点4で決める。
+- b. `task-design/SKILL.md`の本文へ書く
+  - 再発防止の問いや`doc-enricher`の重複の避け方を直すたびに、設計の手順の間を直すことになる。
+
+#### 検討記録（論点12・イテレーション0）
+
+`work_scope.md`の二段目（今の作業に含めたら、review・revert・本番適用の単位が崩れるか）を当てた。分ける対象はこの作業でsteeringから移すものそのもので、別の作業にすると同じ節を二度書き換える。崩れないため、拾う（今の作業で分ける）。
+
+#### 提案0へのフィードバック（論点12）
+
 ## 論点13: 前月の`summary.md`の生成を、置き場所の準備とは別の内部指示へ分けるか
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** レビュー指摘
 
 **重さ:** 確かめるだけ（全部小。根拠は論点12と同じ）
 
-**依存先:** 論点11（置き場所の準備を持つ担当が決まれば、その担当の内部指示として分けるかを問える）
+**依存先:** 論点11（置き場所の準備を持つ担当が決まれば、その担当の内部指示として分けるかを問える）。論点11は決まった。
+
+### イテレーション0（論点13）: 前月の`summary.md`の生成を、今の作業で別fileへ分けるかを仮決めする
+
+#### 提案0（論点13）
+
+- a. 今の作業で、置き場所を用意するskillの内部指示のfileへ分ける（仮決め）
+  - 根拠: `skill-update-review`の候補（論点3の検討記録「構造の見直し」）と、論点11の決定（置き場所の準備は独立したskill）。論点12と同じく、`work_scope.md`の二段目で単位は崩れず、どのみち書き移すため今分ける。
+  - 置き場所を用意するskillは、前月のdirectoryがあり`summary.md`が無い時だけこのfileを読む。中身（概要の抽出、planの種類ごとのstatusの導き方、exact format、単一writerの理由）は変えない。
+- b. 置き場所を用意するskillの`SKILL.md`の本文へ書く
+  - plan無しの判定条件を変えるたびに、directoryの作成や命名の手順と同じfileを直すことになる。
+
+#### 検討記録（論点13・イテレーション0）
+
+論点11の決定で、置き場所の準備を持つ担当が独立したskillに決まった。`steering/SKILL.md` Step 1の5（前月summaryの生成）は、directoryの作成とは別の判断（planの種類ごとのstatusの導き方）を持つ。論点12と同じ理由で今分ける。
+
+#### 提案0へのフィードバック（論点13）

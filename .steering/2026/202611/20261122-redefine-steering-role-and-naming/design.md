@@ -19,7 +19,7 @@ steeringスキルの名前を変えて、task-designから置き場所を決め�
 
 ## TL;DR
 
-tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備はtask-designから呼ぶ小さなskillが、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。TBD: 実行側のskillの分け方（論点3）、skillとdirectoryの名前（論点4・論点5）。
+tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。TBD: skillとdirectoryの名前（論点4・論点5）。
 
 ---
 
@@ -38,6 +38,12 @@ tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-taskli
 
 実行の段取りは、planの種類ごとに、そのplanを実行する担当が持つ。plan全般を実行するskillは作らない。tasklistの時に`tasklist-executor`を包む層になり、無くしたsteeringと同じ形になるためである。roadmapは`tasklist-executor`へ寄せない。`tasklist-executor`は`context: fork`の子agentとして動き、phaseごとに利用者と議論するtask-designを起動できないためである。代償として、planの種類によって利用者が起動するskillが二通りになる。
 
+実行を始めてよいかの確認をtask-designに置くのは、確かめる時点（planの合意の直後、次のskillを起動する前）に読まれているのがtask-designだからである。実行側のskillの起動の条件は起動された後に読まれ、`tasklist-executor`は子agentとして起動されるため利用者と対話できない。
+
+進めない時の復旧を`execution-contracts.md`に置くのは、成立する条件が「designとtasklistが合意され、実行に入っている」に限られ、使う担当が`tasklist-executor`を起動する側だけであるためである。`docs/agent_execution_standards/`の入口の説明は、AI agentと実行環境の性質から起きる詰まり方に限っており、原因がそれに限らないblocker resolutionは入らない。
+
+置き場所の準備を独立したskillにするのは、変更を伴わない調査の設計のように、task-designを通さずに記録を置く作業を利用者が予定しているためである。
+
 ```text
 tasklist_ready → tasklist-executor
 roadmap_ready  → roadmapを実行するskill
@@ -49,16 +55,16 @@ roadmap_ready  → roadmapを実行するskill
 
 | steeringが受け持っていたこと | 行き先 |
 | --- | --- |
-| 記録の置き場所の準備（命名、directoryの作成、前月の`summary.md`、任意のbranch作成） | task-designから呼ぶ、置き場所を用意する小さなskill。単独で起動したtask-designも同じ置き場所を使う |
+| 記録の置き場所の準備（命名、directoryの作成、前月の`summary.md`、任意のbranch作成） | 置き場所を用意する独立したskill。task-designが呼び、単独で起動したtask-designも同じ置き場所を使う。変更を伴わない調査の設計のように、task-designを通さずに記録を置く作業からも呼べる |
 | task-designの起動と、返った結果とfileの対応の確認 | 無くなる。利用者が直接task-designを起動する |
 | 締めくくりの確認（`doc-enricher`の提案mode、議論記録からの再発防止先の見直し、skill自身の見直し） | task-design |
 | plan無しで終わった変更の公開（commit・push・PR） | task-design |
 | standalone roadmapの昇格 | 無くなる。置き場所が一通りになるため |
-| 実行を始めてよいかの確認 | TBD: 論点6 |
+| 実行を始めてよいかの確認 | task-designが結果を返す時。締めくくりの確認の結果を示した後に確かめ、明示の指示があればplanの種類に対応するskillを起動する。roadmapの子phaseでは指示を結果に添えて返し、roadmapを実行するskillが起動する |
 | `tasklist-executor`の起動、止まって返ってきた時の扱い、tasklistのcheckboxとartifactの読み直し、design.mdとの食い違いを実装後のreviewへ回すこと | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと。利用者の会話から直接起動しても、roadmapを実行するskillが起動しても同じ約束で扱う |
 | roadmapの各phaseの実行（phaseの選択、task-designの起動、結果に応じた実行、子のpath・status・完了日の更新、完了の伝播） | 新しいskill（roadmapを実行するskill）。phaseの子のpath・status・完了日を書くのはこのskillだけ |
 | 実装後のfeedbackの記録と戻し先（`implementation-feedback.md`） | TBD: 論点7 |
-| 実行の前提が崩れて進めない時の復旧（blocker resolution） | TBD: 論点8 |
+| 実行の前提が崩れて進めない時の復旧（blocker resolution） | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと（`blocked`で返ってきた時の扱い）。roadmapを実行するskillも同じ約束に従う。中身は変えない |
 | 記録をcommitへ載せる順序の規則 | TBD: 論点9 |
 | steering固有の議論記録（`discussion.md`） | TBD: 論点10 |
 
@@ -141,6 +147,6 @@ TBD
 | --- | --- | --- |
 | steeringの`SKILL.md`と内部指示を各担当へ移し、steeringを削除する | 実行側のskillの分け方と、各受け持ちの行き先が未決 | 論点3、論点6〜10 |
 | task-designへ締めくくりの確認とplan無しの公開を移す | 移す先の節と、置き場所を用意するskillとの境目が未決 | 論点3〜5 |
-| 置き場所を用意する小さなskillの新設 | 名前と、directoryの名前が未決 | 論点4、論点5 |
+| 置き場所を用意する独立したskillの新設 | 名前と、directoryの名前、前月summaryの内部指示の分け方が未決 | 論点4、論点5、論点13 |
 | `.steering/`の改名と既存記録の扱い | 名前と移行方針が未決 | 論点5 |
 | 参照元（`escalate-plugin-skill-fix`、hook、validator、`facilitate-discussion`、`tumeda-dev-plugin-context.md`等）の追随 | 名前と行き先が未決 | 論点3〜10 |
