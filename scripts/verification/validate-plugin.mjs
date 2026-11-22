@@ -1419,6 +1419,16 @@ requireText(namingCoreDoc, "判断の問い: **「足そうとしている中身
 requireText(namingCoreDoc, "やってしまいがちな失敗: 読まれる頻度や呼ばれる頻度で、足す先を選ぶ。");
 requireText(namingCoreDoc, "判断の問い: **「照合しているのは、元の依頼や具体例が指す中身か。足す先に合わせて言い直した中身か」**");
 requireText(namingCoreDoc, "範囲に入れば、そのまま足す。");
+// 既に入っている中身を根拠に範囲を読み広げず、中身の一面だけを取り出して照合しない。
+requireText(namingCoreDoc, "三つのうち、範囲を決めるのは名前と入口の説明である。既に入っている中身は、名前と入口の説明をどう読むかを確かめる手掛かりに使い、名前と入口の説明より範囲を広げる根拠にしない。");
+requireText(namingCoreDoc, "判断の問い: **「範囲に入ると判断した根拠は、名前と入口の説明か。既に入っている中身の一つか」**");
+requireText(namingCoreDoc, "言い直しは、言葉を一般化する形だけではない。中身のうち足す先に合う一面だけを取り出し、中身を他と区別している性質を落とす形もある。");
+requireText(namingCoreDoc, "足す先の候補が複数あり得る時は、一つを選んでから入る理由を探さず、書き出した中身を候補ごとに照合してから選ぶ。");
+requireText(namingCoreDoc, "判断の問い: **「書き出した中身から、足す先に合わない性質を落としていないか」**");
+const docsIndex = docPath("README.md");
+requireText(docsIndex, "一つのfileで足りる主題は、収まる既存群があれば、新しい群を作らずその群へ置く。収まる群が無い時は、既存群へ収めるために中身や群の範囲を言い直さず、群を作るかを決める。");
+requireText(docsIndex, `(./development_standards/${scopeCheckAnchor})`);
+forbidText(docsIndex, "一つのfileで足りる主題は、新しい群を作らず既存群へ置く。");
 requireText(docPath("development_standards/naming/README.md"), "名前は本質。名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
 requireText(docPath("development_standards/README.md"), "名前を付けるあらゆる場面と、名前の付いたものへ中身を足す場面で守る標準。");
 requireText(docPath("development_standards/infrastructure/database_separation.md"), "個人用の service は、本番と開発で DB を共用してよい。特に、利用者が本当に自分しかいない service は共用する。");
