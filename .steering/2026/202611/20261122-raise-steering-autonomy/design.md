@@ -140,13 +140,13 @@ TBD: 終了時に成立することの具体（重さの表し方、一往復の
 
 | # | file | 変えること |
 | --- | --- | --- |
-| 1 | `facilitate-discussion/round-trip.md`（新規。見出し「一往復で示す論点を組み、返事を振り分ける」。TBD: 見出しの構成） | 重さの判定、前例の探し方、一往復の組み方、仮決めの示し方と答え方の一文、まとめた返事の読み方と各論点への振り分け |
+| 1 | `facilitate-discussion/round-trip.md`（新規。見出し「一往復で示す論点を組み、返事を振り分ける」。節は読む時点の順に、論点に重さを付ける・一往復に示す論点を組む・仮決めと推す案を示す・まとめた返事を各論点へ振り分ける） | 重さの判定、前例の探し方、一往復の組み方、仮決めの示し方と答え方の一文、まとめた返事の読み方と各論点への振り分け |
 | 2 | `facilitate-discussion/SKILL.md` | 往復は論点を混ぜずに軽い論点をまとめて示して減らす旨、論点を選ぶ節を一往復の組を1で選ぶ形へ、論点をわかった時点で立てること、まとめた返事で合意された論点を一つずつ確定・返却すること、変更の権限の分類から一意な導出を外すこと |
 | 3 | `facilitate-discussion/iteration.md` | 提案の重さ、確かめるだけの論点の仮決めの形、まとめた返事の各論点の応答欄への記録 |
 | 4 | `facilitate-discussion/derived-change.md` | 一意な導出を外し、仮決めの論点として立てる先を示す。明示委託と機械的適用は残す |
-| 5 | `facilitate-discussion/templates/discussion_entry.md` | 論点metadataの重さと依存先の欄、依存先の決定待ちを表す状態（TBD: 書き方と状態の表し方） |
-| 6 | `facilitate-discussion/scripts/inspect-discussion.mjs`とそのtest | 依存先の決定待ちを新しい状態の値で表す場合だけ、既知の状態へ加える |
-| 7 | `docs/think_standards/advancing_discussion.md` | まとめてよい論点の例外、既にある発言・決定から決まる論点を仮決めとして問うこと |
+| 5 | `facilitate-discussion/templates/discussion_entry.md` | 論点metadataの重さと依存先の欄（TBD: 書き方）、依存先の決定待ちを表す新しい状態の値「依存先待ち」 |
+| 6 | `facilitate-discussion/scripts/inspect-discussion.mjs`とそのtest | 既知の状態の値へ「依存先待ち」を加え、testに一件足す |
+| 7 | `docs/think_standards/advancing_discussion.md` | 主軸の「やってしまいがちな行動」の一つ目に「重さを見ずに」を足す。主軸の直後に「補助: 一つずつ考える論点と、まとめてよい論点を分ける」を足す。補助「見つけた不備を問いにする前に、誤る場面を一つ言う」の「導いた結果として報告する」を「根拠として名指した仮決めとして示す」に改める（文面は議論記録の論点21の提案0のa） |
 | 8 | `task-design/SKILL.md` | Step 1でTBDを識別したら論点として渡すこと、Step 3の一つ選ぶ前提、保留の確かめ直しの依頼を絞ること |
 | 9 | `steering/SKILL.md` | 保留の確かめ直しの依頼を元作業全体の完了時だけにすること |
 | 10 | `tasklist-executor/SKILL.md` | 再開時とtask・phaseの完了時の確かめ直しの依頼を外すこと |
