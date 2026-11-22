@@ -26,7 +26,7 @@
 - [論点22: 構造reviewで見つかった、facilitate-discussionの原因ownerの振り分けの候補をどう扱うか](task-design-discussion-21-25.md#論点22-構造reviewで見つかったfacilitate-discussionの原因ownerの振り分けの候補をどう扱うか)
 - [論点23: versionの上げ幅](task-design-discussion-21-25.md#論点23-versionの上げ幅)
 - [論点24: `round-trip.md`の本文](task-design-discussion-21-25.md#論点24-round-tripmdの本文)
-- [論点25: 一意な導出を外した後の`derived-change.md`の名前](task-design-discussion-21-25.md#論点25-一意な導出を外した後のderived-changemdの名前)
+- [論点25: 一意な導出を外した後の`derived-change.md`をどうするか](task-design-discussion-21-25.md#論点25-一意な導出を外した後のderived-changemdをどうするか)
 - [論点26: `facilitate-discussion/SKILL.md`の差分](task-design-discussion-26-30.md#論点26-facilitate-discussionskillmdの差分)
 - [論点27: `facilitate-discussion/iteration.md`の差分](task-design-discussion-26-30.md#論点27-facilitate-discussioniterationmdの差分)
 - [論点28: `derived-change.md`の中身の差分](task-design-discussion-26-30.md#論点28-derived-changemdの中身の差分)
