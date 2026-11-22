@@ -608,6 +608,7 @@ requireText(
 requireAbsent(skillPath("design-consult/SKILL.md"));
 
 const steeringSkill = skillPath("steering/SKILL.md");
+requireText(steeringSkill, "完了報告の前に、task-design内で適用した変更を公開する。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく[`tasklist-design.md`の「実装後feedbackと公開action」](../task-design/tasklist-design.md#実装後feedbackと公開action)に従い、ここへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。");
 requireText(skillPath("facilitate-discussion/round-trip.md"), "論点の段はchatに示さない。段は一往復の組を選ぶためのものであり、利用者が気になれば議論記録の`**重さ:**`を読む。");
 forbidText(skillPath("facilitate-discussion/round-trip.md"), "各論点の番号と段");
 requireText(steeringSkill, "4-1から4-3は、三つとも見直してから、出た提案を一度に示す。重なる提案は一つにまとめる。一往復に示す数と並べ方は、[round-trip.md](../facilitate-discussion/round-trip.md)に従う。");
