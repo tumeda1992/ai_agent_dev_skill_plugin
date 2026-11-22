@@ -17,3 +17,4 @@
 - [論点13: 論点の段の名前と、一往復にまとめる数の体系を組み直すか](task-design-discussion-11-15.md#論点13-論点の段の名前と一往復にまとめる数の体系を組み直すか)
 - [論点14: 保留したplugin改善を、どの時点で確かめ直すか](task-design-discussion-11-15.md#論点14-保留したplugin改善をどの時点で確かめ直すか)
 - [論点15: 保留したplugin改善を確かめ直した時、利用者へ何を伝えるか](task-design-discussion-11-15.md#論点15-保留したplugin改善を確かめ直した時利用者へ何を伝えるか)
+- [論点16: 決めた規則を、どのskill・docsのどこに置くか（置き場の骨格）](task-design-discussion-16-20.md#論点16-決めた規則をどのskilldocsのどこに置くか置き場の骨格)
