@@ -371,7 +371,7 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 ## 論点7: 実装後のfeedbackの共通手順（`steering/implementation-feedback.md`）の置き場所
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -394,6 +394,14 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 `steering/implementation-feedback.md`の冒頭（steeringまたは`tasklist-executor`が直接受領した時に読む）と、`tasklist-executor/SKILL.md`の参照を確かめた。読む担当は実行側だけで、論点3の決定の後は`tasklist-executor`とそれを起動する側（利用者の会話のagent、roadmapを実行するskill）になる。中身の変更は要らず、担当の名指しの書き換えだけで済む。
 
 #### 提案0へのフィードバック（論点7）
+
+**結果:** aに合意（論点7・9・10・12・13をまとめて示した往復で「それ以外はok」と答えられた）
+
+> 論点9が何を扱う論点なのかわかってない。それ以外はok
+
+### 決定（論点7）
+
+実装後のfeedbackの共通手順は、`tasklist-executor/implementation-feedback.md`へ移す。feedbackを直接受ける担当（`tasklist-executor`と、それを起動する側である利用者の会話のagentとroadmapを実行するskill）は、すべて`tasklist-executor`の約束の下に入るためである。中身は変えず、「steeringまたはtasklist-executorが」等の担当の名指しを、起動する側を含む新しい担当へ書き換える。task-designへは移さない。戻し先の多くはtask-designだが、このfileは戻す前に記録と原因の確認を行う手順であり、読むのは実行側の担当である。
 
 ## 論点8: 実行の前提が崩れて進めない時の復旧（blocker resolution）の置き場所
 
@@ -483,9 +491,62 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 #### 提案0へのフィードバック（論点9）
 
+**結果:** 論点の中身が伝わらなかった
+
+> 論点9が何を扱う論点なのかわかってない。それ以外はok
+
+提案0は、規則を「記録を、対応する変更の前と後へ分ける規則」と短く呼ぶだけで、どの規則か、何を分けるのか、なぜ要るのかを示していなかった。案の比較の前に、規則の中身と、今steeringのどこにあり誰が使うかを具体例で示す必要がある。
+
+### イテレーション1（論点9）: 規則の中身を具体例で示し、置き場所を問い直す
+
+#### 提案1（論点9）
+
+##### この論点が扱う規則
+
+`steering/SKILL.md`の「commitへ載せる順序」という節にある規則である。一つの作業をcommitする時、`.steering/`の作業の記録を、最後に一つのcommitへまとめず、確定した時点に合わせて変更のcommitの前と後へ分ける。
+
+| 記録 | 確定する時点 | 置くcommit |
+| --- | --- | --- |
+| `design.md`、議論記録（`task-design-discussion.md`等） | 変更を行う前に合意して確定する | 対応する変更のcommitより前 |
+| skill・docs・code等の変更 | — | 変更のcommit |
+| `tasklist.md`のcheckboxの完了、`implementation_review.md`、締めくくりの見直しで書き足した記録 | 変更を終えてから確定する | 対応する変更のcommitより後 |
+
+このrepositoryの直近の作業（PR #31）が、この規則に従った例である。
+
+```text
+c1f89c7 docs(steering): planlessの完了に公開の段を足す論点を出す              ← 記録（議論）
+9f810d6 docs(steering): planlessの完了でtasklistと同じ条件で公開すると決める    ← 記録（決定）
+100cd4b docs(tumeda-dev): steeringのplanless完了で、…PRまで公開する            ← 変更（steering/SKILL.md、validator）
+24f1ce1 docs(steering): 締めくくりのreviewで加えた変更をdesignと対応表に書き足す ← 記録（変更の後に確定）
+```
+
+規則がある理由は、後からcommitの履歴を読む人が「どの変更が、どの合意に基づくか」をcommit単位で辿れるようにするためである。`.steering/`配下という置き場所で記録を括り、最後の一つのcommitへまとめると、合意が変更より後に記録された履歴になる。
+
+##### 何を決めるか
+
+steeringが無くなるため、この節の行き先を決める。この規則を使うのはcommitを作る担当であり、変更後は二つある。
+
+- plan無しで終わる作業: task-designが変更を公開する時にcommitする（論点1・12の決定）
+- tasklistを作る作業: `tasklist-executor`がtasklistのcommit taskを実行する時にcommitする
+
+##### a. `plan-commits`へ移す（仮決め）
+
+- 根拠: `plan-commits`は「コミット計画、変更の分割、レビューする単位と順番」を受け持つ（`plan-commits/SKILL.md`のdescription）。tasklistのcommitの分け方も、`task-design/tasklist-design.md`が「分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める」と定めている。どちらの担当も`plan-commits`を通るため、この規則がどちらの経路でも読まれる。
+- 移す時に「steering成果物」を「作業の記録」へ言い換える。前と後への分け方、まとめてよい条件（一つのcommitで完結し、分けても辿れる情報が増えない時）、判断の問いは変えない。
+
+##### b. task-designの公開の手順（論点12で分けるfile）へ置く
+
+- plan無しで終わる作業の公開では読まれる。tasklistのcommit taskの実行時には読まれず、tasklistを作る作業で記録が最後の一つのcommitへまとまる形に戻る。
+
+#### 検討記録（論点9・イテレーション1）
+
+提案0の示し方を見直した。規則の名前だけを示し、規則の中身（何をどこへ分けるか）、理由、今の置き場所を示していなかった。`steering/SKILL.md`の「commitへ載せる順序」を読み直し、表と、このrepositoryの直近のcommit履歴（`git log`の`c1f89c7`〜`24f1ce1`、各commitが変更したfile）を具体例として加えた。各commitのfileは、`9f810d6`が`task-design-discussion.md`だけ、`100cd4b`が`steering/SKILL.md`と`validate-plugin.mjs`、`24f1ce1`が`design.md`・`task-design-discussion.md`・`contract-ledger.md`であり、表の分け方と一致する。案と推す理由は提案0から変えていない。
+
+#### 提案1へのフィードバック（論点9）
+
 ## 論点10: steering固有の議論記録（`discussion.md`）の扱い
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -509,6 +570,14 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 `steering/SKILL.md`の「discussion.mdの使い方」と「成果物のlifecycle」を確かめた。`discussion.md`は設計の議論（`task-design-discussion.md`）とも実装後のfeedback（`implementation_review.md`）とも別の、段取りの上の議論の置き場所である。段取りを持つ担当へ移すと、置き場所の役割は変わらない。
 
 #### 提案0へのフィードバック（論点10）
+
+**結果:** aに合意（論点7・9・10・12・13をまとめて示した往復で「それ以外はok」と答えられた）
+
+> 論点9が何を扱う論点なのかわかってない。それ以外はok
+
+### 決定（論点10）
+
+steering固有の議論記録`discussion.md`は、実行の段取りの議論の記録として残す。書くのは、roadmapを実行するskillと、tasklistの時は`tasklist-executor`を起動する側である。basenameは`discussion.md`のまま変えない。既にある記録と前月summaryの読み取りが`discussion.md`を前提にしており、名前を変える利益が無いためである。tasklistの時に段取りの議論を記録してよいことは、`tasklist-executor/execution-contracts.md`の起動する側が行うことに書く。
 
 ## 論点11: 記録の置き場所の準備を、別のskillにするか、task-designの内部指示にするか
 
@@ -564,7 +633,7 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 ## 論点12: 締めくくりの確認とplan無しの公開を、task-designの内部指示のfileへ分けるか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** レビュー指摘
 
@@ -588,9 +657,17 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 #### 提案0へのフィードバック（論点12）
 
+**結果:** aに合意（論点7・9・10・12・13をまとめて示した往復で「それ以外はok」と答えられた）
+
+> 論点9が何を扱う論点なのかわかってない。それ以外はok
+
+### 決定（論点12）
+
+締めくくりの確認（`doc-enricher`の提案mode、議論記録からの再発防止先の見直し、skill自身の見直し）とplan無しで終わった変更の公開は、今の作業でtask-designの内部指示の一つのfileへ分ける。task-designはStep 6で結果を返す前にこのfileを読む。論点6の決定（実行を始めてよいかの確認）もこのfileの末尾に置き、締めくくりの確認の結果を示してから確かめる順序を一つのfileで保つ。今分けるのは、どのみちsteeringから書き移すため、`task-design/SKILL.md`へ書いてから後で分けると同じ内容を二度書くことになり、`work_scope.md`の二段目でも今の作業の単位を崩さないためである。fileの名前は論点4で決める。
+
 ## 論点13: 前月の`summary.md`の生成を、置き場所の準備とは別の内部指示へ分けるか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** レビュー指摘
 
@@ -613,3 +690,11 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 論点11の決定で、置き場所の準備を持つ担当が独立したskillに決まった。`steering/SKILL.md` Step 1の5（前月summaryの生成）は、directoryの作成とは別の判断（planの種類ごとのstatusの導き方）を持つ。論点12と同じ理由で今分ける。
 
 #### 提案0へのフィードバック（論点13）
+
+**結果:** aに合意（論点7・9・10・12・13をまとめて示した往復で「それ以外はok」と答えられた）
+
+> 論点9が何を扱う論点なのかわかってない。それ以外はok
+
+### 決定（論点13）
+
+前月の`summary.md`の生成は、今の作業で、置き場所を用意するskillの内部指示のfileへ分ける。置き場所を用意するskillは、前月のdirectoryがあり`summary.md`が無い時だけこのfileを読む。中身（概要の抽出、planの種類ごとのstatusの導き方、exact format、単一writerの理由）は変えない。今分ける理由は論点12と同じである。fileの名前は論点4で決める。

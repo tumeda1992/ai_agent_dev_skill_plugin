@@ -55,18 +55,18 @@ roadmap_ready  → roadmapを実行するskill
 
 | steeringが受け持っていたこと | 行き先 |
 | --- | --- |
-| 記録の置き場所の準備（命名、directoryの作成、前月の`summary.md`、任意のbranch作成） | 置き場所を用意する独立したskill。task-designが呼び、単独で起動したtask-designも同じ置き場所を使う。変更を伴わない調査の設計のように、task-designを通さずに記録を置く作業からも呼べる |
+| 記録の置き場所の準備（命名、directoryの作成、前月の`summary.md`、任意のbranch作成） | 置き場所を用意する独立したskill。前月の`summary.md`の生成は、このskillの内部指示の別fileへ分ける。task-designが呼び、単独で起動したtask-designも同じ置き場所を使う。変更を伴わない調査の設計のように、task-designを通さずに記録を置く作業からも呼べる |
 | task-designの起動と、返った結果とfileの対応の確認 | 無くなる。利用者が直接task-designを起動する |
-| 締めくくりの確認（`doc-enricher`の提案mode、議論記録からの再発防止先の見直し、skill自身の見直し） | task-design |
-| plan無しで終わった変更の公開（commit・push・PR） | task-design |
+| 締めくくりの確認（`doc-enricher`の提案mode、議論記録からの再発防止先の見直し、skill自身の見直し） | task-designの内部指示の一つのfile。Step 6で結果を返す前に読む。実行を始めてよいかの確認もこのfileの末尾に置く |
+| plan無しで終わった変更の公開（commit・push・PR） | task-designの、締めくくりの確認と同じ内部指示のfile |
 | standalone roadmapの昇格 | 無くなる。置き場所が一通りになるため |
 | 実行を始めてよいかの確認 | task-designが結果を返す時。締めくくりの確認の結果を示した後に確かめ、明示の指示があればplanの種類に対応するskillを起動する。roadmapの子phaseでは指示を結果に添えて返し、roadmapを実行するskillが起動する |
 | `tasklist-executor`の起動、止まって返ってきた時の扱い、tasklistのcheckboxとartifactの読み直し、design.mdとの食い違いを実装後のreviewへ回すこと | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと。利用者の会話から直接起動しても、roadmapを実行するskillが起動しても同じ約束で扱う |
 | roadmapの各phaseの実行（phaseの選択、task-designの起動、結果に応じた実行、子のpath・status・完了日の更新、完了の伝播） | 新しいskill（roadmapを実行するskill）。phaseの子のpath・status・完了日を書くのはこのskillだけ |
-| 実装後のfeedbackの記録と戻し先（`implementation-feedback.md`） | TBD: 論点7 |
+| 実装後のfeedbackの記録と戻し先（`implementation-feedback.md`） | `tasklist-executor/implementation-feedback.md`。feedbackを直接受ける担当（`tasklist-executor`と、それを起動する側）が読む。中身は変えず、担当の名指しだけを書き換える |
 | 実行の前提が崩れて進めない時の復旧（blocker resolution） | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと（`blocked`で返ってきた時の扱い）。roadmapを実行するskillも同じ約束に従う。中身は変えない |
 | 記録をcommitへ載せる順序の規則 | TBD: 論点9 |
-| steering固有の議論記録（`discussion.md`） | TBD: 論点10 |
+| steering固有の議論記録（`discussion.md`） | 実行の段取りの議論の記録として残す。roadmapを実行するskillと、tasklistの時は`tasklist-executor`を起動する側が書く。basenameは`discussion.md`のまま |
 
 ### TBD: 作業の記録を置くdirectoryの名前
 
