@@ -1276,6 +1276,11 @@ requireText(advancingDiscussionDoc, "## 補助: 一つずつ考える論点と�
 forbidText(advancingDiscussionDoc, "採否を問わず、導いた結果として報告する", "既決から決まる論点を問わずに決める旧い補助");
 requireText(taskDesignSkill, "ユーザーへ問わなければ確定しないTBDは、識別した時点で`facilitate-discussion`へ渡し");
 forbidText(taskDesignSkill, "この時点ではdiscussion fileの論点・提案・親子関係を組み立てない", "初稿で論点を組み立てない旧い前提");
+// 保留したplugin改善は、再開条件が成り立ちうる時点だけで確かめ直し、状態の変わらない知らせを出さない。
+for (const expected of ["taskやphaseの完了、executorの停止、作業の再開のたびには依頼しない", "確かめ直して状態が変わらない時は、利用者へ何も伝えない"]) requireText(pendingEscalations, expected);
+forbidText(skillPath("tasklist-executor/SKILL.md"), "task／phaseの既存完了条件を実測して次へ進む時は", "taskごとの保留の確かめ直し");
+requireText(steeringSkill, "steeringが依頼するのは、元作業全体を完了する時だけ");
+forbidText(steeringSkill, "その成立証拠で同じ作業の保留条件を再確認してから", "phaseごとの保留の確かめ直し");
 requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り替える前の保留判定\n", "\n## plugin repositoryの判定\n"], "起動後・repository判定前の保留判定");
 // 利用者の確かめを実行許可の画面に当てず、合意の原文を実行するagentへ渡す。
 requireText(skillPath("task-design/SKILL.md"), "実行環境の実行許可の画面（agentがtoolを実行する前に利用者へ出す確認）を、利用者が確かめる手段にしない。");

@@ -81,7 +81,6 @@ tasklist.md が与えられていないときには、tasklist.md を要求し�
 - tasklistが止まるtaskを置いたPhase境界では、完了済みtaskを保存したうえで`phase_checkpoint`を返せる。止まるtaskの無いPhase境界では止まらず、次のPhaseへ進む
 - ユーザー動作確認がtasklistにある時は`user_confirmation_required`で停止し、確認前にcommit・pushへ進まない（確認環境へ載せるために`UI確認環境`が定めるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushを除く）
 - 利用上限に達した時は、完了済みtask、pending request/result、次の`[ ]`を`limit_reached`として返す
-- 同じ元作業の再開時と、task／phaseの既存完了条件を実測して次へ進む時は、元作業の場所と現在の状態・証拠を`escalate-plugin-skill-fix`へ渡し、[保留条件を再確認する](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)。未実測の完了を通知せず、各返信のpollingにも変えない。
 - 再開時は最初の`[ ]`と既存artifactを再評価する
   - result済みならchildを再起動せず結果を消費する
   - request済み・resultなしなら同じrequest IDをpendingとして返し、二重起動しない
