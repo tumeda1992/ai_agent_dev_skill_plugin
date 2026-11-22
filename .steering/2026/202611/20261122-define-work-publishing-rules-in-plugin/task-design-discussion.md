@@ -550,7 +550,7 @@ aを仮決めにした根拠: [`work_scope.md`](../../../../plugins/tumeda-dev/d
 
 ## 論点12: steeringのplanless_completeで、公開をどう行うか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** レビュー指摘
 
@@ -585,4 +585,14 @@ aを推す理由: tasklistがある作業は、tasklistのpush・PR sectionで�
 対象: `steering/SKILL.md`。5-1へ足すのは、`tasklist-design.md`の条件を参照する一段である。公開の判断・状態・完了条件は`tasklist-design.md`とtasklistの手順が持ち、steeringは参照するだけで抱え込まない。候補なし。
 
 #### 提案0へのフィードバック（論点12）
+
+**結果:** a を採用
+
+> ok
+
+一件だけを示した往復への「ok」であり、推した案aへの同意として読む。
+
+### 決定（論点12）
+
+`steering/SKILL.md` 5-1の完了報告の前に、task-design内で適用した変更を公開する段を置く。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく`tasklist-design.md`「実装後feedbackと公開action」に従い、steeringへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。escalate経由の作業では、続けて`integrate-plugin-changes.md`に従う。完了報告には、公開した先（PRのURL）か、公開しなかった理由を含める。この作業自体も、この段でPRの作成まで進める。
 
