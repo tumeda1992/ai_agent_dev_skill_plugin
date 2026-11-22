@@ -14,6 +14,28 @@
 
 <!-- 置き場所の一覧（形と作り方は `doc-enricher/place-map.md`）、README 編集方針など、doc-enricher 固有制約だけこの下に記載 -->
 
+### 置き場所の一覧
+
+| 置き場所 | 約束する範囲 | 読まれる時 |
+| --- | --- | --- |
+| `AGENTS.md`（root。`CLAUDE.md` は同fileへのsymlink） | repository全体の作業の決まり（常用plugin、口調、毎ターン適用する思考の作法、repository運用） | すべての作業の開始時に必ず読まれる |
+| root `README.md` | pluginの運用契約と、変更時の検証と前提 | 検証の規約を確かめる時に、この文脈の「テスト方針」から辿る |
+| `plugins/tumeda-dev/docs/README.md` | docsの群への入口と、群の置き方 | docsへ規範を置く・探す時に、この文脈の「アーキテクチャ文書」から辿る |
+| `plugins/tumeda-dev/docs/think_standards/` | 議論・思考プロセスの作法。READMEが場面ごとのfileの引き方を持つ | `think-through` から、該当する場面のfileを読む |
+| `plugins/tumeda-dev/docs/documentation_standards/` | docsの書き方・構造化 | skill本体やdocsを書く時、`document-review` の観点として読む |
+| `plugins/tumeda-dev/docs/development_standards/` | 開発にまつわる標準（命名、エンティティ設計、開発の進め方、基盤） | 名前を付ける・設計する・開発の進め方を決める時に、群のREADMEから辿る |
+| `plugins/tumeda-dev/docs/common_standard/function_migration_policy.md` | 機能・仕様の移行で意味を全量保存する、複数の群に効く規範 | file分割、owner変更、skill間・plugin間移植の時 |
+| `plugins/tumeda-dev/docs/agent_execution_standards/blocked_commands.md` | AI agentに特有の詰まり方への対処 | 実行環境にcommandを止められた時 |
+| `plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies/migration.md` | 他repositoryとの移植・追随・逆輸入の規約 | 他repositoryから移植してpluginを育てる時に、`AGENTS.md` の指示で読む |
+| 各skill directoryの `SKILL.md` | そのskillの実行手順とownership | そのskillを起動した時 |
+| 各skill directoryの内部指示（`SKILL.md` から辿る `*.md`） | `SKILL.md` がそのfileへ割り当てた工程 | `SKILL.md` の実行経路がそのfileを読むよう指示した時 |
+| 各skill directoryの `templates/` | そのskillが成果物を書く時の形。索引のREADMEがあれば、そこに選び方がある | そのskillの手順が雛形として読ませる時 |
+| `plugins/tumeda-dev/skills/README.md` | 人間がskill群の全体像を俯瞰する目次 | 人間が全体を見渡す時。AIの作業手順からは読まれない |
+| `plugins/tumeda-dev/model-profiles.md` | hostごとのmodel差を吸収する能力profile | skillが推論強度やmodelを選ぶ時に、そのskillの `SKILL.md` から辿る |
+| `scripts/verification/validate-plugin.mjs` | plugin manifestの整合と、skill・docsの契約文のassertion | 検証の実行時。skillやdocsを変える時にassertionを足す・追随させる |
+| `.steering/<年>/<年月>/<作業>/` | その作業の設計・議論・経緯 | その作業を再開する時。議論で前例を探す時に決定の節を読む |
+| codeのcomment | その一箇所 | その行を読む時 |
+
 ## task-design
 
 参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)、[全体 test command](#全体-test-command)、[全体 lint command](#全体-lint-command)
