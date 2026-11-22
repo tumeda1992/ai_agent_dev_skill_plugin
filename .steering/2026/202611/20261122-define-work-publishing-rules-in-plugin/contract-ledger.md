@@ -18,12 +18,12 @@
 | ID | 今の場所 | 原文 | 分類 |
 | --- | --- | --- | --- |
 | L1 | plugin repository `Git / GitHub公開条件` | remote: `origin` は `ssh://git@github.com/tumeda1992/ai_agent_dev_skill_plugin.git`。 | KEEP（repositoryのfact） |
-| L2 | 同 | default branch: `main`。default branchの上で直接commitしない。作業はbranchで行う。 | 既定branchの名前はKEEP。「直接commitしない、branchで行う」は論点2 |
+| L2 | 同 | default branch: `main`。default branchの上で直接commitしない。作業はbranchで行う。 | 既定branchの名前はKEEP。「直接commitしない、branchで行う」は論点9 |
 | L3 | 同 | `escalate-plugin-skill-fix`で引き渡された作業は、同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。 | 論点4 |
 | L4 | 同 | PR作成script: `scripts/for_local/github/create_or_get_pr.sh`。（以下、symlinkの注意書き二行） | KEEP（repositoryのfact） |
 | L5 | plugin repository `Branch / issue 契約` | なし。利用先repositoryからの提案が起点になるため、issue番号のような安定した識別子を持たない。branch名はsteering directoryのbasenameに揃える。 | 論点7 |
 | L6 | fortune_calculator `Git / GitHub公開条件` | remote: `origin` は GitHub の `tumeda1992/fortune_calculator`（private）。 | KEEP |
-| L7 | 同 | default branch: `master`。default branch の上で直接 commit しない。作業は issue の branch で行う。 | 既定branchの名前はKEEP。残りは論点2 |
+| L7 | 同 | default branch: `master`。default branch の上で直接 commit しない。作業は issue の branch で行う。 | 既定branchの名前はKEEP。残りは論点9 |
 | L8 | 同 | commit・push・PR の作成は、利用者が頼んだ時だけ行う。 | 論点2 |
 | L9 | 同 | PR は `master` へ作る。merge は利用者が行う。 | 論点3 |
 | L10 | 同 | `Closes #<issue番号>` は、その PR の merge で issue の作業が終わる時だけ付ける。終わらない時は `参照: #<issue番号>` と書き、本文に issue の完了を意味しないことを書く。 | `branch_pr_issue.md` と同じ規則。論点7 |
@@ -36,7 +36,7 @@
 | L17 | 同 | `main` への merge は Amplify の本番 build を起こす。 | KEEP（repositoryのfact。論点3の判断に使う） |
 | L18 | x_favorites `## tasklist-executor` | ユーザー動作確認が完了するまで、作業 branch への commit・push と PR 作成を行わない。`review` へのforce pushはこの制限に含まれない。 | 前半は `steering`・`tasklist-executor` と同じ規則。後半は確認環境のfact。論点7 |
 | L19 | nanitabe `Git / GitHub 公開条件` | remote: `origin` は `git@github.com:tumeda1992/nanitabe.git`。（旧名の注意書き） | KEEP |
-| L20 | 同 | default branch: `main`。commit と push を default branch へ直接行わない。 | 既定branchの名前はKEEP。残りは論点2 |
+| L20 | 同 | default branch: `main`。commit と push を default branch へ直接行わない。 | 既定branchの名前はKEEP。残りは論点9 |
 | L21 | 同 | 公開可能な branch: `feature-<issue番号>` 形式の non-default branch。 | KEEP（branchの形式。論点7で置く欄を決める） |
 | L22 | 同 | PR: `feature-<issue番号>` から `main` へ作成する。 | 論点2 |
 | L23 | 同 | merge 後の main の commit title には `(#PR番号)` が付く（squash merge 運用）。 | 論点3 |

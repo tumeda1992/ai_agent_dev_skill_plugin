@@ -2,7 +2,7 @@
 
 ## 論点1: 設計の骨格 — 何を変え、何を変えず、どの順で決めるか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -80,15 +80,61 @@ issue #2 の作業をplanlessで完了した時、steeringには公開の段が�
 
 #### 提案0へのフィードバック（論点1）
 
+**結果:** 採用
+
+> ん？なんの続き？
+
+assistantは、sessionの上限で止まった後の再開だったため、提案の前提を示し直した。issue #2 を PR #30 で完了したこと、利用者の「pluginに書いてconsumer依存にしないで」を受けてこのsteeringを始めたこと、この提案がその設計の骨格であることを示した。
+
+> ok
+
+### 決定（論点1）
+
+提案0の骨格で進める。作業の公開の流れをpluginの規則として一つ書き、pluginのworkflowはそれに従う。利用先の文脈にはrepositoryのfactだけを残し、pluginの規則の写しは消す。`branch_pr_issue.md`の`Closes`と二つのmerge経路、branchの形式を利用先が宣言する仕組み、動作確認の前にcommit・push・PRをしない規則、`share-work-in-progress`は変えない。各記述の行き先は[contract-ledger.md](./contract-ledger.md)を土台に、論点2から順に決める。
+
 ## 論点2: 作業の終わりに、公開をどこまで必ず行うか
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
 **重さ:** 一つずつ考える（波及: すべての作業の終わりの振る舞いが変わる。他は小）
 
-**依存先:** 論点1（骨格が決まれば、案を作れる）
+### イテレーション0（論点2）: 作業の終わりに、利用者に聞かずに行う公開の範囲を比べる
+
+#### 提案0（論点2）
+
+作業の終わりに、assistantが利用者に聞かずに行う公開の範囲を決める。作業の終わりは、tasklistがある作業では利用者の確認と最後のtaskが終わった時、planlessの作業ではsteeringの締めくくりのreviewが終わった時である。動作確認の前にcommit・push・PRをしない規則は変えない。mergeとmainのpushを誰が行うかは論点3で決める。
+
+- a. commit → 作業branchのpush → PRの作成まで、必ず行う。PRの`Closes`は`branch_pr_issue.md`に従う（推奨）
+- b. commitと作業branchのpushまで必ず行う。PRは利用者が頼んだ時だけ作る
+- c. どれも利用者が頼んだ時だけ行う（`fortune_calculator`の今の規則を全体へ広げる）
+- d. 作業の終わりに、どこまで行うかを毎回利用者へ聞く（今のplanlessの終わりと同じ）
+
+aを推す理由: 利用者の言う手順（「PRはいつもいる」「PR作ったうえでmainでマージしてpushする」）は、PRを作ることを毎回の手順にしている。b〜dは、PRを作る段で毎回往復が一つ増える。今回のissue #2の終わりでも、dと同じ問いで一往復した。
+
+どの案でも、次の場合は行えるところまで行い、止まった所と理由を報告する。
+
+- remoteが無い、GitHubでない: commitまで行う。
+- 実行環境が、利用者の明示の指示なしのPRの作成やpushを禁じる（cloud sessionの指示等）: 実行環境の指示に従い、行う前に利用者へ確認する。
+
+#### 検討記録（論点2・イテレーション0）
+
+##### 今の規則
+
+- `tasklist-design.md`は、文脈にlocal Git運用条件・GitHub公開条件の欄がある時だけ、tasklistにcommit section・push・PR sectionを作る（[contract-ledger.md](./contract-ledger.md) P1・P2）。欄が無ければ利用者へ確認し、答えを文脈へ書き戻す。
+- steeringの`planless_complete`には公開の段が無い（P6）。
+- `fortune_calculator`の文脈は「commit・push・PR の作成は、利用者が頼んだ時だけ行う」（L8）。`x_favorites`の文脈は、commitを動作確認の後に行い、push・PRをscriptで作る（L12、L13）。`nanitabe`の文脈は「PR: `feature-<issue番号>` から `main` へ作成する」（L22）。
+
+##### 根拠にする利用者の発言
+
+issue #2の終わりの「PRはいつもいるっていう手順にしてなかったっけ？PR作ったうえでmainでマージしてpushするっていう」。`fortune_calculator`の「頼んだ時だけ」は、この発言と食い違う。どちらを全体の規則にするかを、この論点で決める。
+
+##### 論点を分けたもの
+
+`contract-ledger.md`のL2・L7・L20は「既定branchの上で直接commitしない。作業はbranchで行う」を含む。これは「どこまで公開するか」とは別の問いなので、論点9に分けた。
+
+#### 提案0へのフィードバック（論点2）
 
 ## 論点3: mergeと既定branchのpushを、誰が行うか
 
@@ -149,3 +195,13 @@ issue #2 の作業をplanlessで完了した時、steeringには公開の段が�
 **重さ:** まとめて考える（波及: 中。三つのrepositoryの文脈を書き換える。他は小）
 
 **依存先:** 論点7（残す欄が決まれば、各repositoryで消す記述と残す記述が決まる）
+
+## 論点9: 既定branchの上で直接commitしないことを、pluginの規則にするか
+
+**ステータス:** 依存先待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** 確かめるだけ（全観点が小。三つのrepositoryの文脈が同じことを書いている）
+
+**依存先:** 論点2（論点2は一つずつ考える論点のため、同じ往復に入れない。論点2の後の組で示す）
