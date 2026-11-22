@@ -294,6 +294,8 @@ for (const expected of [
 ]) requireText(discussionSkill, expected);
 requireText(discussionSkill, "提案に図・表・構成や変更の一覧を含める時は、その一行ずつに、その行を消すか別の値にしても論点の問いへの答えとして提案が成り立つかを問う。");
 requireText(discussionSkill, "一続きの例も同じである。例えば、問いの示し方、返事の読み方、記録の仕方を一つの例で通して見せると、例が一つなので問いも一つに見える。");
+requireText(discussionSkill, "利用者の発言から推して書いた行も同じである。");
+requireText(skillPath("task-design/SKILL.md"), "同じ主題を過去に決めた作業の決定と理由。同じrepositoryの`.steering/`の議論記録の「決定」の節を、主題の語で探す");
 
 for (const expected of [
   "templates/proposal-sections/README.md",
