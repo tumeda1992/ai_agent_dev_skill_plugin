@@ -293,6 +293,7 @@ for (const expected of [
   "skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない"
 ]) requireText(discussionSkill, expected);
 requireText(discussionSkill, "提案に図・表・構成や変更の一覧を含める時は、その一行ずつに、その行を消すか別の値にしても論点の問いへの答えとして提案が成り立つかを問う。");
+requireText(discussionSkill, "一続きの例も同じである。例えば、問いの示し方、返事の読み方、記録の仕方を一つの例で通して見せると、例が一つなので問いも一つに見える。");
 
 for (const expected of [
   "templates/proposal-sections/README.md",
@@ -605,6 +606,7 @@ requireText(
 requireAbsent(skillPath("design-consult/SKILL.md"));
 
 const steeringSkill = skillPath("steering/SKILL.md");
+requireText(steeringSkill, "4-1から4-3は、三つとも見直してから、出た提案を一度に示す。重なる提案は一つにまとめる。一往復に示す数と並べ方は、[round-trip.md](../facilitate-discussion/round-trip.md)に従う。");
 const thinkThroughSkill = skillPath("think-through/SKILL.md");
 for (const expected of [
   "既存designを引き継ぐdesign phase",
@@ -1399,6 +1401,7 @@ requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: �
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 「後からでもできる」は、延期の間に作られるものを数えてから使う");
 requireText(thinkStandardsPath("starting_to_think.md"), "## 補助: 到達点は「間違いが無いこと」ではなく「機能すること」に置き、今の視座で届く限界を目指す");
 requireText(thinkStandardsPath("questioning_existing.md"), "必然性があり配置も正しいが中身の一部が誤っている（直す）");
+requireText(thinkStandardsPath("questioning_existing.md"), "- 正しい判断のための問い: **「参照元が読みに来る中身は、参照元へ移すと成り立たなくなるか」**");
 requireText(thinkStandardsPath("questioning_existing.md"), "- 正しい判断のための問い: 「規則を広げる時、引き継ぐのは目的か手段か。その手段は、当時の運用が無くても目的に要るか」");
 requireText(taskDesignSkill, "この中間の確認は、実行して初めて得られる状態を見るものか。それとも案への合意を取るものか");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "既存の構造から作業対象を列挙し、各対象に中身があるかを確かめずに含める");

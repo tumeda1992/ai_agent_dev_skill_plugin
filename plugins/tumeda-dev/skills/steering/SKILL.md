@@ -233,6 +233,8 @@ task-designからready resultが返った直後に実装、子steering起動、�
 
 `tasklist_ready | roadmap_ready | planless_complete`のどのresultでも、返却直後に必ず実行する。plan resultでは実装開始確認より先、planless resultでは完了報告より先に置く。「早く次へ進みたい」ことを理由に省略しない。
 
+4-1から4-3は、三つとも見直してから、出た提案を一度に示す。重なる提案は一つにまとめる。一往復に示す数と並べ方は、[round-trip.md](../facilitate-discussion/round-trip.md)に従う。見直しごとに示すと、確かめるだけの提案でも見直しの数だけ往復が増える。
+
 #### 4-1. doc-enricherを提案modeで起動する
 
 次を渡してpluginの`doc-enricher` skillを提案modeで実行する。
