@@ -147,11 +147,13 @@ plugin repositoryの文脈のfile（`.agents/skills/tumeda-dev-plugin-context.md
 
 （イテレーション1で再開し、提案1を修正して決めた。それより前の決定は、対象をすべての利用先repositoryと読み違えたまま合意した時点のもの）
 
-対象は、plugin repository（`ai_agent_dev_skill_plugin`）自身の作業の公開だけである。利用先repositoryの公開の規則と、`tasklist-design.md`が文脈の欄で公開の段を出し分ける仕組みは変えない。
+（論点6への応答で、対象はescalate経由の作業に限ると訂正された。escalate経由でないplugin repositoryの作業は、PR経由でmergeする通常の形のままで、この作業では変えない）
 
-plugin repositoryの作業は、escalate経由かどうかによらず、作業branchをpushし、PRを作り、assistantが手元でmainへmergeしてpushする。PRは、ひとまとまりの変更の記録として作る。GitHub上でPRをmergeする操作はassistantが行わない。
+対象は、escalate-plugin-skill-fixから引き渡されたplugin repositoryの作業の公開だけである。利用先repositoryの公開の規則、`tasklist-design.md`が文脈の欄で公開の段を出し分ける仕組み、escalate経由でないplugin repositoryの作業の公開は変えない。
 
-理由: 他のrepositoryはPR経由のsquash mergeであり、どの変更がひとまとまりかがPRで分かる。plugin repositoryのescalate経由の作業は手元でmainへmergeしていたため、ひとまとまりが分かりづらい。PRのmergeはAIに任せたくないので、PRは記録として作る。
+escalate経由の作業は、作業branchをpushし、PRを作り、assistantが手元でmainへmergeしてpushする。PRは、ひとまとまりの変更の記録として作る。GitHub上でPRをmergeする操作はassistantが行わない。
+
+理由: 通常はPR経由のsquash mergeであり、どの変更がひとまとまりかがPRで分かる。escalate経由の作業はついでの更新であり、手元でmainへmergeする。そのためひとまとまりが分かりづらい。PRのmergeはAIに任せたくないので、PRは記録として作る。
 
 この規則はpluginが持つ。`tumeda-dev-plugin-context.md`は利用先へ配る文脈のtemplateも兼ねるため、plugin repositoryの規則を置かない。置き場は論点6で決める。
 
@@ -244,7 +246,9 @@ aを仮決めにした根拠: 論点1の決定（PRを記録として作り、as
 
 ### 決定（論点2）
 
-plugin repositoryの作業の終わりに、assistantは利用者に聞かずに、commit → 作業branchのpush → PRの作成 → 手元でmainへmerge → mainのpush → pluginのupdate まで行う。行えない時は、行えるところまで行い、止まった所と理由を報告する。実行環境が利用者の明示の指示なしのPRの作成やmainへのpushを禁じる時（cloud sessionの指示等）、利用者の環境にあるpluginのupdateを実行環境から行えない時は、その手前で利用者へ確認する。
+（論点6への応答で、対象はescalate経由の作業に限ると訂正された。escalate経由でないplugin repositoryの作業は、PR経由でmergeする通常の形のままで、この作業では変えない）
+
+escalate経由の作業の終わりに、assistantは利用者に聞かずに、commit → 作業branchのpush → PRの作成 → 手元でmainへmerge → mainのpush → pluginのupdate まで行う。行えない時は、行えるところまで行い、止まった所と理由を報告する。実行環境が利用者の明示の指示なしのPRの作成やmainへのpushを禁じる時（cloud sessionの指示等）、利用者の環境にあるpluginのupdateを実行環境から行えない時は、その手前で利用者へ確認する。
 
 根拠: 論点1の決定と、利用者の「PR作ったうえでmainでマージしてpushする」。
 
@@ -304,7 +308,9 @@ assistantは、論点1の骨格で、利用者の「pluginが主語の話」を�
 
 ### 決定（論点3）
 
-plugin repositoryの作業では、assistantがmainへmergeしてpushする。利用先repositoryのmergeの担当は、この作業の対象にしない。
+（論点6への応答で、対象はescalate経由の作業に限ると訂正された。escalate経由でないplugin repositoryの作業は、PR経由でmergeする通常の形のままで、この作業では変えない）
+
+escalate経由の作業では、assistantが手元でmainへmergeしてpushする。利用先repositoryと、escalate経由でないplugin repositoryの作業のmergeの担当は、この作業の対象にしない。
 
 ## 論点4: escalate-plugin-skill-fixから引き渡された作業も、同じ流れにするか
 
@@ -332,7 +338,7 @@ plugin repositoryの作業では、assistantがmainへmergeしてpushする。�
 
 ## 論点6: 公開の流れの規則を、pluginのどこに置くか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -385,6 +391,20 @@ aの変更は次のとおり。
 今の作業で切り出すかは、[`work_scope.md`](../../../../plugins/tumeda-dev/docs/development_standards/development_flow/work_scope.md)の一段目で判定した。取り込みと反映の置き場は今回決める規則の置き場そのものなので、目的の内である。そのため、この論点の選択肢として扱う。
 
 #### 提案0へのフィードバック（論点6）
+
+**結果:** c を採用。対象はescalate経由の作業に限ると訂正された
+
+> いや、論点6はcだろ。文脈みろよ。エスカレだからpr経由じゃないって言ってんだよ。どこをどう共通化してその結論出したか理解できない。11はok
+
+assistantは、論点1の提案1に「escalate経由でない作業: PRを作り、assistantがmainへmerge」という行を、issue #2 の終わりのやりとり（「PR作ったうえでmainでマージしてpushする」と、その時の選択a）から推して入れていた。利用者が論点1への応答で「プラグインはエスカレでPR作りたい」と答えた時、この行とescalate経由の行を「escalate経由かどうかによらず」に混ぜた。論点6のa・bは、この混ぜた前提の上に立っていた。利用者は、escalate経由でない作業を手元でmergeするとは言っていない。
+
+利用者の前提は次のとおりである。通常はPR経由でmergeし（squash merge）、GitHub上のmergeはAIに任せない。escalate経由の作業はついでの更新なので手元でmainへmergeし、ひとまとまりが分かるようにPRを記録として作る。この訂正を論点1・論点2・論点3の決定へ反映した。
+
+cに含めていた「`AGENTS.md`からそのfileを案内する」は、escalate経由でない作業のための案内であり、採らない。後半の「11はok」は論点11への応答である。
+
+### 決定（論点6）
+
+`integrate-plugin-changes.md`は`escalate-plugin-skill-fix`の内部指示のまま置き、中身を決めた流れへ書き換える。`AGENTS.md`からの案内は足さない。この流れはescalate経由の作業だけのものであり、escalateが持つ。
 
 ## 論点7: 利用先の文脈とtemplateに残すfactの欄
 
@@ -480,7 +500,7 @@ mainの既存のmerge commitは「Merge branch '<branch名>'」の形で、PRを
 
 ## 論点11: chatで論点の重さ（段）を示すのをやめるか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** 認識齟齬
 
@@ -509,3 +529,11 @@ aを仮決めにした根拠: [`work_scope.md`](../../../../plugins/tumeda-dev/d
 指摘を受けた時点から、assistantはchatで段を示すのをやめた。規則の文を直すかは、利用者の指示がchatの示し方に限られるため、論点として問う。
 
 #### 提案0へのフィードバック（論点11）
+
+**結果:** a を採用
+
+> いや、論点6はcだろ。文脈みろよ。エスカレだからpr経由じゃないって言ってんだよ。どこをどう共通化してその結論出したか理解できない。11はok
+
+### 決定（論点11）
+
+`facilitate-discussion/round-trip.md`の「chatでは、各論点の番号と段、仮決めの根拠を示し」から段を外し、段はchatに示さないことと、その理由を書く。議論記録の`**重さ:**`は変えない。この作業で直し、他の変更とは別のcommitにする。
