@@ -903,3 +903,13 @@ task-design の Step 2 に従い、構造案の採用前に `skill-update-review
 `docs/README.md` の `development_standards/` の行の説明が古い件は、この作業で拾う（design の X4）。
 
 この作業で `skills/steering/` の中へ移す `implementation-feedback.md` は、持ち主の skill の directory と一緒に動く。#11 で steering の名前が変わる時は、directory の名前の変更とともに移る。
+
+### 反映後の skill-update-review（編集後）
+
+対象と段階: `tasklist-executor`、`steering`、`task-design` の編集後。設計時に全体を読んだ `SKILL.md` と内部指示に対し、反映で変わったのは参照の path の行（R1〜R7、R11、R12、R19）と、内部指示として加わった `tasklist-executor/execution-contracts.md`、`steering/implementation-feedback.md`、`task-design/work-handoff-contracts.md` である。加わった三つは設計時に移す前の file として全体を読んでおり、文面の変化は design の ledger の C1〜C6 だけである。編集後の全体を、この差分を当てて探し直した。
+
+- tasklist-executor: 候補なし。`execution-contracts.md` は child 委譲と停止の契約という固有の改訂理由を持つ別 file で、`SKILL.md` への抱え込みを増やさない。
+- steering: 候補は設計時と同じ（Blocker resolution、Standalone roadmap の昇格、前月 summary の生成）。issue #27 へ切り出し済み。`implementation-feedback.md` は別 file のまま加わった。
+- task-design: 候補は設計時と同じ（「8. このスキル自体の更新について」）。issue #27 へ切り出し済み。
+
+返却先: この steering の design と、この議論記録。新しい候補が無いため、論点10 の決定（issue #27 へ切り出す）を変えない。

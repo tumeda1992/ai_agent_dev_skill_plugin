@@ -126,7 +126,7 @@ model の対応表の行き先と、skill の内部へ置く file の名前も�
 | --- | --- | --- | --- | --- | --- | --- |
 | C1 | S1 | 見出し | `# Runtime execution contracts` | `# Execution contracts` | ADAPT | 「置き場の原則」（性質の違う中身をまとめる `runtime-` を付けない）、「内部の file の名前」 |
 | C2 | S2 前半 | 対象 | この file は二つの対象を持つ。ひとつはtasklist-executorがvisual-inspector / test-runnerへchild処理を委譲する時の、hostに依存しない共通契約。 | tasklist-executorがvisual-inspector / test-runnerへchild処理を委譲する時の、hostに依存しない共通契約である。commandを実行しうる任意のskillが従う、実行環境に止められた時の規範は[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)が持つ。 | ADAPT | 「置き場の原則」（file を分ける）、「gate の行き先」 |
-| C3a | S2 後半 | 対象（誰が従うか） | もうひとつは、command を実行しうる任意のskill（`tasklist-executor`、`steering`のBlocker resolution、`task-design`の技術検証実装等）が共通して従う、実行時一般の契約である。 | `blocked_commands.md` の冒頭: command を実行しうる任意のskill（`tasklist-executor`、`steering`のBlocker resolution、`task-design`の技術検証実装等）が共通して従う。 | ADAPT | 「gate の行き先」 |
+| C3a | S2 後半 | 対象（誰が従うか） | もうひとつは、command を実行しうる任意のskill（`tasklist-executor`、`steering`のBlocker resolution、`task-design`の技術検証実装等）が共通して従う、実行時一般の契約である。 | `blocked_commands.md` の冒頭: この規範には、command を実行しうる任意のskill（`tasklist-executor`、`steering`のBlocker resolution、`task-design`の技術検証実装等）が共通して従う。 | ADAPT | 「gate の行き先」 |
 | C3b | S2 後半 | 理由（置き場） | command を実行しうるのは`tasklist-executor`だけではないため、実行時契約はこのfileが持つ。 | （置かない） | CHANGE | 「gate の行き先」（置き場を docs の新しい群に決めた。理由は task-design-discussion.md の「置き場の原則」、「gate の行き先」の決定 が持つ） |
 | C4 | S9 第 3 段落 | 対応（停止理由） | この事象は、上記「停止理由」の`blocked`（必須入力・外部状態・権限が不足している）に該当する。実行環境がcommandを止めることは、権限が不足している状態の一種である。 | `execution-contracts.md` の「停止理由」の `blocked` の行: - `blocked`: 必須入力・外部状態・権限が不足している。実行環境にcommandを止められた場合も、権限が不足している状態の一種としてこれに当たる（[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)）。 | ADAPT | 「gate の行き先」 |
 | C5 | S9 見出し | 見出し | `## 実行環境gate` | `# 実行環境に止められた command` | ADAPT | 「gate の行き先」（file 名 `blocked_commands.md`） |
@@ -151,6 +151,7 @@ model の対応表の行き先と、skill の内部へ置く file の名前も�
 | R10 | `skills/share-work-in-progress/SKILL.md` L59・L62 | `../scripts/github/create_or_get_pr.sh`を呼ぶ。…script pathの起点はpluginのskills directoryである。 | pluginの直下の`scripts/github/create_or_get_pr.sh`を呼ぶ。…script pathの起点はpluginの直下である。（利用先repositoryからの相対pathではない、は変えない） |
 | R11 | `skills/task-design/SKILL.md` L463 | [`task-design-work-handoff-contracts.md`](../task-design-work-handoff-contracts.md) | [`work-handoff-contracts.md`](work-handoff-contracts.md) |
 | R12 | `skills/task-design/templates/tasklist.md` L146 | pluginのskills directory配下にある `scripts/github/create_or_get_pr.sh` | pluginの直下にある `scripts/github/create_or_get_pr.sh` |
+| R19 | 同 L147 | pathの起点はpluginのskills directoryである。 | pathの起点はpluginの直下である。（反映後の white-box の逆方向の照合で、旧い起点の語を grep して見つけた。R12 と同じ合意で、利用先repositoryからの相対pathではない、は変えない） |
 | R13 | `docs/development_standards/development_flow/work_scope.md` L22 | `skills/runtime-feedback-review.md` | `skills/steering/implementation-feedback.md` |
 | R14 | `docs/documentation_standards/referent_explicitness.md` L51・L52 | `runtime-execution-contracts.md` の1箇所、`runtime-execution-contracts.md` の `Repository context` 節 | `tasklist-executor/execution-contracts.md` の1箇所、`tasklist-executor/execution-contracts.md` の `Repository context` 節 |
 | R15 | repository の `README.md` L10 | `plugins/tumeda-dev/skills/runtime-model-profiles.md` | `plugins/tumeda-dev/model-profiles.md` |
@@ -174,7 +175,13 @@ model の対応表の行き先と、skill の内部へ置く file の名前も�
 - 順方向: S1〜S16 の全行について、移した後の範囲がバイト一致するか、C・R・X の行があることを確かめる。
 - 逆方向: `git diff` の削除行と追加行を一行ずつ、S・C・R・X の行へ対応付ける。
 - 境界: steering の 6-1 と停止理由の参照、tasklist-executor・visual-inspector・test-runner からの child 委譲の契約の参照、task-design の handoff gate、validator と test script の assertion が、移した後の file を指して同じ判断になるかを読む。
-- 完了集計: 反映の後に `適合 N / 合意済み追加 N / 合意済み変更 N / 明示廃止 N / 未監査 0 / 未分類削除 0 / 未分類追加 0` をここへ書く。
+- 完了集計（反映の後）: `適合 41 / 合意済み追加 2 / 合意済み変更 2 / 明示廃止 1 / 未監査 0 / 未分類削除 0 / 未分類追加 0`。
+  - 適合: S1〜S15（S16 は X1・X2 で数える）、C1・C2・C3a・C4〜C7、R1〜R19。
+  - 合意済み追加: X2、X3。合意済み変更: C3b、X4。明示廃止: X1。
+  - 順方向: S3・S5〜S8・S10 は baseline の行範囲が `execution-contracts.md` にそのまま含まれ、S13（L2–46）・S14・S15 はバイト一致した（S15 は実行権限も保った）。S4・S11 は C4・C6 の一行だけが変わり、S9 の第 1・2・4 段落は `blocked_commands.md` に文面のまま入った。
+  - 逆方向: `git diff -M` の削除行と追加行をすべて S・C・R・X の行へ対応付けた。この照合で、`skills/task-design/templates/tasklist.md` L147 の「pathの起点はpluginのskills directoryである。」が ledger に無いことを見つけ、R19 として足して直した。
+  - 境界: steering の 6-1 と停止理由・状態の正本の参照、tasklist-executor・visual-inspector・test-runner からの child 委譲の契約と model の対応表の参照、tasklist-executor から実装の feedback の手順への参照、task-design の handoff gate から作業の引継ぎの契約への参照が、移した後の file を指すことを、相対 link の実在の照合で確かめた。`work-handoff-contracts.md` の `scripts/extract-handoff-input.mjs` は、`task-design/` の中から実在の file を指すようになった。
+  - R17: plugin repository の `scripts/for_local/github` の symlink は、反映の前から無かった。`plugins/tumeda-dev/scripts/github` を指す symlink を作った（`.gitignore` の対象）。
 
 ### 目的の外で気づいた不備
 
@@ -259,12 +266,11 @@ model の対応表の行き先と、skill の内部へ置く file の名前も�
 | 対象 | 反映した内容 | validation | 参照するdesign section |
 | --- | --- | --- | --- |
 | `plugins/tumeda-dev/docs/development_standards/naming/core.md`、`plugins/tumeda-dev/docs/README.md`、`scripts/verification/validate-plugin.mjs` | 置き場を選ぶ時に、中身または置き先の範囲を言い直して収めてしまう誤りの再発防止（task-design-discussion.md の「照合の再発防止」の決定） | validator と handoff test が pass。足した assertion が文の変更で落ちることを確かめた。`document-review` の指摘なし | [置き場を選ぶ時の照合](#置き場を選ぶ時の照合) |
+| 各 file の移動・分割・rename、参照元の書き換え、README の索引（構造 ledger S1〜S16、C1〜C7、R1〜R19、X1〜X4）、release version 9.1.5 | [移す前の意味を保つこと](#移す前の意味を保つこと)の ledger のとおり | validator、handoff test、inspect-discussion test が pass。足した assertion（旧い path が無いこと、`blocked_commands.md` と `execution-contracts.md` と README の文、PR を作る script の起点）が文の変更や旧い file の再作成で落ちることを確かめた。white-box 検証の完了集計は未監査・未分類 0。`document-review` で二件を直した（`blocked_commands.md` の冒頭に「この規範には」を足して何に従うかを示し、`docs/README.md` の群の行から「今は、」を外した）。`skill-update-review`（編集後）の候補は設計時と同じ | [移す前の意味を保つこと](#移す前の意味を保つこと)、[目的の外で気づいた不備](#目的の外で気づいた不備) |
 
 ### 設計中に反映する、他の判断を待っている変更
 
-| 対象 | 待つ理由 | 依存する判断 | 参照するdesign section |
-| --- | --- | --- | --- |
-| 各 file の移動・分割・rename、参照元の書き換え、README の索引（構造 ledger S1〜S16、C1〜C7、R1〜R18、X1〜X4）と version の bump | 内容は決まった。複数 file の契約を一括で整合させるため、design 全体への合意の後に一度に反映する | design 全体への合意 | [移す前の意味を保つこと](#移す前の意味を保つこと)、[目的の外で気づいた不備](#目的の外で気づいた不備) |
+なし
 
 ### tasklist・roadmapに載せて実行する変更
 
