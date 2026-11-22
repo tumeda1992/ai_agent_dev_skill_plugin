@@ -2,7 +2,7 @@
 
 ## 論点16: 決めた規則を、どのskill・docsのどこに置くか（置き場の骨格）
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **親論点:** 論点1
 
@@ -83,3 +83,119 @@ task-designのStep 2に従い、構造案の採用前に`skill-update-review`を
 `facilitate-discussion`の既存の候補（原因ownerの振り分け）は、この作業の目的（論点の進め方）の外にある。今の作業で扱うかは、`work_scope.md`の二段目で判定し、別の論点で問う。
 
 #### 提案0へのフィードバック（論点16）
+
+**結果:** 合意
+
+> ok
+
+提案0の骨格への合意である。直前の往復の返事（「okの扱いは全部okのエイリアス。どちらで答えても良い」）はこの論点に触れておらず、論点8の決定どおり答えを待つ状態のまま残し、もう一度示していた。
+
+### 決定（論点16）
+
+決めた規則は、次の13箇所に置く。進め方の規則は`facilitate-discussion`の新しい内部指示fileに置き、`SKILL.md`から読む時点を示す。
+
+| # | file | 変えること |
+| --- | --- | --- |
+| 1 | `facilitate-discussion`の新しい内部指示file | 重さの判定（四観点、三段、序列、判定する時点）、前例の探し方、一往復の組み方、仮決めの示し方と答え方の一文、まとめた返事の読み方と各論点への振り分け |
+| 2 | `facilitate-discussion/SKILL.md` | 往復は論点を混ぜずに軽い論点をまとめて示して減らす旨、論点を選ぶ節を一往復の組を1で選ぶ形へ、論点をわかった時点で立てること、まとめた返事で合意された論点を一つずつ確定・返却すること、変更の権限の分類から一意な導出を外すこと |
+| 3 | `facilitate-discussion/iteration.md` | 提案の重さ、確かめるだけの論点の仮決めの形、まとめた返事の各論点の応答欄への記録 |
+| 4 | `facilitate-discussion/derived-change.md` | 一意な導出を外し、仮決めの論点として立てる先を示す。明示委託と機械的適用は残す |
+| 5 | `facilitate-discussion/templates/discussion_entry.md` | 論点metadataの重さと依存先の欄、依存先の決定待ちを表す状態 |
+| 6 | `facilitate-discussion/scripts/inspect-discussion.mjs`とそのtest | 依存先の決定待ちを新しい状態の値で表す場合だけ、既知の状態へ加える |
+| 7 | `docs/think_standards/advancing_discussion.md` | まとめてよい論点の例外、既にある発言・決定から決まる論点を仮決めとして問うこと |
+| 8 | `task-design/SKILL.md` | Step 1でTBDを識別したら論点として渡すこと、Step 3の一つ選ぶ前提、保留の確かめ直しの依頼を絞ること |
+| 9 | `steering/SKILL.md` | 保留の確かめ直しの依頼を元作業全体の完了時だけにすること |
+| 10 | `tasklist-executor/SKILL.md` | 再開時とtask・phaseの完了時の確かめ直しの依頼を外すこと |
+| 11 | `escalate-plugin-skill-fix/pending-escalations.md` | 確かめ直す時点と、利用者へ伝える時点 |
+| 12 | `scripts/verification/validate-plugin.mjs` | 変えた契約の文の検査と、固定している文の追随 |
+| 13 | version宣言の4箇所と`expectedRelease` | 上げる |
+
+`steering`の議論の進め方、think-throughのhookの注入文、止まっている作業`20261115-review-discussion-recording`の記録は変えない。
+
+新しい内部指示fileに分けるのは、一往復で示す論点を組み、まとめた返事を振り分ける工程が、固有の判断・状態・完了条件・改訂理由を持ち、論点を一つ選ぶ前提の`SKILL.md`と、一つの論点の回を扱う`iteration.md`のどちらにも収まらないためである（設計時の`skill-update-review`）。
+
+## 論点17: 新しい内部指示fileの名前
+
+**ステータス:** 応答待ち
+
+**親論点:** 論点16
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点17）: 同じdirectoryのfile名と並べて案を比べる
+
+#### 提案0（論点17）
+
+重さ: 一つずつ考える（戻しにくさ: 中 — `SKILL.md`、`iteration.md`、検査scriptが名前で参照する。利用者の前提: 中 — 名前の感覚。他は小）
+
+**推す案:** a
+
+- **a. `round-trip.md`**
+    - 見出し: 「一往復で示す論点を組み、返事を振り分ける」
+    - 一つの論点の回を扱う`iteration.md`と並び、こちらは利用者との一往復を扱う、と読める。示す側（論点の組）と受ける側（まとめた返事）の両方を一つの名前で覆う。
+- **b. `compose-round-trip.md`**
+    - 同じdirectoryの`resolve-discussion.md`、`read-discussion.md`、`split-discussion.md`と同じ動詞と目的語の形に揃う。
+    - 「一往復を組み立てる」と読め、示す側だけを名指す。まとめた返事の読み方と振り分けは、名前から読めない。
+- **c. `topic-weight.md`**
+    - 中心にある重さの判定を名指す。
+    - 一往復の組み方と返事の振り分けは、名前から読めない。
+
+判断してほしいこと: 新しい内部指示fileの名前を、a（`round-trip.md`）・b（`compose-round-trip.md`）・c（`topic-weight.md`）のどれにするか。
+
+#### 検討記録（論点17・イテレーション0）
+
+##### 判断: 名前が受け持つ範囲を覆うか
+
+このfileに置くのは、論点の重さの判定、前例の探し方、一往復の組み方、仮決めの示し方、まとめた返事の読み方と振り分けである（論点16の決定の1）。全部が「利用者との一往復に何を出し、返事をどう受けるか」に関わる。
+
+`docs/development_standards/naming/core.md`と`file.md`に沿い、同じdirectoryのfile名と並べて読んだ。`facilitate-discussion/`には、`SKILL.md`、`iteration.md`（一つの論点の回）、`derived-change.md`（導いた変更）、`read-discussion.md`・`resolve-discussion.md`・`split-discussion.md`（議論記録の読取・入口・分割）、`record-recovery.md`（記録の回復）が並ぶ。動詞と目的語の形は、議論記録のfileを扱う操作に使われ、工程の単位には名詞（iteration、derived change、record recovery）が使われている。
+
+`docs/development_standards/naming/reverse_translation.md`に沿い、初見の人がそれぞれの名前を単独で見た時に想像することを書いた。
+
+- `facilitate-discussion/round-trip.md`: 議論の中の一往復について書いたfileだと想像する。何を決めるかまでは名前から読めないが、`iteration.md`と並べれば、回より一段外側の単位だと読める。network の往復と取り違える人がいても、議論のskillの中にあるため、開けば直る。方向は同じである。
+- `facilitate-discussion/compose-round-trip.md`: 一往復を組み立てる手順だと想像する。返事を受けて振り分ける部分を含むとは想像しない。
+- `facilitate-discussion/topic-weight.md`: 論点の重さの付け方だと想像する。一往復の組み方と返事の振り分けを含むとは想像しない。
+
+aは受け持つ範囲を覆い、工程の単位を名詞で名指す同じdirectoryの形にも合う。bとcは範囲の一部だけを名指す。
+
+## 論点18: 新しい内部指示fileの見出しの構成
+
+**ステータス:** 調査中
+
+**親論点:** 論点16
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点18）: 論点を立てた（まだ示していない）
+
+重さ: まとめて考える（確かめる手間: 中 — 見出しと各見出しが扱う内容を読む。他は小。根拠: 論点16の決定の1）
+
+示す予定: 新規documentのため、`facilitate-discussion/templates/proposal-sections/document-heading-outline.md`で見出しと各見出しが扱う内容に合意してから、実fileを書く。名前（論点17）と独立に決まる。
+
+## 論点19: 依存先の決定待ちを、新しい状態の値で表すか
+
+**ステータス:** 調査中
+
+**親論点:** 論点16
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点19）: 論点を立てた（まだ示していない）
+
+重さ: まとめて考える（波及: 中 — 新しい値を足すと`inspect-discussion.mjs`とそのtestも変わる。他は小。根拠: `facilitate-discussion/SKILL.md`「statusの表示と導出」の各値の意味）
+
+示す予定の推す案: 新しい状態の値（例: 依存先待ち）を足す。今の「保留」は外部停止・明示保留に使い、再開条件を伴うため、他の論点の決定を待つ状態と意味が混ざる。
+
+## 論点20: 論点metadataの重さと依存先の欄の書き方
+
+**ステータス:** 調査中
+
+**親論点:** 論点16
+
+**種別:** TBDヒアリング
+
+### イテレーション0（論点20）: 論点を立てた（まだ示していない）
+
+重さ: 確かめるだけ（四観点とも小。根拠: 論点2の決定「段と、中・大の観点だけ理由を一行添えて示す」、論点3の決定「依存先の論点番号、依存先がどう決まればこの論点の案を作れるか」）
+
+示す予定の仮決め: 論点metadataに`**重さ:** {段}（{中・大の観点}: {理由}。他は小）`と、依存のある論点だけ`**依存先:** 論点N（{どう決まれば案を作れるか}）`を置く。
