@@ -56,6 +56,24 @@ escalate経由でないplugin repositoryの作業は、この流れに従わな�
 
 plugin repositoryの文脈のfile（`plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md`）は、`maintenance-plugin-context`が利用先にinstanceが無い時にtemplateとして写す。escalateの取り込みの規則をここに書くと、利用先の文脈へ写る。そのため「Git / GitHub公開条件」から取り込みの一行を消す。remote、既定branch、PR作成scriptのpathは、plugin repositoryのfactなので残す。
 
+### steeringのplanless完了での公開
+
+steeringの締めくくりのreviewで、`planless_complete`には公開の段が無いことが分かった。tasklistがある作業はtasklistのpush・PR sectionで公開まで進むが、planlessの作業は公開しないまま完了し、issue #2 の終わりに「PRが要るなら言って」と問う往復が生じた。
+
+`steering/SKILL.md` 5-1の完了報告の前に、task-design内で適用した変更を公開する段を置く。
+
+- commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく`tasklist-design.md`「実装後feedbackと公開action」に従い、steeringへ写さない。文脈に公開条件がある利用先では聞かずにPRまで進み、無い利用先では一度だけ利用者へ確認して文脈へ書き戻す。
+- この段はPRの作成で終わり、PRのmergeは行わない。PR経由のmergeはassistantに任せない。
+- escalate経由の作業では、続けて`integrate-plugin-changes.md`に従う。
+- 完了報告には、公開した先（PRのURL）か、公開しなかった理由を含める。
+
+### 設計前調査と議論の進め方の再発防止
+
+締めくくりのreviewで、この作業の行き違いの原因から二つを足す。
+
+- `task-design/SKILL.md`の設計前調査の確認項目に、同じ主題を過去に決めた作業の決定と理由を足す。この作業では、2026-08-31に決めた主題を、決定を知らないまま問い直した。
+- `facilitate-discussion/SKILL.md`の「decisionの境界を判定する」に、利用者の発言から推して広げた行を別の問いとして問うことを足す。この作業では、escalate経由の話を、利用者が言っていないescalate経由でない作業へ広げた行を、提案の表に混ぜた。
+
 ### chatで論点の段を示さない
 
 議論の途中で、利用者から「重さってセッションに出さなくていいわ。うるさい。気になったら自分でディスカッションファイル見にいく」と指摘された。`facilitate-discussion/round-trip.md`は「chatでは、各論点の番号と段、…を示し」としていた。chatから段を外し、議論記録の`**重さ:**`の欄は残す。段は一往復の組を選ぶためのものであり、利用者が気になれば議論記録を読む。
@@ -68,6 +86,8 @@ plugin repositoryの文脈のfile（`plugins/tumeda-dev/skills/tumeda-dev-plugin
 - `escalate-plugin-skill-fix/SKILL.md`の取り込みの一文を「PRを記録として作り、手元で`main`へ取り込み」にし、反映の操作の番号を7から8へ直す（P7に伴う追随）。
 - plugin repositoryの文脈の「Git / GitHub公開条件」から、escalate経由の取り込みの一行を消す（L3）。
 - `facilitate-discussion/round-trip.md`のchatの示し方から段を外す（対応表の範囲の外で、議論の途中に加えた変更）。
+- `steering/SKILL.md` 5-1に、完了報告の前の公開の段を足す（P6。締めくくりのreviewで加えた変更）。
+- `task-design/SKILL.md`の設計前調査と、`facilitate-discussion/SKILL.md`のdecisionの境界に、再発防止の一行ずつを足す（対応表の範囲の外で、締めくくりのreviewで加えた変更）。
 
 ## 要件（Requirements）
 
@@ -79,6 +99,7 @@ plugin repositoryの文脈のfile（`plugins/tumeda-dev/skills/tumeda-dev-plugin
 - 取り込みの規則は`escalate-plugin-skill-fix`が持ち、`tumeda-dev-plugin-context.md`には置かない。
 - 実行環境がPRの作成や`main`へのpushを禁じる時、pluginのupdateを行えない時の扱いを、取り込みの流れに書く。
 - chatで論点の段を示さない。
+- steeringの`planless_complete`は、完了報告の前に、tasklistと同じ条件でcommit・push・PRまで公開する。PRのmergeは行わない。
 
 ### SHOULD（できれば）
 
@@ -90,9 +111,9 @@ plugin repositoryの文脈のfile（`plugins/tumeda-dev/skills/tumeda-dev-plugin
 
 ### 非目標
 
-- escalate経由でないplugin repositoryの作業の公開は変えない。通常どおりPR経由でmergeし、GitHub上のmergeはassistantに任せない。
+- escalate経由でないplugin repositoryの作業のmergeは変えない。通常どおりPR経由でmergeし、GitHub上のmergeはassistantに任せない。
 - 利用先repositoryの公開の規則（`fortune_calculator`・`x_favorites`・`nanitabe`の文脈）と、`tasklist-design.md`が文脈の欄で公開の段を出し分ける仕組みは変えない。
-- `steering`の完了後actionは変えない。PRを経由するかはrepositoryと作業の始まり方で決まり、`steering`の性質ではない（2026-08-31の決定）。
+- `steering`に、PRを経由しない取り込みやmergeを持ち込まない。PRを経由するかはrepositoryと作業の始まり方で決まり、`steering`の性質ではない（2026-08-31の決定）。steeringが足すのは、tasklistと同じ条件のPRの作成までである。
 - `branch_pr_issue.md`は変えない。
 - 議論記録の`**重さ:**`の欄は変えない。
 
@@ -102,6 +123,8 @@ plugin repositoryの文脈のfile（`plugins/tumeda-dev/skills/tumeda-dev-plugin
 - `escalate-plugin-skill-fix/SKILL.md`の取り込みの一文が、PRを記録として作ることを示し、反映の操作の番号が8を指す。
 - `tumeda-dev-plugin-context.md`の「Git / GitHub公開条件」に、escalate経由の取り込みの一行が無い。remote、既定branch、PR作成scriptのpathは残る。
 - `round-trip.md`のchatの示し方に段が無く、段を示さない理由がある。
+- `steering/SKILL.md` 5-1が、完了報告の前の公開の段を持ち、条件を`tasklist-design.md`から参照し、PRのmergeを行わないことを示す。
+- `task-design/SKILL.md`の設計前調査の確認項目に、同じ主題の過去の決定がある。`facilitate-discussion/SKILL.md`のdecisionの境界に、推して広げた行の扱いがある。
 - `validate-plugin.mjs`が上の各文を検査し、versionが9.1.7で揃っている。
 
 ## リスクと対策
@@ -132,6 +155,8 @@ plugin repositoryの文脈のfile（`plugins/tumeda-dev/skills/tumeda-dev-plugin
 | --- | --- | --- | --- |
 | `escalate-plugin-skill-fix/integrate-plugin-changes.md`、`escalate-plugin-skill-fix/SKILL.md`、`tumeda-dev-plugin-context.md`、`validate-plugin.mjs`、version 9.1.7 | commit `e31e14b` | escalate経由の作業の取り込みの流れ、規則の置き場 | `plugin validation passed`、`task-design handoff tests passed` |
 | `facilitate-discussion/round-trip.md`、`validate-plugin.mjs` | commit `3d78cdb` | chatで論点の段を示さない | `plugin validation passed` |
+| `task-design/SKILL.md`、`facilitate-discussion/SKILL.md`、`validate-plugin.mjs` | commit `dfa1011` | 設計前調査と議論の進め方の再発防止 | `plugin validation passed`、`task-design handoff tests passed` |
+| `steering/SKILL.md`、`validate-plugin.mjs` | commit `100cd4b` | steeringのplanless完了での公開 | `plugin validation passed`、`task-design handoff tests passed` |
 
 ### 設計中に反映する、他の判断を待っている変更
 

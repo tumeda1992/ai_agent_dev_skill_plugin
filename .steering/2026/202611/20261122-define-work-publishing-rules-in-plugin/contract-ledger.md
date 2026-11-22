@@ -2,7 +2,7 @@
 
 作業の公開（commit、push、PR、merge、既定branchのpush、`Closes`）を定める記述を、今ある場所ごとに並べ、行き先を決める。
 
-論点1・論点6の決定で、対象はescalate経由のplugin repositoryの作業の取り込みに絞られた。対象行はL1〜L5とP7であり、L1・L2・L4・L5はKEEP、L3とP7がCHANGEである。P6・P8はKEEP。利用先repositoryの文脈の記述（L6〜L23）と、利用先に効くpluginの記述（P1〜P5、P9、P10）は対象外であり、変えない（KEEP）。下の分類欄のうち、対象外の行に書いた論点は、対象を絞る前のものである。
+論点1・論点6の決定で、対象はescalate経由のplugin repositoryの作業の取り込みに絞られた。対象行はL1〜L5とP6〜P8であり、L1・L2・L4・L5・P8はKEEP、L3とP7がCHANGE、P6がADD（論点12）である。利用先repositoryの文脈の記述（L6〜L23）と、利用先に効くpluginの記述（P1〜P5、P9、P10）は対象外であり、変えない（KEEP）。下の分類欄のうち、対象外の行に書いた論点は、対象を絞る前のものである。
 
 ## 移行前の基準
 
@@ -52,7 +52,7 @@
 | P3 | `task-design/tasklist-design.md`「利用者にしかできない操作」 | PRのmerge、既定branchへのmerge（どちらを禁じるかは、repositoryのcontext fileとpluginの規則が決める） | 論点3 |
 | P4 | `task-design/templates/tasklist.md` | commit section、push・PR sectionを生成する条件のcomment | ADAPT（論点2） |
 | P5 | `maintenance-plugin-context/SKILL.md` | task-designは…UI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込みを必要factとして要求できる。 | 論点7 |
-| P6 | `steering/SKILL.md` 5-1 | `planless_complete`の完了報告。公開の段を持たない | KEEP（論点5は取り下げ） |
+| P6 | `steering/SKILL.md` 5-1 | `planless_complete`の完了報告。公開の段を持たない | ADD（論点12: 完了報告の前に、tasklistと同じ条件でcommit・push・PRまで公開する段を足す。commit `100cd4b`） |
 | P7 | `escalate-plugin-skill-fix/integrate-plugin-changes.md` | PRを経由せず次の4stepで`main`へ取り込む。…PRを経由しないのは… | CHANGE（論点1・論点6・論点10: PRを記録として作り、手元で`--no-ff`のmergeを行う。escalateの内部指示のまま。commit `e31e14b`） |
 | P8 | `docs/development_standards/development_flow/branch_pr_issue.md` | `Closes`、二つのmerge経路、branch名の原則。形式は利用先が宣言する | KEEP |
 | P9 | `share-work-in-progress/SKILL.md` | 動作確認の前に今のbranchを見せるためのcommit・push・PR | KEEP（作業の終わりの公開とは別の場面） |

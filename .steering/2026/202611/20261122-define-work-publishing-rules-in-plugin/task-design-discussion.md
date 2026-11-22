@@ -9,6 +9,7 @@
 - `integrate-plugin-changes.md`は、冒頭でescalate経由の作業だけを対象にすると書いた。設計時の候補の根拠だった「escalate経由でない作業という他の呼び手」は、論点6の決定で無くなった。取り込みと反映は、既に独立した内部指示として、escalateの引渡しとは別のfileにある。
 - mergeの方法を変える変更caseを当てると、直す先は`integrate-plugin-changes.md`の「mainへ取り込む」だけである。`SKILL.md`の一文は「PRを記録として作り、手元で取り込む」までしか言わず、方法を持たない。
 - `round-trip.md`の変更は、chatの示し方の一文であり、一往復の組を選ぶ工程の判断・状態・完了条件は変わらない。
+- commit `100cd4b`後の`steering/SKILL.md`も読んだ。5-1に足したのは`tasklist-design.md`の条件を参照する一段であり、公開の判断・状態・完了条件は`tasklist-design.md`とtasklistの手順が持つ。候補なし。
 
 ## 論点1: 設計の骨格 — 何を変え、何を変えず、どの順で決めるか
 
