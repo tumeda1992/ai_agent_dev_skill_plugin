@@ -2,7 +2,7 @@
 
 ## 論点1: 設計の骨格 — 何を変え、何を変えず、どの順で決めるか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -135,15 +135,37 @@ plugin repositoryの文脈のfile（`.agents/skills/tumeda-dev-plugin-context.md
 
 #### 提案1へのフィードバック（論点1）
 
+**結果:** 修正して採用。escalate経由の作業もPRを作る
+
+> いや、だからこそプラグインはエスカレでPR作りたい。最初に違う方針にしたとしても
+>
+> なんでかというと、他に関してはpr経由のマージだからスカッシュマージだけど、プラグインのエスカレはローカルのmainマージになるからどの塊か分かりづらいのよ。で、prでのマージはaiに任せたくない。だから、記録としてprを作りたい（最初も同じ意図だからPR作るようにしたと思ってたけど）
+
+対象をplugin repository自身の作業に絞ることは採用された。表のescalate経由の行（PRを作らない）は、2026-08-31の決定を引き継いだもので、利用者に退けられた。PRは、mergeの手段ではなく、ひとまとまりの変更の記録として作る。GitHub上でPRをmergeする操作はassistantに任せない。mergeは手元で行う。
+
+### 決定（論点1）
+
+（イテレーション1で再開し、提案1を修正して決めた。それより前の決定は、対象をすべての利用先repositoryと読み違えたまま合意した時点のもの）
+
+対象は、plugin repository（`ai_agent_dev_skill_plugin`）自身の作業の公開だけである。利用先repositoryの公開の規則と、`tasklist-design.md`が文脈の欄で公開の段を出し分ける仕組みは変えない。
+
+plugin repositoryの作業は、escalate経由かどうかによらず、作業branchをpushし、PRを作り、assistantが手元でmainへmergeしてpushする。PRは、ひとまとまりの変更の記録として作る。GitHub上でPRをmergeする操作はassistantが行わない。
+
+理由: 他のrepositoryはPR経由のsquash mergeであり、どの変更がひとまとまりかがPRで分かる。plugin repositoryのescalate経由の作業は手元でmainへmergeしていたため、ひとまとまりが分かりづらい。PRのmergeはAIに任せたくないので、PRは記録として作る。
+
+この規則はpluginが持つ。`tumeda-dev-plugin-context.md`は利用先へ配る文脈のtemplateも兼ねるため、plugin repositoryの規則を置かない。置き場は論点6で決める。
+
+2026-08-31の決定（`.steering/2026/202608/20260831-add-incident-flow-and-subagent-boundary/`、escalate経由はPRを作らない）のうち、PRを作らない点はこの決定で置き換える。そこで決めた「`steering`の完了後actionを変えない」「pluginの更新をさっと済ませてメインの作業へ戻る」は保つ。
+
 ## 論点2: 作業の終わりに、公開をどこまで必ず行うか
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
 **重さ:** 一つずつ考える（波及: すべての作業の終わりの振る舞いが変わる。他は小）
 
-**依存先:** 論点1（イテレーション1で対象がplugin repositoryに絞られれば、決め直す。下の決定は、対象をすべての利用先repositoryと読み違えたまま合意した時点のもの）
+（論点1のイテレーション1で対象がplugin repositoryに絞られたため、イテレーション1で決め直す。下のイテレーション0の決定は、対象をすべての利用先repositoryと読み違えたまま合意した時点のもの）
 
 ### イテレーション0（論点2）: 作業の終わりに、利用者に聞かずに行う公開の範囲を比べる
 
@@ -192,6 +214,27 @@ issue #2の終わりの「PRはいつもいるっていう手順にしてなか�
 作業の終わりに、assistantは利用者に聞かずに、commit → 作業branchのpush → PRの作成まで行う。PRの`Closes`は`branch_pr_issue.md`に従う。作業の終わりは、tasklistがある作業では利用者の確認と最後のtaskが終わった時、planlessの作業ではsteeringの締めくくりのreviewが終わった時である。動作確認の前にcommit・push・PRをしない規則は変えない。remoteが無い、またはGitHubでない時はcommitまで行う。実行環境が明示の指示なしのPRの作成やpushを禁じる時は、その指示に従い、行う前に利用者へ確認する。どちらの場合も、止まった所と理由を報告する。
 
 選んだ理由: 利用者の手順（「PRはいつもいる」「PR作ったうえでmainでマージしてpushする」）はPRまでを毎回の手順にしている。PRを頼まれた時だけ作る案、毎回聞く案は、PRの段で毎回往復が一つ増える。`fortune_calculator`の「頼んだ時だけ行う」は、この規則に置き換わる。
+
+### イテレーション1（論点2）: plugin repositoryの作業に絞って決め直す
+
+**重さ:** 確かめるだけ（全観点が小。論点1の決定と利用者の原文から決まる）
+
+#### 提案1（論点2）
+
+plugin repositoryの作業の終わりに、assistantが利用者に聞かずに行う範囲。
+
+- a. commit → 作業branchのpush → PRの作成 → 手元でmainへmerge → mainのpush → pluginのupdate まで行う（仮決め）
+- b. PRの作成まで行い、mainへのmergeは毎回利用者に聞く
+
+aを仮決めにした根拠: 論点1の決定（PRを記録として作り、assistantが手元でmainへmergeしてpushする）と、利用者の「PR作ったうえでmainでマージしてpushする」。pluginのupdateは、今の`integrate-plugin-changes.md`の「pluginをupdateする」をそのまま続ける。
+
+行えない時は、行えるところまで行い、止まった所と理由を報告する。実行環境が利用者の明示の指示なしのPRの作成やmainへのpushを禁じる時（cloud sessionの指示等）は、その指示に従い、行う前に利用者へ確認する。利用者の環境にあるpluginのupdateを、実行環境から行えない時も同じである。
+
+#### 検討記録（論点2・イテレーション1）
+
+イテレーション0は、対象をすべての利用先repositoryと読み違えたまま「作業の終わりにPRの作成まで毎回行う」と決めていた。論点1のイテレーション1で対象がplugin repositoryに絞られ、mergeまで含めることが決まったため、範囲をmainのpushとpluginのupdateまで広げて決め直す。
+
+#### 提案1へのフィードバック（論点2）
 
 ## 論点3: mergeと既定branchのpushを、誰が行うか
 
@@ -253,70 +296,102 @@ plugin repositoryの作業では、assistantがmainへmergeしてpushする。�
 
 ## 論点4: escalate-plugin-skill-fixから引き渡された作業も、同じ流れにするか
 
-**ステータス:** 依存先待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
 **重さ:** まとめて考える（利用者の前提への依存: 中。今は意図してPRを経由しない理由が書かれている。他は小）
 
-**依存先:** 論点3（mergeの担当が決まれば、取り込みの手順と比べられる）
+### 決定（論点4）
+
+同じ流れにする。escalate経由の作業もPRを作る。利用者が論点1の提案1へのフィードバックで決めた（「だからこそプラグインはエスカレでPR作りたい。最初に違う方針にしたとしても」）。提案を出す前に答えが決まったため、案は出していない。
 
 ## 論点5: steeringのplanless_completeに、公開の段を足すか
 
-**ステータス:** 依存先待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
 **重さ:** まとめて考える（波及: 中。tasklistを作らない作業すべての終わりが変わる。他は小）
 
-**依存先:** 論点3（公開の流れが決まれば、planlessの終わりに置く段を作れる）
+### 決定（論点5）
+
+取り下げる。論点1で対象がplugin repositoryに絞られ、2026-08-31の決定どおり`steering`の完了後actionは変えない。plugin repositoryの作業の終わりに公開の流れを誰が始めるかは、規則の置き場と一緒に論点6で決める。
 
 ## 論点6: 公開の流れの規則を、pluginのどこに置くか
 
-**ステータス:** 依存先待ち
+**ステータス:** 調査中
 
 **種別:** TBDヒアリング
 
 **重さ:** まとめて考える（波及: 中。置き場によって読むskillと読まれる時が変わる。他は小）
 
-**依存先:** 論点3、論点4、論点5（規則の中身と、使うworkflowが決まれば、置き場の案を作れる）
+置き場を決める前に、`escalate-plugin-skill-fix`（`integrate-plugin-changes.md`をescalate経由以外の作業でも使うことになる）へ`skill-update-review`を当てる。escalate経由でないplugin repositoryの作業の終わりに、誰がこの流れを始めるか（`AGENTS.md`の指示か、skillか）も、ここで決める。
 
 ## 論点7: 利用先の文脈とtemplateに残すfactの欄
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
-**重さ:** まとめて考える（波及: 中。templateの欄と`maintenance-plugin-context`が返すfactが変わる。他は小）
+**重さ:** 確かめるだけ（全観点が小。論点1の決定で、対象がplugin repositoryの文脈の一行になった）
 
-**依存先:** 論点3（mergeの担当の判断に使うfactが決まれば、残す欄の案を作れる）
+### イテレーション0（論点7）: plugin repositoryの文脈から、pluginの規則の写しを消す
+
+#### 提案0（論点7）
+
+plugin repositoryの文脈（`plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md`の「Git / GitHub公開条件」）について。
+
+- a. escalate経由の取り込みの一行（[contract-ledger.md](./contract-ledger.md) L3）を消し、remote、既定branch、PR作成scriptのpath（L1、L2、L4）は残す（仮決め）
+- b. 今のまま残す
+
+aを仮決めにした根拠: 論点1の決定（plugin repositoryの規則を、利用先へ配る文脈のtemplateに置かない）。L1・L2・L4はplugin repositoryのfactで、pluginの規則の写しではない。消す一行の中身は、論点6で決める置き場が持つ。
+
+#### 提案0へのフィードバック（論点7）
 
 ## 論点8: 利用先repositoryの文脈の書き換えを、この作業で行うか
 
-**ステータス:** 依存先待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
 **重さ:** まとめて考える（波及: 中。三つのrepositoryの文脈を書き換える。他は小）
 
-**依存先:** 論点7（残す欄が決まれば、各repositoryで消す記述と残す記述が決まる）
+### 決定（論点8）
+
+取り下げる。論点1で、利用先repositoryの公開の規則は対象にしないと決めた。
 
 ## 論点9: 既定branchの上で直接commitしないことを、pluginの規則にするか
 
-**ステータス:** 依存先待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
 **重さ:** 確かめるだけ（全観点が小。三つのrepositoryの文脈が同じことを書いている）
 
-**依存先:** 論点3（論点2・論点3は一つずつ考える論点のため、同じ往復に入れない。論点3の後の組で示す）
+### 決定（論点9）
+
+取り下げる。論点1で、利用先repositoryの公開の規則は対象にしないと決めた。
 
 ## 論点10: assistantがmergeする時の方法
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
-**重さ:** まとめて考える（波及: 中。`nanitabe`のsquash merge運用と、mergeでissueが閉じるかに関わる。他は小）
+**重さ:** 確かめるだけ（全観点が小。論点1で対象がplugin repositoryに絞られ、利用者の理由から決まる）
 
-**依存先:** 論点3（assistantがmergeすると決まれば、方法の案を作れる）
+### イテレーション0（論点10）: 手元のmergeで、ひとまとまりとPRが分かる形にする
+
+#### 提案0（論点10）
+
+- a. 手元で`git merge --no-ff <作業branch>`を行い、merge commitのmessageを「Merge pull request #<PR番号>: <PRの題名>」にする（仮決め）
+- b. merge commitを作るかを指定しない（2026-08-31の決定のまま）
+
+aを仮決めにした根拠: 利用者の理由「ローカルのmainマージになるからどの塊か分かりづらい」。fast-forwardになると、mainの履歴からひとまとまりの境目が消える。merge commitにPR番号を入れれば、mainの履歴からPRを引ける。issue #2 のPR #30 は、この形で取り込み、GitHubはPRをmerge済みとして扱い、`Closes #2`でissueを閉じた。
+
+#### 検討記録（論点10・イテレーション0）
+
+mainの既存のmerge commitは「Merge branch '<branch名>'」の形で、PRを持たない。PR #30 だけが「Merge pull request #30: steeringの自走力を上げる」である。
+
+#### 提案0へのフィードバック（論点10）
