@@ -332,13 +332,59 @@ plugin repositoryの作業では、assistantがmainへmergeしてpushする。�
 
 ## 論点6: 公開の流れの規則を、pluginのどこに置くか
 
-**ステータス:** 調査中
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
 **重さ:** まとめて考える（波及: 中。置き場によって読むskillと読まれる時が変わる。他は小）
 
-置き場を決める前に、`escalate-plugin-skill-fix`（`integrate-plugin-changes.md`をescalate経由以外の作業でも使うことになる）へ`skill-update-review`を当てる。escalate経由でないplugin repositoryの作業の終わりに、誰がこの流れを始めるか（`AGENTS.md`の指示か、skillか）も、ここで決める。
+### イテレーション0（論点6）: skill-update-reviewの候補を受け、取り込みと反映をescalateの外へ出す置き場を比べる
+
+#### 提案0（論点6）
+
+決めた流れ（作業branchのpush → PRを記録として作る → 手元でmainへ`--no-ff`でmerge → mainのpush → pluginのupdate）を持つ`integrate-plugin-changes.md`の置き場と、escalate経由でない作業の終わりに誰がこの流れを始めるか。
+
+- a. `maintenance-plugin-context/maintenance_policies/`へ移し、中身を決めた流れへ書き換える。`escalate-plugin-skill-fix/SKILL.md`と、plugin repositoryの`AGENTS.md`「repository運用」から案内する（推奨）
+- b. 新しいskillとして独立させ、descriptionで「plugin repositoryの作業を終えた時」に起動させる。`escalate-plugin-skill-fix/SKILL.md`と`AGENTS.md`から案内する
+- c. `escalate-plugin-skill-fix`の内部指示のまま中身を書き換え、`AGENTS.md`からそのfileを案内する
+
+aを推す理由:
+
+- `maintenance-plugin-context/SKILL.md`は`maintenance_policies/`を「このpluginのskill保守で従う規約」の置き場と案内している。plugin repositoryの作業を取り込み、pluginをupdateする流れは、この範囲に入る。
+- 同じ置き場の`migration.md`は、`escalate-plugin-skill-fix`と`AGENTS.md`の両方から案内されている。同じ形になる。
+- escalate経由でない作業は、`AGENTS.md`の案内で流れを始める。`AGENTS.md`はplugin repositoryでの作業の開始時に必ず読まれる。そのため、skillのdescriptionで起動させる必要が無い。
+- bは、plugin repositoryでしか働かないskillを、すべての利用先へ配ることになる。新しいskillのためMINORの更新にもなる。
+- cは、escalate経由でない作業の読者に、escalateの内部指示を読ませることになる。下の`skill-update-review`の候補に当たる。
+
+aの変更は次のとおり。
+
+| 対象 | 変更 |
+| --- | --- |
+| `escalate-plugin-skill-fix/integrate-plugin-changes.md` | `maintenance-plugin-context/maintenance_policies/integrate-plugin-changes.md`へ移す。読む時を「plugin repositoryでの作業が終わった時。escalate経由かどうかによらない」にする。「mainへ取り込む」を、論点2・論点10で決めた手順と理由（PRは記録、GitHub上のmergeはassistantが行わない、`--no-ff`）へ書き換える。「pluginをupdateする」は変えない |
+| `escalate-plugin-skill-fix/SKILL.md` 121行・127行 | linkを移した先へ直す。127行の「PRを経由せず`main`へ取り込み」を「PRを記録として作り、手元で`main`へ取り込み」にする |
+| `maintenance-plugin-context/SKILL.md` | `maintenance_policies/`の一覧へ一行足す |
+| plugin repositoryの`AGENTS.md`「repository運用」 | 「このrepositoryでの作業が終わったら、escalate経由かどうかによらず、`integrate-plugin-changes.md`に従ってmainへ取り込み、pluginをupdateする」を一行足す |
+| `tumeda-dev-plugin-context.md`「Git / GitHub公開条件」 | 論点7で決めた一行を消す |
+| `validate-plugin.mjs`、version | assertionを追随させ、PATCHで上げる |
+
+#### 検討記録（論点6・イテレーション0）
+
+##### skill-update-reviewの結果（構造案の採用前）
+
+対象: `escalate-plugin-skill-fix/SKILL.md`と内部指示（`integrate-plugin-changes.md`、`pending-escalations.md`）。全体を読んだ。構造案は、`integrate-plugin-changes.md`をescalateの内部指示のまま書き換える案と、`maintenance_policies/`へ移す案の二つを渡した。
+
+候補: 取り込みと反映（`integrate-plugin-changes.md`）。
+
+- 持つもの: 判断（PRの作り方、mergeの方法、updateの確かめ方）、状態（push済み、PR作成済み、merge済み、update済み）、完了条件（installされたpluginのcommitがmainの先端と一致する）、改訂理由（plugin repositoryの公開の方針）。改訂理由は、escalateの引渡しの方針とは別である。
+- 当てた変更case: 「escalate経由でない作業にも、PRを記録として作る流れを当てる」。直す先は`integrate-plugin-changes.md`と、`SKILL.md` 127行の要約（「PRを経由せず」）の二つになった。さらに、escalate経由でない作業の読者が、escalateの内部指示を読むことになる。
+- 他の呼び手: escalate経由でないplugin repositoryの作業の終わり（issue #2 の作業が実例）。今、具体的な要求がある。
+- 分ける先: `escalate-plugin-skill-fix`の外。別skill、またはescalate以外からも読む共有の規約。
+
+他の工程（plugin repositoryの判定、引渡し、保留と再開）に候補は無い。保留と再開は、既に`pending-escalations.md`が独立した内部指示として持っている。
+
+今の作業で切り出すかは、[`work_scope.md`](../../../../plugins/tumeda-dev/docs/development_standards/development_flow/work_scope.md)の一段目で判定した。取り込みと反映の置き場は今回決める規則の置き場そのものなので、目的の内である。そのため、この論点の選択肢として扱う。
+
+#### 提案0へのフィードバック（論点6）
 
 ## 論点7: 利用先の文脈とtemplateに残すfactの欄
 
