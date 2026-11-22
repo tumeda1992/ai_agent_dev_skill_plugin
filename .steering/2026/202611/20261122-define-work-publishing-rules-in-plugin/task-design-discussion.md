@@ -159,7 +159,7 @@ plugin repositoryの作業は、escalate経由かどうかによらず、作業b
 
 ## 論点2: 作業の終わりに、公開をどこまで必ず行うか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -235,6 +235,18 @@ aを仮決めにした根拠: 論点1の決定（PRを記録として作り、as
 イテレーション0は、対象をすべての利用先repositoryと読み違えたまま「作業の終わりにPRの作成まで毎回行う」と決めていた。論点1のイテレーション1で対象がplugin repositoryに絞られ、mergeまで含めることが決まったため、範囲をmainのpushとpluginのupdateまで広げて決め直す。
 
 #### 提案1へのフィードバック（論点2）
+
+**結果:** a を採用
+
+> ok。あと、重さってセッションに出さなくていいわ。うるさい。気になったら自分でディスカッションファイル見にいく
+
+論点2・論点7・論点10を一往復で示した時の返事である。「ok」は全部okと同じ扱いで、三つとも仮決めのaを採る。後半は示し方への指摘であり、論点11として立てた。
+
+### 決定（論点2）
+
+plugin repositoryの作業の終わりに、assistantは利用者に聞かずに、commit → 作業branchのpush → PRの作成 → 手元でmainへmerge → mainのpush → pluginのupdate まで行う。行えない時は、行えるところまで行い、止まった所と理由を報告する。実行環境が利用者の明示の指示なしのPRの作成やmainへのpushを禁じる時（cloud sessionの指示等）、利用者の環境にあるpluginのupdateを実行環境から行えない時は、その手前で利用者へ確認する。
+
+根拠: 論点1の決定と、利用者の「PR作ったうえでmainでマージしてpushする」。
 
 ## 論点3: mergeと既定branchのpushを、誰が行うか
 
@@ -330,7 +342,7 @@ plugin repositoryの作業では、assistantがmainへmergeしてpushする。�
 
 ## 論点7: 利用先の文脈とtemplateに残すfactの欄
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -348,6 +360,18 @@ plugin repositoryの文脈（`plugins/tumeda-dev/skills/tumeda-dev-plugin-contex
 aを仮決めにした根拠: 論点1の決定（plugin repositoryの規則を、利用先へ配る文脈のtemplateに置かない）。L1・L2・L4はplugin repositoryのfactで、pluginの規則の写しではない。消す一行の中身は、論点6で決める置き場が持つ。
 
 #### 提案0へのフィードバック（論点7）
+
+**結果:** a を採用
+
+> ok。あと、重さってセッションに出さなくていいわ。うるさい。気になったら自分でディスカッションファイル見にいく
+
+論点2・論点7・論点10を一往復で示した時の返事である。「ok」は全部okと同じ扱いで、三つとも仮決めのaを採る。後半は示し方への指摘であり、論点11として立てた。
+
+### 決定（論点7）
+
+plugin repositoryの文脈（`plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md`の「Git / GitHub公開条件」）から、escalate経由の取り込みの一行（[contract-ledger.md](./contract-ledger.md) L3）を消す。remote、既定branch、PR作成scriptのpath（L1、L2、L4）は残す。
+
+根拠: 論点1の決定（plugin repositoryの規則を、利用先へ配る文脈のtemplateに置かない）。残す三行はplugin repositoryのfactで、pluginの規則の写しではない。
 
 ## 論点8: 利用先repositoryの文脈の書き換えを、この作業で行うか
 
@@ -375,7 +399,7 @@ aを仮決めにした根拠: 論点1の決定（plugin repositoryの規則を�
 
 ## 論点10: assistantがmergeする時の方法
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -395,3 +419,47 @@ aを仮決めにした根拠: 利用者の理由「ローカルのmainマージ�
 mainの既存のmerge commitは「Merge branch '<branch名>'」の形で、PRを持たない。PR #30 だけが「Merge pull request #30: steeringの自走力を上げる」である。
 
 #### 提案0へのフィードバック（論点10）
+
+**結果:** a を採用
+
+> ok。あと、重さってセッションに出さなくていいわ。うるさい。気になったら自分でディスカッションファイル見にいく
+
+論点2・論点7・論点10を一往復で示した時の返事である。「ok」は全部okと同じ扱いで、三つとも仮決めのaを採る。後半は示し方への指摘であり、論点11として立てた。
+
+### 決定（論点10）
+
+手元で`git merge --no-ff <作業branch>`を行い、merge commitのmessageを「Merge pull request #<PR番号>: <PRの題名>」にする。
+
+根拠: 利用者の「ローカルのmainマージになるからどの塊か分かりづらい」。fast-forwardになるとmainの履歴からひとまとまりの境目が消える。merge commitにPR番号を入れれば、mainの履歴からPRを引ける。
+
+## 論点11: chatで論点の重さ（段）を示すのをやめるか
+
+**ステータス:** 応答待ち
+
+**種別:** 認識齟齬
+
+**重さ:** 確かめるだけ（全観点が小。利用者の原文から決まり、直すのは一文）
+
+### イテレーション0（論点11）: round-trip.mdのchatの示し方から段を外し、この作業で直すかを決める
+
+#### 提案0（論点11）
+
+利用者の指摘（「重さってセッションに出さなくていいわ。うるさい。気になったら自分でディスカッションファイル見にいく」）は、`facilitate-discussion/round-trip.md`の「chatでは、各論点の番号と段、仮決めの根拠を示し」に従った示し方へのものである。議論記録の`**重さ:**`の欄は変えず、chatから段を外す。
+
+```diff
+-chatでは、各論点の番号と段、仮決めの根拠を示し、案は記号を付けて並べる。
++chatでは、各論点の番号と仮決めの根拠を示し、案は記号を付けて並べる。論点の段はchatに示さない。段は一往復の組を選ぶためのものであり、利用者が気になれば議論記録の`**重さ:**`を読む。
+```
+
+`validate-plugin.mjs`にこの文のassertionを足す。今のassertionが「番号と段」を固定していれば追随させる。
+
+- a. この作業で直す。この作業の他の変更とは別のcommitにする（仮決め）
+- b. `escalate-plugin-skill-fix`の既定どおり保留し、この作業の後に別のsteeringで直す
+
+aを仮決めにした根拠: [`work_scope.md`](../../../../plugins/tumeda-dev/docs/development_standards/development_flow/work_scope.md)の二段目。目的の外の不備だが一文の修正で、別のcommitにすればこの作業のreview・revertの単位を崩さない。
+
+#### 検討記録（論点11・イテレーション0）
+
+指摘を受けた時点から、assistantはchatで段を示すのをやめた。規則の文を直すかは、利用者の指示がchatの示し方に限られるため、論点として問う。
+
+#### 提案0へのフィードバック（論点11）

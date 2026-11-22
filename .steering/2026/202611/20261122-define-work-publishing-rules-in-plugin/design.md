@@ -22,14 +22,23 @@ plugin repository（`ai_agent_dev_skill_plugin`）の作業は、escalate経由�
 
 ### plugin repositoryの作業の公開の流れ
 
-plugin repositoryの作業の終わりに、assistantは次を行う。
+plugin repositoryの作業の終わりに、assistantは利用者に聞かずに次を行う。
 
-1. 作業branchをpushする。
-2. PRを作る。`Closes`は[`branch_pr_issue.md`](../../../../plugins/tumeda-dev/docs/development_standards/development_flow/branch_pr_issue.md)に従い、このPRのmergeでissueの作業が終わる時だけ付ける。
-3. 手元でmainへmergeし、mainをpushする。GitHub上でPRをmergeする操作は行わない。
-4. pluginをupdateする（今の`integrate-plugin-changes.md`の「pluginをupdateする」）。
+1. commitする。分け方は`plan-commits`に従う。
+2. 作業branchをpushする。
+3. PRを作る。`Closes`は[`branch_pr_issue.md`](../../../../plugins/tumeda-dev/docs/development_standards/development_flow/branch_pr_issue.md)に従い、このPRのmergeでissueの作業が終わる時だけ付ける。
+4. 手元のmainへ`git merge --no-ff <作業branch>`でmergeする。merge commitのmessageは「Merge pull request #<PR番号>: <PRの題名>」にする。GitHub上でPRをmergeする操作は行わない。
+5. mainをpushする。GitHubは、PRの変更がmainに入ったことからPRをmerge済みとして扱い、`Closes`のissueを閉じる。
+6. pluginをupdateする（今の`integrate-plugin-changes.md`の「pluginをupdateする」）。
 
-TBD: 1〜4を、利用者に聞かずにどこまで行うか（論点2）。mergeの方法（論点10）。
+`--no-ff`でmerge commitを必ず作るのは、fast-forwardになるとmainの履歴からひとまとまりの境目が消えるためである。merge commitにPR番号を入れ、mainの履歴からPRを引けるようにする。
+
+行えない時は、行えるところまで行い、止まった所と理由を報告する。
+
+| 状態 | 扱い |
+| --- | --- |
+| 実行環境が、利用者の明示の指示なしのPRの作成やmainへのpushを禁じる（cloud sessionの指示等） | 実行環境の指示に従い、その操作の前に利用者へ確認する |
+| 利用者の環境にあるpluginのupdateを、実行環境から行えない（cloud session等） | 5までを行い、updateを利用者の環境で行うことを報告する |
 
 escalate経由の作業も同じ流れにする。2026-08-31の決定（`.steering/2026/202608/20260831-add-incident-flow-and-subagent-boundary/`）のうち「PRを作らない」はこの流れで置き換え、「`steering`の完了後actionを変えない」「pluginの更新をさっと済ませてメインの作業へ戻る」は保つ。PRを作ってもGitHubでmergeする往復は増えない。mergeは手元で行うためである。
 
@@ -45,7 +54,7 @@ TBD: この流れを、pluginのどこに置くか。escalate経由でない作�
 
 - escalate経由の作業も、PRを記録として作る（L3、P7）。
 - escalate経由でないplugin repositoryの作業にも、同じ流れを当てる。TBD: 始める担当（論点6）
-- plugin repositoryの文脈から、pluginの規則の写しを消す。TBD: 消す範囲（論点7）
+- plugin repositoryの文脈の「Git / GitHub公開条件」から、escalate経由の取り込みの一行を消す（L3）。remote、既定branch、PR作成scriptのpath（L1、L2、L4）は残す。
 
 ## 要件（Requirements）
 
@@ -54,7 +63,9 @@ TBD: この流れを、pluginのどこに置くか。escalate経由でない作�
 - plugin repositoryの作業は、escalate経由かどうかによらず、PRを作ってから手元でmainへmergeしてpushする。
 - assistantは、GitHub上でPRをmergeする操作を行わない。
 - この規則をpluginに置き、`tumeda-dev-plugin-context.md`には置かない。
-- TBD: 論点2・6・7・10の決定から足す
+- 作業の終わりに、assistantは利用者に聞かずに、commitからpluginのupdateまで行う。行えない時は、行えるところまで行い、止まった所と理由を報告する。
+- mainへのmergeは`--no-ff`で行い、merge commitのmessageにPR番号を入れる。
+- TBD: 論点6・論点11の決定から足す
 
 ### SHOULD（できれば）
 
@@ -72,11 +83,11 @@ TBD: この流れを、pluginのどこに置くか。escalate経由でない作�
 
 ### 受け入れ基準
 
-- TBD: 論点2・6・7・10の決定から書く
+- TBD: 論点6・論点11の決定から書く
 
 ## リスクと対策
 
-- 実行環境が、利用者の明示の指示なしのPRの作成やmainへのpushを禁じることがある（cloud sessionの指示等）。→ TBD: 論点2で扱う。
+- 実行環境が、利用者の明示の指示なしのPRの作成やmainへのpushを禁じることがある（cloud sessionの指示等）。→ 実行環境の指示に従い、その操作の前に利用者へ確認する（「plugin repositoryの作業の公開の流れ」）。
 
 ## テスト方針
 
@@ -98,7 +109,9 @@ TBD: この流れを、pluginのどこに置くか。escalate経由でない作�
 
 ### 設計中に反映する、他の判断を待っている変更
 
-なし
+| 対象 | 待っている判断 | 参照するdesign section |
+| --- | --- | --- |
+| `plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md`「Git / GitHub公開条件」からL3の一行を消し、`validate-plugin.mjs`のそのassertionを外す | 論点6。L3の中身を持つ置き場と、`escalate-plugin-skill-fix/SKILL.md`の取り込みの文を一緒に直すため | 移行で変えない振る舞いと、意図して変える差分 |
 
 ### tasklist・roadmapに載せて実行する変更
 
@@ -106,4 +119,4 @@ TBD: この流れを、pluginのどこに置くか。escalate経由でない作�
 
 ### 分類保留（設計中のみ）
 
-- TBD: 論点2・6・7・10の決定から分類する
+- TBD: 論点6・論点11の決定から分類する
