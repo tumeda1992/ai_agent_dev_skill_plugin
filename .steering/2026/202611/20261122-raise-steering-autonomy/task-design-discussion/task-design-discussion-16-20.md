@@ -114,6 +114,19 @@ task-designのStep 2に従い、構造案の採用前に`skill-update-review`を
 
 新しい内部指示fileに分けるのは、一往復で示す論点を組み、まとめた返事を振り分ける工程が、固有の判断・状態・完了条件・改訂理由を持ち、論点を一つ選ぶ前提の`SKILL.md`と、一つの論点の回を扱う`iteration.md`のどちらにも収まらないためである（設計時の`skill-update-review`）。
 
+### イテレーション1（論点16）: 編集後のskill-update-review
+
+#### 検討記録（論点16・イテレーション1）
+
+論点16〜33の決定を反映した後（commit 8c33de3、b3833d1、7cad52f）、完了の前に`skill-update-review`を編集後の実物へ当てた。
+
+- `facilitate-discussion`: `SKILL.md`、`iteration.md`、`round-trip.md`、`read-discussion.md`、`resolve-discussion.md`、`split-discussion.md`、`record-recovery.md`とtemplatesを読んだ。一往復の組み方と返事の振り分けは`round-trip.md`に分かれ、`SKILL.md`は読む時点と参照だけを持つ。`iteration.md`へ移した「修正と反映を追跡する」は、既存提示への応答を扱う工程の一部であり、別の判断・状態・完了条件を持つ工程を新たに抱え込んではいない。設計時の候補（「認識齟齬を原因ownerへ戻す」）は残っており、issue #27へ切り出し済みである。新しい候補なし。
+- `escalate-plugin-skill-fix`: 変更は`pending-escalations.md`の「元担当の状態遷移から再確認する」の中に収まった。候補なし。
+- `steering`、`task-design`、`tasklist-executor`: 変更は、保留の確かめ直しの依頼を外す・絞る文と、task-designのStep 1〜3・§4の文の改めであり、工程を足していない。候補はissue #27の候補1〜4のままで、新しい候補なし。
+
+返却先: この議論記録とこの作業の`design.md`。新しい候補が無いため、論点22の決定（#27へ切り出す）を変えない。
+
+
 ## 論点17: 新しい内部指示fileの名前
 
 **ステータス:** 決定
