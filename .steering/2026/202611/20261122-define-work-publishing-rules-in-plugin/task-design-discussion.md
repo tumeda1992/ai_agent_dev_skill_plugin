@@ -2,7 +2,7 @@
 
 ## 論点1: 設計の骨格 — 何を変え、何を変えず、どの順で決めるか
 
-**ステータス:** 決定
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
@@ -90,15 +90,60 @@ assistantは、sessionの上限で止まった後の再開だったため、提�
 
 ### 決定（論点1）
 
+（イテレーション1で再開。下の決定は、対象をすべての利用先repositoryと読み違えたまま合意した時点のものである）
+
 提案0の骨格で進める。作業の公開の流れをpluginの規則として一つ書き、pluginのworkflowはそれに従う。利用先の文脈にはrepositoryのfactだけを残し、pluginの規則の写しは消す。`branch_pr_issue.md`の`Closes`と二つのmerge経路、branchの形式を利用先が宣言する仕組み、動作確認の前にcommit・push・PRをしない規則、`share-work-in-progress`は変えない。各記述の行き先は[contract-ledger.md](./contract-ledger.md)を土台に、論点2から順に決める。
+
+### イテレーション1（論点1）: 対象をplugin repository自身の作業の公開に絞り、骨格を出し直す
+
+#### 提案1（論点1）
+
+##### 対象
+
+plugin repository（`ai_agent_dev_skill_plugin`）自身の作業の公開だけを扱う。利用先repositoryの公開の規則（`fortune_calculator`・`x_favorites`・`nanitabe`の文脈、`tasklist-design.md`が文脈の欄で公開の段を出し分ける仕組み）は変えない。
+
+##### plugin repositoryの作業の公開
+
+| 作業の始まり | 公開の流れ | 根拠 |
+| --- | --- | --- |
+| escalate-plugin-skill-fixから引き渡された | 今のまま。PRを作らず、作業branchをpushし、mainへmergeしてpushし、pluginをupdateする（`integrate-plugin-changes.md`） | 2026-08-31の決定と、今回の「プラグインのエスカレによる更新はついでになるから、まぁ手元でできた方が良い」 |
+| それ以外（issueから始めた作業等） | PRを作り（`Closes`は`branch_pr_issue.md`に従う）、assistantがmainへmergeしてpushする | 「PR作ったうえでmainでマージしてpushする」「本当はpr経由にしたい」、論点3の決定 |
+
+##### 置き場
+
+この規則はpluginが持つ。今、escalate経由の流れを`tumeda-dev-plugin-context.md`の「Git / GitHub公開条件」にも書いているが、このfileは利用先へ配る文脈のtemplateも兼ねる。plugin repositoryの規則をここに置くと、利用先の文脈へ写る。
+
+TBD: pluginのどこに置くか（`integrate-plugin-changes.md`をplugin repositoryの作業全体の取り込みへ広げる、`maintenance_policies/`に置く、等）。決める前に`skill-update-review`を当てる。
+
+##### 残る論点
+
+- 論点2: plugin repositoryの作業に絞って決め直す（作業の終わりに、聞かずにPRまで作るか）。
+- 論点5: steeringの`planless_complete`で、この規則をどこで行うか。
+- 論点6: 規則の置き場。
+- 論点7: plugin repositoryの文脈（`Git / GitHub公開条件`）から消す記述と残す記述。
+
+取り下げる論点:
+
+- 論点4: 上の表で決まる（escalate経由は今のまま）。
+- 論点8・論点9・論点10: 利用先repositoryの規則を対象にしないため。
+
+#### 検討記録（論点1・イテレーション1）
+
+論点3への応答で、対象がplugin repositoryに限ると訂正された。読み違えた所は、利用者の「この規約がnanitabeとかリポジトリにあるのおかしいな。pluginが主語の話だから」の「この規約」である。assistantは、直前に示した`fortune_calculator`・`nanitabe`の公開の規則を指すと読んだ。利用者が指していたのは、plugin repositoryの作業の公開の規則である。
+
+plugin repositoryの文脈のfile（`.agents/skills/tumeda-dev-plugin-context.md`）は`plugins/tumeda-dev/skills/tumeda-dev-plugin-context.md`へのsymlinkであり、`maintenance-plugin-context`は利用先にinstanceが無い時にこのfileをtemplateとして写す。plugin repositoryの規則をこのfileに書くと、利用先へ配るtemplateに入る。
+
+#### 提案1へのフィードバック（論点1）
 
 ## 論点2: 作業の終わりに、公開をどこまで必ず行うか
 
-**ステータス:** 決定
+**ステータス:** 依存先待ち
 
 **種別:** TBDヒアリング
 
 **重さ:** 一つずつ考える（波及: すべての作業の終わりの振る舞いが変わる。他は小）
+
+**依存先:** 論点1（イテレーション1で対象がplugin repositoryに絞られれば、決め直す。下の決定は、対象をすべての利用先repositoryと読み違えたまま合意した時点のもの）
 
 ### イテレーション0（論点2）: 作業の終わりに、利用者に聞かずに行う公開の範囲を比べる
 
@@ -150,9 +195,9 @@ issue #2の終わりの「PRはいつもいるっていう手順にしてなか�
 
 ## 論点3: mergeと既定branchのpushを、誰が行うか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
-**種別:** TBDヒアリング
+**種別:** TBDヒアリング、認識齟齬
 
 **重さ:** 一つずつ考える（戻しにくさ: mergeが本番へ適用されるrepositoryでは、merge一回で本番が変わる。他は小）
 
@@ -193,6 +238,18 @@ mergeの担当をrepositoryごとの文脈で決める形は、二つ目の発�
 mergeの方法（GitHubでPRをmergeするか、localでmergeしてpushするか、mergeの方式）は、assistantがmergeする時にだけ要る別の問いなので、論点10に分けた。
 
 #### 提案0へのフィードバック（論点3）
+
+**結果:** a を採用。対象はplugin repositoryに限ると訂正された
+
+> いや、aだし、これはプラグインに限る話。本当はpr経由にしたいけど、プラグインのエスカレによる更新はついでになるから、まぁ手元でできた方が良いなって。というか、この話立ち上げ当初かエスカレ作ったときとかにしたのに全く同じ話をすることになってる
+
+assistantは、論点1の骨格で、利用者の「pluginが主語の話」を「すべての利用先repositoryの公開の規則をpluginが持つ」と読んでいた。利用者の意図は、plugin repository自身の作業の公開の規則である。論点1・論点2は、この読み違えの上で決めていたため、論点1を再開する。
+
+同じ話は `.steering/2026/202608/20260831-add-incident-flow-and-subagent-boundary/task-design-discussion.md` で決めていた。escalate-plugin-skill-fixから引き渡されたplugin repositoryの作業は、PRを作らず、作業branchをpushし、mainへmergeしてpushする。利用者の原文は「このスキルが使われるホームポジションはpluginを使う側であり、使う側のリポジトリにとってpluginはサブであり、自活したい。わざわざgithubを開いてPRをマージするより、さっとpluginを更新してメインの動きに戻りたい」。assistantは、この論点群を立てる前に同じrepositoryの`.steering`の決定を探さなかった。
+
+### 決定（論点3）
+
+plugin repositoryの作業では、assistantがmainへmergeしてpushする。利用先repositoryのmergeの担当は、この作業の対象にしない。
 
 ## 論点4: escalate-plugin-skill-fixから引き渡された作業も、同じ流れにするか
 
