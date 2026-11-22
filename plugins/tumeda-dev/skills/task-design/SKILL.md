@@ -405,7 +405,7 @@ discussionは既定で開始する。適用中の提案作成、論点選択、i
 
 assistantが結論を持っている論点ほどdiscussionを外しやすい。しかしそこでは、採らなかった案と採らなかった理由がassistantの中にしか存在しない。記録を省くと、次に同じ判断へ来た者がゼロから同じ検討をやり直す。結論を持っているほど記録価値は高い。
 
-`facilitate-discussion`は一つの論点でdecisionを確定するたびにtask-designへ返す。task-designはそのdecisionと具体的なhandoffが返った直後に`design.md`へ反映し、次の論点を扱う前に設計全体の不確実性と完了条件を再評価する。複数論点のdecisionを溜めて最後に一括反映しない。
+`facilitate-discussion`は一つの論点でdecisionを確定するたびにtask-designへ返す。task-designはそのdecisionと具体的なhandoffが返った直後に`design.md`へ反映し、次の論点を扱う前に設計全体の不確実性と完了条件を再評価する。複数論点のdecisionを溜めて最後に一括反映しない。まとめて示した論点の返事で複数の論点が合意された時も、`facilitate-discussion`は一論点ずつ返し、task-designは一つずつ反映して再評価する。
 
 ---
 
@@ -518,7 +518,7 @@ task-designは確認済みのexactなactive topicと次の一問から既存work
 `templates/design.md`と`templates/outcome-sections/catalog.md`を完全に読む。catalogから今回変わる対象に必要なoutcome sectionを一つ以上選び、選んだfileも完全に読んで、task-design全体で一つの完成後の姿としてdesign.mdを初稿する。
 - 合意済みの上位から一意に導ける部分だけ書く。思いついているだけの下位は、案ではなく `TBD:` として残す
 - 未合意の部分は `TBD: （何が未合意か）` の形で残す
-- 解消が必要な設計上の不確実性をTBDとして識別する。この時点ではdiscussion fileの論点・提案・親子関係を組み立てない
+- 解消が必要な設計上の不確実性をTBDとして識別する。ユーザーへ問わなければ確定しないTBDは、識別した時点で`facilitate-discussion`へ渡し、論点として立ててもらう。設計の途中で新しく識別した時も同じである。論点の採番・親子関係・依存先・重さ・提案は、task-designで組み立てず`facilitate-discussion`に委ねる
 
 この時点ではまだユーザーに「レビューお願いします」を出さない。
 
@@ -552,13 +552,13 @@ Requirementsが長く、独立fileにするとreview可能性が上がる場合�
 TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る。
 - 「全 TBD を埋めてください」は出さない
 - 「この骨格でいいか」のみ問う
-- 構造合意後、下位判断を最も多く規定する設計上の不確実性を一つ選ぶ
+- 構造合意後、Step 3で残る設計上の不確実性を解消する
 
 ### Step 3. 未解消の設計判断を解消する
 
 これはtask-designが所有する外側の設計loopである。discussionを選んだ後の提案、論点、iteration、feedback routing、合意は`facilitate-discussion`の内側loopであり、ここへ複製しない。
 
-1. `design.md`と合意済み設計を読み、解消すると下位判断を最も多く確定できる設計上の不確実性を一つ選ぶ。
+1. `design.md`と合意済み設計を読み、残る設計上の不確実性を取り出し、それぞれに次の2〜4を当てる。解消すると下位判断を最も多く確定できるものから扱う。
 2. 選んだ不確実性（未決の判断、または作業中に気付いた不備）が今の作業の目的の内にあるかを、[`work_scope.md`](../../docs/development_standards/development_flow/work_scope.md) で判定する。判定の中身は同 file が正本であり、ここへ写さない。
    - 目的の内: 次の手順へ進む。
    - 目的の外の判断: designの論点にしない。`design.md`にTBDとして書いていた場合は外し、この判断は今回のStep 3の対象から外す。
@@ -580,7 +580,7 @@ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る
 解消手段はこの三つだけである。`確認`、`念のため聞く`、`選択肢を出して選んでもらう`は第四の手段ではなく、すべてdiscussionである。
 
 5. 選んだ手段を実行する。
-   - discussion: §4のtask-design固有contextを渡して`facilitate-discussion`を明示適用し、内部processを委ねる。task-design側で先に提案0をchatへ出したり、論点・iteration・質問形式を組み立てたりしない。
+   - discussion: §4のtask-design固有contextを渡して`facilitate-discussion`を明示適用し、内部processを委ねる。discussionで解く不確実性は、一つずつ渡さず、まとめて渡す。一往復で示す論点の組と順は`facilitate-discussion`が決める（`facilitate-discussion/round-trip.md`）。task-design側で先に提案0をchatへ出したり、論点・iteration・質問形式を組み立てたりしない。
    - 調査: repository contextが許可したsourceを読み、設計判断の入力になる事実を特定する。
    - 技術検証実装: 下記の配置・運用契約に従い、実行しなければ分からない事実だけを確認する。
 6. discussionでは、一つの論点でdecisionが返るたびに、そのdecisionだけを`design.md`の該当箇所へ直ちに反映する。調査・技術検証実装では、確定した事実だけを反映する。未決の提案や途中経過は書かず、複数decisionを最後まで溜めない。
