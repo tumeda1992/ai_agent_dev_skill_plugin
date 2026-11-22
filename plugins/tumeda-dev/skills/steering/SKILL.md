@@ -303,9 +303,9 @@ tasklist-executorへ`tasklist.md`と同階層の`design.md`の絶対pathを渡�
 - task、subtask、phaseを実測完了した直後に`[x]`へ更新させ、最後にまとめて更新させない。
 - tasklist-executorは親roadmapを探索・更新せず、完了resultだけをcallerへ返す。
 - tasklist内のユーザー動作確認が完了する前にcommit、push、PRへ進ませない（確認環境へ載せるために`UI確認環境`が定めるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushを除く）。
-- 利用者が合意したcommand（tasklistで合意した取り返しのつかない操作等）をtasklist-executorに実行させる時は、利用者の合意の原文と、合意したcommandの一覧をそのまま渡す。実行環境は利用者の意図を判断に使うことがある。例えば、Claude Codeのauto modeの分類器は、破壊的な操作の既定の制止を利用者の意図で解く。利用者がまだ与えていない承認や、「利用者が実行許可の画面で見る」のようなまだ起きていない確かめを、指示に事実として書かない。それでも実行環境に止められた時の扱いは`runtime-execution-contracts.md`の「実行環境gate」に従う。
+- 利用者が合意したcommand（tasklistで合意した取り返しのつかない操作等）をtasklist-executorに実行させる時は、利用者の合意の原文と、合意したcommandの一覧をそのまま渡す。実行環境は利用者の意図を判断に使うことがある。例えば、Claude Codeのauto modeの分類器は、破壊的な操作の既定の制止を利用者の意図で解く。利用者がまだ与えていない承認や、「利用者が実行許可の画面で見る」のようなまだ起きていない確かめを、指示に事実として書かない。それでも実行環境に止められた時の扱いは[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)に従う。
 
-executorがどの停止理由で返しても、返却resultだけで次の判断をしない。この手順は`Blocker resolution`の一部ではない。dispatch先の停止はそれ自体では`blocker`ではなく、`runtime-execution-contracts.md`が定める停止理由のうち`delegation_required`、`user_confirmation_required`、`phase_checkpoint`はFlowが想定する正常停止であるため、停止理由で分岐させず全停止理由で常に行う。
+executorがどの停止理由で返しても、返却resultだけで次の判断をしない。この手順は`Blocker resolution`の一部ではない。dispatch先の停止はそれ自体では`blocker`ではなく、`tasklist-executor/execution-contracts.md`が定める停止理由のうち`delegation_required`、`user_confirmation_required`、`phase_checkpoint`はFlowが想定する正常停止であるため、停止理由で分岐させず全停止理由で常に行う。
 
 - `tasklist.md`のcheckboxと、task配下にexecutorが書き残したnoteを読む。
 - `artifact_directory`にrequest / result artifactがあれば読む。
@@ -314,7 +314,7 @@ executorがどの停止理由で返しても、返却resultだけで次の判断
 上の正本とartifactの照合を終えてから、[保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)へ、
 元作業の場所と確認済みの状態・実証拠を渡す。不一致や未確認の完了を成立証拠にせず、該当するreview・追加確認へ戻す。
 
-根拠は`runtime-execution-contracts.md`の`状態の正本とsingle writer`にある。taskの完了状態の正本はtasklistの`[ ]` / `[x]`、child処理の状態の正本はrequest / result artifactと定められ、返却resultはこの列挙に含まれない。
+根拠は`tasklist-executor/execution-contracts.md`の`状態の正本とsingle writer`にある。taskの完了状態の正本はtasklistの`[ ]` / `[x]`、child処理の状態の正本はrequest / result artifactと定められ、返却resultはこの列挙に含まれない。
 
 #### 6-2. roadmap runtime orchestrationを行う
 
@@ -363,7 +363,7 @@ source basenameの日付からdestinationを`.steering/YYYY/YYYYMM/<basename>/`�
 ## 実装完了後review
 
 実装、review、validation、ユーザー動作確認でfeedback・漏れ・追加要件・不具合が判明したら、
-直接受領したworkflow ownerが[共通の実装feedback処理](../runtime-feedback-review.md)を読み、pluginの`facilitate-discussion`を明示適用する。
+直接受領したworkflow ownerが[共通の実装feedback処理](implementation-feedback.md)を読み、pluginの`facilitate-discussion`を明示適用する。
 steeringが直接受領した場合はsteering自身が行い、次の入力を渡す。
 
 ```text

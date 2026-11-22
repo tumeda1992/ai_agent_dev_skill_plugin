@@ -37,7 +37,7 @@ design や planning は行わない。
 
 ## 共通実行契約
 
-`../runtime-execution-contracts.md`を正本とし、tasklistのsingle writer、child request/result、停止・再開、logical owner / physical launcherの規則に従う。このskillの推論強度は`../runtime-model-profiles.md`の`delegated-execution`に従う。
+`execution-contracts.md`を正本とし、tasklistのsingle writer、child request/result、停止・再開、logical owner / physical launcherの規則に従う。このskillの推論強度は`../../model-profiles.md`の`delegated-execution`に従う。
 
 ## 必須入力
 
@@ -53,7 +53,7 @@ parentは次を渡す。
 
 task実行にプロジェクト指示、アーキテクチャ・開発・test方針、全体test/lint commandが必要な時は、`maintenance-plugin-context`へconsumer=`tasklist-executor`、必要理由、必要fact、確認元候補を渡す。tasklist.mdとdesign.mdの要求を置き換えず、返された範囲だけを実行条件として使う。
 
-PR作成taskを持つtasklistでは、pluginのskills directory直下の共用配置 `scripts/github/create_or_get_pr.sh` を使う。このskillの配下には同梱していない。
+PR作成taskを持つtasklistでは、pluginの直下の共用配置 `scripts/github/create_or_get_pr.sh` を使う。このskillの配下には同梱していない。
 
 tasklist.md が与えられていないときには、tasklist.md を要求して終了する。受け取ったtasklist pathを絶対pathへ解決し、その同directoryの`./design.md`を設計の正本として必ず読む。sibling designが存在しない場合は別directoryを探索・推測せず`blocked`で返す。
 
@@ -158,7 +158,7 @@ tasklist・checkbox・DoD最終判定のsingle writerはこのexecutorのまま�
 # 実装feedbackの記録と返却
 
 実装、review、validation、利用者確認から不合格・不足・訂正・漏れ・追加要件・計画からの意味ある逸脱を直接受領したら、
-`../runtime-feedback-review.md`を読み、executor自身がpluginの`facilitate-discussion`を明示適用する。
+`../steering/implementation-feedback.md`を読み、executor自身がpluginの`facilitate-discussion`を明示適用する。
 既存tasklistに記録taskがなくても省略しない。次の入力と、feedback原文・実装・design・合意済みplanを渡す。
 
 ```text

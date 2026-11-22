@@ -7,7 +7,7 @@ const root = resolve(import.meta.dirname, "../..");
 const extractor = resolve(root, "plugins/tumeda-dev/skills/task-design/scripts/extract-handoff-input.mjs");
 const taskDesign = readFileSync(resolve(root, "plugins/tumeda-dev/skills/task-design/SKILL.md"), "utf8");
 const steering = readFileSync(resolve(root, "plugins/tumeda-dev/skills/steering/SKILL.md"), "utf8");
-const handoffContract = readFileSync(resolve(root, "plugins/tumeda-dev/skills/task-design-work-handoff-contracts.md"), "utf8");
+const handoffContract = readFileSync(resolve(root, "plugins/tumeda-dev/skills/task-design/work-handoff-contracts.md"), "utf8");
 const discussionInspector = resolve(root, "plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs");
 const fixture = mkdtempSync(resolve(tmpdir(), "task-design-handoff-"));
 let failures = [];
@@ -46,7 +46,7 @@ expectIncludes(
     "#### 既存designのhandoff gate",
     "`design.md`または`task-design-discussion.md`の存在だけ",
     "ownershipの連続性を確認できない",
-    "../task-design-work-handoff-contracts.md",
+    "[`work-handoff-contracts.md`](work-handoff-contracts.md)",
     "task-design/scripts/extract-handoff-input.mjs",
     "対象working directoryを除外",
     "同じattempt",
@@ -92,7 +92,7 @@ const sharedOnly = [
 ];
 expectExcludes("task-design consumer", taskDesign, sharedOnly);
 expectExcludes("steering routing", steering, sharedOnly);
-expectExcludes("steering routing", steering, ["task-design-work-handoff-contracts.md"]);
+expectExcludes("steering routing", steering, ["work-handoff-contracts.md"]);
 
 try {
   // 存在だけのgate: designがなくても分割議論があれば既存記録である。

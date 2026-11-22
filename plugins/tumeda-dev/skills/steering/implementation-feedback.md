@@ -22,7 +22,7 @@ feedback原文、関連する実装、`design.md`、排他的plan、原因、採
 2. codeから分かるか、設計意図か、process不足か。
 3. どこへ保存すれば次回の議論を不要にできるか。変更は合意後だけ行う。
 
-feedbackが今の作業の目的の外にある不備なら、decisionの提案を作る段階で、拾うか切り出すかを[`work_scope.md`](../docs/development_standards/development_flow/work_scope.md)で判定し、その判定をdecisionの提案にする。判定の中身は同fileが正本であり、ここへ写さない。
+feedbackが今の作業の目的の外にある不備なら、decisionの提案を作る段階で、拾うか切り出すかを[`work_scope.md`](../../docs/development_standards/development_flow/work_scope.md)で判定し、その判定をdecisionの提案にする。判定の中身は同fileが正本であり、ここへ写さない。
 
 decision後、直接受領したworkflow ownerはcallerへdecisionを返し、次の戻り先を一意に選ぶ。
 

@@ -460,7 +460,7 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
 - canonical成果物が存在し、callerまたはhostが同じtask-design実行の継続だと確認できる: ownershipは連続しているため、catch-upを再起動せず既存workflowを続ける。
 - canonical成果物が存在し、別のtask-design実行が引き継ぐ、またはownershipの連続性を確認できない: catch-upを必須にする。
 
-catch-up branchでは、[`task-design-work-handoff-contracts.md`](../task-design-work-handoff-contracts.md)をworkflowの正本として読む。
+catch-up branchでは、[`work-handoff-contracts.md`](work-handoff-contracts.md)をworkflowの正本として読む。
 共有referenceが指定するbounded extractionには`task-design/scripts/extract-handoff-input.mjs`を使い、canonical file全体を入力にしない。
 
 独立再構成へ渡す入力は次に限定する。

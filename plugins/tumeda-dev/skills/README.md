@@ -42,16 +42,11 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
   既定では元の作業の保留メモに控えて作業の後に、利用者が即時を指示した時はその場で、plugin repositoryの`steering`へ引き渡すrouting skill。
 - **maintenance-plugin-context** — repository fact、作業限定の暫定指示、配布version規約を管理するメタskill。
 
-## 共有リファレンス（skill ではない）
+## skills の直下に置くもの
 
-直下に置く、skill 本文から参照される host 非依存の共通ドキュメントと script。
+`skills/` の直下には、skill の directory とこの README だけを置く。一つの skill が持つ手順・契約・雛形・対応表は、他の skill が読むものでも、その skill の directory の中へ置く。複数の skill を横断する規範は `docs/` の群へ置く。
 
-- **runtime-execution-contracts.md** — tasklist-executor が visual-inspector / test-runner へ child 委譲する時の共通契約（状態の正本・single writer・停止理由）に加え、command を実行しうる任意の skill が従う実行時一般の契約（実行環境に止められたら迂回せず停止する）。
-- **runtime-feedback-review.md** — steering または tasklist-executor が実装・review・validation・利用者確認の feedback を直接受けた時に、`facilitate-discussion` を `implementation_review.md` へ適用し、decision の戻り先を選ぶ手順。
-- **runtime-model-profiles.md** — skill が要求する推論強度 profile を、各 host の実 model へ変換する対応表。
-- **task-design-work-handoff-contracts.md** — 進行中designを別の`task-design`実行が引き継ぐ際の、独立再構成、正本照合、attempt lifecycle、完了gateの共有contract。consumerは`task-design`であり、`steering`は同じworking directoryへのroutingだけを担う。
-- **tumeda-dev-plugin-context.md** — 利用先 repository に置く context ファイルのテンプレート雛形。
-- **scripts/github/create_or_get_pr.sh** — tasklist-executor と share-work-in-progress が対等に参照する PR 作成 script。`SKILL.md` を持たないため、loader も `scripts/verification/validate-plugin.mjs` も skill として拾わない。
+例外は **tumeda-dev-plugin-context.md**（利用先 repository に置く context ファイルの雛形）である。plugin repository の `.agents/skills` が `plugins/tumeda-dev/skills` への symlink のため、この file は plugin repository 自身の context を兼ねる。`maintenance-plugin-context` は雛形を plugin の `skills/` の直下から読む。
 
 ## 詳細を知りたいとき
 

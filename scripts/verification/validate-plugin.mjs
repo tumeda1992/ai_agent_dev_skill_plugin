@@ -418,7 +418,7 @@ const taskDesignTemplate = skillPath("task-design/templates/design.md");
 const outcomeSectionPath = (fileName) =>
   skillPath(`task-design/templates/outcome-sections/${fileName}`);
 const taskDesignHandoffContract = skillPath(
-  "task-design-work-handoff-contracts.md",
+  "task-design/work-handoff-contracts.md",
 );
 const taskDesignHandoffExtractor = skillPath(
   "task-design/scripts/extract-handoff-input.mjs",
@@ -444,7 +444,7 @@ for (const expected of [
 }
 for (const expected of [
   "#### 既存designのhandoff gate",
-  "../task-design-work-handoff-contracts.md",
+  "[`work-handoff-contracts.md`](work-handoff-contracts.md)",
   "task-design/scripts/extract-handoff-input.mjs",
   "current-state coverage、差分分類",
   "exactなactive topicと次の一問",
@@ -583,8 +583,21 @@ requireText(skillPath("task-design/templates/tasklist.md"), "implementation_revi
 requireText(skillPath("task-design/templates/tasklist.md"), "適用する担当を`steering`に固定しない");
 requireText(skillPath("README.md"), "facilitate-discussion");
 requireText(skillPath("README.md"), "escalate-plugin-skill-fix");
-requireText(skillPath("README.md"), "task-design-work-handoff-contracts.md");
-requireText(skillPath("README.md"), "consumerは`task-design`");
+// skills の直下には skill の directory と README だけを置き、context の雛形だけを例外にする。
+requireText(skillPath("README.md"), "## skills の直下に置くもの");
+requireText(skillPath("README.md"), "`skills/` の直下には、skill の directory とこの README だけを置く。");
+requireText(skillPath("README.md"), "例外は **tumeda-dev-plugin-context.md**（利用先 repository に置く context ファイルの雛形）である。");
+forbidText(skillPath("README.md"), "## 共有リファレンス（skill ではない）", "skills 直下の共有リファレンスの節");
+for (const retired of [
+  "runtime-execution-contracts.md",
+  "runtime-feedback-review.md",
+  "runtime-model-profiles.md",
+  "task-design-work-handoff-contracts.md",
+  "scripts/github/create_or_get_pr.sh",
+]) {
+  requireAbsent(skillPath(retired));
+}
+requireText(skillPath("task-design/work-handoff-contracts.md"), "ownerは`task-design`であり");
 requireText(
   skillPath("maintenance-plugin-context/SKILL.md"),
   "escalate-plugin-skill-fix",
@@ -782,11 +795,11 @@ for (const expected of [
   "同じ作業中はbasenameを変更せず",
   "一か月前",
   "各steering実行時にもstatusを手動更新しない",
-  "runtime-feedback-review.md",
+  "[共通の実装feedback処理](implementation-feedback.md)",
 ]) {
   requireText(steeringSkill, expected);
 }
-const runtimeFeedbackReview = skillPath("runtime-feedback-review.md");
+const runtimeFeedbackReview = skillPath("steering/implementation-feedback.md");
 for (const expected of [
   "feedback原文",
   "既に修正済みのfeedbackでも記録を省略しない",
@@ -817,7 +830,7 @@ for (const relativePath of discussionConsumers) {
   forbidText(relativePath, "FB-N", "旧feedback ID契約");
 }
 
-const runtimeContract = skillPath("runtime-execution-contracts.md");
+const runtimeContract = skillPath("tasklist-executor/execution-contracts.md");
 for (const expected of [
   "状態の正本とsingle writer",
   "completed",
@@ -835,8 +848,26 @@ for (const expected of [
 ]) {
   requireText(runtimeContract, expected);
 }
+// 実行環境に止められた時の規範は docs の群へ移し、停止理由の blocked から参照する。
+const blockedCommandsStandard = docPath("agent_execution_standards/blocked_commands.md");
+for (const expected of [
+  "# 実行環境に止められた command",
+  "agentがcommandを実行してよいとtask levelで判定したことは、実行環境がそのcommandを通すことを意味しない。",
+  "実行環境に止められた場合、agentは迂回せず停止し、利用者へ返す。別のcommandで同じ結果を得ようとしない。",
+  "特定の実行基盤（infrastructure-as-code toolなど）に依存する手順はこのfileへ書かない。",
+]) {
+  requireText(blockedCommandsStandard, expected);
+}
+forbidText(runtimeContract, "## 実行環境gate", "child 委譲の契約に残る実行環境 gate");
+requireText(runtimeContract, "- `blocked`: 必須入力・外部状態・権限が不足している。実行環境にcommandを止められた場合も、権限が不足している状態の一種としてこれに当たる（[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)）。");
+requireText(runtimeContract, "commandを実行しうる任意のskillが従う、実行環境に止められた時の規範は[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)が持つ。");
+requireText(steeringSkill, "それでも実行環境に止められた時の扱いは[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)に従う。");
+requireText(docPath("README.md"), "## 6群への入口");
+requireText(docPath("README.md"), "[agent_execution_standards/blocked_commands.md](./agent_execution_standards/blocked_commands.md)** — AI agent に作業を実行させる時に、AI agent と、それを動かす実行環境（host の実行許可の仕組み、sandbox、分類器等）の性質から起きる、AI agent に特有の詰まり方への対処の群。");
+requireText(docPath("README.md"), "  - 判断の問い: 「この規範は、既存の群のどれか一つに収まるか。収まらないなら、開発・文書・思考のどの作業にも同じ形で効くか」");
+requireText(docPath("README.md"), "**[development_standards/](./development_standards/)** — 開発にまつわる標準（命名、エンティティ設計、開発の進め方、基盤）");
 
-const runtimeProfiles = skillPath("runtime-model-profiles.md");
+const runtimeProfiles = `${pluginRoot}/model-profiles.md`;
 requireText(runtimeProfiles, "## 推論強度の基準");
 requireText(runtimeProfiles, "## delegated-execution");
 forbidText(runtimeProfiles, "standard-execution", "旧profile名");
@@ -848,8 +879,8 @@ const agentDerivedSkills = [
 ];
 for (const relativePath of agentDerivedSkills) {
   requireFrontmatter(relativePath, "context: fork");
-  requireText(relativePath, "../runtime-execution-contracts.md");
-  requireText(relativePath, "../runtime-model-profiles.md");
+  requireText(relativePath, "execution-contracts.md");
+  requireText(relativePath, "../../model-profiles.md");
   requireText(relativePath, "delegated-execution");
   requireText(relativePath, "Codex");
 }
@@ -1001,9 +1032,7 @@ if (failedFixture && !failedFixture.summary.includes("未完了")) {
   failures.push(`${failedPath}: failed resultはtaskの未完了維持を明示する`);
 }
 
-const prHelper = skillPath(
-  "scripts/github/create_or_get_pr.sh",
-);
+const prHelper = `${pluginRoot}/scripts/github/create_or_get_pr.sh`;
 requireExists(prHelper);
 requireAbsent(skillPath("steering/scripts/github/create_or_get_pr.sh"));
 requireAbsent(
@@ -1011,6 +1040,17 @@ requireAbsent(
 );
 requireText(tasklistDesign, "scripts/github/create_or_get_pr.sh");
 requireText(tasklistTemplate, "scripts/github/create_or_get_pr.sh");
+// PR を作る script は plugin の直下に置き、起点を plugin の skills directory と書かない。
+for (const relativePath of [
+  tasklistTemplate,
+  skillPath("tasklist-executor/SKILL.md"),
+  skillPath("share-work-in-progress/SKILL.md"),
+  skillPath("tumeda-dev-plugin-context.md"),
+]) {
+  forbidText(relativePath, "skills directory", "PR 作成 script の旧い起点");
+}
+requireText(tasklistTemplate, "pathの起点はpluginの直下である。");
+requireText(skillPath("share-work-in-progress/SKILL.md"), "script pathの起点はpluginの直下である。");
 for (const expected of [
   "原文、関連する実装・design・plan、原因、採用方針、決定",
   "review後に実装を自動再開しない",
@@ -1206,7 +1246,6 @@ requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り
 // 利用者の確かめを実行許可の画面に当てず、合意の原文を実行するagentへ渡す。
 requireText(skillPath("task-design/SKILL.md"), "実行環境の実行許可の画面（agentがtoolを実行する前に利用者へ出す確認）を、利用者が確かめる手段にしない。");
 requireText(skillPath("steering/SKILL.md"), "利用者がまだ与えていない承認や、「利用者が実行許可の画面で見る」のようなまだ起きていない確かめを、指示に事実として書かない。");
-requireText(skillPath("README.md"), "**runtime-feedback-review.md**");
 // 既定は保留、利用者が即時を指示した時だけ即時に引き渡す。
 for (const expected of [
   "即時の指示がなければ、既定どおり保留する。",
@@ -1519,10 +1558,10 @@ forbidText(runtimeProfiles, "Codexでは方針検討、進行のハンドリン�
 for (const relativePath of agentDerivedSkills) forbidText(relativePath, "Codexのchild model選択は", "前版の一般model指定");
 const unattended = skillPath("unattended-execution/SKILL.md");
 for (const expected of ["既承認scope", "paused/unavailable", "保存prefix", "事前確認できなければ保留", "別tool", "分割command", "approval-deferrals.md", "未実行か結果不明か", "外部状態、依存を再判定", "未完了をcompletedへ変えない", "## 元作業の完了を暫定指示の管理へ通知する"]) requireText(unattended, expected);
-requireText(skillPath("runtime-execution-contracts.md"), "unattended-execution/SKILL.md");
+requireText(skillPath("tasklist-executor/execution-contracts.md"), "unattended-execution/SKILL.md");
 requireText(skillPath("README.md"), "**unattended-execution**");
 for (const expected of ["レビュー依頼だけでアプリケーションを修正しない", "再承認を求めない", "1指摘1コミット", "根拠付きで撤回"]) requireText(skillPath("exhaustive-review/SKILL.md"), expected);
-for (const expected of ["logical owner", "physical launcher", "single writer"]) requireText(skillPath("runtime-execution-contracts.md"), expected);
+for (const expected of ["logical owner", "physical launcher", "single writer"]) requireText(skillPath("tasklist-executor/execution-contracts.md"), expected);
 for (const expected of ["通常進行への復帰", "実行環境の権限", "上位指示が特定の承認呼出しを要求", "権限境界を変えない正規の技術修復", "依存停止", "新しい承認が必要な操作だけ実際に承認"]) requireText(unattended, expected);
 requireText(skillPath("task-design/SKILL.md"), "議論だけを別child agentへ再委譲しない");
 for (const expected of ["作業指示、設計合意、工程移行の確認、command実行権限、公開許可", "設計合意や公開許可ではない", "合意に依存する実装を保留", "保存prefixがあっても公開しない"]) requireText(unattended, expected);

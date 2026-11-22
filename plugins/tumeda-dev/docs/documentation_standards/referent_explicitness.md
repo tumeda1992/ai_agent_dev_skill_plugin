@@ -48,8 +48,8 @@
 ### 型3: 指示語の根拠が離れている
 
 - だめな例: 「3箇所とも今は『返ってきた場合だけ生成する』としか書いてない」
-  - なぜ切り離すと意味が取れないか: 「3箇所」がどの3箇所かの列挙が、この文の近くに無い。読み手はこの文だけを読んで、対象が `tasklist-design.md` の2箇所と `runtime-execution-contracts.md` の1箇所であることを言えない。
-- 直した形: 「`tasklist-design.md:122`（commit section の生成条件）、同 `:123`（push・PR section の生成条件）、`runtime-execution-contracts.md` の `Repository context` 節。この3箇所は、どれも条件があるときの動作しか書いておらず、条件を満たさないときの動作を書いていない」
+  - なぜ切り離すと意味が取れないか: 「3箇所」がどの3箇所かの列挙が、この文の近くに無い。読み手はこの文だけを読んで、対象が `tasklist-design.md` の2箇所と `tasklist-executor/execution-contracts.md` の1箇所であることを言えない。
+- 直した形: 「`tasklist-design.md:122`（commit section の生成条件）、同 `:123`（push・PR section の生成条件）、`tasklist-executor/execution-contracts.md` の `Repository context` 節。この3箇所は、どれも条件があるときの動作しか書いておらず、条件を満たさないときの動作を書いていない」
 
 ## 検知手段
 

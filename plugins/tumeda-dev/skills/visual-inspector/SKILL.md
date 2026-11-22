@@ -31,7 +31,7 @@ Playwright スクリプトを即興で書いてブラウザのスクリーンシ
 
 ## 共通実行契約と必須入力
 
-`../runtime-execution-contracts.md`を正本とし、このskillの推論強度は`../runtime-model-profiles.md`の`delegated-execution`に従う。
+`../tasklist-executor/execution-contracts.md`を正本とし、このskillの推論強度は`../../model-profiles.md`の`delegated-execution`に従う。
 
 parentは次を渡す。
 

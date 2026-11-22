@@ -1,4 +1,4 @@
-# Runtime model profiles
+# Model profiles
 
 skillが要求するのはprovider固有のmodel名ではなく、必要な推論強度profileである。Claude CodeとCodexのadapterは、このprofileをそれぞれのhostで選べるmodelへ変換する。
 

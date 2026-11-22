@@ -143,8 +143,8 @@ Tasks に挙げた確認をユーザーが行い、期待どおりであるこ�
   - [ ] commit taskの結果としてlocal commitが実際に一件以上あることを確認する。一件もなければpush・PRを実行しない
   - [ ] current branchが公開可能なnon-default branchであることを確認する
   - [ ] `git push -u origin <current-branch>`を実行する
-  - [ ] pluginのskills directory配下にある `scripts/github/create_or_get_pr.sh` を実行する
-    - pathの起点はpluginのskills directoryである。利用先repositoryからの相対pathではない
+  - [ ] pluginの直下にある `scripts/github/create_or_get_pr.sh` を実行する
+    - pathの起点はpluginの直下である。利用先repositoryからの相対pathではない
     - このscriptは`gh pr create`のwrapperではない。同じhead branchのopen PRがあれば新規作成せずそのURLを返し、repositoryが`feature-<issue番号>`契約を宣言していればbranch名からissue番号を導いてPR bodyへ`Closes #<番号>`を入れる
     - `--title`と`--body`を渡すとissueからの導出は行われない。issueへ紐づける場合はbody側へ明示する
 

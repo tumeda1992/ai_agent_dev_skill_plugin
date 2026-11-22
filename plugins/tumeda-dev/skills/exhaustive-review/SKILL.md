@@ -16,7 +16,7 @@ description: >-
 利用者が各指摘を独立して読み、採否を判断し、修正結果を追跡できる状態を作る。
 テストの通過報告をレビュー結果の代わりにしない。
 
-レビューは [runtime-model-profiles.md](../runtime-model-profiles.md) の
+レビューは [model-profiles.md](../../model-profiles.md) の
 `high-reasoning-review` を使用する。利用者が指定したモデルを優先する。
 モデルを選択できない場合は現在モデルと制約を明示する。
 モデルの切替・独立レビューを行っていないのに、行ったと記載しない。

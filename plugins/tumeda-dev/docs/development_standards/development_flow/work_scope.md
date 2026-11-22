@@ -19,7 +19,7 @@
           崩れる      → 別の作業へ切り出す
 ```
 
-判定をどの手順の中で行い、結果を誰と合意するかは、気付いた段階の workflow が持つ。設計中は `task-design`、実装・動作確認中は `skills/runtime-feedback-review.md` である。
+判定をどの手順の中で行い、結果を誰と合意するかは、気付いた段階の workflow が持つ。設計中は `task-design`、実装・動作確認中は `skills/steering/implementation-feedback.md` である。
 
 ## 一段目: 目的の内か外か
 
