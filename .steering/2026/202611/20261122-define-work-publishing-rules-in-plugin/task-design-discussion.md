@@ -547,3 +547,42 @@ aを仮決めにした根拠: [`work_scope.md`](../../../../plugins/tumeda-dev/d
 ### 決定（論点11）
 
 `facilitate-discussion/round-trip.md`の「chatでは、各論点の番号と段、仮決めの根拠を示し」から段を外し、段はchatに示さないことと、その理由を書く。議論記録の`**重さ:**`は変えない。この作業で直し、他の変更とは別のcommitにする。
+
+## 論点12: steeringのplanless_completeで、公開をどう行うか
+
+**ステータス:** 応答待ち
+
+**種別:** レビュー指摘
+
+**重さ:** まとめて考える（波及: 中。すべての利用先のplanlessの作業の終わり方が変わる。他は小）
+
+### イテレーション0（論点12）: tasklistのcommit・push・PRと同じ条件を、planlessの完了の前に当てる
+
+#### 提案0（論点12）
+
+steeringの締めくくりのreview（Step 4-3）で、planless_completeには公開の段が無いことを挙げた。利用者は「3:b。それ以外ok」と答え、この作業で直すことに決まった。直し方を決める。
+
+- a. 5-1の完了報告の前に、task-design内で適用した変更を公開する段を置く。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく`tasklist-design.md`「実装後feedbackと公開action」に従う。この段はPRの作成で終わり、PRのmergeは含まない。escalate経由の作業では、続けて`integrate-plugin-changes.md`に従う（推奨）
+- b. 公開の段は置かず、完了報告で、公開をしていないことと、そのために要る操作を示す
+
+aを推す理由: tasklistがある作業は、tasklistのpush・PR sectionで公開まで進む。planlessの作業だけ公開の段が無いため、issue #2 の終わりに「PRが要るなら言って」と問う往復が生じた。条件を`tasklist-design.md`から参照すれば、文脈に公開条件がある利用先（このrepositoryを含む）では聞かずにPRまで進み、無い利用先では今のtasklistと同じく一度だけ利用者へ確認して文脈へ書き戻す。条件を写さないので、tasklistとplanlessで食い違わない。mergeを含めないのは、PR経由のmergeをassistantに任せないためである。
+
+5-1へ足す文:
+
+```markdown
+完了報告の前に、task-design内で適用した変更を公開する。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく[`tasklist-design.md`の「実装後feedbackと公開action」](../task-design/tasklist-design.md#実装後feedbackと公開action)に従い、ここへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。escalate経由の作業では、続けて[取り込みと反映](../escalate-plugin-skill-fix/integrate-plugin-changes.md)に従う。完了報告には、公開した先（PRのURL）か、公開しなかった理由を含める。
+```
+
+#### 検討記録（論点12・イテレーション0）
+
+##### 今の規則
+
+- `steering/SKILL.md` 5-1は、`design_path`、task-design内で適用した変更とvalidationの要約、planを作らなかった理由、Step 4のreview結果を示して完了する。公開の段は無い。
+- `tasklist-design.md`「実装後feedbackと公開action」は、文脈にlocal Git運用条件があるか利用者がcommitを求めた時にcommit sectionを、GitHub公開条件があり、commitが一件以上あり、current branchが公開可能なnon-default branchの時にpush・PR sectionを作る。文脈に該当項目が無ければ利用者へ確認し、答えを文脈へ書き戻す。
+
+##### skill-update-reviewの結果（構造案の採用前）
+
+対象: `steering/SKILL.md`。5-1へ足すのは、`tasklist-design.md`の条件を参照する一段である。公開の判断・状態・完了条件は`tasklist-design.md`とtasklistの手順が持ち、steeringは参照するだけで抱え込まない。候補なし。
+
+#### 提案0へのフィードバック（論点12）
+
