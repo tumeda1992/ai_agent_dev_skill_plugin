@@ -2,7 +2,7 @@
 
 ## 論点31: 保留の確かめ直しと知らせの変更集合
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **親論点:** 論点16
 
@@ -135,9 +135,19 @@
 
 #### 提案0へのフィードバック（論点31）
 
+**結果:** 合意。「ok」は全部の推す案への合意である。
+
+論点29・30・31を、まとめて考える論点としてまとめて示した往復への返事である。
+
+> ok
+
+### 決定（論点31）
+
+`escalate-plugin-skill-fix/pending-escalations.md`、`tasklist-executor/SKILL.md`、`steering/SKILL.md`、`task-design/SKILL.md`の確かめ直しの箇所を、提案0の変更集合で変える。変更後の全文は`drafts/`の各fileである。
+
 ## 論点32: 検査scriptのassertionとversionの差分
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **親論点:** 論点16
 
@@ -147,13 +157,172 @@
 
 **依存先:** 論点26〜31（各fileの文面が決まれば、検査する文を選べる）
 
-### イテレーション0（論点32）: 論点を立てた（まだ示していない）
+### イテレーション0（論点32）: 検査とversionの差分を仮決めで示す
 
-変えた契約の文を検査するassertionと、versionの宣言値・`expectedRelease`の差分を示す。
+#### 提案0（論点32）
+
+- **a. 次の差分で、検査scriptとversionを変える**（仮決め）
+- **b. 検査scriptは固定した文の追随だけにし、新しい契約の検査を足さない**
+
+根拠: root `README.md`「変更時の検証と前提」の「skillまたはdocsを追加・変更したら、対応するassertionをこのfileへ追加する」「既存assertionがピン留めしている文字列を変更したら、そのassertionも追随させる」、論点23の決定（9.1.6）。bは、この規則に反するため採らない。
+
+`scripts/verification/validate-plugin.mjs`（変更後の全文: [`drafts/validate-plugin.mjs`](../drafts/validate-plugin.mjs)）:
+
+````diff
+@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
+ const claudeManifest = readJson(claudeManifestPath);
+ const marketplace = readJson(".claude-plugin/marketplace.json");
+ const codexMarketplace = readJson(".agents/plugins/marketplace.json");
+-const expectedRelease = "9.1.5";
++const expectedRelease = "9.1.6";
+ const claudePlugin = marketplace?.plugins?.find(
+   (plugin) => plugin.name === "tumeda-dev",
+ );
+@@ -339,7 +339,7 @@ requireSavedForms(discussionInternalTemplate, ["論点の骨子","回の骨子",
+ 
+ for (const expected of [
+   "## 論点N: {判断内容を表すタイトル}",
+-  "**ステータス:** {調査中 / 応答待ち / 子論点待ち / 決定 / 保留 / 分解済み / 反映待ち / 反映済み}",
++  "**ステータス:** {調査中 / 応答待ち / 依存先待ち / 子論点待ち / 決定 / 保留 / 分解済み}",
+   "**親論点:** 論点M",
+   "**種別:**",
+   "### イテレーションI（論点N）:",
+@@ -399,7 +399,7 @@ for (const expected of ["discussion fileを検討経緯・判断context・応答
+ for (const expected of ["起きた順序と理由が分かる本文", "成立しなかった案とその理由", "内部logへのlinkで説明を代替しない"]) requireText(discussionIteration, expected);
+ requireText(skillPath("facilitate-discussion/read-discussion.md"), "内部logを根拠として使わない場合は`--log`を省略する");
+ forbidText(discussionTemplate, "{内部log相対path}#iteration-I", "Git管理外logへの必須link");
+-for (const p of [discussionSkill, discussionIteration, discussionRecovery, skillPath("facilitate-discussion/split-discussion.md"), skillPath("facilitate-discussion/derived-change.md"), skillPath("facilitate-discussion/templates/consideration-records/README.md"), skillPath("facilitate-discussion/templates/consideration-records/alignment.md"), skillPath("task-design/SKILL.md")]) {
++for (const p of [discussionSkill, discussionIteration, discussionRecovery, skillPath("facilitate-discussion/split-discussion.md"), skillPath("facilitate-discussion/round-trip.md"), skillPath("facilitate-discussion/templates/consideration-records/README.md"), skillPath("facilitate-discussion/templates/consideration-records/alignment.md"), skillPath("task-design/SKILL.md")]) {
+   for (const forbidden of ["必要な場合だけ準備する", "長い調査の作業控え", "必要な場合だけ作業控えとして使う", "必要な場合だけ内部logにも記録する", "内部logへ論点・開始context・同じ回の骨子を準備する"]) forbidText(p, forbidden, "内部logの共通作成工程");
+ }
+ requireText(discussionInternalTemplate, "新規logの作成templateとしては使わない");
+@@ -1236,22 +1236,51 @@ for (const expected of [
+ const discussionResolve = skillPath("facilitate-discussion/resolve-discussion.md");
+ const discussionRead = skillPath("facilitate-discussion/read-discussion.md");
+ const discussionSplit = skillPath("facilitate-discussion/split-discussion.md");
+-const derivedChanges = skillPath("facilitate-discussion/derived-change.md");
++const discussionRoundTrip = skillPath("facilitate-discussion/round-trip.md");
+ const pendingEscalations = skillPath("escalate-plugin-skill-fix/pending-escalations.md");
+ const pendingTemplate = skillPath("escalate-plugin-skill-fix/templates/pending-escalation.md");
+ const temporaryOverrides = skillPath("maintenance-plugin-context/temporary-overrides.md");
+ const overrideTemplate = skillPath("maintenance-plugin-context/templates/temporary-override.md");
+ const discussionHelper = skillPath("facilitate-discussion/scripts/inspect-discussion.mjs");
+ const discussionHelperTest = skillPath("facilitate-discussion/scripts/inspect-discussion.test.mjs");
+-const newFunctionalFiles = [discussionResolve, discussionRead, discussionSplit, derivedChanges, pendingEscalations, pendingTemplate, temporaryOverrides, overrideTemplate, discussionHelper, discussionHelperTest];
++const newFunctionalFiles = [discussionResolve, discussionRead, discussionSplit, discussionRoundTrip, pendingEscalations, pendingTemplate, temporaryOverrides, overrideTemplate, discussionHelper, discussionHelperTest];
+ for (const path of newFunctionalFiles) requireExists(path);
+ requireText(discussionResolve, "# 議論記録");
+ requireText(discussionResolve, "### 解決の完了gate");
+ requireText(discussionRead, "末尾提示・原文応答・現在state・親子と根拠を判断する");
+-for (const name of ["resolve-discussion.md", "read-discussion.md", "split-discussion.md", "derived-change.md"]) requireText(discussionSkill, name);
++for (const name of ["resolve-discussion.md", "read-discussion.md", "split-discussion.md", "round-trip.md"]) requireText(discussionSkill, name);
+ for (const expected of ["next_offset", "needs_full_read", "snapshot", "compare", "全chunk", "独立構成前"]) requireText(discussionRead, expected);
+ for (const expected of ["10件を超えた", "最大番号+1", "check-candidate", "原文fileを削除", "自動修復"]) requireText(discussionSplit, expected);
+-for (const expected of ["明示委託", "次の実応答", "変更内容", "現在の変更", "原文", "部分反映"]) requireText(derivedChanges, expected);
++// 論点の重さで一往復を組み、既決・委託から導ける変更も仮決めとして問う。導出を報告で扱うfileは無くした。
++requireAbsent(skillPath("facilitate-discussion/derived-change.md"));
++for (const p of [discussionSkill, discussionIteration]) forbidText(p, "derived-change.md", "無くした導出変更fileへの参照");
++for (const expected of [
++  "一つずつ考える",
++  "まとめて考える",
++  "確かめるだけ",
++  "3つまで。確かめるだけを混ぜても合わせて3つまで",
++  "応答を受けて回を重ねた論点は、段によらず一往復に1つで示す",
++  "利用者の前提への依存を小にするのは、根拠を名指せる時だけにする",
++  "前例から答えが一つに決まっても、問わずに決めない",
++  "該当する案の行の末尾に「（仮決め）」「（推奨）」と付ける",
++  "「ok」は「全部ok」の別名",
++  "返事は、名指された論点だけを、その答えとして扱う",
++  "採らなかった案と理由は、論点ごとに議論記録の提案と検討記録へ残す",
++]) requireText(discussionRoundTrip, expected);
++for (const expected of ["論点は、わかった時点で立てる", "依存先待ち", "利用者が明示委託した範囲の選択も含む", "意味を変えない機械的適用・誤字・format・link修正"]) requireText(discussionSkill, expected);
++forbidText(discussionSkill, "同じturnで次decisionを確定しない", "一論点ずつ選ぶ前提の旧い確定");
++for (const expected of ["### 修正と反映を追跡する", "利用者が修正を一意に指定し、既存権限内であれば再承認を求めず反映できる", "部分反映や検証失敗を全件反映済みにしない"]) requireText(discussionIteration, expected);
++for (const expected of ["**重さ:**", "**依存先:**", "以前の記録で、導出・委託した変更の報告に使った保存形である"]) requireText(discussionTemplate, expected);
++requireText(discussionHelper, "依存先待ち");
++requireText(advancingDiscussionDoc, "## 補助: 一つずつ考える論点と、まとめてよい論点を分ける");
++forbidText(advancingDiscussionDoc, "採否を問わず、導いた結果として報告する", "既決から決まる論点を問わずに決める旧い補助");
++requireText(taskDesignSkill, "ユーザーへ問わなければ確定しないTBDは、識別した時点で`facilitate-discussion`へ渡し");
++forbidText(taskDesignSkill, "この時点ではdiscussion fileの論点・提案・親子関係を組み立てない", "初稿で論点を組み立てない旧い前提");
++// 保留したplugin改善は、再開条件が成り立ちうる時点だけで確かめ直し、状態の変わらない知らせを出さない。
++for (const expected of ["taskやphaseの完了、executorの停止、作業の再開のたびには依頼しない", "確かめ直して状態が変わらない時は、利用者へ何も伝えない"]) requireText(pendingEscalations, expected);
++forbidText(skillPath("tasklist-executor/SKILL.md"), "task／phaseの既存完了条件を実測して次へ進む時は", "taskごとの保留の確かめ直し");
++requireText(steeringSkill, "steeringが依頼するのは、元作業全体を完了する時だけ");
++forbidText(steeringSkill, "その成立証拠で同じ作業の保留条件を再確認してから", "phaseごとの保留の確かめ直し");
+ requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り替える前の保留判定\n", "\n## plugin repositoryの判定\n"], "起動後・repository判定前の保留判定");
+ // 利用者の確かめを実行許可の画面に当てず、合意の原文を実行するagentへ渡す。
+ requireText(skillPath("task-design/SKILL.md"), "実行環境の実行許可の画面（agentがtoolを実行する前に利用者へ出す確認）を、利用者が確かめる手段にしない。");
+@@ -1288,7 +1317,6 @@ requireText(escalateSkill, "pending-escalations.md");
+ // 独立実操作で検出した到達不能・出典切れの修復条件。
+ for (const expected of ["分割済み記録を更新する", "通常のresolve/compareを呼ばない", "実体pathとSHA-256", "design等から旧入口"]) requireText(discussionSplit, expected);
+ for (const path of [pendingEscalations, temporaryOverrides]) requireText(path, "保存先fileから相対pathを実解決");
+-for (const expected of ["候補を比較", "選定理由", "報告した実際の問いまたは完了reviewと版"]) requireText(derivedChanges, expected);
+ 
+ requireText(discussionResolve, "`.md`以外の拡張子や拡張子なしを追加拒否しない");
+ requireText(discussionSplit, "## 元fileと最終directoryが同pathになる場合");
+````
+
+version宣言の4箇所:
+
+````diff
+@@ -1,7 +1,7 @@
+ {
+   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+   "name": "tumeda-dev-plugins",
+-  "version": "9.1.5",
++  "version": "9.1.6",
+   "description": "tumedaが、リポジトリ横断でよく使うplugin集。",
+   "owner": {
+     "name": "tumeda"
+@@ -10,7 +10,7 @@
+     {
+       "name": "tumeda-dev",
+       "description": "tumedaが、リポジトリ横断でよく使うskill集としてのplugin。特定テーマに特化したものは順次切り出す",
+-      "version": "9.1.5",
++      "version": "9.1.6",
+       "author": {
+         "name": "tumeda"
+       },
+@@ -1,7 +1,7 @@
+ {
+   "name": "tumeda-dev",
+   "description": "tumedaが、リポジトリ横断でよく使うskill集としてのplugin。特定テーマに特化したものは順次切り出す",
+-  "version": "9.1.5",
++  "version": "9.1.6",
+   "author": {
+     "name": "tumeda"
+   }
+@@ -1,6 +1,6 @@
+ {
+   "name": "tumeda-dev",
+   "description": "tumeda\u304c\u3001\u30ea\u30dd\u30b8\u30c8\u30ea\u6a2a\u65ad\u3067\u3088\u304f\u4f7f\u3046skill\u96c6\u3068\u3057\u3066\u306eplugin\u3002\u7279\u5b9a\u30c6\u30fc\u30de\u306b\u7279\u5316\u3057\u305f\u3082\u306e\u306f\u9806\u6b21\u5207\u308a\u51fa\u3059",
+-  "version": "9.1.5",
++  "version": "9.1.6",
+   "skills": "./skills/"
+ }
+````
+
+判断してほしいこと（このまとまりの中で）: a（仮決め）でよいか。
+
+#### 検討記録（論点32・イテレーション0）
+
+##### 検証: 合意済みの変更を全部当てた状態で、検査が通るか
+
+論点21・24・26〜31の決定の変更を作業木へ当て、`validate-plugin.mjs`を今の版のまま実行した。失敗は、消した`derived-change.md`を読む・名を含むことを求める検査（存在、`SKILL.md`がfile名を含むこと、本文の9語）と、templateの状態の行を固定した検査だけだった。どれも今回の決定で意図して変えた箇所である。
+
+上の差分を当てて再実行し、`plugin validation passed`を確かめた。`node --check`は`validate-plugin.mjs`と`inspect-discussion.mjs`で通り、`node scripts/verification/test-task-design-handoff.mjs`は`task-design handoff tests passed`、`node --test plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs`は失敗0件だった。
+
+##### 足した検査の選び方
+
+`README.md`の「`forbidText` を先に確認する」に従い、禁止する文は、今後の変更で戻りうる旧い形にした（`derived-change.md`への参照、「同じturnで次decisionを確定しない」、「採否を問わず、導いた結果として報告する」、初稿で論点を組み立てない前提、taskごと・phaseごとの保留の確かめ直し）。求める文は、決定の中心になる契約の文（段の名前と数、回を重ねた論点、根拠の名指し、前例から決まっても問わずに決めないこと、印の位置、okの別名、返事の読み方、採らなかった案の記録、修正の追跡、欄、依存先待ち、保留の時点と知らせ）にした。
+
+合意前のため、検証の後に作業木を元へ戻した。合意後に同じ変更を当て、もう一度検証してからcommitする。
+
+#### 提案0へのフィードバック（論点32）
 
 ## 論点33: 議論記録の提案でも、推奨・仮決めの印を案の行に付けるか
 
-**ステータス:** 調査中
+**ステータス:** 応答待ち
 
 **親論点:** 論点16
 
@@ -161,7 +330,74 @@
 
 **重さ:** 確かめるだけ（四観点とも小。根拠: 論点26〜28をまとめて示した往復の返事「の方が読みやすい」）
 
-### イテレーション0（論点33）: 論点を立てた（まだ示していない）
+### イテレーション0（論点33）: templateの差分を仮決めで示す
 
-示す予定の仮決め: 議論記録の提案に使う`facilitate-discussion/templates/proposal-sections/compact-options.md`と`detailed-options.md`も、案の前に「**推奨:** a。」と書く形から、推奨する案の行の末尾に「（推奨）」と付け、推奨の理由を案の後に書く形へ改める。chatと議論記録で印の位置を揃えるため。
+#### 提案0（論点33）
+
+- **a. 次の差分で、`compact-options.md`と`detailed-options.md`の印の位置を案の行へ移す**（仮決め）
+- **b. 議論記録のtemplateは変えず、chatでの示し方だけを案の行に付ける形にする**
+
+根拠: 論点26〜28をまとめて示した往復の返事「xxx （推す案a or 仮決定a）…より xxx a. xxx（仮決定 or 推奨）…の方が読みやすい」と、論点24の決定に加えた`round-trip.md`の示し方。bは、chatと議論記録で印の位置が食い違い、議論記録の提案を読む時だけ読みにくい形が残るため採らない。
+
+`plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/compact-options.md`（全文: [`drafts/c33/compact-options.md`](../drafts/c33/compact-options.md)）:
+
+````diff
+@@ -7,9 +7,7 @@
+ ## template
+ 
+ ```markdown
+-**推奨:** {推奨する選択肢の添字}。{推奨理由を書く。}
+-
+-- **a. {選択肢を一文で書く}**
++- **a. {選択肢を一文で書く}**（推奨）
+   - {この案を理解・比較するための要素を書く。}
+   - {必要な別の説明、影響、trade-off、条件等を書く。}
+   - {さらに必要な列挙要素があれば追加する。}
+@@ -17,8 +15,10 @@
+   - {aと同じ観点と粒度に倣い、この案に必要な子要素を必要な数だけ書く。}
+ 
+ {b以降もc、d等の添字で必要な選択肢数だけ増やし、各案の子要素はaの記述形に倣う。}
++
++{推奨の理由を、全ての案の後に書く。}
+ ```
+ 
+-ユーザーが添字だけで選べるよう、各選択肢に`a`から始まる連続した添字を付ける。選択肢自体は添字の直後に一文で書く。一階層下には、その案を理解・比較するために必要な要素を列挙し、要素数と各要素の長さを固定しない。
++ユーザーが添字だけで選べるよう、各選択肢に`a`から始まる連続した添字を付ける。推奨・仮決めの印は、案の前に別の行として書かず、該当する案の行の末尾に付ける。案を読みながら、どれが推されているかが分かるためである。確かめるだけの論点を仮決めとして示す時は「（推奨）」の代わりに「（仮決め）」を付け、理由として根拠を名指す（[round-trip.md](../../round-trip.md)）。選択肢自体は添字の直後に一文で書く。一階層下には、その案を理解・比較するために必要な要素を列挙し、要素数と各要素の長さを固定しない。
+ 
+ `a`は選択肢と子要素を省略せず、実際に必要な厚みを持つ記述形として使う。`b`以降は選択肢数に応じて増減させ、子要素の観点と粒度を`a`に揃える。説明にnested listでは収まらない複数段落、表、tree、図等が必要なら`detailed-options.md`を使う。
+````
+
+`plugins/tumeda-dev/skills/facilitate-discussion/templates/proposal-sections/detailed-options.md`（全文: [`drafts/c33/detailed-options.md`](../drafts/c33/detailed-options.md)）:
+
+````diff
+@@ -7,9 +7,7 @@
+ ## template
+ 
+ ```markdown
+-**推奨:** {a / b / c}。{推奨理由を書く。}
+-
+-##### a. {選択肢を一文で書く}
++##### a. {選択肢を一文で書く}（推奨）
+ 
+ {この案の内容を、必要な段落、固有見出し、表、tree、図、代表例等で示す。}
+ 
+@@ -20,6 +18,8 @@
+ ##### c. {選択肢を一文で書く}
+ 
+ {この案の内容を、必要な段落、固有見出し、表、tree、図、代表例等で示す。}
++
++{推奨の理由を、全ての案の後に書く。}
+ ```
+ 
+-ユーザーが`a`、`b`、`c`だけで選べる添字を保つ。各案の見出し自体で選択肢を一文表示し、その配下を案ごとの説明領域にする。すべての案へ同じ固定小見出しを要求せず、比較に必要な具体像とpatternを案ごとに選ぶ。
++ユーザーが`a`、`b`、`c`だけで選べる添字を保つ。推奨・仮決めの印は、案の前に別の行として書かず、該当する案の行の末尾に付ける。案を読みながら、どれが推されているかが分かるためである。確かめるだけの論点を仮決めとして示す時は「（推奨）」の代わりに「（仮決め）」を付け、理由として根拠を名指す（[round-trip.md](../../round-trip.md)）。各案の見出し自体で選択肢を一文表示し、その配下を案ごとの説明領域にする。すべての案へ同じ固定小見出しを要求せず、比較に必要な具体像とpatternを案ごとに選ぶ。
+````
+
+判断してほしいこと（このまとまりの中で）: a（仮決め）でよいか。
+
+#### 検討記録（論点33・イテレーション0）
+
+利用者の返事は、chatで示した形を指していた。議論記録の提案は`templates/proposal-sections/`の二つのtemplateで形が決まり、今は案の前に「**推奨:** a。」の行を置く形である。chatと議論記録は同じ提案を示すため、印の位置も揃えるのが自然であり、仮決めとして示した。`scripts/verification/validate-plugin.mjs`はこの二つのfileの存在だけを検査しており、文の検査は無い。過去の議論記録の提案は直さない。
+
+#### 提案0へのフィードバック（論点33）
 
