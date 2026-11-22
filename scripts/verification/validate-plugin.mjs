@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "9.1.5";
+const expectedRelease = "9.1.6";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -293,6 +293,7 @@ for (const expected of [
   "skill起動、論点選択、iterationを無前提な兄弟分岐として扱わない"
 ]) requireText(discussionSkill, expected);
 requireText(discussionSkill, "提案に図・表・構成や変更の一覧を含める時は、その一行ずつに、その行を消すか別の値にしても論点の問いへの答えとして提案が成り立つかを問う。");
+requireText(discussionSkill, "一続きの例も同じである。例えば、問いの示し方、返事の読み方、記録の仕方を一つの例で通して見せると、例が一つなので問いも一つに見える。");
 
 for (const expected of [
   "templates/proposal-sections/README.md",
@@ -339,7 +340,7 @@ requireSavedForms(discussionInternalTemplate, ["論点の骨子","回の骨子",
 
 for (const expected of [
   "## 論点N: {判断内容を表すタイトル}",
-  "**ステータス:** {調査中 / 応答待ち / 子論点待ち / 決定 / 保留 / 分解済み / 反映待ち / 反映済み}",
+  "**ステータス:** {調査中 / 応答待ち / 依存先待ち / 子論点待ち / 決定 / 保留 / 分解済み}",
   "**親論点:** 論点M",
   "**種別:**",
   "### イテレーションI（論点N）:",
@@ -399,7 +400,7 @@ for (const expected of ["discussion fileを検討経緯・判断context・応答
 for (const expected of ["起きた順序と理由が分かる本文", "成立しなかった案とその理由", "内部logへのlinkで説明を代替しない"]) requireText(discussionIteration, expected);
 requireText(skillPath("facilitate-discussion/read-discussion.md"), "内部logを根拠として使わない場合は`--log`を省略する");
 forbidText(discussionTemplate, "{内部log相対path}#iteration-I", "Git管理外logへの必須link");
-for (const p of [discussionSkill, discussionIteration, discussionRecovery, skillPath("facilitate-discussion/split-discussion.md"), skillPath("facilitate-discussion/derived-change.md"), skillPath("facilitate-discussion/templates/consideration-records/README.md"), skillPath("facilitate-discussion/templates/consideration-records/alignment.md"), skillPath("task-design/SKILL.md")]) {
+for (const p of [discussionSkill, discussionIteration, discussionRecovery, skillPath("facilitate-discussion/split-discussion.md"), skillPath("facilitate-discussion/round-trip.md"), skillPath("facilitate-discussion/templates/consideration-records/README.md"), skillPath("facilitate-discussion/templates/consideration-records/alignment.md"), skillPath("task-design/SKILL.md")]) {
   for (const forbidden of ["必要な場合だけ準備する", "長い調査の作業控え", "必要な場合だけ作業控えとして使う", "必要な場合だけ内部logにも記録する", "内部logへ論点・開始context・同じ回の骨子を準備する"]) forbidText(p, forbidden, "内部logの共通作成工程");
 }
 requireText(discussionInternalTemplate, "新規logの作成templateとしては使わない");
@@ -605,6 +606,7 @@ requireText(
 requireAbsent(skillPath("design-consult/SKILL.md"));
 
 const steeringSkill = skillPath("steering/SKILL.md");
+requireText(steeringSkill, "4-1から4-3は、三つとも見直してから、出た提案を一度に示す。重なる提案は一つにまとめる。一往復に示す数と並べ方は、[round-trip.md](../facilitate-discussion/round-trip.md)に従う。");
 const thinkThroughSkill = skillPath("think-through/SKILL.md");
 for (const expected of [
   "既存designを引き継ぐdesign phase",
@@ -885,6 +887,8 @@ for (const relativePath of agentDerivedSkills) {
   requireText(relativePath, "Codex");
 }
 requireText(skillPath("tasklist-executor/SKILL.md"), "tasklist、DoD判定、checkbox、child結果の転記を更新するのはこのskillだけ");
+requireText(skillPath("tasklist-executor/SKILL.md"), "`escalate-plugin-skill-fix`へ[保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)を依頼");
+requireText(skillPath("facilitate-discussion/templates/proposal-sections/README.md"), "埋め込みを囲むfenceを `` ```` `` のように内側より長くする。diffの文脈行のように先頭に空白がある `` ``` `` の行も、同じ長さのfenceを閉じる。");
 requireText(skillPath("tasklist-executor/SKILL.md"), "確認の途中で確認の対象（code、依存の宣言、設定）を変えたら、変更を対象へ載せてから（起動・build・deploy をし直してから）、その確認を最初の手順からやり直し");
 requireText(skillPath("tasklist-executor/SKILL.md"), "変える前に通った手順の結果は、変えた後の対象について通過したことにならない");
 requireText(skillPath("tasklist-executor/SKILL.md"), "確認のために、作業を破棄しても残る場所（本番の環境、他の人や他の app と共用の DB 等）へデータを作ったら、確認の中で消し、消えたことを確かめてから `[x]`");
@@ -1236,22 +1240,51 @@ for (const expected of [
 const discussionResolve = skillPath("facilitate-discussion/resolve-discussion.md");
 const discussionRead = skillPath("facilitate-discussion/read-discussion.md");
 const discussionSplit = skillPath("facilitate-discussion/split-discussion.md");
-const derivedChanges = skillPath("facilitate-discussion/derived-change.md");
+const discussionRoundTrip = skillPath("facilitate-discussion/round-trip.md");
 const pendingEscalations = skillPath("escalate-plugin-skill-fix/pending-escalations.md");
 const pendingTemplate = skillPath("escalate-plugin-skill-fix/templates/pending-escalation.md");
 const temporaryOverrides = skillPath("maintenance-plugin-context/temporary-overrides.md");
 const overrideTemplate = skillPath("maintenance-plugin-context/templates/temporary-override.md");
 const discussionHelper = skillPath("facilitate-discussion/scripts/inspect-discussion.mjs");
 const discussionHelperTest = skillPath("facilitate-discussion/scripts/inspect-discussion.test.mjs");
-const newFunctionalFiles = [discussionResolve, discussionRead, discussionSplit, derivedChanges, pendingEscalations, pendingTemplate, temporaryOverrides, overrideTemplate, discussionHelper, discussionHelperTest];
+const newFunctionalFiles = [discussionResolve, discussionRead, discussionSplit, discussionRoundTrip, pendingEscalations, pendingTemplate, temporaryOverrides, overrideTemplate, discussionHelper, discussionHelperTest];
 for (const path of newFunctionalFiles) requireExists(path);
 requireText(discussionResolve, "# 議論記録");
 requireText(discussionResolve, "### 解決の完了gate");
 requireText(discussionRead, "末尾提示・原文応答・現在state・親子と根拠を判断する");
-for (const name of ["resolve-discussion.md", "read-discussion.md", "split-discussion.md", "derived-change.md"]) requireText(discussionSkill, name);
+for (const name of ["resolve-discussion.md", "read-discussion.md", "split-discussion.md", "round-trip.md"]) requireText(discussionSkill, name);
 for (const expected of ["next_offset", "needs_full_read", "snapshot", "compare", "全chunk", "独立構成前"]) requireText(discussionRead, expected);
 for (const expected of ["10件を超えた", "最大番号+1", "check-candidate", "原文fileを削除", "自動修復"]) requireText(discussionSplit, expected);
-for (const expected of ["明示委託", "次の実応答", "変更内容", "現在の変更", "原文", "部分反映"]) requireText(derivedChanges, expected);
+// 論点の重さで一往復を組み、既決・委託から導ける変更も仮決めとして問う。導出を報告で扱うfileは無くした。
+requireAbsent(skillPath("facilitate-discussion/derived-change.md"));
+for (const p of [discussionSkill, discussionIteration]) forbidText(p, "derived-change.md", "無くした導出変更fileへの参照");
+for (const expected of [
+  "一つずつ考える",
+  "まとめて考える",
+  "確かめるだけ",
+  "3つまで。確かめるだけを混ぜても合わせて3つまで",
+  "応答を受けて回を重ねた論点は、段によらず一往復に1つで示す",
+  "利用者の前提への依存を小にするのは、根拠を名指せる時だけにする",
+  "前例から答えが一つに決まっても、問わずに決めない",
+  "該当する案の行の末尾に「（仮決め）」「（推奨）」と付ける",
+  "「ok」は「全部ok」の別名",
+  "返事は、名指された論点だけを、その答えとして扱う",
+  "採らなかった案と理由は、論点ごとに議論記録の提案と検討記録へ残す",
+]) requireText(discussionRoundTrip, expected);
+for (const expected of ["論点は、わかった時点で立てる", "依存先待ち", "利用者が明示委託した範囲の選択も含む", "意味を変えない機械的適用・誤字・format・link修正"]) requireText(discussionSkill, expected);
+forbidText(discussionSkill, "同じturnで次decisionを確定しない", "一論点ずつ選ぶ前提の旧い確定");
+for (const expected of ["### 修正と反映を追跡する", "利用者が修正を一意に指定し、既存権限内であれば再承認を求めず反映できる", "部分反映や検証失敗を全件反映済みにしない"]) requireText(discussionIteration, expected);
+for (const expected of ["**重さ:**", "**依存先:**", "以前の記録で、導出・委託した変更の報告に使った保存形である"]) requireText(discussionTemplate, expected);
+requireText(discussionHelper, "依存先待ち");
+requireText(advancingDiscussionDoc, "## 補助: 一つずつ考える論点と、まとめてよい論点を分ける");
+forbidText(advancingDiscussionDoc, "採否を問わず、導いた結果として報告する", "既決から決まる論点を問わずに決める旧い補助");
+requireText(taskDesignSkill, "ユーザーへ問わなければ確定しないTBDは、識別した時点で`facilitate-discussion`へ渡し");
+forbidText(taskDesignSkill, "この時点ではdiscussion fileの論点・提案・親子関係を組み立てない", "初稿で論点を組み立てない旧い前提");
+// 保留したplugin改善は、再開条件が成り立ちうる時点だけで確かめ直し、状態の変わらない知らせを出さない。
+for (const expected of ["taskやphaseの完了、executorの停止、作業の再開のたびには依頼しない", "確かめ直して状態が変わらない時は、利用者へ何も伝えない"]) requireText(pendingEscalations, expected);
+forbidText(skillPath("tasklist-executor/SKILL.md"), "task／phaseの既存完了条件を実測して次へ進む時は", "taskごとの保留の確かめ直し");
+requireText(steeringSkill, "steeringが依頼するのは、元作業全体を完了する時だけ");
+forbidText(steeringSkill, "その成立証拠で同じ作業の保留条件を再確認してから", "phaseごとの保留の確かめ直し");
 requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り替える前の保留判定\n", "\n## plugin repositoryの判定\n"], "起動後・repository判定前の保留判定");
 // 利用者の確かめを実行許可の画面に当てず、合意の原文を実行するagentへ渡す。
 requireText(skillPath("task-design/SKILL.md"), "実行環境の実行許可の画面（agentがtoolを実行する前に利用者へ出す確認）を、利用者が確かめる手段にしない。");
@@ -1288,7 +1321,6 @@ requireText(escalateSkill, "pending-escalations.md");
 // 独立実操作で検出した到達不能・出典切れの修復条件。
 for (const expected of ["分割済み記録を更新する", "通常のresolve/compareを呼ばない", "実体pathとSHA-256", "design等から旧入口"]) requireText(discussionSplit, expected);
 for (const path of [pendingEscalations, temporaryOverrides]) requireText(path, "保存先fileから相対pathを実解決");
-for (const expected of ["候補を比較", "選定理由", "報告した実際の問いまたは完了reviewと版"]) requireText(derivedChanges, expected);
 
 requireText(discussionResolve, "`.md`以外の拡張子や拡張子なしを追加拒否しない");
 requireText(discussionSplit, "## 元fileと最終directoryが同pathになる場合");
@@ -1369,6 +1401,7 @@ requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: �
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "## 補助: 「後からでもできる」は、延期の間に作られるものを数えてから使う");
 requireText(thinkStandardsPath("starting_to_think.md"), "## 補助: 到達点は「間違いが無いこと」ではなく「機能すること」に置き、今の視座で届く限界を目指す");
 requireText(thinkStandardsPath("questioning_existing.md"), "必然性があり配置も正しいが中身の一部が誤っている（直す）");
+requireText(thinkStandardsPath("questioning_existing.md"), "- 正しい判断のための問い: **「参照元が読みに来る中身は、参照元へ移すと成り立たなくなるか」**");
 requireText(thinkStandardsPath("questioning_existing.md"), "- 正しい判断のための問い: 「規則を広げる時、引き継ぐのは目的か手段か。その手段は、当時の運用が無くても目的に要るか」");
 requireText(taskDesignSkill, "この中間の確認は、実行して初めて得られる状態を見るものか。それとも案への合意を取るものか");
 requireText(thinkStandardsPath("making_and_choosing_options.md"), "既存の構造から作業対象を列挙し、各対象に中身があるかを確かめずに含める");

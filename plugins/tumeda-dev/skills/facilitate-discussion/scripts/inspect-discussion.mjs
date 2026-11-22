@@ -171,7 +171,7 @@ function current(record) {
         topic.status === "反映済み" ? /^現在の変更(?:（|\s|$)/u : null;
       // 終端statusだけを根拠に本文を省かない。結果型と非空本文を確認し、意味判断はcallerへ残す。
       const missingResult = requiredResult && !results.some(section => requiredResult.test(section.title) && hasBody(section));
-      const knownStatus = !topic.status || /^(応答待ち|調査中|子論点待ち|決定|保留|分解済み|提案中|反映待ち|反映済み)$/u.test(topic.status);
+      const knownStatus = !topic.status || /^(応答待ち|調査中|依存先待ち|子論点待ち|決定|保留|分解済み|提案中|反映待ち|反映済み)$/u.test(topic.status);
       if (unknown.length || !knownStatus || missingResult || (!iterations.length && !results.length)) {
         needsFullRead.push(document.path); continue;
       }

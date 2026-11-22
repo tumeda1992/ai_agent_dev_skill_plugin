@@ -223,16 +223,17 @@ task-designのresultと対応fileのidentityだけを検証する。内容設計
 
 resultとfileが矛盾する、両planが併存する、planからdesignへ戻るfeedbackが未解消、またはplanlessのzero stateを満たさない場合は、同じworking directoryでtask-designを再開する。
 
-上のidentityと正本の対応を照合できた後、次のphaseへ進む前に、元作業の場所と確認済みの状態・実証拠を
-`escalate-plugin-skill-fix`へ渡して[保留条件を再確認する](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)。
-同じ作業の再開時も、既存の記録とphase状態を照合してから依頼し、返却resultだけで成立を通知しない。
-元作業全体を完了する時にも同じ処理へ完了記録を渡す。暫定指示の管理への通知や追加承認とは区別する。
+保留したplugin改善のメモは、再開条件が成り立ちうる状態遷移の時だけ確かめ直す（[保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)）。
+steeringが依頼するのは、元作業全体を完了する時だけであり、元作業の場所と完了記録・実証拠を`escalate-plugin-skill-fix`へ渡す。
+ready resultの照合後、作業の再開時、executorの停止時には依頼しない。返却resultだけで成立を通知しない。暫定指示の管理への通知や追加承認とは区別する。
 
 task-designからready resultが返った直後に実装、子steering起動、またはplanless完了へ進まない。次のStep 4を必ず先に完了する。
 
 ## Ready result後の必須gate
 
 `tasklist_ready | roadmap_ready | planless_complete`のどのresultでも、返却直後に必ず実行する。plan resultでは実装開始確認より先、planless resultでは完了報告より先に置く。「早く次へ進みたい」ことを理由に省略しない。
+
+4-1から4-3は、三つとも見直してから、出た提案を一度に示す。重なる提案は一つにまとめる。一往復に示す数と並べ方は、[round-trip.md](../facilitate-discussion/round-trip.md)に従う。見直しごとに示すと、確かめるだけの提案でも見直しの数だけ往復が増える。
 
 #### 4-1. doc-enricherを提案modeで起動する
 
@@ -311,9 +312,6 @@ executorがどの停止理由で返しても、返却resultだけで次の判断
 - `artifact_directory`にrequest / result artifactがあれば読む。
 - 読んだ内容が`design.md`と食い違う場合、実装を進める前に`実装完了後review`へ回す。
 
-上の正本とartifactの照合を終えてから、[保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)へ、
-元作業の場所と確認済みの状態・実証拠を渡す。不一致や未確認の完了を成立証拠にせず、該当するreview・追加確認へ戻す。
-
 根拠は`tasklist-executor/execution-contracts.md`の`状態の正本とsingle writer`にある。taskの完了状態の正本はtasklistの`[ ]` / `[x]`、child処理の状態の正本はrequest / result artifactと定められ、返却resultはこの列挙に含まれない。
 
 #### 6-2. roadmap runtime orchestrationを行う
@@ -325,7 +323,7 @@ roadmapの依存DAGを読み、未着手かつ依存完了済みのphaseを選�
 3. 子steeringへ親roadmap path、phase identity、親design path、dependency resultsを渡す。
 4. 子steeringも自身のrootを`create_working_dir=false`で子task-designへ渡す。子task-designは`tasklist_ready`、nestedな`roadmap_ready`、または`planless_complete`を返せる。
 5. leafはtasklist-executorの完了result、compositeは全子phaseの完了、planlessは子steeringの共通gateと完了報告を確認する。
-6. 対応phaseのstatusと完了日だけを更新し、その成立証拠で同じ作業の保留条件を再確認してから、次の依存可能phaseへ進む。
+6. 対応phaseのstatusと完了日だけを更新し、次の依存可能phaseへ進む。子steeringで生じた保留メモは、その子steeringが自身の完了時に確かめ直す。
 7. 全phase完了は、全phaseのstatusが`完了`で、各phaseに完了日があることを確認して判定し、composite完了を一段上の親roadmapへ伝播する。
 
 steeringが更新できるroadmap fieldは、子steering path、status、完了日だけである。目的、scope、scope外、DoD、依存、phase identityを変える必要がある場合は直接編集せず、同じdirectoryでtask-designを`create_working_dir=false`として再開する。
