@@ -2,7 +2,7 @@
 
 作業の公開（commit、push、PR、merge、既定branchのpush、`Closes`）を定める記述を、今ある場所ごとに並べ、行き先を決める。
 
-論点1の決定で、対象はplugin repository自身の作業の公開に絞られた。L1〜L5とP6〜P8が対象である。利用先repositoryの文脈の記述（L6〜L23）と、利用先に効くpluginの記述（P1〜P5、P9、P10）は対象外であり、変えない（KEEP）。下の分類のうち、対象外の行に書いた論点は、論点1を決め直す前のものである。分類は [`function_migration_policy.md`](../../../../plugins/tumeda-dev/docs/common_standard/function_migration_policy.md) の `KEEP | MOVE | ADAPT | ADD | CHANGE | RETIRE` を使う。行き先が論点で決まるものは、分類の欄に論点を書く。
+論点1・論点6の決定で、対象はescalate経由のplugin repositoryの作業の取り込みに絞られた。対象行はL1〜L5とP7であり、L1・L2・L4・L5はKEEP、L3とP7がCHANGEである。P6・P8はKEEP。利用先repositoryの文脈の記述（L6〜L23）と、利用先に効くpluginの記述（P1〜P5、P9、P10）は対象外であり、変えない（KEEP）。下の分類欄のうち、対象外の行に書いた論点は、対象を絞る前のものである。
 
 ## 移行前の基準
 
@@ -20,10 +20,10 @@
 | ID | 今の場所 | 原文 | 分類 |
 | --- | --- | --- | --- |
 | L1 | plugin repository `Git / GitHub公開条件` | remote: `origin` は `ssh://git@github.com/tumeda1992/ai_agent_dev_skill_plugin.git`。 | KEEP（repositoryのfact） |
-| L2 | 同 | default branch: `main`。default branchの上で直接commitしない。作業はbranchで行う。 | 既定branchの名前はKEEP。「直接commitしない、branchで行う」は論点9 |
-| L3 | 同 | `escalate-plugin-skill-fix`で引き渡された作業は、同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。 | CHANGE（論点1・論点4: escalate経由もPRを記録として作る）。文脈から消すかは論点7 |
+| L2 | 同 | default branch: `main`。default branchの上で直接commitしない。作業はbranchで行う。 | KEEP（論点9は取り下げ） |
+| L3 | 同 | `escalate-plugin-skill-fix`で引き渡された作業は、同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。 | CHANGE（論点1・論点4・論点7: escalate経由もPRを記録として作る規則に変わり、文脈からは消す。規則は`integrate-plugin-changes.md`が持つ。commit `e31e14b`） |
 | L4 | 同 | PR作成script: `scripts/for_local/github/create_or_get_pr.sh`。（以下、symlinkの注意書き二行） | KEEP（repositoryのfact） |
-| L5 | plugin repository `Branch / issue 契約` | なし。利用先repositoryからの提案が起点になるため、issue番号のような安定した識別子を持たない。branch名はsteering directoryのbasenameに揃える。 | 論点7 |
+| L5 | plugin repository `Branch / issue 契約` | なし。利用先repositoryからの提案が起点になるため、issue番号のような安定した識別子を持たない。branch名はsteering directoryのbasenameに揃える。 | KEEP（論点7で対象から外れた。plugin repositoryの作業はissueを持つことがあるが、この作業では変えない） |
 | L6 | fortune_calculator `Git / GitHub公開条件` | remote: `origin` は GitHub の `tumeda1992/fortune_calculator`（private）。 | KEEP |
 | L7 | 同 | default branch: `master`。default branch の上で直接 commit しない。作業は issue の branch で行う。 | 既定branchの名前はKEEP。残りは論点9 |
 | L8 | 同 | commit・push・PR の作成は、利用者が頼んだ時だけ行う。 | CHANGE（論点2: 作業の終わりにPRの作成まで毎回行う規則に置き換わる。文脈からは消す） |
@@ -52,8 +52,8 @@
 | P3 | `task-design/tasklist-design.md`「利用者にしかできない操作」 | PRのmerge、既定branchへのmerge（どちらを禁じるかは、repositoryのcontext fileとpluginの規則が決める） | 論点3 |
 | P4 | `task-design/templates/tasklist.md` | commit section、push・PR sectionを生成する条件のcomment | ADAPT（論点2） |
 | P5 | `maintenance-plugin-context/SKILL.md` | task-designは…UI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込みを必要factとして要求できる。 | 論点7 |
-| P6 | `steering/SKILL.md` 5-1 | `planless_complete`の完了報告。公開の段を持たない | 論点5 |
-| P7 | `escalate-plugin-skill-fix/integrate-plugin-changes.md` | PRを経由せず次の4stepで`main`へ取り込む。…PRを経由しないのは… | CHANGE（論点1・論点4: PRを記録として作り、mergeは手元で行う）。置き場は論点6 |
-| P8 | `docs/development_standards/development_flow/branch_pr_issue.md` | `Closes`、二つのmerge経路、branch名の原則。形式は利用先が宣言する | KEEP。論点6で置き場の候補 |
+| P6 | `steering/SKILL.md` 5-1 | `planless_complete`の完了報告。公開の段を持たない | KEEP（論点5は取り下げ） |
+| P7 | `escalate-plugin-skill-fix/integrate-plugin-changes.md` | PRを経由せず次の4stepで`main`へ取り込む。…PRを経由しないのは… | CHANGE（論点1・論点6・論点10: PRを記録として作り、手元で`--no-ff`のmergeを行う。escalateの内部指示のまま。commit `e31e14b`） |
+| P8 | `docs/development_standards/development_flow/branch_pr_issue.md` | `Closes`、二つのmerge経路、branch名の原則。形式は利用先が宣言する | KEEP |
 | P9 | `share-work-in-progress/SKILL.md` | 動作確認の前に今のbranchを見せるためのcommit・push・PR | KEEP（作業の終わりの公開とは別の場面） |
 | P10 | `steering/SKILL.md`、`tasklist-executor/SKILL.md`、`tasklist-design.md` | 動作確認が完了する前にcommit・push・PRを行わない（確認環境と作業の外へ残るactionの例外を除く） | KEEP |

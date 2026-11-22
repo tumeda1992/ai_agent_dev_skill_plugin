@@ -1,5 +1,15 @@
 # 議論記録
 
+## skill-update-review の結果（編集後、2026-11-22）
+
+対象: commit `e31e14b`後の`escalate-plugin-skill-fix/SKILL.md`と内部指示（`integrate-plugin-changes.md`、`pending-escalations.md`）、commit `3d78cdb`後の`facilitate-discussion/round-trip.md`。全体を読んだ。
+
+結果: 候補なし。
+
+- `integrate-plugin-changes.md`は、冒頭でescalate経由の作業だけを対象にすると書いた。設計時の候補の根拠だった「escalate経由でない作業という他の呼び手」は、論点6の決定で無くなった。取り込みと反映は、既に独立した内部指示として、escalateの引渡しとは別のfileにある。
+- mergeの方法を変える変更caseを当てると、直す先は`integrate-plugin-changes.md`の「mainへ取り込む」だけである。`SKILL.md`の一文は「PRを記録として作り、手元で取り込む」までしか言わず、方法を持たない。
+- `round-trip.md`の変更は、chatの示し方の一文であり、一往復の組を選ぶ工程の判断・状態・完了条件は変わらない。
+
 ## 論点1: 設計の骨格 — 何を変え、何を変えず、どの順で決めるか
 
 **ステータス:** 決定
