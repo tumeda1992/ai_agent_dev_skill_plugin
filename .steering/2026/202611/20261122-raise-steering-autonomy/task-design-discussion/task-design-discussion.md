@@ -29,7 +29,7 @@
 - [論点25: 一意な導出を外した後の`derived-change.md`をどうするか](task-design-discussion-21-25.md#論点25-一意な導出を外した後のderived-changemdをどうするか)
 - [論点26: `facilitate-discussion/SKILL.md`の差分](task-design-discussion-26-30.md#論点26-facilitate-discussionskillmdの差分)
 - [論点27: `facilitate-discussion/iteration.md`の差分](task-design-discussion-26-30.md#論点27-facilitate-discussioniterationmdの差分)
-- [論点28: `derived-change.md`の中身の差分](task-design-discussion-26-30.md#論点28-derived-changemdの中身の差分)
+- [論点28: `derived-change.md`を消し、各文の行き先を照合する](task-design-discussion-26-30.md#論点28-derived-changemdを消し各文の行き先を照合する)
 - [論点29: 論点metadataの欄と「依存先待ち」の、templateと検査helperの差分](task-design-discussion-26-30.md#論点29-論点metadataの欄と依存先待ちのtemplateと検査helperの差分)
 - [論点30: `task-design/SKILL.md`のStep 1・Step 3の差分](task-design-discussion-26-30.md#論点30-task-designskillmdのstep-1step-3の差分)
 - [論点31: 保留の確かめ直しと知らせの変更集合](task-design-discussion-31-35.md#論点31-保留の確かめ直しと知らせの変更集合)
