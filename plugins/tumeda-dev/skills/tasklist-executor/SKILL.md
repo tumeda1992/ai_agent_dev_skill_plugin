@@ -199,6 +199,6 @@ Codexでは親sessionがこのskillをchildとして起動し、必須入力を�
 
 ## 元作業の完了を暫定指示の管理へ通知する
 
-このskillが単独で元作業の完了ownerを担い、既存workflowの完了条件を実際に満たした場合だけ、同じ完了記録で保留条件の再確認を依頼した上で、既存完了記録のpath・根拠と元作業のexactな場所を`maintenance-plugin-context`へ渡す。
+このskillが単独で元作業の完了ownerを担い、既存workflowの完了条件を実際に満たした場合だけ、同じ完了記録で`escalate-plugin-skill-fix`へ[保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)を依頼した上で、既存完了記録のpath・根拠と元作業のexactな場所を`maintenance-plugin-context`へ渡す。
 steering配下など別ownerが元作業を継続する場合はその担当へ結果を返し、元作業完了とは通知しない。
 一skill呼出しの終了、session終了、中断、承認待ち、引渡しは元作業完了ではない。終了判断と履歴保存は管理担当が持ち、この通知のための追加承認gateを設けない。

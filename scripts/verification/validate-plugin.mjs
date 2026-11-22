@@ -885,6 +885,8 @@ for (const relativePath of agentDerivedSkills) {
   requireText(relativePath, "Codex");
 }
 requireText(skillPath("tasklist-executor/SKILL.md"), "tasklist、DoD判定、checkbox、child結果の転記を更新するのはこのskillだけ");
+requireText(skillPath("tasklist-executor/SKILL.md"), "`escalate-plugin-skill-fix`へ[保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)を依頼");
+requireText(skillPath("facilitate-discussion/templates/proposal-sections/README.md"), "埋め込みを囲むfenceを `` ```` `` のように内側より長くする。diffの文脈行のように先頭に空白がある `` ``` `` の行も、同じ長さのfenceを閉じる。");
 requireText(skillPath("tasklist-executor/SKILL.md"), "確認の途中で確認の対象（code、依存の宣言、設定）を変えたら、変更を対象へ載せてから（起動・build・deploy をし直してから）、その確認を最初の手順からやり直し");
 requireText(skillPath("tasklist-executor/SKILL.md"), "変える前に通った手順の結果は、変えた後の対象について通過したことにならない");
 requireText(skillPath("tasklist-executor/SKILL.md"), "確認のために、作業を破棄しても残る場所（本番の環境、他の人や他の app と共用の DB 等）へデータを作ったら、確認の中で消し、消えたことを確かめてから `[x]`");
