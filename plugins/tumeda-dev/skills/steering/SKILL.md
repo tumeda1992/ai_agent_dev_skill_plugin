@@ -285,6 +285,8 @@ reviewに必要な履歴はfull取得を全chunkで補う。
 
 `planless_complete`では実行するplanがない。実行開始確認、tasklist-executor、子steering dispatchへ進まず、`design_path`、task-design内で適用した変更とvalidationの要約、planを作らなかった理由、Step 4のreview結果を示してsteeringを完了する。
 
+完了報告の前に、task-design内で適用した変更を公開する。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく[`tasklist-design.md`の「実装後feedbackと公開action」](../task-design/tasklist-design.md#実装後feedbackと公開action)に従い、ここへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。escalate経由の作業では、続けて[取り込みと反映](../escalate-plugin-skill-fix/integrate-plugin-changes.md)に従う。完了報告には、公開した先（PRのURL）か、公開しなかった理由を含める。
+
 #### 5-2. planの実行開始をユーザーへ確認する
 
 `tasklist_ready | roadmap_ready`では、ready result、主要成果物、Step 4のreview結果を示した後でのみ、tasklist実装またはroadmap tree実行を開始するかユーザーの明示確認を自然言語で得る。

@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "9.1.6";
+const expectedRelease = "9.1.7";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -294,6 +294,8 @@ for (const expected of [
 ]) requireText(discussionSkill, expected);
 requireText(discussionSkill, "提案に図・表・構成や変更の一覧を含める時は、その一行ずつに、その行を消すか別の値にしても論点の問いへの答えとして提案が成り立つかを問う。");
 requireText(discussionSkill, "一続きの例も同じである。例えば、問いの示し方、返事の読み方、記録の仕方を一つの例で通して見せると、例が一つなので問いも一つに見える。");
+requireText(discussionSkill, "利用者の発言から推して書いた行も同じである。");
+requireText(skillPath("task-design/SKILL.md"), "同じ主題を過去に決めた作業の決定と理由。同じrepositoryの`.steering/`の議論記録の「決定」の節を、主題の語で探す");
 
 for (const expected of [
   "templates/proposal-sections/README.md",
@@ -606,6 +608,9 @@ requireText(
 requireAbsent(skillPath("design-consult/SKILL.md"));
 
 const steeringSkill = skillPath("steering/SKILL.md");
+requireText(steeringSkill, "完了報告の前に、task-design内で適用した変更を公開する。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく[`tasklist-design.md`の「実装後feedbackと公開action」](../task-design/tasklist-design.md#実装後feedbackと公開action)に従い、ここへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。");
+requireText(skillPath("facilitate-discussion/round-trip.md"), "論点の段はchatに示さない。段は一往復の組を選ぶためのものであり、利用者が気になれば議論記録の`**重さ:**`を読む。");
+forbidText(skillPath("facilitate-discussion/round-trip.md"), "各論点の番号と段");
 requireText(steeringSkill, "4-1から4-3は、三つとも見直してから、出た提案を一度に示す。重なる提案は一つにまとめる。一往復に示す数と並べ方は、[round-trip.md](../facilitate-discussion/round-trip.md)に従う。");
 const thinkThroughSkill = skillPath("think-through/SKILL.md");
 for (const expected of [
@@ -1166,15 +1171,21 @@ requireText(escalateSkill, "### plugin repositoryでの作業完了後の取り�
 // 取り込みと反映はescalateの内部指示が持つ。SKILL.mdは見出しと参照を残す（contextが見出しの名前で指す）。
 const escalateIntegration = skillPath("escalate-plugin-skill-fix/integrate-plugin-changes.md");
 requireExists(escalateIntegration);
-requireText(escalateSkill, "[取り込みと反映](integrate-plugin-changes.md)に従い、PRを経由せず`main`へ取り込み、pluginをupdateする。");
+requireText(escalateSkill, "[取り込みと反映](integrate-plugin-changes.md)に従い、PRを記録として作り、手元で`main`へ取り込み、pluginをupdateする。");
+requireText(escalateSkill, "反映する操作は[取り込みと反映](integrate-plugin-changes.md)の8に従う。");
 requireText(escalateIntegration, "作業branchを`main`へmergeする");
 requireText(escalateIntegration, "## pluginをupdateする");
 requireText(escalateIntegration, "installされたpluginのcommitが`main`の先端と一致することを確かめる");
-requireText(escalateIntegration, "利用者へ依頼するのは、agentから実行できない7の操作だけである");
+requireText(escalateIntegration, "利用者へ依頼するのは、agentから実行できない8の操作だけである");
+requireText(escalateIntegration, "escalate経由でないplugin repositoryの作業は、この流れに従わない。");
+requireText(escalateIntegration, "`git merge --no-ff <作業branch>`で、作業branchを`main`へmergeする。merge commitのmessageは「Merge pull request #<PR番号>: <PRの題名>」にする。");
+requireText(escalateIntegration, "PRを作るのは、どの変更がひとまとまりかを記録するためである。");
+requireText(escalateIntegration, "GitHub上でPRをmergeする操作は、assistantが行わない。");
+forbidText(escalateIntegration, "PRを経由せず");
 forbidText(escalateSkill, "修正後のskillで動きたい場合は、sessionをresumeする");
-// contextのGit運用は、escalateの取り込み（PRを経由しないmerge）と食い違わない。
+// escalate経由の取り込みの規則はescalateが持つ。利用先へ配る文脈のtemplateに写さない。
 requireText(contextTemplate, "default branchの上で直接commitしない。作業はbranchで行う。");
-requireText(contextTemplate, "同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。");
+forbidText(contextTemplate, "plugin repositoryでの作業完了後の取り込み");
 forbidText(contextTemplate, "commitとpushをdefault branchへ直接行わない");
 
 requireText(steeringSkill, "## Blocker resolution");

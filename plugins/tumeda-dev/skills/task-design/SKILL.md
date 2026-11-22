@@ -505,6 +505,7 @@ task-designは確認済みのexactなactive topicと次の一問から既存work
    - 例外処理
    - test pattern
    - layer・責務境界
+   - 同じ主題を過去に決めた作業の決定と理由。同じrepositoryの`.steering/`の議論記録の「決定」の節を、主題の語で探す（探し方は`facilitate-discussion/round-trip.md`の「根拠にする前例を探す」の3と同じ）。過去の決定を知らないまま骨格を書くと、利用者は同じ議論をもう一度することになる
 3. 変更対象fileを説明している既存docsを、file種別を問わず先に探す。見つかった場合は、変更後に不正確になる記述がないかを確認し、不正確になる記述を`design.md`の変更対象へ含める。docsに答えがない場合だけ既存の関連実装へ進む。たとえばGraphQL mutationまたはCommandの変更・追加では、関連moduleのREADMEを先に読み、orchestration patternを把握する。確認する観点は「どのdomain aggregateが、どのlayerで、どのように組み合わされているか」である。
 4. codeを読んで初めて分かった永続性とレバレッジの高い知識は、次回codeを読まずに済むよう、contextが熱いうちに`doc-enricher`へ即座に渡す。codeを読むたびにcontextを消費するため、既存READMEまたは既存docsへessenceがあれば次回の調査を省ける。`doc-enricher`の提案とユーザーの承認・拒否判断までをその場で完了し、別taskへ先送りしない。書込みは承認された場合だけ行う。
 5. UI挙動・表示を変える場合は、pluginの`visual-inspector`をchildとして使い、現状の画面を実測する。codeからの推測を画面事実としてdesignへ書かない。確認例は、headerが固定されているか、scroll時の挙動、layout崩れである。Playwright toolを直接呼ばず、必ずpluginの`visual-inspector` skillを使う。
