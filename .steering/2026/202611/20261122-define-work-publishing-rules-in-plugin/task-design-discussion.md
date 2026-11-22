@@ -94,7 +94,7 @@ assistantは、sessionの上限で止まった後の再開だったため、提�
 
 ## 論点2: 作業の終わりに、公開をどこまで必ず行うか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -136,15 +136,63 @@ issue #2の終わりの「PRはいつもいるっていう手順にしてなか�
 
 #### 提案0へのフィードバック（論点2）
 
+**結果:** a を採用
+
+> ok
+
+一件だけを示した往復への「ok」であり、推した案aへの同意として読む。
+
+### 決定（論点2）
+
+作業の終わりに、assistantは利用者に聞かずに、commit → 作業branchのpush → PRの作成まで行う。PRの`Closes`は`branch_pr_issue.md`に従う。作業の終わりは、tasklistがある作業では利用者の確認と最後のtaskが終わった時、planlessの作業ではsteeringの締めくくりのreviewが終わった時である。動作確認の前にcommit・push・PRをしない規則は変えない。remoteが無い、またはGitHubでない時はcommitまで行う。実行環境が明示の指示なしのPRの作成やpushを禁じる時は、その指示に従い、行う前に利用者へ確認する。どちらの場合も、止まった所と理由を報告する。
+
+選んだ理由: 利用者の手順（「PRはいつもいる」「PR作ったうえでmainでマージしてpushする」）はPRまでを毎回の手順にしている。PRを頼まれた時だけ作る案、毎回聞く案は、PRの段で毎回往復が一つ増える。`fortune_calculator`の「頼んだ時だけ行う」は、この規則に置き換わる。
+
 ## 論点3: mergeと既定branchのpushを、誰が行うか
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
 **重さ:** 一つずつ考える（戻しにくさ: mergeが本番へ適用されるrepositoryでは、merge一回で本番が変わる。他は小）
 
-**依存先:** 論点2（どこまで公開するかが決まれば、mergeを流れに含めるかの案を作れる）
+### イテレーション0（論点3）: PRを作った後のmergeを、誰がどの条件で行うかを比べる
+
+#### 提案0（論点3）
+
+論点2で、作業の終わりにPRの作成まで毎回行うと決めた。その後の、PRのmergeと既定branchを最新にするところまでを、誰が行うかを決める。どの方法でmergeするか（GitHubでPRをmergeするか、localでmergeしてpushするか、squashか）は論点10で決める。
+
+- a. assistantが毎回mergeする。mergeが本番へ適用されるrepositoryでも同じ
+- b. assistantがmergeする。既定branchへのmergeが本番へ適用されるrepositoryでは、mergeの前に利用者へ一問だけ確認する（推奨）
+- c. assistantがmergeする。既定branchへのmergeが本番へ適用されるrepositoryでは、利用者がmergeする
+- d. 毎回、利用者がmergeする（今の`fortune_calculator`・`x_favorites`の規則を全体へ広げる）
+
+bを推す理由: 利用者の手順（「PR作ったうえでmainでマージしてpushする」）は、mergeまでを手順にしている。一方で`x_favorites`は、mainへのmergeがAmplifyの本番buildを起こすことを理由に、利用者がmergeすると issue #31 で合意している。本番への適用は戻しにくく、いつ適用するかを利用者が選べる必要がある。bは、その時だけ一問で選べるようにし、mergeの操作そのものは利用者へ渡さない。cは、本番へ適用されるrepositoryで毎回利用者の手作業が残る。aは、作業の終わりのたびに利用者の知らないうちに本番が変わる。
+
+本番へ適用されるかは、repositoryのfactとして文脈に書く（論点7）。書かれていないrepositoryでは、適用されないものとして扱う案にする。
+
+#### 検討記録（論点3・イテレーション0）
+
+##### 今の規則
+
+- `fortune_calculator`: 「PR は `master` へ作る。merge は利用者が行う。」（[contract-ledger.md](./contract-ledger.md) L9）
+- `x_favorites`: 「既定 branch（`main`）への merge は利用者が行う。assistant は merge しない。」（L14）。「`main` への merge は Amplify の本番 build を起こす。」（L17）。確認元は issue #31 の tasklist 設計での合意。
+- `nanitabe`: squash merge運用（L23）。mergeの担当は書かれていない。
+- plugin repository: escalate-plugin-skill-fix経由の作業はassistantがmainへmergeしてpushする（L3）。それ以外は書かれていない。issue #2 の作業では、利用者の指示でassistantがmergeした。
+- `tasklist-design.md`「利用者にしかできない操作」は、PRのmergeと既定branchへのmergeを禁じるかを「repositoryのcontext fileとpluginの規則が決める」としている（P3）。
+
+##### 根拠にする利用者の発言
+
+- 「PR作ったうえでmainでマージしてpushするっていう」
+- 「この規約がnanitabeとかリポジトリにあるのおかしいな。pluginが主語の話だから。pluginに書いてconsumer依存にしないで」
+
+mergeの担当をrepositoryごとの文脈で決める形は、二つ目の発言に反する。一方、mainへのmergeが本番へ適用されるかはrepositoryごとに違うfactである。b・cは、規則はpluginに一つ置き、そのfactだけを文脈から読む形になる。
+
+##### 論点を分けたもの
+
+mergeの方法（GitHubでPRをmergeするか、localでmergeしてpushするか、mergeの方式）は、assistantがmergeする時にだけ要る別の問いなので、論点10に分けた。
+
+#### 提案0へのフィードバック（論点3）
 
 ## 論点4: escalate-plugin-skill-fixから引き渡された作業も、同じ流れにするか
 
@@ -204,4 +252,14 @@ issue #2の終わりの「PRはいつもいるっていう手順にしてなか�
 
 **重さ:** 確かめるだけ（全観点が小。三つのrepositoryの文脈が同じことを書いている）
 
-**依存先:** 論点2（論点2は一つずつ考える論点のため、同じ往復に入れない。論点2の後の組で示す）
+**依存先:** 論点3（論点2・論点3は一つずつ考える論点のため、同じ往復に入れない。論点3の後の組で示す）
+
+## 論点10: assistantがmergeする時の方法
+
+**ステータス:** 依存先待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** まとめて考える（波及: 中。`nanitabe`のsquash merge運用と、mergeでissueが閉じるかに関わる。他は小）
+
+**依存先:** 論点3（assistantがmergeすると決まれば、方法の案を作れる）

@@ -24,7 +24,7 @@
 | L5 | plugin repository `Branch / issue 契約` | なし。利用先repositoryからの提案が起点になるため、issue番号のような安定した識別子を持たない。branch名はsteering directoryのbasenameに揃える。 | 論点7 |
 | L6 | fortune_calculator `Git / GitHub公開条件` | remote: `origin` は GitHub の `tumeda1992/fortune_calculator`（private）。 | KEEP |
 | L7 | 同 | default branch: `master`。default branch の上で直接 commit しない。作業は issue の branch で行う。 | 既定branchの名前はKEEP。残りは論点9 |
-| L8 | 同 | commit・push・PR の作成は、利用者が頼んだ時だけ行う。 | 論点2 |
+| L8 | 同 | commit・push・PR の作成は、利用者が頼んだ時だけ行う。 | CHANGE（論点2: 作業の終わりにPRの作成まで毎回行う規則に置き換わる。文脈からは消す） |
 | L9 | 同 | PR は `master` へ作る。merge は利用者が行う。 | 論点3 |
 | L10 | 同 | `Closes #<issue番号>` は、その PR の merge で issue の作業が終わる時だけ付ける。終わらない時は `参照: #<issue番号>` と書き、本文に issue の完了を意味しないことを書く。 | `branch_pr_issue.md` と同じ規則。論点7 |
 | L11 | 同 | PR は plugin の `scripts/github/create_or_get_pr.sh` で作る。 | `tasklist-design.md` と同じ規則。論点7 |
@@ -38,17 +38,17 @@
 | L19 | nanitabe `Git / GitHub 公開条件` | remote: `origin` は `git@github.com:tumeda1992/nanitabe.git`。（旧名の注意書き） | KEEP |
 | L20 | 同 | default branch: `main`。commit と push を default branch へ直接行わない。 | 既定branchの名前はKEEP。残りは論点9 |
 | L21 | 同 | 公開可能な branch: `feature-<issue番号>` 形式の non-default branch。 | KEEP（branchの形式。論点7で置く欄を決める） |
-| L22 | 同 | PR: `feature-<issue番号>` から `main` へ作成する。 | 論点2 |
+| L22 | 同 | PR: `feature-<issue番号>` から `main` へ作成する。 | RETIRE（論点2: PRを既定branchへ作ることはpluginの規則になる。branchの形式と既定branchの名前は他の行で残る） |
 | L23 | 同 | merge 後の main の commit title には `(#PR番号)` が付く（squash merge 運用）。 | 論点3 |
 
 ## pluginにある記述
 
 | ID | 今の場所 | 原文（要点の範囲） | 分類 |
 | --- | --- | --- | --- |
-| P1 | `task-design/tasklist-design.md`「実装後feedbackと公開action」 | 文脈にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。…該当項目が無い場合は…利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し… | 論点2 |
-| P2 | 同 | 文脈にGitHub公開条件の記載があり…current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し…該当項目が無い場合は…利用者へ確認する… | 論点2 |
+| P1 | `task-design/tasklist-design.md`「実装後feedbackと公開action」 | 文脈にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。…該当項目が無い場合は…利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し… | ADAPT（論点2: 文脈の欄の有無によらず、commit sectionを作る） |
+| P2 | 同 | 文脈にGitHub公開条件の記載があり…current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し…該当項目が無い場合は…利用者へ確認する… | ADAPT（論点2: 文脈の欄の有無によらず、push・PR sectionを作る。行えない時の扱いはdesignの「作業の公開の流れ」） |
 | P3 | `task-design/tasklist-design.md`「利用者にしかできない操作」 | PRのmerge、既定branchへのmerge（どちらを禁じるかは、repositoryのcontext fileとpluginの規則が決める） | 論点3 |
-| P4 | `task-design/templates/tasklist.md` | commit section、push・PR sectionを生成する条件のcomment | 論点2 |
+| P4 | `task-design/templates/tasklist.md` | commit section、push・PR sectionを生成する条件のcomment | ADAPT（論点2） |
 | P5 | `maintenance-plugin-context/SKILL.md` | task-designは…UI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込みを必要factとして要求できる。 | 論点7 |
 | P6 | `steering/SKILL.md` 5-1 | `planless_complete`の完了報告。公開の段を持たない | 論点5 |
 | P7 | `escalate-plugin-skill-fix/integrate-plugin-changes.md` | PRを経由せず次の4stepで`main`へ取り込む。…PRを経由しないのは… | 論点4 |

@@ -18,7 +18,7 @@ assistantは、このrepositoryにその手順が書かれていないこと、`
 
 完成後は、公開の流れをpluginが一つの規則として持つ。利用先の文脈には、remote、既定branchの名前、branchの形式、mergeが本番へ適用されるか、のようなrepositoryのfactだけが残る。
 
-TBD: 公開の流れの中身（論点2、論点3）
+作業の終わりに、assistantは利用者に聞かずに、commit → 作業branchのpush → PRの作成まで行う。TBD: PRのmergeと既定branchを最新にするところを誰が行うか（論点3）
 
 ## 完成後の姿
 
@@ -32,7 +32,24 @@ TBD: 公開の流れの中身（論点2、論点3）
 
 ### 作業の公開の流れ
 
-TBD: 作業の終わりに、誰が、どこまで、どの順で公開するか（論点2、論点3）。steeringの`planless_complete`での扱い（論点5）。escalate-plugin-skill-fixから引き渡された作業の扱い（論点4）。
+作業の終わりに、assistantは利用者に聞かずに次を行う。
+
+1. commitする。分け方は`plan-commits`に従う。
+2. 作業branchをpushする。
+3. PRを作る。`Closes`は[`branch_pr_issue.md`](../../../../plugins/tumeda-dev/docs/development_standards/development_flow/branch_pr_issue.md)に従い、このPRのmergeでissueの作業が終わる時だけ付ける。
+
+作業の終わりは、tasklistがある作業では利用者の確認と最後のtaskが終わった時、planlessの作業ではsteeringの締めくくりのreviewが終わった時である。動作確認の前にcommit・push・PRをしない規則は変えない（確認環境へ載せるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushの例外も変えない）。
+
+行えない時は、行えるところまで行い、止まった所と理由を報告する。
+
+| 状態 | 行うところ |
+| --- | --- |
+| remoteが無い、またはGitHubでない | commitまで |
+| 実行環境が、利用者の明示の指示なしのPRの作成やpushを禁じる（cloud sessionの指示等） | 実行環境の指示に従い、PRの作成・pushの前に利用者へ確認する |
+
+PRを頼まれた時だけ作る形、毎回どこまで行うかを聞く形は採らない。どちらもPRの段で作業のたびに往復が一つ増え、利用者の手順（PRを作ったうえでmergeしてpushする）と食い違う。`fortune_calculator`の「commit・push・PR の作成は、利用者が頼んだ時だけ行う」は、この規則に置き換わる。
+
+TBD: PRのmergeと既定branchを最新にするところを誰が行うか（論点3）、その方法（論点10）。steeringの`planless_complete`での置き場（論点5）。escalate-plugin-skill-fixから引き渡された作業の扱い（論点4）。steeringの`planless_complete`での扱い（論点5）。escalate-plugin-skill-fixから引き渡された作業の扱い（論点4）。
 
 ### 規則の置き場
 
@@ -47,6 +64,7 @@ TBD: 利用先の文脈とtemplateに残すfactの欄（論点7）。利用先re
 ### MUST（必達）
 
 - 作業の公開の流れを、pluginの規則として書く。pluginのworkflowは、利用先の文脈に公開の欄があるかどうかで、公開の段を出す・出さないを変えない。
+- 作業の終わりに、assistantは利用者に聞かずにcommit → 作業branchのpush → PRの作成まで行う。行えない時は行えるところまで行い、止まった所と理由を報告する。
 - 利用先の文脈には、repositoryのfactだけを残す。pluginの規則と同じことを書き写した記述を残さない。
 - TBD: 論点2〜9の決定から足す
 
