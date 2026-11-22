@@ -303,6 +303,7 @@ tasklist-executorへ`tasklist.md`と同階層の`design.md`の絶対pathを渡�
 - task、subtask、phaseを実測完了した直後に`[x]`へ更新させ、最後にまとめて更新させない。
 - tasklist-executorは親roadmapを探索・更新せず、完了resultだけをcallerへ返す。
 - tasklist内のユーザー動作確認が完了する前にcommit、push、PRへ進ませない（確認環境へ載せるために`UI確認環境`が定めるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushを除く）。
+- 利用者が合意したcommand（tasklistで合意した取り返しのつかない操作等）をtasklist-executorに実行させる時は、利用者の合意の原文と、合意したcommandの一覧をそのまま渡す。実行環境は利用者の意図を判断に使うことがある。例えば、Claude Codeのauto modeの分類器は、破壊的な操作の既定の制止を利用者の意図で解く。利用者がまだ与えていない承認や、「利用者が実行許可の画面で見る」のようなまだ起きていない確かめを、指示に事実として書かない。それでも実行環境に止められた時の扱いは`runtime-execution-contracts.md`の「実行環境gate」に従う。
 
 executorがどの停止理由で返しても、返却resultだけで次の判断をしない。この手順は`Blocker resolution`の一部ではない。dispatch先の停止はそれ自体では`blocker`ではなく、`runtime-execution-contracts.md`が定める停止理由のうち`delegation_required`、`user_confirmation_required`、`phase_checkpoint`はFlowが想定する正常停止であるため、停止理由で分岐させず全停止理由で常に行う。
 

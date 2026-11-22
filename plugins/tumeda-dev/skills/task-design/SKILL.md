@@ -682,6 +682,8 @@ document-review、機能・安全・独立した動作検証、利用者合意�
     - 判定の問い: 「この確認を、誰が、何を使って、今の環境で行えるか」
     - 手段が今の環境で使えない時は、その手段を整える作業を今回の範囲へ入れるか、確かめる担当・手段を変えるかをdesignで決める。利用者が確かめる項目に入れてよいものの判定は[`tasklist-design.md`の「実装後feedbackと公開action」](tasklist-design.md#実装後feedbackと公開action)が正本であり、ここへ写さない
     - やってしまいがちな失敗: 確認の項目を「何を見るか」だけで合意し、誰が何で見るかをtasklist設計で初めて問う。具体例: 各段の確認に「formで名前を入れると読み仮名が自動で入る」を入れてdesignを合意した。tasklistを作る段で、これはbrowserでJavaScriptを動かさないと確かめられず、画面の検査環境がrepositoryのcontextに無いと分かり、designへ戻って確かめ方を決め直した
+    - 実行環境の実行許可の画面（agentがtoolを実行する前に利用者へ出す確認）を、利用者が確かめる手段にしない。画面が出るかはpermission modeで変わる。例えば、Claude Codeのauto modeでは画面は既定で出ず、分類器がcommandを通すか止めるかを決める。利用者が見てから通すべきcommand（取り返しのつかない操作等）は、実行する形のままchatまたはtasklistで示し、利用者の明示の合意を得ることを手段にする
+    - やってしまいがちな失敗: 基盤を作る作業のdesignで、一度だけ行う操作の確かめを「利用者は各commandをtoolの実行の許可で確かめる」とした。sessionはauto modeで、Terraformのapply、secretsの登録、旧いdeployの仕組みの削除が、画面を経ずに分類器の許可で走った。結果はdesignどおりだったが、利用者はcommandを見ていなかった
     - 判断基準: 各確認について、担当、手段、その手段が使えることの根拠（例: 画面の検査環境がrepositoryのcontextに記述されている）を、テスト方針から言えるか
 
 designの要点をchatで短く示し、自然言語でreviewを依頼する。`OK`、`はい`、`進めて`等の自然な合意を受け取ればStep 5へ進み、修正ならdesignを更新して再reviewする。特定の承認keywordを強制しない。

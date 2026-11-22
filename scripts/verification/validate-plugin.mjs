@@ -1203,6 +1203,10 @@ for (const expected of ["next_offset", "needs_full_read", "snapshot", "compare",
 for (const expected of ["10件を超えた", "最大番号+1", "check-candidate", "原文fileを削除", "自動修復"]) requireText(discussionSplit, expected);
 for (const expected of ["明示委託", "次の実応答", "変更内容", "現在の変更", "原文", "部分反映"]) requireText(derivedChanges, expected);
 requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り替える前の保留判定\n", "\n## plugin repositoryの判定\n"], "起動後・repository判定前の保留判定");
+// 利用者の確かめを実行許可の画面に当てず、合意の原文を実行するagentへ渡す。
+requireText(skillPath("task-design/SKILL.md"), "実行環境の実行許可の画面（agentがtoolを実行する前に利用者へ出す確認）を、利用者が確かめる手段にしない。");
+requireText(skillPath("steering/SKILL.md"), "利用者がまだ与えていない承認や、「利用者が実行許可の画面で見る」のようなまだ起きていない確かめを、指示に事実として書かない。");
+requireText(skillPath("README.md"), "**runtime-feedback-review.md**");
 // 既定は保留、利用者が即時を指示した時だけ即時に引き渡す。
 for (const expected of [
   "即時の指示がなければ、既定どおり保留する。",
