@@ -224,6 +224,29 @@ PATCHを上げ、9.1.5を9.1.6にする。宣言値4箇所（両plugin manifest�
 
 `plugins/tumeda-dev/skills/facilitate-discussion/round-trip.md`を、下書き[`drafts/round-trip.md`](../drafts/round-trip.md)の本文で作る。下書きは、このsteeringの他の変更と一緒にpluginのpathへ移し、検査scriptのassertionと合わせて検証する。
 
+### イテレーション1（論点24）: 利用者が指定した、印の位置の追加を反映する
+
+#### 検討記録（論点24・イテレーション1）
+
+論点26〜28をまとめて示した往復の返事で、利用者はchatでの示し方を指定した。
+
+> ok。あと、
+>
+> xxx （推す案a or 仮決定a）
+> a. xxx
+> b. xxx
+> c.xxx
+>
+> より
+> xxx
+> a. xxx（仮決定 or 推奨）
+> b. xxx
+> c.xxx
+>
+> の方が読みやすい
+
+推奨・仮決めの印を、論点の行（「論点28: …（推す案: 照合表のとおり）」）ではなく、該当する案の行の末尾（「a. …（推奨）」）に付ける形である。利用者が一意に指定し、論点24の決定（`round-trip.md`の本文）の範囲内のため、`iteration.md`「修正と反映を追跡する」へ移す規則（利用者が一意に指定した修正は再承認なしで反映できる）に従い、下書き`drafts/round-trip.md`の「答え方を毎回添える」の段落へ反映した。議論記録の提案のtemplateにも同じ形を当てるかは、別の論点（論点33）で確かめる。
+
 ## 論点25: 一意な導出を外した後の`derived-change.md`をどうするか
 
 **ステータス:** 決定

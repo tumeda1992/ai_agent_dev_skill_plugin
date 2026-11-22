@@ -34,3 +34,4 @@
 - [論点30: `task-design/SKILL.md`のStep 1・Step 3の差分](task-design-discussion-26-30.md#論点30-task-designskillmdのstep-1step-3の差分)
 - [論点31: 保留の確かめ直しと知らせの変更集合](task-design-discussion-31-35.md#論点31-保留の確かめ直しと知らせの変更集合)
 - [論点32: 検査scriptのassertionとversionの差分](task-design-discussion-31-35.md#論点32-検査scriptのassertionとversionの差分)
+- [論点33: 議論記録の提案でも、推奨・仮決めの印を案の行に付けるか](task-design-discussion-31-35.md#論点33-議論記録の提案でも推奨仮決めの印を案の行に付けるか)

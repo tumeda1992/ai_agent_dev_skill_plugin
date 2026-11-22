@@ -2,7 +2,7 @@
 
 ## 論点26: `facilitate-discussion/SKILL.md`の差分
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **親論点:** 論点16
 
@@ -157,9 +157,34 @@
 
 #### 提案0へのフィードバック（論点26）
 
+**結果:** 合意。「ok」は全部の推す案への合意である。
+
+論点26・27・28を、まとめて考える論点としてまとめて示した往復への返事である。
+
+> ok。あと、
+>
+> xxx （推す案a or 仮決定a）
+> a. xxx
+> b. xxx
+> c.xxx
+>
+> より
+> xxx
+> a. xxx（仮決定 or 推奨）
+> b. xxx
+> c.xxx
+>
+> の方が読みやすい
+
+返事の後半（推奨・仮決めの印を案の行へ付ける形）は、論点24の決定（`round-trip.md`の本文）への追加として扱った。
+
+### 決定（論点26）
+
+`plugins/tumeda-dev/skills/facilitate-discussion/SKILL.md`を、提案0の差分で変える。変更後の全文は[`drafts/facilitate-discussion-SKILL.md`](../drafts/facilitate-discussion-SKILL.md)である。
+
 ## 論点27: `facilitate-discussion/iteration.md`の差分
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **親論点:** 論点16
 
@@ -254,9 +279,34 @@
 
 #### 提案0へのフィードバック（論点27）
 
+**結果:** 合意。「ok」は全部の推す案への合意である。
+
+論点26・27・28を、まとめて考える論点としてまとめて示した往復への返事である。
+
+> ok。あと、
+>
+> xxx （推す案a or 仮決定a）
+> a. xxx
+> b. xxx
+> c.xxx
+>
+> より
+> xxx
+> a. xxx（仮決定 or 推奨）
+> b. xxx
+> c.xxx
+>
+> の方が読みやすい
+
+返事の後半（推奨・仮決めの印を案の行へ付ける形）は、論点24の決定（`round-trip.md`の本文）への追加として扱った。
+
+### 決定（論点27）
+
+`plugins/tumeda-dev/skills/facilitate-discussion/iteration.md`を、提案0の差分で変える。変更後の全文は[`drafts/facilitate-discussion-iteration.md`](../drafts/facilitate-discussion-iteration.md)である。
+
 ## 論点28: `derived-change.md`を消し、各文の行き先を照合する
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **親論点:** 論点16
 
@@ -315,9 +365,34 @@
 
 #### 提案0へのフィードバック（論点28）
 
+**結果:** 合意。「ok」は全部の推す案への合意である。
+
+論点26・27・28を、まとめて考える論点としてまとめて示した往復への返事である。
+
+> ok。あと、
+>
+> xxx （推す案a or 仮決定a）
+> a. xxx
+> b. xxx
+> c.xxx
+>
+> より
+> xxx
+> a. xxx（仮決定 or 推奨）
+> b. xxx
+> c.xxx
+>
+> の方が読みやすい
+
+返事の後半（推奨・仮決めの印を案の行へ付ける形）は、論点24の決定（`round-trip.md`の本文）への追加として扱った。
+
+### 決定（論点28）
+
+`plugins/tumeda-dev/skills/facilitate-discussion/derived-change.md`を消す。各文の行き先は提案0の照合表のとおりとし、RETIRE 9件とCHANGE 2件は論点6・7・8・9・25の決定に拠る。
+
 ## 論点29: 論点metadataの欄と「依存先待ち」の、templateと検査helperの差分
 
-**ステータス:** 調査中
+**ステータス:** 応答待ち
 
 **親論点:** 論点16
 
@@ -325,13 +400,97 @@
 
 **重さ:** まとめて考える（確かめる手間: 中 — 三つのfileの差分を読む。他は小）
 
-### イテレーション0（論点29）: 論点を立てた（まだ示していない）
+### イテレーション0（論点29）: 差分を示す
 
-論点19・20の決定を、`templates/discussion_entry.md`、`scripts/inspect-discussion.mjs`、そのtestの差分で示す。
+#### 提案0（論点29）
+
+次の三つのfileを、一つの変更集合として変える。templateで状態の値と欄を足し、helperが新しい状態を既知の値として読み、testがそれを確かめる。一つでも欠けると、記録に書いた「依存先待ち」をhelperが知らない値として扱う。変更後の全文は[`drafts/c29/`](../drafts/c29/)にある。
+
+`plugins/tumeda-dev/skills/facilitate-discussion/templates/discussion_entry.md`:
+
+````diff
+@@ -6,11 +6,15 @@
+ ```markdown
+ ## 論点N: {判断内容を表すタイトル}
+ 
+-**ステータス:** {調査中 / 応答待ち / 子論点待ち / 決定 / 保留 / 分解済み / 反映待ち / 反映済み}
++**ステータス:** {調査中 / 応答待ち / 依存先待ち / 子論点待ち / 決定 / 保留 / 分解済み}
+ 
+ **親論点:** 論点M
+ 
+ **種別:** {TBDヒアリング / 認識齟齬 / レビュー指摘。複数可}
++
++**重さ:** {一つずつ考える / まとめて考える / 確かめるだけ}（{中・大の観点}: {理由}。他は小）
++
++**依存先:** 論点K（{依存先がどう決まれば、この論点の案を作れるか}）
+ ```
+ 
+ ## 回の骨子
+@@ -88,6 +92,8 @@
+ 
+ ## 変更内容
+ 
++以前の記録で、導出・委託した変更の報告に使った保存形である。新しい記録では使わない。以前の記録を読む時に、この形で読む。
++
+ ```markdown
+ ### イテレーションI（論点N）: 変更の報告
+ 
+@@ -102,6 +108,8 @@
+ 
+ ## 現在の変更
+ 
++以前の記録で、導出・委託した変更の報告と反映の状態に使った保存形である。新しい記録では使わない。以前の記録を読む時に、この形で読む。
++
+ ```markdown
+ ### 現在の変更（論点N）
+ 
+````
+
+`plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs`:
+
+````diff
+@@ -171,7 +171,7 @@
+         topic.status === "反映済み" ? /^現在の変更(?:（|\s|$)/u : null;
+       // 終端statusだけを根拠に本文を省かない。結果型と非空本文を確認し、意味判断はcallerへ残す。
+       const missingResult = requiredResult && !results.some(section => requiredResult.test(section.title) && hasBody(section));
+-      const knownStatus = !topic.status || /^(応答待ち|調査中|子論点待ち|決定|保留|分解済み|提案中|反映待ち|反映済み)$/u.test(topic.status);
++      const knownStatus = !topic.status || /^(応答待ち|調査中|依存先待ち|子論点待ち|決定|保留|分解済み|提案中|反映待ち|反映済み)$/u.test(topic.status);
+       if (unknown.length || !knownStatus || missingResult || (!iterations.length && !results.length)) {
+         needsFullRead.push(document.path); continue;
+       }
+````
+
+`plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.test.mjs`:
+
+````diff
+@@ -49,6 +49,12 @@
+   writeFileSync(join(directory, "discussion.md"), entry(1) + "### 未知の状態\n\n不明\n"); const unknown = run(directory, "read"); assert.deepEqual(unknown.needs_full_read, [join(directory, "discussion.md")]); assert.equal(unknown.complete, false);
+   writeFileSync(join(directory, "discussion.md"), entry(1) + "```\n"); assert.equal(cli(directory, "check").status, 1);
+ });
++test("依存先待ちは既知の状態として、案の無い回のまま現在を読める", t => {
++  const directory = fixture(t);
++  writeFileSync(join(directory, "discussion.md"), "# 議論記録\n\n## 論点1: 依存する問い\n\n**ステータス:** 依存先待ち\n\n**依存先:** 論点2（決まれば案を作れる）\n\n### イテレーション0（論点1）: 論点を立てた\n\nまだ示していない。\n\n" + entry(2));
++  assert.equal(run(directory, "check").problems.length, 0);
++  const current = run(directory, "read"); assert.deepEqual(current.needs_full_read, []); assert.equal(current.complete, true);
++});
+ test("重複番号、親欠落、親循環、複数親、無効番号を拒否する", t => {
+   const directory = fixture(t);
+   for (const content of [entry(1) + entry(1), entry(1, { parent: 8 }), entry(1, { parent: 2 }) + entry(2, { parent: 1 }), entry(1).replace("**ステータス:** 応答待ち", "**親論点:** 論点2\n**親論点:** 論点3"), "## 論点0: invalid\n"]) {
+````
+
+判断してほしいこと（このまとまりの中で）: この変更集合でよいか。
+
+#### 検討記録（論点29・イテレーション0）
+
+論点19・20・25の決定を、templateの論点metadataと保存形、helperの既知の状態に当てた。状態の書き込み用の一覧からは「反映待ち」「反映済み」を外し、helperの既知の値には残した。以前の記録を読む時に、知らない値として全文読取へ戻さないためである。
+
+変更後のhelperとtestを作業用の写しに置き、`node --test inspect-discussion.test.mjs`を実行した。足したtestを含め、失敗0件だった（実在の記録を読むtest 1件は、環境変数が無いため従来どおり飛ばされた）。
+
+#### 提案0へのフィードバック（論点29）
 
 ## 論点30: `task-design/SKILL.md`のStep 1・Step 3の差分
 
-**ステータス:** 調査中
+**ステータス:** 応答待ち
 
 **親論点:** 論点16
 
@@ -339,6 +498,70 @@
 
 **重さ:** まとめて考える（確かめる手間: 中 — 差分を読む。他は小）
 
-### イテレーション0（論点30）: 論点を立てた（まだ示していない）
+### イテレーション0（論点30）: 差分を示す
 
-論点16の決定の8のうち、TBDを識別したら論点として渡すことと、一つずつ選ぶ前提を改めることを、差分で示す。
+#### 提案0（論点30）
+
+`plugins/tumeda-dev/skills/task-design/SKILL.md`のStep 1・Step 2・Step 3と§4を、次の差分で変える。同じfileの保留の確かめ直しの箇所は、論点31の変更集合で変える。両方を当てた変更後の全文は[`drafts/task-design-SKILL.md`](../drafts/task-design-SKILL.md)である。
+
+````diff
+@@ -405,7 +405,7 @@
+ 
+ assistantが結論を持っている論点ほどdiscussionを外しやすい。しかしそこでは、採らなかった案と採らなかった理由がassistantの中にしか存在しない。記録を省くと、次に同じ判断へ来た者がゼロから同じ検討をやり直す。結論を持っているほど記録価値は高い。
+ 
+-`facilitate-discussion`は一つの論点でdecisionを確定するたびにtask-designへ返す。task-designはそのdecisionと具体的なhandoffが返った直後に`design.md`へ反映し、次の論点を扱う前に設計全体の不確実性と完了条件を再評価する。複数論点のdecisionを溜めて最後に一括反映しない。
++`facilitate-discussion`は一つの論点でdecisionを確定するたびにtask-designへ返す。task-designはそのdecisionと具体的なhandoffが返った直後に`design.md`へ反映し、次の論点を扱う前に設計全体の不確実性と完了条件を再評価する。複数論点のdecisionを溜めて最後に一括反映しない。まとめて示した論点の返事で複数の論点が合意された時も、`facilitate-discussion`は一論点ずつ返し、task-designは一つずつ反映して再評価する。
+ 
+ ---
+ 
+@@ -518,7 +518,7 @@
+ `templates/design.md`と`templates/outcome-sections/catalog.md`を完全に読む。catalogから今回変わる対象に必要なoutcome sectionを一つ以上選び、選んだfileも完全に読んで、task-design全体で一つの完成後の姿としてdesign.mdを初稿する。
+ - 合意済みの上位から一意に導ける部分だけ書く。思いついているだけの下位は、案ではなく `TBD:` として残す
+ - 未合意の部分は `TBD: （何が未合意か）` の形で残す
+-- 解消が必要な設計上の不確実性をTBDとして識別する。この時点ではdiscussion fileの論点・提案・親子関係を組み立てない
++- 解消が必要な設計上の不確実性をTBDとして識別する。ユーザーへ問わなければ確定しないTBDは、識別した時点で`facilitate-discussion`へ渡し、論点として立ててもらう。設計の途中で新しく識別した時も同じである。論点の採番・親子関係・依存先・重さ・提案は、task-designで組み立てず`facilitate-discussion`に委ねる
+ 
+ この時点ではまだユーザーに「レビューお願いします」を出さない。
+ 
+@@ -552,13 +552,13 @@
+ TBD 込みの初稿をユーザーに提示し、**構造への合意**を取る。
+ - 「全 TBD を埋めてください」は出さない
+ - 「この骨格でいいか」のみ問う
+-- 構造合意後、下位判断を最も多く規定する設計上の不確実性を一つ選ぶ
++- 構造合意後、Step 3で残る設計上の不確実性を解消する
+ 
+ ### Step 3. 未解消の設計判断を解消する
+ 
+ これはtask-designが所有する外側の設計loopである。discussionを選んだ後の提案、論点、iteration、feedback routing、合意は`facilitate-discussion`の内側loopであり、ここへ複製しない。
+ 
+-1. `design.md`と合意済み設計を読み、解消すると下位判断を最も多く確定できる設計上の不確実性を一つ選ぶ。
++1. `design.md`と合意済み設計を読み、残る設計上の不確実性を取り出し、それぞれに次の2〜4を当てる。解消すると下位判断を最も多く確定できるものから扱う。
+ 2. 選んだ不確実性（未決の判断、または作業中に気付いた不備）が今の作業の目的の内にあるかを、[`work_scope.md`](../../docs/development_standards/development_flow/work_scope.md) で判定する。判定の中身は同 file が正本であり、ここへ写さない。
+    - 目的の内: 次の手順へ進む。
+    - 目的の外の判断: designの論点にしない。`design.md`にTBDとして書いていた場合は外し、この判断は今回のStep 3の対象から外す。
+@@ -580,7 +580,7 @@
+ 解消手段はこの三つだけである。`確認`、`念のため聞く`、`選択肢を出して選んでもらう`は第四の手段ではなく、すべてdiscussionである。
+ 
+ 5. 選んだ手段を実行する。
+-   - discussion: §4のtask-design固有contextを渡して`facilitate-discussion`を明示適用し、内部processを委ねる。task-design側で先に提案0をchatへ出したり、論点・iteration・質問形式を組み立てたりしない。
++   - discussion: §4のtask-design固有contextを渡して`facilitate-discussion`を明示適用し、内部processを委ねる。discussionで解く不確実性は、一つずつ渡さず、まとめて渡す。一往復で示す論点の組と順は`facilitate-discussion`が決める（`facilitate-discussion/round-trip.md`）。task-design側で先に提案0をchatへ出したり、論点・iteration・質問形式を組み立てたりしない。
+    - 調査: repository contextが許可したsourceを読み、設計判断の入力になる事実を特定する。
+    - 技術検証実装: 下記の配置・運用契約に従い、実行しなければ分からない事実だけを確認する。
+ 6. discussionでは、一つの論点でdecisionが返るたびに、そのdecisionだけを`design.md`の該当箇所へ直ちに反映する。調査・技術検証実装では、確定した事実だけを反映する。未決の提案や途中経過は書かず、複数decisionを最後まで溜めない。
+````
+
+| 箇所 | 元の決定 |
+| --- | --- |
+| §4「discussionを開始する時と返却後」の、まとめた返事の合意を一つずつ返し反映する | 論点1・8・16 |
+| Step 1の、ユーザーへ問うTBDを識別した時点で論点として渡す | 論点1・16 |
+| Step 2の、構造合意後に一つ選ぶ文 | 論点16 |
+| Step 3の手順1の、一つ選ぶ前提 | 論点1・16 |
+| Step 3の手順5の、discussionで解く不確実性をまとめて渡す | 論点1・4・16 |
+
+判断してほしいこと（このまとまりの中で）: この差分でよいか。
+
+#### 検討記録（論点30・イテレーション0）
+
+論点16の決定の8のうち、Step 1とStep 3に当たる部分を差分にした。Step 1では、識別したTBDのうち、ユーザーへ問わなければ確定しないものだけを論点として渡す。調査や技術検証実装で解けるTBDは、今どおりtask-designがStep 3で解く。Step 3の手順2〜4（目的の内外、段階のscope、解消手段の選択）は、論点を渡す前に一つずつ当てる点を変えていない。
+
+#### 提案0へのフィードバック（論点30）
