@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "9.1.6";
+const expectedRelease = "9.1.7";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -1166,15 +1166,21 @@ requireText(escalateSkill, "### plugin repositoryでの作業完了後の取り�
 // 取り込みと反映はescalateの内部指示が持つ。SKILL.mdは見出しと参照を残す（contextが見出しの名前で指す）。
 const escalateIntegration = skillPath("escalate-plugin-skill-fix/integrate-plugin-changes.md");
 requireExists(escalateIntegration);
-requireText(escalateSkill, "[取り込みと反映](integrate-plugin-changes.md)に従い、PRを経由せず`main`へ取り込み、pluginをupdateする。");
+requireText(escalateSkill, "[取り込みと反映](integrate-plugin-changes.md)に従い、PRを記録として作り、手元で`main`へ取り込み、pluginをupdateする。");
+requireText(escalateSkill, "反映する操作は[取り込みと反映](integrate-plugin-changes.md)の8に従う。");
 requireText(escalateIntegration, "作業branchを`main`へmergeする");
 requireText(escalateIntegration, "## pluginをupdateする");
 requireText(escalateIntegration, "installされたpluginのcommitが`main`の先端と一致することを確かめる");
-requireText(escalateIntegration, "利用者へ依頼するのは、agentから実行できない7の操作だけである");
+requireText(escalateIntegration, "利用者へ依頼するのは、agentから実行できない8の操作だけである");
+requireText(escalateIntegration, "escalate経由でないplugin repositoryの作業は、この流れに従わない。");
+requireText(escalateIntegration, "`git merge --no-ff <作業branch>`で、作業branchを`main`へmergeする。merge commitのmessageは「Merge pull request #<PR番号>: <PRの題名>」にする。");
+requireText(escalateIntegration, "PRを作るのは、どの変更がひとまとまりかを記録するためである。");
+requireText(escalateIntegration, "GitHub上でPRをmergeする操作は、assistantが行わない。");
+forbidText(escalateIntegration, "PRを経由せず");
 forbidText(escalateSkill, "修正後のskillで動きたい場合は、sessionをresumeする");
-// contextのGit運用は、escalateの取り込み（PRを経由しないmerge）と食い違わない。
+// escalate経由の取り込みの規則はescalateが持つ。利用先へ配る文脈のtemplateに写さない。
 requireText(contextTemplate, "default branchの上で直接commitしない。作業はbranchで行う。");
-requireText(contextTemplate, "同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。");
+forbidText(contextTemplate, "plugin repositoryでの作業完了後の取り込み");
 forbidText(contextTemplate, "commitとpushをdefault branchへ直接行わない");
 
 requireText(steeringSkill, "## Blocker resolution");
