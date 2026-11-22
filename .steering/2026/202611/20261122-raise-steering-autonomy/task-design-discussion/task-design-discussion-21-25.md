@@ -176,7 +176,7 @@ PATCHを上げ、9.1.5を9.1.6にする。宣言値4箇所（両plugin manifest�
 
 ## 論点24: `round-trip.md`の本文
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **親論点:** 論点16
 
@@ -215,3 +215,53 @@ PATCHを上げ、9.1.5を9.1.6にする。宣言値4箇所（両plugin manifest�
 文中から参照するSKILL.mdの節のうち、「scopeと親子関係」（論点を立てる時点）は、SKILL.mdの差分の論点で足す内容を指している。
 
 #### 提案0へのフィードバック（論点24）
+
+**結果:** 合意
+
+> ok
+
+### 決定（論点24）
+
+`plugins/tumeda-dev/skills/facilitate-discussion/round-trip.md`を、下書き[`drafts/round-trip.md`](../drafts/round-trip.md)の本文で作る。下書きは、このsteeringの他の変更と一緒にpluginのpathへ移し、検査scriptのassertionと合わせて検証する。
+
+## 論点25: 一意な導出を外した後の`derived-change.md`の名前
+
+**ステータス:** 応答待ち
+
+**親論点:** 論点16
+
+**種別:** TBDヒアリング
+
+**重さ:** 一つずつ考える（戻しにくさ: 中 — `SKILL.md`の4箇所、`iteration.md`の1箇所、検査scriptの2箇所がfile名で参照する。利用者の前提: 中 — 名前の感覚。他は小）
+
+### イテレーション0（論点25）: 中身に合う名前の案を比べる
+
+#### 提案0（論点25）
+
+論点7・16の決定で、`facilitate-discussion/derived-change.md`から「既決事項からAIが一意に導出した変更」の経路を外す。残るのは「利用者が明示委託した範囲の選択」（報告して次の実応答を確かめてから反映する）と「意味を変えない機械的適用」（既存の権限で適用して記録する）である。今の名前（derived-change、見出し「導出した変更を報告して反映する」）は、外す経路を名指しており、残る中身と合わなくなる。
+
+**推す案:** a
+
+- **a. `delegated-change.md`に改め、見出しを「任された変更を報告して反映する」にする**
+    - 中身の中心（利用者が任せた範囲で選び、報告して反映する）を名指す。機械的適用は、報告も待ちも作らない短い一行として同じfileに残る。
+    - 参照（`SKILL.md`の4箇所の`[導出変更](derived-change.md)`、`iteration.md`の1箇所、検査scriptの2箇所）を新しい名前へ揃える。過去のsteeringの記録にある旧名は直さない。
+- **b. `authorized-change.md`に改め、見出しを「利用者が新たに決めずに行う変更を報告して反映する」にする**
+    - 委託と機械的適用の両方を「既に権限がある変更」として覆う。
+    - 単独で見ると「承認済みの変更」と読め、提案と合意を経た通常のdecisionの適用まで含むと取り違えやすい。
+- **c. 名前は変えず、見出しと入口の説明だけを中身に合わせる**
+    - 参照を変えずに済む。
+    - file名が外した経路（導出）を名指したまま残り、file名から中身を予想した人が誤る。
+
+判断してほしいこと: 一意な導出を外した後の`derived-change.md`の名前を、a（`delegated-change.md`）・b（`authorized-change.md`）・c（変えない）のどれにするか。
+
+#### 検討記録（論点25・イテレーション0）
+
+`facilitate-discussion/SKILL.md`、`iteration.md`、`scripts/verification/validate-plugin.mjs`で`derived-change`を検索し、参照を数えた。`SKILL.md`は「変更の権限から経路を選ぶ」「共通本体へ接続する」「必要な現在stateを扱う」「通常の同期と回復の検出」の4箇所、`iteration.md`は「所属と評価対象を照合する」の1箇所、検査scriptは変数の定義と`SKILL.md`がfile名を含むことの検査の2箇所である。過去の作業記録（`.steering/`配下の37 file）も旧名に触れているが、過去の記録は直さない。
+
+`docs/development_standards/naming/core.md`の「中身を足す前に、名前が約束する範囲に入るかを確かめる」は、名前の付いたものの中身が変わる時に、名前と中身の対応を確かめるよう求める。今回は中身が減り、名前が外した経路だけを名指す形になる。`reverse_translation.md`に沿い、初見の人がそれぞれの名前を単独で見た時に想像することを書いた。
+
+- `facilitate-discussion/delegated-change.md`: 利用者に任された変更の扱いだと想像する。機械的適用が同じfileにあるとは想像しないが、開けば一行で分かり、方向は同じである。
+- `facilitate-discussion/authorized-change.md`: 承認済みの変更の扱いだと想像する。提案と合意を経たdecisionの適用もここだと読み、その扱いを探してこのfileを開く。方向が違う。
+- `facilitate-discussion/derived-change.md`（変えない）: AIが既決事項から導いた変更の扱いだと想像する。その経路は無くなっており、方向が違う。
+
+#### 提案0へのフィードバック（論点25）
