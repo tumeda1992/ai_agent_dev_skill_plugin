@@ -1096,6 +1096,9 @@ for (const expected of [
   "black-box検証をwhite-box検証の代替にしてはならない",
   "失敗実装へ継ぎ足す",
   "未監査 0 / 未分類削除 0 / 未分類追加 0",
+  "文面を一字も変えずに移す構造範囲（fileや節の移動）は、範囲を一行としてcontract ledgerへ載せ、`MOVE`に分類してよい。",
+  "baselineから切り出した範囲と移行後の範囲がバイト単位で一致することで照合する。",
+  "文面が一字でも変わる範囲（見出し、冒頭の説明、path、分ける境目）は、この扱いにせず§3の意味単位へ分解する。",
 ]) {
   requireText(functionMigrationPolicy, expected);
 }
@@ -1221,6 +1224,13 @@ for (const relativePath of [taskDesignSkill, tasklistDesign, tasklistTemplate, s
   forbidText(relativePath, "材料不足");
 }
 requireText(taskDesignSkill, "切り出しの候補ごとに、今切り出したか別の作業にしたかが記録されていることも共通の完了条件とする");
+for (const expected of [
+  "構造を一度の構造案ではなく、論点ごとの決定で固める時は、汎用skillの内部指示を増やす・移す・分ける決定を合意する前に`skill-update-review`を適用する。",
+  "共有の文書を持ち主のskillの中へ移すだけの変更も、そのskillの内部指示と参照・読取条件を変えるため対象に入る。",
+  "判断の問い: 「この論点の決定は、汎用skillの内部指示を増やす・移す・分けるか」",
+]) {
+  requireText(taskDesignSkill, expected);
+}
 
 // 議論格納・導出変更・明示保留・暫定指示。旧解決guardは内部ownerへ移した。
 const discussionResolve = skillPath("facilitate-discussion/resolve-discussion.md");
