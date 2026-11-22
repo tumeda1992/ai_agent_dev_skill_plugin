@@ -1202,7 +1202,23 @@ for (const name of ["resolve-discussion.md", "read-discussion.md", "split-discus
 for (const expected of ["next_offset", "needs_full_read", "snapshot", "compare", "全chunk", "独立構成前"]) requireText(discussionRead, expected);
 for (const expected of ["10件を超えた", "最大番号+1", "check-candidate", "原文fileを削除", "自動修復"]) requireText(discussionSplit, expected);
 for (const expected of ["明示委託", "次の実応答", "変更内容", "現在の変更", "原文", "部分反映"]) requireText(derivedChanges, expected);
-requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り替える前の保留判定\n", "\n## plugin repositoryの判定\n"], "起動後・repository判定前の明示保留");
+requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り替える前の保留判定\n", "\n## plugin repositoryの判定\n"], "起動後・repository判定前の保留判定");
+// 既定は保留、利用者が即時を指示した時だけ即時に引き渡す。
+for (const expected of [
+  "即時の指示がなければ、既定どおり保留する。",
+  "判断の問い: **「この提案が直す規則に、今の作業の残りの工程が従うか」**",
+  "利用者が即時を指示した場合だけ、「提案が生じた時点で、記録を始める前にplugin repositoryへ移る」経路を使う。",
+]) requireText(escalateSkill, expected);
+for (const expected of [
+  "即時の指示が無い提案は、既定として保留する。",
+  "既定の保留の再開条件「元の作業の完了」も、元作業の既存完了判定が対応する。",
+  "元作業に保留メモを置くdirectoryが無い時（steeringを使わない作業等）は、既定の保留にしない。",
+  "保留を保存したら、利用者へ次の一行で知らせる。",
+]) requireText(pendingEscalations, expected);
+requireText(pendingTemplate, "または即時の指示が無かったこと");
+forbidText(escalateSkill, "保留指示がなければ即時引渡しを継続し", "即時を既定とする旧い保留判定");
+forbidText(escalateSkill, "明示保留がない場合は「提案が生じた時点で", "即時を既定とする旧い目的");
+forbidText(pendingEscalations, "明示保留がなければ既存の即時引渡しへ戻す。", "即時を既定とする旧い保留の保存");
 for (const expected of ["保留を保存する", "再開条件を確認する", "現在の提案を引き渡す", "受領先を記録する", "二重起動しない", "引渡し済みは改善済みではない"]) requireText(pendingEscalations, expected);
 for (const expected of ["保留時の内容", "関連情報", "追跡"]) requireText(pendingTemplate, expected);
 for (const expected of ["元作業と依頼を確認する", "記録を登録・改訂する", "適用候補と実行版を照合する", "実効指示または停止理由を返す", "終了を記録する", "active", "none", "paused", "unavailable", "ended", "無関係な更新でも", "全面代替"]) requireText(temporaryOverrides, expected);
