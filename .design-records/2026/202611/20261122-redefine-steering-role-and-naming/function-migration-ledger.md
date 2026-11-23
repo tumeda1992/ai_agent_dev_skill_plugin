@@ -399,5 +399,14 @@
 ### 集計
 
 ```text
-適合 145 / 合意済み追加 5（A-001、A-002、A-004の記録、A-006、A-009は論点26で合意待ち） / 合意済み変更 9（C-025、C-056、C-063、C-068、C-112、A-003、A-004の見出し、A-005、A-007） / 明示廃止 12 / 未監査 0 / 未分類削除 0 / 未分類追加 0（A-009は論点26の応答待ち）
+適合 145 / 合意済み追加 6（A-001、A-002、A-004の記録、A-006、A-009、A-010） / 合意済み変更 9（C-025、C-056、C-063、C-068、C-112、A-003、A-004の見出し、A-005、A-007） / 明示廃止 12 / 未監査 0 / 未分類削除 0 / 未分類追加 0
 ```
+
+### 引き継いだsessionでの追加の照合
+
+- 論点27: `execution-contracts.md`の「Blocker resolution」（C-122〜C-133の移した先）を`blocker-resolution.md`へ移した。移した本文が、見出しの深さ（`####`から`##`）を除いて元と一致することを機械的に照合した（不一致0）。`execution-contracts.md`に残したのは、読む時と参照の一節、冒頭の一文、二箇所の参照の書き換えだけである。
+  - その後のdocument-reviewの指摘で、移した本文の一箇所（条件2が欠けた時の扱いが指す「停止・再開contract」）を、別fileになった`execution-contracts.md`の「停止・再開と二重起動防止」へのlinkに直した。`execution-contracts.md`側では、移した先にあった「Flow」の定義に頼っていた一語を「起動する側の手順」に直した。どちらも参照先の言い方を変えただけで、意味は変えていない。
+- 論点26・28: A-009は論点26で合意された文面のまま残した。A-010を`prepare-design-record`の手順1と読み替えの記録の「移し方」へ足し、作業用のdirectoryの二つのcloneで手順を通した。
+- 論点31・32: `execution-contracts.md`の「起動する側が行うこと」を`tasklist-executor/caller-contract.md`へ、`advance-roadmap/SKILL.md`の「段取りの議論（discussion.md）」を`advance-roadmap/staging-discussion.md`へ移した。どちらも移した本文が、見出しの深さと、別fileになったことで要った参照の書き換え（`execution-contracts.md`の「停止理由」「状態の正本とsingle writer」へのlink、段取りの議論の参照先）を除き、元と一致することを機械的に照合した。
+  - 上の構造ledgerの行は移した先を書き換えた。contract ledgerの行のうち、移した先に`execution-contracts.md`（起動する側）と書いたもの（C-010、C-048、C-080、C-099〜C-107、C-120、C-121、C-144等）は`caller-contract.md`と、C-135の「`execution-contracts.md`のBlocker resolution」は`blocker-resolution.md`と読む。段取りの議論について`advance-roadmap`と書いたもの（C-048等）は`advance-roadmap/staging-discussion.md`と読む。意味の単位とその分類は変えていない。
+  - 二回目のdocument-reviewで、tasklistを起動する側の段取りの議論を始める条件から、利用者が段取りの論点・質問を出した時が抜けていたことが分かった（C-048は三つの条件を持つ）。`caller-contract.md`と、`advance-roadmap/SKILL.md`の読みに行く条件へ足して揃えた。

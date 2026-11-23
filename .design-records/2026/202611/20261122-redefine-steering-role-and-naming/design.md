@@ -341,18 +341,20 @@ task-design/wrap-up.md
 | `plugins/tumeda-dev/skills/advance-roadmap/SKILL.md` | 新設。roadmapをphaseごとに進める | 同上。bindingの順序を照合で直した | [advance-roadmap](#advance-roadmap) |
 | `plugins/tumeda-dev/skills/task-design/`（`SKILL.md`、`wrap-up.md`、`tasklist-design.md`、`roadmap-design.md`、`work-handoff-contracts.md`、`templates/`、`templates/breaking_changes/`） | 入口としての入力、`prepare-design-record`の呼び方、締めくくり、roadmapの見出し・labelの切り替えと記録、steeringの名指しの書き換え | 同上。`test-task-design-handoff.mjs`を通過 | [task-design](#task-design) |
 | `plugins/tumeda-dev/skills/tasklist-executor/`（`execution-contracts.md`、`implementation-feedback.md`、`SKILL.md`） | 起動する側が行うことを足し、実装feedbackの手順を移した | validator・白box照合を通過 | [tasklist-executorと、それを起動する側](#tasklist-executorとそれを起動する側) |
+| `plugins/tumeda-dev/skills/tasklist-executor/blocker-resolution.md`（新規）、`execution-contracts.md`、`advance-roadmap/SKILL.md` | `execution-contracts.md`の「Blocker resolution」の本文を見出しの深さだけ変えて新しいfileへ移し、`execution-contracts.md`には読む時と参照を残した。`advance-roadmap`の参照を新しいfileへ向けた | 移した本文が見出しの深さを除き元と一致することを機械的に照合した。validatorのassertionを新しいfileへ向け直し、`.steering`の残り以外は通過 | [tasklist-executorと、それを起動する側](#tasklist-executorとそれを起動する側) |
+| `plugins/tumeda-dev/skills/prepare-design-record/SKILL.md`の手順1と禁止、`prepare-design-record/breaking_changes/20261123-move-steering-to-design-records.md`の「移し方」 | 記録の「移し方」に、両方ある時に追跡されたfileの有無で分け、追跡外の残りだけなら一覧を提案として示し、承認を得て`.design-records/`の同じ相対pathへ移す手順を足した（`mkdir -p`、`mv -n`、空のdirectoryだけを消す、移し終えるまで`.steering/`の下をcommitしない）。`SKILL.md`の手順1は記録への参照と、承認されない時・手順が止まった時に新しい記録を作らず止まる扱いだけにした（論点30）。禁止事項に、承認なしに移さない・残ったfileを消さないを足した | 作業用のdirectoryの二つのcloneで、pullした側に残った`internal-records/log.md`と空の`.claude/.cc-writes/`へ手順を通し、fileが同じ相対pathへ移り追跡しないまま残ること、`.steering/`が消えることを確かめた。このrepositoryの手元に残っていた`.steering/`（空の`.claude/.cc-writes/`だけ）も、利用者の承認を得て同じ手順で消した。validatorにassertionを足して通過 | [以前の置き場所の記録を一度だけ移す](#以前の置き場所の記録を一度だけ移す) |
 | `plugins/tumeda-dev/skills/steering/` | 削除 | validatorの不存在条件を通過 | [移行で変えない振る舞いと、意図して変える差分](#移行で変えない振る舞いと意図して変える差分) |
 | 参照元（escalate、facilitate-discussion、maintenance-plugin-context、doc-enricher、think-through、visual-inspector、`skills/README.md`、`tumeda-dev-plugin-context.md`、docs、`AGENTS.md`、`.claude/hooks/`） | steeringと`.steering/`の名指しを新しい担当と`.design-records/`へ。`Plugin version`の記録の対象を置き場所のpathへ広げた | `grep -rn steering`の全出力で、残りが読み替えの記録・以前の置き場所の扱い・`steering.json`の禁止だけであることを確かめた | [文書以外に作るfileの中身](#文書以外に作るfileの中身) |
 | `scripts/verification/validate-plugin.mjs`、`test-task-design-handoff.mjs` | steeringに向けていたassertionを移した先へ向け直した。消したassertionは合意済みの`RETIRE`・`CHANGE`に対応する | `plugin validation passed`、`task-design handoff tests passed` | [テスト方針](#テスト方針) |
 | 配布manifestの4箇所と`expectedRelease` | `10.0.0` | validatorを通過 | [要件（Requirements）](#要件requirements) |
 | `.steering/` → `.design-records/` | `git mv`。中身は変えていない | 61の作業のdirectoryがあり、`.steering/`が無い | [作業の記録を置くdirectory](#作業の記録を置くdirectory) |
+| `plugins/tumeda-dev/skills/plan-commits/SKILL.md`の「目的」 | 特定のworkflowや作業の記録の置き方を前提にしないと書いた。締めくくりの確認のdoc-enricherの提案で、論点9（記録をcommitへ載せる順序の規則の置き場所に`plan-commits`を推して誤った）の再発を防ぐ | 利用者が文面を承認した。validatorを通過 | 締めくくりの確認（`task-design/wrap-up.md`） |
+| `plugins/tumeda-dev/docs/development_standards/naming/core.md`の「名前を単独で評価しない」 | 揃える相手が同じ種類のものかを先に確かめる、という一文と失敗例・判断の問いを足した。締めくくりの確認のdoc-enricherの提案で、論点15（`tasklist-executor`と揃えて`roadmap-executor`を推して誤った）の再発を防ぐ | 利用者が文面を承認した。validatorを通過 | 締めくくりの確認（`task-design/wrap-up.md`） |
+| `.design-records/.gitignore`、`scripts/verification/validate-plugin.mjs` | このrepository自身の`.design-records/.gitignore`に`*/*/*/subagent_report/`を足し、`prepare-design-record/.gitignore.sample`の全patternがあることをvalidatorで検査する。引き継ぎの初めに足した`*/*/*/task-design-catch-up/`（catch-upを始めるのに要った）と合わせ、見本との差が無くなった | 行を一時的に外すと検査が失敗し、戻すと通ることを確かめた | 締めくくりの確認（`task-design/wrap-up.md`） |
 
 ### 設計中に反映する、他の判断を待っている変更
 
-| 対象 | 待つ理由 | 依存する判断 | 参照するdesign section |
-| --- | --- | --- | --- |
-| `prepare-design-record/SKILL.md`の手順1（移すことを承認されなかった時の扱い） | 仮決めの文面で書いてあり、合意を待つ | 論点26 | [以前の置き場所の記録を一度だけ移す](#以前の置き場所の記録を一度だけ移す) |
-| `tasklist-executor/blocker-resolution.md`への分割 | 編集後のreviewの候補を今分けるかの合意を待つ | 論点27 | [tasklist-executorと、それを起動する側](#tasklist-executorとそれを起動する側) |
+なし。
 
 ### tasklist・roadmapに載せて実行する変更
 

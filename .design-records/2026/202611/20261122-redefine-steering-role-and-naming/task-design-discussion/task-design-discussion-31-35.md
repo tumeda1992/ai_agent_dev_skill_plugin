@@ -70,6 +70,8 @@ aを推す。
 
 child処理の契約と起動する側の約束は、読む担当（`tasklist-executor`か、利用者の会話のagentと`advance-roadmap`か）も、改める理由も違うためである。論点3の決定（起動する側の約束を`tasklist-executor`の約束の下に置く）の意味は変わらない。名前は、validatorが同じ節を`callerContract`と呼んでいることと隣の`execution-contracts.md`に揃え、`execution-contracts.md`で別の意味に使われる`launcher`を避けた。
 
+この決定は`tasklist-executor/caller-contract.md`の新設と、`execution-contracts.md`・`task-design/wrap-up.md`・`advance-roadmap/SKILL.md`・`blocker-resolution.md`の参照の付け替えとして反映した。移した本文は、見出しの深さと別fileになったことで要った参照の書き換えを除き、元と一致することを機械的に照合した。doc-enricherの提案modeのreviewでは、この決定から出た候補は無かった。
+
 ## 論点32: `advance-roadmap/SKILL.md`の「段取りの議論（discussion.md）」を、内部指示へ分けるか
 
 **ステータス:** 決定
@@ -126,3 +128,5 @@ aを推す。
 `advance-roadmap/SKILL.md`には、子phaseのtask-designを起動する前には始めない境界と、新しいfileへの参照を残す。tasklistを起動する側の段取りの議論（`caller-contract.md`）の参照先も新しいfileへ直す。
 
 段取りの議論の運用は、roadmapとtasklistの二つの起動する側から改められ、roadmapだけに関わる手順とは別の理由で改まるためである。置き場所を`advance-roadmap/`にするのは、節の文面がroadmapの子phaseを前提に書かれているためである。名前は、`discussion.md`に入れるのが実行の段取りの議論であること（論点10の決定）から付け、`task-design-discussion.md`の設計の議論と区別した。
+
+この決定は`advance-roadmap/staging-discussion.md`の新設と、`advance-roadmap/SKILL.md`・`caller-contract.md`の参照の付け替えとして反映した。移した本文は見出しの深さを除き元と一致することを機械的に照合した。doc-enricherの提案modeのreviewでは、この決定から出た候補は無かった。

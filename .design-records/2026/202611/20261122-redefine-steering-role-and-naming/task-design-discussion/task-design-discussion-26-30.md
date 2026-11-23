@@ -38,6 +38,8 @@
 承認されなかった時に新しい記録を`.design-records/`へ作ると、`.steering/`と`.design-records/`が併存する状態をこのskill自身が作り、次に呼ばれた時に止まるためである。
 止まれば、利用者が移すか別の扱いを指示するまで状態は変わらない。論点14の決定（推測で混ぜない）と、論点28の決定（承認されなければ移さずに止まる）と揃う。
 
+この決定は、論点30の決定とあわせて`prepare-design-record/SKILL.md`の手順1（承認されない時・記録の手順が止まった時は、新しい記録を作らずに止まる）へ反映した。doc-enricherの提案modeのreviewでは、この決定から出た候補は無かった。
+
 ## 論点27: Blocker resolutionを`tasklist-executor`の別の内部指示へ分けるか
 
 **ステータス:** 決定
@@ -79,6 +81,8 @@
 今の作業で、`tasklist-executor/execution-contracts.md`の「Blocker resolution」を`tasklist-executor/blocker-resolution.md`へ分ける。`execution-contracts.md`の「起動する側が行うこと」からは、`blocked`で返った時と、起動する側が自分の手順で進めなくなった時に読むと参照する。
 Blocker resolutionは固有の状態（手順を離れている）、完了（離れた段の先頭へ戻る）、判断（三択、自走の範囲）を持ち、子agentへの委譲の形とは別の理由で改めるためである。
 論点8の決定（起動する側が行うことに置く）の意味は変えず、同じskillの別fileへ分けるだけである。`work_scope.md`の二段目でも今の作業の単位は崩れず、後で分けると今書いた節と参照を二度直すことになる。
+
+この決定は`tasklist-executor/blocker-resolution.md`の新設と、`execution-contracts.md`・`advance-roadmap/SKILL.md`の参照の付け替えとして反映した。移した本文は見出しの深さを除き元と一致することを機械的に照合した。doc-enricherの提案modeのreviewでは、この決定から出た候補は無かった。
 
 ## 論点28: `.steering/`に追跡されたfileが無く、追跡外の残りだけがある時の扱い
 
@@ -213,6 +217,8 @@ pullしたcloneで`.steering/`に追跡外のfileだけが残る時、`prepare-d
 今のまま止まって「どちらを正にするか」を問う形は、実情に合わない問いを投げ続けるため採らない。
 `.steering/`を無いものとして扱う形は、残りを古い置き場所に取り残すため採らない。
 
+この決定は、読み替えの記録の「追跡外のfileだけが残った時」と、`prepare-design-record/SKILL.md`の禁止事項として反映した（手順1の書き方は論点30の決定による）。作業用のdirectoryの二つのcloneで手順を通し、このrepositoryの手元に残っていた`.steering/`も利用者の承認を得て同じ手順で消した。doc-enricherの提案modeのreviewで、この決定から出た候補は一件だった。cdで作業directoryを移すとClaude Codeが移った先に空の`.claude/.cc-writes/`を作ること。当てはまる範囲がこのrepositoryの外（Claude Codeで作業するすべてのrepository）のため、文書へは置かず、締めくくりで利用者へ返す。
+
 ## 論点29: `validate-plugin.mjs`の`.steering`の不存在の検査を、何で判定するか
 
 **ステータス:** 決定
@@ -333,3 +339,5 @@ validatorの他の不存在の検査と同じ書き方であり、designの受�
 禁止事項（推測で混ぜない、承認なしに移さない、残ったfileを消さない）は、手順ではなく守る約束なので`SKILL.md`に残す。
 
 論点25の決定（移し方の手順の正本を記録に置き、`prepare-design-record`は参照して手順を自分では書かない）どおりの形に戻すためである。論点28の反映で手順1へ場合の判定と承認を書き足し、二箇所に同じ工程が入っていた。新しい内部指示を作る形は、記録を正本にする論点25の決定とぶつかるため採らない。
+
+この決定は`prepare-design-record/SKILL.md`の手順1として反映した。document-reviewの指摘（承認が二回になる、止まる理由が無い）もあわせて直した。doc-enricherの提案modeのreviewでは、この決定から出た候補は無かった。
