@@ -1458,7 +1458,10 @@ for (const relativePath of [prepareDesignRecordSkill, summarizePreviousMonth, ad
 requireText(skillPath("maintenance-plugin-context/SKILL.md"), "見出し・labelの名前や、置き場所のpathで読めなくなることなら");
 requireText(skillPath("prepare-design-record/breaking_changes/README.md"), "全ての変更履歴ではない。");
 requireText(skillPath("prepare-design-record/breaking_changes/README.md"), "20261123-move-steering-to-design-records.md");
-for (const expected of ["## 古い成果物の読み方", "## 移し方", "`git mv .steering .design-records`", "両方ある時は、混ぜずに止まり"]) requireText(skillPath("prepare-design-record/breaking_changes/20261123-move-steering-to-design-records.md"), expected);
+for (const expected of ["## 古い成果物の読み方", "## 移し方", "`git mv .steering .design-records`", "### 追跡外のfileだけが残った時", "`git ls-files .steering`が何も返さないことを確かめる。", "混ぜずに止まり、どちらを正にするかを利用者が確かめる。", "同じ名前のfileを上書きしない指定（`mv -n`等）で移す。", "移し終えるまで、`.steering/`の下をcommitに含めない。", "fileは一つも消さない。"]) requireText(skillPath("prepare-design-record/breaking_changes/20261123-move-steering-to-design-records.md"), expected);
+// 両方ある時は追跡されたfileの有無で分け、追跡外の残りだけなら承認を得て移す（論点28）。承認されなければ止まる（論点26）。
+for (const expected of ["`.design-records/`も既にある時の扱いを含め、手順の正本は同fileであり、ここへ写さない。", "同fileの「追跡外のfileだけが残った時」の手順2で示す一覧を、移して空のdirectoryを消すことの提案とする。", "承認されない時、または同fileの手順が止まった時は、新しい記録を作らずに止まり、呼出し元へ返す。", "利用者の承認なしに、`.steering/`に残った追跡外のfileを移す。", "`.steering/`に残ったfileを消す。承認があっても消さない。"]) requireText(prepareDesignRecordSkill, expected);
+forbidText(prepareDesignRecordSkill, "`git ls-files .steering`", "読み替えの記録が持つ移し方の手順の写し");
 requireText(prepareDesignRecordSkill, "breaking_changes/20261123-move-steering-to-design-records.md");
 requireText(skillPath("task-design/templates/breaking_changes/README.md"), "20261123-rename-roadmap-progress-labels.md");
 requireText(skillPath("task-design/templates/breaking_changes/20261123-rename-roadmap-progress-labels.md"), "| roadmap.md | ### 進み具合（steeringだけが更新する） | ### 進み具合（advance-roadmapだけが更新する） |");

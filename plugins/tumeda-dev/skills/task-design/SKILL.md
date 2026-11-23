@@ -435,7 +435,7 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
 新しい作業の手順:
 
 1. pluginの`prepare-design-record` skillを明示適用し、作業内容、実行時のローカル日付、渡された`branch_from_basename`を渡す。
-2. 返った絶対パスを`working_dir`とする。`prepare-design-record`が停止した場合（同名pathがある、branchを作れない、`.steering/`と`.design-records/`が両方ある等）は、その理由を利用者へ返し、推測で別の置き場所を作らない。
+2. 返った絶対パスを`working_dir`とする。`prepare-design-record`が停止した場合（同名pathがある、branchを作れない、`.steering/`を移すことが承認されない、または移す手順が止まった等）は、その理由を利用者へ返し、推測で別の置き場所を作らない。
 3. task-design自身は`name-work-directory`を適用せず、`.design-records/`の外にディレクトリを作らない。
 
 再開の手順:

@@ -60,8 +60,8 @@ basenameの日付部分から`YYYY`と`YYYYMM`を得て、次のpathを管理す
 ## 手順（順序固定）
 
 1. 以前の置き場所を確かめる。
-   - `.steering/`があり`.design-records/`が無い時は、[`breaking_changes/20261123-move-steering-to-design-records.md`](breaking_changes/20261123-move-steering-to-design-records.md)の「移し方」の手順で移すことを利用者へ提案する。手順の正本は同fileであり、ここへ写さない。承認されたら同fileの手順で一度だけ移す。承認されなければ移さず、新しい記録も作らずに止まり、呼出し元へ返す。`.steering/`と`.design-records/`が併存する状態を作らないためである。
-   - `.steering/`と`.design-records/`が両方ある時は、推測で混ぜず、作業を止めて利用者へ確かめる。
+   - `.steering/`がある時は、[`breaking_changes/20261123-move-steering-to-design-records.md`](breaking_changes/20261123-move-steering-to-design-records.md)の「移し方」の手順で移すことを利用者へ提案する。`.design-records/`も既にある時の扱いを含め、手順の正本は同fileであり、ここへ写さない。`.design-records/`も既にある時は、同fileの「追跡外のfileだけが残った時」の手順2で示す一覧を、移して空のdirectoryを消すことの提案とする。
+   - 承認されたら同fileの手順で一度だけ移す。承認されない時、または同fileの手順が止まった時は、新しい記録を作らずに止まり、呼出し元へ返す。移さずに新しい記録を作ると、記録が`.steering/`と`.design-records/`に分かれたまま作業が進み、`.design-records/`だけを読む側（task-designの設計前調査、`facilitate-discussion/round-trip.md`の前例探し、前月summary）から`.steering/`側が見えなくなるためである。
 2. `name-work-directory`で`YYYYMMDD-slug`を決める。
 3. `branch_from_basename=true`の場合だけ、現在のHEADから`YYYYMMDD-slug`という名前のbranchを作成して切り替える。基点となるbranchが意図どおりかはcallerが保証する。同名branchが既に存在する場合、または切替に失敗した場合は、作成も強制切替もせず作業を停止してユーザーへ報告する。stashを行わない。branch名を決める前に[`branch_pr_issue.md`](../../docs/development_standards/development_flow/branch_pr_issue.md)を引き、merge済みのbranch名を再利用していないかを確かめる。判定の中身は同fileが正本であり、ここへ写さない。
 4. `.design-records/YYYY/YYYYMM/`がなければ作成する。
@@ -110,3 +110,5 @@ task-design専用子directory、`task_design_dir`探索、`steering.json`を作�
 - 同名のdirectoryやbranchがある時に、suffixを足す、上書きする、強制的に切り替える、stashする。
 - `.steering/`と`.design-records/`が両方ある時に、推測で混ぜる。
 - 利用者の承認なしに`.steering/`を移す。
+- 利用者の承認なしに、`.steering/`に残った追跡外のfileを移す。
+- `.steering/`に残ったfileを消す。承認があっても消さない。
