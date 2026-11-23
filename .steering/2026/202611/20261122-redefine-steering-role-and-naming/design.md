@@ -19,7 +19,7 @@ steeringスキルの名前を変えて、task-designから置き場所を決め�
 
 ## TL;DR
 
-tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。記録は`.design-records/`へ置く。置き場所を用意するskillは`prepare-design-record`。TBD: roadmapを進めるskillの名前（論点15）。
+tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。記録は`.design-records/`へ置く。置き場所を用意するskillは`prepare-design-record`。roadmapを進めるskillは`advance-roadmap`。
 
 ---
 
@@ -46,10 +46,10 @@ tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-taskli
 
 ```text
 tasklist_ready → tasklist-executor
-roadmap_ready  → roadmapを実行するskill
+roadmap_ready  → advance-roadmap
                    └ phaseごと: task-designを起動（上位roadmapの制約を渡す）
                         ├ tasklist_ready → tasklist-executor
-                        ├ roadmap_ready  → roadmapを実行するskill（入れ子）
+                        ├ roadmap_ready  → advance-roadmap（入れ子）
                         └ planless_complete → 完了を確かめる
 ```
 
@@ -60,13 +60,13 @@ roadmap_ready  → roadmapを実行するskill
 | 締めくくりの確認（`doc-enricher`の提案mode、議論記録からの再発防止先の見直し、skill自身の見直し） | task-designの内部指示の一つのfile。Step 6で結果を返す前に読む。実行を始めてよいかの確認もこのfileの末尾に置く |
 | plan無しで終わった変更の公開（commit・push・PR） | task-designの、締めくくりの確認と同じ内部指示のfile |
 | standalone roadmapの昇格 | 無くなる。置き場所が一通りになるため |
-| 実行を始めてよいかの確認 | task-designが結果を返す時。締めくくりの確認の結果を示した後に確かめ、明示の指示があればplanの種類に対応するskillを起動する。roadmapの子phaseでは指示を結果に添えて返し、roadmapを実行するskillが起動する |
-| `tasklist-executor`の起動、止まって返ってきた時の扱い、tasklistのcheckboxとartifactの読み直し、design.mdとの食い違いを実装後のreviewへ回すこと | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと。利用者の会話から直接起動しても、roadmapを実行するskillが起動しても同じ約束で扱う |
-| roadmapの各phaseの実行（phaseの選択、task-designの起動、結果に応じた実行、子のpath・status・完了日の更新、完了の伝播） | 新しいskill（roadmapを実行するskill）。phaseの子のpath・status・完了日を書くのはこのskillだけ |
+| 実行を始めてよいかの確認 | task-designが結果を返す時。締めくくりの確認の結果を示した後に確かめ、明示の指示があればplanの種類に対応するskillを起動する。roadmapの子phaseでは指示を結果に添えて返し、`advance-roadmap`が起動する |
+| `tasklist-executor`の起動、止まって返ってきた時の扱い、tasklistのcheckboxとartifactの読み直し、design.mdとの食い違いを実装後のreviewへ回すこと | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと。利用者の会話から直接起動しても、`advance-roadmap`が起動しても同じ約束で扱う |
+| roadmapの各phaseの実行（phaseの選択、task-designの起動、結果に応じた実行、子のpath・status・完了日の更新、完了の伝播） | 新しいskill`advance-roadmap`。phaseの子のpath・status・完了日を書くのはこのskillだけ |
 | 実装後のfeedbackの記録と戻し先（`implementation-feedback.md`） | `tasklist-executor/implementation-feedback.md`。feedbackを直接受ける担当（`tasklist-executor`と、それを起動する側）が読む。中身は変えず、担当の名指しだけを書き換える |
-| 実行の前提が崩れて進めない時の復旧（blocker resolution） | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと（`blocked`で返ってきた時の扱い）。roadmapを実行するskillも同じ約束に従う。中身は変えない |
+| 実行の前提が崩れて進めない時の復旧（blocker resolution） | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと（`blocked`で返ってきた時の扱い）。`advance-roadmap`も同じ約束に従う。中身は変えない |
 | 記録をcommitへ載せる順序の規則 | task-designの、締めくくりの確認と公開の内部指示のfile。tasklistのcommit sectionを設計する`task-design/tasklist-design.md`もこの規則を参照する。汎用の`plan-commits`へは置かない |
-| steering固有の議論記録（`discussion.md`） | 実行の段取りの議論の記録として残す。roadmapを実行するskillと、tasklistの時は`tasklist-executor`を起動する側が書く。basenameは`discussion.md`のまま |
+| steering固有の議論記録（`discussion.md`） | 実行の段取りの議論の記録として残す。`advance-roadmap`と、tasklistの時は`tasklist-executor`を起動する側が書く。basenameは`discussion.md`のまま |
 
 ### 作業の記録を置くdirectory
 
@@ -74,9 +74,11 @@ roadmap_ready  → roadmapを実行するskill
 
 既にある`.steering/`の記録は`.design-records/`へ移す。このrepositoryでは今回の作業で`git mv`し、進行中の作業のdirectoryも一緒に移す。利用先repositoryでは、置き場所を用意するskillが、`.steering/`があり`.design-records/`が無い時に移すことを利用者へ提案し、承認されたら一度だけ移す。両方がある時は推測で混ぜず利用者へ確かめる。記録の本文に残る`.steering/…`のpathは書き換えず、`prepare-design-record`のdirectoryに作る`breaking_changes/`の記録で「`.steering/…`は`.design-records/…`として読む」と残す。この記録を置けるよう、`maintenance-plugin-context/SKILL.md`「Plugin version」の記録の対象を「見出し・labelの名前や、置き場所のpathで読めなくなること」へ広げる。読む箇所は`.design-records/`だけを見る。他のbranchで`.steering/`の下にfileを足している作業とmergeの時に衝突しうることは、移す代償として受け入れる。
 
-### TBD: skillの名前
+### 新しいskillの名前
 
-置き場所を用意するskillと、実行側のskillの名前（論点4）。
+置き場所を用意するskillは`prepare-design-record`、roadmapを進めるskillは`advance-roadmap`とする。
+
+`prepare-design-record`は、`.design-records/`の一件を目的語にし、このskillを経た後の状態（設計の記録が使える状態になる）を名指す。`advance-roadmap`は、このskillを経た後に変わるroadmapの進み具合を名指す。`tasklist-executor`と形を揃えた`roadmap-executor`にしないのは、tasklistのtaskはそのまま実行できるが、roadmapのphaseはそれぞれをtask-designで設計してから実行し、二つが同じ種類の仕事ではないためである。
 
 ---
 
