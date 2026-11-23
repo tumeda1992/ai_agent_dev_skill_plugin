@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "10.0.0";
+const expectedRelease = "10.0.1";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -1682,6 +1682,19 @@ forbidText(skillPath("tasklist-executor/SKILL.md"), "11. ユーザーに動作�
 // Review boundaries, model roles, and unattended execution.
 for (const expected of ["正常な認可ユーザーの既存操作", "認可漏れの拒否", "部分保存のrollback", "未定義の並行操作の勝敗", "常設service費用"]) requireText(skillPath("exhaustive-review/SKILL.md"), expected);
 requireText(skillPath("exhaustive-review/templates/finding.md"), "全量固定の条件にしない");
+requireOrderedText(
+  skillPath("exhaustive-review/review-findings.md"),
+  [
+    "次の担当へ渡る理由をその文面のまま読む",
+    "同じ受け手・条件・結果について、最も有力な比較案の根拠にも照らす",
+    "共有投影と個人端末の両方で現在の節を表示でき、個人端末だけが各自で停止・復帰できる",
+    "共有投影でも現在の節を表示できるという事実に反する",
+    "その操作・費用・本人の発言から確かめられる",
+    "案の事実と費用を揃えたまま、この二つの理由を次の担当へ渡す形で作る",
+    "共通の効果を一案へ帰属する理由を退け、実際の違いと費用に基づく本人の選択を保てるかを、受け手の工程まで通して確かめる",
+  ],
+  "採用理由の対照を比較資料に照らして受け手の工程まで確かめる例",
+);
 for (const expected of ["Solが方針検討、ハンドリング、agent結果の監督", "Terraへ委譲できる", "hostを問わず", "高推論review担当"]) requireText(skillPath("exhaustive-review/SKILL.md"), expected);
 requireText(runtimeProfiles, "Astra相当");
 requireText(runtimeProfiles, "利用可能な標準のCodex coding model");
