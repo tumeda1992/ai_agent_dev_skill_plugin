@@ -19,7 +19,7 @@ steeringスキルの名前を変えて、task-designから置き場所を決め�
 
 ## TL;DR
 
-tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。記録は`.design-records/`へ置く。TBD: skillの名前（論点4）、既にある`.steering/`の記録の扱い（論点14）。
+tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。記録は`.design-records/`へ置く。TBD: 新しいskillの名前（論点4・15）。
 
 ---
 
@@ -72,7 +72,7 @@ roadmap_ready  → roadmapを実行するskill
 
 作業の記録は`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`へ置き、月の一覧は`.design-records/YYYY/YYYYMM/summary.md`に置く。入るもの（タスク設計、調査設計、その議論・計画・実行の経緯）に共通する核は「設計」であり、「作業」まで広げずに調査の設計も含めて範囲を覆える。`records`は、決定と経緯が残る場所であることを示し、後の作業が過去の決定を探しに来る使われ方と合う。
 
-TBD: 既にある`.steering/`の記録の扱い（論点14）。
+既にある`.steering/`の記録は`.design-records/`へ移す。このrepositoryでは今回の作業で`git mv`し、進行中の作業のdirectoryも一緒に移す。利用先repositoryでは、置き場所を用意するskillが、`.steering/`があり`.design-records/`が無い時に移すことを利用者へ提案し、承認されたら一度だけ移す。両方がある時は推測で混ぜず利用者へ確かめる。記録の本文に残る`.steering/…`のpathは書き換えず、以前の版の成果物を読むための`breaking_changes/`の記録で「`.steering/…`は`.design-records/…`として読む」と残す（TBD: 置き場所と規則の文面、論点16）。読む箇所は`.design-records/`だけを見る。他のbranchで`.steering/`の下にfileを足している作業とmergeの時に衝突しうることは、移す代償として受け入れる。
 
 ### TBD: skillの名前
 

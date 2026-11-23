@@ -292,15 +292,46 @@ planの種類ごとに、そのplanを実行する担当が実行の段取りを
 
 plan全般を実行するskillは作らない。tasklistの時に`tasklist-executor`を包む層になり、論点1で無くしたsteeringと同じ形になるためである。roadmapを`tasklist-executor`へ寄せない。`tasklist-executor`は`context: fork`の子agentとして動き、phaseごとに利用者と議論するtask-designを起動できないためである。代償として、planの種類によって利用者が起動するskillが二通りになる。
 
-## 論点4: 変更後のskillの名前
+## 論点4: 置き場所を用意するskillの名前
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
-**重さ:** 一つずつ考える（戻しにくさ: 中。利用先repositoryでskillを呼ぶ名前が変わる。利用者の前提への依存: 中。名前の好みは利用者が持つ）
+**重さ:** まとめて考える（戻しにくさ: 中。利用先repositoryでskillを呼ぶ名前になる。他は小。推す案は論点5の`.design-records/`と、既存のskill名の動詞と目的語の形から導く）
 
-**依存先:** 論点1、論点3（残すskill・新しく作るskillと、それぞれの役割が決まれば、名前の案を作れる）
+**依存先:** 論点1、論点3（残すskill・新しく作るskillと、それぞれの役割が決まれば、名前の案を作れる）。論点1・3・5・11が決まった。論点を立てた時のタイトルは「変更後のskillの名前」だったが、新しく作るskillの名前はそれぞれ別の問いのため、提案を出す前にこの論点を置き場所を用意するskillの名前へ絞り、roadmapを実行するskillの名前は論点15へ分けた
+
+### イテレーション0（論点4）: 置き場所を用意するskillの名前を提案する
+
+#### 提案0（論点4）
+
+このskillは、新しい作業を始める時に、命名（`name-work-directory`）、`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`の作成、前月の`summary.md`の生成、任意のbranchの作成、初回の`.steering/`の移動の提案を行う。結果として、一つの作業の設計の記録が使える状態になる。
+
+##### a. `prepare-design-record`（推奨）
+
+- 初見の人の予想: 設計の記録（`.design-records/`の一件）を用意する。新しい作業の始めに呼ぶものと読める。
+- 実態との差: 前月summaryの生成と`.steering/`の移動の提案は名前から読めないが、どちらも記録を用意する時の付随する処理で、誤解の方向は同じ。
+
+##### b. `start-design-record`
+
+- 初見の人の予想: 設計の記録を始める。新しい記録であることはaより強く読める。
+- 実態との差: 「始める」は作業そのものを始めるとも読め、設計の議論まで行うskillと予想されうる。
+
+##### c. `open-design-record`
+
+- 初見の人の予想: 設計の記録を開く。既にある記録を開いて読む、とも読める。
+- 実態との差: 新しく用意することと、既にあるものを開いて読むことの二通りに読め、後者は方向が違う。
+
+##### aを推す理由
+
+論点5で決めた`.design-records/`の一件を目的語にし、既存の`name-work-directory`、`plan-commits`と同じ動詞と目的語の形にした。動詞はこのskillを経た後の状態（記録が使える状態になる）を名指す「prepare」にした。
+
+#### 検討記録（論点4・イテレーション0）
+
+`plugins/tumeda-dev/skills/`のskill名（動詞と目的語の形: `name-work-directory`、`plan-commits`、`share-work-in-progress`、`facilitate-discussion`。名詞の形: `tasklist-executor`、`doc-enricher`、`test-runner`）を確かめた。`docs/development_standards/naming/core.md`の「outcomeを名指す」「名前を単独で評価しない」と、`reverse_translation.md`で各案を検算した。
+
+#### 提案0へのフィードバック（論点4）
 
 ## 論点5: 記録を置くdirectoryの名前
 
@@ -781,7 +812,7 @@ steering固有の議論記録`discussion.md`は、実行の段取りの議論の
 
 ## 論点14: 既にある`.steering/`の記録の扱い
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -831,4 +862,108 @@ steering固有の議論記録`discussion.md`は、実行の段取りの議論の
 **推す案:** a。
 
 #### 提案0へのフィードバック（論点14）
+
+**結果:** bを選択。aを推した理由の前提に見落とし
+
+> b。確かtask-designのownerとかの表記変えたとき、読み替えのルール作らなかったっけ？
+
+以前の版が作った成果物を今の版で読むための読み替えの決まりは、既に仕組みがある。`maintenance-plugin-context/SKILL.md`の「Plugin version」は、MAJORを上げる理由が「以前の版のskillが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなること」なら、成果物のtemplateと同じdirectoryの`breaking_changes/`へ記録を残すと定める。9.0.0で付録とroadmapのlabelを切り替えた時の記録が`task-design/templates/breaking_changes/20261115-rename-template-labels.md`にあり、旧名と新名の対応と「古い成果物の読み方」を持つ。
+
+提案0は、bの代償の「読み替えの決まり」を新しく作る負担として数え、aを推した。この仕組みは設計前調査で読んだ`maintenance-plugin-context`の版の規則にあり、標準は既にあった。原因は当てはめの見落としである。この仕組みに乗せれば、bの代償は既にある型の一件の記録になる。
+
+ただし今の規則の対象は「見出し・labelの名前」であり、置き場所のpathの変更は文面に入っていない。この仕組みに乗せる時の文面と記録の置き場所は、論点16で決める。
+
+### 決定（論点14）
+
+既にある`.steering/`の記録は、`.design-records/`へ移す。
+
+- このrepository: 今回の作業で`.steering/`を`.design-records/`へ`git mv`する。進行中の作業のdirectoryも一緒に移す。
+- 利用先repository: 置き場所を用意するskillが、`.steering/`があり`.design-records/`が無い時に、移すことを利用者へ提案し、承認されたら一度だけ`git mv`で移す。両方がある時は推測で混ぜず、利用者へ確かめる。
+- 記録の本文に残る`.steering/…`のpathは書き換えない。以前の版が作った成果物を今の版で読むための読み替えの決まり（`breaking_changes/`の記録）として、「`.steering/…`は`.design-records/…`として読む」を残す。文面と置き場所は論点16で決める。
+- 他のbranchで`.steering/`の下のfileを足している作業とは、mergeの時に衝突しうる。これは移すことの代償として受け入れる。
+
+読む箇所（過去の決定を探す処理、前月summaryの生成、hook、`.gitignore`の見本）は`.design-records/`だけを見る。
+
+## 論点15: roadmapを実行するskillの名前
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** まとめて考える（戻しにくさ: 中。利用先repositoryでskillを呼ぶ名前になる。他は小。推す案は`tasklist-executor`との対称から導く）
+
+論点4から分けた。
+
+### イテレーション0（論点15）: roadmapを実行するskillの名前を提案する
+
+#### 提案0（論点15）
+
+このskillは、roadmapの依存順にphaseを選び、phaseごとにtask-designを起動し、返った結果に応じて`tasklist-executor`、自分自身（入れ子）、完了の確認へ進み、phaseの子のpath・status・完了日を書く（論点3の決定）。
+
+##### a. `roadmap-executor`（推奨）
+
+- 初見の人の予想: roadmapを実行する担当。`tasklist-executor`と並べると、planの種類ごとの実行の担当だと読める。
+- 実態との差: phaseごとにtask-designを起動して設計させることは名前から読めないが、roadmapを実行する中の段であり、誤解の方向は同じ。
+
+##### b. `execute-roadmap`
+
+- 初見の人の予想: roadmapを実行する。意味はaと同じ。
+- 実態との差: 同じ役割の`tasklist-executor`と形が揃わず、並べた時に別の種類のものに見える。
+
+##### aを推す理由
+
+task-designが返すplanの種類（tasklist、roadmap）ごとに実行の担当を置くと決めた（論点3）。同列に並ぶ`tasklist-executor`と表記と抽象度を揃えると、planの種類ごとの対になっていることが名前から読める（`docs/development_standards/naming/core.md`「名前を単独で評価しない」、`naming/file.md`「同階層の存在と足並みを揃える」）。
+
+#### 検討記録（論点15・イテレーション0）
+
+論点3の決定と、既存の`tasklist-executor`の名前と役割（`context: fork`で一つのtasklistを実行する）を確かめた。対になる担当の名前を揃える観点を`naming/core.md`と`naming/file.md`から当てた。
+
+#### 提案0へのフィードバック（論点15）
+
+## 論点16: `.steering/`の読み替えの決まりの置き場所と、規則の文面
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** 確かめるだけ（全部小。根拠は`maintenance-plugin-context/SKILL.md`「Plugin version」と`task-design/templates/breaking_changes/`の前例）
+
+論点14の決定から立てた。
+
+### イテレーション0（論点16）: 読み替えの決まりを、既存の`breaking_changes/`の仕組みに乗せる形を仮決めする
+
+#### 提案0（論点16）
+
+- a. 置き場所を用意するskillのdirectoryに`breaking_changes/`を作り、`.steering/…`を`.design-records/…`として読む記録を一件置く。`maintenance-plugin-context/SKILL.md`「Plugin version」の対象の文面を「見出し・labelの名前」から「見出し・labelの名前や、置き場所のpath」へ広げる（仮決め）
+  - 根拠: 同節は「その成果物のテンプレートと同じdirectoryの`breaking_changes/`に記録を残す。無ければ作る」と定める。`.design-records/`の置き場所を決めるのは置き場所を用意するskillである。記録の形（変わった版、旧名と新名の対応、変えた理由、古い成果物の読み方）は`20261115-rename-template-labels.md`に倣う。
+  - `breaking_changes/`のREADMEには、このskillの成果物で記録する例・しない例を書く（同節の決まり）。
+  - 文面を広げないと、置き場所のpathの変更はこの仕組みの対象外になり、記録を置く根拠が無い。
+- b. `task-design/templates/breaking_changes/`へ置く
+  - 同directoryのREADMEは対象をtask-designの`design.md`、`tasklist.md`、`roadmap.md`に限っており、置き場所を決める担当とも違う。
+
+#### 検討記録（論点16・イテレーション0）
+
+`maintenance-plugin-context/SKILL.md`「Plugin version」、`task-design/templates/breaking_changes/README.md`、`20261115-rename-template-labels.md`を読んだ。今の規則の対象は見出し・labelの名前に限られ、置き場所のpathを含まない。記録はtemplateと同じdirectoryに置くと定められ、READMEには記録する例・しない例を書く決まりがある。
+
+#### 提案0へのフィードバック（論点16）
+
+## 論点17: task-designの、締めくくりの確認と公開の内部指示のfileの名前
+
+**ステータス:** 依存先待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** 確かめるだけ（全部小。skillの内部のfileであり、後で一箇所の参照と一緒に直せる）
+
+**依存先:** なし。論点4・15・16の後に、論点18とまとめて示す
+
+## 論点18: 置き場所を用意するskillの、前月summaryの生成の内部指示のfileの名前
+
+**ステータス:** 依存先待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** 確かめるだけ（全部小。理由は論点17と同じ）
+
+**依存先:** 論点4（skillの名前が決まれば、その配下の名前として揃えられる）
 
