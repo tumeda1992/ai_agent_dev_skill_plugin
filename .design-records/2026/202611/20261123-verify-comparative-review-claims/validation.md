@@ -37,6 +37,10 @@
 
 ## 公開と実行環境への反映
 
-本文と候補の検証は終了した。PRを記録として作り、手元でmainへmergeしてpushする現行の取り込み手順に従う。現時点ではGitのreadは可能だが、GitHub APIへの通常の接続が `Forbidden` で拒否された。現在の環境policyにAPIのhostがないことを確認し、環境設定のdraftへ必要なhost一つを追加した。draftの保存は実行環境への適用ではないため、PR・mainへの取り込み・配布済みpluginの更新は未完了である。
+最初はGitのreadは可能だったが、GitHub APIへの通常の接続が `Forbidden` で拒否された。環境policyにAPIのhostがないことを確認し、設定のdraftへ必要なhost一つを追加した。利用者から「反映した」と応答を受けた後、現在のpolicyでhostが許可され、CLIのAPI接続も成功することを確認した。draftの保存だけで接続が回復したとは扱っていない。
 
-APIへ接続できるようになったら、既存PRの有無を確認して作成又は再利用し、mainへ取り込み、通常の固定commitによるsetupを更新する。公開前に上流がさらに更新されていれば取り込みと版値を再照合する。利用先の作業と未commitの修正は保持したままで、架空ドライランの修正へは進んでいない。
+[PR #33](https://github.com/tumeda1992/ai_agent_dev_skill_plugin/pull/33) を記録として作成し、現行の取り込み手順どおり手元で `git merge --no-ff` してmainへpushした。GitHub APIでPRのMERGEDとmerge commit `b3df98ae3a6e96db2ce01824b0359ac0747b6896` を確認した。利用先の未commitの修正は保持したままで、架空ドライランの修正へは進んでいない。
+
+このクラウド環境で使うsetupを、通常の固定commitによる新しい取得先へ更新し、10.0.1を取得した。取得commitが公開したmainと一致し、変更のないcheckoutであることを確認した。setupの初回実行と再実行でvalidatorが成功し、実際の取得先から `think-through` と変更したレビュー本文を再読した。元の取得先は編集していない。
+
+再起動用のinstall_scriptとstart_skillも、10.0.1の取得先・固定commit・現行のskill名へ更新し、環境設定のdraftへ保存した。現在の実行用ソースの更新と、次回用設定の保存は完了した。draftの公開や別タスクでの復元、ネイティブplugin登録・hookの自動reload、外部PCへのinstallまでは確認していない。ここでは取得済み本文を直接読み、同じ配布単位の参照を解決して使う。
