@@ -1328,11 +1328,18 @@ for (const expected of [
   "応答を受けて回を重ねた論点は、段によらず一往復に1つで示す",
   "利用者の前提への依存を小にするのは、根拠を名指せる時だけにする",
   "前例から答えが一つに決まっても、問わずに決めない",
-  "該当する案の行の末尾に「（仮決め）」「（推奨）」と付ける",
+  "該当する案の行の記号の直後（「a. （仮決め）…」「a. （推奨）…」）に付ける",
   "「ok」は「全部ok」の別名",
   "返事は、名指された論点だけを、その答えとして扱う",
   "採らなかった案と理由は、論点ごとに議論記録の提案と検討記録へ残す",
 ]) requireText(discussionRoundTrip, expected);
+// 仮決め・推奨の印は案の行の頭に置き、案の文を読む前に目に入るようにする。
+forbidText(discussionRoundTrip, "該当する案の行の末尾に", "案の行の末尾に置く印");
+for (const relativePath of ["facilitate-discussion/templates/proposal-sections/compact-options.md", "facilitate-discussion/templates/proposal-sections/detailed-options.md"].map(skillPath)) {
+  requireText(relativePath, "該当する案の行の添字の直後に付ける");
+  forbidText(relativePath, "{選択肢を一文で書く}**（推奨）", "案の行の末尾に置く印");
+  forbidText(relativePath, "{選択肢を一文で書く}（推奨）", "案の行の末尾に置く印");
+}
 for (const expected of ["論点は、わかった時点で立てる", "依存先待ち", "利用者が明示委託した範囲の選択も含む", "意味を変えない機械的適用・誤字・format・link修正"]) requireText(discussionSkill, expected);
 forbidText(discussionSkill, "同じturnで次decisionを確定しない", "一論点ずつ選ぶ前提の旧い確定");
 for (const expected of ["### 修正と反映を追跡する", "利用者が修正を一意に指定し、既存権限内であれば再承認を求めず反映できる", "部分反映や検証失敗を全件反映済みにしない"]) requireText(discussionIteration, expected);
