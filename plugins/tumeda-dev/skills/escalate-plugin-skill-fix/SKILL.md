@@ -1,6 +1,6 @@
 ---
 name: escalate-plugin-skill-fix
-description: このpluginのskill、docs、template、scriptに対する修正提案が生じた時に使う。利用先repositoryで作業中でもplugin repositoryで作業中でも、提案が生じた瞬間、または元担当が同じ作業の保留条件を再確認・再開する時に起動する。plugin repositoryかどうかの判定はこのskillの内部で行うため、起動条件には含めない。通常の設計議論や、利用先repository自身のcodeに対する修正では起動しない。
+description: このpluginのskill、docs、template、scriptに対する修正提案が生じた時に使う。既定では提案を元の作業の保留メモに控え、元の作業の後に引き渡す。利用者が即時を指示した時だけ、その場で引き渡す。利用先repositoryで作業中でもplugin repositoryで作業中でも、提案が生じた瞬間、または元担当が同じ作業の保留条件を再確認・再開する時に起動する。plugin repositoryかどうかの判定はこのskillの内部で行うため、起動条件には含めない。通常の設計議論や、利用先repository自身のcodeに対する修正では起動しない。
 ---
 
 # Escalate plugin skill fix
@@ -27,12 +27,13 @@ none/endedでは既存処理へ進む。
 
 このskillが存在しない状態では、提案は生まれた場所（多くは利用先repository）で議論が進み、合意してからplugin repositoryへ手作業で移設することになる。
 移設は記録の採番衝突、発言原文の意図しない改変、利用先固有情報の混入という事故を生む。
-明示保留がない場合は「提案が生じた時点で、記録を始める前にplugin repositoryへ移る」経路を使う。
-利用者が保留を明示した場合は、元作業へ固定した控えを保存し、指定条件から引渡しを再開する。
+既定では、提案を元作業へ固定した控え（保留メモ）として保存し、元の作業を中断せずに続け、元の作業の完了から引渡しを再開する。
+提案のたびにplugin repositoryへ移ると、元の作業のcontextを離れ、戻ってから再開することになるためである。
+利用者が即時を指示した場合だけ、「提案が生じた時点で、記録を始める前にplugin repositoryへ移る」経路を使う。
 
-即時引渡しの成果は、plugin repositoryで`steering`が起動した状態である。
-明示保留では元作業のメモと追跡を保存して元の担当へ返す。
-以降の設計・議論・実装は`steering`の通常flowが引き継ぐ。
+既定の保留の成果は、元作業の保留メモと追跡を保存し、保留したことを利用者へ知らせて、元の担当へ返した状態である。
+即時引渡しの成果は、plugin repositoryで`task-design`が起動した状態である。
+以降の設計・議論・実装は`task-design`の通常flowが引き継ぐ。
 
 ## 起動gate
 
@@ -47,10 +48,21 @@ none/endedでは既存処理へ進む。
 
 ## 作業先を切り替える前の保留判定
 
-起動gateを通った後、実際の利用者指示に個別または同じ作業内の明示保留があるかを確認する。
-明示保留または既存保留メモの再確認・再開では、[保留と再開](pending-escalations.md)を読み、元作業への保存・条件確認・受領追跡を行う。
-保留を保存した時は元作業へ返す。条件成立後の実際の転送は下の既存経路へ戻る。
-保留指示がなければ即時引渡しを継続し、メモの存在や慣習だけで保留にしない。
+起動gateを通った後、実際の利用者指示に、個別または同じ作業内の即時の指示があるかを確認する。
+即時の指示があれば、下の「plugin repositoryの判定」から即時引渡しへ進む。
+慣習や過去の指示から即時を補わない。範囲・期間が分からない時は、その不足だけを確かめる。
+
+即時の指示がなければ、既定どおり保留する。[保留と再開](pending-escalations.md)を読み、元作業への保存・条件確認・受領追跡を行う。
+既存保留メモの再確認・再開も同じ文書で行う。保留を保存した時は元作業へ返す。条件成立後の実際の転送は下の既存経路へ戻る。
+
+提案を直すと、同じ元の作業の残りの進め方が変わる時だけ、提案を示す時に即時を勧める次の一問を出す。
+自分で即時に切り替えず、利用者の答えに従う。それ以外の提案では勧めない。
+
+> この改善を保留すると、今の作業の残り（{変わる工程}）が今のskillの規則のまま進み、後でやり直しになる。
+> a. 今すぐpluginへ引き渡す　b. 保留して、今の作業の後に引き渡す
+
+判断の問い: **「この提案が直す規則に、今の作業の残りの工程が従うか」**
+
 この判定は現在がplugin repositoryでも省略しない。
 
 
@@ -64,7 +76,7 @@ Git rootが取得できない、またはこの判定だけではplugin reposito
 
 ### plugin repositoryだった場合
 
-現在のrepositoryが既にplugin repositoryであれば、移動もrepository固有情報の除去も不要である。そのまま`steering`を`branch_from_basename=true`で起動し、このskillは終了する。
+現在のrepositoryが既にplugin repositoryであれば、移動もrepository固有情報の除去も不要である。そのまま`task-design`を`branch_from_basename=true`で起動し、このskillは終了する。
 
 ## plugin repositoryでない場合の引き渡し
 
@@ -79,26 +91,26 @@ Git rootが取得できない、またはこの判定だけではplugin reposito
 
 受け取った側は、利用者の原文で確かめられない中身を未合意として扱い、設計で改めて合意を取る。
 
-除去すべき固有情報（利用先repository名、所有者名、絶対path、固有ドメイン名、固有steering slugなど）の規約はこのskillが持たない。正本は`plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies/migration.md`である。除去すると提案の意味が保てなくなる場合は、無理に一般化せず、`migration.md`が定める規約に従って停止する。
+除去すべき固有情報（利用先repository名、所有者名、絶対path、固有ドメイン名、固有の設計の記録のslugなど）の規約はこのskillが持たない。正本は`plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies/migration.md`である。除去すると提案の意味が保てなくなる場合は、無理に一般化せず、`migration.md`が定める規約に従って停止する。
 
 ### 作業対象の切り替え
 
-working directoryをplugin repositoryへ移す。作業branchは`steering`が作る。
+working directoryをplugin repositoryへ移す。作業branchは、`task-design`が呼ぶ`prepare-design-record`が作る。
 
-`steering`は起動時のworking directoryを基準に`.steering/`を解決する。working directoryの切り替えだけが、これから行う作業対象を`steering`へ伝える唯一の手段である。切り替えを省略すると、`steering`は利用先repository側の`.steering/`を解決してしまい、提案は結局利用先repositoryに記録される。
+`prepare-design-record`は起動時のworking directoryを基準に`.design-records/`を解決する。working directoryの切り替えだけが、これから行う作業対象を`task-design`へ伝える唯一の手段である。切り替えを省略すると、`prepare-design-record`は利用先repository側の`.design-records/`を解決してしまい、提案は結局利用先repositoryに記録される。
 
 ### 起動するもの
 
-working directoryの切り替えが終わったら、plugin repositoryで`steering`を`branch_from_basename=true`で起動する。以降の設計・議論・実装は`steering`の通常flowに委ねる。
+working directoryの切り替えが終わったら、plugin repositoryで`task-design`を`branch_from_basename=true`で起動する。以降の設計・議論・実装は`task-design`の通常flowに委ねる。
 
-このrepositoryへの変更は利用先からの提案が起点であり、その都度固有の題材になるためissue番号のような安定した識別子を持たない。branch名をsteering directoryのbasenameに揃えると、branch一覧が日付順に並び、branch名からsteering記録を一意に引ける。
+このrepositoryへの変更は利用先からの提案が起点であり、その都度固有の題材になるためissue番号のような安定した識別子を持たない。branch名を設計の記録のdirectoryのbasenameに揃えると、branch一覧が日付順に並び、branch名から設計の記録を一意に引ける。
 
 ### 利用先側に残すもの
 
 利用先repositoryのdiscussion fileには、次の三つだけを残す。
 
 1. この提案はplugin repositoryで扱う旨
-2. plugin repository側で作業するsteering directoryのbasename
+2. plugin repository側で作業する設計の記録のdirectoryのbasename
 3. 引き渡した提案の要旨（一行）
 
 議論の続きや合意内容そのものを利用先側に書き足さない。続きはplugin repository側の記録が正である。
@@ -106,13 +118,13 @@ working directoryの切り替えが終わったら、plugin repositoryで`steeri
 ## 引き渡し後
 
 - 利用先repository側の元taskは中断したまま残る。plugin repository側の作業が終わってから、その続きに戻る。
-- 修正したskillは、pluginをupdateしただけでは、今実行中のsessionへ反映されない。skill内容はsession開始時に読み込まれるためである。反映する操作は[取り込みと反映](integrate-plugin-changes.md)の7に従う。
+- 修正したskillは、pluginをupdateしただけでは、今実行中のsessionへ反映されない。skill内容はsession開始時に読み込まれるためである。反映する操作は[取り込みと反映](integrate-plugin-changes.md)の8に従う。
 - **escalateのためにsessionを新規作成しない。** 新規作成するとcontextが失われ、元taskと進行中の議論の両方を説明し直すところから始まる。escalateは、提案が生じたsessionの中で行う。
 - 元taskを旧版のskillのまま続けるか、反映して修正後のskillで続けるかは、ユーザーが選ぶ。このskillが代わりに決めない。
 
 ### plugin repositoryでの作業完了後の取り込み
 
-plugin repositoryでのsteeringがcommitまで終わったら、[取り込みと反映](integrate-plugin-changes.md)に従い、PRを経由せず`main`へ取り込み、pluginをupdateする。
+plugin repositoryでの作業がcommitまで終わったら（plan無しなら`task-design`の`wrap-up.md`の公開、planがあればtasklistのcommit）、[取り込みと反映](integrate-plugin-changes.md)に従い、PRを記録として作り、手元で`main`へ取り込み、pluginをupdateする。
 
 ## 責務境界
 
@@ -121,12 +133,12 @@ plugin repositoryでのsteeringがcommitまで終わったら、[取り込みと
 - 利用先固有情報の除去規約・意味保存の判断 → `migration.md`
 - 議論の進行、提案・feedback・決定の記録 → `facilitate-discussion`
 - repository固有文脈、配布version規約 → `maintenance-plugin-context`
-- plugin repositoryでの設計・実装のorchestration → `steering`
+- plugin repositoryでの設計・実装 → `task-design`（実行は`tasklist-executor`、`advance-roadmap`）
 
 ## このskillが絶対にやらないこと
 
 - 提案についての議論を自分で進行・継続しない。議論は`facilitate-discussion`に委ねる。
 - 固有情報の除去ルールを自分で定義・判断しない。`migration.md`を参照するだけで、規約そのものは持たない。
-- 専用の設計・実装processを持たない。plugin repositoryへ移った後は`steering`の通常flowに従う。
+- 専用の設計・実装processを持たない。plugin repositoryへ移った後は`task-design`の通常flowに従う。
 - version bumpの要否や区分を自分で決めない。
 - plugin repositoryかどうかの判定を保留したまま、あるいは推測だけで、利用先repositoryのまま議論や記録を進めない。

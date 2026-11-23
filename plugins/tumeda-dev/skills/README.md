@@ -26,31 +26,28 @@ repository固有のfactは各利用先の `.agents/skills/tumeda-dev-plugin-cont
 
 - **exhaustive-review** — 高知能モデルで全体・指定範囲・差分を複数の観点から繰り返し精査し、問題を徹底的に洗い出す。指摘と改善案を指定directoryへ独立保存し、合意した修正は1指摘1コミットで適用する。
 
-- **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。steering / task-design を呼ぶ前段にも効く。思考標準の本体は[../docs/think_standards/](../docs/think_standards/README.md)にある。
+- **think-through** — 議論・思考プロセスの作法。毎ターン適用する想定の常時注入型。task-design / advance-roadmap を呼ぶ前段にも効く。思考標準の本体は[../docs/think_standards/](../docs/think_standards/README.md)にある。
 - **facilitate-discussion** — 明示された議論を進行し、提案・feedback・決定・導出変更を記録し、長い議論を原文保持で分割する。
 - **skill-update-review** — 汎用skillのSKILL.mdと内部指示から、切り出せる工程を候補として知らせる。
-- **steering** — task-designの`tasklist_ready | roadmap_ready | planless_complete`を受け、plan resultのdispatch、planless resultの共通gate後完了、roadmapの子steering binding・status伝播・再帰実行を担うruntime orchestrator。
-  - **task-design** — task全体で一つの完成後の姿を設計・合意し、対象成果物変更を分類・適用する。tasklist・roadmapに載せて実行する変更がある場合だけ排他的な`tasklist.md | roadmap.md`を設計・review・合意し、対象zeroならplanなしで完了するowner。
+- **task-design** — 作業の入口。task全体で一つの完成後の姿を設計・合意し、対象成果物変更を分類・適用する。tasklist・roadmapに載せて実行する変更がある場合だけ排他的な`tasklist.md | roadmap.md`を設計・review・合意し、対象zeroならplanなしで公開まで完了するowner。結果を返す前に`wrap-up.md`で締めくくりの確認と実行開始の確認を行う。
+  - **prepare-design-record** — 新しい作業の設計の記録（`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`）を用意する。命名、directory、前月summary、任意のbranch。task-designを通さない調査の設計からも呼べる。
+- **advance-roadmap** — 合意済みのroadmapを依存順に一phaseずつ進める。phaseごとにtask-designで設計させ、返ったplanを実行させ、status・完了日を書く。
 - **unattended-execution** — 利用者が応答できない間、既承認scopeで独立作業を進め、新たな承認が必要な操作を保留する。
 - **tasklist-executor** — task-designが生成した`tasklist.md`を上から順に実装・テスト・更新するsingle execution writer。roadmapは更新せず、完了resultをcallerへ返す。
   - **test-runner** — テスト実行と失敗分析。executor が共通契約で child 委譲する。
-  - **visual-inspector** — Playwright で UI をスクリーンショット目視確認。executor が委譲する（steering も現状のファクト確認に使う）。
+  - **visual-inspector** — Playwright で UI をスクリーンショット目視確認。executor が委譲する（task-design も現状のファクト確認に使う）。
 - **doc-enricher** — 作業で払った手間（探した・誤った・決めた）のうち、次の作業者が再び払うものを見つけ、払わずに済むようにする文書の変更（追加・導線・失敗例・訂正）と置き場所を提案する（デフォルトは提案のみ）。
 - **plan-commits** — 実差分を意味のある仕事へ分け、コミットメッセージ・依存・revert時の効果を計画する。
 - **share-work-in-progress** — 作業中branchの内容を、依頼者がGitHub上で読める状態にする。動作確認の完了を待たない点でtasklist-executorのcommit・push・PR契約とは前提が逆。
 - **escalate-plugin-skill-fix** — 利用先repositoryで生じたこのpluginの成果物への修正提案を、
-  plugin repositoryの`steering`へ引き渡し、明示保留の控えと条件付き再開も扱うrouting skill。
+  既定では元の作業の保留メモに控えて作業の後に、利用者が即時を指示した時はその場で、plugin repositoryの`task-design`へ引き渡すrouting skill。
 - **maintenance-plugin-context** — repository fact、作業限定の暫定指示、配布version規約を管理するメタskill。
 
-## 共有リファレンス（skill ではない）
+## skills の直下に置くもの
 
-直下に置く、skill 本文から参照される host 非依存の共通ドキュメントと script。
+`skills/` の直下には、skill の directory とこの README だけを置く。一つの skill が持つ手順・契約・雛形・対応表は、他の skill が読むものでも、その skill の directory の中へ置く。複数の skill を横断する規範は `docs/` の群へ置く。
 
-- **runtime-execution-contracts.md** — tasklist-executor が visual-inspector / test-runner へ child 委譲する時の共通契約（状態の正本・single writer・停止理由）に加え、command を実行しうる任意の skill が従う実行時一般の契約（実行環境に止められたら迂回せず停止する）。
-- **runtime-model-profiles.md** — skill が要求する推論強度 profile を、各 host の実 model へ変換する対応表。
-- **task-design-work-handoff-contracts.md** — 進行中designを別の`task-design`実行が引き継ぐ際の、独立再構成、正本照合、attempt lifecycle、完了gateの共有contract。consumerは`task-design`であり、`steering`は同じworking directoryへのroutingだけを担う。
-- **tumeda-dev-plugin-context.md** — 利用先 repository に置く context ファイルのテンプレート雛形。
-- **scripts/github/create_or_get_pr.sh** — tasklist-executor と share-work-in-progress が対等に参照する PR 作成 script。`SKILL.md` を持たないため、loader も `scripts/verification/validate-plugin.mjs` も skill として拾わない。
+例外は **tumeda-dev-plugin-context.md**（利用先 repository に置く context ファイルの雛形）である。plugin repository の `.agents/skills` が `plugins/tumeda-dev/skills` への symlink のため、この file は plugin repository 自身の context を兼ねる。`maintenance-plugin-context` は雛形を plugin の `skills/` の直下から読む。
 
 ## 詳細を知りたいとき
 

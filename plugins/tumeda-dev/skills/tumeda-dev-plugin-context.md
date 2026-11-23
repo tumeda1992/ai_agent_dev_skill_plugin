@@ -14,6 +14,28 @@
 
 <!-- 置き場所の一覧（形と作り方は `doc-enricher/place-map.md`）、README 編集方針など、doc-enricher 固有制約だけこの下に記載 -->
 
+### 置き場所の一覧
+
+| 置き場所 | 約束する範囲 | 読まれる時 |
+| --- | --- | --- |
+| `AGENTS.md`（root。`CLAUDE.md` は同fileへのsymlink） | repository全体の作業の決まり（常用plugin、口調、毎ターン適用する思考の作法、repository運用） | すべての作業の開始時に必ず読まれる |
+| root `README.md` | pluginの運用契約と、変更時の検証と前提 | 検証の規約を確かめる時に、この文脈の「テスト方針」から辿る |
+| `plugins/tumeda-dev/docs/README.md` | docsの群への入口と、群の置き方 | docsへ規範を置く・探す時に、この文脈の「アーキテクチャ文書」から辿る |
+| `plugins/tumeda-dev/docs/think_standards/` | 議論・思考プロセスの作法。READMEが場面ごとのfileの引き方を持つ | `think-through` から、該当する場面のfileを読む |
+| `plugins/tumeda-dev/docs/documentation_standards/` | docsの書き方・構造化 | skill本体やdocsを書く時、`document-review` の観点として読む |
+| `plugins/tumeda-dev/docs/development_standards/` | 開発にまつわる標準（命名、エンティティ設計、開発の進め方、基盤） | 名前を付ける・設計する・開発の進め方を決める時に、群のREADMEから辿る |
+| `plugins/tumeda-dev/docs/common_standard/function_migration_policy.md` | 機能・仕様の移行で意味を全量保存する、複数の群に効く規範 | file分割、owner変更、skill間・plugin間移植の時 |
+| `plugins/tumeda-dev/docs/agent_execution_standards/blocked_commands.md` | AI agentに特有の詰まり方への対処 | 実行環境にcommandを止められた時 |
+| `plugins/tumeda-dev/skills/maintenance-plugin-context/maintenance_policies/migration.md` | 他repositoryとの移植・追随・逆輸入の規約 | 他repositoryから移植してpluginを育てる時に、`AGENTS.md` の指示で読む |
+| 各skill directoryの `SKILL.md` | そのskillの実行手順とownership | そのskillを起動した時 |
+| 各skill directoryの内部指示（`SKILL.md` から辿る `*.md`） | `SKILL.md` がそのfileへ割り当てた工程 | `SKILL.md` の実行経路がそのfileを読むよう指示した時 |
+| 各skill directoryの `templates/` | そのskillが成果物を書く時の形。索引のREADMEがあれば、そこに選び方がある | そのskillの手順が雛形として読ませる時 |
+| `plugins/tumeda-dev/skills/README.md` | 人間がskill群の全体像を俯瞰する目次 | 人間が全体を見渡す時。AIの作業手順からは読まれない |
+| `plugins/tumeda-dev/model-profiles.md` | hostごとのmodel差を吸収する能力profile | skillが推論強度やmodelを選ぶ時に、そのskillの `SKILL.md` から辿る |
+| `scripts/verification/validate-plugin.mjs` | plugin manifestの整合と、skill・docsの契約文のassertion | 検証の実行時。skillやdocsを変える時にassertionを足す・追随させる |
+| `.design-records/<年>/<年月>/<作業>/` | その作業の設計・議論・経緯 | その作業を再開する時。議論で前例を探す時に決定の節を読む |
+| codeのcomment | その一箇所 | その行を読む時 |
+
 ## task-design
 
 参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)、[全体 test command](#全体-test-command)、[全体 lint command](#全体-lint-command)
@@ -28,7 +50,7 @@
 
 <!-- 利用者の動作確認に使う環境と、そこへ載せる方法を書く。
      確認環境へ載せるのに commit・push が要る場合（push で build される環境等）は、その旨と載せ方を書く。
-     tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push と、作業の外へ残る action を含む phase の最後の commit・push だけを、利用者の動作確認の前に許す -->
+     tasklist-design・tasklist-executor・tasklist-executorを起動する側 は、ここに書かれた commit・push と、作業の外へ残る action を含む phase の最後の commit・push だけを、利用者の動作確認の前に許す -->
 
 - なし。このrepositoryはskill・docsのMarkdownとmanifestのJSONだけを持ち、起動するappを持たない。`visual-inspector` を使う対象がない。
 
@@ -36,9 +58,8 @@
 
 - remote: `origin` は `ssh://git@github.com/tumeda1992/ai_agent_dev_skill_plugin.git`。
 - default branch: `main`。default branchの上で直接commitしない。作業はbranchで行う。
-  - `escalate-plugin-skill-fix`で引き渡された作業は、同skillの「plugin repositoryでの作業完了後の取り込み」に従い、PRを経由せず作業branchを`main`へmergeしてpushする。
 - PR作成script: `scripts/for_local/github/create_or_get_pr.sh`。同じhead branchのopen PRがあれば新規作成せずそのURLを返す。
-  - pluginのskills directory直下の共用配置 `skills/scripts/github/create_or_get_pr.sh` とはpathが異なる。このrepositoryで作業する時はrepository側の `scripts/for_local/github/` を使う。
+  - pluginの直下の共用配置 `scripts/github/create_or_get_pr.sh` とはpathが異なる。このrepositoryで作業する時はrepository側の `scripts/for_local/github/` を使う。
   - この参照はplugin内のpathを指すsymlinkである。skill群やscriptを再配置した時は張り替えが要る。`scripts/for_local/` は`.gitignore`の対象のため、壊れてもgit差分にもCIにも現れない。
 
 ### Branch / issue 契約
@@ -50,7 +71,7 @@
      issueを持たないrepositoryは、その旨と代わりの識別子を書く -->
 
 - なし。利用先repositoryからの提案が起点になるため、issue番号のような安定した識別子を持たない。
-- branch名はsteering directoryのbasename（`YYYYMMDD-slug`）に揃える。`steering` を `branch_from_basename=true` で起動して作る。branch一覧が日付順に並び、branch名からsteering記録を一意に引ける。
+- branch名は設計の記録のdirectoryのbasename（`YYYYMMDD-slug`）に揃える。`task-design` を `branch_from_basename=true` で起動し、`prepare-design-record` がbranchを作る。branch一覧が日付順に並び、branch名から設計の記録を一意に引ける。
 
 ### 作業の外へ残るactionの差し込み
 
@@ -67,11 +88,11 @@
 
 - なし。このrepositoryは基盤を持たない。
 
-## steering
+## advance-roadmap
 
 参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)
 
-<!-- steering root、roadmap binding・status伝播に必要な制約だけこの下に記載 -->
+<!-- roadmapの子phaseのbinding・status伝播に必要な制約だけこの下に記載 -->
 
 ## visual-inspector
 

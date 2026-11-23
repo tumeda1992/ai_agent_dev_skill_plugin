@@ -26,7 +26,7 @@ think-through skill の要約（hook による毎ターン注入）。
 
 この要約が載せているのは think-through の一部だけである。design・tasklist・discussion の
 記録形式、論点の立て方、合意の取り方は含まれていない。
-.steering/ 配下を読み書きする前に、Skill で tumeda-dev:task-design を起動する。
+.design-records/ 配下を読み書きする前に、Skill で tumeda-dev:task-design を起動する。
 
 詳細は docs/think_standards/README.md 参照。
 EOF

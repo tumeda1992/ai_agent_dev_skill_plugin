@@ -56,10 +56,10 @@ current branchがremoteのdefault branchである場合、運用形態を推定�
 3. 未commitの変更があれば、untrackedを含めてすべてstageし、一つのcommitにする。commit messageは`WIP: share work in progress`とする。
 4. commitするものが何も無く、かつremoteのdefault branchと同一HEADでPRを作れない場合だけ、空commitを作る。空commitはPRを成立させるための最小差分であり、見せるための差分ではない。
 5. current branchをpushする。rejectされたら停止し、remoteと分岐していることを報告する（[失敗の扱い](#失敗の扱い)）。
-6. default branchでなく、かつ`gh`が使える場合だけ、`../scripts/github/create_or_get_pr.sh`を呼ぶ。既にopen PRがあれば作成せずURLが返る。
+6. default branchでなく、かつ`gh`が使える場合だけ、pluginの直下の`scripts/github/create_or_get_pr.sh`を呼ぶ。既にopen PRがあれば作成せずURLが返る。
 7. 到達した地点を報告する。PRのURL、またはpushまでで止まった理由を示す。
 
-script pathの起点はpluginのskills directoryである。利用先repositoryからの相対pathではない。
+script pathの起点はpluginの直下である。利用先repositoryからの相対pathではない。
 
 ## 部分成功の扱い
 

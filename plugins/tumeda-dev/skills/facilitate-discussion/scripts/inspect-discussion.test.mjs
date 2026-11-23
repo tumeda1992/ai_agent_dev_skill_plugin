@@ -49,6 +49,12 @@ test("未完成iterationは途中状態、未知の現在形式はneeds_full_rea
   writeFileSync(join(directory, "discussion.md"), entry(1) + "### 未知の状態\n\n不明\n"); const unknown = run(directory, "read"); assert.deepEqual(unknown.needs_full_read, [join(directory, "discussion.md")]); assert.equal(unknown.complete, false);
   writeFileSync(join(directory, "discussion.md"), entry(1) + "```\n"); assert.equal(cli(directory, "check").status, 1);
 });
+test("依存先待ちは既知の状態として、案の無い回のまま現在を読める", t => {
+  const directory = fixture(t);
+  writeFileSync(join(directory, "discussion.md"), "# 議論記録\n\n## 論点1: 依存する問い\n\n**ステータス:** 依存先待ち\n\n**依存先:** 論点2（決まれば案を作れる）\n\n### イテレーション0（論点1）: 論点を立てた\n\nまだ示していない。\n\n" + entry(2));
+  assert.equal(run(directory, "check").problems.length, 0);
+  const current = run(directory, "read"); assert.deepEqual(current.needs_full_read, []); assert.equal(current.complete, true);
+});
 test("重複番号、親欠落、親循環、複数親、無効番号を拒否する", t => {
   const directory = fixture(t);
   for (const content of [entry(1) + entry(1), entry(1, { parent: 8 }), entry(1, { parent: 2 }) + entry(2, { parent: 1 }), entry(1).replace("**ステータス:** 応答待ち", "**親論点:** 論点2\n**親論点:** 論点3"), "## 論点0: invalid\n"]) {

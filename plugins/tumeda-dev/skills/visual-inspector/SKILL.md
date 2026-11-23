@@ -31,7 +31,7 @@ Playwright スクリプトを即興で書いてブラウザのスクリーンシ
 
 ## 共通実行契約と必須入力
 
-`../runtime-execution-contracts.md`を正本とし、このskillの推論強度は`../runtime-model-profiles.md`の`delegated-execution`に従う。
+`../tasklist-executor/execution-contracts.md`を正本とし、このskillの推論強度は`../../model-profiles.md`の`delegated-execution`に従う。
 
 parentは次を渡す。
 
@@ -55,7 +55,7 @@ request ID、attempt、checks、DoD、artifact directoryが不足する時は実
 # 実行手順
 
 1. `setupCommand`が返され、必要な依存が不足する時だけ実行する
-2. `artifactRoot`の配下に確認単位directoryを作る。steeringがある時は`{steering directory}/{phase}`、ない時は`{YYYYMMDD-HHMMSS}-{作業要約}`を使う。script・連番screenshot・`result.md`は同じdirectoryに置く
+2. `artifactRoot`の配下に確認単位directoryを作る。設計の記録がある時は`{設計の記録のdirectory}/{phase}`、ない時は`{YYYYMMDD-HHMMSS}-{作業要約}`を使う。script・連番screenshot・`result.md`は同じdirectoryに置く
 3. `browserHelper`が返された時はそれを使う。無い時は、返されたbrowser設定またはrunnerで動く最小のscriptを作る
 4. `runCommand`が返された時はそれでscriptを実行する。返されない時は実行方法を推測せず、親へ不足を返す
 5. スクリーンショットを Read ツールで読み込んで目視確認する
@@ -94,7 +94,7 @@ contextから受け取る値:
 - `browserHelper`: browser / pageを開くhelper
 - `setupCommand`、`runCommand`、`resultTemplate`: 存在する時だけ使う
 
-親は、確認対象、期待値、`項目名 / 操作 / 期待値`の確認項目、steering directory、phase名を渡す。この例では`20260720-edit-profile/phase-2/`を確認単位directoryとし、そこへ`inspect.mjs`、`01-initial.png`、`02-saved.png`、`03-reloaded.png`、`result.md`を置く。
+親は、確認対象、期待値、`項目名 / 操作 / 期待値`の確認項目、設計の記録のdirectory、phase名を渡す。この例では`20260720-edit-profile/phase-2/`を確認単位directoryとし、そこへ`inspect.mjs`、`01-initial.png`、`02-saved.png`、`03-reloaded.png`、`result.md`を置く。
 
 - [inspect.mjs](example/inspect.mjs): 初期表示→保存→再読込を確認するscript例
 - [result.md](example/result.md): 確認結果の記録例

@@ -25,7 +25,7 @@
 - skill本体: `plugins/tumeda-dev/skills/think-through/SKILL.md`
 - 適用範囲: 議論、修正前の合意、選択肢提示、抽象化、型更新、エラー対処、工程の切れ目でのready再評価を含む全思考プロセス
 - `.claude/hooks/` の `SessionStart` と `UserPromptSubmit` で常時注入されるため、ユーザーが明示しなくても適用される
-- steering / task-design を呼ぶ前段にも適用する
+- task-design / advance-roadmap を呼ぶ前段にも適用する
 
 ## repository運用
 

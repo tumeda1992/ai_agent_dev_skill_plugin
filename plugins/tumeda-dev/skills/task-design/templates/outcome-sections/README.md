@@ -6,7 +6,7 @@
 
 ### 基本手順
 
-1. `catalog.md`から、steeringの終了時に変わる完成後の姿のsectionだけを選ぶ。
+1. `catalog.md`から、作業の終了時に変わる完成後の姿のsectionだけを選ぶ。
 2. 選んだsectionの間の「読者が理解するための依存」を先に確定する。
 3. 理解するための依存だけでは前後が決まらないsectionを、後に書く既定の順で並べる。
 4. 各sectionのWHATを置いた後、一つのまとまりに固有の設計意図、一つのsectionに固有の設計意図、複数のsectionに共通する設計意図を、それぞれが当てはまる範囲へ置く。
@@ -132,7 +132,7 @@ skill-policy.md
 - 対象の候補: domainの概念をどう分けるか、語の意味、domainの中で共通に使う言葉、その言葉が通じる範囲の境目、同じ名前で違う意味・違う名前で同じ意味の扱い。
 - 他sectionとの書き分けの候補: data schema、公開する名前、moduleの構造そのものではなく、それらを導く概念の分け方と語彙の方針。
 - 未決事項: 概念の分け方の方針、語彙の方針、言葉が通じる範囲の境目の方針を一つのsectionにするか、正式な名前、必要な具体例と完成の判定。
-- 議論の記録先: このplugin repositoryの`.steering/2026/202608/20260808-focus-tasklists-on-staged-implementation/task-design-discussion.md`の論点25。
+- 議論の記録先: このplugin repositoryの`.design-records/2026/202608/20260808-focus-tasklists-on-staged-implementation/task-design-discussion.md`の論点25。
 
 ### architecture（codeの構造以外）
 

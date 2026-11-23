@@ -1,0 +1,8 @@
+# subagent の実行レポートは各作業の設計の記録のディレクトリのローカル記録として扱い、追跡しない。
+# 不測の事態が起きたときの調査ログであり、design / tasklist / discussion のような
+# 合意の正本ではないため。
+*/*/*/subagent_report/
+# task-designの引き継ぎ中だけ使う、作業の設計の記録のディレクトリ直下の一時成果物。
+*/*/*/task-design-catch-up/
+# 議論の内部logは任意のローカル作業控えとして扱う。
+**/internal-records/
