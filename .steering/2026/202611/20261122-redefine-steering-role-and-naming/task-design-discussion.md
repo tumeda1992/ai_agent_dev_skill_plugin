@@ -1016,7 +1016,7 @@ roadmapを進めるskillの名前を`advance-roadmap`にする。このskillは�
 
 ## 論点17: task-designの、締めくくりの確認と公開の内部指示のfileの名前
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1041,9 +1041,17 @@ roadmapを進めるskillの名前を`advance-roadmap`にする。このskillは�
 
 #### 提案0へのフィードバック（論点17）
 
+**結果:** aに合意（論点17〜21をまとめて示した往復で「ok」と答えられた）
+
+> ok
+
+### 決定（論点17）
+
+task-designの締めくくりの内部指示のfileの名前を`task-design/wrap-up.md`にする。締めくくりの確認、plan無しで終わった変更の公開と記録をcommitへ載せる順序、実行を始めてよいかの確認を持つ。直上の`task-design/`が「task-designの」を語るため、fileの名前に「design」を重ねない。別のtask-designの実行への引き継ぎを指す`work-handoff-contracts.md`の「handoff」と紛れないよう、「handoff」を使わない。
+
 ## 論点18: 置き場所を用意するskillの、前月summaryの生成の内部指示のfileの名前
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1066,9 +1074,17 @@ roadmapを進めるskillの名前を`advance-roadmap`にする。このskillは�
 
 #### 提案0へのフィードバック（論点18）
 
+**結果:** aに合意（論点17〜21をまとめて示した往復で「ok」と答えられた）
+
+> ok
+
+### 決定（論点18）
+
+前月summaryの生成の内部指示のfileの名前を`prepare-design-record/summarize-previous-month.md`にする。手順を動詞と目的語で表し、生成物の`summary.md`と名前で紛れないようにする。
+
 ## 論点19: task-designの起動の入力
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1094,9 +1110,17 @@ roadmapを進めるskillの名前を`advance-roadmap`にする。このskillは�
 
 #### 提案0へのフィードバック（論点19）
 
+**結果:** aに合意（論点17〜21をまとめて示した往復で「ok」と答えられた）
+
+> ok
+
+### 決定（論点19）
+
+task-designの起動の入力から`working_dir_parent`と`create_working_dir`を無くす。新しい作業では置き場所を渡さず、task-designが`prepare-design-record`を呼んで`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`を用意させる。任意の`branch_from_basename`を受け、そのまま`prepare-design-record`へ渡す。既にある作業を再開する時は`working_dir=<絶対path>`を受けてそのまま使い、存在しなければ推測せず利用者へ確かめる。roadmapの子phaseは新しい作業として扱い、今と同じ四項目（`parent_roadmap_path`、`parent_phase_id`、`parent_design_path`、`dependency_results`）を受ける。置き場所が一通りになり、任意の親directoryの下に作る入力の使い道が無くなったためである。`exhaustive-review`の同名の入力は自分の成果物の置き場所であり、変えない。
+
 ## 論点20: roadmapのtemplateの、steeringを名指す見出しとlabel
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1119,9 +1143,17 @@ roadmapを進めるskillの名前を`advance-roadmap`にする。このskillは�
 
 #### 提案0へのフィードバック（論点20）
 
+**結果:** aに合意（論点17〜21をまとめて示した往復で「ok」と答えられた）
+
+> ok
+
+### 決定（論点20）
+
+`task-design/templates/roadmap.md`の見出し「### 進み具合（steeringだけが更新する）」を「### 進み具合（advance-roadmapだけが更新する）」へ、label「子steering」を「子の設計の記録」（値は子phaseの`.design-records/…`のpath）へ変える。見出しとlabelは名前で読まれるため、`task-design/templates/breaking_changes/`へ旧名と新名の対応を一件記録する。名前で読まれない本文（`roadmap.md`の説明、`roadmap-design.md`の記述）の子steeringやsteeringは、記録なしで新しい担当へ書き換える。
+
 ## 論点21: repository固有文脈での、steeringの節と表の行
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1148,13 +1180,96 @@ roadmapを進めるskillの名前を`advance-roadmap`にする。このskillは�
 
 #### 提案0へのフィードバック（論点21）
 
+**結果:** aに合意（論点17〜21をまとめて示した往復で「ok」と答えられた）
+
+> ok
+
+### 決定（論点21）
+
+repository固有文脈では次のとおり書き換える。`maintenance-plugin-context/SKILL.md`の表の`steering`の行と、文脈のtemplateの`## steering`の節は、`advance-roadmap`へ名前を変えて移し、返す項目は変えない。`prepare-design-record`はrepository固有の文脈を使わないため表に足さない。`### Branch / issue 契約`の文面は「task-designを`branch_from_basename=true`で起動し、`prepare-design-record`がbranchを作る」へ、`### UI確認環境`のcommentの「steering」は「tasklist-executorを起動する側」へ、`doc-enricher`の置き場所の一覧の`.steering/<年>/<年月>/<作業>/`は`.design-records/<年>/<年月>/<作業>/`へ書き換える。返す項目を減らすことは振る舞いの変更であり、今回の目的の外のため行わない。
+
 ## 論点22: 配布versionの上げ方
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
 **重さ:** 確かめるだけ（全部小。根拠は`maintenance-plugin-context/SKILL.md`「Plugin version」）
 
-**依存先:** なし。designの仕上げの時に、他の残りとまとめて示す
+**依存先:** なし。designの仕上げの時に、他の残りとまとめて示す。
+
+### イテレーション0（論点22）: 配布versionを仮決めする
+
+#### 提案0（論点22）
+
+- a. `9.1.7`から`10.0.0`へ上げる（仮決め）
+  - 根拠: `maintenance-plugin-context/SKILL.md`「Plugin version」は「破壊的変更はMAJOR」と定める。今回は、利用先が呼んでいた`steering`が無くなり、task-designの入力（`working_dir_parent`、`create_working_dir`）が無くなり、記録の置き場所が`.design-records/`へ変わり、以前の版が作ったroadmapの見出し・labelを今の版が名前で読めなくなる。どれも利用先の呼び方や成果物の読み方を壊す。
+  - 宣言値4箇所と`scripts/verification/validate-plugin.mjs`の`expectedRelease`を一度に変える。
+- b. `9.2.0`（MINOR）
+  - 新しいskillが増えることは呼べるものが増える変更だが、既存の呼び方を壊す変更を含むため、MINORでは足りない。
+
+#### 検討記録（論点22・イテレーション0）
+
+`maintenance-plugin-context/SKILL.md`「Plugin version」と、今の宣言値（4箇所とも`9.1.7`、`expectedRelease`も`9.1.7`）を確かめた。
+
+#### 提案0へのフィードバック（論点22）
+
+## 論点23: 前月summaryの題
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** 確かめるだけ（全部小。論点5の決定から導ける）
+
+移行の対応表（`function-migration-ledger.md`のC-063）を作る中で立てた。
+
+### イテレーション0（論点23）: summaryの題に残る「Steering」の扱いを仮決めする
+
+#### 提案0（論点23）
+
+steeringのStep 1は、前月summaryのexact formatの題を「{YYYY}年{MM}月 Steering サマリー」と定めている。この形式は`prepare-design-record/summarize-previous-month.md`へ移る。
+
+- a. 題を「{YYYY}年{MM}月 設計の記録 サマリー」へ変える（仮決め）
+  - 根拠: 論点5で、記録を置く場所を`.design-records/`（設計の記録）と決めた。summaryはその月の設計の記録の一覧である。既に作られた月のsummaryは書き換えない（論点14の、過去の記録の本文を書き換えない決まり）。
+  - 題は人が読むもので、skillやscriptが名前で探さないため、`breaking_changes/`の記録は要らない。
+- b. 題を変えない
+  - 無くなるskillの名前が、これから作るsummaryの題に残り続ける。
+
+#### 検討記録（論点23・イテレーション0）
+
+`steering/SKILL.md` Step 1のsummaryのexact formatと、summaryを名前で読む箇所を確かめた。summaryの題を名前で探すskillやscriptは無く、validatorがexact formatの文字列を確かめているだけである。
+
+#### 提案0へのフィードバック（論点23）
+
+## 論点24: steeringの「非規範的なlegacy memo」と「合意済みの明示廃止」の履歴の記述
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** 確かめるだけ（全部小。論点1の決定と、移行の対応表から導ける）
+
+移行の対応表（`function-migration-ledger.md`のC-047、C-148〜C-151、C-153）を作る中で立てた。
+
+### イテレーション0（論点24）: steering自身の過去の契約についての記述を移さないことを仮決めする
+
+#### 提案0（論点24）
+
+steeringは、自分の過去の契約について次の記述を持つ。
+
+- 非規範的なlegacy memo: 「複数のfeedbackが揃ったら新しいsteeringを起動する」方針は今の規則ではなく、将来必要なら明示合意で復活を検討する。
+- 合意済みの明示廃止: task-design専用子directoryと`task_design_dir`探索の廃止、tasklistから親roadmapを更新する契約の廃止、steeringがtasklist・roadmapを設計・再reviewする契約の廃止、feedback件数による新steeringの自動起動の廃止、「上記以外の旧steeringの意味単位はmigration ledgerに従う」。
+
+- a. 移さない（`RETIRE`）（仮決め）
+  - 根拠: どれもsteering自身の過去の契約の記述であり、論点1でsteeringが無くなる。これらが防いでいた逆戻りは、新しい担当の禁止として移す（task-design専用子directory等の禁止は`prepare-design-record`、親roadmapを更新させない禁止は`advance-roadmap`と`tasklist-executor`、設計をしない禁止は`advance-roadmap`。対応表のC-139、C-140、C-142）。履歴はgitと過去の記録に残る。
+  - 「全フェーズ完了日・計画と実績の差分fieldの廃止」は、全体完了の導き方という今も効く規則のため、`advance-roadmap`へ移す（C-152）。
+- b. `advance-roadmap`か`prepare-design-record`へ「履歴」の節として移す
+  - 無くなったskillの過去の契約を、別のskillが説明し続けることになる。
+
+#### 検討記録（論点24・イテレーション0）
+
+`steering/SKILL.md`の「非規範的なlegacy memo」と「合意済みの明示廃止」を一件ずつ読み、今も効く規則か、steering自身の履歴かを分けた。今も効く規則（全体完了の導き方）と、逆戻りを防ぐ禁止は、新しい担当へ移る行が対応表にある。残りはsteering自身の過去の契約の説明だけである。
+
+#### 提案0へのフィードバック（論点24）
 
