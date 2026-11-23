@@ -130,7 +130,7 @@ discussion fileの解決、entry形式、合意対象保存、採番、親子val
 
 ## 実装後のfeedbackと、進めない時の復旧
 
-このskillが`tasklist-executor`を起動する時は、[`tasklist-executor/execution-contracts.md`](../tasklist-executor/execution-contracts.md)の「起動する側が行うこと」に従う。止まって返ってきた時の読み直し、実装後のfeedbackの記録（`implementation_review.md`）、`blocked`で返った時の復旧（Blocker resolution）は同節が正本であり、ここへ写さない。phaseの間にこのskill自身の手順で実行の前提が崩れて進めなくなった時も、同節のBlocker resolutionに従う。
+このskillが`tasklist-executor`を起動する時は、[`tasklist-executor/execution-contracts.md`](../tasklist-executor/execution-contracts.md)の「起動する側が行うこと」に従う。止まって返ってきた時の読み直し、実装後のfeedbackの記録（`implementation_review.md`）、`blocked`で返った時の復旧（Blocker resolution）は同節と、同節から辿る[`tasklist-executor/blocker-resolution.md`](../tasklist-executor/blocker-resolution.md)が正本であり、ここへ写さない。phaseの間にこのskill自身の手順で実行の前提が崩れて進めなくなった時も、`blocker-resolution.md`に従う。
 
 このskillが実装・review・validation・ユーザー動作確認のfeedbackを直接受領した時は、[共通の実装feedback処理](../tasklist-executor/implementation-feedback.md)を読み、pluginの`facilitate-discussion`を明示適用する。次の入力を渡す。
 
@@ -151,7 +151,7 @@ feedbackを記録せず直接designへ戻したり、実装を自動再開した
 ## このskillが絶対にやらないこと
 
 - 利用者が実行の開始を明示していないphaseのplanを実行する。
-- このskill自身が実装codeを変更する。実装は`tasklist-executor`へ起動させる。唯一の例外は`tasklist-executor/execution-contracts.md`のBlocker resolutionであり、その成立条件と手順は同節が持つ。
+- このskill自身が実装codeを変更する。実装は`tasklist-executor`へ起動させる。唯一の例外は[`tasklist-executor/blocker-resolution.md`](../tasklist-executor/blocker-resolution.md)のBlocker resolutionであり、その成立条件と手順は同fileが持つ。
 - このskill自身がtestまたはCIを実行する。検証は合意済みtasklistとruntime contractに従うexecutorへ委ねる。
 - 子phaseのtask-design起動前に実装設計、方向性、scope分解、plan種別を判断または提案する。
 - 子phaseのtask-design起動前に設計上の曖昧さを`discussion.md`で解消する。

@@ -1203,13 +1203,26 @@ requireText(contextTemplate, "default branchの上で直接commitしない。作
 forbidText(contextTemplate, "plugin repositoryでの作業完了後の取り込み");
 forbidText(contextTemplate, "commitとpushをdefault branchへ直接行わない");
 
+// Blocker resolutionは起動する側の約束の唯一の例外であり、tasklist-executorの別の内部指示に置く（論点27）。
+const blockerResolution = skillPath("tasklist-executor/blocker-resolution.md");
+requireExists(blockerResolution);
 requireText(callerContract, "### Blocker resolution");
+requireText(callerContract, "[`blocker-resolution.md`](blocker-resolution.md)を読んで従う。");
 requireText(
   callerContract,
-  "唯一の例外は`Blocker resolution`であり、その成立条件と手順は同節が持つ。"
+  "唯一の例外は[Blocker resolution](blocker-resolution.md)であり、その成立条件と手順は同fileが持つ。"
 );
-requireText(advanceRoadmapSkill, "唯一の例外は`tasklist-executor/execution-contracts.md`のBlocker resolutionであり、その成立条件と手順は同節が持つ。");
-requireText(callerContract, "`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/subagent_report/`");
+requireText(advanceRoadmapSkill, "唯一の例外は[`tasklist-executor/blocker-resolution.md`](../tasklist-executor/blocker-resolution.md)のBlocker resolutionであり、その成立条件と手順は同fileが持つ。");
+for (const expected of [
+  "## 例外が成立する2条件",
+  "## 設計で潰せた不確実性を持ち込まない",
+  "## blockerを解消してもFlowの成果にはしない",
+  "## 検知時の確認",
+  "## 自走の範囲と報告",
+  "## 離脱したstepへの復帰",
+  "`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/subagent_report/`",
+]) requireText(blockerResolution, expected);
+forbidText(callerContract, "#### 例外が成立する2条件", "blocker-resolution.mdへ移したBlocker resolutionの本文");
 requireExists(skillPath("prepare-design-record/.gitignore.sample"));
 requireText(skillPath("prepare-design-record/.gitignore.sample"), "*/*/*/task-design-catch-up/");
 requireAbsent(skillPath("steering/.gitignore.sample"));
