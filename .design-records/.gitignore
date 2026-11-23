@@ -3,3 +3,5 @@
 **/internal-records/
 # task-designの引き継ぎ中だけ使う、作業の設計の記録のディレクトリ直下の一時成果物。
 */*/*/task-design-catch-up/
+# subagent の実行レポートは各作業の設計の記録のディレクトリのローカル記録として扱い、追跡しない。
+*/*/*/subagent_report/

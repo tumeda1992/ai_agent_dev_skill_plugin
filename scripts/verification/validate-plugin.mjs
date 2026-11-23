@@ -1240,6 +1240,11 @@ for (const expected of [
 forbidText(callerContract, "#### 例外が成立する2条件", "blocker-resolution.mdへ移したBlocker resolutionの本文");
 requireExists(skillPath("prepare-design-record/.gitignore.sample"));
 requireText(skillPath("prepare-design-record/.gitignore.sample"), "*/*/*/task-design-catch-up/");
+// このrepository自身の.design-records/.gitignoreも、利用先へ配る見本の全patternを持つ。見本へ足した行に遅れないようにする。
+{
+  const samplePatterns = readFileSync(resolve(root, skillPath("prepare-design-record/.gitignore.sample")), "utf8").split("\n").map((line) => line.trim()).filter((line) => line && !line.startsWith("#"));
+  for (const pattern of samplePatterns) requireText(".design-records/.gitignore", pattern);
+}
 requireAbsent(skillPath("steering/.gitignore.sample"));
 
 requireText(
