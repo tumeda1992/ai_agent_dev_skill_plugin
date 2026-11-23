@@ -294,7 +294,7 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 ## 論点4: 置き場所を用意するskillの名前
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -332,6 +332,14 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 `plugins/tumeda-dev/skills/`のskill名（動詞と目的語の形: `name-work-directory`、`plan-commits`、`share-work-in-progress`、`facilitate-discussion`。名詞の形: `tasklist-executor`、`doc-enricher`、`test-runner`）を確かめた。`docs/development_standards/naming/core.md`の「outcomeを名指す」「名前を単独で評価しない」と、`reverse_translation.md`で各案を検算した。
 
 #### 提案0へのフィードバック（論点4）
+
+**結果:** aに合意（論点4・15・16をまとめて示した往復で「15以外ok」と答えられた）
+
+> 15以外ok。ロードマップって、executeするものなの？
+
+### 決定（論点4）
+
+置き場所を用意するskillの名前を`prepare-design-record`にする。論点5で決めた`.design-records/`の一件を目的語にし、既存の`name-work-directory`、`plan-commits`と同じ動詞と目的語の形にする。動詞は、このskillを経た後の状態（設計の記録が使える状態になる）を名指す「prepare」にする。`start-design-record`は設計の議論まで行うskillと読まれうるため、`open-design-record`は既にある記録を開いて読むとも読めるため採らない。
 
 ## 論点5: 記録を置くdirectoryの名前
 
@@ -920,9 +928,48 @@ task-designが返すplanの種類（tasklist、roadmap）ごとに実行の担�
 
 #### 提案0へのフィードバック（論点15）
 
+**結果:** 名前の前提への問い
+
+> 15以外ok。ロードマップって、executeするものなの？
+
+推す理由は、`tasklist-executor`と表記と抽象度を揃えることだった。揃える根拠は、二つが同列に並ぶ同じ種類の仕事であることだが、それを確かめていなかった。tasklistのtaskはそのまま実行できる。roadmapのphaseは、それぞれをtask-designで一つの作業として設計してから、返ったplanを実行する。roadmapは、実行する（execute）ものではなく、phaseを順に進めるものである。`tasklist-executor`と同じ種類の仕事ではないため、形を揃える根拠は成り立たない。
+
+規則の文面（`naming/core.md`「名前を単独で評価しない」の「同列に並ぶ要素を列挙し、抽象度と表記が揃うかを確認する」）は、同列であることを前提にしている。同列かを先に確かめることを明記するかは、締めくくりの`doc-enricher`で候補にする。
+
+### イテレーション1（論点15）: roadmapで行っていることから名前を出し直す
+
+#### 提案1（論点15）
+
+このskillで行っていることを一文で書くと、「roadmapの依存順に、次に進められるphaseを選び、そのphaseを一つの作業としてtask-designで設計させ、返ったplanを実行させ、完了を書き留めて次のphaseへ進む。全phaseが終わればroadmapが完了する」である。このskillを経た後に変わるのは、roadmapの進み具合（どのphaseが終わり、どこまで来たか）である。
+
+##### a. `advance-roadmap`（推奨）
+
+- 初見の人の予想: roadmapを進める。phaseを一つずつ前へ進め、進み具合を書き留める担当と読める。
+- 実態との差: 各phaseを設計してから実行することは名前から読めないが、「進める」は実行だけを意味しないため、誤解の方向は同じで、開けば分かる。
+
+##### b. `complete-roadmap`
+
+- 初見の人の予想: roadmapを完了させる。一回の起動で全phaseを終えると読まれる。
+- 実態との差: phaseごとに、利用者が実行を始めることを確かめる段で止まる（論点6の決定）。一回で終わる印象と少しずれる。
+
+##### c. `drive-roadmap`
+
+- 初見の人の予想: roadmapを推し進める。意味はaに近い。
+- 実態との差: 「drive」は日常の語として「運転する」の印象が強く、aより読みに一段の訳し直しが要る。
+
+##### aを推す理由
+
+このskillを経た後の状態（roadmapの進み具合が前へ進む）を名指す動詞であり、各phaseを設計してから実行するという、tasklistとの違いを打ち消さない。論点4の`prepare-design-record`と同じ動詞と目的語の形にもなる。
+
+#### 検討記録（論点15・イテレーション1）
+
+論点3の決定（roadmapを実行するskillが行うこと）を読み直し、行っていることを一文に書いた（`naming/what_to_try.md`「実態を一文で説明する」）。一文のうち、このskillを経た後の状態は「roadmapの進み具合が前へ進む」であり、outcomeを名指す動詞として「advance」を選んだ（`naming/core.md`「何をもって宣言的とするか」）。提案0の`roadmap-executor`と`execute-roadmap`は、どちらも「実行する」を名指しており、各phaseを設計することを打ち消すため外した。
+
+#### 提案1へのフィードバック（論点15）
+
 ## 論点16: `.steering/`の読み替えの決まりの置き場所と、規則の文面
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -946,6 +993,16 @@ task-designが返すplanの種類（tasklist、roadmap）ごとに実行の担�
 `maintenance-plugin-context/SKILL.md`「Plugin version」、`task-design/templates/breaking_changes/README.md`、`20261115-rename-template-labels.md`を読んだ。今の規則の対象は見出し・labelの名前に限られ、置き場所のpathを含まない。記録はtemplateと同じdirectoryに置くと定められ、READMEには記録する例・しない例を書く決まりがある。
 
 #### 提案0へのフィードバック（論点16）
+
+**結果:** aに合意（論点4・15・16をまとめて示した往復で「15以外ok」と答えられた）
+
+> 15以外ok。ロードマップって、executeするものなの？
+
+### 決定（論点16）
+
+`.steering/…`を`.design-records/…`として読む決まりは、`prepare-design-record`のdirectoryに`breaking_changes/`を作り、そこへ一件の記録として置く。記録の形（変わった版、旧名と新名の対応、変えた理由、古い成果物の読み方）は`task-design/templates/breaking_changes/20261115-rename-template-labels.md`に倣う。`breaking_changes/`のREADMEには、このskillの成果物で記録する例・しない例を書く。
+
+`maintenance-plugin-context/SKILL.md`「Plugin version」の記録の対象を、「見出し・labelの名前で読めなくなること」から「見出し・labelの名前や、置き場所のpathで読めなくなること」へ広げる。広げないと、置き場所のpathの変更はこの仕組みの対象外になり、記録を置く根拠が無い。`task-design/templates/breaking_changes/`へは置かない。同directoryのREADMEは対象をtask-designの`design.md`、`tasklist.md`、`roadmap.md`に限っており、置き場所を決める担当とも違うためである。
 
 ## 論点17: task-designの、締めくくりの確認と公開の内部指示のfileの名前
 

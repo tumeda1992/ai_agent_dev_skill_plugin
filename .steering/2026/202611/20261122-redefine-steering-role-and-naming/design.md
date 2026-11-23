@@ -19,7 +19,7 @@ steeringスキルの名前を変えて、task-designから置き場所を決め�
 
 ## TL;DR
 
-tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。記録は`.design-records/`へ置く。TBD: 新しいskillの名前（論点4・15）。
+tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。記録は`.design-records/`へ置く。置き場所を用意するskillは`prepare-design-record`。TBD: roadmapを進めるskillの名前（論点15）。
 
 ---
 
@@ -55,7 +55,7 @@ roadmap_ready  → roadmapを実行するskill
 
 | steeringが受け持っていたこと | 行き先 |
 | --- | --- |
-| 記録の置き場所の準備（命名、directoryの作成、前月の`summary.md`、任意のbranch作成） | 置き場所を用意する独立したskill。前月の`summary.md`の生成は、このskillの内部指示の別fileへ分ける。task-designが呼び、単独で起動したtask-designも同じ置き場所を使う。変更を伴わない調査の設計のように、task-designを通さずに記録を置く作業からも呼べる |
+| 記録の置き場所の準備（命名、directoryの作成、前月の`summary.md`、任意のbranch作成） | 置き場所を用意する独立したskill`prepare-design-record`。前月の`summary.md`の生成は、このskillの内部指示の別fileへ分ける。task-designが呼び、単独で起動したtask-designも同じ置き場所を使う。変更を伴わない調査の設計のように、task-designを通さずに記録を置く作業からも呼べる |
 | task-designの起動と、返った結果とfileの対応の確認 | 無くなる。利用者が直接task-designを起動する |
 | 締めくくりの確認（`doc-enricher`の提案mode、議論記録からの再発防止先の見直し、skill自身の見直し） | task-designの内部指示の一つのfile。Step 6で結果を返す前に読む。実行を始めてよいかの確認もこのfileの末尾に置く |
 | plan無しで終わった変更の公開（commit・push・PR） | task-designの、締めくくりの確認と同じ内部指示のfile |
@@ -72,7 +72,7 @@ roadmap_ready  → roadmapを実行するskill
 
 作業の記録は`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`へ置き、月の一覧は`.design-records/YYYY/YYYYMM/summary.md`に置く。入るもの（タスク設計、調査設計、その議論・計画・実行の経緯）に共通する核は「設計」であり、「作業」まで広げずに調査の設計も含めて範囲を覆える。`records`は、決定と経緯が残る場所であることを示し、後の作業が過去の決定を探しに来る使われ方と合う。
 
-既にある`.steering/`の記録は`.design-records/`へ移す。このrepositoryでは今回の作業で`git mv`し、進行中の作業のdirectoryも一緒に移す。利用先repositoryでは、置き場所を用意するskillが、`.steering/`があり`.design-records/`が無い時に移すことを利用者へ提案し、承認されたら一度だけ移す。両方がある時は推測で混ぜず利用者へ確かめる。記録の本文に残る`.steering/…`のpathは書き換えず、以前の版の成果物を読むための`breaking_changes/`の記録で「`.steering/…`は`.design-records/…`として読む」と残す（TBD: 置き場所と規則の文面、論点16）。読む箇所は`.design-records/`だけを見る。他のbranchで`.steering/`の下にfileを足している作業とmergeの時に衝突しうることは、移す代償として受け入れる。
+既にある`.steering/`の記録は`.design-records/`へ移す。このrepositoryでは今回の作業で`git mv`し、進行中の作業のdirectoryも一緒に移す。利用先repositoryでは、置き場所を用意するskillが、`.steering/`があり`.design-records/`が無い時に移すことを利用者へ提案し、承認されたら一度だけ移す。両方がある時は推測で混ぜず利用者へ確かめる。記録の本文に残る`.steering/…`のpathは書き換えず、`prepare-design-record`のdirectoryに作る`breaking_changes/`の記録で「`.steering/…`は`.design-records/…`として読む」と残す。この記録を置けるよう、`maintenance-plugin-context/SKILL.md`「Plugin version」の記録の対象を「見出し・labelの名前や、置き場所のpathで読めなくなること」へ広げる。読む箇所は`.design-records/`だけを見る。他のbranchで`.steering/`の下にfileを足している作業とmergeの時に衝突しうることは、移す代償として受け入れる。
 
 ### TBD: skillの名前
 
