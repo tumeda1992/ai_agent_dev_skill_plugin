@@ -302,15 +302,71 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 **依存先:** 論点1、論点3（残すskill・新しく作るskillと、それぞれの役割が決まれば、名前の案を作れる）
 
-## 論点5: 記録を置くdirectoryの名前と、既にある記録の扱い
+## 論点5: 記録を置くdirectoryの名前
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
 **重さ:** 一つずつ考える（波及: 大、戻しにくさ: 大。このrepositoryと利用先repositoryの既存の`.steering/`、記録を探すskill（task-design、facilitate-discussion）、hook、`.gitignore`の見本が変わる。利用者の前提への依存: 中）
 
 **依存先:** 論点1（directoryを用意する担当と、そこへ入る記録の種類が決まれば、名前の案を作れる。依頼にある「タスク設計に限らないもの（調査設計等）も入れられる名前にする。ただし最大公約数をとって意味のない名前にしない」を条件にする）。論点1は決まり、directoryはtask-designから呼ぶ置き場所のskillが用意する。論点3の後に案を作る。
+
+### イテレーション0（論点5）: 記録を置くdirectoryの名前を提案する
+
+#### 提案0（論点5）
+
+この論点では名前だけを決める。既にある`.steering/`の記録の扱い（移すか、残すか、記録を探すskillがどこを読むか）は、名前の答えが別に決まっても答えが変わる別の問いのため、論点14へ分けた。論点の立て始めのタイトルは「名前と、既にある記録の扱い」だったが、提案を出す前に名前だけへ絞った。
+
+##### directoryに入るものと、読まれる時
+
+- 作業ごと（`YYYY/YYYYMM/YYYYMMDD-slug/`）: `design.md`、`task-design-discussion.md`、`tasklist.md | roadmap.md`、`discussion.md`（実行の段取りの議論）、`implementation_review.md`、`investigation.md`、`requirements.md`、`spike/`、`subagent_report/`、`temporary-overrides/`、`pending-escalations/`、`task-design-catch-up/`、`internal-records/`
+- 月ごと: `summary.md`
+- これから: 変更を伴わない調査の設計（論点11の決定）
+- 読まれる時: 作業を再開する時、後の作業が過去の決定を探す時（`task-design`の設計前調査、`facilitate-discussion/round-trip.md`の前例探し）、月の一覧を見る時
+
+実態を一文で書くと、「一つの作業ごとに、その作業の設計（何を変えるか、何を調べるか）と、そこへ至った議論、実行の計画と経緯を残し、再開と、後の作業が過去の決定を探す時に読まれる場所」である。依頼の条件は、タスク設計に限らないもの（調査設計等）も入れられること、ただし最大公約数をとって意味のない名前にしないこと。依頼文は、入るものを「タスク設計」「調査設計」と、どれも「設計」と呼んでいる。
+
+##### a. `.design-records/`（推奨）
+
+- 初見の人の予想: 設計の記録が入っている。一つの作業の設計書と、決定とその経緯（ADR、architecture decision recordsのような記録）を予想する。
+- 実態との差: 実行の計画（tasklist、roadmap）、実装後のfeedback、実行の段取りの議論も入る。どれも設計を実行し、見直した記録であり、誤解の方向は同じで、開けば分かる。調査の設計も「設計の記録」に入る。
+
+##### b. `.work-records/`
+
+- 初見の人の予想: 作業の記録。何の作業でも入り、日報やlogを予想することもある。
+- 実態との差: 設計と決定が中心であることが名前から読めない。入るものの共通の核を「設計」から「作業」へ広げており、依頼が避けたい最大公約数の側に寄る。
+
+##### c. `.task-design/`
+
+- 初見の人の予想: `task-design`というskillの成果物の置き場所。
+- 実態との差: task-designを通さない調査の設計（論点11）や、実行側のskillが書く記録（`implementation_review.md`、段取りの`discussion.md`）が入ることと食い違う。
+
+##### d. `.steering/`のまま
+
+- 初見の人の予想: 無くなる`steering`というskillの記録。またはprojectの方針を書いたsteering file（AI agentへ常に読ませる方針文書）の置き場所。
+- 実態との差: 後者はprojectに一つの方針文書であり、作業ごとの記録とは方向が違う誤解になる。
+
+##### aを推す理由
+
+依頼文の言葉では、入るもの（タスク設計、調査設計）の共通の核は「設計」である。「設計」なら、最大公約数の「作業」まで広げずに、調査の設計も含めて範囲を覆える。`records`は、設計書だけでなく決定と経緯が残る場所であることを示し、後の作業が過去の決定を探しに来る使われ方とも合う。
+
+#### 検討記録（論点5・イテレーション0）
+
+##### 判断: 入るものの共通の核をどの語で表すか
+
+**確かめたこと:** 今の`.steering/`の作業ごとのdirectoryにあるfile（このrepositoryの`.steering/2026/`配下）と、論点1・10・11で決まった行き先、記録が読まれる箇所（`task-design/SKILL.md` PrepareStep 3、`facilitate-discussion/round-trip.md`「根拠にする前例を探す」）。命名は`docs/development_standards/naming/`の`core.md`（outcomeを名指す、中身が大まかにわかる具体性、名前を単独で評価しない）、`reverse_translation.md`、`review.md`（誤解の方向で判定する）を当てた。
+
+**考えた候補と外したもの:**
+
+- `.designs/`: 短いが、隠しdirectoryでも「画面のdesignのfile」と読まれうる。方向が違う誤解のため候補から外した。
+- `.decisions/`: 決定の記録は核の一つだが、計画や調査の経過も入り、決定だけを集めた場所と読まれる。外した。
+- `.specs/`: 要件・設計・tasksを機能ごとに置く形は似ているが、「仕様」は作るものの定めであり、調査の設計や議論の経緯が入ると読まれない。外した。
+
+**推す案:** a。名前の第一の語を「設計」にするのは、依頼文が入るものをどれも「設計」と呼んでいるためである。
+
+#### 提案0へのフィードバック（論点5）
+
 
 ## 論点6: 実行を始めてよいかの確認を、どこに置くか
 
@@ -466,7 +522,7 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 ## 論点9: 記録をcommitへ載せる順序の規則の置き場所
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -543,6 +599,20 @@ steeringが無くなるため、この節の行き先を決める。この規則
 提案0の示し方を見直した。規則の名前だけを示し、規則の中身（何をどこへ分けるか）、理由、今の置き場所を示していなかった。`steering/SKILL.md`の「commitへ載せる順序」を読み直し、表と、このrepositoryの直近のcommit履歴（`git log`の`c1f89c7`〜`24f1ce1`、各commitが変更したfile）を具体例として加えた。各commitのfileは、`9f810d6`が`task-design-discussion.md`だけ、`100cd4b`が`steering/SKILL.md`と`validate-plugin.mjs`、`24f1ce1`が`design.md`・`task-design-discussion.md`・`contract-ledger.md`であり、表の分け方と一致する。案と推す理由は提案0から変えていない。
 
 #### 提案1へのフィードバック（論点9）
+
+**結果:** bを選択。aは前提の誤り
+
+> bだね。逆にaを挙げてるのが意味わからない。plan-commitsはsteering色のない汎用の存在だから
+
+`plan-commits`は、特定のworkflowや作業の記録の置き方を前提にしない汎用のskillである。aは、steeringの作業の記録に固有の規則を、「commitの境界と順序の規則」という`plan-commits`に合う一面だけで言い直し、作業の記録に固有であるという性質を落として照合していた。`docs/development_standards/naming/core.md`の「中身を足す前に、名前が約束する範囲に入るかを確かめる」が、この言い直しを失敗例として挙げており、標準は既にあった。原因は標準の当てはめの誤りである。`plan-commits/SKILL.md`は`name-work-directory`のように「特定のworkflowを前提にしない」と明記していないため、明記するかは締めくくりの`doc-enricher`で候補にする。
+
+### 決定（論点9）
+
+記録をcommitへ載せる順序の規則（`design.md`・議論記録は対応する変更のcommitより前、tasklistのcheckboxの完了・`implementation_review.md`・締めくくりで書き足した記録は後、まとめてよい条件、判断の問い）は、task-designの公開の手順（論点12で分ける内部指示のfile）へ置く。中身は変えず、「steering成果物」を「作業の記録」へ言い換える。
+
+tasklistを作る作業でも規則を保つため、tasklistのcommit sectionを設計する`task-design/tasklist-design.md`はこの規則を参照し、commit taskに記録の分け方を書く。今のsteeringの規則は、plan無しの公開とtasklistのcommitの両方に効いており、その範囲を変えない。
+
+`plan-commits`へは置かない。`plan-commits`は特定のworkflowや作業の記録の置き方を前提にしない汎用のskillであり、steeringの作業の記録に固有の規則は範囲に入らない。
 
 ## 論点10: steering固有の議論記録（`discussion.md`）の扱い
 
@@ -698,3 +768,13 @@ steering固有の議論記録`discussion.md`は、実行の段取りの議論の
 ### 決定（論点13）
 
 前月の`summary.md`の生成は、今の作業で、置き場所を用意するskillの内部指示のfileへ分ける。置き場所を用意するskillは、前月のdirectoryがあり`summary.md`が無い時だけこのfileを読む。中身（概要の抽出、planの種類ごとのstatusの導き方、exact format、単一writerの理由）は変えない。今分ける理由は論点12と同じである。fileの名前は論点4で決める。
+
+## 論点14: 既にある`.steering/`の記録の扱い
+
+**ステータス:** 依存先待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** 一つずつ考える（波及: 中。記録を探すskill（task-design、facilitate-discussion）、hook、`.gitignore`の見本の読み先が変わる。戻しにくさ: 中。利用先repositoryにある記録の置き場所に関わる。他は小。前例は`.steering/2026/202607/20260726-extract-work-directory-naming/design.md`の「既存の`.steering/`配下にある branch 込みのディレクトリは履歴としてそのまま残す。移行・一括改名は行わない」）
+
+**依存先:** 論点5（名前を変えるなら、このrepositoryと利用先repositoryの既存の`.steering/`を移すか、履歴として残すか、記録を探すskillが両方を読むかを問う。名前を変えないなら、この論点を取り下げる）

@@ -65,7 +65,7 @@ roadmap_ready  → roadmapを実行するskill
 | roadmapの各phaseの実行（phaseの選択、task-designの起動、結果に応じた実行、子のpath・status・完了日の更新、完了の伝播） | 新しいskill（roadmapを実行するskill）。phaseの子のpath・status・完了日を書くのはこのskillだけ |
 | 実装後のfeedbackの記録と戻し先（`implementation-feedback.md`） | `tasklist-executor/implementation-feedback.md`。feedbackを直接受ける担当（`tasklist-executor`と、それを起動する側）が読む。中身は変えず、担当の名指しだけを書き換える |
 | 実行の前提が崩れて進めない時の復旧（blocker resolution） | `tasklist-executor/execution-contracts.md`の、起動する側が行うこと（`blocked`で返ってきた時の扱い）。roadmapを実行するskillも同じ約束に従う。中身は変えない |
-| 記録をcommitへ載せる順序の規則 | TBD: 論点9 |
+| 記録をcommitへ載せる順序の規則 | task-designの、締めくくりの確認と公開の内部指示のfile。tasklistのcommit sectionを設計する`task-design/tasklist-design.md`もこの規則を参照する。汎用の`plan-commits`へは置かない |
 | steering固有の議論記録（`discussion.md`） | 実行の段取りの議論の記録として残す。roadmapを実行するskillと、tasklistの時は`tasklist-executor`を起動する側が書く。basenameは`discussion.md`のまま |
 
 ### TBD: 作業の記録を置くdirectoryの名前
