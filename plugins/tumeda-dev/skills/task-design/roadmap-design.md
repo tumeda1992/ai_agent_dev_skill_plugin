@@ -7,9 +7,9 @@
 - 入力は同じ`working_dir`の合意済み`./design.md`である。
 - 出力は同じdirectoryの`roadmap.md`だけであり、`tasklist.md`と併存させない。
 - task-designはroadmapの各phaseの計画を設計・自己review・ユーザーreviewする。
-- steeringだけが実行時の進み具合を更新する。task-designは子steeringを作成・bindingせず、statusや完了日を更新しない。
+- `advance-roadmap`だけが実行時の進み具合を更新する。task-designは子phaseの設計の記録を作成・bindingせず、statusや完了日を更新しない。
 - roadmapはtasklist-executorが誤って拾わないよう`tasklist.md`という名前にしない。
-- roadmapのphase構成と子steering pathはroadmapを正本とし、月次`summary.md`へ複製しない。summaryはslug、概要、statusだけを持つ。
+- roadmapのphase構成と子の設計の記録のpathはroadmapを正本とし、月次`summary.md`へ複製しない。summaryはslug、概要、statusだけを持つ。
 
 ## Roadmapを選ぶ条件
 
@@ -24,7 +24,7 @@ roadmapは「phaseが多い」時に選ぶものではない。一つのtasklist
 - 子task-designはleafならtasklist、さらにcompositeならnested roadmapを返せる。再帰してもscopeが必ずstrictly narrowerになるようにする。
 - 各phase完了時点でappまたは成果物が正常に利用できる状態を保つ。途中phaseの完了を、後続phaseがなければ成立しない壊れた状態として設計しない。
 
-大きすぎるtaskをroadmapに変える場合、このroadmapでは子scopeの目的、境界、DoD、依存まで設計する。子の実装taskを親へ重複記載せず、個々の詳細は対応する子steeringのtask-designで扱う。過去の一例として、日付付きfeature directoryの親roadmapから複数の子steeringを分けた運用がある。過去例のpath形式を固定pathとして推測しない。
+大きすぎるtaskをroadmapに変える場合、このroadmapでは子scopeの目的、境界、DoD、依存まで設計する。子の実装taskを親へ重複記載せず、個々の詳細は対応する子phaseのtask-designで扱う。過去の一例として、日付付きfeature directoryの親roadmapから複数の子の作業を分けた運用がある。過去例のpath形式を固定pathとして推測しない。
 
 ## Field ownership
 
@@ -37,13 +37,13 @@ roadmapは「phaseが多い」時に選ぶものではない。一つのtasklist
 - 親designのどの完了条件を担うか
 - 依存phaseの結果を子task-designでどの制約の解消に使うか
 
-### steeringだけが更新する進み具合
+### advance-roadmapだけが更新する進み具合
 
-- 子steering path
+- 子の設計の記録のpath
 - `未着手 | 進行中 | 完了`のstatus
 - 完了日
 
-進み具合の初期値は`未割当`、`未着手`、`未完了`とする。これらはruntime stateであり、`roadmap_ready`時点のTBDではない。実行中に各phaseの計画を変える必要が出た場合、steeringは直接変更せず、同じ`working_dir`でtask-designを`create_working_dir=false`として再開する。
+進み具合の初期値は`未割当`、`未着手`、`未完了`とする。これらはruntime stateであり、`roadmap_ready`時点のTBDではない。実行中に各phaseの計画を変える必要が出た場合、`advance-roadmap`は直接変更せず、同じ`working_dir`を渡してtask-designを再開する。
 
 ## 依存結果とTBD
 
@@ -55,7 +55,7 @@ roadmap作成途中では、解消対象を可視化するためにTBDを使え�
 - その結果を使って子designで解消する上位制約は何か。
 - 依存結果が想定範囲外なら、構造変更として親task-designへ戻る条件は何か。
 
-子steeringは、親roadmap path、phase identity、親design path、dependency resultsを一組として子task-designへ渡す。子task-designはこれらを自分の`design.md`の上位roadmap制約へ記録する。
+`advance-roadmap`は、親roadmap path、phase identity、親design path、dependency resultsを一組として子task-designへ渡す。子task-designはこれらを自分の`design.md`の上位roadmap制約へ記録する。
 
 ## 全体完了と逸脱記録
 
@@ -78,7 +78,7 @@ roadmap全体の完了は、全phaseのstatusが`完了`で、各phaseに完了�
 - [ ] 目的、scope、scope外、DoD、依存が子task-designの上位制約として十分か。
 - [ ] 各phase完了時点でappまたは成果物が正常に利用できるか。
 - [ ] 依存結果で決まる内容を構造TBDへ残さず、依存phaseの確定結果と、子のdesignで解消する制約へ変換したか。
-- [ ] 各phaseの計画と、steeringが更新する進み具合が混ざっていないか。
+- [ ] 各phaseの計画と、`advance-roadmap`が更新する進み具合が混ざっていないか。
 - [ ] 「親の完了条件と、それを満たすphase」が全完了条件を具体的なphaseへ対応付けているか。
 - [ ] 同じworking directoryに`tasklist.md`がないか。
 

@@ -33,7 +33,7 @@
 | `plugins/tumeda-dev/skills/README.md` | 人間がskill群の全体像を俯瞰する目次 | 人間が全体を見渡す時。AIの作業手順からは読まれない |
 | `plugins/tumeda-dev/model-profiles.md` | hostごとのmodel差を吸収する能力profile | skillが推論強度やmodelを選ぶ時に、そのskillの `SKILL.md` から辿る |
 | `scripts/verification/validate-plugin.mjs` | plugin manifestの整合と、skill・docsの契約文のassertion | 検証の実行時。skillやdocsを変える時にassertionを足す・追随させる |
-| `.steering/<年>/<年月>/<作業>/` | その作業の設計・議論・経緯 | その作業を再開する時。議論で前例を探す時に決定の節を読む |
+| `.design-records/<年>/<年月>/<作業>/` | その作業の設計・議論・経緯 | その作業を再開する時。議論で前例を探す時に決定の節を読む |
 | codeのcomment | その一箇所 | その行を読む時 |
 
 ## task-design
@@ -50,7 +50,7 @@
 
 <!-- 利用者の動作確認に使う環境と、そこへ載せる方法を書く。
      確認環境へ載せるのに commit・push が要る場合（push で build される環境等）は、その旨と載せ方を書く。
-     tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push と、作業の外へ残る action を含む phase の最後の commit・push だけを、利用者の動作確認の前に許す -->
+     tasklist-design・tasklist-executor・tasklist-executorを起動する側 は、ここに書かれた commit・push と、作業の外へ残る action を含む phase の最後の commit・push だけを、利用者の動作確認の前に許す -->
 
 - なし。このrepositoryはskill・docsのMarkdownとmanifestのJSONだけを持ち、起動するappを持たない。`visual-inspector` を使う対象がない。
 
@@ -71,7 +71,7 @@
      issueを持たないrepositoryは、その旨と代わりの識別子を書く -->
 
 - なし。利用先repositoryからの提案が起点になるため、issue番号のような安定した識別子を持たない。
-- branch名はsteering directoryのbasename（`YYYYMMDD-slug`）に揃える。`steering` を `branch_from_basename=true` で起動して作る。branch一覧が日付順に並び、branch名からsteering記録を一意に引ける。
+- branch名は設計の記録のdirectoryのbasename（`YYYYMMDD-slug`）に揃える。`task-design` を `branch_from_basename=true` で起動し、`prepare-design-record` がbranchを作る。branch一覧が日付順に並び、branch名から設計の記録を一意に引ける。
 
 ### 作業の外へ残るactionの差し込み
 
@@ -88,11 +88,11 @@
 
 - なし。このrepositoryは基盤を持たない。
 
-## steering
+## advance-roadmap
 
 参照する共通項目: [プロジェクト指示](#プロジェクト指示)、[アーキテクチャ文書](#アーキテクチャ文書)、[開発規約](#開発規約)、[テスト方針](#テスト方針)
 
-<!-- steering root、roadmap binding・status伝播に必要な制約だけこの下に記載 -->
+<!-- roadmapの子phaseのbinding・status伝播に必要な制約だけこの下に記載 -->
 
 ## visual-inspector
 

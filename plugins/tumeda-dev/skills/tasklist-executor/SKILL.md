@@ -157,7 +157,7 @@ tasklist・checkbox・DoD最終判定のsingle writerはこのexecutorのまま�
 # 実装feedbackの記録と返却
 
 実装、review、validation、利用者確認から不合格・不足・訂正・漏れ・追加要件・計画からの意味ある逸脱を直接受領したら、
-`../steering/implementation-feedback.md`を読み、executor自身がpluginの`facilitate-discussion`を明示適用する。
+`implementation-feedback.md`を読み、executor自身がpluginの`facilitate-discussion`を明示適用する。
 既存tasklistに記録taskがなくても省略しない。次の入力と、feedback原文・実装・design・合意済みplanを渡す。
 
 ```text
@@ -171,7 +171,7 @@ tasklist・DoD・checkboxのsingle writerはexecutorのまま維持する。
 
 # ドキュメントレビュー
 
-`docs/` 配下の標準 doc、または `skills/` 配下の `SKILL.md` と `templates/` を新規作成・更新する task では、実装後・DoD 確認前に `document-review` skill を通す。**対象はこの 2 種に限る**。steering の作業記録（`design.md` / `tasklist.md` / discussion file / `summary.md`）には当てない。
+`docs/` 配下の標準 doc、または `skills/` 配下の `SKILL.md` と `templates/` を新規作成・更新する task では、実装後・DoD 確認前に `document-review` skill を通す。**対象はこの 2 種に限る**。`.design-records/` の作業記録（`design.md` / `tasklist.md` / discussion file / `summary.md`）には当てない。
 
 - `document-review` が指摘尽きるまで観点（濃さ・記法・命名）を満たすことを確認してから、該当 task を `[x]` にする
 - 微細でない指摘（骨子・構造・実質の破綻）が出た場合は task を `[ ]` のまま維持し、書く工程へ戻って修正し、再度 `document-review` を通す
@@ -200,5 +200,5 @@ Codexでは親sessionがこのskillをchildとして起動し、必須入力を�
 ## 元作業の完了を暫定指示の管理へ通知する
 
 このskillが単独で元作業の完了ownerを担い、既存workflowの完了条件を実際に満たした場合だけ、同じ完了記録で`escalate-plugin-skill-fix`へ[保留条件の再確認](../escalate-plugin-skill-fix/pending-escalations.md#元担当の状態遷移から再確認する)を依頼した上で、既存完了記録のpath・根拠と元作業のexactな場所を`maintenance-plugin-context`へ渡す。
-steering配下など別ownerが元作業を継続する場合はその担当へ結果を返し、元作業完了とは通知しない。
+`advance-roadmap`配下など別ownerが元作業を継続する場合はその担当へ結果を返し、元作業完了とは通知しない。
 一skill呼出しの終了、session終了、中断、承認待ち、引渡しは元作業完了ではない。終了判断と履歴保存は管理担当が持ち、この通知のための追加承認gateを設けない。

@@ -1,6 +1,6 @@
 # 完成後の姿のsection一覧
 
-`design.md`の「完成後の姿」へ、steeringの終了時に成り立ち、確かめられる変化に当たるsectionだけを差し込む。fileの種類ではなく、何の見え方、振る舞い、境目、知識の並べ方が変わるかで選ぶ。一つの変更が複数の対象へ影響する場合は、複数のsectionを使う。選んだ後の並べ方は、この一覧の行の順ではなく[READMEの並べ方の決まり](./README.md#designmdへの配置順)に従う。
+`design.md`の「完成後の姿」へ、作業の終了時に成り立ち、確かめられる変化に当たるsectionだけを差し込む。fileの種類ではなく、何の見え方、振る舞い、境目、知識の並べ方が変わるかで選ぶ。一つの変更が複数の対象へ影響する場合は、複数のsectionを使う。選んだ後の並べ方は、この一覧の行の順ではなく[READMEの並べ方の決まり](./README.md#designmdへの配置順)に従う。
 
 | 完成後に変わるもの | 読むsection | 主な移行元 | 選ぶかを決める問い |
 | --- | --- | --- | --- |
@@ -13,7 +13,7 @@
 | skill、prompt、template、manifest等のfileの成果物 | `file-deliverables.md` | 旧`templates/design.md` 3-4、`SKILL.md`観点4 | documentation以外のfileについて、読者、内容、構造、配置、形式を合意する必要があるか |
 | documentationでまとめる知識の並べ方、標準、考え方、最新に保つ方法 | `documentation.md` | 旧`templates/design.md` 3-4、`SKILL.md`観点4、旧軽量modeのdocs task | 暗黙知や困りごとを文書にし、読者の判断と、正しい内容を保つことを成り立たせるか |
 | 実行環境の設定、build、依存、環境、失敗時の挙動 | `runtime-and-configuration.md` | 旧`templates/design.md` 3-4、`tasklist-design.md`品質check | 実行の条件や、環境による違いで振る舞いが変わるか |
-| 担当、先へ進む条件、状態、引き継ぎを持つ作業の流れ | `workflow.md` | `SKILL.md` Step 3〜6、`roadmap-design.md`、`steering/SKILL.md` | 誰がいつ何を判断、更新、引き継ぐかが変わるか |
+| 担当、先へ進む条件、状態、引き継ぎを持つ作業の流れ | `workflow.md` | `SKILL.md` Step 3〜6、`roadmap-design.md`、`wrap-up.md`、`advance-roadmap/SKILL.md` | 誰がいつ何を判断、更新、引き継ぐかが変わるか |
 | 移行前の振る舞いの保存と、意図して変える差分 | `contract-preservation.md` | `function_migration_policy.md`、function migration ledger | 移動、分割、統合、担当や置き場所の変更、形式の置き換えの前後で、何を変えず何を合意済みの差分として変えるかが成功の条件か |
 | 調査、比較、技術検証そのものを主な成果として分かったこと | `research-findings.md` | `SKILL.md` 3-4、investigationとspikeのlifecycle | 分かっていなかった問いを、再現できる根拠から確定すること自体が受け入れ基準か |
 
@@ -29,7 +29,7 @@
 
 ## codeが中心でない作業で必ず選ぶsection
 
-| steeringの中心 | MUSTで選ぶsection | 条件に応じて併用 |
+| 作業の中心 | MUSTで選ぶsection | 条件に応じて併用 |
 | --- | --- | --- |
 | documentationの新設・本質的な更新 | `documentation.md` | 手順を設計する`workflow.md`、調査自体も主な成果である`research-findings.md` |
 | skillの新規作成 | `skill-policy.md` + `file-deliverables.md` | 担当、状態、先へ進む条件、引き継ぎを設計する`workflow.md`、`documentation.md`、`runtime-and-configuration.md`、`research-findings.md` |

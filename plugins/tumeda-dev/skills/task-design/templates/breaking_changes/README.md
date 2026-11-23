@@ -8,7 +8,7 @@
 
 対象の成果物は、task-designが作る`design.md`、`tasklist.md`、`roadmap.md`である。
 
-- 記録する例: 9.0.0での付録とroadmapのlabelの切り替え。steeringが、古いdesign.mdの付録の見出しを名前で探せなくなる。
+- 記録する例: 9.0.0での付録とroadmapのlabelの切り替え。前月summaryの判定やplan無しの完了の検証が、古いdesign.mdの付録の見出しを名前で探せなくなる。
 - 記録しない例:
   - 完成後の姿のsectionの見出しだけの言い換え。skillもscriptも、その見出しを名前で読まない。
   - テンプレートへのsectionの追加。古い成果物も今までどおり読める。
@@ -21,3 +21,4 @@
 ## 記録
 
 - [20261115-rename-template-labels.md](./20261115-rename-template-labels.md) — 9.0.0。付録とroadmapのlabelを、普段の意味のまま読める名前へ切り替えた。
+- [20261123-rename-roadmap-progress-labels.md](./20261123-rename-roadmap-progress-labels.md) — 10.0.0。roadmapの進み具合の見出しとlabelを、steeringから`advance-roadmap`と子の設計の記録へ切り替えた。

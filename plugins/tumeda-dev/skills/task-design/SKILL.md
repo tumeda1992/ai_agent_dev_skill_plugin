@@ -45,7 +45,7 @@ none/endedでは既存処理へ進む。
 設計完了の定義は「実装中に新たな設計決定が生まれない状態」— 全 deliverable に対して「これを実装するとき、設計外の判断をしなければならない箇所はないか」と問えて「ない」と答えられる状態。
 Sonnet は「実装に入りたい衝動」を持っているため、このスキルはその衝動を止め、対話と合意で設計を積み上げる役割を担う。「設計書を書く」ことが目的ではなく、「実装は手を動かすだけ」の状態を作ることが目的。
 
-**起動形式**: 単独起動・steering 経由起動 どちらも可。呼び出し側は必要に応じて親ディレクトリ（`working_dir_parent`）と新規作成フラグ（`create_working_dir`、default `true`）を渡す。task-designが設計成果物の配置先（`working_dir`）を確定する（詳細: section 5 PrepareStep 2）。
+**起動形式**: 作業の入口である。利用者が直接起動するほか、`advance-roadmap`が子phaseとして、`escalate-plugin-skill-fix`がplugin repositoryでの作業として起動する。新しい作業では置き場所を渡さず、task-designが`prepare-design-record`を呼んで設計の記録（`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`）を用意させ、そこを設計成果物の配置先（`working_dir`）にする。既にある作業を再開する時は、呼び出し側が`working_dir`を渡す（詳細: section 5 PrepareStep 2）。結果を返す前に`wrap-up.md`で締めくくる（詳細: section 5 Step 6）。
 
 ユーザーとの会話と成果物本文は日本語で記述する。code、command、path、identifier、規定された出力形式、固有名詞は原文を維持する。
 
@@ -56,7 +56,7 @@ Sonnet は「実装に入りたい衝動」を持っているため、このス�
 
 成果物へ書く前に、その記述が機密情報にあたるかを [`confidentiality.md`](../../docs/documentation_standards/confidentiality.md) の判定で確認する。調査は網羅的に行ってよいが、成果物へ書く時点では別の判断が要る。判定の中身は同 file が正本であり、ここへ写さない。
 
-成果物へ暫定の判断（今回の範囲に限った判断、条件付きの保留、別の作業への切り出し）を書くときは、暫定であること・理由・見直す条件または切り出した先が落ちていないかを [`provisionality_explicitness.md`](../../docs/documentation_standards/provisionality_explicitness.md) で確認する。後続の作業は先行の作業記録を前提として読むため、`design.md` の非目標や、先行の steering から写した記述でも確認する。判定の中身は同 file が正本であり、ここへ写さない。
+成果物へ暫定の判断（今回の範囲に限った判断、条件付きの保留、別の作業への切り出し）を書くときは、暫定であること・理由・見直す条件または切り出した先が落ちていないかを [`provisionality_explicitness.md`](../../docs/documentation_standards/provisionality_explicitness.md) で確認する。後続の作業は先行の作業記録を前提として読むため、`design.md` の非目標や、先行の作業の記録から写した記述でも確認する。判定の中身は同 file が正本であり、ここへ写さない。
 
 成果物とchatで利用者へ向けて書く表現は、利用者が普段使っている意味のまま読んで受け取れるかを [`everyday_wording.md`](../../docs/documentation_standards/everyday_wording.md) で確認する。design.mdとchatは`document-review`の対象外だが、利用者が読んで合意する文である。判定の中身は同 file が正本であり、ここへ写さない。
 
@@ -118,7 +118,7 @@ repository固有の設計文書、規約、技術検証環境・commandが必要
 - 複数sectionを使っても完成後の姿はtask-design全体で一つであり、tasklist・roadmapに載せて実行する変更ごとの小さな設計書に分けない。
 - 調査、比較、技術検証が主成果の場合だけ`research-findings.md`を選ぶ。別outcomeを設計する途中で得た事実は、該当outcome sectionへ根拠として書き戻す。
 - docsを本質的に新設・更新する場合は`documentation.md`を使い、物理fileの仕様だけなら`file-deliverables.md`、skill等のprocess contractなら`workflow.md`も組み合わせる。
-- `documentation.md`を選んだ場合、emit前ゲートとして`document-review`skillが当てる観点（内容の濃さ・記法・命名）を設計時から見込む。当て方の中身は`document-review`側の標準fileが正本であり、ここへ写さない。対象はdocsとskill本体に限り、steeringの作業記録には当てない。
+- `documentation.md`を選んだ場合、emit前ゲートとして`document-review`skillが当てる観点（内容の濃さ・記法・命名）を設計時から見込む。当て方の中身は`document-review`側の標準fileが正本であり、ここへ写さない。対象はdocsとskill本体に限り、`.design-records/`の作業記録には当てない。
 
 ### 2-4. 自己チェック
 
@@ -315,7 +315,7 @@ TBD 解消の3手段:
 設計は AI が単独で書ける成果物ではない。ユーザーが持つドメイン知識・プロジェクト規約・プロダクト哲学が前提として必要で、それは対話でしか引き出せない。
 
 転記には3種類ある:
-- 既存ドキュメント（steering 内容や類似例）をそのまま貼る
+- 既存ドキュメント（過去の設計の記録の内容や類似例）をそのまま貼る
 - ユーザーの発言を脊髄反射で文書に落とす
 - 推測で埋めてユーザーの承認を待つ
 
@@ -325,7 +325,7 @@ TBD 解消の3手段:
 **違反シグナル:**
 - 「ユーザーが言ったから変更する」で動いている（自分の考えなしに変更）
 - 「どうお考えですか?」と先に問い、自分の見解を後出しにしている
-- 既存 steering の文章をそのまま貼って提案にしている
+- 既存の設計の記録の文章をそのまま貼って提案にしている
 - 推測で埋めた成果物を「レビューお願いします」と承認待ちにしている
 - ユーザーが指摘した瞬間にスキル・テンプレートを修正し始めている（合意なしに型を変える）
 
@@ -350,7 +350,7 @@ task-designの成果物は、一つのdesign、必要時のdiscussion記録、�
 
 - **design.md** — 合意済みの設計内容を集約する場所。テンプレート: このskill directoryの`templates/design.md`
 - **task-design-discussion.md** — 議論の変遷を記録する場所。discussion processとentry形式の正本はpluginの`facilitate-discussion` skill
-  - steering でも `discussion.md` を継続使用するため、task-design 起源の議論記録は `task-design-discussion.md` にして区別する
+  - 同じ設計の記録の中で、実行の段取りの議論が `discussion.md` を使うため、task-design 起源の議論記録は `task-design-discussion.md` にして区別する
 - **tasklist.md | roadmap.md** — tasklist・roadmapに載せて実行する変更が一件以上ある場合だけ、合意済みdesignを実行可能にする排他的なplan。leafは`tasklist.md`、compositeは`roadmap.md`を作り、同じ`working_dir`に両方を正本として置かない
 
 execution planを作る場合、その設計はtask-designの一部である。詳細規則は長さのために本体から分割した`tasklist-design.md`または`roadmap-design.md`を、対応するplan phaseへ入る直前に先頭から末尾まで完全に読む。
@@ -423,28 +423,25 @@ assistantが結論を持っている論点ほどdiscussionを外しやすい。�
 
 入力契約:
 
-- `working_dir_parent`: 省略可能。`create_working_dir`に応じて、新規ディレクトリの親または直接利用する既存ディレクトリを表す
-- `create_working_dir`: 省略可能なboolean。defaultは`true`
-- 子roadmap phaseからの任意入力: `parent_roadmap_path`、`parent_phase_id`、`parent_design_path`、`dependency_results`。一つでも渡された場合は4項目を一組として必須にする
+- `working_dir`: 省略可能。既にある作業を再開する時だけ、その設計の記録のdirectoryの絶対pathを渡す
+- `branch_from_basename`: 省略可能なboolean。defaultは`false`。新しい作業で`true`なら、`prepare-design-record`へそのまま渡し、basenameと同名のbranchを作らせる
+- 子roadmap phaseからの任意入力: `parent_roadmap_path`、`parent_phase_id`、`parent_design_path`、`dependency_results`。一つでも渡された場合は4項目を一組として必須にする。子phaseは新しい作業として扱う
 
-| `create_working_dir` | `working_dir_parent` | 解決する`working_dir` |
-| --- | --- | --- |
-| `true` | 指定あり | `<working_dir_parent>/<YYYYMMDD-slug>`を新規作成 |
-| `true` | 指定なし | `<current working directory>/<YYYYMMDD-slug>`を新規作成 |
-| `false` | 指定あり | `working_dir_parent`自体を直接利用 |
-| `false` | 指定なし | 入力不足として、既存ディレクトリの指定をユーザーへ求める |
+| 入力 | 解決する`working_dir` |
+| --- | --- |
+| `working_dir`なし（新しい作業） | `prepare-design-record`が用意した`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/` |
+| `working_dir`あり（再開） | 渡された`working_dir`自体を直接利用 |
 
-`create_working_dir=true`の手順:
+新しい作業の手順:
 
-1. `working_dir_parent`を絶対パスへ解決する。相対パスはtask-design起動時のcurrent working directoryを基準にし、未指定なら同じcurrent working directoryを使う。親ディレクトリが存在しなければ推測で作らず、既存の親ディレクトリをユーザーへ求める。
-2. `.agents/skills/name-work-directory`を明示適用し、作業内容と実行時のローカル日付から`YYYYMMDD-slug`のbasenameを一つ受け取る。
-3. `<working_dir_parent>/<basename>`が存在しないことを確認して作成し、その絶対パスを`working_dir`とする。
-4. 同名pathが存在する場合はsuffix追加や上書きをしない。既存pathを`create_working_dir=false`で再利用するか、別の親ディレクトリを使うか、ユーザーへ確認する。
+1. pluginの`prepare-design-record` skillを明示適用し、作業内容、実行時のローカル日付、渡された`branch_from_basename`を渡す。
+2. 返った絶対パスを`working_dir`とする。`prepare-design-record`が停止した場合（同名pathがある、branchを作れない、`.steering/`と`.design-records/`が両方ある等）は、その理由を利用者へ返し、推測で別の置き場所を作らない。
+3. task-design自身は`name-work-directory`を適用せず、`.design-records/`の外にディレクトリを作らない。
 
-`create_working_dir=false`の手順:
+再開の手順:
 
-1. `working_dir_parent`を絶対パスへ解決し、そのpath自体を`working_dir`とする。
-2. `.agents/skills/name-work-directory`を適用せず、ディレクトリも作成しない。pathが存在しなければ、既存ディレクトリの指定をユーザーへ求める。
+1. `working_dir`を絶対パスへ解決し、そのpath自体を`working_dir`とする。
+2. `prepare-design-record`を呼ばず、ディレクトリも作成しない。pathが存在しなければ、既存ディレクトリの指定をユーザーへ求める。
 
 #### 既存designのhandoff gate
 
@@ -505,7 +502,7 @@ task-designは確認済みのexactなactive topicと次の一問から既存work
    - 例外処理
    - test pattern
    - layer・責務境界
-   - 同じ主題を過去に決めた作業の決定と理由。同じrepositoryの`.steering/`の議論記録の「決定」の節を、主題の語で探す（探し方は`facilitate-discussion/round-trip.md`の「根拠にする前例を探す」の3と同じ）。過去の決定を知らないまま骨格を書くと、利用者は同じ議論をもう一度することになる
+   - 同じ主題を過去に決めた作業の決定と理由。同じrepositoryの`.design-records/`の議論記録の「決定」の節を、主題の語で探す（探し方は`facilitate-discussion/round-trip.md`の「根拠にする前例を探す」の3と同じ）。過去の決定を知らないまま骨格を書くと、利用者は同じ議論をもう一度することになる
 3. 変更対象fileを説明している既存docsを、file種別を問わず先に探す。見つかった場合は、変更後に不正確になる記述がないかを確認し、不正確になる記述を`design.md`の変更対象へ含める。docsに答えがない場合だけ既存の関連実装へ進む。たとえばGraphQL mutationまたはCommandの変更・追加では、関連moduleのREADMEを先に読み、orchestration patternを把握する。確認する観点は「どのdomain aggregateが、どのlayerで、どのように組み合わされているか」である。
 4. codeを読んで初めて分かった永続性とレバレッジの高い知識は、次回codeを読まずに済むよう、contextが熱いうちに`doc-enricher`へ即座に渡す。codeを読むたびにcontextを消費するため、既存READMEまたは既存docsへessenceがあれば次回の調査を省ける。`doc-enricher`の提案とユーザーの承認・拒否判断までをその場で完了し、別taskへ先送りしない。書込みは承認された場合だけ行う。
 5. UI挙動・表示を変える場合は、pluginの`visual-inspector`をchildとして使い、現状の画面を実測する。codeからの推測を画面事実としてdesignへ書かない。確認例は、headerが固定されているか、scroll時の挙動、layout崩れである。Playwright toolを直接呼ばず、必ずpluginの`visual-inspector` skillを使う。
@@ -751,7 +748,7 @@ test codeは単独の自動掲載条件ではなく、本番application coding�
 2. 同じ`working_dir`に反対側のplanがないことを確認する。既にあれば上書き・併存せず、designまたはplan種別の再合意へ戻る。
 3. 対応templateからplanを作り、分割fileのgateに従って自己レビューする。
 4. planの要点をユーザーへ示し、自然言語で合意を得る。
-5. feedbackを、planだけの変更かdesignへ戻る変更か分類する。完成後の姿、設計根拠、公開API、module境界、要件が変わるならStep 3へ戻る。task順、task粒度、検証手順はtasklist planを更新する。roadmapのphase identity、目的、scope、scope外、DoD、依存、「親の完了条件と、それを満たすphase」が変わる場合はroadmap planの構造設計へ戻り、その変更が親designへ影響するか判定する。親designへ影響する場合だけStep 3へ戻る。roadmap進み具合だけならsteeringのruntime更新へ返す。
+5. feedbackを、planだけの変更かdesignへ戻る変更か分類する。完成後の姿、設計根拠、公開API、module境界、要件が変わるならStep 3へ戻る。task順、task粒度、検証手順はtasklist planを更新する。roadmapのphase identity、目的、scope、scope外、DoD、依存、「親の完了条件と、それを満たすphase」が変わる場合はroadmap planの構造設計へ戻り、その変更が親designへ影響するか判定する。親designへ影響する場合だけStep 3へ戻る。roadmap進み具合だけなら`advance-roadmap`の更新へ返す。
 6. designへ戻った場合は、再合意後に同じplan種別を再生成するかleaf / compositeを再判定する。
 
 ### Step 6. task-design完了判定と返却
@@ -793,7 +790,9 @@ working_dir=<absolute>
 design_path=<absolute>
 ```
 
-task-designはplanを実行せず、roadmapの子path・status・完了日も更新しない。planless routeでtask-design内に適用するのは、合意済みdesignから一意に実行でき、本番application codingまたは段階実行を必要としない対象成果物変更だけである。補助tool codeはcodeであることだけではこのrouteから除外しない。
+上の完了条件を満たしたら、結果を返す前に[`wrap-up.md`](wrap-up.md)を先頭から末尾まで読み、締めくくりの確認、plan無しの完了と公開、実行を始めてよいかの確認を行う。締めくくりの確認を飛ばして結果を返さない。
+
+task-designはplanを実行せず、roadmapの子path・status・完了日も更新しない。planの実行は、`wrap-up.md`の「実行を始めてよいかを確かめる」で明示確認を得た後に、planの種類に対応するskillを起動することで始まる。planless routeでtask-design内に適用するのは、合意済みdesignから一意に実行でき、本番application codingまたは段階実行を必要としない対象成果物変更だけである。補助tool codeはcodeであることだけではこのrouteから除外しない。
 
 ---
 
@@ -831,7 +830,7 @@ Sonnet がよく陥る穴埋めパターン。設計レビュー時に自分で�
 
 - [ ] ユーザー発言を脊髄反射で文書に反映した → 3-6
 - [ ] 「どうお考えですか?」と先に問い、自分の見解を後出しにした → 3-6
-- [ ] 既存 steering やドキュメントの文章をそのまま貼って提案にした → 3-6
+- [ ] 既存の設計の記録やドキュメントの文章をそのまま貼って提案にした → 3-6
 - [ ] 推測で埋めた成果物を「レビューお願いします」と承認待ちにした → 3-6
 - [ ] 指摘を受けた瞬間に合意なしでスキル・テンプレートを修正した → 3-6
 
@@ -888,7 +887,7 @@ designが合意され、`tasklist_ready | roadmap_ready | planless_complete`の�
 |--------|------------|
 | 実装 | 後続の実装ステップ |
 | 実装後のレビュー | 別途 |
-| roadmapの子steering binding・status更新 | steering スキル |
+| roadmapの子phaseの進行・status更新 | `advance-roadmap` スキル |
 
 対応resultの完了条件を満たした時点でready resultを返す。不確実性、分類保留、反映待ちが残ったまま実装、orchestration、planless完了へ渡してはいけない。
 
@@ -914,7 +913,7 @@ designが合意され、`tasklist_ready | roadmap_ready | planless_complete`の�
 
 - **TBD 込みで全体を先に見せる（3-2）** — 全セクション一気書きはしない。骨格の合意を先に取る
 - **上位の設計判断を優先する（3-3 / 5 Step 3）** — `design.md`全体で下位判断を最も多く規定する不確実性から解消する
-- **転記禁止（3-6）** — steering や類似スキルの文章をそのまま貼らない。自分で咀嚼して提案する
+- **転記禁止（3-6）** — 過去の設計の記録や類似スキルの文章をそのまま貼らない。自分で咀嚼して提案する
 - **抽象と具体の往復** — 思想・違反シグナル・帰結・問いの4点セットを崩さない。具体例で地を作る
 - **discussionを直接管理しない（4 / 5 Step 3）** — task-design固有contextを渡した後の論点・iteration・合意は`facilitate-discussion`へ委ねる
 - **合意なしに型を変えない（3-6）** — 「指摘されたから直す」を即実行しない。今のファイルで合意 → 型に反映
@@ -924,7 +923,7 @@ designが合意され、`tasklist_ready | roadmap_ready | planless_complete`の�
 ### 過去に観測された失敗パターン
 
 このスキルを作る過程で観測された Sonnet の失敗:
-- 既存 steering の文章を転記して「魂が抜けた薄い内容」になる
+- 既存の設計の記録の文章を転記して「魂が抜けた薄い内容」になる
 - 抽象だけ書いて「自分のケースに当たる」と気付けない総論レベルで止まる
 - 具体例だけ追加して原則との接続が消える
 - 1セクションを単独で詰めて、他セクションとの整合が崩れる
@@ -940,5 +939,5 @@ designが合意され、`tasklist_ready | roadmap_ready | planless_complete`の�
 ## 元作業の完了を暫定指示の管理へ通知する
 
 このskillが単独で元作業の完了ownerを担い、既存workflowの完了条件を実際に満たした場合だけ、既存完了記録のpath・根拠と元作業のexactな場所を`maintenance-plugin-context`へ渡す。
-steering配下など別ownerが元作業を継続する場合はその担当へ結果を返し、元作業完了とは通知しない。
+`advance-roadmap`配下など別ownerが元作業を継続する場合はその担当へ結果を返し、元作業完了とは通知しない。
 一skill呼出しの終了、session終了、中断、承認待ち、引渡しは元作業完了ではない。終了判断と履歴保存は管理担当が持ち、この通知のための追加承認gateを設けない。

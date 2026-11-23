@@ -95,7 +95,7 @@ const codexManifest = readJson(codexManifestPath);
 const claudeManifest = readJson(claudeManifestPath);
 const marketplace = readJson(".claude-plugin/marketplace.json");
 const codexMarketplace = readJson(".agents/plugins/marketplace.json");
-const expectedRelease = "9.1.7";
+const expectedRelease = "10.0.0";
 const claudePlugin = marketplace?.plugins?.find(
   (plugin) => plugin.name === "tumeda-dev",
 );
@@ -295,7 +295,7 @@ for (const expected of [
 requireText(discussionSkill, "提案に図・表・構成や変更の一覧を含める時は、その一行ずつに、その行を消すか別の値にしても論点の問いへの答えとして提案が成り立つかを問う。");
 requireText(discussionSkill, "一続きの例も同じである。例えば、問いの示し方、返事の読み方、記録の仕方を一つの例で通して見せると、例が一つなので問いも一つに見える。");
 requireText(discussionSkill, "利用者の発言から推して書いた行も同じである。");
-requireText(skillPath("task-design/SKILL.md"), "同じ主題を過去に決めた作業の決定と理由。同じrepositoryの`.steering/`の議論記録の「決定」の節を、主題の語で探す");
+requireText(skillPath("task-design/SKILL.md"), "同じ主題を過去に決めた作業の決定と理由。同じrepositoryの`.design-records/`の議論記録の「決定」の節を、主題の語で探す");
 
 for (const expected of [
   "templates/proposal-sections/README.md",
@@ -406,13 +406,13 @@ for (const p of [discussionSkill, discussionIteration, discussionRecovery, skill
   for (const forbidden of ["必要な場合だけ準備する", "長い調査の作業控え", "必要な場合だけ作業控えとして使う", "必要な場合だけ内部logにも記録する", "内部logへ論点・開始context・同じ回の骨子を準備する"]) forbidText(p, forbidden, "内部logの共通作成工程");
 }
 requireText(discussionInternalTemplate, "新規logの作成templateとしては使わない");
-for (const p of [skillPath("steering/.gitignore.sample"), ".steering/.gitignore"]) requireText(p, "**/internal-records/");
+for (const p of [skillPath("prepare-design-record/.gitignore.sample"), ".design-records/.gitignore"]) requireText(p, "**/internal-records/");
 
 requireOrderedText(discussionIteration, ["### 作成中の回と検討記録を用意する", "### 判断材料を確かめ、検討記録を育てる", "### 提案または認識合わせを形にする", "### 保存した回を提示可能にする"], "提示準備の実行順");
 
 requireText(discussionMetadata, "allow_implicit_invocation: false");
 
-const discussionConsumers = ["task-design/SKILL.md", "steering/SKILL.md", "task-design/templates/tasklist.md"].map(skillPath);
+const discussionConsumers = ["task-design/SKILL.md", "advance-roadmap/SKILL.md", "task-design/templates/tasklist.md"].map(skillPath);
 
 for (const p of discussionConsumers) requireText(p, "facilitate-discussion");
 
@@ -437,7 +437,7 @@ for (const relativePath of [
 }
 for (const expected of [
   "対象は、別agentまたはownershipの連続性を確認できない新しい`task-design`実行",
-  "steering固有phaseの引き継ぎ、任意workflowのhandoff、skill間result handoff、tasklist実行の再開は対象外",
+  "`advance-roadmap`固有の段取りの引き継ぎ、任意workflowのhandoff、skill間result handoff、tasklist実行の再開は対象外",
   "scripts/extract-handoff-input.mjs",
   "current design、全decision、activeまたは停止中topic",
   "canonical file digest",
@@ -518,12 +518,11 @@ for (const expected of [
   "調査目的、未確定の判断、確認方法、終了条件",
   "#### requirements.mdの切り出し",
   "独立fileにするとreview可能性が上がる場合だけ",
-  "working_dir_parent",
-  "create_working_dir",
-  "defaultは`true`",
-  ".agents/skills/name-work-directory",
-  "<current working directory>/<YYYYMMDD-slug>",
-  "task-design起動時のcurrent working directoryを基準",
+  "`working_dir`: 省略可能。既にある作業を再開する時だけ",
+  "`branch_from_basename`: 省略可能なboolean。defaultは`false`",
+  "pluginの`prepare-design-record` skillを明示適用し",
+  "`.design-records/`の外にディレクトリを作らない",
+  "推測で別の置き場所を作らない",
   "技術検証実装が必要になった時だけ作成する",
   "discussion内部processをtask-design側で再定義しない",
   "設計目的と完了条件",
@@ -575,15 +574,21 @@ for (const forbidden of [
 ]) {
   forbidText(taskDesignSkill, forbidden, "task-designに残った旧discussion process");
 }
-requireText(skillPath("steering/SKILL.md"), "discussion_directory=<steering directory>");
-requireText(skillPath("steering/SKILL.md"), "discussion_file_name=implementation_review.md");
-requireText(skillPath("steering/SKILL.md"), "working_dir_parent=<steering ディレクトリの絶対パス>");
-requireText(skillPath("steering/SKILL.md"), "create_working_dir=false");
+requireText(skillPath("advance-roadmap/SKILL.md"), "discussion_directory=<roadmap.mdがある設計の記録のdirectory>");
+requireText(skillPath("advance-roadmap/SKILL.md"), "discussion_file_name=implementation_review.md");
+requireText(skillPath("tasklist-executor/execution-contracts.md"), "discussion_file_name=implementation_review.md");
+// steeringを解き、task-designの入力は新しい作業なら置き場所を渡さず、再開ならworking_dirを渡す。
+requireText(skillPath("task-design/SKILL.md"), "`working_dir`: 省略可能。既にある作業を再開する時だけ");
+requireText(skillPath("task-design/SKILL.md"), "pluginの`prepare-design-record` skillを明示適用し");
+for (const retired of ["working_dir_parent", "create_working_dir"]) forbidText(skillPath("task-design/SKILL.md"), retired, "廃止したtask-designの置き場所の入力");
+requireAbsent(skillPath("steering/SKILL.md"));
+requireAbsent(skillPath("steering/implementation-feedback.md"));
+requireAbsent(".steering");
 requireText(skillPath("task-design/templates/tasklist.md"), "## 参照");
 requireText(skillPath("task-design/templates/tasklist.md"), "./design.md");
 requireText(skillPath("task-design/templates/tasklist.md"), "facilitate-discussion");
 requireText(skillPath("task-design/templates/tasklist.md"), "implementation_review.md");
-requireText(skillPath("task-design/templates/tasklist.md"), "適用する担当を`steering`に固定しない");
+requireText(skillPath("task-design/templates/tasklist.md"), "適用する担当を特定のskillに固定しない");
 requireText(skillPath("README.md"), "facilitate-discussion");
 requireText(skillPath("README.md"), "escalate-plugin-skill-fix");
 // skills の直下には skill の directory と README だけを置き、context の雛形だけを例外にする。
@@ -607,30 +612,38 @@ requireText(
 );
 requireAbsent(skillPath("design-consult/SKILL.md"));
 
-const steeringSkill = skillPath("steering/SKILL.md");
-requireText(steeringSkill, "完了報告の前に、task-design内で適用した変更を公開する。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく[`tasklist-design.md`の「実装後feedbackと公開action」](../task-design/tasklist-design.md#実装後feedbackと公開action)に従い、ここへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。");
+const prepareDesignRecordSkill = skillPath("prepare-design-record/SKILL.md");
+const summarizePreviousMonth = skillPath("prepare-design-record/summarize-previous-month.md");
+const advanceRoadmapSkill = skillPath("advance-roadmap/SKILL.md");
+const taskDesignWrapUp = skillPath("task-design/wrap-up.md");
+const callerContract = skillPath("tasklist-executor/execution-contracts.md");
+requireText(taskDesignWrapUp, "完了報告の前に、task-design内で適用した変更を公開する。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく[`tasklist-design.md`の「実装後feedbackと公開action」](tasklist-design.md#実装後feedbackと公開action)に従い、ここへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。");
+requireText(taskDesignSkill, "結果を返す前に[`wrap-up.md`](wrap-up.md)を先頭から末尾まで読み");
 requireText(skillPath("facilitate-discussion/round-trip.md"), "論点の段はchatに示さない。段は一往復の組を選ぶためのものであり、利用者が気になれば議論記録の`**重さ:**`を読む。");
 forbidText(skillPath("facilitate-discussion/round-trip.md"), "各論点の番号と段");
-requireText(steeringSkill, "4-1から4-3は、三つとも見直してから、出た提案を一度に示す。重なる提案は一つにまとめる。一往復に示す数と並べ方は、[round-trip.md](../facilitate-discussion/round-trip.md)に従う。");
+requireText(taskDesignWrapUp, "1から3は、三つとも見直してから、出た提案を一度に示す。重なる提案は一つにまとめる。一往復に示す数と並べ方は、[round-trip.md](../facilitate-discussion/round-trip.md)に従う。");
 const thinkThroughSkill = skillPath("think-through/SKILL.md");
 for (const expected of [
-  "既存designを引き継ぐdesign phase",
+  "既存designを引き継ぐ子phaseのdesign phase",
   "同じworking directoryの`task-design`",
-  "steeringはcanonical designまたはdiscussionの本文を読まず",
-  "steering固有phase、任意workflow、skill間result handoff、tasklist実行再開へhandoff contractを一般化しない",
+  "このskillはcanonical designまたはdiscussionの本文を読まず",
+  "このskill固有の段取り、任意workflow、skill間result handoff、tasklist実行再開へhandoff contractを一般化しない",
 ]) {
-  requireText(steeringSkill, expected);
+  requireText(advanceRoadmapSkill, expected);
 }
-forbidText(
-  steeringSkill,
-  "task-design-work-handoff-contracts.md",
-  "steeringへの共有handoff contract直接接続",
-);
-requireFrontmatter(steeringSkill, "明示指定時");
-requireFrontmatter(steeringSkill, "軽度でない複数file・複数stepの変更時");
-requireFrontmatter(steeringSkill, "Agent");
-forbidText(steeringSkill, "model:", "main session適用skillへのmodel宣言");
-forbidText(steeringSkill, "effort:", "main session適用skillへのeffort宣言");
+for (const relativePath of [advanceRoadmapSkill, prepareDesignRecordSkill]) {
+  forbidText(
+    relativePath,
+    "task-design-work-handoff-contracts.md",
+    "共有handoff contractへの直接接続",
+  );
+  forbidText(relativePath, "model:", "main session適用skillへのmodel宣言");
+  forbidText(relativePath, "effort:", "main session適用skillへのeffort宣言");
+}
+requireFrontmatter(advanceRoadmapSkill, "roadmap_readyを返し、利用者が実行の開始を明示した時に起動する");
+requireFrontmatter(advanceRoadmapSkill, "Agent");
+requireFrontmatter(prepareDesignRecordSkill, "task-designが新しい作業を始める時に呼ぶ");
+requireFrontmatter(prepareDesignRecordSkill, "task-designを通さずに記録を置く作業からも呼べる");
 forbidText(taskDesignSkill, "model:", "main session適用skillへのmodel宣言");
 forbidText(taskDesignSkill, "effort:", "main session適用skillへのeffort宣言");
 const orderingParallelItemsDoc = thinkStandardsPath("ordering_parallel_items.md");
@@ -684,19 +697,24 @@ forbidText(
   "**主軸:",
   "docsへ移した思考標準の内容がSKILL.mdへ戻っている",
 );
-for (const relativePath of [taskDesignSkill, steeringSkill]) {
+for (const relativePath of [taskDesignSkill, advanceRoadmapSkill, prepareDesignRecordSkill]) {
   requireText(
     relativePath,
     "ユーザーとの会話と成果物本文は日本語で記述する。code、command、path、identifier、規定された出力形式、固有名詞は原文を維持する。",
   );
 }
 for (const expected of [
-  "## task-design初回起動前の境界",
-  "ユーザー入力を未整理のままtask-designへ渡して直ちに起動する",
-  "設計や方向性を整理する別stepを挟まず",
-  "通常flowの初回task-design起動前には開始しない",
+  "### 子phaseのtask-designを起動する前の境界",
+  "phaseの計画と上位制約を、意味を足さずに保持する",
+  "子phaseのtask-design起動前には開始しない",
   "task-designを安全に起動できるかの確認にだけ使い",
-  "## Ready result後の必須gate",
+  "planlessは子task-designの`wrap-up.md`の締めくくりの確認と完了報告を確認する",
+  "`roadmap_ready`を受けたこと自体を子の実行の承認とみなさない",
+]) {
+  requireText(advanceRoadmapSkill, expected);
+}
+for (const expected of [
+  "## 締めくくりの確認",
   "`tasklist_ready | roadmap_ready | planless_complete`のどのresultでも",
   "`doc-enricher`を提案modeで適用",
   "明示承認された提案だけを適用",
@@ -704,23 +722,21 @@ for (const expected of [
   "ユーザーの明示確認",
   "`roadmap_ready`を受けたこと自体を子実行の承認とみなさない",
   "`planless_complete`では実行するplanがない",
-  "planlessは子steeringの共通gateと完了報告を確認する",
-  "planless status:",
 ]) {
-  requireText(steeringSkill, expected);
+  requireText(taskDesignWrapUp, expected);
 }
-forbidText(
-  steeringSkill,
-  "pre-designの認識合わせ",
-  "task-design起動前の設計をsteeringへ戻す旧discussion用途",
-);
+requireText(summarizePreviousMonth, "planless status:");
+for (const relativePath of [advanceRoadmapSkill, prepareDesignRecordSkill]) {
+  forbidText(relativePath, "pre-designの認識合わせ", "子phaseのtask-design起動前の設計を戻す旧discussion用途");
+}
 for (const forbidden of [
   "## Plan合意後の必須gate",
   "`tasklist_ready | roadmap_ready`のどちらでも",
 ]) {
-  forbidText(steeringSkill, forbidden, "steeringに残った二result前提");
+  forbidText(taskDesignWrapUp, forbidden, "締めくくりに残った二result前提");
 }
-requireText(steeringSkill, "# {YYYY}年{MM}月 Steering サマリー");
+requireText(summarizePreviousMonth, "# {YYYY}年{MM}月 設計の記録 サマリー");
+requireText(summarizePreviousMonth, "以前の版が作った月のsummaryの題（「{YYYY}年{MM}月 Steering サマリー」）は書き換えない。");
 for (const expected of [
   "parent_roadmap_path",
   "parent_phase_id",
@@ -786,27 +802,33 @@ requireText(roadmapDesign, "strictly narrower");
 requireText(roadmapDesign, "依存関係はcycleを持たないDAG");
 requireText(roadmapDesign, "一つだけの子");
 requireText(roadmapTemplate, "各phaseの計画（task-designが設計・reviewする）");
-requireText(roadmapTemplate, "進み具合（steeringだけが更新する）");
+requireText(roadmapTemplate, "進み具合（advance-roadmapだけが更新する）");
+requireText(roadmapTemplate, "- 子の設計の記録: 未割当");
+forbidText(roadmapTemplate, "子steering", "無くなったsteeringを名指すroadmapのlabel");
 
 for (const expected of [
-  "working_dir_parent=<steering ディレクトリの絶対パス>",
-  "create_working_dir=false",
   "`tasklist_ready`",
   "`roadmap_ready`",
-  "子steering path、status、完了日だけ",
+  "子の設計の記録、status、完了日だけ",
   "dependency_results=<依存phaseの確定結果>",
   "全phase完了",
+]) {
+  requireText(advanceRoadmapSkill, expected);
+}
+for (const expected of [
   "tasklist status: checkbox",
   "roadmap status: 全phaseの運用status",
   "旧形式",
-  "同じ作業中はbasenameを変更せず",
-  "一か月前",
-  "各steering実行時にもstatusを手動更新しない",
-  "[共通の実装feedback処理](implementation-feedback.md)",
+  "各作業の実行時にもstatusを手動更新しない",
 ]) {
-  requireText(steeringSkill, expected);
+  requireText(summarizePreviousMonth, expected);
 }
-const runtimeFeedbackReview = skillPath("steering/implementation-feedback.md");
+for (const expected of ["同じ作業中はbasenameを変更せず", "一か月前", "summarize-previous-month.md"]) {
+  requireText(prepareDesignRecordSkill, expected);
+}
+requireText(callerContract, "[共通の実装feedback処理](implementation-feedback.md)");
+requireText(advanceRoadmapSkill, "[共通の実装feedback処理](../tasklist-executor/implementation-feedback.md)");
+const runtimeFeedbackReview = skillPath("tasklist-executor/implementation-feedback.md");
 for (const expected of [
   "feedback原文",
   "既に修正済みのfeedbackでも記録を省略しない",
@@ -814,21 +836,11 @@ for (const expected of [
 ]) {
   requireText(runtimeFeedbackReview, expected);
 }
-for (const expected of [
-  "adopt_task_design_working_dir=<absolute path>",
-  "source basenameは`YYYYMMDD-slug`",
-  "`tasklist.md`が併存しない",
-  "未解消TBD",
-  "repository内",
-  "exact sourceとexact destination",
-  "destinationが存在しない",
-  "明示承認",
-  "merge、overwrite、suffix追加、自動copy/delete",
-  "directory全体を一度だけ",
-  "`steering.json`や旧sourceへのpointerは作らない",
-]) {
-  requireText(steeringSkill, expected);
+// standalone roadmapの昇格は、置き場所が一通りになったため無くした。
+for (const relativePath of [taskDesignSkill, advanceRoadmapSkill, prepareDesignRecordSkill]) {
+  forbidText(relativePath, "adopt_task_design_working_dir", "廃止したstandalone roadmapの昇格");
 }
+requireText(prepareDesignRecordSkill, "task-design専用子directory、`task_design_dir`探索、`steering.json`を作らない。");
 
 for (const relativePath of discussionConsumers) {
   forbidText(relativePath, "templates/discussion_entry.md", "旧discussion template path");
@@ -868,7 +880,7 @@ for (const expected of [
 forbidText(runtimeContract, "## 実行環境gate", "child 委譲の契約に残る実行環境 gate");
 requireText(runtimeContract, "- `blocked`: 必須入力・外部状態・権限が不足している。実行環境にcommandを止められた場合も、権限が不足している状態の一種としてこれに当たる（[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)）。");
 requireText(runtimeContract, "commandを実行しうる任意のskillが従う、実行環境に止められた時の規範は[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)が持つ。");
-requireText(steeringSkill, "それでも実行環境に止められた時の扱いは[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)に従う。");
+requireText(callerContract, "それでも実行環境に止められた時の扱いは[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)に従う。");
 requireText(docPath("README.md"), "## 6群への入口");
 requireText(docPath("README.md"), "[agent_execution_standards/blocked_commands.md](./agent_execution_standards/blocked_commands.md)** — AI agent に作業を実行させる時に、AI agent と、それを動かす実行環境（host の実行許可の仕組み、sandbox、分類器等）の性質から起きる、AI agent に特有の詰まり方への対処の群。");
 requireText(docPath("README.md"), "  - 判断の問い: 「この規範は、既存の群のどれか一つに収まるか。収まらないなら、開発・文書・思考のどの作業にも同じ形で効くか」");
@@ -942,7 +954,7 @@ const failedPath = "inline failed result";
 const requestFixture = {
   request_id: "runtime-contract-test-1",
   kind: "test-runner",
-  tasklist: ".steering/example/tasklist.md",
+  tasklist: ".design-records/example/tasklist.md",
   task: "phase-1-test-1",
   attempt: 1,
   artifact_directory: "artifacts/runtime-contract-test-1/",
@@ -1121,7 +1133,7 @@ for (const forbidden of [
   "### 7) tasklist の自己レビュー",
   "create_working_dir=true`を渡す",
 ]) {
-  forbidText(steeringSkill, forbidden, "steeringへ逆流した旧plan設計契約");
+  forbidText(advanceRoadmapSkill, forbidden, "advance-roadmapへ逆流した旧plan設計契約");
 }
 forbidText(
   tasklistTemplate,
@@ -1135,7 +1147,8 @@ requireText(contextTemplate, "置き場所の一覧（形と作り方は `doc-en
 for (const expected of [
   "| `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |",
   "UI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込み",
-  "steering固有情報として返さない",
+  "advance-roadmap固有情報として返さない",
+  "| `advance-roadmap` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針 |",
 ]) {
   requireText(contextMaintainer, expected);
 }
@@ -1144,8 +1157,8 @@ for (const expected of [
   "### UI確認環境",
   "### Git / GitHub公開条件",
   "### 作業の外へ残るactionの差し込み",
-  "## steering",
-  "roadmap binding・status伝播に必要な制約",
+  "## advance-roadmap",
+  "子phaseのbinding・status伝播に必要な制約",
 ]) {
   requireText(contextTemplate, expected);
 }
@@ -1155,7 +1168,9 @@ const escalateSkill = skillPath("escalate-plugin-skill-fix/SKILL.md");
 const escalateMetadata = skillPath("escalate-plugin-skill-fix/agents/openai.yaml");
 requireExists(escalateSkill);
 requireExists(escalateMetadata);
-requireText(steeringSkill, "branch_from_basename");
+requireText(prepareDesignRecordSkill, "branch_from_basename");
+requireText(taskDesignSkill, "branch_from_basename");
+requireText(escalateSkill, "`task-design`を`branch_from_basename=true`で起動");
 requireText(escalateSkill, "branch_from_basename");
 for (const heading of [
   "## 起動gate",
@@ -1188,13 +1203,16 @@ requireText(contextTemplate, "default branchの上で直接commitしない。作
 forbidText(contextTemplate, "plugin repositoryでの作業完了後の取り込み");
 forbidText(contextTemplate, "commitとpushをdefault branchへ直接行わない");
 
-requireText(steeringSkill, "## Blocker resolution");
+requireText(callerContract, "### Blocker resolution");
 requireText(
-  steeringSkill,
+  callerContract,
   "唯一の例外は`Blocker resolution`であり、その成立条件と手順は同節が持つ。"
 );
-requireExists(skillPath("steering/.gitignore.sample"));
-requireText(skillPath("steering/.gitignore.sample"), "*/*/*/task-design-catch-up/");
+requireText(advanceRoadmapSkill, "唯一の例外は`tasklist-executor/execution-contracts.md`のBlocker resolutionであり、その成立条件と手順は同節が持つ。");
+requireText(callerContract, "`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/subagent_report/`");
+requireExists(skillPath("prepare-design-record/.gitignore.sample"));
+requireText(skillPath("prepare-design-record/.gitignore.sample"), "*/*/*/task-design-catch-up/");
+requireAbsent(skillPath("steering/.gitignore.sample"));
 
 requireText(
   `${pluginRoot}/docs/development_standards/naming/core.md`,
@@ -1294,12 +1312,16 @@ forbidText(taskDesignSkill, "この時点ではdiscussion fileの論点・提案
 // 保留したplugin改善は、再開条件が成り立ちうる時点だけで確かめ直し、状態の変わらない知らせを出さない。
 for (const expected of ["taskやphaseの完了、executorの停止、作業の再開のたびには依頼しない", "確かめ直して状態が変わらない時は、利用者へ何も伝えない"]) requireText(pendingEscalations, expected);
 forbidText(skillPath("tasklist-executor/SKILL.md"), "task／phaseの既存完了条件を実測して次へ進む時は", "taskごとの保留の確かめ直し");
-requireText(steeringSkill, "steeringが依頼するのは、元作業全体を完了する時だけ");
-forbidText(steeringSkill, "その成立証拠で同じ作業の保留条件を再確認してから", "phaseごとの保留の確かめ直し");
+requireText(taskDesignWrapUp, "task-designが依頼するのは、plan無しで元作業全体を完了する時だけ");
+requireText(advanceRoadmapSkill, "このskillが依頼するのは、roadmap全体を完了する時だけ");
+requireText(callerContract, "起動する側が依頼するのは、元作業全体を完了する時だけ");
+for (const relativePath of [taskDesignWrapUp, advanceRoadmapSkill, callerContract]) {
+  forbidText(relativePath, "その成立証拠で同じ作業の保留条件を再確認してから", "phaseごとの保留の確かめ直し");
+}
 requireOrderedText(escalateSkill, ["\n## 起動gate\n", "\n## 作業先を切り替える前の保留判定\n", "\n## plugin repositoryの判定\n"], "起動後・repository判定前の保留判定");
 // 利用者の確かめを実行許可の画面に当てず、合意の原文を実行するagentへ渡す。
 requireText(skillPath("task-design/SKILL.md"), "実行環境の実行許可の画面（agentがtoolを実行する前に利用者へ出す確認）を、利用者が確かめる手段にしない。");
-requireText(skillPath("steering/SKILL.md"), "利用者がまだ与えていない承認や、「利用者が実行許可の画面で見る」のようなまだ起きていない確かめを、指示に事実として書かない。");
+requireText(callerContract, "利用者がまだ与えていない承認や、「利用者が実行許可の画面で見る」のようなまだ起きていない確かめを、指示に事実として書かない。");
 // 既定は保留、利用者が即時を指示した時だけ即時に引き渡す。
 for (const expected of [
   "即時の指示がなければ、既定どおり保留する。",
@@ -1309,7 +1331,7 @@ for (const expected of [
 for (const expected of [
   "即時の指示が無い提案は、既定として保留する。",
   "既定の保留の再開条件「元の作業の完了」も、元作業の既存完了判定が対応する。",
-  "元作業に保留メモを置くdirectoryが無い時（steeringを使わない作業等）は、既定の保留にしない。",
+  "元作業に保留メモを置くdirectoryが無い時（設計の記録を使わない作業等）は、既定の保留にしない。",
   "保留を保存したら、利用者へ次の一行で知らせる。",
 ]) requireText(pendingEscalations, expected);
 requireText(pendingTemplate, "または即時の指示が無かったこと");
@@ -1320,12 +1342,12 @@ for (const expected of ["保留を保存する", "再開条件を確認する", 
 for (const expected of ["保留時の内容", "関連情報", "追跡"]) requireText(pendingTemplate, expected);
 for (const expected of ["元作業と依頼を確認する", "記録を登録・改訂する", "適用候補と実行版を照合する", "実効指示または停止理由を返す", "終了を記録する", "active", "none", "paused", "unavailable", "ended", "無関係な更新でも", "全面代替"]) requireText(temporaryOverrides, expected);
 for (const expected of ["## 指示", "## 適用状況", "## 変更と終了の履歴"]) requireText(overrideTemplate, expected);
-const overrideConsumers = ["doc-enricher", "document-review", "escalate-plugin-skill-fix", "facilitate-discussion", "maintenance-plugin-context", "name-work-directory", "share-work-in-progress", "steering", "task-design", "tasklist-executor", "test-runner", "think-through", "visual-inspector", "skill-update-review"];
+const overrideConsumers = ["doc-enricher", "document-review", "escalate-plugin-skill-fix", "facilitate-discussion", "maintenance-plugin-context", "name-work-directory", "share-work-in-progress", "prepare-design-record", "advance-roadmap", "task-design", "tasklist-executor", "test-runner", "think-through", "visual-inspector", "skill-update-review"];
 for (const name of overrideConsumers) {
   const path = skillPath(`${name}/SKILL.md`);
   for (const expected of ["## 作業限定の暫定指示を取得する", "resume", "SKILL.md", "paused/unavailable"]) requireText(path, expected);
 }
-for (const name of ["steering", "task-design", "tasklist-executor"]) requireText(skillPath(`${name}/SKILL.md`), "## 元作業の完了を暫定指示の管理へ通知する");
+for (const name of ["advance-roadmap", "task-design", "tasklist-executor"]) requireText(skillPath(`${name}/SKILL.md`), "## 元作業の完了を暫定指示の管理へ通知する");
 requireText(contextMaintainer, "temporary-overrides.md");
 requireText(escalateSkill, "pending-escalations.md");
 
@@ -1351,7 +1373,11 @@ const portableFiles = [
   roadmapDesign,
   tasklistTemplate,
   roadmapTemplate,
-  skillPath("steering/SKILL.md"),
+  prepareDesignRecordSkill,
+  summarizePreviousMonth,
+  advanceRoadmapSkill,
+  taskDesignWrapUp,
+  skillPath("tasklist-executor/implementation-feedback.md"),
   prHelper,
   contextMaintainer,
   contextTemplate,
@@ -1427,7 +1453,15 @@ requireText(skillPath("maintenance-plugin-context/SKILL.md"), "その成果物�
 requireText(skillPath("task-design/templates/breaking_changes/README.md"), "全ての変更履歴ではない。");
 requireText(skillPath("task-design/templates/breaking_changes/README.md"), "20261115-rename-template-labels.md");
 requireText(skillPath("task-design/templates/breaking_changes/20261115-rename-template-labels.md"), "| design.mdの付録 | ### execution plan対象 | ### tasklist・roadmapに載せて実行する変更 |");
-requireText(skillPath("steering/SKILL.md"), "../task-design/templates/breaking_changes/README.md");
+for (const relativePath of [prepareDesignRecordSkill, summarizePreviousMonth, advanceRoadmapSkill]) requireText(relativePath, "../task-design/templates/breaking_changes/README.md");
+// 置き場所のpathの変更も、以前の版の成果物を読むための記録の対象に入れる。
+requireText(skillPath("maintenance-plugin-context/SKILL.md"), "見出し・labelの名前や、置き場所のpathで読めなくなることなら");
+requireText(skillPath("prepare-design-record/breaking_changes/README.md"), "全ての変更履歴ではない。");
+requireText(skillPath("prepare-design-record/breaking_changes/README.md"), "20261123-move-steering-to-design-records.md");
+for (const expected of ["## 古い成果物の読み方", "## 移し方", "`git mv .steering .design-records`", "両方ある時は、混ぜずに止まり"]) requireText(skillPath("prepare-design-record/breaking_changes/20261123-move-steering-to-design-records.md"), expected);
+requireText(prepareDesignRecordSkill, "breaking_changes/20261123-move-steering-to-design-records.md");
+requireText(skillPath("task-design/templates/breaking_changes/README.md"), "20261123-rename-roadmap-progress-labels.md");
+requireText(skillPath("task-design/templates/breaking_changes/20261123-rename-roadmap-progress-labels.md"), "| roadmap.md | ### 進み具合（steeringだけが更新する） | ### 進み具合（advance-roadmapだけが更新する） |");
 forbidText(skillPath("maintenance-plugin-context/SKILL.md"), "task-design/templates/breaking_changes", "共通の版の規則に個別のskillを名指さない");
 requireText(thinkStandardsPath("writing_abstraction.md"), "今回の対象を、ここが効く別の対象に置き換えても、そのまま成り立つか");
 
@@ -1458,9 +1492,9 @@ forbidText(tasklistDesign, "commit・push・PRより前にユーザー動作確�
 requireText(tasklistTemplate, "確認環境へ載せるために`UI確認環境`が定めるcommit・pushと、作業の外へ残るactionを含むphaseの最後のcommit・pushを除き、動作確認phaseが完了するまでcommit、push、PRを促したり実行したりしない");
 requireText(skillPath("tasklist-executor/SKILL.md"), `確認前にcommit・pushへ進まない${confirmEnvExclusion}`);
 requireText(skillPath("tasklist-executor/SKILL.md"), `ユーザー動作確認より先にcommit・push・PRへ進まない${confirmEnvExclusion}`);
-requireText(skillPath("steering/SKILL.md"), `ユーザー動作確認が完了する前にcommit、push、PRへ進ませない${confirmEnvExclusion}`);
-requireText(skillPath("steering/SKILL.md"), `ユーザー動作確認前にcommit、push、PRを行う${confirmEnvExclusion}`);
-requireText(skillPath("tumeda-dev-plugin-context.md"), "tasklist-design・tasklist-executor・steering は、ここに書かれた commit・push と、作業の外へ残る action を含む phase の最後の commit・push だけを、利用者の動作確認の前に許す");
+requireText(callerContract, `ユーザー動作確認が完了する前にcommit、push、PRへ進ませない${confirmEnvExclusion}`);
+requireText(callerContract, `ユーザー動作確認前にcommit、push、PRを行う${confirmEnvExclusion}`);
+requireText(skillPath("tumeda-dev-plugin-context.md"), "tasklist-design・tasklist-executor・tasklist-executorを起動する側 は、ここに書かれた commit・push と、作業の外へ残る action を含む phase の最後の commit・push だけを、利用者の動作確認の前に許す");
 requireText(tasklistDesign, "確認の前に行ってよいのは、次の二つだけである。それ以外のcommit・push・PRは確認の後に行う。");
 requireText(tasklistDesign, "- 作業の外へ残るactionのcommit・push: 作業の外へ残るactionを含むphaseの最後のcommit・push（上の「作業の外へ残るactionを含むphaseの原則」）。");
 
@@ -1578,8 +1612,8 @@ requireText(skillPath("doc-enricher/SKILL.md"), scopeCheckAnchor);
 requireText(outcomeSectionPath("documentation.md"), "統合する時は、統合先の範囲に入ることを");
 requireText(outcomeSectionPath("documentation.md"), "統合するなら、統合先の名前・入口の説明・既存の見出しが約束する範囲に入ること");
 requireText(outcomeSectionPath("documentation.md"), scopeCheckAnchor);
-requireText(steeringSkill, "既存の file へ書くなら、その file の範囲に入るかを");
-requireText(steeringSkill, scopeCheckAnchor);
+requireText(taskDesignWrapUp, "既存の file へ書くなら、その file の範囲に入るかを");
+requireText(taskDesignWrapUp, scopeCheckAnchor);
 
 // 止めずに最後まで進むのが既定。止まるtaskは二つだけで、利用者の確認は利用者にしか確かめられないものだけを持つ。
 requireText(tasklistDesign, "### 止まるtaskの原則");

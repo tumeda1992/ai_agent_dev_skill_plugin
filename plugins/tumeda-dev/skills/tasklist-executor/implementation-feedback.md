@@ -1,13 +1,13 @@
 # 実装feedbackの記録と返却
 
-steeringまたはtasklist-executorが、実装・review・validation・利用者確認のfeedbackを直接受領した時に読む。
+`tasklist-executor`、またはそれを起動する側（利用者の会話のagent、`advance-roadmap`）が、実装・review・validation・利用者確認のfeedbackを直接受領した時に読む。
 直接受領したworkflow ownerが記録からdecisionの返却までを持つ。呼出し元のwriter・実装開始権限・完了条件は変更しない。
 通常の成功したreview結果をtask検証記録へ保存するだけの場合は、新しい議論を作らない。
 不合格・不足・訂正・漏れ・追加要件・計画からの意味ある逸脱を扱う場合に、次の既存手順へ入る。
 
 実装、review、validation、ユーザー動作確認でfeedback・漏れ・追加要件・不具合が判明したら、同じworking directoryでpluginの`facilitate-discussion`を適用する。ユーザーから受け取ったものも、agent自身が見つけたものも同じ扱いにする。
 
-適用するのは、それを直接受領したworkflow ownerである。steeringが直接受領した場合はsteering自身が行い、議論だけを別childへ再委譲しない。
+適用するのは、それを直接受領したworkflow ownerである。起動する側が直接受領した場合は起動する側自身が行い、議論だけを別childへ再委譲しない。
 
 ```text
 discussion_directory=<呼出し元のworking directory>
@@ -31,7 +31,7 @@ decision後、直接受領したworkflow ownerはcallerへdecisionを返し、�
 - 目的の外の不備を切り出すと決めた: 切り出し先を作り、今はやらない理由と切り出し先をdecisionに記録する。今の作業の完成後の姿が変わらないなら、designとplanを変更しない。
 - task順、task粒度、検証手順が変わる: task-designのtasklist plan phaseへ戻す。
 - roadmapのphase identity、目的、scope、scope外、DoD、依存、「親の完了条件と、それを満たすphase」が変わる: task-designのroadmap plan構造へ戻し、親designへの影響を判定する。親designが変わる場合だけdesign phaseへ戻す。
-- roadmapの子path、status、完了日だけが変わる: steering runtimeで更新する。
+- roadmapの子path、status、完了日だけが変わる: `advance-roadmap`が更新する。
 - repository知識の永続化だけが必要: doc-enricher等のwriter contractに従い、承認後だけ、承認された文書へ反映する。
 - 認識合わせだけで完了する: designとplanを変更しない。
 

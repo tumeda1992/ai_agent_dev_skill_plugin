@@ -1,6 +1,6 @@
 # 実行環境に止められた command
 
-この規範には、command を実行しうる任意のskill（`tasklist-executor`、`steering`のBlocker resolution、`task-design`の技術検証実装等）が共通して従う。
+この規範には、command を実行しうる任意のskill（`tasklist-executor`、`tasklist-executor`を起動する側のBlocker resolution、`task-design`の技術検証実装等）が共通して従う。
 
 agentがcommandを実行してよいとtask levelで判定したことは、実行環境がそのcommandを通すことを意味しない。task levelでの許可判定と、実行環境がcommandを実際に通すかどうかは別の層である。
 

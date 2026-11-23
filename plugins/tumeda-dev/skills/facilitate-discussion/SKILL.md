@@ -40,7 +40,7 @@ consumer向けの固定result schemaは設けない。一つの論点でdecision
 
 1. ユーザーが `$facilitate-discussion` を明示した。
 2. ユーザーが議論をMarkdownへ継続記録するよう明示した。
-3. `task-design`、`steering` 等のconsumer skillが、保存を伴う議論workflowとして明示適用した。
+3. `task-design`、`advance-roadmap` 等のconsumer skillが、保存を伴う議論workflowとして明示適用した。
 
 通常の質問、説明、短い相談から暗黙起動してはならない。
 
@@ -178,8 +178,8 @@ Codexの副産物がある場合は、理解・引継ぎに必要な内容をdis
 Dは解決済みdiscussion basename全体（拡張子も保持）、Nはdiscussionの実論点番号である。
 例えば `task-design-discussion.md` の論点3なら `internal-records/task-design-discussion.md.topic-3.md` である。
 この保存形のために新規logや内部directoryを準備しない。入力discussion directoryも推測作成しない。
-内部logはGit管理対象外にする。steeringでは配布sampleと利用先の `.steering/.gitignore` の `**/internal-records/` を使う。
-steering以外や別pathに副産物がある場合は、その実際の保存先を利用先のignoreで管理外にする。
+内部logはGit管理対象外にする。設計の記録では配布sampleと利用先の `.design-records/.gitignore` の `**/internal-records/` を使う。
+設計の記録以外や別pathに副産物がある場合は、その実際の保存先を利用先のignoreで管理外にする。
 既存のtrackedな内部logや過去のdiscussionは一括削除・移動・再要約しない。
 
 - 所属の確認
@@ -316,7 +316,7 @@ originのdiscussionの該当する回へ接続し、目的別formatの入力保�
 この接続だけで次の外向き回を作ったり、提案準備を始めたりしない。新しい採否が必要になった時だけ論点選択へ戻す。
 既に得られたreview結果を保存するだけなら、未実施の調査や形式だけの内部loopを作らない。
 
-steering終了時などconsumerが持つtheme横断の`doc-enricher` reviewは、このdecision単位のreviewとは別の最終safety netである。decision単位でreview済みの候補を重複提案しない。この原因routingとdecision単位の起動条件をconsumer skillまたは`doc-enricher`へ複製しない。
+task-designの締めくくり（`wrap-up.md`）などconsumerが持つtheme横断の`doc-enricher` reviewは、このdecision単位のreviewとは別の最終safety netである。decision単位でreview済みの候補を重複提案しない。この原因routingとdecision単位の起動条件をconsumer skillまたは`doc-enricher`へ複製しない。
 
 
 ## 選択した論点を進める

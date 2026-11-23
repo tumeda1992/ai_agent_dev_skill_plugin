@@ -149,7 +149,7 @@ document-review、機能・安全・独立した動作検証、利用者確認�
   - 作業の外へ残るactionのcommit・push: 作業の外へ残るactionを含むphaseの最後のcommit・push（上の「作業の外へ残るactionを含むphaseの原則」）。
   - 確認の前のcommitが作業branchにある場合、確認で直したところは既存のcommitを書き換えず、追加のcommitにする。
 - 利用者が触れるものが本番へ入れた後に初めて現れるなら、commit・pushは機械的確認の後に進め、利用者の確認はそれが現れた後に置く。最後まで利用者が触れるものが無い作業には、利用者の確認のtaskを置かない。
-- `.agents/skills/tumeda-dev-plugin-context.md`にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け（分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める）、部分承認なら承認範囲だけをcommitする。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答（`commitしない`等）もfactとして記載する。
+- `.agents/skills/tumeda-dev-plugin-context.md`にlocal Git運用条件の記載がある場合、またはユーザーが明示的にcommitを要求した場合だけcommit sectionを生成する。phase単位かつ意味単位で分け（分け方の基準は`plan-commits`に従い、commit taskの実行時は実差分へ`plan-commits`を当てて境界を決める）、部分承認なら承認範囲だけをcommitする。作業の記録（`design.md`、議論記録、`tasklist.md`のcheckbox、`implementation_review.md`）をどのcommitへ載せるかは、[`wrap-up.md`の「記録をcommitへ載せる順序」](wrap-up.md#記録をcommitへ載せる順序)に従い、commit taskに記録の分け方を書く。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答（`commitしない`等）もfactとして記載する。
 - `.agents/skills/tumeda-dev-plugin-context.md`にGitHub公開条件の記載があり、tasklistに実行可能なcommit taskが一件以上あり、current branchが公開可能なnon-default branchである場合だけpush・PR sectionを生成し、`scripts/github/create_or_get_pr.sh`を使う。同fileに該当項目が無い場合は縮退も停止もせず利用者へ確認する。利用者の回答は`maintenance-plugin-context`が同fileへ書き戻し、否定の回答もfactとして記載する。
 - 既定branchへのmergeを含む場合は、[`branch_pr_issue.md`](../../docs/development_standards/development_flow/branch_pr_issue.md)を引き、issue完了のmergeか検証のためのmergeかを判定してからsectionを生成する。判定の中身は同fileが正本であり、ここへ写さない。
 - push・PRの実行直前に、commit taskの結果としてlocal commitが実際に一件以上存在することを確認する。commit taskが取消完了になった等の理由でcommitが一件もなければ、push・PRを実行しない。
@@ -163,6 +163,7 @@ document-review、機能・安全・独立した動作検証、利用者確認�
 - taskが大きすぎる場合は、このfileへsubtaskを追記して一つずつ完了させる。
 - 取消完了は、合意済みplanの変更により元taskが不要または別実装へ置換された場合だけ許す。実装方針、architecture、依存関係の変更、またはユーザーがplan変更としてscopeから除外した場合に限定し、具体的理由と合意を記録する。
 - 時間不足、難しさ、host停止、tool制限、外部環境未準備を取消理由にしない。これらは未完了のまま適切な停止・再開状態を返す。
+- 同じfeatureの追加taskは、designとplanを再合意した後に既存tasklistへ追記する。tasklistは「このfeatureを完成させるためのchecklist」であり、納品物はtasklistではなくfeatureなので、追加要件が判明しても同じfeatureの完成まで生き続ける。
 
 ## 自己レビューgate
 

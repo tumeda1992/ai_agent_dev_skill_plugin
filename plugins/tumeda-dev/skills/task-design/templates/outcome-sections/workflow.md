@@ -4,7 +4,8 @@
 移行元:
 - task-design/SKILL.md「成果物template」「Step 3〜6」
 - roadmap-design.md「Field ownership」
-- steering/SKILL.md「役割とゴール」「Flow」
+- advance-roadmap/SKILL.md「役割」「phaseを進める手順」
+- task-design/wrap-up.md「実行を始めてよいかを確かめる」
 
 単に「Aの後にBを行う」と書くのではなく、担当、同じfileへ書き込む担当を一つにすること、正とする記録、
 先へ進む条件、停止・再開、引き継ぎを合わせて、完成後の作業の流れを描く。
@@ -15,14 +16,14 @@
 - うまくいく場合の流れだけでは、feedback、失敗、再開の時にどこへ戻るかが決まらないため。
 
 NG:
-- task-designが設計し、steeringが実行する
+- task-designが設計し、advance-roadmapが実行する
 - review後に次へ進む
 - 必要なら元へ戻る
 
 具体的な記述例:
 - task-designはroadmapのphaseのID、目的、範囲、DoD、依存を設計する。
-- steeringだけが、子steeringのpath、status、完了日を実行中に更新する。
-- 各phaseの計画を変える必要があるなら、steeringは直接編集せず、同じworking directoryでtask-designを再開する。
+- advance-roadmapだけが、子の設計の記録のpath、status、完了日を実行中に更新する。
+- 各phaseの計画を変える必要があるなら、advance-roadmapは直接編集せず、同じworking directoryでtask-designを再開する。
 
 記述のMUST:
 - 各担当について、行う判断・更新と、行わないことを両方示す。
