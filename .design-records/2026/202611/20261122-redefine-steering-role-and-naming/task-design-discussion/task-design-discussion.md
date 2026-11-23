@@ -29,3 +29,8 @@
 - [論点25: 利用先が`breaking_changes/`の記録だけを読んで`.steering/`を移せるようにするか](task-design-discussion-21-25.md#論点25-利用先がbreaking_changesの記録だけを読んでsteeringを移せるようにするか)
 - [論点26: 利用先で`.steering/`を移すことを利用者が承認しなかった時の扱い](task-design-discussion-26-30.md#論点26-利用先でsteeringを移すことを利用者が承認しなかった時の扱い)
 - [論点27: Blocker resolutionを`tasklist-executor`の別の内部指示へ分けるか](task-design-discussion-26-30.md#論点27-blocker-resolutionをtasklist-executorの別の内部指示へ分けるか)
+- [論点28: `.steering/`に追跡されたfileが無く、追跡外の残りだけがある時の扱い](task-design-discussion-26-30.md#論点28-steeringに追跡されたfileが無く追跡外の残りだけがある時の扱い)
+- [論点29: `validate-plugin.mjs`の`.steering`の不存在の検査を、何で判定するか](task-design-discussion-26-30.md#論点29-validate-pluginmjsのsteeringの不存在の検査を何で判定するか)
+- [論点30: `prepare-design-record`の移す工程を、新しい内部指示へ分けるか](task-design-discussion-26-30.md#論点30-prepare-design-recordの移す工程を新しい内部指示へ分けるか)
+- [論点31: `execution-contracts.md`の「起動する側が行うこと」を、別の内部指示へ分けるか](task-design-discussion-31-35.md#論点31-execution-contractsmdの起動する側が行うことを別の内部指示へ分けるか)
+- [論点32: `advance-roadmap/SKILL.md`の「段取りの議論（discussion.md）」を、内部指示へ分けるか](task-design-discussion-31-35.md#論点32-advance-roadmapskillmdの段取りの議論discussionmdを内部指示へ分けるか)

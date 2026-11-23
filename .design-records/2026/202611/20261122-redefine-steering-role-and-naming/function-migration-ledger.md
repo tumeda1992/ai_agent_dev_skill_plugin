@@ -10,7 +10,7 @@
   - `plugins/tumeda-dev/skills/steering/implementation-feedback.md` 1〜44行
   - `plugins/tumeda-dev/skills/steering/.gitignore.sample` 1〜8行
   - このrepositoryの`.steering/`全体（`.steering/.gitignore`と61の作業のdirectory、月ごとの`summary.md`）
-- 方向: steering → `task-design`（`SKILL.md`と新しい`wrap-up.md`）、新しい`prepare-design-record`、新しい`advance-roadmap`、`tasklist-executor`（`execution-contracts.md`と移した`implementation-feedback.md`）、`.design-records/`
+- 方向: steering → `task-design`（`SKILL.md`と新しい`wrap-up.md`）、新しい`prepare-design-record`、新しい`advance-roadmap`、`tasklist-executor`（`caller-contract.md`、`blocker-resolution.md`、移した`implementation-feedback.md`）、`.design-records/`。段取りの議論の運用は`advance-roadmap/staging-discussion.md`
 - 移行の開始前に合意済みの変更・廃止: `task-design-discussion.md`の論点1〜21の決定
 - 移行対象の内容へ依存している側（`.steering/`配下を除き、`steering`を含む43 file）:
   - skill: `task-design`（`SKILL.md`、`roadmap-design.md`、`tasklist-design.md`、`work-handoff-contracts.md`、`templates/`の`design.md`・`tasklist.md`・`roadmap.md`・`outcome-sections/`・`breaking_changes/`）、`tasklist-executor`（`SKILL.md`、`execution-contracts.md`）、`escalate-plugin-skill-fix`（`SKILL.md`、`pending-escalations.md`、`integrate-plugin-changes.md`、`agents/openai.yaml`）、`facilitate-discussion`（`SKILL.md`、`round-trip.md`）、`maintenance-plugin-context`（`SKILL.md`、`maintenance_policies/migration.md`）、`doc-enricher/SKILL.md`、`think-through/SKILL.md`、`visual-inspector/SKILL.md`、`skills/README.md`、`skills/tumeda-dev-plugin-context.md`
@@ -29,7 +29,7 @@
 | ST-02 | 7〜8 | 題 | — | RETIRE | D1 |
 | ST-03 | 9〜24 | 暫定指示の取得 | `prepare-design-record`、`advance-roadmap` | ADAPT | D1、D3、D11 |
 | ST-04 | 25〜31 | 入力 | `task-design`の入力、`advance-roadmap`の入力 | ADAPT / CHANGE / RETIRE | D1、D19 |
-| ST-05 | 32〜42 | 役割とゴール | `task-design/wrap-up.md`、`advance-roadmap`、`execution-contracts.md` | ADAPT / RETIRE | D1、D3、D6、D12 |
+| ST-05 | 32〜42 | 役割とゴール | `task-design/wrap-up.md`、`advance-roadmap`、`caller-contract.md` | ADAPT / RETIRE | D1、D3、D6、D12、D31 |
 | ST-06 | 43〜56 | task-design初回起動前の境界 | `advance-roadmap`（子phaseのtask-design起動前）、`prepare-design-record` | ADAPT | D1、D3、D11 |
 | ST-07 | 57〜60 | repository固有文脈 | `advance-roadmap` | ADAPT | D21 |
 | ST-08 | 61〜68 | 記述規則 | `prepare-design-record`、`advance-roadmap` | ADAPT | D11、D3 |
@@ -37,10 +37,10 @@
 | ST-10 | 94〜106 | 成果物のlifecycle | `prepare-design-record`（記録に入るもの）、`task-design/tasklist-design.md` | ADAPT / MOVE | D1、D10、D11 |
 | ST-11 | 107〜124 | commitへ載せる順序 | `task-design/wrap-up.md`、`tasklist-design.md`から参照 | ADAPT | D9 |
 | ST-12 | 125〜128 | 非規範的なlegacy memo | — | RETIRE | D24 |
-| ST-13 | 129〜148 | discussion.mdの使い方 | `advance-roadmap`、`execution-contracts.md` | ADAPT | D10 |
+| ST-13 | 129〜148 | discussion.mdの使い方 | `advance-roadmap/staging-discussion.md`、`caller-contract.md` | ADAPT | D10、D31、D32 |
 | ST-14 | 149〜183 | Flow、Step 1（置き場所と前月summary） | `prepare-design-record`、`prepare-design-record/summarize-previous-month.md` | MOVE / ADAPT / CHANGE | D5、D11、D13、D18、D23 |
 | ST-15 | 184〜214 | Step 2（task-designの起動） | `task-design`の入力、`advance-roadmap` | ADAPT / CHANGE / RETIRE | D1、D19 |
-| ST-16 | 215〜231 | Step 3（ready resultの検証） | `advance-roadmap`（子phaseの結果）、`wrap-up.md`、`execution-contracts.md` | ADAPT | D1、D3、D12 |
+| ST-16 | 215〜231 | Step 3（ready resultの検証） | `advance-roadmap`（子phaseの結果）、`wrap-up.md`、`caller-contract.md` | ADAPT | D1、D3、D12、D31 |
 | ST-17 | 232〜237 | 必須gateの前置き | `task-design/wrap-up.md` | MOVE | D1、D12 |
 | ST-18 | 238〜249 | 4-1 doc-enricher | `task-design/wrap-up.md` | ADAPT | D12 |
 | ST-19 | 250〜268 | 4-2 再発防止のreview | `task-design/wrap-up.md` | MOVE | D12 |
@@ -48,14 +48,14 @@
 | ST-21 | 273〜281 | ファインプレー即時記録 | `task-design/wrap-up.md` | MOVE | D12 |
 | ST-22 | 282〜289 | 5-1 planlessの完了と公開 | `task-design/wrap-up.md` | ADAPT | D1、D12 |
 | ST-23 | 290〜298 | 5-2 実行開始の確認 | `task-design/wrap-up.md` | ADAPT | D6 |
-| ST-24 | 299〜318 | 6-1 leafの受け渡し | `tasklist-executor/execution-contracts.md`（起動する側が行うこと） | ADAPT | D3 |
+| ST-24 | 299〜318 | 6-1 leafの受け渡し | `tasklist-executor/caller-contract.md`（起動する側が行うこと） | ADAPT | D3、D31 |
 | ST-25 | 319〜332 | 6-2 roadmapの実行 | `advance-roadmap` | ADAPT | D3、D15、D19、D20 |
 | ST-26 | 333〜362 | standalone roadmapの昇格 | — | RETIRE | D1 |
-| ST-27 | 363〜376 | 実装完了後review | `execution-contracts.md`、`advance-roadmap` | ADAPT | D7 |
-| ST-28 | 377〜477 | Blocker resolution | `tasklist-executor/execution-contracts.md` | ADAPT | D8 |
+| ST-27 | 363〜376 | 実装完了後review | `caller-contract.md`、`advance-roadmap` | ADAPT | D7、D31 |
+| ST-28 | 377〜477 | Blocker resolution | `tasklist-executor/blocker-resolution.md`（`caller-contract.md`から参照） | ADAPT | D8、D27 |
 | ST-29 | 478〜494 | 絶対にやらないこと | 各destination | ADAPT / RETIRE | 下のcontract ledger |
 | ST-30 | 495〜505 | 合意済みの明示廃止 | `advance-roadmap`（一部） | ADAPT / RETIRE | D24、D3 |
-| ST-31 | 506〜510 | 元作業の完了の通知 | `advance-roadmap`、`execution-contracts.md` | ADAPT | D3 |
+| ST-31 | 506〜510 | 元作業の完了の通知 | `advance-roadmap`、`caller-contract.md` | ADAPT | D3、D31 |
 | IF-01 | `implementation-feedback.md` 1〜2、4〜9、11〜33、35〜44 | 実装feedbackの共通手順（steeringを名指さない行） | `tasklist-executor/implementation-feedback.md` | MOVE（バイト一致） | D7 |
 | IF-02 | `implementation-feedback.md` 3、10、34 | 実装feedbackの共通手順（steeringを名指す行） | `tasklist-executor/implementation-feedback.md` | ADAPT | D7、D3、D15 |
 | GI-01 | `.gitignore.sample` 1〜8 | 利用先へ複製する`.gitignore`の見本 | `prepare-design-record/.gitignore.sample` | ADAPT | D11、D5 |
@@ -293,7 +293,7 @@
 
 | ID | 種類 | 原文が生む判断・挙動 | destination | 分類 | 合意 |
 | --- | --- | --- | --- | --- | --- |
-| C-122 | 定義・例外 | 自ら手を動かしてよいのは、Flowの実行条件が崩れFlowの内側で復旧できない`blocker`を解消する時だけ（`resolve-blocker`） | `execution-contracts.md`の起動する側。「Flow」を起動する側の手順へ | ADAPT | D8 |
+| C-122 | 定義・例外 | 自ら手を動かしてよいのは、Flowの実行条件が崩れFlowの内側で復旧できない`blocker`を解消する時だけ（`resolve-blocker`） | `tasklist-executor/blocker-resolution.md`（論点27で`execution-contracts.md`の起動する側から分けた）。「Flow」を起動する側の手順へ | ADAPT | D8、D27 |
 | C-123 | 構造・理由 | Flowに並行する経路で、任意のstepから離脱して同じstepへ戻る（図）。番号を与えない理由（どのstepでも起こり得る、順序固定が崩れる） | 同上 | ADAPT | D8 |
 | C-124 | 条件・理由 | 成立する2条件（設計を尽くした後、Flowの内側では復旧できない）。片方だけでは成立しない。片方ずつ欠けた時の扱い（designへ戻る、通常のtask失敗）。歯止めであること | 同上 | MOVE | D8 |
 | C-125 | 禁止・判断質問 | 実行条件の回復だけを許容し、designで決めていないこと・design中に決められたこと・spikeで潰せたことを持ち込まない。問い | 同上 | MOVE | D8 |
@@ -365,7 +365,8 @@
 | A-006 | 変更を伴わない調査の設計のように、task-designを通さない作業からも`prepare-design-record`を呼べる | `prepare-design-record`の起動条件 | ADD | D11 |
 | A-007 | repository固有文脈の表と節の`steering`を`advance-roadmap`へ移し、Branch/issue契約等の文面を書き換える | `maintenance-plugin-context/SKILL.md`、`skills/tumeda-dev-plugin-context.md` | ADAPT | D21 |
 | A-008 | 旧`task-design/SKILL.md` PrepareStep 2の`create_working_dir=true`の手順4「同名pathが存在する場合はsuffix追加や上書きをしない」と、手順1「親ディレクトリが存在しなければ推測で作らず」 | `prepare-design-record`の手順5（同名pathで停止）、`task-design`の新しい作業の手順2（停止した理由を返し、推測で別の置き場所を作らない） | ADAPT | D11、D19 |
-| A-009 | `.steering/`を移すことを利用者が承認しなかった時は、移さず、新しい記録も作らずに止まり、呼出し元へ返す | `prepare-design-record`の手順1 | ADD | 論点26（要合意） |
+| A-009 | `.steering/`を移すことを利用者が承認しなかった時は、移さず、新しい記録も作らずに止まり、呼出し元へ返す | `prepare-design-record`の手順1 | ADD | D26 |
+| A-010 | 両方あり`.steering/`に追跡されたfileが無い時は、残ったfileを`.design-records/`の同じ相対pathへ移すことを提案し、承認されたら移して空のdirectoryと`.steering/`を消す。fileは消さない。追跡されたfileが残る時は止まる | `prepare-design-record/breaking_changes/20261123-move-steering-to-design-records.md`の「移し方」（正本）、`prepare-design-record`の手順1（参照） | ADD | D28 |
 
 ## white-box照合の記録
 

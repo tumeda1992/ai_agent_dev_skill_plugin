@@ -53,7 +53,11 @@ task-designから呼ばれるのが通常だが、変更を伴わない調査の
 
 ##### 以前の置き場所の記録を一度だけ移す
 
-`.steering/`があり`.design-records/`が無いrepositoryで呼ばれた時は、`.steering/`を`.design-records/`へ移すことを利用者へ提案し、承認されたら一度だけ`git mv`で移す。両方がある時は推測で混ぜず利用者へ確かめる。記録の本文に残る`.steering/…`のpathは書き換えず、`breaking_changes/`の記録で「`.design-records/…`として読む」と残す。移し方の手順の正本は同じ記録の「移し方」の節であり、このskillはそれを参照して提案する。記録を読んだ人もagentも、skillを起動せずに同じ手順で移せる。
+`.steering/`があり`.design-records/`が無いrepositoryで呼ばれた時は、`.steering/`を`.design-records/`へ移すことを利用者へ提案し、承認されたら一度だけ`git mv`で移す。
+
+両方がある時は、`.steering/`に追跡されたfileが残っているかで扱いを分ける。`git ls-files .steering`がfileを返す時は、推測で混ぜず利用者へ確かめる。何も返さない時は、移した変更をpullした別のcloneのように、追跡外のfile（作業の控え、commit前の作業、Claude Codeが作る空の`.claude/.cc-writes/`）だけが残った状態である。この時は、残ったfileと空のdirectoryを一覧にして、各fileを`.design-records/`の同じ相対pathへ移すことを提案し、承認されたら`mv`で移して、空になったdirectoryと`.steering/`を消す。移す先に同じ名前のfileがあれば止まり、fileは一つも消さない。追跡されたfileが無いことで記録の正本が既に移ったと推測なしに分かり、残りにはcommit前の作業が含まれうるため、消さずに移す。
+
+記録の本文に残る`.steering/…`のpathは書き換えず、`breaking_changes/`の記録で「`.design-records/…`として読む」と残す。移し方の手順の正本は同じ記録の「移し方」の節であり、このskillはそれを参照して提案する。記録を読んだ人もagentも、skillを起動せずに同じ手順で移せる。
 
 #### advance-roadmap
 
@@ -73,7 +77,7 @@ tasklistのtaskはそのまま実行できるが、roadmapのphaseはそれぞ�
 
 #### tasklist-executorと、それを起動する側
 
-`tasklist-executor`の受け持ち（tasklistのsingle writer、止まる理由、再開）は変えない。`execution-contracts.md`に「起動する側が行うこと」を足し、steeringが持っていたtasklistの段取りを、起動する側（利用者の会話のagent、`advance-roadmap`）の約束として置く。返却結果だけで次を判断せずtasklistとartifactを読み直すこと、`blocked`で返った時の復旧（blocker resolution）、実装後のfeedbackの扱い、段取りの議論の記録（`discussion.md`）である。どの担当が起動しても同じ約束で扱えるよう、起動される側のfileに置く。
+`tasklist-executor`の受け持ち（tasklistのsingle writer、止まる理由、再開）は変えない。`tasklist-executor/caller-contract.md`（起動する側が行うこと）を新しく置き、steeringが持っていたtasklistの段取りを、起動する側（利用者の会話のagent、`advance-roadmap`）の約束として置く。返却結果だけで次を判断せずtasklistとartifactを読み直すこと、`blocked`で返った時の復旧（blocker resolution）、実装後のfeedbackの扱い、段取りの議論の記録（`discussion.md`）である。どの担当が起動しても同じ約束で扱えるよう、起動される側のfileに置く。blocker resolutionは、手順を離れて自ら手を動かしてよい唯一の例外であり、固有の状態・完了・判断を持って子agentへの委譲の形とは別の理由で改められるため、`tasklist-executor/blocker-resolution.md`に分けて置き、`caller-contract.md`から参照する。起動する側の約束を、`tasklist-executor`がchild処理を委譲する時の契約（`execution-contracts.md`）と別のfileにするのは、読む担当も改める理由も違うためである。段取りの議論（`discussion.md`）の運用は、roadmapとtasklistの起動する側が共有し、roadmapだけに関わる手順とは別の理由で改まるため、`advance-roadmap/staging-discussion.md`に置き、`caller-contract.md`から参照する。
 
 ### 作業の流れと担当
 
@@ -119,7 +123,8 @@ advance-roadmap（phaseごと）
 - `tasklist-executor`が`blocked`で返り、Flowの内側で復旧できない: 起動する側が三択（止まる／離れて都度確認／離れて自走）を一度で問う。
 - 実装・review・動作確認でfeedback: 直接受けた担当が`implementation-feedback.md`を読み、`implementation_review.md`へ記録してから戻し先へ返す。実装を自動再開しない。
 - 子phaseの結果がfileと食い違う、両planが併存する: `advance-roadmap`が同じdirectoryでtask-designを再開する。
-- `.steering/`と`.design-records/`が両方ある: `prepare-design-record`が止まり、利用者へ確かめる。
+- `.steering/`と`.design-records/`が両方あり、`.steering/`に追跡されたfileが残る: `prepare-design-record`が止まり、利用者へ確かめる。
+- `.steering/`と`.design-records/`が両方あり、`.steering/`には追跡外のfileだけが残る: `prepare-design-record`が残ったfileを`.design-records/`へ移すことを提案する。承認されなければ止まる。
 
 ### 作業の記録を置くdirectory
 
@@ -142,7 +147,12 @@ advance-roadmap（phaseごと）
 | `plugins/tumeda-dev/skills/task-design/wrap-up.md`（新規） | 結果を返す前のtask-design | 締めくくりの確認、公開、commitの順序、実行開始の確認 |
 | `plugins/tumeda-dev/skills/task-design/`の`tasklist-design.md`、`roadmap-design.md`、`work-handoff-contracts.md`、`templates/`（更新） | task-design | steeringの名指しを新しい担当へ。roadmapの見出し・labelの切り替え |
 | `plugins/tumeda-dev/skills/task-design/templates/breaking_changes/`（一件追加） | 以前のroadmapを読むagent | roadmapの旧い見出し・labelを読み替える |
-| `plugins/tumeda-dev/skills/tasklist-executor/execution-contracts.md`（更新） | 起動する側 | 起動の仕方、読み直し、blocker resolution、feedback、段取りの議論 |
+| `plugins/tumeda-dev/skills/tasklist-executor/caller-contract.md`（新規） | 起動する側 | 起動の仕方、読み直し、blocker resolutionの読む時、feedback、段取りの議論 |
+| `plugins/tumeda-dev/skills/tasklist-executor/execution-contracts.md`（更新） | `tasklist-executor` | child処理を委譲する時の契約。起動する側の約束とBlocker resolutionへの参照 |
+| `plugins/tumeda-dev/skills/advance-roadmap/staging-discussion.md`（新規） | 段取りの議論を始める担当（`advance-roadmap`、tasklistを起動する側） | `discussion.md`へ段取りの議論を記録する |
+| `plugins/tumeda-dev/skills/tasklist-executor/blocker-resolution.md`（新規） | 起動する側 | 実行の前提が崩れて進めない時に、手順を離れてよいかを判断し、復旧して戻る |
+| `plugins/tumeda-dev/skills/tasklist-executor/caller-contract.md`（新規）、`execution-contracts.md`、`task-design/wrap-up.md`、`advance-roadmap/SKILL.md`、`blocker-resolution.md` | `execution-contracts.md`の「起動する側が行うこと」を見出しの深さだけ変えて新しいfileへ移した（論点31）。`execution-contracts.md`の内部を指していた二箇所は`execution-contracts.md`へのlinkにした。参照元を新しいfileへ向けた | 移した本文が、見出しの深さと参照の書き換えを除き元と一致することを機械的に照合した。validatorの`callerContract`を新しいfileへ向け、古い参照を禁止するassertionを足して通過 | [tasklist-executorと、それを起動する側](#tasklist-executorとそれを起動する側) |
+| `plugins/tumeda-dev/skills/advance-roadmap/staging-discussion.md`（新規）、`advance-roadmap/SKILL.md`、`caller-contract.md` | `advance-roadmap/SKILL.md`の「段取りの議論（discussion.md）」を見出しの深さだけ変えて新しいfileへ移し、`SKILL.md`には始めない境界と参照を残した（論点32）。tasklistを起動する側の参照先も新しいfileへ直した | 移した本文が見出しの深さを除き元と一致することを機械的に照合した。validatorのassertionを新しいfileへ向けて通過 | [tasklist-executorと、それを起動する側](#tasklist-executorとそれを起動する側) |
 | `plugins/tumeda-dev/skills/tasklist-executor/implementation-feedback.md`（移動） | feedbackを直接受けた担当 | feedbackを記録して戻し先を決める |
 | `plugins/tumeda-dev/skills/steering/`（削除） | — | — |
 | 参照元（`escalate-plugin-skill-fix`、`facilitate-discussion`、`maintenance-plugin-context`、`doc-enricher`、`think-through`、`visual-inspector`、`skills/README.md`、`skills/tumeda-dev-plugin-context.md`、docs、`AGENTS.md`、`.claude/hooks/`） | 各読者 | steeringと`.steering/`の名指しを新しい担当と`.design-records/`へ |
@@ -178,7 +188,7 @@ advance-roadmap/SKILL.md
   phaseを進める手順（順序固定。選択、binding、task-designの起動と四項目、結果の確認、起動、status・完了日、全体完了と伝播）
   子phaseのtask-designの起動前の境界
   進み具合だけを書く（更新できるfield、計画の変更はtask-designを再開）
-  段取りの議論（discussion.md）、実装後feedback、blocker resolution（execution-contracts.mdを参照）
+  段取りの議論（staging-discussion.mdを参照）、実装後feedback、blocker resolution（caller-contract.md・blocker-resolution.mdを参照）
   禁止、元作業の完了の通知
 
 task-design/wrap-up.md
@@ -202,7 +212,7 @@ task-design/wrap-up.md
 
 - 配置: `plugins/tumeda-dev/skills/`。`.agents/skills`と`.claude/skills`はこのdirectoryへのsymlinkのため、新しいskillはそのまま読み込まれる。
 - 形式: 既存の`SKILL.md`のfrontmatterと見出しの形に合わせる。
-- 正とする記述と重複の防止: blocker resolutionと起動する側の約束は`execution-contracts.md`だけに書き、`advance-roadmap`からは参照する。記録の置き場所の規則は`prepare-design-record`だけに書き、task-designからは呼び方だけを書く。
+- 正とする記述と重複の防止: 起動する側の約束は`tasklist-executor/caller-contract.md`だけに、blocker resolutionは`tasklist-executor/blocker-resolution.md`だけに、段取りの議論の運用は`advance-roadmap/staging-discussion.md`だけに書き、他からは参照する。移し方の手順は`prepare-design-record/breaking_changes/20261123-move-steering-to-design-records.md`だけに書き、`prepare-design-record/SKILL.md`は参照と止まる時の扱いだけを持つ。記録の置き場所の規則は`prepare-design-record`だけに書き、task-designからは呼び方だけを書く。
 
 ### 新しいskillの名前
 
@@ -234,6 +244,7 @@ task-design/wrap-up.md
 | task-designの入力は、新しい作業なら置き場所を渡さず、再開なら`working_dir`を渡す | 移行前は`working_dir_parent`と`create_working_dir` | [新しい作業の置き場所は`prepare-design-record`に任せる](#新しい作業の置き場所はprepare-design-recordに任せる) | C-068、C-112、論点19 |
 | 記録を`.design-records/`へ移す手順として、standalone roadmapの昇格が無くなる | 移行前は明示承認の後にbundleを移動した | [新しい作業の置き場所は`prepare-design-record`に任せる](#新しい作業の置き場所はprepare-design-recordに任せる) | C-007、C-117〜C-119、C-143、論点1 |
 | 既にある`.steering/`を一度だけ`.design-records/`へ移し、本文の旧pathは読み替える | 移行前に該当なし | [以前の置き場所の記録を一度だけ移す](#以前の置き場所の記録を一度だけ移す) | A-001、A-002、A-003、論点14・16 |
+| 移した変更をpullした別のcloneに残った追跡外のfileを、承認を得て`.design-records/`の同じ相対pathへ移す | 移行前に該当なし | [以前の置き場所の記録を一度だけ移す](#以前の置き場所の記録を一度だけ移す) | A-010、論点28 |
 | roadmapの進み具合の見出し・labelが`advance-roadmap`と子の設計の記録を名指す | 移行前はsteeringと子steering | [advance-roadmap](#advance-roadmap) | A-004、論点20 |
 | 前月summaryの題が「{YYYY}年{MM}月 設計の記録 サマリー」になる。既にある月のsummaryは書き換えない | 移行前は「{YYYY}年{MM}月 Steering サマリー」 | [prepare-design-record](#prepare-design-record) | C-063、論点23 |
 | steeringの非規範的なlegacy memoと、steering自身の過去の契約を説明する「合意済みの明示廃止」の記述が無くなる。逆戻りを防ぐ禁止は新しい担当が持つ | 移行前はsteeringが持っていた | [advance-roadmap](#advance-roadmap)、[prepare-design-record](#prepare-design-record) | C-047、C-148〜C-151、C-153、論点24 |
@@ -247,7 +258,7 @@ task-design/wrap-up.md
 - `plugins/tumeda-dev/skills/steering/`が無くなり、`function-migration-ledger.md`の全IDが、具体的なdestinationへ移るか、合意済みの`CHANGE`・`RETIRE`として扱われている。
 - 利用者がtask-designから作業を始められ、新しい作業の記録が`prepare-design-record`によって`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`へ置かれる。
 - `prepare-design-record`、`advance-roadmap`、`task-design/wrap-up.md`、`prepare-design-record/summarize-previous-month.md`が、上の「文書以外に作るfileの中身」の構造で作られている。
-- `tasklist-executor/execution-contracts.md`が起動する側の約束（読み直し、blocker resolution、実装後feedback、段取りの議論）を持ち、`implementation-feedback.md`が`tasklist-executor/`へ移っている。
+- `tasklist-executor/caller-contract.md`が起動する側の約束（読み直し、blocker resolution、実装後feedback、段取りの議論）を持ち、blocker resolutionの本文が`tasklist-executor/blocker-resolution.md`に、段取りの議論の運用が`advance-roadmap/staging-discussion.md`にあり、`implementation-feedback.md`が`tasklist-executor/`へ移っている。
 - このrepositoryの`.steering/`が`.design-records/`へ`git mv`されている。
 - `prepare-design-record/breaking_changes/`と`task-design/templates/breaking_changes/`に読み替えの記録があり、`maintenance-plugin-context/SKILL.md`「Plugin version」の対象が置き場所のpathを含む。
 - skill・docs・hook・`AGENTS.md`・validatorから、steeringというskillと`.steering/`への名指しが無くなっている（残るのは読み替えの記録、移行の対応表、過去の記録の本文だけ）。
@@ -280,7 +291,8 @@ task-design/wrap-up.md
 | 別のbranchやsessionが`.steering/`の下にfileを足していると、mergeで衝突する（`20261122-raise-steering-autonomy`等） | 移す代償として受け入れる（論点14）。PRの本文に、移動を含むことと衝突の解き方（`.design-records/`へ置き直す）を書く |
 | validatorのassertionを書き換える時に、守っていた契約まで緩める | `function_migration_policy.md` §8に従い、assertionは消さずに移した先のfileへ向け直す。消すassertionは対応表の`RETIRE`に対応させる |
 | steeringの記述を移す時に、条件・理由・失敗例が落ちる | 対応表のIDごとに移し、白box照合（順方向・逆方向・境界）を行う。移行後の文章量の大幅な減少を異常のsignalとして監査する |
-| 利用先repositoryで、更新後の初回に`.steering/`と`.design-records/`が両方できる | `prepare-design-record`が両方ある時は止まって利用者へ確かめる |
+| 利用先repositoryで、更新後の初回に`.steering/`と`.design-records/`が両方できる | `.steering/`に追跡されたfileが残る時は、`prepare-design-record`が止まって利用者へ確かめる |
+| 移した変更をpullした別のcloneで、追跡外のfile（作業の控え、commit前の作業）が`.steering/`に残り、置き去りになる | `prepare-design-record`が、追跡されたfileが無いことを確かめてから、残ったfileを`.design-records/`の同じ相対pathへ移すことを提案する。fileは消さない |
 | このsessionのhookが`.steering/`を前提にした文を注入し続ける | `.claude/hooks/`の文を`.design-records/`へ書き換える |
 
 ---
@@ -290,7 +302,7 @@ task-design/wrap-up.md
 - assistantが、上の三つのcommandを実行して確かめる。今の環境でNode.jsが使える。
 - assistantが、`grep -rn "steering"`の全出力を読み、残る行がすべて許した箇所であることを確かめる。
 - assistantが、対応表の全IDについて、移した先の節を読んで照合し、Git差分の削除行と追加行から逆にIDを引く（白box照合）。集計を対応表へ記録する。
-- assistantが、旧contractから導いた三つの経路（plan無し、tasklist、roadmap）を、新しい`task-design`・`wrap-up.md`・`execution-contracts.md`・`advance-roadmap`の記述だけを読んで辿り、gate・確認・停止・single writerが欠けないことを確かめる（黒box）。実際の利用先repositoryでskillを起動しての確認は、このsessionからは行えない。
+- assistantが、旧contractから導いた三つの経路（plan無し、tasklist、roadmap）を、新しい`task-design`・`wrap-up.md`・`caller-contract.md`・`advance-roadmap`の記述だけを読んで辿り、gate・確認・停止・single writerが欠けないことを確かめる（黒box）。実際の利用先repositoryでskillを起動しての確認は、このsessionからは行えない。
 - assistantが、新しく作る・変える`SKILL.md`と内部指示とdocsに`document-review`を当て、汎用skillの編集後に`skill-update-review`を当てる。
 - 利用者が、PRの差分を読んで確かめる。GitHubで差分を読める。
 
