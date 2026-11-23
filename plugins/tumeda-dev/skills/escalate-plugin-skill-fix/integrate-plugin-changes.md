@@ -1,7 +1,7 @@
 # plugin repositoryでの作業の取り込みと反映
 
-この内部指示は、escalate経由でplugin repositoryへ移った作業について、steeringがcommitまで終わった後に、作業を`main`へ取り込み、利用者の環境のpluginへ反映するまでを所有する。
-escalate経由の作業で、plugin repositoryでのsteeringが完了した時に読む。escalate経由でないplugin repositoryの作業は、この流れに従わない。
+この内部指示は、escalate経由でplugin repositoryへ移った作業について、作業がcommitまで終わった後に、作業を`main`へ取り込み、利用者の環境のpluginへ反映するまでを所有する。
+escalate経由の作業で、plugin repositoryでの作業が完了した時（plan無しなら`task-design`の`wrap-up.md`の公開の後）に読む。escalate経由でないplugin repositoryの作業は、この流れに従わない。
 
 ## mainへ取り込む
 
@@ -15,7 +15,7 @@ PRを記録として作り、mergeは手元で行う。次の5stepで`main`へ�
 
 PRを作るのは、どの変更がひとまとまりかを記録するためである。escalate経由でない作業はPR経由でmergeし（squash merge）、PRがひとまとまりを示す。escalate経由の作業は手元で`main`へmergeするため、PRが無いとひとまとまりが分からない。`--no-ff`でmerge commitを必ず作るのも同じ理由である。fast-forwardになると、`main`の履歴からひとまとまりの境目が消える。merge commitにPR番号を入れ、`main`の履歴からPRを引けるようにする。
 
-GitHub上でPRをmergeする操作は、assistantが行わない。PRのmergeはAIに任せない。mergeを手元で行うのは、plugin repositoryが利用先repositoryから見てsubであり、pluginの更新がメインの作業を再開するための前段だからである。GitHubを開いてmergeする往復は、メインの作業へ戻るまでの時間をそのぶん延ばす。変更の妥当性はplugin repositoryでのsteeringがdesign合意とtasklist合意で担保しており、PRはその上に別のgateを重ねるものではない。
+GitHub上でPRをmergeする操作は、assistantが行わない。PRのmergeはAIに任せない。mergeを手元で行うのは、plugin repositoryが利用先repositoryから見てsubであり、pluginの更新がメインの作業を再開するための前段だからである。GitHubを開いてmergeする往復は、メインの作業へ戻るまでの時間をそのぶん延ばす。変更の妥当性はplugin repositoryでのtask-designがdesign合意とplan合意で担保しており、PRはその上に別のgateを重ねるものではない。
 
 - やってしまいがちな行動: PRを作ったので、GitHub上でPRをmergeする
 - それをやると何が起きるか: AIに任せないPRのmergeを、assistantが行う。squash mergeになれば、作業branchのcommitが一つにまとまり、手元のmergeで残すはずの履歴と形が変わる

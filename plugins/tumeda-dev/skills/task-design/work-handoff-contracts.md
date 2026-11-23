@@ -1,6 +1,6 @@
 # task-design work handoff contracts
 
-進行中のdesign判断責任を別の`task-design`実行へ渡すときの、共有される不変条件である。ownerは`task-design`であり、このreferenceは独立して起動するskillではない。`steering`はdesign phaseを同じworking directoryの`task-design`へroutingするだけで、ここにある判断を再実装しない。
+進行中のdesign判断責任を別の`task-design`実行へ渡すときの、共有される不変条件である。ownerは`task-design`であり、このreferenceは独立して起動するskillではない。`advance-roadmap`は子phaseのdesign phaseを同じworking directoryの`task-design`へroutingするだけで、ここにある判断を再実装しない。
 
 ## 対象と対象外
 
@@ -8,7 +8,7 @@
 
 新規design、同じ`task-design`実行がfeedbackまたは`facilitate-discussion`から戻る継続は対象外である。前者には読むべきcanonical成果物がなく、後者には既に同じ実行の判断責任があるためである。
 
-steering固有phaseの引き継ぎ、任意workflowのhandoff、skill間result handoff、tasklist実行の再開は対象外である。これらをこのcontractへ一般化してはならない。
+`advance-roadmap`固有の段取りの引き継ぎ、任意workflowのhandoff、skill間result handoff、tasklist実行の再開は対象外である。これらをこのcontractへ一般化してはならない。
 
 ## 起動gateと読取境界
 
@@ -53,4 +53,4 @@ catch-upが未完了で停止するときはcanonical fileを変更せず、curr
 
 ## 更新owner
 
-このcontractの順序、読取境界、attempt lifecycle、completion validationは共有referenceだけが所有する。`task-design`は入口、入力解決、既存workflowへの復帰を担い、`steering`はdesign phaseのroutingだけを担う。変更時はこの責務境界を壊さず、consumerに同じ判断基準を複製しない。
+このcontractの順序、読取境界、attempt lifecycle、completion validationは共有referenceだけが所有する。`task-design`は入口、入力解決、既存workflowへの復帰を担い、`advance-roadmap`は子phaseのdesign phaseのroutingだけを担う。変更時はこの責務境界を壊さず、consumerに同じ判断基準を複製しない。

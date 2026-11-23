@@ -17,6 +17,8 @@ description: >-
 このskillは計画を返す。実装の設計変更、実際のstage・commit・push、既存履歴の変更は別の権限である。
 計画への合意を、それらを実行する許可へ読み替えない。
 
+特定のworkflowや、作業の記録の置き方を前提にしない。作業の記録（`design.md`、議論記録等）をcommitのどこへ載せるかのような、特定のworkflowの成果物に固有の規則は、そのworkflowの側が持つ。
+
 ## 作業限定の暫定指示とrepository文脈
 
 起動・別session再開・把握した指示変更時は、元作業、consumer `plan-commits`、対象処理、

@@ -19,7 +19,7 @@
           崩れる      → 別の作業へ切り出す
 ```
 
-判定をどの手順の中で行い、結果を誰と合意するかは、気付いた段階の workflow が持つ。設計中は `task-design`、実装・動作確認中は `skills/steering/implementation-feedback.md` である。
+判定をどの手順の中で行い、結果を誰と合意するかは、気付いた段階の workflow が持つ。設計中は `task-design`、実装・動作確認中は `skills/tasklist-executor/implementation-feedback.md` である。
 
 ## 一段目: 目的の内か外か
 
@@ -33,7 +33,7 @@
 
 既定は今の作業で拾う。その場でしか気付けない不備は、別の作業へ回すと誰も拾わずに溜まる（ボーイスカウトルール）。
 
-次のどれかに当たるものだけを、別の作業（issue・steering）に切り出す。
+次のどれかに当たるものだけを、別の作業（issue・設計の記録）に切り出す。
 
 - 大きすぎる
 - 単体で分けた方が revert しやすい
@@ -58,4 +58,4 @@
 拾うか切り出すかを決めた後は、次のとおり扱う。
 
 - 拾う: 今の作業の design と plan に戻して範囲に加える。拾った不備の修正で完成後の姿が変わるためである。
-- 切り出す: 切り出し先の issue・steering を先に作る。そのうえで今の作業の記録に、今はやらない理由と切り出し先を書く。書き方は [`provisionality_explicitness.md`](../../documentation_standards/provisionality_explicitness.md) に従う。切り出し先を作る前に、記録へ「切り出し済み」と書かない。
+- 切り出す: 切り出し先の issue・設計の記録 を先に作る。そのうえで今の作業の記録に、今はやらない理由と切り出し先を書く。書き方は [`provisionality_explicitness.md`](../../documentation_standards/provisionality_explicitness.md) に従う。切り出し先を作る前に、記録へ「切り出し済み」と書かない。

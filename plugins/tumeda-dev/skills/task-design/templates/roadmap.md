@@ -8,9 +8,9 @@
 
 {作業全体の目的と、なぜ一つのtasklistではなく、複数の子のdesignの範囲へ分けるかを書く}
 
-このroadmapは、子の範囲の一覧である。各phaseは独立した子steeringを通じて設計・実装し、各phaseの完了の時点で、appまたは成果物が正常に使える状態を保つ。
+このroadmapは、子の範囲の一覧である。各phaseは独立した子の作業として、task-designで設計し、実装し、各phaseの完了の時点で、appまたは成果物が正常に使える状態を保つ。
 
-各phaseの計画は、task-designが設計・reviewする。各phaseの子steeringのpath、status、完了日だけを、steeringが実行中に更新する。
+各phaseの計画は、task-designが設計・reviewする。各phaseの子の設計の記録のpath、status、完了日だけを、`advance-roadmap`が実行中に更新する。
 
 ## 各phaseの計画（task-designが設計・reviewする）
 
@@ -45,9 +45,9 @@
 
 - {親のdesignの完了条件}
 
-### 進み具合（steeringだけが更新する）
+### 進み具合（advance-roadmapだけが更新する）
 
-- 子steering: 未割当
+- 子の設計の記録: 未割当
 - status: 未着手
 - 完了日: 未完了
 
@@ -82,9 +82,9 @@
 
 - {親のdesignの完了条件}
 
-### 進み具合（steeringだけが更新する）
+### 進み具合（advance-roadmapだけが更新する）
 
-- 子steering: 未割当
+- 子の設計の記録: 未割当
 - status: 未着手
 - 完了日: 未完了
 

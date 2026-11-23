@@ -1,6 +1,6 @@
 # Execution contracts
 
-tasklist-executorがvisual-inspector / test-runnerへchild処理を委譲する時の、hostに依存しない共通契約である。commandを実行しうる任意のskillが従う、実行環境に止められた時の規範は[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)が持つ。
+tasklist-executorがvisual-inspector / test-runnerへchild処理を委譲する時の、hostに依存しない共通契約である。tasklist-executorを起動する側が守る約束は[`caller-contract.md`](caller-contract.md)に、その中で起動する側が自ら手を動かしてよい唯一の例外であるBlocker resolutionは[`blocker-resolution.md`](blocker-resolution.md)に置く。commandを実行しうる任意のskillが従う、実行環境に止められた時の規範は[`blocked_commands.md`](../../docs/agent_execution_standards/blocked_commands.md)が持つ。
 
 ## 状態の正本とsingle writer
 
@@ -30,7 +30,7 @@ executorが作成するrequestは次を必須とする。
 {
   "request_id": "phase-2-task-3-visual-1",
   "kind": "visual-inspector",
-  "tasklist": ".steering/example/tasklist.md",
+  "tasklist": ".design-records/example/tasklist.md",
   "task": "phase-2-task-3",
   "attempt": 1,
   "artifact_directory": "artifacts/phase-2-task-3/",

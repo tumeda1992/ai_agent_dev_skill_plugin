@@ -11,7 +11,7 @@ skillの新規移植・upstreamからの追随・consumerリポジトリでの�
 
 ### なぜ
 
-- このpluginは**公開配布物**で、参考元・参照先は**非公開リポジトリのことがある**。skill本体・`.steering/` 配下の成果物・docsはこのpluginにcommitされ公開されるため、非公開リポジトリの内部情報がそのまま漏れる。
+- このpluginは**公開配布物**で、参考元・参照先は**非公開リポジトリのことがある**。skill本体・`.design-records/` 配下の成果物・docsはこのpluginにcommitされ公開されるため、非公開リポジトリの内部情報がそのまま漏れる。
 - 汎用pluginに特定リポジトリの固有名が混ざると、他リポジトリでの可搬性が落ち、読み手（未来の自分・別セッションのAI・plugin利用者）のリーディングコストが上がる。
 - 「公開物に入る成果物には非公開ソースの固有情報を残さない」——移植系タスクは「参照元=固有／移植先=汎用・公開」という非対称を常に持つ。
 
@@ -38,7 +38,7 @@ skillの新規移植・upstreamからの追随・consumerリポジトリでの�
 ### 適用範囲
 
 - skillファイル本体（`SKILL.md`・templates・scripts など）
-- 移植作業中に作る `.steering/.../` 成果物（design.md / discussion.md / investigation.md / tasklist.md / summary.md）と、ディレクトリ名（slug）
+- 移植作業中に作る `.design-records/.../` 成果物（design.md / discussion.md / investigation.md / tasklist.md / summary.md）と、ディレクトリ名（slug）
 - 取り込みに伴い作成・更新する docs
 
 ### セルフチェック

@@ -33,7 +33,7 @@ repository contextのlifecycleとpluginの配布version規約はこのskillだ�
 このpluginのskill保守で従う規約は `maintenance_policies/` に置く。
 
 - [`../../docs/common_standard/function_migration_policy.md`](../../docs/common_standard/function_migration_policy.md) — 配置やownerを変えても挙動と意味を全量維持するfunction migrationの共通規範。baseline、二層ledger、個別合意、white-box検証、完了gateの正本。function migrationを始める前に必ず読む。
-- `maintenance_policies/migration.md` — skillを参考元（移植元 upstream）や参照先リポジトリと行き来させる（新規移植・追随・逆輸入）時の追加規約。**取り込む内容から参照元リポジトリ固有の情報を抜き、汎用知識だけをpluginへ記載する**。skill本体・`.steering/` 成果物・docs・slugすべてに適用する。共通規範とこのfileを移植・追随作業の前に必ず読む。
+- `maintenance_policies/migration.md` — skillを参考元（移植元 upstream）や参照先リポジトリと行き来させる（新規移植・追随・逆輸入）時の追加規約。**取り込む内容から参照元リポジトリ固有の情報を抜き、汎用知識だけをpluginへ記載する**。skill本体・`.design-records/` 成果物・docs・slugすべてに適用する。共通規範とこのfileを移植・追随作業の前に必ず読む。
 - 利用先repositoryでこのpluginの成果物への修正提案が生じた場合の引き渡しは`escalate-plugin-skill-fix`が所有する。修正の議論と変更は正本repositoryで行う。
 
 ## Plugin version
@@ -42,7 +42,7 @@ repository contextのlifecycleとpluginの配布version規約はこのskillだ�
 
 - 禁止: `1.0.0+codex.20260720074613`、`1.0.0-dev`、日時・host名・cachebusterを足した形式
 - 破壊的変更はMAJOR、後方互換な機能追加はMINOR、後方互換な修正・文書変更はPATCHを上げる
-  - MAJORを上げる理由が、以前の版のskillが作った成果物を、今の版のskillやscriptが見出し・labelの名前で読めなくなることなら、その成果物のテンプレートと同じdirectoryの`breaking_changes/`に記録を残す。無ければ作る。
+  - MAJORを上げる理由が、以前の版のskillが作った成果物を、今の版のskillやscriptが見出し・labelの名前や、置き場所のpathで読めなくなることなら、その成果物のテンプレートと同じdirectoryの`breaking_changes/`に記録を残す。無ければ作る。
     - 記録しない変更: 成果物を読む側に影響しない変更（読まれない見出しの言い換え、テンプレートへのsectionの追加、記入guideの書き直し等）。git logと各作業の記録で辿る。
     - 1件のfile: 名前は`YYYYMMDD-slug.md`。変わった版、旧名と新名の対応、変えた理由、古い成果物の読み方を書く。
     - `breaking_changes/`のREADMEには、記録の対象がこの変更だけであることと、そのskillの成果物での具体例を書き、線と1件の書き方はこの規則を参照する。
@@ -103,14 +103,14 @@ consumer固有情報 ∪ (共通情報 ∩ consumerが直接使う項目)
 | `think-through` | プロジェクト指示 |
 | `doc-enricher` | プロジェクト指示、アーキテクチャ文書 |
 | `task-design` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |
-| `steering` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針 |
+| `advance-roadmap` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針 |
 | `visual-inspector` | プロジェクト指示 |
 | `tasklist-executor` | プロジェクト指示、アーキテクチャ文書、開発規約、テスト方針、全体 test command、全体 lint command |
 | `test-runner` | プロジェクト指示、テスト方針、全体 test command |
 
 consumerのH2以外と、表にない`共通`項目は返さない。新しいconsumerまたは新しい共有項目は、consumerが必要理由を添えて明示した時だけ追加する。
 
-task-designがexecution planを設計する時は、全体test/lint commandに加え、`## task-design`内のUI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込みを必要factとして要求できる。これらはtasklistへ検証・公開actionを含めるか判断するためのcontextであり、steering固有情報として返さない。
+task-designがexecution planを設計する時は、全体test/lint commandに加え、`## task-design`内のUI確認環境、Git/GitHub公開条件、作業の外へ残るactionの差し込みを必要factとして要求できる。これらはtasklistへ検証・公開actionを含めるか判断するためのcontextであり、advance-roadmap固有情報として返さない。
 
 ## 返却形式
 

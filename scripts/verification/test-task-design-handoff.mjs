@@ -6,7 +6,7 @@ import { spawnSync } from "node:child_process";
 const root = resolve(import.meta.dirname, "../..");
 const extractor = resolve(root, "plugins/tumeda-dev/skills/task-design/scripts/extract-handoff-input.mjs");
 const taskDesign = readFileSync(resolve(root, "plugins/tumeda-dev/skills/task-design/SKILL.md"), "utf8");
-const steering = readFileSync(resolve(root, "plugins/tumeda-dev/skills/steering/SKILL.md"), "utf8");
+const advanceRoadmap = readFileSync(resolve(root, "plugins/tumeda-dev/skills/advance-roadmap/SKILL.md"), "utf8");
 const handoffContract = readFileSync(resolve(root, "plugins/tumeda-dev/skills/task-design/work-handoff-contracts.md"), "utf8");
 const discussionInspector = resolve(root, "plugins/tumeda-dev/skills/facilitate-discussion/scripts/inspect-discussion.mjs");
 const fixture = mkdtempSync(resolve(tmpdir(), "task-design-handoff-"));
@@ -59,13 +59,13 @@ expectOrder("task-design consumer", taskDesign, "### PrepareStep 2. 配置先確
 expectOrder("task-design consumer", taskDesign, "#### 既存designのhandoff gate", "### PrepareStep 3. 設計前調査");
 
 expectIncludes(
-  "steering routing",
-  steering,
+  "advance-roadmap routing",
+  advanceRoadmap,
   [
-    "既存designを引き継ぐdesign phase",
+    "既存designを引き継ぐ子phaseのdesign phase",
     "同じworking directoryの`task-design`",
-    "steeringはcanonical designまたはdiscussionの本文を読まず",
-    "steering固有phase",
+    "このskillはcanonical designまたはdiscussionの本文を読まず",
+    "このskill固有の段取り",
   ],
 );
 
@@ -91,8 +91,8 @@ const sharedOnly = [
   "`attempt-[0-9]{3}.md`だけ",
 ];
 expectExcludes("task-design consumer", taskDesign, sharedOnly);
-expectExcludes("steering routing", steering, sharedOnly);
-expectExcludes("steering routing", steering, ["work-handoff-contracts.md"]);
+expectExcludes("advance-roadmap routing", advanceRoadmap, sharedOnly);
+expectExcludes("advance-roadmap routing", advanceRoadmap, ["work-handoff-contracts.md"]);
 
 try {
   // 存在だけのgate: designがなくても分割議論があれば既存記録である。
