@@ -358,7 +358,7 @@
 | ID | 能力 | destination | 分類 | 合意 |
 | --- | --- | --- | --- | --- |
 | A-001 | `.steering/`があり`.design-records/`が無い時、移すことを利用者へ提案し、承認されたら一度だけ`git mv`する。両方ある時は確かめる | `prepare-design-record` | ADD | D14 |
-| A-002 | `.steering/…`を`.design-records/…`として読む記録と、その`breaking_changes/`のREADME。記録に移し方を書くかは論点25 | `prepare-design-record/breaking_changes/` | ADD | D16、論点25 |
+| A-002 | `.steering/…`を`.design-records/…`として読む記録と、その`breaking_changes/`のREADME。記録は移し方の手順の正本を持ち、A-001はそれを参照する | `prepare-design-record/breaking_changes/` | ADD | D16、D25 |
 | A-003 | 記録の対象を「見出し・labelの名前や、置き場所のpath」へ広げる | `maintenance-plugin-context/SKILL.md`「Plugin version」 | CHANGE | D16 |
 | A-004 | roadmapの見出し・labelの切り替えと、その記録 | `task-design/templates/roadmap.md`、`task-design/templates/breaking_changes/` | CHANGE / ADD | D20 |
 | A-005 | 新しい作業でtask-designが`prepare-design-record`を呼ぶ。単独起動でも同じ置き場所 | `task-design`のPrepareStep 2 | CHANGE | D1、D19 |

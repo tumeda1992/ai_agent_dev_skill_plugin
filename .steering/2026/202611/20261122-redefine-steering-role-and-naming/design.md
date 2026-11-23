@@ -53,7 +53,7 @@ task-designから呼ばれるのが通常だが、変更を伴わない調査の
 
 ##### 以前の置き場所の記録を一度だけ移す
 
-`.steering/`があり`.design-records/`が無いrepositoryで呼ばれた時は、`.steering/`を`.design-records/`へ移すことを利用者へ提案し、承認されたら一度だけ`git mv`で移す。両方がある時は推測で混ぜず利用者へ確かめる。記録の本文に残る`.steering/…`のpathは書き換えず、`breaking_changes/`の記録で「`.design-records/…`として読む」と残す。
+`.steering/`があり`.design-records/`が無いrepositoryで呼ばれた時は、`.steering/`を`.design-records/`へ移すことを利用者へ提案し、承認されたら一度だけ`git mv`で移す。両方がある時は推測で混ぜず利用者へ確かめる。記録の本文に残る`.steering/…`のpathは書き換えず、`breaking_changes/`の記録で「`.design-records/…`として読む」と残す。移し方の手順の正本は同じ記録の「移し方」の節であり、このskillはそれを参照して提案する。記録を読んだ人もagentも、skillを起動せずに同じ手順で移せる。
 
 #### advance-roadmap
 
@@ -329,7 +329,7 @@ task-design/wrap-up.md
 
 | 対象 | 待つ理由 | 依存する判断 | 参照するdesign section |
 | --- | --- | --- | --- |
-| 「文書以外に作るfileの中身」の全file、このrepositoryの`.steering/`の`git mv`、validatorとtest script | steeringの受け持ちを複数の担当へ同時に移し、移行の対応表の白box照合とvalidatorを一度に通す必要があり、一部だけを先に適用すると参照が壊れた状態が残る。読み替えの記録に移し方を書くかが未決 | 論点25 | [文書以外に作るfileの中身](#文書以外に作るfileの中身)、[移行で変えない振る舞いと、意図して変える差分](#移行で変えない振る舞いと意図して変える差分) |
+| 「文書以外に作るfileの中身」の全file、このrepositoryの`.steering/`の`git mv`、validatorとtest script | steeringの受け持ちを複数の担当へ同時に移し、移行の対応表の白box照合とvalidatorを一度に通す必要があり、一部だけを先に適用すると参照が壊れた状態が残る。他の判断は待っておらず、一括で適用してから検証する | なし（論点1〜25は決定済み） | [文書以外に作るfileの中身](#文書以外に作るfileの中身)、[移行で変えない振る舞いと、意図して変える差分](#移行で変えない振る舞いと意図して変える差分) |
 | 配布manifestの4箇所と`expectedRelease`を`10.0.0`へ | 上の変更と一緒に入れ、validatorを一度に通すため | 上の行と同じ | [要件（Requirements）](#要件requirements) |
 
 ### tasklist・roadmapに載せて実行する変更

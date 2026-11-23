@@ -1299,7 +1299,7 @@ steeringの「非規範的なlegacy memo」と、「合意済みの明示廃止�
 
 ## 論点25: 利用先が`breaking_changes/`の記録だけを読んで`.steering/`を移せるようにするか
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1327,4 +1327,12 @@ steeringの「非規範的なlegacy memo」と、「合意済みの明示廃止�
 論点14・16の決定と、`task-design/templates/breaking_changes/20261115-rename-template-labels.md`の「古い成果物の読み方」（「進行中のroadmap.mdを続ける時は、見出しを新名へ書き換えてよい」という、読む側が成果物を直す手順を既に含む）を確かめた。移し方を記録に書くことは、既存の記録の形の範囲で書ける。
 
 #### 提案0へのフィードバック（論点25）
+
+**結果:** aに合意（コミット計画と論点25をまとめて示した往復で「ok」と答えられた）
+
+> ok
+
+### 決定（論点25）
+
+`prepare-design-record/breaking_changes/`の`.steering/`の読み替えの記録に「移し方」の節を足し、手順の正本をそこに置く。手順は、`.design-records/`が無いことを確かめ、`git mv .steering .design-records`で移し（`.steering/.gitignore`も一緒に移る）、移した結果をcommitする。`.steering/`と`.design-records/`が両方ある時は混ぜずに止まり、利用者が確かめる。`prepare-design-record`の初回の提案は、この節の手順を参照して行い、手順を自分では書かない。記録を読んだ人もagentも、skillを起動せずに同じ手順で移せるようにするためである。`maintenance-plugin-context/SKILL.md`「Plugin version」の一件の書き方の規則の文面は変えず、この一件の記録の中で移し方を足す。
 
