@@ -576,7 +576,7 @@ for (const forbidden of [
 }
 requireText(skillPath("advance-roadmap/SKILL.md"), "discussion_directory=<roadmap.mdがある設計の記録のdirectory>");
 requireText(skillPath("advance-roadmap/SKILL.md"), "discussion_file_name=implementation_review.md");
-requireText(skillPath("tasklist-executor/execution-contracts.md"), "discussion_file_name=implementation_review.md");
+requireText(skillPath("tasklist-executor/caller-contract.md"), "discussion_file_name=implementation_review.md");
 // steeringを解き、task-designの入力は新しい作業なら置き場所を渡さず、再開ならworking_dirを渡す。
 requireText(skillPath("task-design/SKILL.md"), "`working_dir`: 省略可能。既にある作業を再開する時だけ");
 requireText(skillPath("task-design/SKILL.md"), "pluginの`prepare-design-record` skillを明示適用し");
@@ -616,7 +616,16 @@ const prepareDesignRecordSkill = skillPath("prepare-design-record/SKILL.md");
 const summarizePreviousMonth = skillPath("prepare-design-record/summarize-previous-month.md");
 const advanceRoadmapSkill = skillPath("advance-roadmap/SKILL.md");
 const taskDesignWrapUp = skillPath("task-design/wrap-up.md");
-const callerContract = skillPath("tasklist-executor/execution-contracts.md");
+// 起動する側の約束はchild処理の契約から分け、tasklist-executorの別の内部指示に置く（論点31）。
+const callerContract = skillPath("tasklist-executor/caller-contract.md");
+requireExists(callerContract);
+requireText(skillPath("tasklist-executor/execution-contracts.md"), "tasklist-executorを起動する側が守る約束は[`caller-contract.md`](caller-contract.md)に");
+forbidText(skillPath("tasklist-executor/execution-contracts.md"), "## 起動する側が行うこと", "caller-contract.mdへ移した起動する側の約束");
+requireText(callerContract, "[`execution-contracts.md`](execution-contracts.md)の「状態の正本とsingle writer」にある。");
+for (const relativePath of [taskDesignWrapUp, skillPath("advance-roadmap/SKILL.md"), skillPath("tasklist-executor/blocker-resolution.md")]) {
+  requireText(relativePath, "caller-contract.md");
+  forbidText(relativePath, "の「起動する側が行うこと」", "execution-contracts.mdの節を指す古い参照");
+}
 requireText(taskDesignWrapUp, "完了報告の前に、task-design内で適用した変更を公開する。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく[`tasklist-design.md`の「実装後feedbackと公開action」](tasklist-design.md#実装後feedbackと公開action)に従い、ここへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。");
 requireText(taskDesignSkill, "結果を返す前に[`wrap-up.md`](wrap-up.md)を先頭から末尾まで読み");
 requireText(skillPath("facilitate-discussion/round-trip.md"), "論点の段はchatに示さない。段は一往復の組を選ぶためのものであり、利用者が気になれば議論記録の`**重さ:**`を読む。");
@@ -1206,7 +1215,7 @@ forbidText(contextTemplate, "commitとpushをdefault branchへ直接行わない
 // Blocker resolutionは起動する側の約束の唯一の例外であり、tasklist-executorの別の内部指示に置く（論点27）。
 const blockerResolution = skillPath("tasklist-executor/blocker-resolution.md");
 requireExists(blockerResolution);
-requireText(callerContract, "### Blocker resolution");
+requireText(callerContract, "## Blocker resolution");
 requireText(callerContract, "[`blocker-resolution.md`](blocker-resolution.md)を読んで従う。");
 requireText(
   callerContract,

@@ -66,7 +66,7 @@ roadmapの依存DAGを読み、未着手かつ依存完了済みのphaseを選�
    子phaseは新しい作業であり、task-designが`prepare-design-record`を呼んで自分の設計の記録を作る。子task-designは`tasklist_ready`、nestedな`roadmap_ready`、または`planless_complete`を返せる。
 3. 子task-designがPrepareStep 2で確定した`working_dir`を返したら、その絶対pathを、phaseの進み具合の「子の設計の記録」へbindingする。pathは子のtask-designが`prepare-design-record`で作るまで決まらないため、起動の前にはbindingしない。
 4. 子task-designの結果を「子phaseの結果を確かめる」で確かめる。
-5. 子task-designが実行開始の明示の指示を結果に添えて返した時だけ、planを実行させる。`tasklist_ready`なら`tasklist-executor`を、[`tasklist-executor/execution-contracts.md`](../tasklist-executor/execution-contracts.md)の「起動する側が行うこと」に従って起動する。`roadmap_ready`ならこのskillを入れ子で起動する。指示が無ければ、そのphaseを`進行中`のまま止めて利用者へ返す。`roadmap_ready`を受けたこと自体を子の実行の承認とみなさない。
+5. 子task-designが実行開始の明示の指示を結果に添えて返した時だけ、planを実行させる。`tasklist_ready`なら`tasklist-executor`を、[`tasklist-executor/caller-contract.md`](../tasklist-executor/caller-contract.md)に従って起動する。`roadmap_ready`ならこのskillを入れ子で起動する。指示が無ければ、そのphaseを`進行中`のまま止めて利用者へ返す。`roadmap_ready`を受けたこと自体を子の実行の承認とみなさない。
 6. leafはtasklist-executorの完了result、compositeは全子phaseの完了、planlessは子task-designの`wrap-up.md`の締めくくりの確認と完了報告を確認する。
 7. 対応phaseのstatusと完了日だけを更新し、次の依存可能phaseへ進む。子phaseで生じた保留メモは、その子phaseの完了の担当が自身の完了時に確かめ直す。
 8. 全phase完了は、全phaseのstatusが`完了`で、各phaseに完了日があることを確認して判定し、composite完了を一段上の親roadmapへ伝播する。roadmapの`全フェーズ完了日`または`計画と実績の差分`fieldは作らない。全体完了は各phaseのstatusと完了日から導出し、意味ある逸脱は`implementation_review.md`へ記録する。
@@ -130,7 +130,7 @@ discussion fileの解決、entry形式、合意対象保存、採番、親子val
 
 ## 実装後のfeedbackと、進めない時の復旧
 
-このskillが`tasklist-executor`を起動する時は、[`tasklist-executor/execution-contracts.md`](../tasklist-executor/execution-contracts.md)の「起動する側が行うこと」に従う。止まって返ってきた時の読み直し、実装後のfeedbackの記録（`implementation_review.md`）、`blocked`で返った時の復旧（Blocker resolution）は同節と、同節から辿る[`tasklist-executor/blocker-resolution.md`](../tasklist-executor/blocker-resolution.md)が正本であり、ここへ写さない。phaseの間にこのskill自身の手順で実行の前提が崩れて進めなくなった時も、`blocker-resolution.md`に従う。
+このskillが`tasklist-executor`を起動する時は、[`tasklist-executor/caller-contract.md`](../tasklist-executor/caller-contract.md)に従う。止まって返ってきた時の読み直し、実装後のfeedbackの記録（`implementation_review.md`）、`blocked`で返った時の復旧（Blocker resolution）は同fileと、同fileから辿る[`tasklist-executor/blocker-resolution.md`](../tasklist-executor/blocker-resolution.md)が正本であり、ここへ写さない。phaseの間にこのskill自身の手順で実行の前提が崩れて進めなくなった時も、`blocker-resolution.md`に従う。
 
 このskillが実装・review・validation・ユーザー動作確認のfeedbackを直接受領した時は、[共通の実装feedback処理](../tasklist-executor/implementation-feedback.md)を読み、pluginの`facilitate-discussion`を明示適用する。次の入力を渡す。
 

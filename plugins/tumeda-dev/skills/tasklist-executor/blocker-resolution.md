@@ -1,6 +1,6 @@
 # Blocker resolution
 
-`tasklist-executor`を起動する側（利用者の会話のagent、`advance-roadmap`）が、手順を離れて自ら手を動かしてよい唯一の例外である。[`execution-contracts.md`](execution-contracts.md)の「起動する側が行うこと」から、`tasklist-executor`が`blocked`で返った時と、起動する側が自分の手順で進めなくなった時に読む。
+`tasklist-executor`を起動する側（利用者の会話のagent、`advance-roadmap`）が、手順を離れて自ら手を動かしてよい唯一の例外である。[`caller-contract.md`](caller-contract.md)から、`tasklist-executor`が`blocked`で返った時と、起動する側が自分の手順で進めなくなった時に読む。
 
 起動する側が自ら手を動かしてよいのは、Flowが前提とする実行条件が崩れ、Flowの内側では復旧できなくなった`blocker`を解消するときだけである。ここでいうFlowは、起動する側の手順（`tasklist-executor`の起動、止まって返ってきた時の扱い、完了の確認）と、`advance-roadmap`の「phaseを進める手順」である。この行為を`resolve-blocker`と呼ぶ。
 

@@ -84,7 +84,7 @@ ready resultの照合後、作業の再開時には依頼しない。返却resul
 
 `tasklist_ready | roadmap_ready`では、ready result、主要成果物、締めくくりの確認の結果を示した後でのみ、tasklist実装またはroadmap tree実行を開始するかユーザーの明示確認を自然言語で得る。
 
-- `OK`、`はい`、`進めて`等の明示確認があれば、planの種類に対応するskillを起動する。`tasklist_ready`なら、[`tasklist-executor/execution-contracts.md`](../tasklist-executor/execution-contracts.md)の「起動する側が行うこと」に従って`tasklist-executor`を起動する。`roadmap_ready`なら`advance-roadmap`を起動する。
+- `OK`、`はい`、`進めて`等の明示確認があれば、planの種類に対応するskillを起動する。`tasklist_ready`なら、[`tasklist-executor/caller-contract.md`](../tasklist-executor/caller-contract.md)に従って`tasklist-executor`を起動する。`roadmap_ready`なら`advance-roadmap`を起動する。
 - `advance-roadmap`から子phaseとして起動された時は、自分では起動せず、明示確認の原文を結果に添えて`advance-roadmap`へ返す。`advance-roadmap`が起動する。
 - 拒否、保留、確認なしならここで終了する。
 - plan合意を実行開始の承認と読み替えず、`roadmap_ready`を受けたこと自体を子実行の承認とみなさない。
