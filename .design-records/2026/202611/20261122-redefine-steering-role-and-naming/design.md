@@ -323,14 +323,24 @@ task-design/wrap-up.md
 
 ### 設計中に反映を終えた変更
 
-なし
+| 対象 | 反映内容 | validation結果 | 参照するdesign section |
+| --- | --- | --- | --- |
+| `plugins/tumeda-dev/skills/prepare-design-record/`（`SKILL.md`、`summarize-previous-month.md`、`.gitignore.sample`、`breaking_changes/`） | 新設。置き場所の準備、前月summary、以前の置き場所の一度だけの移動と読み替えの記録 | validator・白box照合・document-reviewを通過 | [prepare-design-record](#prepare-design-record) |
+| `plugins/tumeda-dev/skills/advance-roadmap/SKILL.md` | 新設。roadmapをphaseごとに進める | 同上。bindingの順序を照合で直した | [advance-roadmap](#advance-roadmap) |
+| `plugins/tumeda-dev/skills/task-design/`（`SKILL.md`、`wrap-up.md`、`tasklist-design.md`、`roadmap-design.md`、`work-handoff-contracts.md`、`templates/`、`templates/breaking_changes/`） | 入口としての入力、`prepare-design-record`の呼び方、締めくくり、roadmapの見出し・labelの切り替えと記録、steeringの名指しの書き換え | 同上。`test-task-design-handoff.mjs`を通過 | [task-design](#task-design) |
+| `plugins/tumeda-dev/skills/tasklist-executor/`（`execution-contracts.md`、`implementation-feedback.md`、`SKILL.md`） | 起動する側が行うことを足し、実装feedbackの手順を移した | validator・白box照合を通過 | [tasklist-executorと、それを起動する側](#tasklist-executorとそれを起動する側) |
+| `plugins/tumeda-dev/skills/steering/` | 削除 | validatorの不存在条件を通過 | [移行で変えない振る舞いと、意図して変える差分](#移行で変えない振る舞いと意図して変える差分) |
+| 参照元（escalate、facilitate-discussion、maintenance-plugin-context、doc-enricher、think-through、visual-inspector、`skills/README.md`、`tumeda-dev-plugin-context.md`、docs、`AGENTS.md`、`.claude/hooks/`） | steeringと`.steering/`の名指しを新しい担当と`.design-records/`へ。`Plugin version`の記録の対象を置き場所のpathへ広げた | `grep -rn steering`の全出力で、残りが読み替えの記録・以前の置き場所の扱い・`steering.json`の禁止だけであることを確かめた | [文書以外に作るfileの中身](#文書以外に作るfileの中身) |
+| `scripts/verification/validate-plugin.mjs`、`test-task-design-handoff.mjs` | steeringに向けていたassertionを移した先へ向け直した。消したassertionは合意済みの`RETIRE`・`CHANGE`に対応する | `plugin validation passed`、`task-design handoff tests passed` | [テスト方針](#テスト方針) |
+| 配布manifestの4箇所と`expectedRelease` | `10.0.0` | validatorを通過 | [要件（Requirements）](#要件requirements) |
+| `.steering/` → `.design-records/` | `git mv`。中身は変えていない | 61の作業のdirectoryがあり、`.steering/`が無い | [作業の記録を置くdirectory](#作業の記録を置くdirectory) |
 
 ### 設計中に反映する、他の判断を待っている変更
 
 | 対象 | 待つ理由 | 依存する判断 | 参照するdesign section |
 | --- | --- | --- | --- |
-| 「文書以外に作るfileの中身」の全file、このrepositoryの`.steering/`の`git mv`、validatorとtest script | steeringの受け持ちを複数の担当へ同時に移し、移行の対応表の白box照合とvalidatorを一度に通す必要があり、一部だけを先に適用すると参照が壊れた状態が残る。他の判断は待っておらず、一括で適用してから検証する | なし（論点1〜25は決定済み） | [文書以外に作るfileの中身](#文書以外に作るfileの中身)、[移行で変えない振る舞いと、意図して変える差分](#移行で変えない振る舞いと意図して変える差分) |
-| 配布manifestの4箇所と`expectedRelease`を`10.0.0`へ | 上の変更と一緒に入れ、validatorを一度に通すため | 上の行と同じ | [要件（Requirements）](#要件requirements) |
+| `prepare-design-record/SKILL.md`の手順1（移すことを承認されなかった時の扱い） | 仮決めの文面で書いてあり、合意を待つ | 論点26 | [以前の置き場所の記録を一度だけ移す](#以前の置き場所の記録を一度だけ移す) |
+| `tasklist-executor/blocker-resolution.md`への分割 | 編集後のreviewの候補を今分けるかの合意を待つ | 論点27 | [tasklist-executorと、それを起動する側](#tasklist-executorとそれを起動する側) |
 
 ### tasklist・roadmapに載せて実行する変更
 

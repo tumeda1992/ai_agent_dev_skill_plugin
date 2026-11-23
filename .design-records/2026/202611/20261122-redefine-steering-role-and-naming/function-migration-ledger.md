@@ -265,7 +265,7 @@
 | ID | 種類 | 原文が生む判断・挙動 | destination | 分類 | 合意 |
 | --- | --- | --- | --- | --- | --- |
 | C-108 | action | 依存DAGを読み、未着手かつ依存完了済みのphaseを選ぶ | `advance-roadmap` | ADAPT | D3 |
-| C-109 | action | phaseの進み具合へ子steering pathをbindingする | `advance-roadmap`。子の設計の記録のpath（label「子の設計の記録」） | ADAPT | D3、D20 |
+| C-109 | action | phaseの進み具合へ子steering pathをbindingする | `advance-roadmap`。子の設計の記録のpath（label「子の設計の記録」）。pathは子のtask-designが`prepare-design-record`で作るまで決まらないため、statusの更新と起動の後、task-designがPrepareStep 2で`working_dir`を返した時点でbindingする | ADAPT | D3、D11、D20 |
 | C-110 | action | statusを`進行中`へ | `advance-roadmap` | MOVE | D3 |
 | C-111 | action | 子へ四項目を渡す | `advance-roadmap`が子phaseのtask-designへ渡す | ADAPT | D3、D19 |
 | C-112 | 構造 | 子steeringも自身のrootを`create_working_dir=false`で子task-designへ渡し、子は三resultのどれでも返せる | 子task-designは新しい作業として`prepare-design-record`で設計の記録を作る。三resultのどれでも返せる | CHANGE | D19 |
@@ -364,7 +364,39 @@
 | A-005 | 新しい作業でtask-designが`prepare-design-record`を呼ぶ。単独起動でも同じ置き場所 | `task-design`のPrepareStep 2 | CHANGE | D1、D19 |
 | A-006 | 変更を伴わない調査の設計のように、task-designを通さない作業からも`prepare-design-record`を呼べる | `prepare-design-record`の起動条件 | ADD | D11 |
 | A-007 | repository固有文脈の表と節の`steering`を`advance-roadmap`へ移し、Branch/issue契約等の文面を書き換える | `maintenance-plugin-context/SKILL.md`、`skills/tumeda-dev-plugin-context.md` | ADAPT | D21 |
+| A-008 | 旧`task-design/SKILL.md` PrepareStep 2の`create_working_dir=true`の手順4「同名pathが存在する場合はsuffix追加や上書きをしない」と、手順1「親ディレクトリが存在しなければ推測で作らず」 | `prepare-design-record`の手順5（同名pathで停止）、`task-design`の新しい作業の手順2（停止した理由を返し、推測で別の置き場所を作らない） | ADAPT | D11、D19 |
+| A-009 | `.steering/`を移すことを利用者が承認しなかった時は、移さず、新しい記録も作らずに止まり、呼出し元へ返す | `prepare-design-record`の手順1 | ADD | 論点26（要合意） |
 
 ## white-box照合の記録
 
-編集後に記入する。順方向（全IDのdestinationと照合結果）、逆方向（Git差分の削除行・追加行からIDへ）、境界（gate・確認・停止・single writer・順序）、集計（適合／合意済み追加／合意済み変更／明示廃止／未監査0／未分類削除0／未分類追加0）。
+### 順方向
+
+`KEEP | MOVE | ADAPT | ADD | CHANGE`の全ID（C-001〜C-160のうち`RETIRE`だけの12件とC-009・C-155・C-160を除く145件、A-001〜A-007）について、destinationのfileに対応する文があることを、IDごとに一つ以上の照合語で確かめた（173件、不一致0）。照合語だけでは意味の保存を言えないため、移した節は通読して、条件・理由・例・失敗例・判断の問いが残っていることを確かめた。
+
+- 照合の途中で、C-039（同じfeatureの追加taskは既存tasklistへ追記する、tasklistはfeatureのchecklist）とC-046（tasklistのcommit sectionから記録の順序の規則を参照する）が`tasklist-design.md`へ移っていないことを見つけ、足した。
+- C-155は、`git diff -M`で`implementation-feedback.md`の変化がC-156〜C-158の3行だけであることを確かめた。
+- C-160は、`git mv`のrenameだけで、記録の中身を変えていないことを確かめた。
+
+### 逆方向
+
+`steering/SKILL.md`の削除行は1〜510行がST-01〜ST-31で覆われている。追加行を新しいfileごとに読み、対応するIDを引いた。対応が無かった追加は次の二つで、どちらも扱いを決めた。
+
+- 読み替えの記録の「移し方」に足していた、`.gitignore`を見本で補う手順と、このrepositoryの`.design-records/.gitignore`への追記。論点25の決定に無いため、取り除いた。
+- `prepare-design-record`の、移すことを承認されなかった時の扱い。A-009として、論点26で合意を取る。
+- 旧task-designの入力の手順から移した行（同名pathで止まる、推測で別の置き場所を作らない）は、A-008として足した。
+
+### 境界
+
+利用者の会話のagent、task-design、`wrap-up.md`、`tasklist-executor`を起動する側、`advance-roadmap`を合わせて、plan無し・tasklist・roadmapの三つの経路を辿った。
+
+- plan無し: task-designがPrepareStep 2で`prepare-design-record`を呼び、設計し、Step 6の後に`wrap-up.md`で締めくくりの確認、公開、完了報告へ進む。実行開始の確認とexecutorの起動は無い。
+- tasklist: `wrap-up.md`で締めくくりの確認の結果を示した後に実行開始を確かめ、明示確認があれば起動する側が`tasklist-executor`を起動する。止まるたびにtasklistとartifactを読み直し、`blocked`ならBlocker resolution、feedbackなら`implementation-feedback.md`へ進む。
+- roadmap: `advance-roadmap`がstatusを進行中にして子phaseのtask-designを起動し、`working_dir`が返った時点で子の設計の記録をbindingし、結果を確かめ、子が添えた明示確認がある時だけplanを実行させ、status・完了日を書く。
+- この照合で、`advance-roadmap`の手順がbindingを子のtask-designの起動より前に置いていたことを見つけた。pathは子のtask-designが`prepare-design-record`で作るまで決まらないため、`working_dir`が返った時点へ並べ替えた（C-109）。
+- 単一のwriter: tasklistは`tasklist-executor`、roadmapの進み具合は`advance-roadmap`、`summary.md`は翌月初の`summarize-previous-month.md`だけ。
+
+### 集計
+
+```text
+適合 145 / 合意済み追加 5（A-001、A-002、A-004の記録、A-006、A-009は論点26で合意待ち） / 合意済み変更 9（C-025、C-056、C-063、C-068、C-112、A-003、A-004の見出し、A-005、A-007） / 明示廃止 12 / 未監査 0 / 未分類削除 0 / 未分類追加 0（A-009は論点26の応答待ち）
+```
