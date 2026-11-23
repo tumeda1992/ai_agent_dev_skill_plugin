@@ -1190,7 +1190,7 @@ repository固有文脈では次のとおり書き換える。`maintenance-plugin
 
 ## 論点22: 配布versionの上げ方
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1214,9 +1214,17 @@ repository固有文脈では次のとおり書き換える。`maintenance-plugin
 
 #### 提案0へのフィードバック（論点22）
 
+**結果:** aに合意（論点22〜24をまとめて示した往復で「ok」と答えられた）
+
+> ok。あと、使う側もbreaking_changes見たらgit mvできるかな？ ちょっと週間上限近づいてきたから、今のうちにコミット計画立てて。私が合意したらコミットして、pushしてPR作って
+
+### 決定（論点22）
+
+配布versionを`9.1.7`から`10.0.0`へ上げる。利用先が呼んでいた`steering`が無くなり、task-designの入力が変わり、記録の置き場所が`.design-records/`へ変わり、以前の版が作ったroadmapの見出し・labelを今の版が名前で読めなくなるため、`maintenance-plugin-context/SKILL.md`「Plugin version」の「破壊的変更はMAJOR」に当たる。宣言値4箇所と`scripts/verification/validate-plugin.mjs`の`expectedRelease`を一度に変える。
+
 ## 論点23: 前月summaryの題
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1242,9 +1250,17 @@ steeringのStep 1は、前月summaryのexact formatの題を「{YYYY}年{MM}月 
 
 #### 提案0へのフィードバック（論点23）
 
+**結果:** aに合意（論点22〜24をまとめて示した往復で「ok」と答えられた）
+
+> ok。あと、使う側もbreaking_changes見たらgit mvできるかな？ ちょっと週間上限近づいてきたから、今のうちにコミット計画立てて。私が合意したらコミットして、pushしてPR作って
+
+### 決定（論点23）
+
+前月summaryの題を「{YYYY}年{MM}月 設計の記録 サマリー」にする。summaryは`.design-records/`の一か月分の一覧である。既に作られた月のsummaryは書き換えない。題を名前で探すskillやscriptは無いため、`breaking_changes/`の記録は作らない。
+
 ## 論点24: steeringの「非規範的なlegacy memo」と「合意済みの明示廃止」の履歴の記述
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -1272,4 +1288,43 @@ steeringは、自分の過去の契約について次の記述を持つ。
 `steering/SKILL.md`の「非規範的なlegacy memo」と「合意済みの明示廃止」を一件ずつ読み、今も効く規則か、steering自身の履歴かを分けた。今も効く規則（全体完了の導き方）と、逆戻りを防ぐ禁止は、新しい担当へ移る行が対応表にある。残りはsteering自身の過去の契約の説明だけである。
 
 #### 提案0へのフィードバック（論点24）
+
+**結果:** aに合意（論点22〜24をまとめて示した往復で「ok」と答えられた）
+
+> ok。あと、使う側もbreaking_changes見たらgit mvできるかな？ ちょっと週間上限近づいてきたから、今のうちにコミット計画立てて。私が合意したらコミットして、pushしてPR作って
+
+### 決定（論点24）
+
+steeringの「非規範的なlegacy memo」と、「合意済みの明示廃止」のうちsteering自身の過去の契約を説明する記述（task-design専用子directoryと`task_design_dir`探索の廃止、tasklistから親roadmapを更新する契約の廃止、steeringがtasklist・roadmapを設計・再reviewする契約の廃止、feedback件数による新steeringの自動起動の廃止、上記以外はmigration ledgerに従う）は移さない（`RETIRE`）。これらが防いでいた逆戻りは、新しい担当の禁止として移す（対応表のC-139、C-140、C-142）。今も効く「全体完了はphaseのstatusと完了日から導き、`全フェーズ完了日`等のfieldを作らない」は`advance-roadmap`へ移す（C-152）。
+
+## 論点25: 利用先が`breaking_changes/`の記録だけを読んで`.steering/`を移せるようにするか
+
+**ステータス:** 応答待ち
+
+**種別:** TBDヒアリング
+
+**重さ:** 確かめるだけ（全部小。論点14・16の決定の具体化）
+
+論点22〜24への返事に添えられた問いから立てた。
+
+> 使う側もbreaking_changes見たらgit mvできるかな？
+
+### イテレーション0（論点25）: 読み替えの記録に移し方を書くかを仮決めする
+
+#### 提案0（論点25）
+
+論点14では、利用先の`.steering/`は`prepare-design-record`が初回に移すことを提案し、論点16では、`.steering/…`を`.design-records/…`として読む記録を`prepare-design-record/breaking_changes/`へ置くと決めた。今の決め方では、移し方の手順は`prepare-design-record`の中にあり、記録には読み替え方しか無い。
+
+- a. 記録に「移し方」の節を足し、手順の正本をそこに置く。`prepare-design-record`の初回の提案は、その節の手順を参照して行う（仮決め）
+  - 手順: `.design-records/`が無いことを確かめる。`git mv .steering .design-records`で移す。`.steering/.gitignore`も一緒に移る。移した結果をcommitする。`.steering/`と`.design-records/`が両方ある時は混ぜずに止まり、利用者が確かめる。
+  - 根拠: 論点14・16の決定。記録を読んだ人もagentも、skillを起動せずに同じ手順で移せる。手順を二箇所に書かず、記録だけを正本にする。
+  - `maintenance-plugin-context/SKILL.md`「Plugin version」の一件の書き方（変わった版、旧名と新名の対応、変えた理由、古い成果物の読み方）に、移せる場合の移し方を足すかは、この一件の書き方として記録の中で足すだけにし、規則の文面は変えない。
+- b. 記録は読み替え方だけにし、移し方は`prepare-design-record`だけが持つ
+  - 移すには`prepare-design-record`を起動する必要がある。
+
+#### 検討記録（論点25・イテレーション0）
+
+論点14・16の決定と、`task-design/templates/breaking_changes/20261115-rename-template-labels.md`の「古い成果物の読み方」（「進行中のroadmap.mdを続ける時は、見出しを新名へ書き換えてよい」という、読む側が成果物を直す手順を既に含む）を確かめた。移し方を記録に書くことは、既存の記録の形の範囲で書ける。
+
+#### 提案0へのフィードバック（論点25）
 

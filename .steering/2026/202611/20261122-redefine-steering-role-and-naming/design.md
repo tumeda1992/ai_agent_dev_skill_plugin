@@ -147,7 +147,7 @@ advance-roadmap（phaseごと）
 | `plugins/tumeda-dev/skills/steering/`（削除） | — | — |
 | 参照元（`escalate-plugin-skill-fix`、`facilitate-discussion`、`maintenance-plugin-context`、`doc-enricher`、`think-through`、`visual-inspector`、`skills/README.md`、`skills/tumeda-dev-plugin-context.md`、docs、`AGENTS.md`、`.claude/hooks/`） | 各読者 | steeringと`.steering/`の名指しを新しい担当と`.design-records/`へ |
 | `scripts/verification/validate-plugin.mjs`、`test-task-design-handoff.mjs`（更新） | 検証 | steeringに置いていたassertionを移した先へ移す |
-| 配布manifestと`expectedRelease`（更新） | 配布 | 論点22のversionへ |
+| 配布manifestと`expectedRelease`（更新） | 配布 | `10.0.0`へ |
 | `.steering/` → `.design-records/`（このrepository） | 記録を読むagent | `.design-records/`だけを見る |
 
 **完成後の内容と構造:**
@@ -235,8 +235,8 @@ task-design/wrap-up.md
 | 記録を`.design-records/`へ移す手順として、standalone roadmapの昇格が無くなる | 移行前は明示承認の後にbundleを移動した | [新しい作業の置き場所は`prepare-design-record`に任せる](#新しい作業の置き場所はprepare-design-recordに任せる) | C-007、C-117〜C-119、C-143、論点1 |
 | 既にある`.steering/`を一度だけ`.design-records/`へ移し、本文の旧pathは読み替える | 移行前に該当なし | [以前の置き場所の記録を一度だけ移す](#以前の置き場所の記録を一度だけ移す) | A-001、A-002、A-003、論点14・16 |
 | roadmapの進み具合の見出し・labelが`advance-roadmap`と子の設計の記録を名指す | 移行前はsteeringと子steering | [advance-roadmap](#advance-roadmap) | A-004、論点20 |
-| 前月summaryの題 | TBD: 論点23 | — | C-063 |
-| steeringの非規範的なlegacy memoと「合意済みの明示廃止」の履歴の記述 | TBD: 論点24 | — | C-047、C-148〜C-151、C-153 |
+| 前月summaryの題が「{YYYY}年{MM}月 設計の記録 サマリー」になる。既にある月のsummaryは書き換えない | 移行前は「{YYYY}年{MM}月 Steering サマリー」 | [prepare-design-record](#prepare-design-record) | C-063、論点23 |
+| steeringの非規範的なlegacy memoと、steering自身の過去の契約を説明する「合意済みの明示廃止」の記述が無くなる。逆戻りを防ぐ禁止は新しい担当が持つ | 移行前はsteeringが持っていた | [advance-roadmap](#advance-roadmap)、[prepare-design-record](#prepare-design-record) | C-047、C-148〜C-151、C-153、論点24 |
 
 ---
 
@@ -251,7 +251,7 @@ task-design/wrap-up.md
 - このrepositoryの`.steering/`が`.design-records/`へ`git mv`されている。
 - `prepare-design-record/breaking_changes/`と`task-design/templates/breaking_changes/`に読み替えの記録があり、`maintenance-plugin-context/SKILL.md`「Plugin version」の対象が置き場所のpathを含む。
 - skill・docs・hook・`AGENTS.md`・validatorから、steeringというskillと`.steering/`への名指しが無くなっている（残るのは読み替えの記録、移行の対応表、過去の記録の本文だけ）。
-- 配布versionが論点22の値に揃っている。
+- 配布versionが`10.0.0`に揃っている（宣言値4箇所と`expectedRelease`）。
 
 ### 非目標
 
@@ -329,8 +329,8 @@ task-design/wrap-up.md
 
 | 対象 | 待つ理由 | 依存する判断 | 参照するdesign section |
 | --- | --- | --- | --- |
-| 「文書以外に作るfileの中身」の全file、このrepositoryの`.steering/`の`git mv`、validatorとtest script | steeringの受け持ちを複数の担当へ同時に移し、移行の対応表の白box照合とvalidatorを一度に通す必要があり、一部だけを先に適用すると参照が壊れた状態が残る。前月summaryの題と、移さない記述の扱いが未決 | 論点23、論点24 | [文書以外に作るfileの中身](#文書以外に作るfileの中身)、[移行で変えない振る舞いと、意図して変える差分](#移行で変えない振る舞いと意図して変える差分) |
-| 配布manifestの4箇所と`expectedRelease` | versionの値が未決 | 論点22 | [要件（Requirements）](#要件requirements) |
+| 「文書以外に作るfileの中身」の全file、このrepositoryの`.steering/`の`git mv`、validatorとtest script | steeringの受け持ちを複数の担当へ同時に移し、移行の対応表の白box照合とvalidatorを一度に通す必要があり、一部だけを先に適用すると参照が壊れた状態が残る。読み替えの記録に移し方を書くかが未決 | 論点25 | [文書以外に作るfileの中身](#文書以外に作るfileの中身)、[移行で変えない振る舞いと、意図して変える差分](#移行で変えない振る舞いと意図して変える差分) |
+| 配布manifestの4箇所と`expectedRelease`を`10.0.0`へ | 上の変更と一緒に入れ、validatorを一度に通すため | 上の行と同じ | [要件（Requirements）](#要件requirements) |
 
 ### tasklist・roadmapに載せて実行する変更
 

@@ -36,9 +36,9 @@
 | ST-09 | 69〜93 | 命名規則とcanonical directory | `prepare-design-record` | MOVE / ADAPT / CHANGE | D5、D11 |
 | ST-10 | 94〜106 | 成果物のlifecycle | `prepare-design-record`（記録に入るもの）、`task-design/tasklist-design.md` | ADAPT / MOVE | D1、D10、D11 |
 | ST-11 | 107〜124 | commitへ載せる順序 | `task-design/wrap-up.md`、`tasklist-design.md`から参照 | ADAPT | D9 |
-| ST-12 | 125〜128 | 非規範的なlegacy memo | — | RETIRE | 要合意（論点24） |
+| ST-12 | 125〜128 | 非規範的なlegacy memo | — | RETIRE | D24 |
 | ST-13 | 129〜148 | discussion.mdの使い方 | `advance-roadmap`、`execution-contracts.md` | ADAPT | D10 |
-| ST-14 | 149〜183 | Flow、Step 1（置き場所と前月summary） | `prepare-design-record`、`prepare-design-record/summarize-previous-month.md` | MOVE / ADAPT / CHANGE | D5、D11、D13、D18、論点23 |
+| ST-14 | 149〜183 | Flow、Step 1（置き場所と前月summary） | `prepare-design-record`、`prepare-design-record/summarize-previous-month.md` | MOVE / ADAPT / CHANGE | D5、D11、D13、D18、D23 |
 | ST-15 | 184〜214 | Step 2（task-designの起動） | `task-design`の入力、`advance-roadmap` | ADAPT / CHANGE / RETIRE | D1、D19 |
 | ST-16 | 215〜231 | Step 3（ready resultの検証） | `advance-roadmap`（子phaseの結果）、`wrap-up.md`、`execution-contracts.md` | ADAPT | D1、D3、D12 |
 | ST-17 | 232〜237 | 必須gateの前置き | `task-design/wrap-up.md` | MOVE | D1、D12 |
@@ -54,7 +54,7 @@
 | ST-27 | 363〜376 | 実装完了後review | `execution-contracts.md`、`advance-roadmap` | ADAPT | D7 |
 | ST-28 | 377〜477 | Blocker resolution | `tasklist-executor/execution-contracts.md` | ADAPT | D8 |
 | ST-29 | 478〜494 | 絶対にやらないこと | 各destination | ADAPT / RETIRE | 下のcontract ledger |
-| ST-30 | 495〜505 | 合意済みの明示廃止 | `advance-roadmap`（一部） | ADAPT / RETIRE | 要合意（論点24） |
+| ST-30 | 495〜505 | 合意済みの明示廃止 | `advance-roadmap`（一部） | ADAPT / RETIRE | D24、D3 |
 | ST-31 | 506〜510 | 元作業の完了の通知 | `advance-roadmap`、`execution-contracts.md` | ADAPT | D3 |
 | IF-01 | `implementation-feedback.md` 1〜2、4〜9、11〜33、35〜44 | 実装feedbackの共通手順（steeringを名指さない行） | `tasklist-executor/implementation-feedback.md` | MOVE（バイト一致） | D7 |
 | IF-02 | `implementation-feedback.md` 3、10、34 | 実装feedbackの共通手順（steeringを名指す行） | `tasklist-executor/implementation-feedback.md` | ADAPT | D7、D3、D15 |
@@ -163,7 +163,7 @@
 
 | ID | 種類 | 原文が生む判断・挙動 | destination | 分類 | 合意 |
 | --- | --- | --- | --- | --- | --- |
-| C-047 | 履歴 | 「複数のfeedbackが揃ったら新しいsteeringを起動する」方針は現在の規則ではなく、将来必要なら明示合意で復活を検討する | — | RETIRE | 要合意（論点24） |
+| C-047 | 履歴 | 「複数のfeedbackが揃ったら新しいsteeringを起動する」方針は現在の規則ではなく、将来必要なら明示合意で復活を検討する | — | RETIRE | D24 |
 
 ### ST-13 discussion.mdの使い方
 
@@ -189,7 +189,7 @@
 | C-060 | 規則 | tasklistのstatus判定 | `summarize-previous-month.md` | MOVE | D13 |
 | C-061 | 規則 | roadmapのstatus判定 | `summarize-previous-month.md` | MOVE | D13 |
 | C-062 | 規則 | planlessのstatus判定（付録の見出しの名前） | `summarize-previous-month.md` | MOVE | D13 |
-| C-063 | 出力形式 | summaryのexact format。題は「{YYYY}年{MM}月 Steering サマリー」 | `summarize-previous-month.md`。題を「{YYYY}年{MM}月 設計の記録 サマリー」へ | CHANGE | 要合意（論点23） |
+| C-063 | 出力形式 | summaryのexact format。題は「{YYYY}年{MM}月 Steering サマリー」 | `summarize-previous-month.md`。題を「{YYYY}年{MM}月 設計の記録 サマリー」へ | CHANGE | D23 |
 | C-064 | 禁止 | entryはslug link・概要・statusだけ。種別・関連・詳細を足さない。詳細は各記録へ委ねる | `summarize-previous-month.md` | MOVE | D13 |
 | C-065 | single writer・理由 | 各実行時にstatusを手動更新しない。single writerは翌月初の処理だけ。並行作業のconflictを避けるため | `summarize-previous-month.md` | MOVE | D13 |
 | C-066 | 禁止 | この時点では`design.md`・`tasklist.md`・`roadmap.md`を作らない | `prepare-design-record` | MOVE | D11 |
@@ -329,12 +329,12 @@
 
 | ID | 種類 | 原文が生む判断・挙動 | destination | 分類 | 合意 |
 | --- | --- | --- | --- | --- | --- |
-| C-148 | 履歴・guard | task-design専用子directoryと`task_design_dir`探索は廃止した | — （禁止はC-140が持つ） | RETIRE | 要合意（論点24） |
-| C-149 | 履歴・guard | tasklistから親roadmapを更新する契約は廃止した | — （禁止はC-142と`tasklist-executor`が持つ） | RETIRE | 要合意（論点24） |
-| C-150 | 履歴・guard | steeringがtasklist・roadmapを設計・再reviewする契約は廃止した | — （禁止はC-139が持つ） | RETIRE | 要合意（論点24） |
-| C-151 | 履歴 | feedback件数による新steeringの自動起動は廃止した | — | RETIRE | 要合意（論点24） |
+| C-148 | 履歴・guard | task-design専用子directoryと`task_design_dir`探索は廃止した | — （禁止はC-140が持つ） | RETIRE | D24 |
+| C-149 | 履歴・guard | tasklistから親roadmapを更新する契約は廃止した | — （禁止はC-142と`tasklist-executor`が持つ） | RETIRE | D24 |
+| C-150 | 履歴・guard | steeringがtasklist・roadmapを設計・再reviewする契約は廃止した | — （禁止はC-139が持つ） | RETIRE | D24 |
+| C-151 | 履歴 | feedback件数による新steeringの自動起動は廃止した | — | RETIRE | D24 |
 | C-152 | 履歴・規則 | `全フェーズ完了日`と`計画と実績の差分`fieldは廃止し、全体完了はstatus・完了日から導出し、逸脱は`implementation_review.md`へ | `advance-roadmap`（全体完了の導き方）。`implementation-feedback.md`にも同じ規則がある | ADAPT | D3 |
-| C-153 | 規則 | 上記以外の旧steeringの意味単位はmigration ledgerに従う | — （この対応表が持つ） | RETIRE | 要合意（論点24） |
+| C-153 | 規則 | 上記以外の旧steeringの意味単位はmigration ledgerに従う | — （この対応表が持つ） | RETIRE | D24 |
 
 ### ST-31 元作業の完了の通知
 
@@ -358,7 +358,7 @@
 | ID | 能力 | destination | 分類 | 合意 |
 | --- | --- | --- | --- | --- |
 | A-001 | `.steering/`があり`.design-records/`が無い時、移すことを利用者へ提案し、承認されたら一度だけ`git mv`する。両方ある時は確かめる | `prepare-design-record` | ADD | D14 |
-| A-002 | `.steering/…`を`.design-records/…`として読む記録と、その`breaking_changes/`のREADME | `prepare-design-record/breaking_changes/` | ADD | D16 |
+| A-002 | `.steering/…`を`.design-records/…`として読む記録と、その`breaking_changes/`のREADME。記録に移し方を書くかは論点25 | `prepare-design-record/breaking_changes/` | ADD | D16、論点25 |
 | A-003 | 記録の対象を「見出し・labelの名前や、置き場所のpath」へ広げる | `maintenance-plugin-context/SKILL.md`「Plugin version」 | CHANGE | D16 |
 | A-004 | roadmapの見出し・labelの切り替えと、その記録 | `task-design/templates/roadmap.md`、`task-design/templates/breaking_changes/` | CHANGE / ADD | D20 |
 | A-005 | 新しい作業でtask-designが`prepare-design-record`を呼ぶ。単独起動でも同じ置き場所 | `task-design`のPrepareStep 2 | CHANGE | D1、D19 |
