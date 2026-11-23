@@ -38,7 +38,7 @@ feedbackを記録せず直接designへ戻したり、実装を自動再開した
 
 ## 段取りの議論
 
-tasklistを実行する段取り（起動、再開位置、止まった後の進め方）について記録価値のある思考が生じた時、ユーザーが段取り上の論点・質問・要議論を出した時、またはユーザーへ段取り上の問いを出そうとしている時は、起動する側が`discussion_directory=<tasklist.mdがある設計の記録のdirectory>`を渡してpluginの`facilitate-discussion`を明示適用し、`discussion.md`へ記録する。議論だけを別child agentへ再委譲しない。設計上の曖昧さや方向性はtask-designへ渡す。`discussion.md`の使い方の詳細は[`advance-roadmap/SKILL.md`](../advance-roadmap/SKILL.md)の「段取りの議論（discussion.md）」と同じである。
+tasklistを実行する段取り（起動、再開位置、止まった後の進め方）について記録価値のある思考が生じた時、ユーザーが段取り上の論点・質問・要議論を出した時、またはユーザーへ段取り上の問いを出そうとしている時は、起動する側が`discussion_directory=<tasklist.mdがある設計の記録のdirectory>`を渡してpluginの`facilitate-discussion`を明示適用し、`discussion.md`へ記録する。議論だけを別child agentへ再委譲しない。設計上の曖昧さや方向性はtask-designへ渡す。`discussion.md`の使い方の詳細は[`advance-roadmap/staging-discussion.md`](../advance-roadmap/staging-discussion.md)と同じである。
 
 ## 完了を確かめた時
 

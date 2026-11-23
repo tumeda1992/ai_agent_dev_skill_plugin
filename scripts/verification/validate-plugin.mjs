@@ -574,7 +574,7 @@ for (const forbidden of [
 ]) {
   forbidText(taskDesignSkill, forbidden, "task-designに残った旧discussion process");
 }
-requireText(skillPath("advance-roadmap/SKILL.md"), "discussion_directory=<roadmap.mdがある設計の記録のdirectory>");
+requireText(skillPath("advance-roadmap/staging-discussion.md"), "discussion_directory=<roadmap.mdがある設計の記録のdirectory>");
 requireText(skillPath("advance-roadmap/SKILL.md"), "discussion_file_name=implementation_review.md");
 requireText(skillPath("tasklist-executor/caller-contract.md"), "discussion_file_name=implementation_review.md");
 // steeringを解き、task-designの入力は新しい作業なら置き場所を渡さず、再開ならworking_dirを渡す。
@@ -626,6 +626,12 @@ for (const relativePath of [taskDesignWrapUp, skillPath("advance-roadmap/SKILL.m
   requireText(relativePath, "caller-contract.md");
   forbidText(relativePath, "の「起動する側が行うこと」", "execution-contracts.mdの節を指す古い参照");
 }
+// 段取りの議論はroadmapとtasklistの起動する側が共有し、advance-roadmapの内部指示に置く（論点32）。
+const stagingDiscussion = skillPath("advance-roadmap/staging-discussion.md");
+requireExists(stagingDiscussion);
+for (const expected of ["往復回数の予測、assistantが既に結論を持っているか、論点が選択肢へ畳めるかは、開始しない理由にならない。", "`investigation.md`は、事実を集めなければ設計方針が決まらない時のfact収集logである。"]) requireText(stagingDiscussion, expected);
+requireText(skillPath("advance-roadmap/SKILL.md"), "[`staging-discussion.md`](staging-discussion.md)を読んで従う。子phaseのtask-design起動前には開始しない。");
+requireText(callerContract, "[`advance-roadmap/staging-discussion.md`](../advance-roadmap/staging-discussion.md)と同じである。");
 requireText(taskDesignWrapUp, "完了報告の前に、task-design内で適用した変更を公開する。commit・push・PRを行う条件と方法は、tasklistのcommit section・push・PR sectionと同じく[`tasklist-design.md`の「実装後feedbackと公開action」](tasklist-design.md#実装後feedbackと公開action)に従い、ここへ写さない。この段はPRの作成で終わり、PRのmergeは行わない。");
 requireText(taskDesignSkill, "結果を返す前に[`wrap-up.md`](wrap-up.md)を先頭から末尾まで読み");
 requireText(skillPath("facilitate-discussion/round-trip.md"), "論点の段はchatに示さない。段は一往復の組を選ぶためのものであり、利用者が気になれば議論記録の`**重さ:**`を読む。");
