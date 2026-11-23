@@ -19,7 +19,7 @@ steeringスキルの名前を変えて、task-designから置き場所を決め�
 
 ## TL;DR
 
-tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。TBD: skillとdirectoryの名前（論点4・論点5）。
+tasklist・roadmapの設計をtask-designへ移した後（`20260802-move-tasklist-ownership-to-task-design`）、steeringは記録の置き場所の管理を除くと、task-designを包む不完全な層になった。steeringを解き、作業の入口をtask-designにして、受け持ちをそれぞれあるべき担当へ置く。終了時には、記録の置き場所の準備は独立したskill（task-designが呼ぶ）が、設計の締めくくりとplan無しで終わった変更の公開はtask-designが、planの実行の段取りは実行側のskillが受け持ち、steeringというskillは無くなる。記録は`.design-records/`へ置く。TBD: skillの名前（論点4）、既にある`.steering/`の記録の扱い（論点14）。
 
 ---
 
@@ -68,9 +68,11 @@ roadmap_ready  → roadmapを実行するskill
 | 記録をcommitへ載せる順序の規則 | task-designの、締めくくりの確認と公開の内部指示のfile。tasklistのcommit sectionを設計する`task-design/tasklist-design.md`もこの規則を参照する。汎用の`plan-commits`へは置かない |
 | steering固有の議論記録（`discussion.md`） | 実行の段取りの議論の記録として残す。roadmapを実行するskillと、tasklistの時は`tasklist-executor`を起動する側が書く。basenameは`discussion.md`のまま |
 
-### TBD: 作業の記録を置くdirectoryの名前
+### 作業の記録を置くdirectory
 
-`.steering/`を変えるか、変えるなら何に変えるか。既存の記録（このrepositoryと利用先repositoryの`.steering/`）をどう扱うか（論点5）。
+作業の記録は`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`へ置き、月の一覧は`.design-records/YYYY/YYYYMM/summary.md`に置く。入るもの（タスク設計、調査設計、その議論・計画・実行の経緯）に共通する核は「設計」であり、「作業」まで広げずに調査の設計も含めて範囲を覆える。`records`は、決定と経緯が残る場所であることを示し、後の作業が過去の決定を探しに来る使われ方と合う。
+
+TBD: 既にある`.steering/`の記録の扱い（論点14）。
 
 ### TBD: skillの名前
 

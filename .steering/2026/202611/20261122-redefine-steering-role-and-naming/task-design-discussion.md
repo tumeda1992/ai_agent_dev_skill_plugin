@@ -304,7 +304,7 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 
 ## 論点5: 記録を置くdirectoryの名前
 
-**ステータス:** 応答待ち
+**ステータス:** 決定
 
 **種別:** TBDヒアリング
 
@@ -366,6 +366,16 @@ plan全般を実行するskillは作らない。tasklistの時に`tasklist-execu
 **推す案:** a。名前の第一の語を「設計」にするのは、依頼文が入るものをどれも「設計」と呼んでいるためである。
 
 #### 提案0へのフィードバック（論点5）
+
+**結果:** aに合意
+
+> aめっちゃええやん
+
+### 決定（論点5）
+
+作業の記録を置くdirectoryの名前を`.design-records/`にする。作業ごとのdirectoryは`.design-records/YYYY/YYYYMM/YYYYMMDD-slug/`、月の一覧は`.design-records/YYYY/YYYYMM/summary.md`になる。
+
+入るもの（タスク設計、調査設計、その議論・計画・実行の経緯）に共通する核は、依頼文の言葉では「設計」であり、「作業」まで広げずに調査の設計も含めて範囲を覆える。`records`は、設計書だけでなく決定と経緯が残る場所であることを示し、後の作業が過去の決定を探しに来る使われ方と合う。実行の計画、実装後のfeedback、段取りの議論も入るが、設計を実行し見直した記録であり、初見の人の誤解の方向は同じである。`.work-records/`は核を「作業」へ広げて最大公約数に寄り、`.task-design/`はtask-designを通さない調査の設計や実行側の記録と食い違い、`.steering/`は無くなるskillの名前と、projectの方針文書の置き場所という方向の違う誤解を残すため採らない。
 
 
 ## 論点6: 実行を始めてよいかの確認を、どこに置くか
@@ -771,10 +781,54 @@ steering固有の議論記録`discussion.md`は、実行の段取りの議論の
 
 ## 論点14: 既にある`.steering/`の記録の扱い
 
-**ステータス:** 依存先待ち
+**ステータス:** 応答待ち
 
 **種別:** TBDヒアリング
 
 **重さ:** 一つずつ考える（波及: 中。記録を探すskill（task-design、facilitate-discussion）、hook、`.gitignore`の見本の読み先が変わる。戻しにくさ: 中。利用先repositoryにある記録の置き場所に関わる。他は小。前例は`.steering/2026/202607/20260726-extract-work-directory-naming/design.md`の「既存の`.steering/`配下にある branch 込みのディレクトリは履歴としてそのまま残す。移行・一括改名は行わない」）
 
-**依存先:** 論点5（名前を変えるなら、このrepositoryと利用先repositoryの既存の`.steering/`を移すか、履歴として残すか、記録を探すskillが両方を読むかを問う。名前を変えないなら、この論点を取り下げる）
+**依存先:** 論点5（名前を変えるなら、このrepositoryと利用先repositoryの既存の`.steering/`を移すか、履歴として残すか、記録を探すskillが両方を読むかを問う。名前を変えないなら、この論点を取り下げる）。論点5は`.design-records/`に決まった。
+
+### イテレーション0（論点14）: 既にある`.steering/`の記録を移すか残すかを提案する
+
+#### 提案0（論点14）
+
+##### 今ある記録と、それを読む箇所
+
+- このrepository: `.steering/2026/`配下に61の作業のdirectory（202607〜202611）と月ごとの`summary.md`がある。進行中の作業（例: `.steering/2026/202611/20261122-raise-steering-autonomy/`）も含む。
+- 利用先repository: それぞれに`.steering/`の記録がある。数はこのsessionから確かめられない。
+- 記録の本文: 93のfileが、計457箇所で`.steering/20…`という他の作業の記録のpathを書いている（前例や関連する作業の参照）。
+- 読む箇所: 作業の再開、過去の決定を探す時（`task-design/SKILL.md` PrepareStep 3、`facilitate-discussion/round-trip.md`）、前月の`summary.md`の生成、hook（`.claude/hooks/think_through_session_start.sh`）、`.gitignore`の見本。
+
+##### a. 履歴としてそのまま残し、新しい作業だけ`.design-records/`へ置く（推奨）
+
+- 既にある`.steering/`は動かさない。進行中の作業は、今のdirectoryのまま完了まで続ける。
+- 過去の決定を探す箇所は、`.design-records/`と、以前の記録がある`.steering/`の両方を探すと書く。
+- 前月の`summary.md`は、前月のdirectoryがある場所ごとに、その場所の作業の一覧として作る。名前を切り替えた月は、両方の場所に一つずつできる。
+- `.steering/`という名前が、以前の記録の置き場所としてrepositoryに残る。
+
+##### b. 移す
+
+- このrepositoryでは今回の作業で`.steering/`を`.design-records/`へ`git mv`する。利用先repositoryでは、置き場所を用意するskillが、`.steering/`があり`.design-records/`が無い時に、移すことを利用者へ提案し、承認されたら一度だけ移す。
+- 読む箇所は`.design-records/`だけを見ればよくなる。
+- 記録の本文の457箇所の`.steering/…`は、古いpathのまま残る。過去の記録を一括で書き換えないため、「以前の記録にある`.steering/…`は`.design-records/…`と読み替える」という読み方の決まりが要る。
+- 他のbranchで`.steering/`の下のfileを足している作業があると、mergeの時に、移した側と衝突する。
+
+##### aを推す理由
+
+過去の記録を動かさない決め方には前例が二つある。`.steering/2026/202607/20260726-extract-work-directory-naming/design.md`は「既存の`.steering/`配下にある branch 込みのディレクトリは履歴としてそのまま残す。移行・一括改名は行わない」と決めた。`facilitate-discussion/SKILL.md`は「既存のtrackedな内部logや過去のdiscussionは一括削除・移動・再要約しない」と定める。aの代償は、読む箇所に以前の置き場所を一行足すことと、名前を切り替えた月のsummaryが二つに分かれることである。bの代償は、457箇所の古いpathを読み替える決まりと、進行中のbranchとの衝突である。読む箇所の一行の方が軽い。
+
+#### 検討記録（論点14・イテレーション0）
+
+##### 調査: 移した時に古くなる記述と、読む箇所
+
+**確かめた方法:** `.steering`の下の作業のdirectoryを数えた（`find .steering -mindepth 3 -maxdepth 3 -type d`で61）。記録の本文が他の記録をpathで書いている箇所を数えた（`grep -ro '\.steering/20[0-9][0-9]' .steering`で457箇所、93file）。相対linkで月をまたぐものは1箇所だった。読む箇所は、論点1の調査で数えた`.steering`のpathの参照（`.steering/`配下を除き26箇所）から、記録を読む処理を拾った。
+
+**分かったこと:** 記録どうしの参照のほとんどは、相対linkではなく本文に書いた`.steering/…`のpathである。移すとこれらは古いpathのまま残り、書き換えるには過去の記録を一括で変えることになる。
+
+**前例:** `20260726-extract-work-directory-naming`のdesign、`facilitate-discussion/SKILL.md`の過去の記録を一括で移動しない決まり。
+
+**推す案:** a。
+
+#### 提案0へのフィードバック（論点14）
+
