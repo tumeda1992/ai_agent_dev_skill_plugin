@@ -29,4 +29,7 @@
 
 ## 追跡
 
-状態: 保留。元の作業は未完了（論点26〜29の決定の反映と締めくくりが残る）。引渡しは未実施。
+状態: 元の作業の中で適用済み。引渡しは行っていない。
+
+- 元の作業の完了の後に引き渡すため、新しい作業の置き場所とbranchを用意しようとしたところで、利用者から「切るというより、大したことない修正なんだから、同じdesignでさっさとやれよ」と指示された。
+- 同じ作業の中で、`facilitate-discussion/round-trip.md`、`templates/proposal-sections/compact-options.md`、`detailed-options.md`と`scripts/verification/validate-plugin.mjs`を直した。適用の記録は元の作業の`design.md`の付録にある。

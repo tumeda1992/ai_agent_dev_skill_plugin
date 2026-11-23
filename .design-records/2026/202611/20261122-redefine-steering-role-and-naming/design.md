@@ -351,6 +351,7 @@ task-design/wrap-up.md
 | `plugins/tumeda-dev/skills/plan-commits/SKILL.md`の「目的」 | 特定のworkflowや作業の記録の置き方を前提にしないと書いた。締めくくりの確認のdoc-enricherの提案で、論点9（記録をcommitへ載せる順序の規則の置き場所に`plan-commits`を推して誤った）の再発を防ぐ | 利用者が文面を承認した。validatorを通過 | 締めくくりの確認（`task-design/wrap-up.md`） |
 | `plugins/tumeda-dev/docs/development_standards/naming/core.md`の「名前を単独で評価しない」 | 揃える相手が同じ種類のものかを先に確かめる、という一文と失敗例・判断の問いを足した。締めくくりの確認のdoc-enricherの提案で、論点15（`tasklist-executor`と揃えて`roadmap-executor`を推して誤った）の再発を防ぐ | 利用者が文面を承認した。validatorを通過 | 締めくくりの確認（`task-design/wrap-up.md`） |
 | `.design-records/.gitignore`、`scripts/verification/validate-plugin.mjs` | このrepository自身の`.design-records/.gitignore`に`*/*/*/subagent_report/`を足し、`prepare-design-record/.gitignore.sample`の全patternがあることをvalidatorで検査する。引き継ぎの初めに足した`*/*/*/task-design-catch-up/`（catch-upを始めるのに要った）と合わせ、見本との差が無くなった | 行を一時的に外すと検査が失敗し、戻すと通ることを確かめた | 締めくくりの確認（`task-design/wrap-up.md`） |
+| `plugins/tumeda-dev/skills/facilitate-discussion/round-trip.md`の「答え方を毎回添える」、`templates/proposal-sections/compact-options.md`、`detailed-options.md` | 仮決め・推奨の印を、案の行の末尾から記号の直後（「a. （仮決め）…」）へ移した。案の文を全部読まなくても、どれが推されているかが分かるようにするためで、利用者の指摘による。保留メモへ控えて作業の後へ回していたが、小さい修正のため利用者の指示でこの作業の中で直した | validatorの文面のassertionを新しい置き方へ向け、末尾に置く形を禁止するassertionを足して通過 | 締めくくりの確認（`task-design/wrap-up.md`） |
 
 ### 設計中に反映する、他の判断を待っている変更
 
